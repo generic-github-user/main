@@ -19,29 +19,28 @@ const get_node = function (id) {
 var nodes = [];
 class Node {
       constructor(information) {
-            if (information.type = "Data/Input") {
+            this.type = information.type;
+            if (information.type == "Data/Input") {
                   this.output = undefined;
             }
-            else if (information.type = "Data/Output") {
+            else if (information.type == "Data/Output") {
                   this.inputs = [];
                   this.output = undefined;
             }
-            else if (information.type = "Data/Value") {
+            else if (information.type == "Data/Value") {
                   this.output = value;
             }
-            else if (information.type = "Operation/Addition") {
+            else if (information.type == "Operation/Addition") {
                   this.inputs = [];
                   this.output = undefined;
             }
-            else if (information.type = "Operation/Multiplication") {
+            else if (information.type == "Operation/Multiplication") {
                   this.inputs = [];
                   this.output = undefined;
             }
             else {
 
             }
-
-            this.type = type;
 
             var id = UUID();
             do {id = UUID();}
