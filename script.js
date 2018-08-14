@@ -21,22 +21,23 @@ class Node {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
-                  this.output = undefined;
+                  // Cannot be undefined
+                  this.output = 0;
             }
             else if (information.type == "Data/Output") {
                   this.inputs = [];
-                  this.output = undefined;
+                  this.output = 0;
             }
             else if (information.type == "Data/Value") {
-                  this.output = value;
+                  this.output = information.value;
             }
             else if (information.type == "Operation/Addition") {
                   this.inputs = [];
-                  this.output = undefined;
+                  this.output = 0;
             }
             else if (information.type == "Operation/Multiplication") {
                   this.inputs = [];
-                  this.output = undefined;
+                  this.output = 0;
             }
             else {
 
@@ -50,6 +51,11 @@ class Node {
             nodes.push(this);
       }
 }
+
+class Connection {
+      constructor(source, destination) {
+            this.source = source;
+            this.destination = destination;
       }
 }
 
@@ -70,7 +76,7 @@ class Network {
                         })
                   );
             }
-            for (var i = 0; i < Math.floor(random(0, 5)); i ++) {
+            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
                   nodes.push(
                         new Node({
                               "type": "Data/Value",
@@ -79,5 +85,24 @@ class Network {
                   );
             }
             this.nodes = nodes;
+
+            var connections = [];
+            var source_node = random_item(nodes);
+            do {
+                  source_node = random_item(nodes);
+            } while (!source_node.output)
+            var destination_node = random_item(nodes);
+            do {
+                  destination_node = random_item(nodes);
+            } while (!destination_node.inputs)
+            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+                  connections.push(
+                        new Connection(
+                              source_node,
+                              destination_node
+                        )
+                  );
+            }
+            this.connections = connections;
       }
 }
