@@ -120,7 +120,7 @@ class Network {
                   connections.push(
                         new Connection(
                               random_item(node_outputs),
-                              random_item(node_inputs);
+                              random_item(node_inputs)
                         )
                   );
             }
