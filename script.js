@@ -96,19 +96,31 @@ class Network {
                         })
                   );
             }
+            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+                  nodes.push(
+                        new Node({
+                              "type": "Operation/Addition"
+                        })
+                  );
+            }
+            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+                  nodes.push(
+                        new Node({
+                              "type": "Operation/Multiplication"
+                        })
+                  );
+            }
             this.nodes = nodes;
             this.node_inputs = node_inputs;
             this.node_outputs = node_outputs;
 
             var connections = [];
-            var source_node = random_item(node_outputs);
-            var destination_node = random_item(node_inputs);
-            console.log(!destination_node.inputs);
+
             for (var i = 0; i < Math.round(random(0, 5)); i ++) {
                   connections.push(
                         new Connection(
-                              source_node,
-                              destination_node
+                              random_item(node_outputs),
+                              random_item(node_inputs);
                         )
                   );
             }
