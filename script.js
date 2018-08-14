@@ -18,16 +18,33 @@ const get_node = function (id) {
 
 var nodes = [];
 class Node {
-      constructor(type) {
+      constructor(information) {
+            if (information.type = "Data/Input") {
+                  this.output = undefined;
+            }
+            else if (information.type = "Data/Output") {
+                  this.inputs = [];
+                  this.output = undefined;
+            }
+            else if (information.type = "Data/Value") {
+                  this.output = value;
+            }
+            else if (information.type = "Operation/Addition") {
+                  this.inputs = [];
+                  this.output = undefined;
+            }
+            else if (information.type = "Operation/Multiplication") {
+                  this.inputs = [];
+                  this.output = undefined;
+            }
+            else {
+
+            }
+
             this.type = type;
-            this.inputs = [];
-            this.output = undefined;
 
             var id = UUID();
-
-            do {
-                  id = UUID();
-            }
+            do {id = UUID();}
             while (nodes.find(x => x.id == id) !== undefined)
 
             this.id = id;
@@ -41,10 +58,26 @@ class Network {
       constructor(inputs, outputs) {
             var nodes = [];
             for (var i = 0; i < inputs; i ++) {
-                  nodes.push(new Node("Data/Input"));
+                  nodes.push(
+                        new Node({
+                              "type": "Data/Input"
+                        })
+                  );
             }
             for (var i = 0; i < outputs; i ++) {
-                  nodes.push(new Node("Data/Output"));
+                  nodes.push(
+                        new Node({
+                              "type": "Data/Output"
+                        })
+                  );
+            }
+            for (var i = 0; i < Math.floor(random(0, 5)); i ++) {
+                  nodes.push(
+                        new Node({
+                              "type": "Data/Value",
+                              "value": random(0, 1)
+                        })
+                  );
             }
             this.nodes = nodes;
       }
