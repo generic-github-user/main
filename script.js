@@ -17,27 +17,37 @@ const get_node = function (id) {
 }
 
 var nodes = [];
+var node_inputs = [];
+var node_outputs = [];
 class Node {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
                   // Cannot be undefined
                   this.output = 0;
+                  node_outputs.push(this.output);
             }
             else if (information.type == "Data/Output") {
                   this.inputs = [];
+                  node_inputs.push(this.inputs);
                   this.output = 0;
+                  node_outputs.push(this.output);
             }
             else if (information.type == "Data/Value") {
                   this.output = information.value;
+                  node_outputs.push(this.output);
             }
             else if (information.type == "Operation/Addition") {
                   this.inputs = [];
+                  node_inputs.push(this.inputs);
                   this.output = 0;
+                  node_outputs.push(this.output);
             }
             else if (information.type == "Operation/Multiplication") {
                   this.inputs = [];
+                  node_inputs.push(this.inputs);
                   this.output = 0;
+                  node_outputs.push(this.output);
             }
             else {
 
@@ -62,6 +72,8 @@ class Connection {
 class Network {
       constructor(inputs, outputs) {
             var nodes = [];
+            node_inputs = [];
+            node_outputs = [];
             for (var i = 0; i < inputs; i ++) {
                   nodes.push(
                         new Node({
@@ -85,16 +97,13 @@ class Network {
                   );
             }
             this.nodes = nodes;
+            this.node_inputs = node_inputs;
+            this.node_outputs = node_outputs;
 
             var connections = [];
-            var source_node = random_item(nodes);
-            do {
-                  source_node = random_item(nodes);
-            } while (!source_node.output)
-            var destination_node = random_item(nodes);
-            do {
-                  destination_node = random_item(nodes);
-            } while (!destination_node.inputs)
+            var source_node = random_item(node_outputs);
+            var destination_node = random_item(node_inputs);
+            console.log(!destination_node.inputs);
             for (var i = 0; i < Math.round(random(0, 5)); i ++) {
                   connections.push(
                         new Connection(
