@@ -127,3 +127,13 @@ class Network {
             this.connections = connections;
       }
 }
+
+var settings = {
+      "population_size": 100
+};
+
+var population = [];
+
+for (var i = 0; i < settings.population_size; i ++) {
+      population.push(new Network(5, 5));
+}
