@@ -19,7 +19,7 @@ const get_node = function (id) {
 var nodes = [];
 var node_inputs = [];
 var node_outputs = [];
-class Node {
+class node {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
@@ -29,7 +29,7 @@ class Node {
             else if (information.type == "Data/Output") {
                   this.inputs = [];
                   node_inputs.push(this.inputs);
-                  this.output = 0;
+                  this.output = undefined;
                   node_outputs.push(this.output);
             }
             else if (information.type == "Data/Value") {
@@ -61,35 +61,35 @@ class Node {
       }
 }
 
-class Connection {
+class connection {
       constructor(source, destination) {
             this.source = source;
             this.destination = destination;
       }
 }
 
-class Network {
+class network {
       constructor(inputs, outputs) {
             var nodes = [];
             node_inputs = [];
             node_outputs = [];
             for (var i = 0; i < inputs; i ++) {
                   nodes.push(
-                        new Node({
+                        new node({
                               "type": "Data/Input"
                         })
                   );
             }
             for (var i = 0; i < outputs; i ++) {
                   nodes.push(
-                        new Node({
+                        new node({
                               "type": "Data/Output"
                         })
                   );
             }
             for (var i = 0; i < Math.round(random(0, 5)); i ++) {
                   nodes.push(
-                        new Node({
+                        new node({
                               "type": "Data/Value",
                               "value": random(0, 1)
                         })
@@ -97,14 +97,14 @@ class Network {
             }
             for (var i = 0; i < Math.round(random(0, 5)); i ++) {
                   nodes.push(
-                        new Node({
+                        new node({
                               "type": "Operation/Addition"
                         })
                   );
             }
             for (var i = 0; i < Math.round(random(0, 5)); i ++) {
                   nodes.push(
-                        new Node({
+                        new node({
                               "type": "Operation/Multiplication"
                         })
                   );
@@ -115,9 +115,9 @@ class Network {
 
             var connections = [];
 
-            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
                   connections.push(
-                        new Connection(
+                        new connection(
                               random_item(node_outputs),
                               random_item(node_inputs)
                         )
@@ -134,5 +134,5 @@ var settings = {
 var population = [];
 
 for (var i = 0; i < settings.population_size; i ++) {
-      population.push(new Network(5, 5));
+      population.push(new network(5, 5));
 }
