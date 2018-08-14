@@ -23,8 +23,7 @@ class Node {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
-                  // Cannot be undefined
-                  this.output = 0;
+                  this.output = undefined;
                   node_outputs.push(this.output);
             }
             else if (information.type == "Data/Output") {
@@ -40,13 +39,13 @@ class Node {
             else if (information.type == "Operation/Addition") {
                   this.inputs = [];
                   node_inputs.push(this.inputs);
-                  this.output = 0;
+                  this.output = undefined;
                   node_outputs.push(this.output);
             }
             else if (information.type == "Operation/Multiplication") {
                   this.inputs = [];
                   node_inputs.push(this.inputs);
-                  this.output = 0;
+                  this.output = undefined;
                   node_outputs.push(this.output);
             }
             else {
