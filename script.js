@@ -1,9 +1,12 @@
+// Generate a random number in between a minimum value and a maximum value
 const random = function (minimum, maximum) {
       return minimum + (Math.random() * (maximum - minimum));
 }
+// Select a random element from a given array
 const random_item = function (array) {
       return array[Math.floor(Math.random() * array.length)];
 }
+// Generate a random UUID
 const UUID = function () {
       function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -12,10 +15,12 @@ const UUID = function () {
       }
       return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
 }
+// Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
 const clone = function (object) {
       return JSON.parse(JSON.stringify(object));
 }
 
+// Find a node globally given its ID
 const get_node = function (id) {
       return nodes.find(x => x.id == id);
 }
