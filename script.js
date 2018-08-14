@@ -10,7 +10,7 @@ const UUID = function () {
             .toString(16)
             .substring(1);
       }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+      return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
 }
 const get_node = function (id) {
       return nodes.find(x => x.id == id);
