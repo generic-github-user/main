@@ -12,6 +12,10 @@ const UUID = function () {
       }
       return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
 }
+const clone = function (object) {
+      return JSON.parse(JSON.stringify(object));
+}
+
 const get_node = function (id) {
       return nodes.find(x => x.id == id);
 }
@@ -114,7 +118,6 @@ class network {
             this.node_outputs = node_outputs;
 
             var connections = [];
-
             for (var i = 0; i < Math.round(random(10, 20)); i ++) {
                   connections.push(
                         new connection(
