@@ -142,11 +142,10 @@ class network {
                               this.connections[i].destination.output +=
                               network_buffer.connections[i].source.output;
                         }
-                        else if (type == "Data/Multiplication") {
+                        else if (type == "Operation/Multiplication") {
                               this.connections[i].destination.output *=
                               network_buffer.connections[i].source.output;
                         }
-                        console.log(network_buffer.connections[i].source.output);
                   }
                   return this;
             }
