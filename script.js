@@ -36,7 +36,6 @@ class node {
                   node_outputs.push(this);
             }
             else if (information.type == "Data/Output") {
-                  this.inputs = [];
                   node_inputs.push(this);
                   this.output = 0;
                   node_outputs.push(this);
@@ -46,13 +45,11 @@ class node {
                   node_outputs.push(this);
             }
             else if (information.type == "Operation/Addition") {
-                  this.inputs = [];
                   node_inputs.push(this);
                   this.output = 0;
                   node_outputs.push(this);
             }
             else if (information.type == "Operation/Multiplication") {
-                  this.inputs = [];//
                   node_inputs.push(this);
                   this.output = 1;
                   node_outputs.push(this);
@@ -123,7 +120,7 @@ class network {
             this.node_outputs = node_outputs;
 
             var connections = [];
-            for (var i = 0; i < Math.round(random(100, 200)); i ++) {
+            for (var i = 0; i < Math.round(random(25, 50)); i ++) {
                   connections.push(
                         new connection(
                               random_item(node_outputs),
@@ -139,10 +136,12 @@ class network {
                         // This or network_buffer
                         var type = this.connections[i].destination.type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
+                              this.connections[i].destination.output = 0;
                               this.connections[i].destination.output +=
                               network_buffer.connections[i].source.output;
                         }
                         else if (type == "Operation/Multiplication") {
+                              this.connections[i].destination.output = 1;
                               this.connections[i].destination.output *=
                               network_buffer.connections[i].source.output;
                         }
