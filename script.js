@@ -32,30 +32,30 @@ class node {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
-                  this.output = undefined;
-                  node_outputs.push(this.output);
+                  this.output = 0;
+                  node_outputs.push(this);
             }
             else if (information.type == "Data/Output") {
                   this.inputs = [];
-                  node_inputs.push(this.inputs);
-                  this.output = undefined;
-                  node_outputs.push(this.output);
+                  node_inputs.push(this);
+                  this.output = 0;
+                  node_outputs.push(this);
             }
             else if (information.type == "Data/Value") {
                   this.output = information.value;
-                  node_outputs.push(this.output);
+                  node_outputs.push(this);
             }
             else if (information.type == "Operation/Addition") {
                   this.inputs = [];
-                  node_inputs.push(this.inputs);
-                  this.output = undefined;
-                  node_outputs.push(this.output);
+                  node_inputs.push(this);
+                  this.output = 0;
+                  node_outputs.push(this);
             }
             else if (information.type == "Operation/Multiplication") {
-                  this.inputs = [];
-                  node_inputs.push(this.inputs);
-                  this.output = undefined;
-                  node_outputs.push(this.output);
+                  this.inputs = [];//
+                  node_inputs.push(this);
+                  this.output = 1;
+                  node_outputs.push(this);
             }
             else {
 
@@ -96,22 +96,22 @@ class network {
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+            for (var i = 0; i < Math.round(random(5, 10)); i ++) {
                   nodes.push(
                         new node({
                               "type": "Data/Value",
-                              "value": random(0, 1)
+                              "value": random(-1, 1)
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+            for (var i = 0; i < Math.round(random(5, 10)); i ++) {
                   nodes.push(
                         new node({
                               "type": "Operation/Addition"
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(0, 5)); i ++) {
+            for (var i = 0; i < Math.round(random(5, 10)); i ++) {
                   nodes.push(
                         new node({
                               "type": "Operation/Multiplication"
@@ -123,7 +123,7 @@ class network {
             this.node_outputs = node_outputs;
 
             var connections = [];
-            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
+            for (var i = 0; i < Math.round(random(100, 200)); i ++) {
                   connections.push(
                         new connection(
                               random_item(node_outputs),
@@ -132,6 +132,24 @@ class network {
                   );
             }
             this.connections = connections;
+
+            this.update = function () {
+                  var network_buffer = clone(this);
+                  for (var i = 0; i < network_buffer.connections.length; i ++) {
+                        // This or network_buffer
+                        var type = this.connections[i].destination.type;
+                        if (type == "Data/Output" || type == "Operation/Addition") {
+                              this.connections[i].destination.output +=
+                              network_buffer.connections[i].source.output;
+                        }
+                        else if (type == "Data/Multiplication") {
+                              this.connections[i].destination.output *=
+                              network_buffer.connections[i].source.output;
+                        }
+                        console.log(network_buffer.connections[i].source.output);
+                  }
+                  return this;
+            }
       }
 }
 
