@@ -1,4 +1,13 @@
-console.log("Loading script.js");
+console.log("\
+  _____            ______   _____  _____  _    _  __  __\n\
+ / ____|    /\\    |  ____| / ____||_   _|| |  | ||  \\/  |\n\
+| |        /  \\   | |__   | (___    | |  | |  | || \\  / |\n\
+| |       / /\\ \\  |  __|   \\___ \\   | |  | |  | || |\\/| |\n\
+| |____  / ____ \\ | |____  ____) | _| |_ | |__| || |  | |\n\
+ \\_____|/_/    \\_\\|______||_____/ |_____| \\____/ |_|  |_|\
+");
+
+
 
 // Generate a random number in between a minimum value and a maximum value
 const random = function (minimum, maximum) {
@@ -203,5 +212,3 @@ var population = [];
 for (var i = 0; i < settings.population_size; i ++) {
       population.push(new network(5, 5));
 }
-
-console.log("script.js loaded successfully");
