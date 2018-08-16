@@ -1,4 +1,5 @@
 console.log("Loading script.js");
+console.log("");
 
 console.log("Defining utility functions . . .");
 
@@ -30,6 +31,7 @@ const get_node = function (id) {
 }
 
 console.log("Functions defined successfully.");
+console.log("");
 
 var nodes = [];
 var node_inputs = [];
@@ -80,6 +82,7 @@ class node {
             nodes.push(this);
 
             console.log("Node created successfully.");
+            console.log("");
       }
 }
 
@@ -89,6 +92,7 @@ class connection {
             this.source = source;
             this.destination = destination;
             console.log("Connection created successfully.");
+            console.log("");
       }
 }
 
@@ -146,6 +150,8 @@ class network {
             this.node_outputs = node_outputs;
             this.input_nodes = input_nodes;
             this.output_nodes = output_nodes;
+            console.log("Nodes created successfully.");
+            console.log("");
 
             console.log("Creating connections . . .")
             var connections = [];
@@ -158,6 +164,8 @@ class network {
                   );
             }
             this.connections = connections;
+            console.log("Connections created successfully.");
+            console.log("");
 
             console.log("Creating input function . . .");
             this.inputs = function (inputs) {
@@ -177,6 +185,8 @@ class network {
                         return inputs;
                   }
             }
+            console.log("Input function created successfully.");
+            console.log("");
 
             console.log("Creating output function . . .");
             this.outputs = function () {
@@ -188,6 +198,8 @@ class network {
                   );
                   return outputs;
             }
+            console.log("Output function created successfully.");
+            console.log("");
 
             console.log("Creating update function . . .");
             this.update = function () {
@@ -207,9 +219,12 @@ class network {
                   }
                   return this;
             }
+            console.log("Update function created successfully.");
+            console.log("");
 
             console.log("Network created successfully.");
             console.log(this);
+            console.log("");
       }
 }
 
