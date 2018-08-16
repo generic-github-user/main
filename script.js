@@ -28,14 +28,20 @@ const get_node = function (id) {
 var nodes = [];
 var node_inputs = [];
 var node_outputs = [];
+var input_nodes = [];
+var output_nodes = [];
 class node {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
+                  input_nodes.push(this);
+
                   this.output = 0;
                   node_outputs.push(this);
             }
             else if (information.type == "Data/Output") {
+                  output_nodes.push(this);
+
                   node_inputs.push(this);
                   this.output = 0;
                   node_outputs.push(this);
@@ -76,9 +82,14 @@ class connection {
 
 class network {
       constructor(inputs, outputs) {
+            this.inputs = inputs;
+            this.outputs = outputs;
+
             var nodes = [];
             node_inputs = [];
             node_outputs = [];
+            input_nodes = [];
+            output_nodes = [];
             for (var i = 0; i < inputs; i ++) {
                   nodes.push(
                         new node({
@@ -118,6 +129,8 @@ class network {
             this.nodes = nodes;
             this.node_inputs = node_inputs;
             this.node_outputs = node_outputs;
+            this.input_nodes = input_nodes;
+            this.output_nodes = output_nodes;
 
             var connections = [];
             for (var i = 0; i < Math.round(random(25, 50)); i ++) {
