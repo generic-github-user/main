@@ -1,3 +1,7 @@
+console.log("Loading script.js");
+
+console.log("Defining utility functions . . .");
+
 // Generate a random number in between a minimum value and a maximum value
 const random = function (minimum, maximum) {
       return minimum + (Math.random() * (maximum - minimum));
@@ -25,6 +29,8 @@ const get_node = function (id) {
       return nodes.find(x => x.id == id);
 }
 
+console.log("Functions defined successfully.");
+
 var nodes = [];
 var node_inputs = [];
 var node_outputs = [];
@@ -32,6 +38,8 @@ var input_nodes = [];
 var output_nodes = [];
 class node {
       constructor(information) {
+            console.log("Creating node . . .");
+
             this.type = information.type;
             if (information.type == "Data/Input") {
                   input_nodes.push(this);
@@ -70,21 +78,28 @@ class node {
 
             this.id = id;
             nodes.push(this);
+
+            console.log("Node created successfully.");
       }
 }
 
 class connection {
       constructor(source, destination) {
+            console.log("Creating connection . . .");
             this.source = source;
             this.destination = destination;
+            console.log("Connection created successfully.");
       }
 }
 
 class network {
       constructor(inputs, outputs) {
+            console.log("Creating new network . . .");
+
             this.inputs = inputs;
             this.outputs = outputs;
 
+            console.log("Creating nodes . . .");
             var nodes = [];
             node_inputs = [];
             node_outputs = [];
@@ -132,6 +147,7 @@ class network {
             this.input_nodes = input_nodes;
             this.output_nodes = output_nodes;
 
+            console.log("Creating connections . . .")
             var connections = [];
             for (var i = 0; i < Math.round(random(25, 50)); i ++) {
                   connections.push(
@@ -143,6 +159,7 @@ class network {
             }
             this.connections = connections;
 
+            console.log("Creating input function . . .");
             this.inputs = function (inputs) {
                   var num_inputs = this.input_nodes.length;
                   if (inputs.length < num_inputs) {
@@ -161,6 +178,7 @@ class network {
                   }
             }
 
+            console.log("Creating output function . . .");
             this.outputs = function () {
                   var outputs = [];
                   this.output_nodes.forEach(
@@ -171,10 +189,10 @@ class network {
                   return outputs;
             }
 
+            console.log("Creating update function . . .");
             this.update = function () {
                   var network_buffer = clone(this);
                   for (var i = 0; i < network_buffer.connections.length; i ++) {
-                        // This or network_buffer
                         var type = this.connections[i].destination.type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
                               this.connections[i].destination.value = 0;
@@ -189,6 +207,9 @@ class network {
                   }
                   return this;
             }
+
+            console.log("Network created successfully.");
+            console.log(this);
       }
 }
 
@@ -201,3 +222,5 @@ var population = [];
 for (var i = 0; i < settings.population_size; i ++) {
       population.push(new network(5, 5));
 }
+
+console.log("script.js loaded successfully");
