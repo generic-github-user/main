@@ -143,6 +143,22 @@ class network {
             }
             this.connections = connections;
 
+            this.inputs = function (inputs) {
+                  if (inputs.length < input_nodes.length) {
+                        console.error("The number of inputs you have provided (" + inputs.length + ") is fewer than the number of input nodes in the network (" + input_nodes.length + "). Please provide " + node_inputs.length + " inputs.");
+                        return false;
+                  }
+                  else if (inputs.length > input_nodes.length) {
+                        console.error("The number of inputs you have provided (" + inputs.length + ") is fewer than the number of input nodes in the network (" + input_nodes.length + "). Please provide " + node_inputs.length + " inputs.");
+                        return false;
+                  }
+                  else if (inputs.length == input_nodes.length) {
+                        for (var i = 0; i < inputs.length; i ++) {
+                              input_nodes[i].output = inputs[i];
+                        }
+                        return inputs;
+                  }
+            }
             this.update = function () {
                   var network_buffer = clone(this);
                   for (var i = 0; i < network_buffer.connections.length; i ++) {
