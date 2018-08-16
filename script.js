@@ -1,7 +1,4 @@
 console.log("Loading script.js");
-console.log("");
-
-console.log("Defining utility functions . . .");
 
 // Generate a random number in between a minimum value and a maximum value
 const random = function (minimum, maximum) {
@@ -30,9 +27,6 @@ const get_node = function (id) {
       return nodes.find(x => x.id == id);
 }
 
-console.log("Functions defined successfully.");
-console.log("");
-
 var nodes = [];
 var node_inputs = [];
 var node_outputs = [];
@@ -40,8 +34,6 @@ var input_nodes = [];
 var output_nodes = [];
 class node {
       constructor(information) {
-            console.log("Creating node . . .");
-
             this.type = information.type;
             if (information.type == "Data/Input") {
                   input_nodes.push(this);
@@ -80,30 +72,22 @@ class node {
 
             this.id = id;
             nodes.push(this);
-
-            console.log("Node created successfully.");
-            console.log("");
       }
 }
 
 class connection {
       constructor(source, destination) {
-            console.log("Creating connection . . .");
             this.source = source;
             this.destination = destination;
-            console.log("Connection created successfully.");
-            console.log("");
       }
 }
 
 class network {
       constructor(inputs, outputs) {
-            console.log("Creating new network . . .");
 
             this.inputs = inputs;
             this.outputs = outputs;
 
-            console.log("Creating nodes . . .");
             var nodes = [];
             node_inputs = [];
             node_outputs = [];
@@ -150,10 +134,7 @@ class network {
             this.node_outputs = node_outputs;
             this.input_nodes = input_nodes;
             this.output_nodes = output_nodes;
-            console.log("Nodes created successfully.");
-            console.log("");
 
-            console.log("Creating connections . . .")
             var connections = [];
             for (var i = 0; i < Math.round(random(25, 50)); i ++) {
                   connections.push(
@@ -164,10 +145,7 @@ class network {
                   );
             }
             this.connections = connections;
-            console.log("Connections created successfully.");
-            console.log("");
 
-            console.log("Creating input function . . .");
             this.inputs = function (inputs) {
                   var num_inputs = this.input_nodes.length;
                   if (inputs.length < num_inputs) {
@@ -185,10 +163,7 @@ class network {
                         return inputs;
                   }
             }
-            console.log("Input function created successfully.");
-            console.log("");
 
-            console.log("Creating output function . . .");
             this.outputs = function () {
                   var outputs = [];
                   this.output_nodes.forEach(
@@ -198,10 +173,7 @@ class network {
                   );
                   return outputs;
             }
-            console.log("Output function created successfully.");
-            console.log("");
 
-            console.log("Creating update function . . .");
             this.update = function () {
                   var network_buffer = clone(this);
                   for (var i = 0; i < network_buffer.connections.length; i ++) {
@@ -219,12 +191,6 @@ class network {
                   }
                   return this;
             }
-            console.log("Update function created successfully.");
-            console.log("");
-
-            console.log("Network created successfully.");
-            console.log(this);
-            console.log("");
       }
 }
 
