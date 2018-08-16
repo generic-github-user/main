@@ -61,7 +61,7 @@ class node {
                   node_outputs.push(this);
             }
             else {
-
+                  console.error("'" + information.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
             }
 
             var id = UUID();
