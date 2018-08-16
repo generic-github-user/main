@@ -144,21 +144,33 @@ class network {
             this.connections = connections;
 
             this.inputs = function (inputs) {
-                  if (inputs.length < input_nodes.length) {
-                        console.error("The number of inputs you have provided (" + inputs.length + ") is fewer than the number of input nodes in the network (" + input_nodes.length + "). Please provide " + node_inputs.length + " inputs.");
+                  var num_inputs = this.input_nodes.length;
+                  if (inputs.length < num_inputs) {
+                        console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
                   }
-                  else if (inputs.length > input_nodes.length) {
-                        console.error("The number of inputs you have provided (" + inputs.length + ") is fewer than the number of input nodes in the network (" + input_nodes.length + "). Please provide " + node_inputs.length + " inputs.");
+                  else if (inputs.length > num_inputs) {
+                        console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
                   }
-                  else if (inputs.length == input_nodes.length) {
+                  else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i ++) {
                               input_nodes[i].output = inputs[i];
                         }
                         return inputs;
                   }
             }
+
+            this.outputs = function () {
+                  var outputs = [];
+                  this.output_nodes.forEach(
+                        (node) => {
+                              outputs.push(node.output);
+                        }
+                  );
+                  return outputs;
+            }
+
             this.update = function () {
                   var network_buffer = clone(this);
                   for (var i = 0; i < network_buffer.connections.length; i ++) {
