@@ -54,6 +54,8 @@ A hard limit can be placed on the number of nodes and/or connections that the ne
 
 ###### Output
 
+###### Value
+
 ##### Operation
 
 ###### Addition
