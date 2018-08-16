@@ -36,28 +36,28 @@ class node {
             if (information.type == "Data/Input") {
                   input_nodes.push(this);
 
-                  this.output = 0;
+                  this.value = 0;
                   node_outputs.push(this);
             }
             else if (information.type == "Data/Output") {
                   output_nodes.push(this);
 
                   node_inputs.push(this);
-                  this.output = 0;
+                  this.value = 0;
                   node_outputs.push(this);
             }
             else if (information.type == "Data/Value") {
-                  this.output = information.value;
+                  this.value = information.value;
                   node_outputs.push(this);
             }
             else if (information.type == "Operation/Addition") {
                   node_inputs.push(this);
-                  this.output = 0;
+                  this.value = 0;
                   node_outputs.push(this);
             }
             else if (information.type == "Operation/Multiplication") {
                   node_inputs.push(this);
-                  this.output = 1;
+                  this.value = 1;
                   node_outputs.push(this);
             }
             else {
@@ -155,7 +155,7 @@ class network {
                   }
                   else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i ++) {
-                              input_nodes[i].output = inputs[i];
+                              input_nodes[i].value = inputs[i];
                         }
                         return inputs;
                   }
@@ -177,13 +177,13 @@ class network {
                         // This or network_buffer
                         var type = this.connections[i].destination.type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
-                              this.connections[i].destination.output = 0;
-                              this.connections[i].destination.output +=
+                              this.connections[i].destination.value = 0;
+                              this.connections[i].destination.value +=
                               network_buffer.connections[i].source.output;
                         }
                         else if (type == "Operation/Multiplication") {
-                              this.connections[i].destination.output = 1;
-                              this.connections[i].destination.output *=
+                              this.connections[i].destination.value = 1;
+                              this.connections[i].destination.value *=
                               network_buffer.connections[i].source.output;
                         }
                   }
