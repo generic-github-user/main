@@ -6,7 +6,7 @@ console.log("%c\
   | |____  / ____ \\ | |____  ____) | _| |_ | |__| || |  | |  \n\
    \\_____|/_/    \\_\\|______||_____/ |_____| \\____/ |_|  |_|  \n\
                                                              \
-", "background: #e8efff; color: #4319ff; font-weight: 900;");
+", "background: #e8efff; color: #4319ff; font-weight: 1000;");
 
 
 
@@ -194,15 +194,69 @@ class network {
                         if (type == "Data/Output" || type == "Operation/Addition") {
                               this.connections[i].destination.value = 0;
                               this.connections[i].destination.value +=
-                              network_buffer.connections[i].source.output;
+                              network_buffer.connections[i].source.value;
                         }
                         else if (type == "Operation/Multiplication") {
                               this.connections[i].destination.value = 1;
                               this.connections[i].destination.value *=
-                              network_buffer.connections[i].source.output;
+                              network_buffer.connections[i].source.value;
                         }
                   }
                   return this;
+            }
+
+            this.display = function () {
+                  var svg = document.querySelector("#network-visualization");
+                  svg.innerHTML = "";
+
+                  var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
+                  var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
+                  this.nodes.forEach(
+                        (node) => {
+                              var circle = document.createElement("circle");
+                              circle.className = "node";
+
+                              circle.setAttribute("cx", Math.round(random(0, window.innerWidth)));
+                              circle.setAttribute("cy", Math.round(random(0, window.innerHeight)));
+
+                              var radius = map(node.value, min, max, 10, 50);
+                              circle.setAttribute("r", radius);
+
+                              if (node.type == "Data/Input") {
+                                    circle.className += " data-input";
+                              }
+                              else if (node.type == "Data/Output") {
+                                    circle.className += " data-output";
+                              }
+                              else if (node.type == "Data/Value") {
+                                    circle.className += " data-value";
+                              }
+                              else if (node.type == "Operation/Addition") {
+                                    circle.className += " operation-addition";
+                              }
+                              else if (node.type == "Operation/Multiplication") {
+                                    circle.className += " operation-multiplication";
+                              }
+
+                              node.element = circle;
+                              svg.innerHTML += circle.outerHTML;
+                        }
+                  );
+
+                  this.connections.forEach(
+                        (connection) => {
+                              var line = document.createElement("line");
+                              line.className = "connection";
+
+                              line.setAttribute("x1", connection.source.element.getAttribute("cx"));
+                              line.setAttribute("y1", connection.source.element.getAttribute("cy"));
+                              line.setAttribute("x2", connection.destination.element.getAttribute("cx"));
+                              line.setAttribute("y2", connection.destination.element.getAttribute("cy"));
+
+                              connection.element = line;
+                              svg.innerHTML = line.outerHTML + svg.innerHTML;
+                        }
+                  );
             }
       }
 }
