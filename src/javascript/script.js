@@ -246,8 +246,8 @@ class network {
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
-                              circle.setAttribute("cx", Math.round(random(0, window.innerWidth)));
-                              circle.setAttribute("cy", Math.round(random(0, window.innerHeight)));
+                              circle.setAttribute("cx", Math.round(random(0, svg.getBoundingClientRect().width)));
+                              circle.setAttribute("cy", Math.round(random(0, svg.getBoundingClientRect().height)));
 
                               var radius = map(node.value, min, max, 10, 50);
                               circle.setAttribute("r", radius);
