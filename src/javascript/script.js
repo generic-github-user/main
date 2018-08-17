@@ -179,7 +179,7 @@ class network {
                   }
                   else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i ++) {
-                              input_nodes[i].value = inputs[i];
+                              this.input_nodes[i].value = inputs[i];
                         }
                         return inputs;
                   }
