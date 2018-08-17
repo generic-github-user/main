@@ -77,7 +77,7 @@ class node {
             }
             else if (information.type == "Operation/Multiplication") {
                   node_inputs.push(this);
-                  this.value = 1;
+                  this.value = 0;
                   node_outputs.push(this);
             }
             else {
@@ -189,7 +189,7 @@ class network {
                   var outputs = [];
                   this.output_nodes.forEach(
                         (node) => {
-                              outputs.push(node.output);
+                              outputs.push(node.value);
                         }
                   );
                   return outputs;
@@ -199,19 +199,36 @@ class network {
             this.update = function () {
                   // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                   var network_buffer = clone(this);
+                  this.nodes.forEach(
+                        (node) => {
+                              var type = node.type;
+                              if (type == "Data/Output" || type == "Operation/Addition") {
+                                    node.value = 0;
+                              }
+                              else if (type == "Operation/Multiplication") {
+                                    node.value = 1;
+                              }
+                        }
+                  );
                   for (var i = 0; i < network_buffer.connections.length; i ++) {
                         var type = this.connections[i].destination.type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
-                              this.connections[i].destination.value = 0;
                               this.connections[i].destination.value +=
                               network_buffer.connections[i].source.value;
                         }
                         else if (type == "Operation/Multiplication") {
-                              this.connections[i].destination.value = 1;
                               this.connections[i].destination.value *=
                               network_buffer.connections[i].source.value;
                         }
                   }
+                  this.nodes.forEach(
+                        (node) => {
+                              if (node.type == "Operation/Multiplication" && node.value == 1) {
+                                    node.value = 0;
+                              }
+                        }
+                  );
+
                   // Return updated network object
                   return this;
             }
