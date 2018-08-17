@@ -1,3 +1,4 @@
+// ASCII logo art displayed in console
 console.log("%c\
     _____            ______   _____  _____  _    _  __  __   \n\
    / ____|    /\\    |  ____| / ____||_   _|| |  | ||  \\/  |  \n\
@@ -20,19 +21,22 @@ const random_item = function (array) {
 }
 // Generate a random UUID
 const UUID = function () {
+      // Generate a random string of four hexadecimal digits
       function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1);
       }
+      // Generate UUID from substrings
       return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
 }
 // Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
 const clone = function (object) {
+      // Convert JSON object to a string, then parse it back into a new object and return the object
       return JSON.parse(JSON.stringify(object));
 }
 const map = function (num, in_min, in_max, out_min, out_max) {
-  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 // Find a node globally given its ID
@@ -51,6 +55,7 @@ class node {
             if (information.type == "Data/Input") {
                   input_nodes.push(this);
 
+                  // Cannot be undefined
                   this.value = 0;
                   node_outputs.push(this);
             }
@@ -89,6 +94,7 @@ class node {
 }
 
 class connection {
+      // Constructor for creating a connection between two nodes within a network
       constructor(source, destination) {
             this.source = source;
             this.destination = destination;
@@ -96,6 +102,7 @@ class connection {
 }
 
 class network {
+      // Constructor for creating a network or computation graph
       constructor(inputs, outputs) {
 
             this.inputs = inputs;
@@ -152,6 +159,7 @@ class network {
             for (var i = 0; i < Math.round(random(25, 50)); i ++) {
                   connections.push(
                         new connection(
+                              // Connection sources must be nodes with outputs
                               random_item(node_outputs),
                               random_item(node_inputs)
                         )
@@ -187,7 +195,9 @@ class network {
                   return outputs;
             }
 
+            // Run one iteration of calculations for node values in network
             this.update = function () {
+                  // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                   var network_buffer = clone(this);
                   for (var i = 0; i < network_buffer.connections.length; i ++) {
                         var type = this.connections[i].destination.type;
@@ -202,6 +212,7 @@ class network {
                               network_buffer.connections[i].source.value;
                         }
                   }
+                  // Return updated network object
                   return this;
             }
 
@@ -209,8 +220,10 @@ class network {
                   var svg = document.querySelector("#network-visualization");
                   svg.innerHTML = "";
 
+                  // Render nodes
                   var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
                   var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
+                  // Loop through each connection in network
                   this.nodes.forEach(
                         (node) => {
                               var circle = document.createElement("circle");
@@ -243,6 +256,8 @@ class network {
                         }
                   );
 
+                  // Render connections
+                  // Loop through each connection in network
                   this.connections.forEach(
                         (connection) => {
                               var line = document.createElement("line");
@@ -254,6 +269,7 @@ class network {
                               line.setAttribute("y2", connection.destination.element.getAttribute("cy"));
 
                               connection.element = line;
+                              // Add line HTML to SVG element before circle elements
                               svg.innerHTML = line.outerHTML + svg.innerHTML;
                         }
                   );
@@ -261,6 +277,7 @@ class network {
       }
 }
 
+// Settings for networks
 var settings = {
       "population_size": 100
 };
