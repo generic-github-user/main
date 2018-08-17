@@ -31,6 +31,9 @@ const UUID = function () {
 const clone = function (object) {
       return JSON.parse(JSON.stringify(object));
 }
+const map = function (num, in_min, in_max, out_min, out_max) {
+  return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
 // Find a node globally given its ID
 const get_node = function (id) {
