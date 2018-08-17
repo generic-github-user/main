@@ -246,11 +246,25 @@ class network {
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
-                              circle.setAttribute("cx", Math.round(random(0, 100)) + "%");
-                              circle.setAttribute("cy", Math.round(random(0, 100)) + "%");
-
                               var radius = map(node.value, min, max, 1, 5);
                               circle.setAttribute("r", radius + "%");
+
+                              circle.setAttribute(
+                                    "cx", Math.round(
+                                          random(
+                                                (radius + 3),
+                                                (100 - radius - 3)
+                                          )
+                                    ) + "%"
+                              );
+                              circle.setAttribute(
+                                    "cy", Math.round(
+                                          random(
+                                                (radius + 3),
+                                                (100 - radius - 3)
+                                          )
+                                    ) + "%"
+                              );
 
                               if (node.type == "Data/Input") {
                                     circle.className += " data-input";
