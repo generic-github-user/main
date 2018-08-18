@@ -345,3 +345,5 @@ var population = [];
 for (var i = 0; i < settings.population_size; i ++) {
       population.push(new network(5, 5));
 }
+
+population[0].display();
