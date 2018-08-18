@@ -7,6 +7,15 @@ html, body {
       height: 100%;
 }
 
+p, h1, h2, h3, h4, h5, h6 {
+      text-shadow: 3px 3px 3px #AAA;
+      transition: all 0.5s ease;
+}
+p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+      text-shadow: 6px 6px 8px #AAA;
+      transition: all 0.5s ease;
+}
+
 .value-label {
       font-family: Roboto, sans-serif;
       color: #000;
