@@ -102,18 +102,18 @@ const round = function (number, decimals) {
 }
 const to_percent = {
       "w": function(number, property) {
-            return (number / svg.getBBox().width) * 100;
+            return (number / svg.getBoundingClientRect().width) * 100;
       },
       "h": function(number, property) {
-            return (number / svg.getBBox().height) * 100;
+            return (number / svg.getBoundingClientRect().height) * 100;
       }
 }
 const to_pixels = {
       "w": function(number, property) {
-            return (number / 100) * svg.getBBox().width;
+            return (number / 100) * svg.getBoundingClientRect().width;
       },
       "h": function(number, property) {
-            return (number / 100) * svg.getBBox().height;
+            return (number / 100) * svg.getBoundingClientRect().height;
       }
 }
 
@@ -418,7 +418,7 @@ class network {
                               var circle = document.getElementById(node.display.circle);
 
                               // Default radius is 2%
-                              var radius = 25;
+                              var radius = 2;
                               // Check if node size is enabled in visualization settings
                               if (settings.visualization.size) {
                                     // Map node values to a 1 to 5 percent range
@@ -454,7 +454,7 @@ class network {
                               var x = parseFloat(circle.getAttribute("cx"));
                               var y = parseFloat(circle.getAttribute("cy"));
                               x -= to_percent.w(text.getBBox().width / 2);
-                              y += to_percent.h(text.getBBox().height / 2);
+                              y += to_percent.h(text.getBBox().height / 3);
                               // Set x position of text element within SVG element
                               text.setAttribute("x", (x + "%"));
                               // Set y position of text
