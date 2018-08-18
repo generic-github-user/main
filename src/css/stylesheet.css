@@ -22,9 +22,9 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 }
 
 #control-panel {
-      width: 20%;
-      height: 100%;
-
+      width: 16%;
+      height: 94%;
+      padding: 2%;
       float: left;
 
       background-color: #e8f0ff;
@@ -32,8 +32,12 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
       transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
 }
 
+#control-panel > * {
+      margin: 0 0 5% 0;
+}
+
 #control-panel:hover {
-      width: 30%;
+      width: 26%;
 
       background-color: #bacdf2;
       box-shadow: 20px 20px 30px #888;
