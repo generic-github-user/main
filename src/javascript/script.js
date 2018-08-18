@@ -1,4 +1,5 @@
 // ASCII logo art displayed in console
+// http://www.network-science.de/ascii/
 console.log("%c\
     _____            ______   _____  _____  _    _  __  __   \n\
    / ____|    /\\    |  ____| / ____||_   _|| |  | ||  \\/  |  \n\
@@ -56,6 +57,7 @@ const random_item = function (array) {
       return array[Math.floor(Math.random() * array.length)];
 }
 // Generate a random UUID
+// https://stackoverflow.com/a/105074
 const UUID = function () {
       // Generate a random string of four hexadecimal digits
       function s4() {
@@ -72,6 +74,7 @@ const clone = function (object) {
       return JSON.parse(JSON.stringify(object));
 }
 // Map one range of numbers to another, given an input value and the two ranges
+// https://stackoverflow.com/a/23202637
 const map = function (num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
@@ -82,6 +85,7 @@ const get_node = function (id) {
 }
 
 // Change the brightness of a hexadecimal color value
+// https://stackoverflow.com/a/13542669
 const shade_color = function (color, percent) {
     var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
     return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
@@ -366,6 +370,7 @@ class network {
 
             this.update_display = function () {
                   // Render nodes
+                  // https://stackoverflow.com/a/4020842
                   var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
                   var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
 
