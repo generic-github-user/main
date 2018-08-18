@@ -1,24 +1,3 @@
 .node {
-
-}
-
-.data-input {
-      /* Green */
-      fill: #3f9b41;
-}
-.data-output {
-      /* Light Blue */
-      fill: #afcfff;
-}
-.data-value {
-      /* Yellow-Orange */
-      fill: #ffbb00;
-}
-.operation-addition {
-      /* Purple */
-      fill: #c854ff;
-}
-.operation-multiplication {
-      /* Red */
-      fill: #f92c2c;
+      
 }
