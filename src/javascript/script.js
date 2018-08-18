@@ -186,7 +186,7 @@ class network {
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(5, 10)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
                   nodes.push(
                         new node({
                               "type": "Data/Value",
@@ -194,14 +194,14 @@ class network {
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(5, 10)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
                   nodes.push(
                         new node({
                               "type": "Operation/Addition"
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(5, 10)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
                   nodes.push(
                         new node({
                               "type": "Operation/Multiplication"
@@ -215,7 +215,7 @@ class network {
             this.output_nodes = output_nodes;
 
             var connections = [];
-            for (var i = 0; i < Math.round(random(25, 50)); i ++) {
+            for (var i = 0; i < Math.round(random(50, 100)); i ++) {
                   connections.push(
                         // Create a new connection with the constructor function
                         new connection(
