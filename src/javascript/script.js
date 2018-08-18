@@ -71,6 +71,7 @@ const clone = function (object) {
       // Convert JSON object to a string, then parse it back into a new object and return the object
       return JSON.parse(JSON.stringify(object));
 }
+// Map one range of numbers to another, given an input value and the two ranges
 const map = function (num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
@@ -80,20 +81,27 @@ const get_node = function (id) {
       return nodes.find(x => x.id == id);
 }
 
+// Change the brightness of a hexadecimal color value
 const shade_color = function (color, percent) {
     var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
     return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
 }
 
+// Update program settings from user inputs
 const update_settings = function () {
       settings.visualization.size = document.querySelector("#controls-visualization-size").checked;
       settings.visualization.brightness = document.querySelector("#controls-visualization-brightness").checked;
 }
 
+// List of all nodes
 var nodes = [];
+// List of nodes with inputs
 var node_inputs = [];
+// List of nodes with outputs
 var node_outputs = [];
+// List of output nodes
 var input_nodes = [];
+// List of output nodes
 var output_nodes = [];
 class node {
       constructor(information) {
@@ -204,9 +212,11 @@ class network {
             var connections = [];
             for (var i = 0; i < Math.round(random(25, 50)); i ++) {
                   connections.push(
+                        // Create a new connection with the constructor function
                         new connection(
                               // Connection sources must be nodes with outputs
                               random_item(node_outputs),
+                              // Connection destinations must be nodes with inputs
                               random_item(node_inputs)
                         )
                   );
@@ -279,6 +289,8 @@ class network {
                   return this;
             }
 
+            // Display visualization of network
+            // This function is only used the first time the network is displayed, as it generates the SVG elements used in the visualization
             this.display = function () {
                   var svg = document.querySelector("#network-visualization");
                   svg.innerHTML = "";
