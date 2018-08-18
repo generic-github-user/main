@@ -26,8 +26,8 @@ var settings = {
             },
             {
                   "name": "Data/Value",
-                  // Yellow-Orange
-                  "color": "#ffbb00"
+                  // Orange
+                  "color": "#ff8300"
             },
             {
                   "name": "Operation/Addition",
@@ -308,7 +308,7 @@ class network {
                                           if (node.type == node_type.name) {
                                                 circle.style.fill = shade_color(
                                                       node_type.color,
-                                                      map(node.value, min, max, -1, 1)
+                                                      map(node.value, min, max, -0.75, 0.75)
                                                 );
                                           }
                                     }
