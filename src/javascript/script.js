@@ -11,6 +11,38 @@ console.log("%c\
 
 
 
+// Settings for networks
+var settings = {
+      "node_types": [
+            {
+                  "name": "Data/Input",
+                  // Green
+                  "color": "#3f9b41"
+            },
+            {
+                  "name": "Data/Output",
+                  // Light blue
+                  "color": "#afcfff"
+            },
+            {
+                  "name": "Data/Value",
+                  // Yellow-Orange
+                  "color": "#ffbb00"
+            },
+            {
+                  "name": "Operation/Addition",
+                  // Purple
+                  "color": "#c854ff"
+            },
+            {
+                  "name": "Operation/Multiplication",
+                  // Red
+                  "color": "#f92c2c"
+            }
+      ],
+      "population_size": 100
+};
+
 // Generate a random number in between a minimum value and a maximum value
 const random = function (minimum, maximum) {
       return minimum + (Math.random() * (maximum - minimum));
@@ -266,21 +298,13 @@ class network {
                                     ) + "%"
                               );
 
-                              if (node.type == "Data/Input") {
-                                    circle.className += " data-input";
-                              }
-                              else if (node.type == "Data/Output") {
-                                    circle.className += " data-output";
-                              }
-                              else if (node.type == "Data/Value") {
-                                    circle.className += " data-value";
-                              }
-                              else if (node.type == "Operation/Addition") {
-                                    circle.className += " operation-addition";
-                              }
-                              else if (node.type == "Operation/Multiplication") {
-                                    circle.className += " operation-multiplication";
-                              }
+                              settings.node_types.forEach(
+                                    (node_type) => {
+                                          if (node.type == node_type.name) {
+                                                circle.style.fill = node_type.color;
+                                          }
+                                    }
+                              );
 
                               node.element = circle;
                               svg.innerHTML += circle.outerHTML;
@@ -307,11 +331,6 @@ class network {
             }
       }
 }
-
-// Settings for networks
-var settings = {
-      "population_size": 100
-};
 
 var population = [];
 
