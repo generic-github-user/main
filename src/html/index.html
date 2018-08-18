@@ -18,13 +18,21 @@
       <body>
             <div id="control-panel">
                   <h2>CAESIUM</h2>
-                  <!-- <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="size">
-                        <input type="checkbox" id="size" class="mdl-switch__input" checked>
+                  <h3>Visualization</h3>
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-size">
+                        <input type="checkbox" id="controls-visualization-size" class="mdl-switch__input" oninput="update_settings(); population[0].display();" checked></input>
                         <span class="mdl-switch__label">Size</span>
                   </label>
-                  <div class="mdl-tooltip" data-mdl-for="size">
+                  <div class="mdl-tooltip" data-mdl-for="controls-visualization-size">
                         Nodes with higher values will be larger.
-                  </div> -->
+                  </div>
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-brightness">
+                        <input type="checkbox" id="controls-visualization-brightness" class="mdl-switch__input" oninput="update_settings(); population[0].display();" checked></input>
+                        <span class="mdl-switch__label">Brightness</span>
+                  </label>
+                  <div class="mdl-tooltip" data-mdl-for="controls-visualization-brightness">
+                        Nodes with higher values will be lighter.
+                  </div>
             </div>
 
 

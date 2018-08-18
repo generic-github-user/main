@@ -40,7 +40,11 @@ var settings = {
                   "color": "#f92c2c"
             }
       ],
-      "population_size": 100
+      "population_size": 100,
+      "visualization": {
+            "size": undefined,
+            "brightness": undefined
+      }
 };
 
 // Generate a random number in between a minimum value and a maximum value
@@ -79,6 +83,11 @@ const get_node = function (id) {
 const shade_color = function (color, percent) {
     var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
     return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
+
+const update_settings = function () {
+      settings.visualization.size = document.querySelector("#controls-visualization-size").checked;
+      settings.visualization.brightness = document.querySelector("#controls-visualization-brightness").checked;
 }
 
 var nodes = [];
@@ -283,7 +292,10 @@ class network {
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
-                              var radius = map(node.value, min, max, 1, 5);
+                              var radius = 2;
+                              if (settings.visualization.size) {
+                                    radius = map(node.value, min, max, 1, 5);
+                              }
                               circle.setAttribute("r", radius + "%");
 
                               circle.setAttribute(
@@ -306,10 +318,14 @@ class network {
                               settings.node_types.forEach(
                                     (node_type) => {
                                           if (node.type == node_type.name) {
-                                                circle.style.fill = shade_color(
-                                                      node_type.color,
-                                                      map(node.value, min, max, -0.75, 0.75)
-                                                );
+                                                var color = node_type.color;
+                                                if (settings.visualization.brightness) {
+                                                      color = shade_color(
+                                                            color,
+                                                            map(node.value, min, max, -0.75, 0.75)
+                                                      );
+                                                }
+                                                circle.style.fill = color;
                                           }
                                     }
                               );
