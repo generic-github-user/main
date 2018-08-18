@@ -328,6 +328,9 @@ class network {
                   // Loop through each connection in network
                   this.nodes.forEach(
                         (node) => {
+                              node.display = {};
+
+
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
@@ -357,7 +360,7 @@ class network {
                               circle.setAttribute("id", id);
                               // Store a pointer to the circle element in corresponding connection object
                               // This must be done by retrieving the id of the element to create a link between the variable and the element
-                              node.element = id;
+                              node.display.circle = id;
 
                               // Add circle element to SVG element's HTML; this must be done with innerHTML or the SVG element will not be updated
                               svg.innerHTML += circle.outerHTML;
@@ -368,7 +371,7 @@ class network {
 
                               var id = UUID();
                               text.setAttribute("id", id);
-                              node.text = id;
+                              node.display.text = id;
 
                               svg.innerHTML += text.outerHTML;
                         }
@@ -378,20 +381,26 @@ class network {
                   // Loop through each connection in network
                   this.connections.forEach(
                         (connection) => {
+                              connection.display = {};
+
+
                               // Create a new SVG line element
                               var line = document.createElement("line");
                               // Apply "connection" CSS class to line element
                               line.className = "connection";
 
                               // Origin of line (first node)
-                              line.setAttribute("x1", document.getElementById(connection.source.element).getAttribute("cx"));
-                              line.setAttribute("y1", document.getElementById(connection.source.element).getAttribute("cy"));
+                              line.setAttribute("x1", document.getElementById(connection.source.display.circle).getAttribute("cx"));
+                              line.setAttribute("y1", document.getElementById(connection.source.display.circle).getAttribute("cy"));
                               // Destination of line (second node)
-                              line.setAttribute("x2", document.getElementById(connection.destination.element).getAttribute("cx"));
-                              line.setAttribute("y2", document.getElementById(connection.destination.element).getAttribute("cy"));
+                              line.setAttribute("x2", document.getElementById(connection.destination.display.circle).getAttribute("cx"));
+                              line.setAttribute("y2", document.getElementById(connection.destination.display.circle).getAttribute("cy"));
 
                               // Store reference to line element in corresponding connection object
-                              connection.element = line;
+                              var id = UUID();
+                              line.setAttribute("id", id);
+                              connection.display.line = id;
+
                               // Add line HTML to SVG element before circle elements
                               svg.innerHTML = line.outerHTML + svg.innerHTML;
                         }
@@ -406,7 +415,7 @@ class network {
 
                   this.nodes.forEach(
                         (node) => {
-                              var element = document.getElementById(node.element);
+                              var circle = document.getElementById(node.display.circle);
 
                               // Default radius is 2%
                               var radius = 25;
@@ -416,7 +425,7 @@ class network {
                                     radius = map(node.value, min, max, 1, 5);
                               }
                               // Set radius of circle as percentage
-                              element.setAttribute("r", radius + "%");
+                              circle.setAttribute("r", radius + "%");
 
                               settings.node_types.forEach(
                                     (node_type) => {
@@ -428,25 +437,22 @@ class network {
                                                             map(node.value, min, max, -0.75, 0.75)
                                                       );
                                                 }
-                                                element.style.fill = color;
+                                                circle.style.fill = color;
                                           }
                                     }
                               );
 
 
-                              var text = document.getElementById(node.text);
+                              var text = document.getElementById(node.display.text);
                               text.innerHTML = round(node.value, 3);
 
                               // To pixels
                               radius = to_pixels.w(radius);
-                              // text.style.fontSize = radius / (box.height / box.width);
-                              // text.style.fontSize = 2 * Math.sqrt((radius ** 2) - ((text.getBBox().width / 2) ** 2));
                               text.style.fontSize = radius / 2;
-                              console.log(radius / 2);
 
                               // Don't use parseInt
-                              var x = parseFloat(element.getAttribute("cx"));
-                              var y = parseFloat(element.getAttribute("cy"));
+                              var x = parseFloat(circle.getAttribute("cx"));
+                              var y = parseFloat(circle.getAttribute("cy"));
                               x -= to_percent.w(text.getBBox().width / 2);
                               y += to_percent.h(text.getBBox().height / 2);
                               // Set x position of text element within SVG element
