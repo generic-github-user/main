@@ -57,7 +57,8 @@ const random_item = function (array) {
       return array[Math.floor(Math.random() * array.length)];
 }
 // Generate a random UUID
-// https://stackoverflow.com/a/105074
+// Based on https://stackoverflow.com/a/105074
+var uuids = [];
 const UUID = function () {
       // Generate a random string of four hexadecimal digits
       function s4() {
@@ -66,7 +67,14 @@ const UUID = function () {
             .substring(1);
       }
       // Generate UUID from substrings
-      return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+      var id;
+      do {
+            id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+      }
+      while (uuids.indexOf(id) !== -1)
+
+      uuids.push(id);
+      return id;
 }
 // Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
 const clone = function (object) {
@@ -144,9 +152,6 @@ class node {
             }
 
             var id = UUID();
-            do {id = UUID();}
-            while (nodes.find(x => x.id == id) !== undefined)
-
             this.id = id;
             nodes.push(this);
       }
@@ -331,8 +336,6 @@ class network {
 
                               // Element UUIDs and node UUIDs are separate
                               var id = UUID();
-                              do {id = UUID();}
-                              while (document.getElementById(id) !== null)
                               circle.setAttribute("id", id);
 
                               // Add circle element to SVG element's HTML; this must be done with innerHTML or the SVG element will not be updated
