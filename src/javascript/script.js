@@ -292,26 +292,36 @@ class network {
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
+                              // Default radius is 2%
                               var radius = 2;
+                              // Check if node size is enabled in visualization settings
                               if (settings.visualization.size) {
+                                    // Map node values to a 1 to 5 percent range
                                     radius = map(node.value, min, max, 1, 5);
                               }
+                              // Set radius of circle as percentage
                               circle.setAttribute("r", radius + "%");
 
-                              circle.setAttribute(
-                                    "cx", Math.round(
-                                          random(
-                                                (radius + 3),
-                                                (100 - radius - 3)
-                                          )
+                              // Set x position of circle element on SVG element
+                              circle.setAttribute("cx",
+                                    // Randomly select an x coordinate
+                                    random(
+                                          // Minimum x value - the left side of the screen (with the circle's radius and margin added)
+                                          (radius + 3),
+                                          // Maximum x value - the right side of the screen (minus the circle's radius and margin)
+                                          (100 - radius - 3)
+                                    // Convert x location to string and add percentage symbol
                                     ) + "%"
                               );
-                              circle.setAttribute(
-                                    "cy", Math.round(
-                                          random(
-                                                (radius + 3),
-                                                (100 - radius - 3)
-                                          )
+                              // Set y position of circle
+                              circle.setAttribute("cy",
+                                    // Randomly select a y coordinate
+                                    random(
+                                          // Minimum y value - the top of the screen
+                                          (radius + 3),
+                                          // Maximum y value - the bottom side of the screen
+                                          (100 - radius - 3)
+                                    // Convert y location to string and add percentage symbol
                                     ) + "%"
                               );
 
@@ -330,7 +340,9 @@ class network {
                                     }
                               );
 
+                              // Store a pointer to line element in corresponding connection object
                               node.element = circle;
+                              // Add circle element to SVG element's HTML; this must be done with innerHTML or the SVG element will not be updated
                               svg.innerHTML += circle.outerHTML;
                         }
                   );
@@ -339,14 +351,19 @@ class network {
                   // Loop through each connection in network
                   this.connections.forEach(
                         (connection) => {
+                              // Create a new SVG line element
                               var line = document.createElement("line");
+                              // Apply "connection" CSS class to line element
                               line.className = "connection";
 
+                              // Origin of line (first node)
                               line.setAttribute("x1", connection.source.element.getAttribute("cx"));
                               line.setAttribute("y1", connection.source.element.getAttribute("cy"));
+                              // Destination of line (second node)
                               line.setAttribute("x2", connection.destination.element.getAttribute("cx"));
                               line.setAttribute("y2", connection.destination.element.getAttribute("cy"));
 
+                              // Store reference to line element in corresponding connection object
                               connection.element = line;
                               // Add line HTML to SVG element before circle elements
                               svg.innerHTML = line.outerHTML + svg.innerHTML;
