@@ -86,18 +86,37 @@ const clone = function (object) {
 const map = function (num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
-
 // Find a node globally given its ID
 const get_node = function (id) {
       return nodes.find(x => x.id == id);
 }
-
 // Change the brightness of a hexadecimal color value
 // https://stackoverflow.com/a/13542669
 const shade_color = function (color, percent) {
     var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
     return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
 }
+const round = function (number, decimals) {
+      var factor = 10 ** decimals
+      return Math.round(number * factor) / factor;
+}
+const to_percent = {
+      "w": function(number, property) {
+            return (number / svg.getBBox().width) * 100;
+      },
+      "h": function(number, property) {
+            return (number / svg.getBBox().height) * 100;
+      }
+}
+const to_pixels = {
+      "w": function(number, property) {
+            return (number / 100) * svg.getBBox().width;
+      },
+      "h": function(number, property) {
+            return (number / 100) * svg.getBBox().height;
+      }
+}
+
 
 // Update program settings from user inputs
 const update_settings = function () {
@@ -105,6 +124,8 @@ const update_settings = function () {
       settings.visualization.brightness = document.querySelector("#controls-visualization-brightness").checked;
 }
 update_settings();
+
+var svg = document.querySelector("#network-visualization");
 
 // List of all nodes
 var nodes = [];
@@ -302,7 +323,6 @@ class network {
             // Display visualization of network
             // This function is only used the first time the network is displayed, as it generates the SVG elements used in the visualization
             this.display = function () {
-                  var svg = document.querySelector("#network-visualization");
                   svg.innerHTML = "";
 
                   // Loop through each connection in network
@@ -311,39 +331,46 @@ class network {
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
-                              // Set x position of circle element on SVG element
-                              circle.setAttribute("cx",
-                                    // Randomly select an x coordinate
-                                    random(
-                                          // Minimum x value - the left side of the screen (with the circle's radius and margin added)
-                                          (5 + 3),
-                                          // Maximum x value - the right side of the screen (minus the circle's radius and margin)
-                                          (100 - 5 - 3)
-                                    // Convert x location to string and add percentage symbol
-                                    ) + "%"
-                              );
-                              // Set y position of circle
-                              circle.setAttribute("cy",
-                                    // Randomly select a y coordinate
-                                    random(
-                                          // Minimum y value - the top of the screen
-                                          (5 + 3),
-                                          // Maximum y value - the bottom side of the screen
-                                          (100 - 5 - 3)
-                                    // Convert y location to string and add percentage symbol
-                                    ) + "%"
+                              // Randomly select an x coordinate
+                              var x = random(
+                                    // Minimum x value - the left side of the screen (with the circle's radius and margin added)
+                                    (5 + 3),
+                                    // Maximum x value - the right side of the screen (minus the circle's radius and margin)
+                                    (100 - 5 - 3)
+
                               );
 
-                              // Element UUIDs and node UUIDs are separate
+                              // Randomly select a y coordinate
+                              var y = random(
+                                    // Minimum y value - the top of the screen
+                                    (5 + 3),
+                                    // Maximum y value - the bottom side of the screen
+                                    (100 - 5 - 3)
+                              );
+
+                              // Set x position of circle element within SVG element
+                              circle.setAttribute("cx", (x + "%"));
+                              // Set y position of circle
+                              circle.setAttribute("cy", (y + "%"));
+
                               var id = UUID();
                               circle.setAttribute("id", id);
+                              // Store a pointer to the circle element in corresponding connection object
+                              // This must be done by retrieving the id of the element to create a link between the variable and the element
+                              node.element = id;
 
                               // Add circle element to SVG element's HTML; this must be done with innerHTML or the SVG element will not be updated
                               svg.innerHTML += circle.outerHTML;
 
-                              // Store a pointer to the circle element in corresponding connection object
-                              // This must be done by retrieving the id of the element to create a link between the variable and the element
-                              node.element = id;
+
+                              var text = document.createElement("text");
+                              text.className = "value-label";
+
+                              var id = UUID();
+                              text.setAttribute("id", id);
+                              node.text = id;
+
+                              svg.innerHTML += text.outerHTML;
                         }
                   );
 
@@ -382,7 +409,7 @@ class network {
                               var element = document.getElementById(node.element);
 
                               // Default radius is 2%
-                              var radius = 2;
+                              var radius = 25;
                               // Check if node size is enabled in visualization settings
                               if (settings.visualization.size) {
                                     // Map node values to a 1 to 5 percent range
@@ -405,6 +432,27 @@ class network {
                                           }
                                     }
                               );
+
+
+                              var text = document.getElementById(node.text);
+                              text.innerHTML = round(node.value, 3);
+
+                              // To pixels
+                              radius = to_pixels.w(radius);
+                              // text.style.fontSize = radius / (box.height / box.width);
+                              // text.style.fontSize = 2 * Math.sqrt((radius ** 2) - ((text.getBBox().width / 2) ** 2));
+                              text.style.fontSize = radius / 2;
+                              console.log(radius / 2);
+
+                              // Don't use parseInt
+                              var x = parseFloat(element.getAttribute("cx"));
+                              var y = parseFloat(element.getAttribute("cy"));
+                              x -= to_percent.w(text.getBBox().width / 2);
+                              y += to_percent.h(text.getBBox().height / 2);
+                              // Set x position of text element within SVG element
+                              text.setAttribute("x", (x + "%"));
+                              // Set y position of text
+                              text.setAttribute("y", (y + "%"));
                         }
                   );
             }
