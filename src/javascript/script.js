@@ -92,6 +92,7 @@ const update_settings = function () {
       settings.visualization.size = document.querySelector("#controls-visualization-size").checked;
       settings.visualization.brightness = document.querySelector("#controls-visualization-brightness").checked;
 }
+update_settings();
 
 // List of all nodes
 var nodes = [];
@@ -295,33 +296,20 @@ class network {
                   var svg = document.querySelector("#network-visualization");
                   svg.innerHTML = "";
 
-                  // Render nodes
-                  var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
-                  var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
                   // Loop through each connection in network
                   this.nodes.forEach(
                         (node) => {
                               var circle = document.createElement("circle");
                               circle.className = "node";
 
-                              // Default radius is 2%
-                              var radius = 2;
-                              // Check if node size is enabled in visualization settings
-                              if (settings.visualization.size) {
-                                    // Map node values to a 1 to 5 percent range
-                                    radius = map(node.value, min, max, 1, 5);
-                              }
-                              // Set radius of circle as percentage
-                              circle.setAttribute("r", radius + "%");
-
                               // Set x position of circle element on SVG element
                               circle.setAttribute("cx",
                                     // Randomly select an x coordinate
                                     random(
                                           // Minimum x value - the left side of the screen (with the circle's radius and margin added)
-                                          (radius + 3),
+                                          (5 + 3),
                                           // Maximum x value - the right side of the screen (minus the circle's radius and margin)
-                                          (100 - radius - 3)
+                                          (100 - 5 - 3)
                                     // Convert x location to string and add percentage symbol
                                     ) + "%"
                               );
@@ -330,32 +318,25 @@ class network {
                                     // Randomly select a y coordinate
                                     random(
                                           // Minimum y value - the top of the screen
-                                          (radius + 3),
+                                          (5 + 3),
                                           // Maximum y value - the bottom side of the screen
-                                          (100 - radius - 3)
+                                          (100 - 5 - 3)
                                     // Convert y location to string and add percentage symbol
                                     ) + "%"
                               );
 
-                              settings.node_types.forEach(
-                                    (node_type) => {
-                                          if (node.type == node_type.name) {
-                                                var color = node_type.color;
-                                                if (settings.visualization.brightness) {
-                                                      color = shade_color(
-                                                            color,
-                                                            map(node.value, min, max, -0.75, 0.75)
-                                                      );
-                                                }
-                                                circle.style.fill = color;
-                                          }
-                                    }
-                              );
+                              // Element UUIDs and node UUIDs are separate
+                              var id = UUID();
+                              do {id = UUID();}
+                              while (document.getElementById(id) !== null)
+                              circle.setAttribute("id", id);
 
-                              // Store a pointer to line element in corresponding connection object
-                              node.element = circle;
                               // Add circle element to SVG element's HTML; this must be done with innerHTML or the SVG element will not be updated
                               svg.innerHTML += circle.outerHTML;
+
+                              // Store a pointer to the circle element in corresponding connection object
+                              // This must be done by retrieving the id of the element to create a link between the variable and the element
+                              node.element = id;
                         }
                   );
 
@@ -369,16 +350,53 @@ class network {
                               line.className = "connection";
 
                               // Origin of line (first node)
-                              line.setAttribute("x1", connection.source.element.getAttribute("cx"));
-                              line.setAttribute("y1", connection.source.element.getAttribute("cy"));
+                              line.setAttribute("x1", document.getElementById(connection.source.element).getAttribute("cx"));
+                              line.setAttribute("y1", document.getElementById(connection.source.element).getAttribute("cy"));
                               // Destination of line (second node)
-                              line.setAttribute("x2", connection.destination.element.getAttribute("cx"));
-                              line.setAttribute("y2", connection.destination.element.getAttribute("cy"));
+                              line.setAttribute("x2", document.getElementById(connection.destination.element).getAttribute("cx"));
+                              line.setAttribute("y2", document.getElementById(connection.destination.element).getAttribute("cy"));
 
                               // Store reference to line element in corresponding connection object
                               connection.element = line;
                               // Add line HTML to SVG element before circle elements
                               svg.innerHTML = line.outerHTML + svg.innerHTML;
+                        }
+                  );
+            }
+
+            this.update_display = function () {
+                  // Render nodes
+                  var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
+                  var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
+
+                  this.nodes.forEach(
+                        (node) => {
+                              var element = document.getElementById(node.element);
+
+                              // Default radius is 2%
+                              var radius = 2;
+                              // Check if node size is enabled in visualization settings
+                              if (settings.visualization.size) {
+                                    // Map node values to a 1 to 5 percent range
+                                    radius = map(node.value, min, max, 1, 5);
+                              }
+                              // Set radius of circle as percentage
+                              element.setAttribute("r", radius + "%");
+
+                              settings.node_types.forEach(
+                                    (node_type) => {
+                                          if (node.type == node_type.name) {
+                                                var color = node_type.color;
+                                                if (settings.visualization.brightness) {
+                                                      color = shade_color(
+                                                            color,
+                                                            map(node.value, min, max, -0.75, 0.75)
+                                                      );
+                                                }
+                                                element.style.fill = color;
+                                          }
+                                    }
+                              );
                         }
                   );
             }
@@ -392,3 +410,4 @@ for (var i = 0; i < settings.population_size; i ++) {
 }
 
 population[0].display();
+population[0].update_display();
