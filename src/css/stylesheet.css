@@ -88,6 +88,12 @@ button {
 .social-icon:hover {
       drop-shadow: 6px 6px 8px #AAA;
       -webkit-filter: brightness(1) drop-shadow(6px 6px 6px #444);
-      filter: brightness(1) drop-shadow(6px 6px 6px #888);
+      filter: brightness(1) drop-shadow(6px 6px 6px #444);
       transition: -webkit-filter 1s ease, filter 1s ease;
+}
+.social-icon:active {
+      drop-shadow: 6px 6px 8px #AAA;
+      -webkit-filter: brightness(2) drop-shadow(8px 8px 8px #444);
+      filter: brightness(2) drop-shadow(8px 8px 8px #444);
+      transition: -webkit-filter 0.1s ease, filter 0.1s ease;
 }
