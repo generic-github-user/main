@@ -130,6 +130,39 @@ update_settings();
 
 var svg = document.querySelector("#network-visualization");
 
+var sidebar = document.querySelector("#control-panel");
+var sidebar_hover = false;
+var sidebar_x = 0;
+var sidebar_y = 0;
+sidebar.addEventListener("mouseover", () => {sidebar_hover = true});
+sidebar.addEventListener("mouseout", () => {sidebar_hover = false});
+
+var body_hover = false;
+var body_x = 0;
+var body_y = 0;
+document.body.addEventListener("mouseover", () => {body_hover = true});
+document.body.addEventListener("mouseout", () => {body_hover = false});
+
+var speed = 0.025;
+const update_backgrounds = function () {
+      if (sidebar_hover) {
+            sidebar_x += speed;
+            sidebar_y += speed;
+      }
+      if (body_hover && !sidebar_hover) {
+            body_x -= speed;
+            body_y -= speed;
+      }
+
+      sidebar.style.backgroundPositionX = sidebar_x + "%";
+      sidebar.style.backgroundPositionY = sidebar_y + "%";
+
+      document.body.style.backgroundPositionX = body_x + "%";
+      document.body.style.backgroundPositionY = body_y + "%";
+}
+setInterval(update_backgrounds, 10);
+
+
 // List of all nodes
 var nodes = [];
 // List of nodes with inputs

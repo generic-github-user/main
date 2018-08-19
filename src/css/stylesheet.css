@@ -9,6 +9,7 @@ html, body {
 
 body {
       background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+      background-blend-mode: multiply;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -35,6 +36,7 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
       box-shadow: 10px 10px 15px #888;
       transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
       background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+      background-blend-mode: multiply;
 }
 
 #control-panel > * {
@@ -56,13 +58,11 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 
       float: right;
 
-      /* background-color: #fff; */
       filter: drop-shadow(6px 6px 4px #888);
       transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
 }
 
 #network-visualization:hover {
-      /* background-color: #fff; */
       filter: drop-shadow(12px 12px 8px #888);
       transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
 }
