@@ -7,6 +7,10 @@ html, body {
       height: 100%;
 }
 
+body {
+
+}
+
 p, h1, h2, h3, h4, h5, h6 {
       text-shadow: 3px 3px 3px #AAA;
       transition: all 0.5s ease;
@@ -30,6 +34,22 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
       background-color: #e8f0ff;
       box-shadow: 10px 10px 15px #888;
       transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
+
+
+
+}
+#control-panel::after {
+  content: "";
+  background-image: url(../images/noise.png);
+  background-blend-mode: multiply;
+  background-size: 200% 200%;
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 #control-panel > * {

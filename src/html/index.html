@@ -17,11 +17,14 @@
       <body>
             <div id="control-panel">
                   <h2>CAESIUM</h2>
+
                   <h3>Network</h3>
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="population[0].update(); population[0].update_display();">
                         Update
                   </button>
+
                   <h3>Visualization</h3>
+                  <h4>Nodes</h4>
                   <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-size">
                         <input type="checkbox" id="controls-visualization-size" class="mdl-switch__input" oninput="update_settings(); population[0].update_display();" checked></input>
                         <span class="mdl-switch__label">Size</span>
