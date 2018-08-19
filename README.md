@@ -67,3 +67,50 @@ A hard limit can be placed on the number of nodes and/or connections that the ne
 ## Python
 
 A Python implementation of Caesium is planned. See issue #2.
+
+# Credits
+
+This project wouldn't have been possible without lots of great open-source technology that people have been kind enough to share with the world.
+
+## Libraries
+
+### Material Design Lite
+*[getmdl.io](https://getmdl.io/)*
+
+### Material Design Icons
+*[material.io/tools/icons](https://material.io/tools/icons/?style=baseline)*
+
+## Resources
+
+Media and images used in Caesium.
+
+### Transparent Textures
+*[transparenttextures.com](https://www.transparenttextures.com/)*
+
+Used for backgrounds in the JavaScript/web version of Caesium.
+
+#### Brushed alum
+*[transparenttextures.com/patterns/brushed-alum.png](https://www.transparenttextures.com/patterns/brushed-alum.png)*
+
+*By [Tim Ward](http://www.mentalwarddesign.com/)*
+
+Used for the network visualization background.
+
+#### Az Subtle
+*[transparenttextures.com/patterns/az-subtle.png](https://www.transparenttextures.com/patterns/az-subtle.png)*
+
+*By [Anli.](https://azmind.com/)*
+
+Used for the control panel/sidebar background.
+
+### Logos
+
+#### GitHub Logo
+*[github.com/logos](https://github.com/logos)*
+
+## Other
+
+### Eric Meyer’s “Reset CSS” 2.0
+*[cssreset.com/scripts/eric-meyer-reset-css](https://cssreset.com/scripts/eric-meyer-reset-css/)*
+
+Used to reset the default CSS rules to make development a lot easier.
