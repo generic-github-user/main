@@ -8,6 +8,12 @@ html, body {
 }
 
 body {
+      /* Transparent Textures */
+      /* https://www.transparenttextures.com/ */
+      /* Brushed Alum */
+      /* https://www.transparenttextures.com/patterns/brushed-alum.png */
+      /* By Tim Ward */
+      /* http://www.mentalwarddesign.com/ */
       background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
       background-blend-mode: multiply;
 }
@@ -36,6 +42,12 @@ button {
       background-color: #e8f0ff;
       box-shadow: 10px 10px 15px #888;
       transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
+      /* Transparent Textures */
+      /* https://www.transparenttextures.com/ */
+      /* Az Subtle */
+      /* https://www.transparenttextures.com/patterns/az-subtle.png */
+      /* By Anli. */
+      /* https://azmind.com/ */
       background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
       background-blend-mode: multiply;
 }
