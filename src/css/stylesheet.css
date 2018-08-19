@@ -21,6 +21,12 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
       transition: all 0.5s ease;
 }
 
+button {
+      /* background-size: 10% !important;
+      background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+      background-blend-mode: multiply; */
+}
+
 .value-label {
       font-family: Roboto, sans-serif;
       color: #000;
@@ -65,4 +71,23 @@ p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 #network-visualization:hover {
       filter: drop-shadow(12px 12px 8px #888);
       transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
+}
+
+#social-icons {
+      width: 100%;
+}
+
+.social-icon {
+      width: 10%;
+      height: 10%;
+
+      -webkit-filter: brightness(0) drop-shadow(1px 1px 1px #444);
+      filter: brightness(0) drop-shadow(1px 1px 1px #444);
+      transition: -webkit-filter 1s ease, filter 1s ease;
+}
+.social-icon:hover {
+      drop-shadow: 6px 6px 8px #AAA;
+      -webkit-filter: brightness(1) drop-shadow(6px 6px 6px #444);
+      filter: brightness(1) drop-shadow(6px 6px 6px #888);
+      transition: -webkit-filter 1s ease, filter 1s ease;
 }
