@@ -43,6 +43,8 @@ var settings = {
       ],
       "population_size": 100,
       "visualization": {
+            "label": undefined,
+            "label": undefined,
             "size": undefined,
             "brightness": undefined
       }
@@ -120,6 +122,7 @@ const to_pixels = {
 
 // Update program settings from user inputs
 const update_settings = function () {
+      settings.visualization.label = document.querySelector("#controls-visualization-label").checked;
       settings.visualization.size = document.querySelector("#controls-visualization-size").checked;
       settings.visualization.brightness = document.querySelector("#controls-visualization-brightness").checked;
 }
@@ -366,14 +369,16 @@ class network {
                               svg.innerHTML += circle.outerHTML;
 
 
-                              var text = document.createElement("text");
-                              text.className = "value-label";
+                              if (settings.visualization.label) {
+                                    var text = document.createElement("text");
+                                    text.className = "value-label";
 
-                              var id = UUID();
-                              text.setAttribute("id", id);
-                              node.display.text = id;
+                                    var id = UUID();
+                                    text.setAttribute("id", id);
+                                    node.display.text = id;
 
-                              svg.innerHTML += text.outerHTML;
+                                    svg.innerHTML += text.outerHTML;
+                              }
                         }
                   );
 
@@ -444,21 +449,27 @@ class network {
 
 
                               var text = document.getElementById(node.display.text);
-                              text.innerHTML = round(node.value, 3);
+                              if (settings.visualization.label) {
+                                    text.style.display = "";
+                                    text.innerHTML = round(node.value, 3);
 
-                              // To pixels
-                              radius = to_pixels.w(radius);
-                              text.style.fontSize = radius / 2;
+                                    // To pixels
+                                    radius = to_pixels.w(radius);
+                                    text.style.fontSize = radius / 2;
 
-                              // Don't use parseInt
-                              var x = parseFloat(circle.getAttribute("cx"));
-                              var y = parseFloat(circle.getAttribute("cy"));
-                              x -= to_percent.w(text.getBBox().width / 2);
-                              y += to_percent.h(text.getBBox().height / 3);
-                              // Set x position of text element within SVG element
-                              text.setAttribute("x", (x + "%"));
-                              // Set y position of text
-                              text.setAttribute("y", (y + "%"));
+                                    // Don't use parseInt
+                                    var x = parseFloat(circle.getAttribute("cx"));
+                                    var y = parseFloat(circle.getAttribute("cy"));
+                                    x -= to_percent.w(text.getBBox().width / 2);
+                                    y += to_percent.h(text.getBBox().height / 3);
+                                    // Set x position of text element within SVG element
+                                    text.setAttribute("x", (x + "%"));
+                                    // Set y position of text
+                                    text.setAttribute("y", (y + "%"));
+                              }
+                              else {
+                                    text.style.display = "none";
+                              }
                         }
                   );
             }
