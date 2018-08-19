@@ -27,11 +27,6 @@ button {
       background-blend-mode: multiply; */
 }
 
-.value-label {
-      font-family: Roboto, sans-serif;
-      color: #000;
-}
-
 #control-panel {
       width: 16%;
       height: 94%;
@@ -57,21 +52,6 @@ button {
       transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
 }
 #control-panel:hover ~ #network-visualization { width: 70%; }
-
-#network-visualization {
-      width: 80%;
-      height: 100%;
-
-      float: right;
-
-      filter: drop-shadow(6px 6px 4px #888);
-      transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
-}
-
-#network-visualization:hover {
-      filter: drop-shadow(12px 12px 8px #888);
-      transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
-}
 
 #social-icons {
       width: 100%;
