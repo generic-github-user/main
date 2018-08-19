@@ -70,7 +70,7 @@ A Python implementation of Caesium is planned. See issue #2.
 
 # Credits
 
-This project wouldn't have been possible without lots of great open-source technology that people have been kind enough to share with the world.
+This project wouldn't have been possible without lots of great open-source technology that people have been kind enough to share with the world. All sources listed here are also credited in code comments.
 
 ## Libraries
 
@@ -79,6 +79,53 @@ This project wouldn't have been possible without lots of great open-source techn
 
 ### Material Design Icons
 *[material.io/tools/icons](https://material.io/tools/icons/?style=baseline)*
+
+## Code Snippets
+
+Smaller functions and pieces of code.
+
+### UUID Generation Function
+*[stackoverflow.com/a/105074](https://stackoverflow.com/a/105074)*
+
+```javascript
+var uuids = [];
+const UUID = function () {
+      // Generate a random string of four hexadecimal digits
+      function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+      }
+      // Generate UUID from substrings
+      var id;
+      do {
+            id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+      }
+      while (uuids.indexOf(id) !== -1)
+
+      uuids.push(id);
+      return id;
+}
+```
+
+### Range Mapping Function
+*[stackoverflow.com/a/23202637](https://stackoverflow.com/a/23202637)*
+
+```javascript
+const map = function (num, in_min, in_max, out_min, out_max) {
+      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+```
+
+### Hexadecimal Brightness Function
+*[stackoverflow.com/a/13542669](https://stackoverflow.com/a/13542669)*
+
+```javascript
+const shade_color = function (color, percent) {
+    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
+```
 
 ## Resources
 
