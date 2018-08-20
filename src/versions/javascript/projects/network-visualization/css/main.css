@@ -35,7 +35,7 @@ button {
 
 #control-panel {
       width: 16%;
-      height: 94%;
+      height: 96%;
       padding: 2%;
       float: left;
 
@@ -70,8 +70,8 @@ button {
 }
 
 .social-icon {
-      width: 15%;
-      height: 15%;
+      width: 10%;
+      height: 10%;
 
       -webkit-filter: brightness(0) drop-shadow(1px 1px 1px #444);
       filter: brightness(0) drop-shadow(1px 1px 1px #444);
