@@ -101,7 +101,7 @@ cs.node = class {
       constructor(config) {
             this.type = config.type;
             if (config.type == "Data/Input") {
-                  cs.temp.node_types.push(this);
+                  cs.temp.node_types.input.push(this);
 
                   // Cannot be undefined
                   this.value = 0;
@@ -290,6 +290,32 @@ cs.network = class {
                   // Return updated network object
                   return this;
             }
+
+            this.mutate = function (config) {
+                  if (typeof(config.mutation_rate) !== "number") {
+                        console.error("Mutation rate must be a number.");
+                  }
+                  else if (config.mutation_rate < 0) {
+                        console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
+                  }
+                  else if (config.mutation_rate > 1) {
+                        console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
+                  }
+                  else {
+                        this.node_types.value.forEach(
+                              (node) => {
+                                    if (random(0, 1) < config.mutation_rate) {
+                                          node.value += random(
+                                                -config.mutation_size,
+                                                config.mutation_size
+                                          );
+                                    }
+                              }
+                        );
+                  }
+
+                  return this;
+            };
 
             var id = cs.UUID();
             this.id = id;
