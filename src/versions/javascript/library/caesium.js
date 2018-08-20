@@ -27,7 +27,7 @@ const clone = function (object) {
 }
 // Find a node globally given its ID
 const get_node = function (id) {
-      return nodes.find(x => x.id == id);
+      return all_nodes.find(x => x.id == id);
 }
 
 // Settings for networks
@@ -53,16 +53,23 @@ var settings = {
 };
 
 const cs = {
-      // List of all nodes
-      "nodes": [],
-      // List of nodes with inputs
-      "node_inputs": [],
-      // List of nodes with outputs
-      "node_outputs": [],
-      // List of output nodes
-      "input_nodes": [],
-      // List of output nodes
-      "output_nodes": []
+      "all": {
+            // List of all nodes
+            "nodes": [],
+            "connections": [],
+            "networks": []
+      },
+      "temp": {
+            // These must be declared outside of the scope of a network object so that the node constructor can add nodes to them
+            // List of nodes with inputs
+            "node_inputs": [],
+            // List of nodes with outputs
+            "node_outputs": [],
+            // List of output nodes
+            "input_nodes": [],
+            // List of output nodes
+            "output_nodes": []
+      }
 };
 
 // Generate a random UUID
@@ -90,32 +97,32 @@ cs.node = class {
       constructor(information) {
             this.type = information.type;
             if (information.type == "Data/Input") {
-                  cs.input_nodes.push(this);
+                  cs.temp.input_nodes.push(this);
 
                   // Cannot be undefined
                   this.value = 0;
-                  cs.node_outputs.push(this);
+                  cs.temp.node_outputs.push(this);
             }
             else if (information.type == "Data/Output") {
-                  cs.output_nodes.push(this);
+                  cs.temp.output_nodes.push(this);
 
-                  cs.node_inputs.push(this);
+                  cs.temp.node_inputs.push(this);
                   this.value = 0;
-                  cs.node_outputs.push(this);
+                  cs.temp.node_outputs.push(this);
             }
             else if (information.type == "Data/Value") {
                   this.value = information.value;
-                  cs.node_outputs.push(this);
+                  cs.temp.node_outputs.push(this);
             }
             else if (information.type == "Operation/Addition") {
-                  cs.node_inputs.push(this);
+                  cs.temp.node_inputs.push(this);
                   this.value = 0;
-                  cs.node_outputs.push(this);
+                  cs.temp.node_outputs.push(this);
             }
             else if (information.type == "Operation/Multiplication") {
-                  cs.node_inputs.push(this);
+                  cs.temp.node_inputs.push(this);
                   this.value = 0;
-                  cs.node_outputs.push(this);
+                  cs.temp.node_outputs.push(this);
             }
             else {
                   console.error("'" + information.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
@@ -123,7 +130,7 @@ cs.node = class {
 
             var id = cs.UUID();
             this.id = id;
-            cs.nodes.push(this);
+            cs.all.nodes.push(this);
       }
 }
 
@@ -132,6 +139,10 @@ cs.connection = class {
       constructor(source, destination) {
             this.source = source;
             this.destination = destination;
+
+            var id = cs.UUID();
+            this.id = id;
+            cs.all.connections.push(this);
       }
 }
 
@@ -140,28 +151,28 @@ cs.network = class {
       constructor(inputs, outputs) {
             this.inputs = inputs;
             this.outputs = outputs;
+            this.nodes = [];
 
-            var nodes = [];
-            cs.node_inputs = [];
-            cs.node_outputs = [];
-            cs.input_nodes = [];
-            cs.output_nodes = [];
+            cs.temp.node_inputs = [];
+            cs.temp.node_outputs = [];
+            cs.temp.input_nodes = [];
+            cs.temp.output_nodes = [];
             for (var i = 0; i < inputs; i ++) {
-                  nodes.push(
+                  this.nodes.push(
                         new cs.node({
                               "type": "Data/Input"
                         })
                   );
             }
             for (var i = 0; i < outputs; i ++) {
-                  nodes.push(
+                  this.nodes.push(
                         new cs.node({
                               "type": "Data/Output"
                         })
                   );
             }
             for (var i = 0; i < Math.round(random(10, 20)); i ++) {
-                  nodes.push(
+                  this.nodes.push(
                         new cs.node({
                               "type": "Data/Value",
                               "value": random(-1, 1)
@@ -169,24 +180,23 @@ cs.network = class {
                   );
             }
             for (var i = 0; i < Math.round(random(10, 20)); i ++) {
-                  nodes.push(
+                  this.nodes.push(
                         new cs.node({
                               "type": "Operation/Addition"
                         })
                   );
             }
             for (var i = 0; i < Math.round(random(10, 20)); i ++) {
-                  nodes.push(
+                  this.nodes.push(
                         new cs.node({
                               "type": "Operation/Multiplication"
                         })
                   );
             }
-            this.nodes = cs.nodes;
-            this.node_inputs = cs.node_inputs;
-            this.node_outputs = cs.node_outputs;
-            this.input_nodes = cs.input_nodes;
-            this.output_nodes = cs.output_nodes;
+            this.node_inputs = cs.temp.node_inputs;
+            this.node_outputs = cs.temp.node_outputs;
+            this.input_nodes = cs.temp.input_nodes;
+            this.output_nodes = cs.temp.output_nodes;
 
             var connections = [];
             for (var i = 0; i < Math.round(random(50, 100)); i ++) {
@@ -267,6 +277,10 @@ cs.network = class {
                   // Return updated network object
                   return this;
             }
+
+            var id = cs.UUID();
+            this.id = id;
+            cs.all.networks.push(this);
       }
 }
 
