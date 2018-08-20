@@ -127,6 +127,14 @@ const shade_color = function (color, percent) {
 }
 ```
 
+### Finding maximum value in array by property
+*[stackoverflow.com/a/4020842](https://stackoverflow.com/a/4020842)*
+
+```javascript
+var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
+var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
+```
+
 ## Resources
 
 Media and images used in Caesium.
