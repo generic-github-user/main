@@ -61,14 +61,18 @@ const cs = {
       },
       "temp": {
             // These must be declared outside of the scope of a network object so that the node constructor can add nodes to them
-            // List of nodes with inputs
+            // List of nodes with inputs (see if there is a more efficient way to do this)
+            "node_types": {
+                  // List of output nodes
+                  "input": [],
+                  // List of output nodes
+                  "output": [],
+                  // List of value (bias) nodes
+                  "value": []
+            },
             "node_inputs": [],
             // List of nodes with outputs
-            "node_outputs": [],
-            // List of output nodes
-            "input_nodes": [],
-            // List of output nodes
-            "output_nodes": []
+            "node_outputs": []
       }
 };
 
@@ -94,38 +98,40 @@ cs.UUID = function () {
 }
 
 cs.node = class {
-      constructor(information) {
-            this.type = information.type;
-            if (information.type == "Data/Input") {
-                  cs.temp.input_nodes.push(this);
+      constructor(config) {
+            this.type = config.type;
+            if (config.type == "Data/Input") {
+                  cs.temp.node_types.push(this);
 
                   // Cannot be undefined
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
             }
-            else if (information.type == "Data/Output") {
-                  cs.temp.output_nodes.push(this);
+            else if (config.type == "Data/Output") {
+                  cs.temp.node_types.output.push(this);
 
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
             }
-            else if (information.type == "Data/Value") {
-                  this.value = information.value;
+            else if (config.type == "Data/Value") {
+                  cs.temp.node_types.value.push(this);
+
+                  this.value = config.value;
                   cs.temp.node_outputs.push(this);
             }
-            else if (information.type == "Operation/Addition") {
+            else if (config.type == "Operation/Addition") {
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
             }
-            else if (information.type == "Operation/Multiplication") {
+            else if (config.type == "Operation/Multiplication") {
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
             }
             else {
-                  console.error("'" + information.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
+                  console.error("'" + config.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
             }
 
             var id = cs.UUID();
@@ -155,8 +161,15 @@ cs.network = class {
 
             cs.temp.node_inputs = [];
             cs.temp.node_outputs = [];
-            cs.temp.input_nodes = [];
-            cs.temp.output_nodes = [];
+
+            cs.temp.node_types = {
+                  // List of output nodes
+                  "input": [],
+                  // List of output nodes
+                  "output": [],
+                  // List of value (bias) nodes
+                  "value": []
+            }
             for (var i = 0; i < inputs; i ++) {
                   this.nodes.push(
                         new cs.node({
@@ -195,8 +208,8 @@ cs.network = class {
             }
             this.node_inputs = cs.temp.node_inputs;
             this.node_outputs = cs.temp.node_outputs;
-            this.input_nodes = cs.temp.input_nodes;
-            this.output_nodes = cs.temp.output_nodes;
+
+            this.node_types = cs.temp.node_types;
 
             var connections = [];
             for (var i = 0; i < Math.round(random(50, 100)); i ++) {
@@ -213,7 +226,7 @@ cs.network = class {
             this.connections = connections;
 
             this.inputs = function (inputs) {
-                  var num_inputs = this.input_nodes.length;
+                  var num_inputs = this.node_types.input.length;
                   if (inputs.length < num_inputs) {
                         console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
@@ -224,7 +237,7 @@ cs.network = class {
                   }
                   else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i ++) {
-                              this.input_nodes[i].value = inputs[i];
+                              this.node_types.input[i].value = inputs[i];
                         }
                         return inputs;
                   }
@@ -232,7 +245,7 @@ cs.network = class {
 
             this.outputs = function () {
                   var outputs = [];
-                  this.output_nodes.forEach(
+                  this.node_types.output.forEach(
                         (node) => {
                               outputs.push(node.value);
                         }
