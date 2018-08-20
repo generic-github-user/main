@@ -111,7 +111,7 @@ cs.node = class {
                   cs.temp.node_types.output.push(this);
 
                   cs.temp.node_inputs.push(this);
-                  this.value = 0;
+                  this.value = config.value;
                   cs.temp.node_outputs.push(this);
             }
             else if (config.type == "Data/Value") {
@@ -142,9 +142,9 @@ cs.node = class {
 
 cs.connection = class {
       // Constructor for creating a connection between two nodes within a network
-      constructor(source, destination) {
-            this.source = source;
-            this.destination = destination;
+      constructor(config) {
+            this.source = config.source;
+            this.destination = config.destination;
 
             var id = cs.UUID();
             this.id = id;
@@ -154,9 +154,9 @@ cs.connection = class {
 
 cs.network = class {
       // Constructor for creating a network or computation graph
-      constructor(inputs, outputs) {
-            this.inputs = inputs;
-            this.outputs = outputs;
+      constructor(config) {
+            this.inputs = config.num_inputs;
+            this.outputs = config.num_outputs;
             this.nodes = [];
 
             cs.temp.node_inputs = [];
@@ -170,17 +170,18 @@ cs.network = class {
                   // List of value (bias) nodes
                   "value": []
             }
-            for (var i = 0; i < inputs; i ++) {
+            for (var i = 0; i < config.num_inputs; i ++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Data/Input"
                         })
                   );
             }
-            for (var i = 0; i < outputs; i ++) {
+            for (var i = 0; i < config.num_outputs; i ++) {
                   this.nodes.push(
                         new cs.node({
-                              "type": "Data/Output"
+                              "type": "Data/Output",
+                              "value": 0
                         })
                   );
             }
@@ -215,12 +216,12 @@ cs.network = class {
             for (var i = 0; i < Math.round(random(50, 100)); i ++) {
                   connections.push(
                         // Create a new connection with the constructor function
-                        new cs.connection(
+                        new cs.connection({
                               // Connection sources must be nodes with outputs
-                              random_item(this.node_outputs),
+                              "source": random_item(this.node_outputs),
                               // Connection destinations must be nodes with inputs
-                              random_item(this.node_inputs)
-                        )
+                              "destination": random_item(this.node_inputs)
+                        })
                   );
             }
             this.connections = connections;
