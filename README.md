@@ -161,3 +161,8 @@ Used for the control panel/sidebar background.
 *[cssreset.com/scripts/eric-meyer-reset-css](https://cssreset.com/scripts/eric-meyer-reset-css/)*
 
 Used to reset the default CSS rules to make development a lot easier.
+
+### ASCII Text Art Creator
+*[www.network-science.de/ascii](http://www.network-science.de/ascii/)*
+
+Used to create the ASCII logo art displayed in the console. See issue #20.
