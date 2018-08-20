@@ -34,38 +34,22 @@ const get_node = function (id) {
 var settings = {
       "node_types": [
             {
-                  "name": "Data/Input",
-                  // Green
-                  "color": "#3f9b41"
+                  "name": "Data/Input"
             },
             {
-                  "name": "Data/Output",
-                  // Light blue
-                  "color": "#afcfff"
+                  "name": "Data/Output"
             },
             {
-                  "name": "Data/Value",
-                  // Orange
-                  "color": "#ff8300"
+                  "name": "Data/Value"
             },
             {
                   "name": "Operation/Addition",
-                  // Purple
-                  "color": "#c854ff"
             },
             {
-                  "name": "Operation/Multiplication",
-                  // Red
-                  "color": "#f92c2c"
+                  "name": "Operation/Multiplication"
             }
       ],
-      "population_size": 100,
-      "visualization": {
-            "label": undefined,
-            "label": undefined,
-            "size": undefined,
-            "brightness": undefined
-      }
+      "population_size": 100
 };
 
 const cs = {
@@ -76,10 +60,10 @@ const cs = {
       // List of nodes with outputs
       "node_outputs": [],
       // List of output nodes
-      "input_nodes":[],
+      "input_nodes": [],
       // List of output nodes
-      "output_nodes": [],
-}
+      "output_nodes": []
+};
 
 // Generate a random UUID
 // Based on https://stackoverflow.com/a/105074

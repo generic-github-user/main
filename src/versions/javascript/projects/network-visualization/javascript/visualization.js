@@ -35,11 +35,32 @@ const round = function (number, decimals) {
 
 var network = new cs.network(5, 5);
 
+var node_colors = [
+      // Green
+      "#3f9b41",
+      // Light blue
+      "#afcfff",
+      // Orange
+      "#ff8300",
+      // Purple
+      "#c854ff",
+      // Red
+      "#f92c2c"
+];
+for (var i = 0; i < node_colors.length; i ++) {
+      settings.node_types[i].color = node_colors[i];
+}
+var visualization_settings = {
+      "label": undefined,
+      "label": undefined,
+      "size": undefined,
+      "brightness": undefined
+};
 // Update program settings from user inputs
 const update_settings = function () {
-      settings.visualization.label = document.querySelector("#controls-visualization-label").checked;
-      settings.visualization.size = document.querySelector("#controls-visualization-size").checked;
-      settings.visualization.brightness = document.querySelector("#controls-visualization-brightness").checked;
+      visualization_settings.label = document.querySelector("#controls-visualization-label").checked;
+      visualization_settings.size = document.querySelector("#controls-visualization-size").checked;
+      visualization_settings.brightness = document.querySelector("#controls-visualization-brightness").checked;
 }
 update_settings();
 
@@ -123,7 +144,7 @@ network.display = function () {
                   svg.innerHTML += circle.outerHTML;
 
 
-                  if (settings.visualization.label) {
+                  if (visualization_settings.label) {
                         var text = document.createElement("text");
                         text.className = "value-label";
 
@@ -179,7 +200,7 @@ network.update_display = function () {
                   // Default radius is 2%
                   var radius = 2;
                   // Check if node size is enabled in visualization settings
-                  if (settings.visualization.size) {
+                  if (visualization_settings.size) {
                         // Map node values to a 1 to 5 percent range
                         radius = map(node.value, min, max, 1, 5);
                   }
@@ -190,7 +211,7 @@ network.update_display = function () {
                         (node_type) => {
                               if (node.type == node_type.name) {
                                     var color = node_type.color;
-                                    if (settings.visualization.brightness) {
+                                    if (visualization_settings.brightness) {
                                           color = shade_color(
                                                 color,
                                                 map(node.value, min, max, -0.75, 0.75)
@@ -203,7 +224,7 @@ network.update_display = function () {
 
 
                   var text = document.getElementById(node.display.text);
-                  if (settings.visualization.label) {
+                  if (visualization_settings.label) {
                         text.style.display = "";
                         text.innerHTML = round(node.value, 3);
 
