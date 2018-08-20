@@ -70,8 +70,8 @@ button {
 }
 
 .social-icon {
-      width: 10%;
-      height: 10%;
+      width: 15%;
+      height: 15%;
 
       -webkit-filter: brightness(0) drop-shadow(1px 1px 1px #444);
       filter: brightness(0) drop-shadow(1px 1px 1px #444);
