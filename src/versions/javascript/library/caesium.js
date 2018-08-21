@@ -226,7 +226,7 @@ cs.network = class {
             }
             this.connections = connections;
 
-            this.inputs = function (inputs) {
+            this.set_inputs = function (inputs) {
                   var num_inputs = this.node_types.input.length;
                   if (inputs.length < num_inputs) {
                         console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
@@ -240,18 +240,19 @@ cs.network = class {
                         for (var i = 0; i < inputs.length; i ++) {
                               this.node_types.input[i].value = inputs[i];
                         }
-                        return inputs;
+                        return this;
                   }
             }
 
-            this.outputs = function () {
+            this.get_outputs = function () {
                   var outputs = [];
                   this.node_types.output.forEach(
                         (node) => {
                               outputs.push(node.value);
                         }
                   );
-                  return outputs;
+                  
+                  return this;
             }
 
             // Run one iteration of calculations for node values in network
