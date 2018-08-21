@@ -22,8 +22,7 @@ const random_item = function (array) {
 }
 // Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
 const clone = function (object) {
-      // Convert JSON object to a string, then parse it back into a new object and return the object
-      return JSON.parse(JSON.stringify(object));
+      return Object.assign({}, object);
 }
 // Find a node globally given its ID
 const get_node = function (id) {
