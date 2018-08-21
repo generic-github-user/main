@@ -32,10 +32,20 @@ const get_node = function (id) {
 
 const difference = function (array_1, array_2) {
       return array_2.map(
-            (item, i) => {
-                  return item - array_1[i];
+            (element, i) => {
+                  return element - array_1[i];
             }
       )
+}
+
+const sum = function (array) {
+      var sum = 0;
+      array.forEach(
+            (element) => {
+                  sum += element;
+            }
+      );
+      return sum;
 }
 
 // Settings for networks
