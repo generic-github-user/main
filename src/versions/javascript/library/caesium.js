@@ -318,8 +318,9 @@ cs.network = class {
                   return this;
             };
 
-            var id = cs.UUID();
-            this.id = id;
+
+            this.score = 0;
+            this.id = cs.UUID();
             cs.all.networks.push(this);
       }
 }
