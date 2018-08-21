@@ -30,6 +30,14 @@ const get_node = function (id) {
       return all_nodes.find(x => x.id == id);
 }
 
+const difference = function (array_1, array_2) {
+      return array_2.map(
+            (item, i) => {
+                  return item - array_1[i];
+            }
+      )
+}
+
 // Settings for networks
 var settings = {
       "node_types": [
