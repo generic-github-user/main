@@ -51,6 +51,8 @@ const average = function (array) {
       return sum(array) / array.length;
 }
 
+
+
 // Settings for networks
 var settings = {
       "node_types": [
@@ -69,8 +71,7 @@ var settings = {
             {
                   "name": "Operation/Multiplication"
             }
-      ],
-      "population_size": 100
+      ]
 };
 
 const cs = {
@@ -183,6 +184,8 @@ cs.network = class {
             cs.temp.node_inputs = [];
             cs.temp.node_outputs = [];
 
+            this.score = 0;
+
             cs.temp.node_types = {
                   // List of output nodes
                   "input": [],
@@ -272,8 +275,7 @@ cs.network = class {
                               outputs.push(node.value);
                         }
                   );
-                  
-                  return this;
+                  return outputs;
             }
 
             // Run one iteration of calculations for node values in network
@@ -340,15 +342,25 @@ cs.network = class {
                   return this;
             };
 
+            this.evolve = function (config) {
+                  for (var i = 0; i < config.iterations; i ++) {
+                        var population = new Array(config.population).fill(clone(this));
+                        population.forEach(
+                              (network) => {
+                                    network.mutate({"mutation_rate": 0.5, "mutation_size": 1})
+                                    network.set_inputs(config.inputs);
+                                    network.update();
+                                    network.score = average(difference(network.get_outputs(), config.outputs));
+                              }
+                        );
+                        var best_score = Math.min.apply(Math, population.map(function(x) { return x.score; }));
+                        var best_network = population.find(function(x){ return x.score == best_score; })
+                        console.log(best_network)
+                  }
+                  return population;
+            }
 
-            this.score = 0;
             this.id = cs.UUID();
             cs.all.networks.push(this);
       }
 }
-
-// var population = [];
-//
-// for (var i = 0; i < settings.population_size; i ++) {
-//       population.push(new cs.network(5, 5));
-// }
