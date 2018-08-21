@@ -48,6 +48,10 @@ const sum = function (array) {
       return sum;
 }
 
+const average = function (array) {
+      return sum(array) / array.length;
+}
+
 // Settings for networks
 var settings = {
       "node_types": [
