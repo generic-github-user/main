@@ -20,6 +20,10 @@ const random = function (minimum, maximum) {
 const random_item = function (array) {
       return array[Math.floor(Math.random() * array.length)];
 }
+// Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
+const clone = function (object) {
+      return Object.assign({}, object);
+}
 // Find a node globally given its ID
 const get_node = function (id) {
       return all_nodes.find(x => x.id == id);
@@ -32,11 +36,7 @@ const difference = function (array_1, array_2) {
             }
       )
 }
-const clone = function (network) {
-      var cloned = JSON.parse(JSON.stringify(network));
-      add_network_functions(cloned);
-      return cloned;
-}
+
 const sum = function (array) {
       var sum = 0;
       array.forEach(
@@ -250,123 +250,117 @@ cs.network = class {
             }
             this.connections = connections;
 
-            add_network_functions(this);
+            this.set_inputs = function (inputs) {
+                  var num_inputs = this.node_types.input.length;
+                  if (inputs.length < num_inputs) {
+                        console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
+                        return false;
+                  }
+                  else if (inputs.length > num_inputs) {
+                        console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
+                        return false;
+                  }
+                  else if (inputs.length == num_inputs) {
+                        for (var i = 0; i < inputs.length; i ++) {
+                              this.node_types.input[i].value = inputs[i];
+                        }
+                        return this;
+                  }
+            }
+
+            this.get_outputs = function () {
+                  var outputs = [];
+                  this.node_types.output.forEach(
+                        (node) => {
+                              outputs.push(node.value);
+                        }
+                  );
+                  return outputs;
+            }
+
+            // Run one iteration of calculations for node values in network
+            this.update = function () {
+                  // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
+                  var network_buffer = clone(this);
+                  this.nodes.forEach(
+                        (node) => {
+                              var type = node.type;
+                              if (type == "Data/Output" || type == "Operation/Addition") {
+                                    node.value = 0;
+                              }
+                              else if (type == "Operation/Multiplication") {
+                                    node.value = 1;
+                              }
+                        }
+                  );
+                  for (var i = 0; i < network_buffer.connections.length; i ++) {
+                        var type = this.connections[i].destination.type;
+                        if (type == "Data/Output" || type == "Operation/Addition") {
+                              this.connections[i].destination.value +=
+                              network_buffer.connections[i].source.value;
+                        }
+                        else if (type == "Operation/Multiplication") {
+                              this.connections[i].destination.value *=
+                              network_buffer.connections[i].source.value;
+                        }
+                  }
+                  this.nodes.forEach(
+                        (node) => {
+                              if (node.type == "Operation/Multiplication" && node.value == 1) {
+                                    node.value = 0;
+                              }
+                        }
+                  );
+
+                  // Return updated network object
+                  return this;
+            }
+
+            this.mutate = function (config) {
+                  if (typeof(config.mutation_rate) !== "number") {
+                        console.error("Mutation rate must be a number.");
+                  }
+                  else if (config.mutation_rate < 0) {
+                        console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
+                  }
+                  else if (config.mutation_rate > 1) {
+                        console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
+                  }
+                  else {
+                        this.node_types.value.forEach(
+                              (node) => {
+                                    if (random(0, 1) < config.mutation_rate) {
+                                          node.value += random(
+                                                -config.mutation_size,
+                                                config.mutation_size
+                                          );
+                                    }
+                              }
+                        );
+                  }
+
+                  return this;
+            };
+
+            this.evolve = function (config) {
+                  for (var i = 0; i < config.iterations; i ++) {
+                        var population = new Array(config.population).fill(clone(this));
+                        population.forEach(
+                              (network) => {
+                                    network.mutate({"mutation_rate": 0.5, "mutation_size": 1})
+                                    network.set_inputs(config.inputs);
+                                    network.update();
+                                    network.score = average(difference(network.get_outputs(), config.outputs));
+                              }
+                        );
+                        var best_score = Math.min.apply(Math, population.map(function(x) { return x.score; }));
+                        var best_network = population.find(function(x){ return x.score == best_score; })
+                        console.log(best_network)
+                  }
+                  return population;
+            }
 
             this.id = cs.UUID();
             cs.all.networks.push(this);
       }
-}
-
-const add_network_functions = function (network) {
-      network.set_inputs = function (inputs) {
-            var num_inputs = this.node_types.input.length;
-            if (inputs.length < num_inputs) {
-                  console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
-                  return false;
-            }
-            else if (inputs.length > num_inputs) {
-                  console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
-                  return false;
-            }
-            else if (inputs.length == num_inputs) {
-                  for (var i = 0; i < inputs.length; i ++) {
-                        this.node_types.input[i].value = inputs[i];
-                  }
-                  return this;
-            }
-      }
-
-      network.get_outputs = function () {
-            var outputs = [];
-            this.node_types.output.forEach(
-                  (node) => {
-                        outputs.push(node.value);
-                  }
-            );
-            return outputs;
-      }
-
-      // Run one iteration of calculations for node values in network
-      network.update = function () {
-            // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
-            var network_buffer = clone(this);
-            this.nodes.forEach(
-                  (node) => {
-                        var type = node.type;
-                        if (type == "Data/Output" || type == "Operation/Addition") {
-                              node.value = 0;
-                        }
-                        else if (type == "Operation/Multiplication") {
-                              node.value = 1;
-                        }
-                  }
-            );
-            for (var i = 0; i < network_buffer.connections.length; i ++) {
-                  var type = this.connections[i].destination.type;
-                  if (type == "Data/Output" || type == "Operation/Addition") {
-                        this.connections[i].destination.value +=
-                        network_buffer.connections[i].source.value;
-                  }
-                  else if (type == "Operation/Multiplication") {
-                        this.connections[i].destination.value *=
-                        network_buffer.connections[i].source.value;
-                  }
-            }
-            this.nodes.forEach(
-                  (node) => {
-                        if (node.type == "Operation/Multiplication" && node.value == 1) {
-                              node.value = 0;
-                        }
-                  }
-            );
-
-            // Return updated network object
-            return this;
-      }
-
-      network.mutate = function (config) {
-            if (typeof(config.mutation_rate) !== "number") {
-                  console.error("Mutation rate must be a number.");
-            }
-            else if (config.mutation_rate < 0) {
-                  console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
-            }
-            else if (config.mutation_rate > 1) {
-                  console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
-            }
-            else {
-                  this.node_types.value.forEach(
-                        (node) => {
-                              if (random(0, 1) < config.mutation_rate) {
-                                    node.value += random(
-                                          -config.mutation_size,
-                                          config.mutation_size
-                                    );
-                              }
-                        }
-                  );
-            }
-
-            return this;
-      };
-
-      network.evolve = function (config) {
-            for (var i = 0; i < config.iterations; i ++) {
-                  var population = new Array(config.population).fill(clone(this));
-                  population.forEach(
-                        (network) => {
-                              network.mutate({"mutation_rate": 0.5, "mutation_size": 1})
-                              network.set_inputs(config.inputs);
-                              network.update();
-                              network.score = average(difference(network.get_outputs(), config.outputs));
-                        }
-                  );
-                  var best_score = Math.min.apply(Math, population.map(function(x) { return x.score; }));
-                  var best_network = population.find(function(x){ return x.score == best_score; })
-                  console.log(best_network)
-            }
-            return population;
-      }
-
-      return network;
 }
