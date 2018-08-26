@@ -2,6 +2,8 @@ const replace = function (string, find, replace) {
 	string = string.replace(find, replace);
       return string;
 }
+var note_index = 1;
+
 const styles = "\n\
 * {\n\
   box-sizing: border-box;\n\
@@ -41,4 +43,5 @@ do {
             "{/note}",
             "</span>"
       );
+      note_index ++;
 } while (document.body.innerHTML.indexOf("{note}") !== -1)
