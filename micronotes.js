@@ -17,18 +17,19 @@ const styles = "\n\
       opacity: 0;\n\
       \n\
       max-width: 0vw;\n\
-      max-height: 0vw;\n\
+      max-height: 0vh;\n\
       padding: 0vw;\n\
+      margin: 0vw;\n\
       position: absolute;\n\
       overflow: hidden;\n\
       \n\
-      transition: opacity 0.5s ease, max-width 1s ease, max-height 1s ease;\n\
+      transition: opacity 1s ease, max-width 0s ease 1s, max-height 0s ease 1s;\n\
 }\n\
 .note:hover {\n\
       opacity: 1;\n\
-      max-width: 25vw;\n\
-      max-height: 25vw;\n\
-      transition: opacity 0.5s ease, max-width 1s ease, max-height 1s ease;\n\
+      max-width: 100vw;\n\
+      max-height: 100vh;\n\
+      transition: opacity 1s ease, max-width 0s ease, max-height 0s ease;\n\
 }\n\
 \n";
 
@@ -45,8 +46,9 @@ do {
       document.head.querySelector("style").innerHTML += "\n\
             #number-" + note_index + ":hover ~ #note-" + note_index + "{\n\
                   opacity: 1;\n\
-                  max-width: 25vw;\n\
-                  max-height: 25vw;\n\
+                  max-width: 100vw;\n\
+                  max-height: 100vh;\n\
+                  transition: opacity 1s ease, max-width 0s ease, max-height 0s ease;\n\
             }\n\
       \n";
       document.body.innerHTML = replace(
