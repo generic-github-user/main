@@ -33,6 +33,13 @@ else {
 }
 
 do {
+      document.head.querySelector("style").innerHTML += "\n\
+            #number-" + note_index + ":hover ~ #note-" + note_index + "{\n\
+                  opacity: 1;\n\
+                  max-width: 25vw;\n\
+                  max-height: 25vw;\n\
+            }\n\
+      \n";
       document.body.innerHTML = replace(
             document.body.innerHTML,
             "{note}",
