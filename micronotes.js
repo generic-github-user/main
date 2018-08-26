@@ -1,11 +1,6 @@
-const replace = function (string, substring_f, substring_r) {
-      var substring_index;
-      var output;
-	do {
-		substringIndex = string.indexOf(substring_f);
-		output = string.replace(substring_f, substring_r);
-	} while (substringIndex !== -1)
-	return output;
+const replace = function (string, find, replace) {
+	string = string.replace(find, replace);
+      return string;
 }
 const styles = "\n\
 * {\n\
@@ -34,3 +29,5 @@ else {
       style.innerHTML += styles;
       document.head.appendChild(style);
 }
+do {
+} while (document.body.innerHTML.indexOf("{note}") !== -1)
