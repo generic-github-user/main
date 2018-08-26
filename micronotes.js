@@ -10,7 +10,7 @@ const styles = "\n\
   -moz-box-sizing: border-box;\n\
   -webkit-box-sizing: border-box;\n\
 }\n\
-\n\
+a {\n\
 .note {\n\
       background-color: #FFF;\n\
       \n\
@@ -54,12 +54,16 @@ do {
       document.body.innerHTML = replace(
             document.body.innerHTML,
             "{note}",
-            "<sup class='number' id='number-" + note_index + "'>" + note_index + "</sup><span class='note' id='note-" + note_index + "'>"
+            "<sup class='number' id='number-" + note_index + "'><a href='#footnote-" + note_index + "'>" + note_index + "</a></sup><span class='note' id='note-" + note_index + "'>"
       );
       document.body.innerHTML = replace(
             document.body.innerHTML,
             "{/note}",
             "</span>"
       );
+
+      var footnote_content = document.body.querySelector("#note-" + note_index).innerHTML;
+      document.body.innerHTML += "<a href='#note-" + note_index + "'><p id='footnote-" + note_index + "'>" + note_index + ". </p></a>";
+
       note_index ++;
 } while (document.body.innerHTML.indexOf("{note}") !== -1)
