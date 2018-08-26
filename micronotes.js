@@ -85,7 +85,7 @@ do {
       );
 
       var footnote_content = document.body.querySelector("#note-" + note_index).innerHTML;
-      document.body.innerHTML += "<a href='#note-" + note_index + "' class='number' id='footnote-" + note_index + "'>" + note_index + ". </a>" + footnote_content;
+      document.body.innerHTML += "<a href='#note-" + note_index + "' class='number' id='footnote-" + note_index + "'>" + note_index + ". </a><span class='footnote-content'>" + footnote_content + "</span>";
       document.body.innerHTML += "<br />";
 
       note_index ++;
