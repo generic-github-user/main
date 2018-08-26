@@ -10,8 +10,18 @@ const styles = "\n\
   -moz-box-sizing: border-box;\n\
   -webkit-box-sizing: border-box;\n\
 }\n\
-a {\n\
+.number {\n\
       text-decoration: none;\n\
+      color: #2b5cad;\n\
+      transition: color 1s ease;\n\
+}\n\
+.number:hover {\n\
+      color: #6799ea;\n\
+      transition: color 1s ease;\n\
+}\n\
+.number:active {\n\
+      color: #96beff;\n\
+      transition: color 0.1s ease;\n\
 }\n\
 .note {\n\
       background-color: #efefef;\n\
@@ -31,7 +41,7 @@ a {\n\
 }\n\
 .note:hover {\n\
       background-color: #ffffff;\n\
-      border-radius: 20px;\n\
+      border-radius: 15px;\n\
       /* box-shadow: 6px 6px 16px 2px #888; */\n\
       \n\
       opacity: 1;\n\
@@ -66,7 +76,7 @@ do {
       document.body.innerHTML = replace(
             document.body.innerHTML,
             "{note}",
-            "<sup class='number' id='number-" + note_index + "'><a href='#footnote-" + note_index + "'>" + note_index + "</a></sup><span class='note' id='note-" + note_index + "'>"
+            "<sup class='number' id='number-" + note_index + "'><a href='#footnote-" + note_index + "' class='number'>" + note_index + "</a></sup><span class='note' id='note-" + note_index + "'>"
       );
       document.body.innerHTML = replace(
             document.body.innerHTML,
@@ -75,7 +85,7 @@ do {
       );
 
       var footnote_content = document.body.querySelector("#note-" + note_index).innerHTML;
-      document.body.innerHTML += "<a href='#note-" + note_index + "'><p id='footnote-" + note_index + "'>" + note_index + ". </p></a>" + footnote_content;
+      document.body.innerHTML += "<a href='#note-" + note_index + "' class='number'><p id='footnote-" + note_index + "'>" + note_index + ". </p></a>" + footnote_content;
 
       note_index ++;
 } while (document.body.innerHTML.indexOf("{note}") !== -1)
