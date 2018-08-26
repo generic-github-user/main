@@ -29,5 +29,16 @@ else {
       style.innerHTML += styles;
       document.head.appendChild(style);
 }
+
 do {
+      document.body.innerHTML = replace(
+            document.body.innerHTML,
+            "{note}",
+            "<sup class='number' id='number-" + note_index + "'>" + note_index + "</sup><span class='note' id='note-" + note_index + "'>"
+      );
+      document.body.innerHTML = replace(
+            document.body.innerHTML,
+            "{/note}",
+            "</span>"
+      );
 } while (document.body.innerHTML.indexOf("{note}") !== -1)
