@@ -35,7 +35,6 @@ const styles = "\n\
       padding: 1vw;\n\
       margin: 0.1vw;\n\
       position: absolute;\n\
-      overflow: hidden;\n\
       \n\
       transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, max-width 0s ease 1s, max-height 0s ease 1s;\n\
 }\n\
@@ -60,6 +59,8 @@ else {
       document.head.appendChild(style);
 }
 
+var footnotes = document.createElement("div");
+footnotes.id = "footnotes-box";
 do {
       document.head.querySelector("style").innerHTML += "\n\
             #number-" + note_index + ":hover ~ #note-" + note_index + "{\n\
@@ -85,8 +86,9 @@ do {
       );
 
       var footnote_content = document.body.querySelector("#note-" + note_index).innerHTML;
-      document.body.innerHTML += "<a href='#note-" + note_index + "' class='number' id='footnote-" + note_index + "'>" + note_index + ". </a><span class='footnote-content'>" + footnote_content + "</span>";
-      document.body.innerHTML += "<br />";
+      footnotes.innerHTML += "<a href='#note-" + note_index + "' class='number' id='footnote-" + note_index + "'>" + note_index + ". </a><span class='footnote-content'>" + footnote_content + "</span>";
+      footnotes.innerHTML += "<br />";
 
       note_index ++;
 } while (document.body.innerHTML.indexOf("{note}") !== -1)
+document.body.appendChild(footnotes);
