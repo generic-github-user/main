@@ -30,14 +30,12 @@ const styles = "\n\
       \n\
       opacity: 0;\n\
       \n\
-      max-width: 0vw;\n\
-      max-height: 0vh;\n\
       padding: 1vw;\n\
       margin: 0.1vw;\n\
       position: absolute;\n\
       visibility: hidden;\n\
       \n\
-      transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, max-width 0s ease 1s, max-height 0s ease 1s, visibility 0s ease 1s;\n\
+      transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, visibility 0s ease 1s;\n\
 }\n\
 .note:hover {\n\
       background-color: #ffffff;\n\
@@ -45,10 +43,8 @@ const styles = "\n\
       /* box-shadow: 6px 6px 16px 2px #888; */\n\
       \n\
       opacity: 1;\n\
-      max-width: 100vw;\n\
-      max-height: 100vh;\n\
       visibility: visible;\n\
-      transition: background-color 1s ease 0s, border-radius 1s ease 0s, box-shadow 1s ease 0s, opacity 1s ease, max-width 0s ease 0s, max-height 0s ease 0s, display 0s ease 0s;\n\
+      transition: background-color 1s ease 0s, border-radius 1s ease 0s, box-shadow 1s ease 0s, opacity 1s ease, display 0s ease 0s;\n\
 }\n\
 \n";
 
@@ -71,10 +67,8 @@ do {
                   /* box-shadow: 4px 4px 10px 2px #888; */\n\
                   \n\
                   opacity: 1;\n\
-                  max-width: 100vw;\n\
-                  max-height: 100vh;\n\
                   visibility: visible;\n\
-                  transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, max-width 0s ease 0s, max-height 0s ease 0s, display 0s ease 0s;\n\
+                  transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, display 0s ease 0s;\n\
             }\n\
       \n";
       document.body.innerHTML = replace(
