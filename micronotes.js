@@ -8,6 +8,12 @@ const replace = function (string, substring_f, substring_r) {
 	return output;
 }
 const styles = "\n\
+* {\n\
+  box-sizing: border-box;\n\
+  -moz-box-sizing: border-box;\n\
+  -webkit-box-sizing: border-box;\n\
+}\n\
+\n\
 .note {\n\
       background-color: #FFF;\n\
       \n\
