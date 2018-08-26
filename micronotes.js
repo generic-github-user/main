@@ -88,10 +88,14 @@ do {
             "</span>"
       );
 
-      var footnote_content = document.body.querySelector("#note-" + note_index).innerHTML;
-      footnotes.innerHTML += "<a href='#note-" + note_index + "' class='number' id='footnote-" + note_index + "'>" + note_index + ". </a><span class='footnote-content'>" + footnote_content + "</span>";
-      footnotes.innerHTML += "<br />";
-
       note_index ++;
 } while (document.body.innerHTML.indexOf("{note}") !== -1)
+
+for (var i = 1; i < document.body.getElementsByClassName("note").length + 1; i ++) {
+      var footnote_content = document.body.querySelector("#note-" + i).innerHTML;
+      footnotes.innerHTML += "<a href='#note-" + i + "' class='number' id='footnote-" + i + "'>" + i + ". </a><span class='footnote-content'>" + footnote_content + "</span>";
+      footnotes.innerHTML += "<br />";
+}
+
+document.body.innerHTML += "<br />";
 document.body.appendChild(footnotes);
