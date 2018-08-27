@@ -1,5 +1,7 @@
 # micronotes
 
+## Usage
+
 ### Installation
 
 To add micronotes to any page on your website, simply add the following <script> tag to the HTML of the page at the bottom of the <body> section.
@@ -16,7 +18,7 @@ By default, footnotes can be added using the {note} and {/note} tags - just put 
 
 **Note:** the {note} syntax will be depreciated in version 1.5, which will introduce a custom HTML tag, <note>. From then on, the <note> tag should be used instead of {note}. However, {note} will continue to be supported for at least one year after the release of v1.5.
 
-## Requirements
+### Requirements
 
 None! micronotes was designed to work without any dependencies or requirements of any kind - just drop it into your web page, and it'll work. One of the issues I had with some other JavaScript footnote plugins and libraries was that they needed [jQuery](https://jquery.com/) or other libraries to be loaded in order to work. Something as simple as adding footnotes to a web page should not require entire libraries - it should be simple, lightweight, and independent.
 
