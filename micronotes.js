@@ -13,9 +13,9 @@ const jump_down = function (id) {
 
 const styles = "\n\
 * {\n\
-  box-sizing: border-box;\n\
-  -moz-box-sizing: border-box;\n\
-  -webkit-box-sizing: border-box;\n\
+	box-sizing: border-box;\n\
+	-moz-box-sizing: border-box;\n\
+	-webkit-box-sizing: border-box;\n\
 }\n\
 .number {\n\
       text-decoration: none;\n\
@@ -51,7 +51,7 @@ const styles = "\n\
       \n\
       opacity: 1;\n\
       visibility: visible;\n\
-      transition: background-color 1s ease 0s, border-radius 1s ease 0s, box-shadow 1s ease 0s, opacity 1s ease, display 0s ease 0s;\n\
+      transition: background-color 1s ease 0s, border-radius 1s ease 0s, box-shadow 1s ease 0s, opacity 1s ease;\n\
 }\n\
 \n";
 
@@ -75,7 +75,7 @@ do {
                   \n\
                   opacity: 1;\n\
                   visibility: visible;\n\
-                  transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, display 0s ease 0s;\n\
+                  transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease;\n\
             }\n\
       \n";
       document.body.innerHTML = replace(
