@@ -1,5 +1,8 @@
 # micronotes
 
+## Requirements
+
+None! micronotes was designed to work without any dependencies or requirements of any kind - just drop it into your web page, and it'll work. One of the issues I had with some other JavaScript footnote plugins and libraries was that they needed [jQuery](https://jquery.com/) or other libraries to be loaded in order to work. Something as simple as adding footnotes to a web page should not require entire libraries - it should be simple, lightweight, and independent.
 
 ## Issues
 
