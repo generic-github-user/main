@@ -20,6 +20,57 @@ By default, footnotes can be added using the {note} and {/note} tags - just put 
 
 None! micronotes was designed to work without any dependencies or requirements of any kind - just drop it into your web page, and it'll work. One of the issues I had with some other JavaScript footnote plugins and libraries was that they needed [jQuery](https://jquery.com/) or other libraries to be loaded in order to work. Something as simple as adding footnotes to a web page should not require entire libraries - it should be simple, lightweight, and independent.
 
+## Technical Details
+
+How it works.
+
+### Footnote Styling
+
+All of the CSS styling information used to add custom styling to footnotes is automatically added to the header section by the micronotes script. This includes classes for footnote numbers and boxes, as well as some layout information.
+
+```css
+* {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+}
+.number {
+      text-decoration: none;
+      color: #2b5cad;
+      transition: color 1s ease;
+}
+.number:hover {
+      color: #6799ea;
+      transition: color 1s ease;
+}
+.number:active {
+      color: #96beff;
+      transition: color 0.1s ease;
+}
+.note {
+      background-color: #efefef;
+      border-radius: 5px;
+      box-shadow: 4px 4px 10px 2px #999;
+
+      opacity: 0;
+
+      padding: 1vw;
+      margin: 0.1vw;
+      position: absolute;
+      visibility: hidden;
+
+      transition: background-color 1s ease 0.25s, border-radius 1s ease 0.25s, box-shadow 1s ease 0.25s, opacity 1s ease, visibility 0s ease 1s;
+}
+.note:hover {
+      background-color: #ffffff;
+      border-radius: 15px;
+
+      opacity: 1;
+      visibility: visible;
+      transition: background-color 1s ease 0s, border-radius 1s ease 0s, box-shadow 1s ease 0s, opacity 1s ease;
+}
+```
+
 ## Issues
 
 Please submit any and all issues you have with micronotes to the [issues page](https://github.com/generic-github-user/micronotes/issues). I'll try to help you resolve it as soon as possible, or recommend an alternative solution if necessary.
