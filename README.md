@@ -1,6 +1,6 @@
 # micronotes
 
-Not to be confused with [Microsoft](https://www.microsoft.com/en-us/).
+Just a fun weekend project. Not to be confused with [Microsoft](https://www.microsoft.com/en-us/).
 
 ## Usage
 
