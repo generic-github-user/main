@@ -4,6 +4,13 @@ const replace = function (string, find, replace) {
 }
 var note_index = 1;
 
+const jump_up = function (id) {
+      document.getElementById("note-" + id).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+}
+const jump_down = function (id) {
+      document.getElementById("footnote-" + id).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+}
+
 const styles = "\n\
 * {\n\
   box-sizing: border-box;\n\
@@ -74,7 +81,7 @@ do {
       document.body.innerHTML = replace(
             document.body.innerHTML,
             "{note}",
-            "<sup class='number' id='number-" + note_index + "'><a href='#footnote-" + note_index + "' class='number'>" + note_index + "</a></sup><span class='note' id='note-" + note_index + "'>"
+            "<sup class='number' id='number-" + note_index + "' onclick='jump_down(" + note_index + ");'>" + note_index + "</sup><span class='note' id='note-" + note_index + "'>"
       );
       document.body.innerHTML = replace(
             document.body.innerHTML,
@@ -87,7 +94,7 @@ do {
 
 for (var i = 1; i < document.body.getElementsByClassName("note").length + 1; i ++) {
       var footnote_content = document.body.querySelector("#note-" + i).innerHTML;
-      footnotes.innerHTML += "<a href='#note-" + i + "' class='number' id='footnote-" + i + "'>" + i + ". </a><span class='footnote-content'>" + footnote_content + "</span>";
+      footnotes.innerHTML += "<span class='number' id='footnote-" + i + "' onclick='jump_up(" + i + ")'>" + i + ". </span><span class='footnote-content'>" + footnote_content + "</span>";
       footnotes.innerHTML += "<br />";
 }
 
