@@ -1,5 +1,15 @@
 # micronotes
 
+### Installation
+
+To add micronotes to any page on your website, simply add the following <script> tag to the HTML of the page at the bottom of the <body> section.
+
+```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/generic-github-user/micronotes@v1.0/micronotes.js"></script>
+```
+
+If using plain HTML, you will need to add the script to any page that you want to add footnotes to. Alternatively, add it to a PHP functions file or similar file that loads content that must be added to every page on a website - this way, you only need to add the script once.
+
 ### Adding Footnotes
 
 By default, footnotes can be added using the {note} and {/note} tags - just put whatever HTML you want in between those two tags, and it will automatically be made into a gorgeous, responsive footnote.
