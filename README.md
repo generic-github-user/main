@@ -1,5 +1,7 @@
 # micronotes
 
+micronotes is a simple JavaScript plugin that allows you to quickly and easily add beautiful footnote boxes to webpages. Just add the script to any HTML page, and you can easily add footnote boxes anywhere on the page. Hovering over a footnote number will display its content, and you can click on any number to see the corresponding footnote in an automatically generated listing that will be added to the end of the page.
+
 Just a fun weekend project. Not to be confused with [Microsoft](https://www.microsoft.com/en-us/).
 
 ## Usage
