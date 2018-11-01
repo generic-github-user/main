@@ -77,7 +77,9 @@ const cs = {
       "all": {
             // List of all nodes
             "nodes": [],
+            // List of all connections
             "connections": [],
+            // List of all networks
             "networks": []
       },
       "temp": {
@@ -118,56 +120,70 @@ cs.UUID = function() {
       return id;
 }
 
+// Node class
 cs.node = class {
       constructor(config) {
             this.type = config.type;
+            // Create input node
             if (config.type == "Data/Input") {
                   cs.temp.node_types.input.push(this);
 
                   // Cannot be undefined
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
-            } else if (config.type == "Data/Output") {
+            }
+            // Create output node
+            else if (config.type == "Data/Output") {
                   cs.temp.node_types.output.push(this);
 
                   cs.temp.node_inputs.push(this);
                   this.value = config.value;
                   cs.temp.node_outputs.push(this);
-            } else if (config.type == "Data/Value") {
+            }
+            // Create value node
+            else if (config.type == "Data/Value") {
                   cs.temp.node_types.value.push(this);
 
                   this.value = config.value;
                   cs.temp.node_outputs.push(this);
-            } else if (config.type == "Operation/Addition") {
+            }
+            // Create addition node
+            else if (config.type == "Operation/Addition") {
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
-            } else if (config.type == "Operation/Multiplication") {
+            }
+            // Create multiplication node
+            else if (config.type == "Operation/Multiplication") {
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
-            } else {
+            }
+            // Log error: node type not found
+            else {
                   console.error("'" + config.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
             }
 
-            var id = cs.UUID();
-            this.id = id;
+            // Create UUID for node
+            this.id = cs.UUID();
+            // Add node to global nodes list
             cs.all.nodes.push(this);
       }
 }
 
+// Connection class
 cs.connection = class {
       // Constructor for creating a connection between two nodes within a network
       constructor(config) {
             this.source = config.source;
             this.destination = config.destination;
 
-            var id = cs.UUID();
-            this.id = id;
+            this.id = cs.UUID();
             cs.all.connections.push(this);
       }
 }
 
+// Network class
 cs.network = class {
       // Constructor for creating a network or computation graph
       constructor(config) {
@@ -178,6 +194,7 @@ cs.network = class {
             cs.temp.node_inputs = [];
             cs.temp.node_outputs = [];
 
+            // Score used for evolutionary optimization algorithm
             this.score = 0;
 
             cs.temp.node_types = {
@@ -203,6 +220,7 @@ cs.network = class {
                         })
                   );
             }
+            // Add value nodes to network
             for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
@@ -211,6 +229,7 @@ cs.network = class {
                         })
                   );
             }
+            // Add addition nodes to network
             for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
@@ -218,6 +237,7 @@ cs.network = class {
                         })
                   );
             }
+            // Add multiplication nodes to network
             for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
@@ -230,6 +250,7 @@ cs.network = class {
 
             this.node_types = cs.temp.node_types;
 
+            // Generate random connections between nodes
             var connections = [];
             for (var i = 0; i < Math.round(random(50, 100)); i++) {
                   connections.push(
@@ -244,6 +265,7 @@ cs.network = class {
             }
             this.connections = connections;
 
+            // Function for setting input data of network
             this.set_inputs = function(inputs) {
                   var num_inputs = this.node_types.input.length;
                   if (inputs.length < num_inputs) {
@@ -260,6 +282,7 @@ cs.network = class {
                   }
             }
 
+            // Function for retrieving outputs from network
             this.get_outputs = function() {
                   var outputs = [];
                   this.node_types.output.forEach(
@@ -328,6 +351,7 @@ cs.network = class {
                   return this;
             };
 
+            // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
                   for (var i = 0; i < config.iterations; i++) {
                         var population = new Array(config.population).fill(clone(this));
