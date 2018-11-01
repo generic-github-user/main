@@ -51,28 +51,6 @@ const average = function(array) {
       return sum(array) / array.length;
 }
 
-
-
-// Settings for networks
-var settings = {
-      "node_types": [{
-                  "name": "Data/Input"
-            },
-            {
-                  "name": "Data/Output"
-            },
-            {
-                  "name": "Data/Value"
-            },
-            {
-                  "name": "Operation/Addition",
-            },
-            {
-                  "name": "Operation/Multiplication"
-            }
-      ]
-};
-
 const cs = {
       "all": {
             // List of all nodes
@@ -81,6 +59,25 @@ const cs = {
             "connections": [],
             // List of all networks
             "networks": []
+      },
+      // Settings for networks
+      "settings": {
+            "node_types": [{
+                        "name": "Data/Input"
+                  },
+                  {
+                        "name": "Data/Output"
+                  },
+                  {
+                        "name": "Data/Value"
+                  },
+                  {
+                        "name": "Operation/Addition",
+                  },
+                  {
+                        "name": "Operation/Multiplication"
+                  }
+            ]
       }
 };
 
