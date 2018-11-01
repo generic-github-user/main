@@ -24,9 +24,9 @@ const random_item = function(array) {
 const clone = function(object) {
       return Object.assign({}, object);
 }
-// Find a node globally given its ID
-const get_node = function(id) {
-      return all_nodes.find(x => x.id == id);
+// Find a network globally given its ID
+const get_network = function(id) {
+      return cs.all.networks.find(x => x.id == id);
 }
 
 const difference = function(array_1, array_2) {
