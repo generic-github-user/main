@@ -257,13 +257,17 @@ cs.network = class {
                         // Create a new connection with the constructor function
                         new cs.connection({
                               // Connection sources must be nodes with outputs
-                              "source": random_item(this.node_outputs),
+                              "source": random_item(this.node_outputs).id,
                               // Connection destinations must be nodes with inputs
-                              "destination": random_item(this.node_inputs)
+                              "destination": random_item(this.node_inputs).id
                         })
                   );
             }
             this.connections = connections;
+
+            this.node = function(id) {
+                  return this.nodes.find(x => x.id == id);
+            }
 
             // Function for setting input data of network
             this.set_inputs = function(inputs) {
@@ -308,13 +312,13 @@ cs.network = class {
                         }
                   );
                   for (var i = 0; i < network_buffer.connections.length; i++) {
-                        var type = this.connections[i].destination.type;
+                        var type = this.node(this.connections[i].destination).type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
-                              this.connections[i].destination.value +=
-                                    network_buffer.connections[i].source.value;
+                              this.node(this.connections[i].destination).value +=
+                                    network_buffer.node(connections[i].source).value;
                         } else if (type == "Operation/Multiplication") {
-                              this.connections[i].destination.value *=
-                                    network_buffer.connections[i].source.value;
+                              this.node(this.connections[i].destination).value *=
+                                    network_buffer.node(connections[i].source).value;
                         }
                   }
                   this.nodes.forEach(
