@@ -20,9 +20,41 @@ const random = function(minimum, maximum) {
 const random_item = function(array) {
       return array[Math.floor(Math.random() * array.length)];
 }
-// Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
-const clone = function(object) {
-      return Object.assign({}, object);
+// Deep clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
+// IDs of nodes and connections cloned networks do not need to be regenerated because they are only used to find nodes and connections from that specific network
+// https://stackoverflow.com/a/728694
+function clone(object) {
+      var copy;
+
+      // Handle the 3 simple types, and null or undefined
+      if (null == object || "object" != typeof object) return object;
+
+      // Handle Date
+      if (object instanceof Date) {
+            copy = new Date();
+            copy.setTime(object.getTime());
+            return copy;
+      }
+
+      // Handle Array
+      if (object instanceof Array) {
+            copy = [];
+            for (var i = 0, len = object.length; i < len; i++) {
+                  copy[i] = clone(object[i]);
+            }
+            return copy;
+      }
+
+      // Handle Object
+      if (object instanceof Object) {
+            copy = {};
+            for (var attr in object) {
+                  if (object.hasOwnProperty(attr)) copy[attr] = clone(object[attr]);
+            }
+            return copy;
+      }
+
+      throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 // Find a network globally given its ID
 const get_network = function(id) {
@@ -313,14 +345,14 @@ cs.network = class {
                               }
                         }
                   );
-                  for (var i = 0; i < network_buffer.connections.length; i++) {
+                  for (var i = 0; i < this.connections.length; i++) {
                         var type = this.node(this.connections[i].destination).type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
                               this.node(this.connections[i].destination).value +=
-                                    network_buffer.node(connections[i].source).value;
+                                    network_buffer.node(network_buffer.connections[i].source).value;
                         } else if (type == "Operation/Multiplication") {
                               this.node(this.connections[i].destination).value *=
-                                    network_buffer.node(connections[i].source).value;
+                                    network_buffer.node(network_buffer.connections[i].source).value;
                         }
                   }
                   this.nodes.forEach(
@@ -360,6 +392,7 @@ cs.network = class {
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
                   for (var i = 0; i < config.iterations; i++) {
+                        // copy.id = cs.UUID();
                         var population = new Array(config.population).fill(clone(this));
                         population.forEach(
                               (network) => {
