@@ -13,23 +13,23 @@ console.log("%c\
 
 
 // Generate a random number in between a minimum value and a maximum value
-const random = function (minimum, maximum) {
+const random = function(minimum, maximum) {
       return minimum + (Math.random() * (maximum - minimum));
 }
 // Select a random element from a given array
-const random_item = function (array) {
+const random_item = function(array) {
       return array[Math.floor(Math.random() * array.length)];
 }
 // Clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
-const clone = function (object) {
+const clone = function(object) {
       return Object.assign({}, object);
 }
 // Find a node globally given its ID
-const get_node = function (id) {
+const get_node = function(id) {
       return all_nodes.find(x => x.id == id);
 }
 
-const difference = function (array_1, array_2) {
+const difference = function(array_1, array_2) {
       return array_2.map(
             (element, i) => {
                   return element - array_1[i];
@@ -37,7 +37,7 @@ const difference = function (array_1, array_2) {
       )
 }
 
-const sum = function (array) {
+const sum = function(array) {
       var sum = 0;
       array.forEach(
             (element) => {
@@ -47,7 +47,7 @@ const sum = function (array) {
       return sum;
 }
 
-const average = function (array) {
+const average = function(array) {
       return sum(array) / array.length;
 }
 
@@ -55,8 +55,7 @@ const average = function (array) {
 
 // Settings for networks
 var settings = {
-      "node_types": [
-            {
+      "node_types": [{
                   "name": "Data/Input"
             },
             {
@@ -101,12 +100,12 @@ const cs = {
 // Generate a random UUID
 // Based on https://stackoverflow.com/a/105074
 var uuids = [];
-cs.UUID = function () {
+cs.UUID = function() {
       // Generate a random string of four hexadecimal digits
       function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
+                  .toString(16)
+                  .substring(1);
       }
       // Generate UUID from substrings
       var id;
@@ -128,31 +127,26 @@ cs.node = class {
                   // Cannot be undefined
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
-            }
-            else if (config.type == "Data/Output") {
+            } else if (config.type == "Data/Output") {
                   cs.temp.node_types.output.push(this);
 
                   cs.temp.node_inputs.push(this);
                   this.value = config.value;
                   cs.temp.node_outputs.push(this);
-            }
-            else if (config.type == "Data/Value") {
+            } else if (config.type == "Data/Value") {
                   cs.temp.node_types.value.push(this);
 
                   this.value = config.value;
                   cs.temp.node_outputs.push(this);
-            }
-            else if (config.type == "Operation/Addition") {
+            } else if (config.type == "Operation/Addition") {
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
-            }
-            else if (config.type == "Operation/Multiplication") {
+            } else if (config.type == "Operation/Multiplication") {
                   cs.temp.node_inputs.push(this);
                   this.value = 0;
                   cs.temp.node_outputs.push(this);
-            }
-            else {
+            } else {
                   console.error("'" + config.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
             }
 
@@ -194,14 +188,14 @@ cs.network = class {
                   // List of value (bias) nodes
                   "value": []
             }
-            for (var i = 0; i < config.num_inputs; i ++) {
+            for (var i = 0; i < config.num_inputs; i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Data/Input"
                         })
                   );
             }
-            for (var i = 0; i < config.num_outputs; i ++) {
+            for (var i = 0; i < config.num_outputs; i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Data/Output",
@@ -209,7 +203,7 @@ cs.network = class {
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Data/Value",
@@ -217,14 +211,14 @@ cs.network = class {
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Operation/Addition"
                         })
                   );
             }
-            for (var i = 0; i < Math.round(random(10, 20)); i ++) {
+            for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Operation/Multiplication"
@@ -237,7 +231,7 @@ cs.network = class {
             this.node_types = cs.temp.node_types;
 
             var connections = [];
-            for (var i = 0; i < Math.round(random(50, 100)); i ++) {
+            for (var i = 0; i < Math.round(random(50, 100)); i++) {
                   connections.push(
                         // Create a new connection with the constructor function
                         new cs.connection({
@@ -250,25 +244,23 @@ cs.network = class {
             }
             this.connections = connections;
 
-            this.set_inputs = function (inputs) {
+            this.set_inputs = function(inputs) {
                   var num_inputs = this.node_types.input.length;
                   if (inputs.length < num_inputs) {
                         console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
-                  }
-                  else if (inputs.length > num_inputs) {
+                  } else if (inputs.length > num_inputs) {
                         console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
-                  }
-                  else if (inputs.length == num_inputs) {
-                        for (var i = 0; i < inputs.length; i ++) {
+                  } else if (inputs.length == num_inputs) {
+                        for (var i = 0; i < inputs.length; i++) {
                               this.node_types.input[i].value = inputs[i];
                         }
                         return this;
                   }
             }
 
-            this.get_outputs = function () {
+            this.get_outputs = function() {
                   var outputs = [];
                   this.node_types.output.forEach(
                         (node) => {
@@ -279,7 +271,7 @@ cs.network = class {
             }
 
             // Run one iteration of calculations for node values in network
-            this.update = function () {
+            this.update = function() {
                   // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                   var network_buffer = clone(this);
                   this.nodes.forEach(
@@ -287,21 +279,19 @@ cs.network = class {
                               var type = node.type;
                               if (type == "Data/Output" || type == "Operation/Addition") {
                                     node.value = 0;
-                              }
-                              else if (type == "Operation/Multiplication") {
+                              } else if (type == "Operation/Multiplication") {
                                     node.value = 1;
                               }
                         }
                   );
-                  for (var i = 0; i < network_buffer.connections.length; i ++) {
+                  for (var i = 0; i < network_buffer.connections.length; i++) {
                         var type = this.connections[i].destination.type;
                         if (type == "Data/Output" || type == "Operation/Addition") {
                               this.connections[i].destination.value +=
-                              network_buffer.connections[i].source.value;
-                        }
-                        else if (type == "Operation/Multiplication") {
+                                    network_buffer.connections[i].source.value;
+                        } else if (type == "Operation/Multiplication") {
                               this.connections[i].destination.value *=
-                              network_buffer.connections[i].source.value;
+                                    network_buffer.connections[i].source.value;
                         }
                   }
                   this.nodes.forEach(
@@ -316,22 +306,18 @@ cs.network = class {
                   return this;
             }
 
-            this.mutate = function (config) {
+            this.mutate = function(config) {
                   if (typeof(config.mutation_rate) !== "number") {
                         console.error("Mutation rate must be a number.");
-                  }
-                  else if (config.mutation_rate < 0) {
+                  } else if (config.mutation_rate < 0) {
                         console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
-                  }
-                  else if (config.mutation_rate > 1) {
+                  } else if (config.mutation_rate > 1) {
                         console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
-                  }
-                  else {
+                  } else {
                         this.node_types.value.forEach(
                               (node) => {
                                     if (random(0, 1) < config.mutation_rate) {
-                                          node.value += random(
-                                                -config.mutation_size,
+                                          node.value += random(-config.mutation_size,
                                                 config.mutation_size
                                           );
                                     }
@@ -342,19 +328,33 @@ cs.network = class {
                   return this;
             };
 
-            this.evolve = function (config) {
-                  for (var i = 0; i < config.iterations; i ++) {
+            this.evolve = function(config) {
+                  for (var i = 0; i < config.iterations; i++) {
                         var population = new Array(config.population).fill(clone(this));
                         population.forEach(
                               (network) => {
-                                    network.mutate({"mutation_rate": 0.5, "mutation_size": 1})
+                                    network.mutate({
+                                          "mutation_rate": 0.5,
+                                          "mutation_size": 1
+                                    })
                                     network.set_inputs(config.inputs);
                                     network.update();
+                                    console.log(network.get_outputs());
                                     network.score = average(difference(network.get_outputs(), config.outputs));
                               }
                         );
-                        var best_score = Math.min.apply(Math, population.map(function(x) { return x.score; }));
-                        var best_network = population.find(function(x){ return x.score == best_score; })
+                        var best_score = Math.min.apply(
+                              Math, population.map(
+                                    function(x) {
+                                          return x.score;
+                                    }
+                              )
+                        );
+                        var best_network = population.find(
+                              function(x) {
+                                    return x.score == best_score;
+                              }
+                        );
                         console.log(best_network)
                   }
                   return population;
