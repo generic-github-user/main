@@ -268,6 +268,9 @@ cs.network = class {
             this.node = function(id) {
                   return this.nodes.find(x => x.id == id);
             }
+            this.connection = function(id) {
+                  return this.connections.find(x => x.id == id);
+            }
 
             // Function for setting input data of network
             this.set_inputs = function(inputs) {
