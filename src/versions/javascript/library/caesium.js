@@ -187,8 +187,8 @@ cs.connection = class {
 cs.network = class {
       // Constructor for creating a network or computation graph
       constructor(config) {
-            this.inputs = config.num_inputs;
-            this.outputs = config.num_outputs;
+            this.inputs = config.inputs;
+            this.outputs = config.outputs;
             this.nodes = [];
 
             cs.temp.node_inputs = [];
@@ -205,14 +205,14 @@ cs.network = class {
                   // List of value (bias) nodes
                   "value": []
             }
-            for (var i = 0; i < config.num_inputs; i++) {
+            for (var i = 0; i < this.inputs; i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Data/Input"
                         })
                   );
             }
-            for (var i = 0; i < config.num_outputs; i++) {
+            for (var i = 0; i < this.outputs; i++) {
                   this.nodes.push(
                         new cs.node({
                               "type": "Data/Output",
