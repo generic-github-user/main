@@ -81,21 +81,6 @@ const cs = {
             "connections": [],
             // List of all networks
             "networks": []
-      },
-      "temp": {
-            // These must be declared outside of the scope of a network object so that the node constructor can add nodes to them
-            // List of nodes with inputs (see if there is a more efficient way to do this)
-            "node_types": {
-                  // List of output nodes
-                  "input": [],
-                  // List of output nodes
-                  "output": [],
-                  // List of value (bias) nodes
-                  "value": []
-            },
-            "node_inputs": [],
-            // List of nodes with outputs
-            "node_outputs": []
       }
 };
 
@@ -129,38 +114,38 @@ cs.node = class {
 
             // Create input node
             if (config.type == "Data/Input") {
-                  cs.temp.node_types.input.push(this.id);
+                  config.network.node_types.input.push(this.id);
 
                   // Cannot be undefined
                   this.value = 0;
-                  cs.temp.node_outputs.push(this.id);
+                  config.network.node_outputs.push(this.id);
             }
             // Create output node
             else if (config.type == "Data/Output") {
-                  cs.temp.node_types.output.push(this.id);
+                  config.network.node_types.output.push(this.id);
 
-                  cs.temp.node_inputs.push(this.id);
+                  config.network.node_inputs.push(this.id);
                   this.value = config.value;
-                  cs.temp.node_outputs.push(this.id);
+                  config.network.node_outputs.push(this.id);
             }
             // Create value node
             else if (config.type == "Data/Value") {
-                  cs.temp.node_types.value.push(this.id);
+                  config.network.node_types.value.push(this.id);
 
                   this.value = config.value;
-                  cs.temp.node_outputs.push(this.id);
+                  config.network.node_outputs.push(this.id);
             }
             // Create addition node
             else if (config.type == "Operation/Addition") {
-                  cs.temp.node_inputs.push(this.id);
+                  config.network.node_inputs.push(this.id);
                   this.value = 0;
-                  cs.temp.node_outputs.push(this.id);
+                  config.network.node_outputs.push(this.id);
             }
             // Create multiplication node
             else if (config.type == "Operation/Multiplication") {
-                  cs.temp.node_inputs.push(this.id);
+                  config.network.node_inputs.push(this.id);
                   this.value = 0;
-                  cs.temp.node_outputs.push(this.id);
+                  config.network.node_outputs.push(this.id);
             }
             // Log error: node type not found
             else {
@@ -189,19 +174,20 @@ cs.connection = class {
 cs.network = class {
       // Constructor for creating a network or computation graph
       constructor(config) {
+            // Assign a random ID to the the new network object
             this.id = cs.UUID();
 
             this.inputs = config.inputs;
             this.outputs = config.outputs;
             this.nodes = [];
 
-            cs.temp.node_inputs = [];
-            cs.temp.node_outputs = [];
+            this.node_inputs = [];
+            this.node_outputs = [];
 
             // Score used for evolutionary optimization algorithm
             this.score = 0;
 
-            cs.temp.node_types = {
+            this.node_types = {
                   // List of output nodes
                   "input": [],
                   // List of output nodes
@@ -212,6 +198,7 @@ cs.network = class {
             for (var i = 0; i < this.inputs; i++) {
                   this.nodes.push(
                         new cs.node({
+                              "network": this,
                               "type": "Data/Input"
                         })
                   );
@@ -219,6 +206,7 @@ cs.network = class {
             for (var i = 0; i < this.outputs; i++) {
                   this.nodes.push(
                         new cs.node({
+                              "network": this,
                               "type": "Data/Output",
                               "value": 0
                         })
@@ -228,6 +216,7 @@ cs.network = class {
             for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
+                              "network": this,
                               "type": "Data/Value",
                               "value": random(-1, 1)
                         })
@@ -237,6 +226,7 @@ cs.network = class {
             for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
+                              "network": this,
                               "type": "Operation/Addition"
                         })
                   );
@@ -245,14 +235,11 @@ cs.network = class {
             for (var i = 0; i < Math.round(random(10, 20)); i++) {
                   this.nodes.push(
                         new cs.node({
+                              "network": this,
                               "type": "Operation/Multiplication"
                         })
                   );
             }
-            this.node_inputs = cs.temp.node_inputs;
-            this.node_outputs = cs.temp.node_outputs;
-
-            this.node_types = cs.temp.node_types;
 
             // These functions must be defined before the connection generation code so they can be used there
             this.node = function(id) {
