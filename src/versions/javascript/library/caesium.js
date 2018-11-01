@@ -266,10 +266,20 @@ cs.network = class {
             this.connections = connections;
 
             this.node = function(id) {
-                  return this.nodes.find(x => x.id == id);
+                  var node = this.nodes.find(x => x.id == id);
+                  if (!node) {
+                        console.error("Node with id " + id + " could not be found.");
+                  } else {
+                        return node;
+                  }
             }
             this.connection = function(id) {
-                  return this.connections.find(x => x.id == id);
+                  var connection = this.connections.find(x => x.id == id);
+                  if (!connection) {
+                        console.error("Connection with id " + id + " could not be found.");
+                  } else {
+                        return connection;
+                  }
             }
 
             // Function for setting input data of network
