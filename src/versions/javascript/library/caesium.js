@@ -56,6 +56,13 @@ function clone(object) {
 
       throw new Error("Unable to copy obj! Its type isn't supported.");
 }
+
+function clone_network(network) {
+      var clone = clone(network);
+      clone.id = cs.UUID();
+      return clone;
+}
+
 // Find a network globally given its ID
 const get_network = function(id) {
       return cs.all.networks.find(x => x.id == id);
@@ -392,8 +399,7 @@ cs.network = class {
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
                   for (var i = 0; i < config.iterations; i++) {
-                        // copy.id = cs.UUID();
-                        var population = new Array(config.population).fill(clone(this));
+                        var population = new Array(config.population).fill(clone_network(this));
                         population.forEach(
                               (network) => {
                                     network.mutate({
