@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 
 <html>
-      <head>
-            <title>
-                  Caesium - Basic Demo
-            </title>
-            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
-            <style>
-                  * {
-                        user-select: none;
 
-                        margin: 0;
-                        padding: 0;
+<head>
+      <title>
+            Caesium - Basic Demo
+      </title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+      <style>
+            * {
+                  user-select: none;
 
-                        font-family: "Roboto", sans-serif;
-                        font-weight: 100;
-                  }
-                  html, body {
-                        width: 100%;
-                        height: 100%;
-                  }
-                  a {
-                        text-decoration: none;
-                        color: #003996;
-                        transition: color 1s ease;
-                  }
-                  a:hover {
-                        color: #1c94ff;
-                        transition: color 1s ease;
-                  }
-                  #text {
-                        position: absolute;
+                  margin: 0;
+                  padding: 0;
 
-                        width: 80%;
-                        height: 10%;
+                  font-family: "Roboto", sans-serif;
+                  font-weight: 100;
+            }
 
-                        text-align: center;
-                        margin: 45vh 10vw;
+            html,
+            body {
+                  width: 100%;
+                  height: 100%;
+            }
 
-                        text-shadow: 1px 1px 1px #888;
-                        transition: all 1.5s ease, text-shadow 0.5s ease;
-                  }
-                  #text:hover {
-                        text-shadow: 4px 4px 4px #888;
-                        transition: all 1.5s ease, text-shadow 0.5s ease;
-                  }
-            </style>
-      </head>
-      <body>
-            <h1 id="text">Open the console (F12 or CTRL + SHIFT + J) to get started with <a href="https://github.com/generic-github-user/Caesium" target="_blank">Caesium.</a></h1>
-            <script type="text/javascript" src="../../library/caesium.js"></script>
-            <script type="text/javascript">
-                  console.log("Welcome to Caesium.");
-            </script>
-      </body>
+            a {
+                  text-decoration: none;
+                  color: #003996;
+                  transition: color 1s ease;
+            }
+
+            a:hover {
+                  color: #1c94ff;
+                  transition: color 1s ease;
+            }
+
+            #text {
+                  position: absolute;
+
+                  width: 80%;
+                  height: 10%;
+
+                  text-align: center;
+                  margin: 45vh 10vw;
+
+                  text-shadow: 1px 1px 1px #888;
+                  transition: all 1.5s ease, text-shadow 0.5s ease;
+            }
+
+            #text:hover {
+                  text-shadow: 4px 4px 4px #888;
+                  transition: all 1.5s ease, text-shadow 0.5s ease;
+            }
+      </style>
+</head>
+
+<body>
+      <h1 id="text">Open the console (F12 or CTRL + SHIFT + J) to get started with <a href="https://github.com/generic-github-user/Caesium" target="_blank">Caesium.</a></h1>
+      <script type="text/javascript" src="../../library/caesium.js"></script>
+      <script type="text/javascript">
+            cs.caesium();
+            console.log("Welcome to Caesium.");
+      </script>
+</body>
+
 </html>

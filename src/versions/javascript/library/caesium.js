@@ -1,16 +1,4 @@
-// ASCII logo art displayed in console
-// http://www.network-science.de/ascii/
-console.log("%c\
-    _____            ______   _____  _____  _    _  __  __   \n\
-   / ____|    /\\    |  ____| / ____||_   _|| |  | ||  \\/  |  \n\
-  | |        /  \\   | |__   | (___    | |  | |  | || \\  / |  \n\
-  | |       / /\\ \\  |  __|   \\___ \\   | |  | |  | || |\\/| |  \n\
-  | |____  / ____ \\ | |____  ____) | _| |_ | |__| || |  | |  \n\
-   \\_____|/_/    \\_\\|______||_____/ |_____| \\____/ |_|  |_|  \n\
-                                                             \
-", "background: #e8efff; color: #4319ff; font-weight: 1000;");
-
-
+// Caesium
 
 // Generate a random number in between a minimum value and a maximum value
 const random = function(minimum, maximum) {
@@ -117,6 +105,20 @@ const cs = {
             ]
       }
 };
+
+// ASCII logo art displayed in console
+// http://www.network-science.de/ascii/
+cs.caesium = function() {
+      console.log("%c\
+    _____            ______   _____  _____  _    _  __  __   \n\
+   / ____|    /\\    |  ____| / ____||_   _|| |  | ||  \\/  |  \n\
+  | |        /  \\   | |__   | (___    | |  | |  | || \\  / |  \n\
+  | |       / /\\ \\  |  __|   \\___ \\   | |  | |  | || |\\/| |  \n\
+  | |____  / ____ \\ | |____  ____) | _| |_ | |__| || |  | |  \n\
+   \\_____|/_/    \\_\\|______||_____/ |_____| \\____/ |_|  |_|  \n\
+                                                             \
+", "background: #e8efff; color: #4319ff; font-weight: 1000;");
+}
 
 // Generate a random UUID
 // Based on https://stackoverflow.com/a/105074
