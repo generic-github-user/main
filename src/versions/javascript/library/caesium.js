@@ -78,11 +78,9 @@ const difference = function(array_1, array_2) {
 
 const sum = function(array) {
       var sum = 0;
-      array.forEach(
-            (element) => {
-                  sum += element;
-            }
-      );
+      for (var i = 0; i < array.length; i++) {
+            sum += array[i];
+      };
       return sum;
 }
 
@@ -330,11 +328,9 @@ cs.network = class {
             // Function for retrieving outputs from network
             this.get_outputs = function() {
                   var outputs = [];
-                  this.node_types.output.forEach(
-                        (node) => {
-                              outputs.push(this.node(node).value);
-                        }
-                  );
+                  for (var i = 0; i < this.node_types.output.length; i++) {
+                        outputs.push(this.node(this.node_types.output[i]).value);
+                  }
                   return outputs;
             }
 
@@ -355,16 +351,15 @@ cs.network = class {
                   for (var j = 0; j < config.iterations; j++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         var network_buffer = clone(this);
-                        this.nodes.forEach(
-                              (node) => {
-                                    var type = node.type;
-                                    if (type == "Data/Output" || type == "Operation/Addition") {
-                                          node.value = 0;
-                                    } else if (type == "Operation/Multiplication") {
-                                          node.value = 1;
-                                    }
+                        for (var i = 0; i < this.nodes.length; i++) {
+                              var node = this.nodes[i];
+                              var type = node.type;
+                              if (type == "Data/Output" || type == "Operation/Addition") {
+                                    node.value = 0;
+                              } else if (type == "Operation/Multiplication") {
+                                    node.value = 1;
                               }
-                        );
+                        }
                         for (var i = 0; i < this.connections.length; i++) {
                               var type = this.node(this.connections[i].destination).type;
                               if (type == "Data/Output" || type == "Operation/Addition") {
@@ -400,15 +395,13 @@ cs.network = class {
                   } else if (config.mutation_rate > 1) {
                         console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
                   } else {
-                        this.node_types.value.forEach(
-                              (node) => {
-                                    if (random(0, 1) < config.mutation_rate) {
-                                          this.node(node).value += random(-config.mutation_size,
-                                                config.mutation_size
-                                          );
-                                    }
+                        for (var i = 0; i < this.node_types.value.length; i++) {
+                              if (random(0, 1) < config.mutation_rate) {
+                                    this.node(this.node_types.value[i]).value += random(-config.mutation_size,
+                                          config.mutation_size
+                                    );
                               }
-                        );
+                        }
                   }
 
                   return this;
