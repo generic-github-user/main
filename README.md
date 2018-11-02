@@ -157,6 +157,17 @@ All the connections that are contained within the structure of the network. Alon
 Methods are listed in the order they are defined in the library code.
 
 ###### Node
+`network.node()`
+
+Get a node from the network given its ID. Unlike most other functions and methods in Caesium, this method does not use a `config` object because it only has one parameter, `id`. This is the ID of the node you want to retrieve from the network. Remember that node IDs are local and used to identify the node of a specific network.
+
+The `network.node()` function retrieves a given node from the node list of the network object that it is called on. It uses the native `array.prototype.find` function to find a node with a matching ID from the node list. If no node with the provided ID can be found, an error message is returned: `Node with id [ID] could not be found.`
+
+Example:
+
+```javascript
+var node = network.node("7f0e0525-48c9-9de0-63b5-f67b9da29938");
+```
 
 ###### Connection
 
