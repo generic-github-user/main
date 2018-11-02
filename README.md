@@ -170,6 +170,17 @@ var node = network.node("7f0e0525-48c9-9de0-63b5-f67b9da29938");
 ```
 
 ###### Connection
+`network.connection()`
+
+Get a connection from the network given its ID. Unlike most other functions and methods in Caesium, this method does not use a `config` object because it only has one parameter, `id`. This is the ID of the connection you want to retrieve from the network. Remember that connection IDs are local and used to identify the connection of a specific network.
+
+The `network.connection()` function retrieves a given connection from the connection list of the network object that it is called on. It uses the native `array.prototype.find` function to find a connection with a matching ID from the connection list. If no connection with the provided ID can be found, an error message is returned: `Connection with id [ID] could not be found.`
+
+Example:
+
+```javascript
+var connection = network.connection("0b4b7920-a25f-727f-0d85-1b2c03da465b");
+```
 
 ###### Set Inputs
 
