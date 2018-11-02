@@ -280,19 +280,29 @@ cs.network = class {
             }
 
             // These functions must be defined before the connection generation code so they can be used there
+            // Get a node from the network given the node's ID
             this.node = function(id) {
+                  // Search network's node list for a connection with the matching ID
                   var node = this.nodes.find(x => x.id == id);
+                  // If node cannot be found, log an error
                   if (!node) {
                         console.error("Node with id " + id + " could not be found.");
-                  } else {
+                  }
+                  // If node is found, return the node object
+                  else {
                         return node;
                   }
             }
+            // Get a node from the network given the connection's ID
             this.connection = function(id) {
+                  // Search network's connection list for a connection with the matching ID
                   var connection = this.connections.find(x => x.id == id);
+                  // If connection cannot be found, log an error
                   if (!connection) {
                         console.error("Connection with id " + id + " could not be found.");
-                  } else {
+                  }
+                  // If connection is found, return the node object
+                  else {
                         return connection;
                   }
             }
@@ -331,10 +341,14 @@ cs.network = class {
 
             // Function for retrieving outputs from network
             this.get_outputs = function() {
+                  // Create array to store outputs in
                   var outputs = [];
+                  // Loop through all output nodes in network
                   for (var i = 0; i < this.node_types.output.length; i++) {
+                        // Add value of output node to array
                         outputs.push(this.node(this.node_types.output[i]).value);
                   }
+                  // Return array of outputs
                   return outputs;
             }
 
@@ -406,6 +420,7 @@ cs.network = class {
                   return this;
             }
 
+            // Mutate node values and topology/structure of network
             this.mutate = function(config) {
                   if (typeof(config.mutation_rate) !== "number") {
                         console.error("Mutation rate must be a number.");
@@ -423,6 +438,7 @@ cs.network = class {
                         }
                   }
 
+                  // Return mutated network
                   return this;
             };
 
@@ -434,11 +450,15 @@ cs.network = class {
                         for (var j = 0; j < population.length; j++) {
                               population[j] = clone(network);
                         }
+                        // Loop through entire population
                         for (var j = 0; j < population.length; j++) {
+                              // Mutate network
                               population[j].mutate({
                                     "mutation_rate": 0.5,
                                     "mutation_size": 0.001
                               });
+
+                              // Reset network score/fitness
                               population[j].score = 0;
                               for (var r = 0; r < config.inputs.length; r++) {
                                     population[j].set_inputs(config.inputs[r]);
@@ -448,6 +468,7 @@ cs.network = class {
                                     population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
                               }
                         }
+                        // Find best score from population
                         var best_score = Math.min.apply(
                               Math, population.map(
                                     function(x) {
@@ -455,17 +476,19 @@ cs.network = class {
                                     }
                               )
                         );
+                        // Find network of population with best score
                         var best_network = population.find(
                               function(x) {
                                     return x.score == best_score;
                               }
                         );
-                        console.log(best_score)
+                        console.log(best_score);
                         network = best_network;
                   }
                   return network;
             }
 
+            // Add network to global list of networks
             cs.all.networks.push(this);
       }
 }
