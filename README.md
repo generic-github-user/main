@@ -46,7 +46,7 @@ This is a technical guide to specific aspects of the Caesium library implementat
 
 ## JavaScript
 
-The JavaScript implementation of Caesium. It currently is only meant for use in the browser as a script tag embedded in an HTML file. No Node.js implementation is currently planned.
+The JavaScript implementation of the Caesium library. This is the main version of Caesium. It currently is only meant for use in the browser as a script tag embedded in an HTML file. A [Node.js implementation](https://github.com/generic-github-user/Caesium/issues/97) is planned.
 
 ### Classes
 
@@ -200,7 +200,7 @@ var connection = network.connection("0b4b7920-a25f-727f-0d85-1b2c03da465b");
 
 ## Python
 
-A Python implementation of Caesium is planned. See issue #2.
+A [Python implementation](https://github.com/generic-github-user/Caesium/issues/2) of Caesium is planned.
 
 # Credits
 
