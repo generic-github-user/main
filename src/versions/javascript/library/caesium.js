@@ -324,12 +324,12 @@ cs.network = class {
 
             // Function for setting input data of network
             this.set_inputs = function(inputs) {
-                  var num_inputs = this.node_types.input.length;
+                  var num_inputs = this.inputs;
                   if (inputs.length < num_inputs) {
-                        console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
+                        console.error("The number of inputs you have provided (" + inputs.length + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
                   } else if (inputs.length > num_inputs) {
-                        console.error("The number of inputs you have provided (" + num_inputs + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
+                        console.error("The number of inputs you have provided (" + inputs.length + ") is greater than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
                         return false;
                   } else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i++) {
