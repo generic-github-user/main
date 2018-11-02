@@ -11,7 +11,7 @@ const random_item = function(array) {
 // Deep clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
 // IDs of nodes and connections cloned networks do not need to be regenerated because they are only used to find nodes and connections from that specific network
 // https://stackoverflow.com/a/728694
-function clone(object) {
+const clone = function(object) {
       var copy;
 
       // Handle the 3 simple types, and null or undefined
@@ -45,7 +45,7 @@ function clone(object) {
       throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
-function clone_network(network) {
+const clone_network = function(network) {
       var cloned = clone(network);
       cloned.id = cs.UUID();
       return cloned;
