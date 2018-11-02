@@ -409,12 +409,15 @@ cs.network = class {
                               population[j].mutate({
                                     "mutation_rate": 0.5,
                                     "mutation_size": 0.5
-                              })
-                              population[j].set_inputs(config.inputs);
-                              population[j].update({
-                                    "iterations": 2
                               });
-                              population[j].score = Math.abs(average(difference(population[j].get_outputs(), config.outputs)));
+                              population[j].score = 0;
+                              for (var r = 0; r < config.inputs.length; r++) {
+                                    population[j].set_inputs(config.inputs[r]);
+                                    population[j].update({
+                                          "iterations": 5
+                                    });
+                                    population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
+                              }
                         }
                         var best_score = Math.min.apply(
                               Math, population.map(
@@ -428,6 +431,7 @@ cs.network = class {
                                     return x.score == best_score;
                               }
                         );
+                        console.log(best_score)
                         network = best_network;
                   }
                   return network;
