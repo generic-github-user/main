@@ -297,7 +297,7 @@ cs.network = class {
 
             // Generate random connections between nodes
             var connections = [];
-            for (var i = 0; i < Math.round(random(5, 10)); i++) {
+            for (var i = 0; i < Math.round(random(20, 20)); i++) {
                   connections.push(
                         // Create a new connection with the constructor function
                         new cs.connection({
@@ -340,6 +340,18 @@ cs.network = class {
 
             // Run one iteration of calculations for node values in network
             this.update = function(config) {
+                  if (!config) {
+                        config = {};
+                  }
+                  if (!config.iterations) {
+                        config.iterations = 1;
+                  } else if (typeof(config.iterations) != "number") {
+                        console.error("Number of iterations must be a number.");
+                        config.iterations = 1;
+                  }
+                  if (!config.logs) {
+                        config.logs = false;
+                  }
                   for (var j = 0; j < config.iterations; j++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         var network_buffer = clone(this);
@@ -363,13 +375,18 @@ cs.network = class {
                                           network_buffer.node(network_buffer.connections[i].source).value;
                               }
                         }
-                        this.nodes.forEach(
-                              (node) => {
-                                    if (node.type == "Operation/Multiplication" && node.value == 1) {
-                                          node.value = 0;
-                                    }
+                        for (var i = 0; i < this.nodes.length; i++) {
+                              var node = this.nodes[i];
+                              if (node.type == "Operation/Multiplication" && node.value == 1) {
+                                    node.value = 0;
                               }
-                        );
+                        }
+                        if (config.logs) {
+                              console.log("Iteration " + (j + 1) + " complete.", this);
+                        }
+                  }
+                  if (config.logs) {
+                        console.log("Node values updated for " + config.iterations + " iterations.", this);
                   }
                   // Return updated network object
                   return this;
@@ -408,13 +425,13 @@ cs.network = class {
                         for (var j = 0; j < population.length; j++) {
                               population[j].mutate({
                                     "mutation_rate": 0.5,
-                                    "mutation_size": 0.5
+                                    "mutation_size": 0.001
                               });
                               population[j].score = 0;
                               for (var r = 0; r < config.inputs.length; r++) {
                                     population[j].set_inputs(config.inputs[r]);
                                     population[j].update({
-                                          "iterations": 5
+                                          "iterations": 1
                                     });
                                     population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
                               }
