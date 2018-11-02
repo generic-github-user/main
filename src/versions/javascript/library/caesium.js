@@ -1,5 +1,7 @@
 // Caesium
 
+"use strict";
+
 // Generate a random number in between a minimum value and a maximum value
 const random = function(minimum, maximum) {
       return minimum + (Math.random() * (maximum - minimum));
