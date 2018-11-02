@@ -336,50 +336,65 @@ cs.network = class {
 
             // Run one iteration of calculations for node values in network
             this.update = function(config) {
+                  // If config object is missing, create one
                   if (!config) {
                         config = {};
                   }
+                  // If no number of iterations is provided, set to default (1)
                   if (!config.iterations) {
                         config.iterations = 1;
-                  } else if (typeof(config.iterations) != "number") {
+                  }
+                  // If number of iterations is provided and is not a number, log an error and set to default (1)
+                  else if (typeof(config.iterations) != "number") {
                         console.error("Number of iterations must be a number.");
                         config.iterations = 1;
                   }
+                  // If no console log status is provided, set to default (false)
                   if (!config.logs) {
                         config.logs = false;
                   }
                   for (var j = 0; j < config.iterations; j++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         var network_buffer = clone(this);
+                        // Reset node values
                         for (var i = 0; i < this.nodes.length; i++) {
                               var node = this.nodes[i];
                               var type = node.type;
                               if (type == "Data/Output" || type == "Operation/Addition") {
                                     node.value = 0;
-                              } else if (type == "Operation/Multiplication") {
+                              }
+                              // Set value of multiplication nodes to 1 so that they can be multiplied by the value of each source node to calculate the product
+                              else if (type == "Operation/Multiplication") {
                                     node.value = 1;
                               }
                         }
                         for (var i = 0; i < this.connections.length; i++) {
+                              // Store type of node in variable
                               var type = this.node(this.connections[i].destination).type;
+                              // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Data/Output" || type == "Operation/Addition") {
                                     this.node(this.connections[i].destination).value +=
                                           network_buffer.node(network_buffer.connections[i].source).value;
-                              } else if (type == "Operation/Multiplication") {
+                              }
+                              // Values for multiplication nodes can be calculated by multiplying together all of their inputs
+                              else if (type == "Operation/Multiplication") {
                                     this.node(this.connections[i].destination).value *=
                                           network_buffer.node(network_buffer.connections[i].source).value;
                               }
                         }
+                        // Remove placeholder value from multiplication nodes
                         for (var i = 0; i < this.nodes.length; i++) {
                               var node = this.nodes[i];
                               if (node.type == "Operation/Multiplication" && node.value == 1) {
                                     node.value = 0;
                               }
                         }
+                        // Log current iteration number and network to console
                         if (config.logs) {
                               console.log("Iteration " + (j + 1) + " complete.", this);
                         }
                   }
+                  // Log network to console after updating process is completed
                   if (config.logs) {
                         console.log("Node values updated for " + config.iterations + " iterations.", this);
                   }
