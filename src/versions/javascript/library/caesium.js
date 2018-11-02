@@ -355,12 +355,12 @@ cs.network = class {
                   if (!config.logs) {
                         config.logs = false;
                   }
-                  for (var j = 0; j < config.iterations; j++) {
+                  for (var i = 0; i < config.iterations; i++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         var network_buffer = clone(this);
                         // Reset node values
-                        for (var i = 0; i < this.nodes.length; i++) {
-                              var node = this.nodes[i];
+                        for (var j = 0; j < this.nodes.length; j++) {
+                              var node = this.nodes[j];
                               var type = node.type;
                               if (type == "Data/Output" || type == "Operation/Addition") {
                                     node.value = 0;
@@ -370,30 +370,30 @@ cs.network = class {
                                     node.value = 1;
                               }
                         }
-                        for (var i = 0; i < this.connections.length; i++) {
+                        for (var j = 0; j < this.connections.length; j++) {
                               // Store type of node in variable
-                              var type = this.node(this.connections[i].destination).type;
+                              var type = this.node(this.connections[j].destination).type;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Data/Output" || type == "Operation/Addition") {
-                                    this.node(this.connections[i].destination).value +=
-                                          network_buffer.node(network_buffer.connections[i].source).value;
+                                    this.node(this.connections[j].destination).value +=
+                                          network_buffer.node(network_buffer.connections[j].source).value;
                               }
                               // Values for multiplication nodes can be calculated by multiplying together all of their inputs
                               else if (type == "Operation/Multiplication") {
-                                    this.node(this.connections[i].destination).value *=
-                                          network_buffer.node(network_buffer.connections[i].source).value;
+                                    this.node(this.connections[j].destination).value *=
+                                          network_buffer.node(network_buffer.connections[j].source).value;
                               }
                         }
                         // Remove placeholder value from multiplication nodes
-                        for (var i = 0; i < this.nodes.length; i++) {
-                              var node = this.nodes[i];
+                        for (var j = 0; j < this.nodes.length; j++) {
+                              var node = this.nodes[j];
                               if (node.type == "Operation/Multiplication" && node.value == 1) {
                                     node.value = 0;
                               }
                         }
                         // Log current iteration number and network to console
                         if (config.logs) {
-                              console.log("Iteration " + (j + 1) + " complete.", this);
+                              console.log("Iteration " + (i + 1) + " complete.", this);
                         }
                   }
                   // Log network to console after updating process is completed
