@@ -58,9 +58,9 @@ function clone(object) {
 }
 
 function clone_network(network) {
-      var clone = clone(network);
-      clone.id = cs.UUID();
-      return clone;
+      var cloned = clone(network);
+      cloned.id = cs.UUID();
+      return cloned;
 }
 
 // Find a network globally given its ID
@@ -249,7 +249,7 @@ cs.network = class {
                   );
             }
             // Add value nodes to network
-            for (var i = 0; i < Math.round(random(10, 20)); i++) {
+            for (var i = 0; i < Math.round(random(1, 2)); i++) {
                   this.nodes.push(
                         new cs.node({
                               "network": this,
@@ -259,7 +259,7 @@ cs.network = class {
                   );
             }
             // Add addition nodes to network
-            for (var i = 0; i < Math.round(random(10, 20)); i++) {
+            for (var i = 0; i < Math.round(random(1, 2)); i++) {
                   this.nodes.push(
                         new cs.node({
                               "network": this,
@@ -268,7 +268,7 @@ cs.network = class {
                   );
             }
             // Add multiplication nodes to network
-            for (var i = 0; i < Math.round(random(10, 20)); i++) {
+            for (var i = 0; i < Math.round(random(1, 2)); i++) {
                   this.nodes.push(
                         new cs.node({
                               "network": this,
@@ -297,7 +297,7 @@ cs.network = class {
 
             // Generate random connections between nodes
             var connections = [];
-            for (var i = 0; i < Math.round(random(50, 100)); i++) {
+            for (var i = 0; i < Math.round(random(5, 10)); i++) {
                   connections.push(
                         // Create a new connection with the constructor function
                         new cs.connection({
@@ -339,37 +339,38 @@ cs.network = class {
             }
 
             // Run one iteration of calculations for node values in network
-            this.update = function() {
-                  // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
-                  var network_buffer = clone(this);
-                  this.nodes.forEach(
-                        (node) => {
-                              var type = node.type;
+            this.update = function(config) {
+                  for (var j = 0; j < config.iterations; j++) {
+                        // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
+                        var network_buffer = clone(this);
+                        this.nodes.forEach(
+                              (node) => {
+                                    var type = node.type;
+                                    if (type == "Data/Output" || type == "Operation/Addition") {
+                                          node.value = 0;
+                                    } else if (type == "Operation/Multiplication") {
+                                          node.value = 1;
+                                    }
+                              }
+                        );
+                        for (var i = 0; i < this.connections.length; i++) {
+                              var type = this.node(this.connections[i].destination).type;
                               if (type == "Data/Output" || type == "Operation/Addition") {
-                                    node.value = 0;
+                                    this.node(this.connections[i].destination).value +=
+                                          network_buffer.node(network_buffer.connections[i].source).value;
                               } else if (type == "Operation/Multiplication") {
-                                    node.value = 1;
+                                    this.node(this.connections[i].destination).value *=
+                                          network_buffer.node(network_buffer.connections[i].source).value;
                               }
                         }
-                  );
-                  for (var i = 0; i < this.connections.length; i++) {
-                        var type = this.node(this.connections[i].destination).type;
-                        if (type == "Data/Output" || type == "Operation/Addition") {
-                              this.node(this.connections[i].destination).value +=
-                                    network_buffer.node(network_buffer.connections[i].source).value;
-                        } else if (type == "Operation/Multiplication") {
-                              this.node(this.connections[i].destination).value *=
-                                    network_buffer.node(network_buffer.connections[i].source).value;
-                        }
+                        this.nodes.forEach(
+                              (node) => {
+                                    if (node.type == "Operation/Multiplication" && node.value == 1) {
+                                          node.value = 0;
+                                    }
+                              }
+                        );
                   }
-                  this.nodes.forEach(
-                        (node) => {
-                              if (node.type == "Operation/Multiplication" && node.value == 1) {
-                                    node.value = 0;
-                              }
-                        }
-                  );
-
                   // Return updated network object
                   return this;
             }
@@ -398,20 +399,23 @@ cs.network = class {
 
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
+                  var network = this;
                   for (var i = 0; i < config.iterations; i++) {
-                        var population = new Array(config.population).fill(clone_network(this));
-                        population.forEach(
-                              (network) => {
-                                    network.mutate({
-                                          "mutation_rate": 0.5,
-                                          "mutation_size": 1
-                                    })
-                                    network.set_inputs(config.inputs);
-                                    network.update();
-                                    console.log(network.get_outputs());
-                                    network.score = average(difference(network.get_outputs(), config.outputs));
-                              }
-                        );
+                        var population = new Array(config.population);
+                        for (var j = 0; j < population.length; j++) {
+                              population[j] = clone(network);
+                        }
+                        for (var j = 0; j < population.length; j++) {
+                              population[j].mutate({
+                                    "mutation_rate": 0.5,
+                                    "mutation_size": 0.5
+                              })
+                              population[j].set_inputs(config.inputs);
+                              population[j].update({
+                                    "iterations": 2
+                              });
+                              population[j].score = Math.abs(average(difference(population[j].get_outputs(), config.outputs)));
+                        }
                         var best_score = Math.min.apply(
                               Math, population.map(
                                     function(x) {
@@ -424,9 +428,9 @@ cs.network = class {
                                     return x.score == best_score;
                               }
                         );
-                        console.log(best_network)
+                        network = best_network;
                   }
-                  return population;
+                  return network;
             }
 
             cs.all.networks.push(this);
