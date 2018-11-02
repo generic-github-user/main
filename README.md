@@ -117,12 +117,24 @@ Config:
 
 Example:
 
-The following code will create a new network with 128 input nodes and 128 output nodes and store it in a new variable called `network`.
+The following code will create a new network with 5 input nodes and 5 output nodes and store it in a new variable called `network`.
 
 ```javascript
 var network = new cs.network({
-      "inputs": 128,
-      "outputs": 128
+      "nodes": {
+            "input": 5,
+            "output": 5,
+            "value": {
+                  "num": {
+                        "min": 5,
+                        "max": 10
+                  },
+                  "value": {
+                        "min": -1,
+                        "max": 1
+                  }
+            }
+      }
 });
 ```
 
