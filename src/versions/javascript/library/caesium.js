@@ -306,6 +306,13 @@ cs.network = class {
                         return connection;
                   }
             }
+            this.remove_node = function(id) {
+                  this.nodes.splice(this.nodes.indexOf(this.node(id)), 1);
+                  this.node_types.value.splice(this.node_types.value.indexOf(id, 1));
+            }
+            this.remove_connection = function(id) {
+                  this.connections.splice(this.connections.indexOf(this.connection(id)), 1);
+            }
 
             // Generate random connections between nodes
             var connections = [];
