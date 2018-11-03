@@ -66,6 +66,13 @@ const difference = function(array_1, array_2) {
       )
 }
 
+const remove = function(array, element) {
+      var index = array.indexOf(element);
+      if (index != -1) {
+            array.splice(index, 1);
+      }
+}
+
 const sum = function(array) {
       var sum = 0;
       for (var i = 0; i < array.length; i++) {
@@ -307,8 +314,20 @@ cs.network = class {
                   }
             }
             this.remove_node = function(id) {
-                  this.nodes.splice(this.nodes.indexOf(this.find_node(id)), 1);
-                  this.node_types.value.splice(this.node_types.value.indexOf(id, 1));
+                  remove(this.nodes, this.find_node(id));
+                  remove(this.node_types.value, id);
+
+                  remove(this.node_inputs, id);
+                  remove(this.node_outputs, id);
+
+                  var dead_connections = this.connections.filter(x => x.source == id);
+                  for (var i = 0; i < dead_connections.length; i++) {
+                        remove(this.connections, dead_connections[i]);
+                  }
+                  dead_connections = this.connections.filter(x => x.destination == id);
+                  for (var i = 0; i < dead_connections.length; i++) {
+                        remove(this.connections, dead_connections[i]);
+                  }
             }
             this.remove_connection = function(id) {
                   this.connections.splice(this.connections.indexOf(this.find_connection(id)), 1);
@@ -442,6 +461,60 @@ cs.network = class {
                                           config.mutation_size
                                     );
                               }
+                        }
+                        // for (var i = 0; i < 5; i++) {
+                        //       array.splice(Math.round(random(0, )), 1);
+                        // }
+
+                        // Add nodes to network
+                        // Add value nodes to network
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              this.nodes.push(
+                                    new cs.node({
+                                          "network": this,
+                                          "type": "Data/Value",
+                                          "value": random(-1, 1)
+                                    })
+                              );
+                        }
+                        // Add addition nodes to network
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              this.nodes.push(
+                                    new cs.node({
+                                          "network": this,
+                                          "type": "Operation/Addition"
+                                    })
+                              );
+                        }
+                        // Add multiplication nodes to network
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              this.nodes.push(
+                                    new cs.node({
+                                          "network": this,
+                                          "type": "Operation/Multiplication"
+                                    })
+                              );
+                        }
+                        // Remove nodes from network
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              this.remove_node(random_item(this.node_types.value));
+                        }
+
+                        // Add connections to network
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              this.connections.push(
+                                    // Create a new connection with the constructor function
+                                    new cs.connection({
+                                          // Connection sources must be nodes with outputs
+                                          "source": this.find_node(random_item(this.node_outputs)).id,
+                                          // Connection destinations must be nodes with inputs
+                                          "destination": this.find_node(random_item(this.node_inputs)).id
+                                    })
+                              );
+                        }
+                        // Remove connections from network
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              this.remove_connection(random_item(this.connections).id);
                         }
                   }
 
