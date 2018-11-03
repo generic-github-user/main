@@ -450,7 +450,73 @@ cs.network = class {
 
             // Mutate node values and topology/structure of network
             this.mutate = function(config) {
-                  if (typeof(config.mutation_rate) !== "number") {
+                  if (!config) {
+                        config = {};
+                  }
+                  if (!config.mutation_rate) {
+                        config.mutation_rate = 0.5;
+                  }
+                  if (!config.mutation_size) {
+                        config.mutation_size = 0.1;
+                  }
+
+                  if (!config.connections) {
+                        config.connections = {};
+                  }
+                  if (typeof(config.connections) == "object") {
+                        if (!config.connections.add) {
+                              config.connections.add = {};
+                        }
+                        if (typeof(config.connections.add) == "object") {
+                              if (!config.connections.add.min) {
+                                    config.connections.add.min = 0;
+                              } else if (config.connections.add.min < 0) {
+                                    console.error("Minimum number of connections to add must be at least 0.");
+                              }
+
+                              if (!config.connections.add.max) {
+                                    config.connections.add.max = 2;
+                              } else if (config.connections.add.max < 0) {
+                                    console.error("Maximum number of connections to add must be at least 0.");
+                              }
+                        } else if (typeof(config.connections.add) == "number") {
+                              if (config.connections.add < 0) {
+                                    console.error("Number of connections to add must be at least 0.");
+                                    config.connections.add = 1;
+                              }
+                        }
+
+                        if (!config.connections.remove) {
+                              config.connections.remove = {};
+                        }
+                        if (typeof(config.connections.remove) == "object") {
+                              if (!config.connections.remove.min) {
+                                    config.connections.remove.min = 0;
+                              } else if (config.connections.remove.min < 0) {
+                                    console.error("Minimum number of connections to remove must be at least 0.");
+                              }
+
+                              if (!config.connections.remove.max) {
+                                    config.connections.remove.max = 2;
+                              } else if (config.connections.remove.max < 0) {
+                                    console.error("Maximum number of connections to remove must be at least 0.");
+                              }
+                        } else if (typeof(config.connections.remove) == "number") {
+                              if (config.connections.remove < 0) {
+                                    console.error("Number of connections to remove must be at least 0.");
+                                    config.connections.remove = 1;
+                              }
+                        }
+                  } else if (typeof(config.connections) == "number") {
+                        if (config.connections < 0) {
+                              console.error("Number of connections to add and remove must be at least 0.");
+                              config.connections = 1;
+                        }
+                  }
+
+                  // console.log(config);
+
+                  if (typeof(config.mutation_rate) != "number") {
                         console.error("Mutation rate must be a number.");
                   } else if (config.mutation_rate < 0) {
                         console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
@@ -464,9 +530,6 @@ cs.network = class {
                                     );
                               }
                         }
-                        // for (var i = 0; i < 5; i++) {
-                        //       array.splice(Math.round(random(0, )), 1);
-                        // }
 
                         // Add nodes to network
                         // Add value nodes to network
@@ -505,7 +568,16 @@ cs.network = class {
                         }
 
                         // Add connections to network
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        var num;
+                        if (typeof(config.connections.add) == "object") {
+                              num = Math.round(random(
+                                    config.connections.add.min,
+                                    config.connections.max
+                              ));
+                        } else if (typeof(config.connections.add) == "number") {
+                              num = config.connections.add;
+                        }
+                        for (var i = 0; i < num; i++) {
                               this.add_connection();
                         }
                         // Remove connections from network
