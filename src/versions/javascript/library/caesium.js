@@ -345,12 +345,7 @@ cs.network = class {
                   remove(this.node_outputs, id);
 
                   // Find connections that have the removed node as a source
-                  var dead_connections = this.connections.filter(x => x.source == id);
-                  for (var i = 0; i < dead_connections.length; i++) {
-                        remove(this.connections, dead_connections[i]);
-                  }
-                  // Find connections that have the removed node as a destination
-                  dead_connections = this.connections.filter(x => x.destination == id);
+                  var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
                   for (var i = 0; i < dead_connections.length; i++) {
                         remove(this.connections, dead_connections[i]);
                   }
