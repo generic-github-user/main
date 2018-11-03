@@ -58,6 +58,7 @@ const get_network = function(id) {
       return cs.all.networks.find(x => x.id == id);
 }
 
+// Find the difference between two arrays and return another array
 const difference = function(array_1, array_2) {
       return array_2.map(
             (element, i) => {
@@ -66,13 +67,7 @@ const difference = function(array_1, array_2) {
       )
 }
 
-const remove = function(array, element) {
-      var index = array.indexOf(element);
-      if (index != -1) {
-            array.splice(index, 1);
-      }
-}
-
+// Find the sum of all elements of an array of numbers
 const sum = function(array) {
       var sum = 0;
       for (var i = 0; i < array.length; i++) {
@@ -81,10 +76,20 @@ const sum = function(array) {
       return sum;
 }
 
+// Find the average of all elements of an array of numbers
 const average = function(array) {
       return sum(array) / array.length;
 }
 
+// Remove a given element from an array
+const remove = function(array, element) {
+      var index = array.indexOf(element);
+      if (index != -1) {
+            array.splice(index, 1);
+      }
+}
+
+// Global Caesium library object
 const cs = {
       "all": {
             // List of all nodes
@@ -314,7 +319,9 @@ cs.network = class {
                         return connection;
                   }
             }
+            // Add a new random connection to the network
             this.add_connection = function() {
+                  // Push connection to network's connection array
                   this.connections.push(
                         // Create a new connection with the constructor function
                         new cs.connection({
@@ -325,22 +332,30 @@ cs.network = class {
                         })
                   );
             }
+            // Remove a node from the network, given its ID
             this.remove_node = function(id) {
+                  // Remove node from main network nodes list
                   remove(this.nodes, this.find_node(id));
+                  // Remove node ID from node type lists
                   remove(this.node_types.value, id);
 
+                  // Remove node ID from list of nodes with inputs
                   remove(this.node_inputs, id);
+                  // Remove node ID from list of nodes with outputs
                   remove(this.node_outputs, id);
 
+                  // Find connections that have the removed node as a source
                   var dead_connections = this.connections.filter(x => x.source == id);
                   for (var i = 0; i < dead_connections.length; i++) {
                         remove(this.connections, dead_connections[i]);
                   }
+                  // Find connections that have the removed node as a destination
                   dead_connections = this.connections.filter(x => x.destination == id);
                   for (var i = 0; i < dead_connections.length; i++) {
                         remove(this.connections, dead_connections[i]);
                   }
             }
+            // Remove a connection from the network, given its ID
             this.remove_connection = function(id) {
                   this.connections.splice(this.connections.indexOf(this.find_connection(id)), 1);
             }
