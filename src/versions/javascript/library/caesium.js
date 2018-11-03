@@ -89,6 +89,19 @@ const remove = function(array, element) {
       }
 }
 
+const min_max = function(variable) {
+      var num;
+      if (typeof(variable) == "object") {
+            num = Math.round(random(
+                  variable.min,
+                  variable.max
+            ));
+      } else if (typeof(variable) == "number") {
+            num = variable;
+      }
+      return num;
+}
+
 // Global Caesium library object
 const cs = {
       "all": {
@@ -597,16 +610,7 @@ cs.network = class {
                         }
 
                         // Add connections to network
-                        var num;
-                        if (typeof(config.connections.add) == "object") {
-                              num = Math.round(random(
-                                    config.connections.add.min,
-                                    config.connections.max
-                              ));
-                        } else if (typeof(config.connections.add) == "number") {
-                              num = config.connections.add;
-                        }
-                        for (var i = 0; i < num; i++) {
+                        for (var i = 0; i < min_max(config.connections.add); i++) {
                               this.add_connection();
                         }
                         // Remove connections from network
