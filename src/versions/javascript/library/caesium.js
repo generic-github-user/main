@@ -592,7 +592,9 @@ cs.network = class {
                         }
                         // Remove connections from network
                         for (var i = 0; i < Math.round(random(1, 2)); i++) {
-                              this.remove_connection(random_item(this.connections).id);
+                              if (this.connections.length > 0) {
+                                    this.remove_connection(random_item(this.connections).id);
+                              }
                         }
                   }
 
