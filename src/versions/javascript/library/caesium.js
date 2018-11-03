@@ -221,10 +221,11 @@ cs.network = class {
       constructor(config) {
             // Assign a random ID to the the new network object
             this.id = cs.UUID();
-
             this.inputs = config.inputs;
             this.outputs = config.outputs;
+
             this.nodes = [];
+            this.connections = [];
 
             this.node_inputs = [];
             this.node_outputs = [];
@@ -313,6 +314,17 @@ cs.network = class {
                         return connection;
                   }
             }
+            this.add_connection = function() {
+                  this.connections.push(
+                        // Create a new connection with the constructor function
+                        new cs.connection({
+                              // Connection sources must be nodes with outputs
+                              "source": this.find_node(random_item(this.node_outputs)).id,
+                              // Connection destinations must be nodes with inputs
+                              "destination": this.find_node(random_item(this.node_inputs)).id
+                        })
+                  );
+            }
             this.remove_node = function(id) {
                   remove(this.nodes, this.find_node(id));
                   remove(this.node_types.value, id);
@@ -334,19 +346,9 @@ cs.network = class {
             }
 
             // Generate random connections between nodes
-            var connections = [];
             for (var i = 0; i < Math.round(random(20, 20)); i++) {
-                  connections.push(
-                        // Create a new connection with the constructor function
-                        new cs.connection({
-                              // Connection sources must be nodes with outputs
-                              "source": this.find_node(random_item(this.node_outputs)).id,
-                              // Connection destinations must be nodes with inputs
-                              "destination": this.find_node(random_item(this.node_inputs)).id
-                        })
-                  );
+                  this.add_connection();
             }
-            this.connections = connections;
 
             // Function for setting input data of network
             this.set_inputs = function(inputs) {
@@ -504,15 +506,7 @@ cs.network = class {
 
                         // Add connections to network
                         for (var i = 0; i < Math.round(random(1, 2)); i++) {
-                              this.connections.push(
-                                    // Create a new connection with the constructor function
-                                    new cs.connection({
-                                          // Connection sources must be nodes with outputs
-                                          "source": this.find_node(random_item(this.node_outputs)).id,
-                                          // Connection destinations must be nodes with inputs
-                                          "destination": this.find_node(random_item(this.node_inputs)).id
-                                    })
-                              );
+                              this.add_connection();
                         }
                         // Remove connections from network
                         for (var i = 0; i < Math.round(random(1, 2)); i++) {
