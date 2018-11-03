@@ -159,10 +159,10 @@ cs.UUID = function() {
       }
       // Generate UUID from substrings
       var id;
-      do {
-            id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
-      }
-      while (uuids.indexOf(id) !== -1)
+      // do {
+      id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+      // }
+      // while (uuids.indexOf(id) !== -1)
 
       uuids.push(id);
       return id;
@@ -220,7 +220,7 @@ cs.node = class {
             }
 
             // Add node to global nodes list
-            cs.all.nodes.push(this);
+            // cs.all.nodes.push(this);
       }
 }
 
@@ -233,7 +233,8 @@ cs.connection = class {
             this.source = config.source;
             this.destination = config.destination;
 
-            cs.all.connections.push(this);
+            // Add node to global connections list
+            // cs.all.connections.push(this);
       }
 }
 
@@ -483,7 +484,7 @@ cs.network = class {
             // Mutate node values and topology/structure of network
             this.mutate = function(config) {
                   if (!config) {
-                        config = {};
+                        var config = {};
                   }
                   if (!config.mutation_rate) {
                         config.mutation_rate = 0.5;
