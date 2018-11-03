@@ -187,12 +187,16 @@ cs.node = class {
             }
             // Create addition node
             else if (config.type == "Operation/Addition") {
+                  config.network.node_types.add.push(this.id);
+
                   config.network.node_inputs.push(this.id);
                   this.value = 0;
                   config.network.node_outputs.push(this.id);
             }
             // Create multiplication node
             else if (config.type == "Operation/Multiplication") {
+                  config.network.node_types.multiply.push(this.id);
+
                   config.network.node_inputs.push(this.id);
                   this.value = 0;
                   config.network.node_outputs.push(this.id);
@@ -244,7 +248,9 @@ cs.network = class {
                   // List of output nodes
                   "output": [],
                   // List of value (bias) nodes
-                  "value": []
+                  "value": [],
+                  "add": [],
+                  "multiply": []
             }
             for (var i = 0; i < this.inputs; i++) {
                   this.nodes.push(
@@ -338,6 +344,9 @@ cs.network = class {
                   remove(this.nodes, this.find_node(id));
                   // Remove node ID from node type lists
                   remove(this.node_types.value, id);
+                  remove(this.node_types.add, id);
+                  remove(this.node_types.multiply, id);
+                  // // Remove all instances
 
                   // Remove node ID from list of nodes with inputs
                   remove(this.node_inputs, id);
@@ -576,6 +585,16 @@ cs.network = class {
                                     this.remove_node(random_item(this.node_types.value));
                               }
                         }
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              if (this.node_types.add.length > 0) {
+                                    this.remove_node(random_item(this.node_types.add));
+                              }
+                        }
+                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                              if (this.node_types.multiply.length > 0) {
+                                    this.remove_node(random_item(this.node_types.multiply));
+                              }
+                        }
 
                         // Add connections to network
                         var num;
@@ -615,7 +634,7 @@ cs.network = class {
                               // Mutate network
                               population[j].mutate({
                                     "mutation_rate": 0.5,
-                                    "mutation_size": 0.001
+                                    "mutation_size": 0.01
                               });
 
                               // Reset network score/fitness
