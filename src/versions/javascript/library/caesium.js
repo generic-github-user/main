@@ -149,7 +149,6 @@ cs.caesium = function() {
 
 // Generate a random UUID
 // Based on https://stackoverflow.com/a/105074
-var uuids = [];
 cs.UUID = function() {
       // Generate a random string of four hexadecimal digits
       function s4() {
@@ -158,13 +157,7 @@ cs.UUID = function() {
                   .substring(1);
       }
       // Generate UUID from substrings
-      var id;
-      // do {
-      id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
-      // }
-      // while (uuids.indexOf(id) !== -1)
-
-      uuids.push(id);
+      var id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
       return id;
 }
 
