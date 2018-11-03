@@ -497,7 +497,9 @@ cs.network = class {
                         }
                         // Remove nodes from network
                         for (var i = 0; i < Math.round(random(1, 2)); i++) {
-                              this.remove_node(random_item(this.node_types.value));
+                              if (this.node_types.value.length > 0) {
+                                    this.remove_node(random_item(this.node_types.value));
+                              }
                         }
 
                         // Add connections to network
