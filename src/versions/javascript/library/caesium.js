@@ -608,7 +608,7 @@ cs.network = class {
                               this.add_connection();
                         }
                         // Remove connections from network
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.connections.remove); i++) {
                               if (this.connections.length > 0) {
                                     this.remove_connection(random_item(this.connections).id);
                               }
