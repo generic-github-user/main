@@ -281,7 +281,7 @@ cs.network = class {
 
             // These functions must be defined before the connection generation code so they can be used there
             // Get a node from the network given the node's ID
-            this.node = function(id) {
+            this.find_node = function(id) {
                   // Search network's node list for a connection with the matching ID
                   var node = this.nodes.find(x => x.id == id);
                   // If node cannot be found, log an error
@@ -294,7 +294,7 @@ cs.network = class {
                   }
             }
             // Get a node from the network given the connection's ID
-            this.connection = function(id) {
+            this.find_connection = function(id) {
                   // Search network's connection list for a connection with the matching ID
                   var connection = this.connections.find(x => x.id == id);
                   // If connection cannot be found, log an error
@@ -307,11 +307,11 @@ cs.network = class {
                   }
             }
             this.remove_node = function(id) {
-                  this.nodes.splice(this.nodes.indexOf(this.node(id)), 1);
+                  this.nodes.splice(this.nodes.indexOf(this.find_node(id)), 1);
                   this.node_types.value.splice(this.node_types.value.indexOf(id, 1));
             }
             this.remove_connection = function(id) {
-                  this.connections.splice(this.connections.indexOf(this.connection(id)), 1);
+                  this.connections.splice(this.connections.indexOf(this.find_connection(id)), 1);
             }
 
             // Generate random connections between nodes
@@ -321,9 +321,9 @@ cs.network = class {
                         // Create a new connection with the constructor function
                         new cs.connection({
                               // Connection sources must be nodes with outputs
-                              "source": this.node(random_item(this.node_outputs)).id,
+                              "source": this.find_node(random_item(this.node_outputs)).id,
                               // Connection destinations must be nodes with inputs
-                              "destination": this.node(random_item(this.node_inputs)).id
+                              "destination": this.find_node(random_item(this.node_inputs)).id
                         })
                   );
             }
@@ -340,7 +340,7 @@ cs.network = class {
                         return false;
                   } else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i++) {
-                              this.node(this.node_types.input[i]).value = inputs[i];
+                              this.find_node(this.node_types.input[i]).value = inputs[i];
                         }
                         return this;
                   }
@@ -353,7 +353,7 @@ cs.network = class {
                   // Loop through all output nodes in network
                   for (var i = 0; i < this.node_types.output.length; i++) {
                         // Add value of output node to array
-                        outputs.push(this.node(this.node_types.output[i]).value);
+                        outputs.push(this.find_node(this.node_types.output[i]).value);
                   }
                   // Return array of outputs
                   return outputs;
@@ -395,16 +395,16 @@ cs.network = class {
                         }
                         for (var j = 0; j < this.connections.length; j++) {
                               // Store type of node in variable
-                              var type = this.node(this.connections[j].destination).type;
+                              var type = this.find_node(this.connections[j].destination).type;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Data/Output" || type == "Operation/Addition") {
-                                    this.node(this.connections[j].destination).value +=
-                                          network_buffer.node(network_buffer.connections[j].source).value;
+                                    this.find_node(this.connections[j].destination).value +=
+                                          network_buffer.find_node(network_buffer.connections[j].source).value;
                               }
                               // Values for multiplication nodes can be calculated by multiplying together all of their inputs
                               else if (type == "Operation/Multiplication") {
-                                    this.node(this.connections[j].destination).value *=
-                                          network_buffer.node(network_buffer.connections[j].source).value;
+                                    this.find_node(this.connections[j].destination).value *=
+                                          network_buffer.find_node(network_buffer.connections[j].source).value;
                               }
                         }
                         // Remove placeholder value from multiplication nodes
@@ -438,7 +438,7 @@ cs.network = class {
                   } else {
                         for (var i = 0; i < this.node_types.value.length; i++) {
                               if (random(0, 1) < config.mutation_rate) {
-                                    this.node(this.node_types.value[i]).value += random(-config.mutation_size,
+                                    this.find_node(this.node_types.value[i]).value += random(-config.mutation_size,
                                           config.mutation_size
                                     );
                               }
