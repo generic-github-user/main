@@ -125,24 +125,19 @@ const cs = {
       // Settings for networks
       "settings": {
             "node_types": [{
-                        "name": "Data/Input",
-                        "short": "input"
+                        "name": "Data/Input"
                   },
                   {
-                        "name": "Data/Output",
-                        "short": "output"
+                        "name": "Data/Output"
                   },
                   {
-                        "name": "Data/Value",
-                        "short": "value"
+                        "name": "Data/Value"
                   },
                   {
-                        "name": "Operation/Addition",
-                        "short": "add"
+                        "name": "Operation/Addition"
                   },
                   {
-                        "name": "Operation/Multiplication",
-                        "short": "multiply"
+                        "name": "Operation/Multiplication"
                   }
             ]
       }
