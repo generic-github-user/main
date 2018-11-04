@@ -2,116 +2,6 @@
 
 "use strict";
 
-// Generate a random number in between a minimum value and a maximum value
-const random = function(minimum, maximum) {
-      return minimum + (Math.random() * (maximum - minimum));
-}
-// Select a random element from a given array
-const random_item = function(array) {
-      return array[Math.floor(Math.random() * array.length)];
-}
-// Deep clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
-// IDs of nodes and connections cloned networks do not need to be regenerated because they are only used to find nodes and connections from that specific network
-// https://stackoverflow.com/a/728694
-const clone = function(object) {
-      var copy;
-
-      // Handle the 3 simple types, and null or undefined
-      if (null == object || "object" != typeof object) return object;
-
-      // Handle Date
-      if (object instanceof Date) {
-            copy = new Date();
-            copy.setTime(object.getTime());
-            return copy;
-      }
-
-      // Handle Array
-      if (object instanceof Array) {
-            copy = [];
-            for (var i = 0, len = object.length; i < len; i++) {
-                  copy[i] = clone(object[i]);
-            }
-            return copy;
-      }
-
-      // Handle Object
-      if (object instanceof Object) {
-            copy = {};
-            for (var attr in object) {
-                  if (object.hasOwnProperty(attr)) copy[attr] = clone(object[attr]);
-            }
-            return copy;
-      }
-
-      throw new Error("Unable to copy obj! Its type isn't supported.");
-}
-
-const clone_network = function(network) {
-      var cloned = clone(network);
-      cloned.id = cs.UUID();
-      return cloned;
-}
-
-// Find a network globally given its ID
-const get_network = function(id) {
-      return cs.all.networks.find(x => x.id == id);
-}
-
-// Find the difference between two arrays and return another array
-const difference = function(array_1, array_2) {
-      return array_2.map(
-            (element, i) => {
-                  return element - array_1[i];
-            }
-      )
-}
-
-// Find the sum of all elements of an array of numbers
-const sum = function(array) {
-      var sum = 0;
-      for (var i = 0; i < array.length; i++) {
-            sum += array[i];
-      };
-      return sum;
-}
-
-// Find the average of all elements of an array of numbers
-const average = function(array) {
-      return sum(array) / array.length;
-}
-
-// Remove a given element from an array
-const remove = function(array, element) {
-      var index = array.indexOf(element);
-      if (index != -1) {
-            array.splice(index, 1);
-      }
-}
-
-const min_max = function(variable) {
-      var num;
-      if (typeof(variable) == "object") {
-            num = Math.round(random(
-                  variable.min,
-                  variable.max
-            ));
-      } else if (typeof(variable) == "number") {
-            num = variable;
-      }
-      return num;
-}
-
-const node_types = function(name) {
-      // Log error message to console
-      console.error("Node type " + name + " does not exist. Please select a node type from the list of supported node types.");
-      // List supported node types in console
-      console.log("Supported node types:");
-      for (var i = 2; i < cs.settings.node_types.length; i++) {
-            console.log(cs.settings.node_types[i].name);
-      }
-}
-
 // Global Caesium library object
 const cs = {
       "all": {
@@ -155,6 +45,118 @@ cs.caesium = function() {
    \\_____|/_/    \\_\\|______||_____/ |_____| \\____/ |_|  |_|  \n\
                                                              \
 ", "background: #e8efff; color: #4319ff; font-weight: 1000;");
+}
+
+// Generate a random number in between a minimum value and a maximum value
+cs.random = function(minimum, maximum) {
+      return minimum + (Math.random() * (maximum - minimum));
+}
+
+// Select a random element from a given array
+cs.random_item = function(array) {
+      return array[Math.floor(Math.random() * array.length)];
+}
+
+// Deep clone an object so that the new object does not contain a reference to the original object; either object may be altered without affecting the other
+// IDs of nodes and connections cloned networks do not need to be regenerated because they are only used to find nodes and connections from that specific network
+// https://stackoverflow.com/a/728694
+cs.clone = function(object) {
+      var copy;
+
+      // Handle the 3 simple types, and null or undefined
+      if (null == object || "object" != typeof object) return object;
+
+      // Handle Date
+      if (object instanceof Date) {
+            copy = new Date();
+            copy.setTime(object.getTime());
+            return copy;
+      }
+
+      // Handle Array
+      if (object instanceof Array) {
+            copy = [];
+            for (var i = 0, len = object.length; i < len; i++) {
+                  copy[i] = cs.clone(object[i]);
+            }
+            return copy;
+      }
+
+      // Handle Object
+      if (object instanceof Object) {
+            copy = {};
+            for (var attr in object) {
+                  if (object.hasOwnProperty(attr)) copy[attr] = cs.clone(object[attr]);
+            }
+            return copy;
+      }
+
+      throw new Error("Unable to copy obj! Its type isn't supported.");
+}
+
+cs.clone_network = function(network) {
+      var cloned = cs.clone(network);
+      cloned.id = cs.UUID();
+      return cloned;
+}
+
+// Find a network globally given its ID
+cs.get_network = function(id) {
+      return cs.all.networks.find(x => x.id == id);
+}
+
+// Find the difference between two arrays and return another array
+cs.difference = function(array_1, array_2) {
+      return array_2.map(
+            (element, i) => {
+                  return element - array_1[i];
+            }
+      )
+}
+
+// Find the sum of all elements of an array of numbers
+cs.sum = function(array) {
+      var sum = 0;
+      for (var i = 0; i < array.length; i++) {
+            sum += array[i];
+      };
+      return sum;
+}
+
+// Find the average of all elements of an array of numbers
+cs.average = function(array) {
+      return cs.sum(array) / array.length;
+}
+
+// Remove a given element from an array
+cs.remove = function(array, element) {
+      var index = array.indexOf(element);
+      if (index != -1) {
+            array.splice(index, 1);
+      }
+}
+
+cs.min_max = function(variable) {
+      var num;
+      if (typeof(variable) == "object") {
+            num = Math.round(cs.random(
+                  variable.min,
+                  variable.max
+            ));
+      } else if (typeof(variable) == "number") {
+            num = variable;
+      }
+      return num;
+}
+
+cs.node_types = function(name) {
+      // Log error message to console
+      console.error("Node type " + name + " does not exist. Please select a node type from the list of supported node types.");
+      // List supported node types in console
+      console.log("Supported node types:");
+      for (var i = 2; i < cs.settings.node_types.length; i++) {
+            console.log(cs.settings.node_types[i].name);
+      }
 }
 
 cs.help = function() {
@@ -301,20 +303,20 @@ cs.network = class {
                   // If the node type does exist, add the set number of nodes to the network
                   if (node_type != undefined) {
                         // Add nodes to network
-                        for (var i = 0; i < min_max(config.nodes[attr].num); i++) {
+                        for (var i = 0; i < cs.min_max(config.nodes[attr].num); i++) {
                               this.nodes.push(
                                     // Create new node
                                     new cs.node({
                                           "network": this,
                                           "type": attr,
-                                          "value": min_max(config.nodes[attr].init)
+                                          "value": cs.min_max(config.nodes[attr].init)
                                     })
                               );
                         }
                   }
                   // If the node type does not exist, log an error
                   else {
-                        node_types(attr);
+                        cs.node_types(attr);
                   }
             }
 
@@ -352,33 +354,33 @@ cs.network = class {
                         // Create a new connection with the constructor function
                         new cs.connection({
                               // Connection sources must be nodes with outputs
-                              "source": this.find_node(random_item(this.node_outputs)).id,
+                              "source": this.find_node(cs.random_item(this.node_outputs)).id,
                               // Connection destinations must be nodes with inputs
-                              "destination": this.find_node(random_item(this.node_inputs)).id
+                              "destination": this.find_node(cs.random_item(this.node_inputs)).id
                         })
                   );
             }
             // Remove a node from the network, given its ID
             this.remove_node = function(id) {
                   // Remove node from main network nodes list
-                  remove(this.nodes, this.find_node(id));
+                  cs.remove(this.nodes, this.find_node(id));
                   // Remove node ID from node type lists
                   for (var attr in this.node_types) {
-                        remove(this.node_types[attr], id);
+                        cs.remove(this.node_types[attr], id);
                   }
                   // // Remove() all instances
 
                   // Remove node ID from list of nodes with inputs
-                  remove(this.node_inputs, id);
+                  cs.remove(this.node_inputs, id);
                   // Remove node ID from list of nodes with outputs
-                  remove(this.node_outputs, id);
+                  cs.remove(this.node_outputs, id);
 
                   // Find connections that have the removed node as a source
                   var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
                   // Loop through list of dead connections
                   for (var i = 0; i < dead_connections.length; i++) {
                         // Remove connection
-                        remove(this.connections, dead_connections[i]);
+                        cs.remove(this.connections, dead_connections[i]);
                   }
             }
             // Remove a connection from the network, given its ID
@@ -387,7 +389,7 @@ cs.network = class {
             }
 
             // Generate random connections between nodes
-            for (var i = 0; i < min_max(config.connections); i++) {
+            for (var i = 0; i < cs.min_max(config.connections); i++) {
                   this.add_connection();
             }
 
@@ -442,7 +444,7 @@ cs.network = class {
                   }
                   for (var i = 0; i < config.iterations; i++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
-                        var network_buffer = clone(this);
+                        var network_buffer = cs.clone(this);
                         // Reset node values
                         for (var j = 0; j < this.nodes.length; j++) {
                               var node = this.nodes[j];
@@ -631,8 +633,8 @@ cs.network = class {
                         console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
                   } else {
                         for (var i = 0; i < this.node_types["Data/Value"].length; i++) {
-                              if (random(0, 1) < config.mutation_rate) {
-                                    this.find_node(this.node_types["Data/Value"][i]).value += random(-config.mutation_size,
+                              if (cs.random(0, 1) < config.mutation_rate) {
+                                    this.find_node(this.node_types["Data/Value"][i]).value += cs.random(-config.mutation_size,
                                           config.mutation_size
                                     );
                               }
@@ -645,37 +647,37 @@ cs.network = class {
                               // If the node type does exist, add and remove the set number of nodes
                               if (node_type != undefined) {
                                     // Add nodes to network
-                                    for (var i = 0; i < min_max(config.nodes[attr].add); i++) {
+                                    for (var i = 0; i < cs.min_max(config.nodes[attr].add); i++) {
                                           this.nodes.push(
                                                 // Create new node
                                                 new cs.node({
                                                       "network": this,
                                                       "type": attr,
-                                                      "value": min_max(config.nodes[attr].init)
+                                                      "value": cs.min_max(config.nodes[attr].init)
                                                 })
                                           );
                                     }
                                     // Remove nodes from network
-                                    for (var i = 0; i < min_max(config.nodes[attr].remove); i++) {
+                                    for (var i = 0; i < cs.min_max(config.nodes[attr].remove); i++) {
                                           if (this.node_types[node_type.name].length > 0) {
-                                                this.remove_node(random_item(this.node_types[node_type.name]));
+                                                this.remove_node(cs.random_item(this.node_types[node_type.name]));
                                           }
                                     }
                               }
                               // If the node type does not exist, log an error
                               else {
-                                    node_types(attr);
+                                    cs.node_types(attr);
                               }
                         }
 
                         // Add connections to network
-                        for (var i = 0; i < min_max(config.connections.add); i++) {
+                        for (var i = 0; i < cs.min_max(config.connections.add); i++) {
                               this.add_connection();
                         }
                         // Remove connections from network
-                        for (var i = 0; i < min_max(config.connections.remove); i++) {
+                        for (var i = 0; i < cs.min_max(config.connections.remove); i++) {
                               if (this.connections.length > 0) {
-                                    this.remove_connection(random_item(this.connections).id);
+                                    this.remove_connection(cs.random_item(this.connections).id);
                               }
                         }
                   }
@@ -697,7 +699,7 @@ cs.network = class {
                         var population = new Array(config.population);
                         // Fill population array with clones of network
                         for (var j = 0; j < population.length; j++) {
-                              population[j] = clone(network);
+                              population[j] = cs.clone(network);
                         }
                         // Loop through entire population
                         for (var j = 0; j < population.length; j++) {
@@ -714,7 +716,7 @@ cs.network = class {
                                     population[j].update(config.update);
                                     // Calculate fitness score of network
                                     // |avg(y - x)|
-                                    population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
+                                    population[j].score += Math.abs(average(cs.difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
                               }
                         }
 
