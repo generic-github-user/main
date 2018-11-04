@@ -265,6 +265,7 @@ cs.network = class {
             // Score used for evolutionary optimization algorithm
             this.score = 0;
 
+            // Lists of specific node types in the network
             this.node_types = {
                   // List of output nodes
                   "input": [],
@@ -272,7 +273,9 @@ cs.network = class {
                   "output": [],
                   // List of value (bias) nodes
                   "value": [],
+                  // List of addition nodes
                   "add": [],
+                  // List of multiplication nodes
                   "multiply": []
             }
             for (var i = 0; i < this.inputs; i++) {
@@ -378,7 +381,9 @@ cs.network = class {
 
                   // Find connections that have the removed node as a source
                   var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
+                  // Loop through list of dead connections
                   for (var i = 0; i < dead_connections.length; i++) {
+                        // Remove connection
                         remove(this.connections, dead_connections[i]);
                   }
             }
@@ -639,12 +644,16 @@ cs.network = class {
                               }
                         }
 
+                        // Loop through all defined node types in config object
                         for (var attr in config.nodes) {
+                              // Search node types list for node type
                               var node_type = cs.settings.node_types.find(x => x.name == attr);
+                              // If the node type does exist, add and remove the set number of nodes
                               if (node_type != undefined) {
                                     // Add nodes to network
                                     for (var i = 0; i < min_max(config.nodes[attr].add); i++) {
                                           this.nodes.push(
+                                                // Create new node
                                                 new cs.node({
                                                       "network": this,
                                                       "type": attr
@@ -657,9 +666,13 @@ cs.network = class {
                                                 this.remove_node(random_item(this.node_types[node_type.short]));
                                           }
                                     }
-                              } else {
+                              }
+                              // If the node type does not exist, log an error
+                              else {
+                                    // Log error message to console
                                     console.error("Node type " + attr + " does not exist. Please select a node type from the list of supported node types.");
                                     for (var i = 0; i < cs.settings.node_types; i++) {
+                                    // List supported node types in console
                                           console.log(cs.settings.node_types[i].name);
                                     }
                               }
