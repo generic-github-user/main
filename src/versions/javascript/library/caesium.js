@@ -49,7 +49,11 @@ cs.caesium = function() {
 
 // Generate a random number in between a minimum value and a maximum value
 cs.random = function(minimum, maximum) {
-      return minimum + (Math.random() * (maximum - minimum));
+      if (!minimum && !maximum) {
+            return Math.random();
+      } else {
+            return minimum + (Math.random() * (maximum - minimum));
+      }
 }
 
 // Select a random element from a given array
@@ -633,7 +637,7 @@ cs.network = class {
                         console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
                   } else {
                         for (var i = 0; i < this.node_types["Data/Value"].length; i++) {
-                              if (cs.random(0, 1) < config.mutation_rate) {
+                              if (cs.random() < config.mutation_rate) {
                                     this.find_node(this.node_types["Data/Value"][i]).value += cs.random(-config.mutation_size,
                                           config.mutation_size
                                     );
