@@ -237,13 +237,19 @@ cs.network = class {
       constructor(config) {
             // Assign a random ID to the the new network object
             this.id = cs.UUID();
+            // Number of input nodes in the network
             this.inputs = config.inputs;
+            // Number of output nodes in the network
             this.outputs = config.outputs;
 
+            // List of nodes in network
             this.nodes = [];
+            // List of connections in network
             this.connections = [];
 
+            // List of nodes with inputs in network
             this.node_inputs = [];
+            // List of nodes with outputs in network
             this.node_outputs = [];
 
             // Score used for evolutionary optimization algorithm
@@ -353,7 +359,7 @@ cs.network = class {
                   remove(this.node_types.value, id);
                   remove(this.node_types.add, id);
                   remove(this.node_types.multiply, id);
-                  // // Remove all instances
+                  // // Remove() all instances
 
                   // Remove node ID from list of nodes with inputs
                   remove(this.node_inputs, id);
@@ -621,9 +627,13 @@ cs.network = class {
 
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
+                  // Temporary network object to store best network from population in
                   var network = this;
+                  // Repeat evolution process for provided number of iterations (generations)
                   for (var i = 0; i < config.iterations; i++) {
+                        // Create array to store "population" of networks in
                         var population = new Array(config.population);
+                        // Fill population array with clones of network
                         for (var j = 0; j < population.length; j++) {
                               population[j] = clone(network);
                         }
@@ -637,11 +647,16 @@ cs.network = class {
 
                               // Reset network score/fitness
                               population[j].score = 0;
+                              // Loop through each set of inputs
                               for (var r = 0; r < config.inputs.length; r++) {
+                                    // Set values of input nodes of network to input set
                                     population[j].set_inputs(config.inputs[r]);
+                                    // Update the network
                                     population[j].update({
                                           "iterations": 1
                                     });
+                                    // Calculate fitness score of network
+                                    // |avg(y - x)|
                                     population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
                               }
                         }
@@ -662,6 +677,7 @@ cs.network = class {
                         console.log(best_score);
                         network = best_network;
                   }
+                  // Return trained network after neuroevolution process
                   return network;
             }
 
