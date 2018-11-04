@@ -707,10 +707,7 @@ cs.network = class {
                         // Loop through entire population
                         for (var j = 0; j < population.length; j++) {
                               // Mutate network
-                              population[j].mutate({
-                                    "mutation_rate": 0.5,
-                                    "mutation_size": 0.01
-                              });
+                              population[j].mutate(config.mutation);
 
                               // Reset network score/fitness
                               population[j].score = 0;
