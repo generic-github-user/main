@@ -147,6 +147,11 @@ cs.caesium = function() {
 ", "background: #e8efff; color: #4319ff; font-weight: 1000;");
 }
 
+cs.help = function() {
+      console.log("Find documentation for Caesium on the GitHub page.", "https://github.com/generic-github-user/Caesium");
+      // console.log("Full list of available help commands:");
+}
+
 // Generate a random UUID
 // Based on https://stackoverflow.com/a/105074
 cs.UUID = function() {
