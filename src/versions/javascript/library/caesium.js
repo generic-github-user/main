@@ -180,7 +180,7 @@ cs.node = class {
 
             // Create input node
             if (config.type == "Data/Input") {
-                  config.network.node_types.input.push(this.id);
+                  config.network.node_types["Data/Input"].push(this.id);
 
                   // Cannot be undefined
                   this.value = 0;
@@ -188,7 +188,7 @@ cs.node = class {
             }
             // Create output node
             else if (config.type == "Data/Output") {
-                  config.network.node_types.output.push(this.id);
+                  config.network.node_types["Data/Output"].push(this.id);
 
                   config.network.node_inputs.push(this.id);
                   this.value = config.value;
@@ -196,14 +196,14 @@ cs.node = class {
             }
             // Create value node
             else if (config.type == "Data/Value") {
-                  config.network.node_types.value.push(this.id);
+                  config.network.node_types["Data/Value"].push(this.id);
 
                   this.value = config.value;
                   config.network.node_outputs.push(this.id);
             }
             // Create addition node
             else if (config.type == "Operation/Addition") {
-                  config.network.node_types.add.push(this.id);
+                  config.network.node_types["Operation/Addition"].push(this.id);
 
                   config.network.node_inputs.push(this.id);
                   this.value = 0;
@@ -211,7 +211,7 @@ cs.node = class {
             }
             // Create multiplication node
             else if (config.type == "Operation/Multiplication") {
-                  config.network.node_types.multiply.push(this.id);
+                  config.network.node_types["Operation/Multiplication"].push(this.id);
 
                   config.network.node_inputs.push(this.id);
                   this.value = 0;
@@ -266,18 +266,11 @@ cs.network = class {
             this.score = 0;
 
             // Lists of specific node types in the network
-            this.node_types = {
-                  // List of output nodes
-                  "input": [],
-                  // List of output nodes
-                  "output": [],
-                  // List of value (bias) nodes
-                  "value": [],
-                  // List of addition nodes
-                  "add": [],
-                  // List of multiplication nodes
-                  "multiply": []
+            this.node_types = {};
+            for (var i = 0; i < cs.settings.node_types.length; i++) {
+                  this.node_types[cs.settings.node_types[i].name] = [];
             }
+
             for (var i = 0; i < this.inputs; i++) {
                   this.nodes.push(
                         new cs.node({
@@ -369,9 +362,9 @@ cs.network = class {
                   // Remove node from main network nodes list
                   remove(this.nodes, this.find_node(id));
                   // Remove node ID from node type lists
-                  remove(this.node_types.value, id);
-                  remove(this.node_types.add, id);
-                  remove(this.node_types.multiply, id);
+                  for (var attr in this.node_types) {
+                        remove(this.node_types[attr], id);
+                  }
                   // // Remove() all instances
 
                   // Remove node ID from list of nodes with inputs
@@ -408,7 +401,7 @@ cs.network = class {
                         return false;
                   } else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i++) {
-                              this.find_node(this.node_types.input[i]).value = inputs[i];
+                              this.find_node(this.node_types["Data/Input"][i]).value = inputs[i];
                         }
                         return this;
                   }
@@ -419,9 +412,9 @@ cs.network = class {
                   // Create array to store outputs in
                   var outputs = [];
                   // Loop through all output nodes in network
-                  for (var i = 0; i < this.node_types.output.length; i++) {
+                  for (var i = 0; i < this.node_types["Data/Output"].length; i++) {
                         // Add value of output node to array
-                        outputs.push(this.find_node(this.node_types.output[i]).value);
+                        outputs.push(this.find_node(this.node_types["Data/Output"][i]).value);
                   }
                   // Return array of outputs
                   return outputs;
@@ -636,9 +629,9 @@ cs.network = class {
                   } else if (config.mutation_rate > 1) {
                         console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
                   } else {
-                        for (var i = 0; i < this.node_types.value.length; i++) {
+                        for (var i = 0; i < this.node_types["Data/Value"].length; i++) {
                               if (random(0, 1) < config.mutation_rate) {
-                                    this.find_node(this.node_types.value[i]).value += random(-config.mutation_size,
+                                    this.find_node(this.node_types["Data/Value"][i]).value += random(-config.mutation_size,
                                           config.mutation_size
                                     );
                               }
@@ -663,8 +656,8 @@ cs.network = class {
                                     }
                                     // Remove nodes from network
                                     for (var i = 0; i < min_max(config.nodes[attr].remove); i++) {
-                                          if (this.node_types[node_type.short].length > 0) {
-                                                this.remove_node(random_item(this.node_types[node_type.short]));
+                                          if (this.node_types[node_type.name].length > 0) {
+                                                this.remove_node(random_item(this.node_types[node_type.name]));
                                           }
                                     }
                               }
