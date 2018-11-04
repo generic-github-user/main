@@ -102,6 +102,16 @@ const min_max = function(variable) {
       return num;
 }
 
+const node_types = function(name) {
+      // Log error message to console
+      console.error("Node type " + name + " does not exist. Please select a node type from the list of supported node types.");
+      // List supported node types in console
+      console.log("Supported node types:");
+      for (var i = 2; i < cs.settings.node_types.length; i++) {
+            console.log(cs.settings.node_types[i].name);
+      }
+}
+
 // Global Caesium library object
 const cs = {
       "all": {
@@ -288,33 +298,29 @@ cs.network = class {
                         })
                   );
             }
-            // Add value nodes to network
-            for (var i = 0; i < Math.round(random(1, 2)); i++) {
-                  this.nodes.push(
-                        new cs.node({
-                              "network": this,
-                              "type": "Data/Value",
-                              "value": random(-1, 1)
-                        })
-                  );
-            }
-            // Add addition nodes to network
-            for (var i = 0; i < Math.round(random(1, 2)); i++) {
-                  this.nodes.push(
-                        new cs.node({
-                              "network": this,
-                              "type": "Operation/Addition"
-                        })
-                  );
-            }
-            // Add multiplication nodes to network
-            for (var i = 0; i < Math.round(random(1, 2)); i++) {
-                  this.nodes.push(
-                        new cs.node({
-                              "network": this,
-                              "type": "Operation/Multiplication"
-                        })
-                  );
+
+            // Loop through all defined node types in config object
+            for (var attr in config.nodes) {
+                  // Search node types list for node type
+                  var node_type = cs.settings.node_types.find(x => x.name == attr);
+                  // If the node type does exist, add the set number of nodes to the network
+                  if (node_type != undefined) {
+                        // Add nodes to network
+                        for (var i = 0; i < min_max(config.nodes[attr].num); i++) {
+                              this.nodes.push(
+                                    // Create new node
+                                    new cs.node({
+                                          "network": this,
+                                          "type": attr,
+                                          "value": min_max(config.nodes[attr].init)
+                                    })
+                              );
+                        }
+                  }
+                  // If the node type does not exist, log an error
+                  else {
+                        node_types(attr);
+                  }
             }
 
             // These functions must be defined before the connection generation code so they can be used there
@@ -386,7 +392,7 @@ cs.network = class {
             }
 
             // Generate random connections between nodes
-            for (var i = 0; i < Math.round(random(20, 20)); i++) {
+            for (var i = 0; i < min_max(config.connections); i++) {
                   this.add_connection();
             }
 
@@ -663,13 +669,7 @@ cs.network = class {
                               }
                               // If the node type does not exist, log an error
                               else {
-                                    // Log error message to console
-                                    console.error("Node type " + attr + " does not exist. Please select a node type from the list of supported node types.");
-                                    // List supported node types in console
-                                    console.log("Supported node types:");
-                                    for (var i = 2; i < cs.settings.node_types.length; i++) {
-                                          console.log(cs.settings.node_types[i].name);
-                                    }
+                                    node_types(attr);
                               }
                         }
 
