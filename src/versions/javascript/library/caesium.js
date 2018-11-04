@@ -672,8 +672,9 @@ cs.network = class {
                               else {
                                     // Log error message to console
                                     console.error("Node type " + attr + " does not exist. Please select a node type from the list of supported node types.");
-                                    for (var i = 0; i < cs.settings.node_types; i++) {
                                     // List supported node types in console
+                                    console.log("Supported node types:");
+                                    for (var i = 2; i < cs.settings.node_types.length; i++) {
                                           console.log(cs.settings.node_types[i].name);
                                     }
                               }
