@@ -691,6 +691,9 @@ cs.network = class {
 
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
+                  if (config.log) {
+                        console.log("Training network.", this);
+                  }
                   // Temporary network object to store best network from population in
                   var network = this;
                   // Repeat evolution process for provided number of iterations (generations)
@@ -716,9 +719,7 @@ cs.network = class {
                                     // Set values of input nodes of network to input set
                                     population[j].set_inputs(config.inputs[r]);
                                     // Update the network
-                                    population[j].update({
-                                          "iterations": 1
-                                    });
+                                    population[j].update(config.update);
                                     // Calculate fitness score of network
                                     // |avg(y - x)|
                                     population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
@@ -735,6 +736,12 @@ cs.network = class {
                         }
 
                         network = best_network;
+                        if (config.log) {
+                              console.log("Iteration " + (i + 1) + " complete.", network.score, network);
+                        }
+                  }
+                  if (config.log) {
+                        console.log(config.iterations + " training iterations complete.", network);
                   }
                   // Return trained network after neuroevolution process
                   return network;
