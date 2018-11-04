@@ -115,19 +115,24 @@ const cs = {
       // Settings for networks
       "settings": {
             "node_types": [{
-                        "name": "Data/Input"
+                        "name": "Data/Input",
+                        "short": "input"
                   },
                   {
-                        "name": "Data/Output"
+                        "name": "Data/Output",
+                        "short": "output"
                   },
                   {
-                        "name": "Data/Value"
+                        "name": "Data/Value",
+                        "short": "value"
                   },
                   {
                         "name": "Operation/Addition",
+                        "short": "add"
                   },
                   {
-                        "name": "Operation/Multiplication"
+                        "name": "Operation/Multiplication",
+                        "short": "multiply"
                   }
             ]
       }
@@ -497,71 +502,71 @@ cs.network = class {
                         config.mutation_size = 0.1;
                   }
 
-                  if (!config.nodes) {
-                        config.nodes = {};
-                  }
-                  if (typeof(config.nodes) == "object") {
-                        if (!config.nodes.value) {
-                              config.nodes.value = {};
-                        }
-                        if (typeof(config.nodes.value) == "object") {
-                              if (!config.nodes.value.add) {
-                                    config.nodes.value.add = {};
-                              }
-                              if (typeof(config.nodes.value.add) == "object") {
-                                    if (!config.nodes.value.add.min) {
-                                          config.nodes.value.add.min = 0;
-                                    }
-                                    if (config.nodes.value.add.min < 0) {
-                                          console.error("Minimum number of value nodes to add must be at least 0.");
-                                          config.nodes.value.add.min = 0;
-                                    }
-
-                                    if (!config.nodes.value.add.max) {
-                                          config.nodes.value.add.max = 2;
-                                    }
-                                    if (config.nodes.value.add.max < 0) {
-                                          console.error("Maximum number of value nodes to add must be at least 0.");
-                                          config.nodes.value.add.max = 2;
-                                    }
-                              } else if (typeof(config.nodes.value.add) == "number") {
-                                    if (config.nodes.value.add < 0) {
-                                          console.error("Number of value nodes to add must be at least 0.");
-                                          config.nodes.value.add = 1;
-                                    }
-                              }
-
-                              if (!config.nodes.value.remove) {
-                                    config.nodes.value.remove = {};
-                              }
-                              if (typeof(config.nodes.value.remove) == "object") {
-                                    if (!config.nodes.value.remove.min) {
-                                          config.nodes.value.remove.min = 0;
-                                    }
-                                    if (config.nodes.value.remove.min < 0) {
-                                          console.error("Minimum number of value nodes to remove must be at least 0.");
-                                          config.nodes.value.remove.min = 0;
-                                    }
-
-                                    if (!config.nodes.value.remove.max) {
-                                          config.nodes.value.remove.max = 2;
-                                    }
-                                    if (config.nodes.value.remove.max < 0) {
-                                          console.error("Maximum number of value nodes to remove must be at least 0.");
-                                          config.nodes.value.remove.max = 2;
-                                    }
-                              } else if (typeof(config.nodes.value.remove) == "number") {
-                                    if (config.nodes.value.remove < 0) {
-                                          console.error("Number of value nodes to remove must be at least 0.");
-                                          config.nodes.value.remove = 1;
-                                    }
-                              }
-                        } else if (typeof(config.nodes.value) == "number") {
-                              if (config.nodes.value < 0) {
-                                    console.error("Number of value nodes to add or remove must be at least 0.");
-                              }
-                        }
-                  }
+                  // if (!config.nodes) {
+                  //       config.nodes = {};
+                  // }
+                  // if (typeof(config.nodes) == "object") {
+                  //       if (!config.nodes.value) {
+                  //             config.nodes.value = {};
+                  //       }
+                  //       if (typeof(config.nodes.value) == "object") {
+                  //             if (!config.nodes.value.add) {
+                  //                   config.nodes.value.add = {};
+                  //             }
+                  //             if (typeof(config.nodes.value.add) == "object") {
+                  //                   if (!config.nodes.value.add.min) {
+                  //                         config.nodes.value.add.min = 0;
+                  //                   }
+                  //                   if (config.nodes.value.add.min < 0) {
+                  //                         console.error("Minimum number of value nodes to add must be at least 0.");
+                  //                         config.nodes.value.add.min = 0;
+                  //                   }
+                  //
+                  //                   if (!config.nodes.value.add.max) {
+                  //                         config.nodes.value.add.max = 2;
+                  //                   }
+                  //                   if (config.nodes.value.add.max < 0) {
+                  //                         console.error("Maximum number of value nodes to add must be at least 0.");
+                  //                         config.nodes.value.add.max = 2;
+                  //                   }
+                  //             } else if (typeof(config.nodes.value.add) == "number") {
+                  //                   if (config.nodes.value.add < 0) {
+                  //                         console.error("Number of value nodes to add must be at least 0.");
+                  //                         config.nodes.value.add = 1;
+                  //                   }
+                  //             }
+                  //
+                  //             if (!config.nodes.value.remove) {
+                  //                   config.nodes.value.remove = {};
+                  //             }
+                  //             if (typeof(config.nodes.value.remove) == "object") {
+                  //                   if (!config.nodes.value.remove.min) {
+                  //                         config.nodes.value.remove.min = 0;
+                  //                   }
+                  //                   if (config.nodes.value.remove.min < 0) {
+                  //                         console.error("Minimum number of value nodes to remove must be at least 0.");
+                  //                         config.nodes.value.remove.min = 0;
+                  //                   }
+                  //
+                  //                   if (!config.nodes.value.remove.max) {
+                  //                         config.nodes.value.remove.max = 2;
+                  //                   }
+                  //                   if (config.nodes.value.remove.max < 0) {
+                  //                         console.error("Maximum number of value nodes to remove must be at least 0.");
+                  //                         config.nodes.value.remove.max = 2;
+                  //                   }
+                  //             } else if (typeof(config.nodes.value.remove) == "number") {
+                  //                   if (config.nodes.value.remove < 0) {
+                  //                         console.error("Number of value nodes to remove must be at least 0.");
+                  //                         config.nodes.value.remove = 1;
+                  //                   }
+                  //             }
+                  //       } else if (typeof(config.nodes.value) == "number") {
+                  //             if (config.nodes.value < 0) {
+                  //                   console.error("Number of value nodes to add or remove must be at least 0.");
+                  //             }
+                  //       }
+                  // }
 
                   if (!config.connections) {
                         config.connections = {};
@@ -634,49 +639,29 @@ cs.network = class {
                               }
                         }
 
-                        // Add nodes to network
-                        // Add value nodes to network
-                        for (var i = 0; i < min_max(config.nodes.value.add); i++) {
-                              this.nodes.push(
-                                    new cs.node({
-                                          "network": this,
-                                          "type": "Data/Value",
-                                          "value": min_max(config.nodes.value.init)
-                                    })
-                              );
-                        }
-                        // Add addition nodes to network
-                        for (var i = 0; i < min_max(config.nodes.add.add); i++) {
-                              this.nodes.push(
-                                    new cs.node({
-                                          "network": this,
-                                          "type": "Operation/Addition"
-                                    })
-                              );
-                        }
-                        // Add multiplication nodes to network
-                        for (var i = 0; i < min_max(config.nodes.multiply.add); i++) {
-                              this.nodes.push(
-                                    new cs.node({
-                                          "network": this,
-                                          "type": "Operation/Multiplication"
-                                    })
-                              );
-                        }
-                        // Remove nodes from network
-                        for (var i = 0; i < min_max(config.nodes.value.remove); i++) {
-                              if (this.node_types.value.length > 0) {
-                                    this.remove_node(random_item(this.node_types.value));
-                              }
-                        }
-                        for (var i = 0; i < min_max(config.nodes.add.remove); i++) {
-                              if (this.node_types.add.length > 0) {
-                                    this.remove_node(random_item(this.node_types.add));
-                              }
-                        }
-                        for (var i = 0; i < min_max(config.nodes.multiply.remove); i++) {
-                              if (this.node_types.multiply.length > 0) {
-                                    this.remove_node(random_item(this.node_types.multiply));
+                        for (var attr in config.nodes) {
+                              var node_type = cs.settings.node_types.find(x => x.name == attr);
+                              if (node_type != undefined) {
+                                    // Add nodes to network
+                                    for (var i = 0; i < min_max(config.nodes[attr].add); i++) {
+                                          this.nodes.push(
+                                                new cs.node({
+                                                      "network": this,
+                                                      "type": attr
+                                                })
+                                          );
+                                    }
+                                    // Remove nodes from network
+                                    for (var i = 0; i < min_max(config.nodes[attr].remove); i++) {
+                                          if (this.node_types[node_type.short].length > 0) {
+                                                this.remove_node(random_item(this.node_types[node_type.short]));
+                                          }
+                                    }
+                              } else {
+                                    console.error("Node type " + attr + " does not exist. Please select a node type from the list of supported node types.");
+                                    for (var i = 0; i < cs.settings.node_types; i++) {
+                                          console.log(cs.settings.node_types[i].name);
+                                    }
                               }
                         }
 
