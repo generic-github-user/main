@@ -724,21 +724,16 @@ cs.network = class {
                                     population[j].score += Math.abs(average(difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
                               }
                         }
+
                         // Find best score from population
-                        var best_score = Math.min.apply(
-                              Math, population.map(
-                                    function(x) {
-                                          return x.score;
-                                    }
-                              )
-                        );
                         // Find network of population with best score
-                        var best_network = population.find(
-                              function(x) {
-                                    return x.score == best_score;
+                        var best_network = population[0];
+                        for (var j = 0; j < population.length; j++) {
+                              if (population[j].score > best_network.score) {
+                                    best_network = population[j];
                               }
-                        );
-                        console.log(best_score);
+                        }
+
                         network = best_network;
                   }
                   // Return trained network after neuroevolution process
