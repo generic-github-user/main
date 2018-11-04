@@ -619,8 +619,6 @@ cs.network = class {
                         }
                   }
 
-                  // console.log(config);
-
                   if (typeof(config.mutation_rate) != "number") {
                         console.error("Mutation rate must be a number.");
                   } else if (config.mutation_rate < 0) {
@@ -638,17 +636,17 @@ cs.network = class {
 
                         // Add nodes to network
                         // Add value nodes to network
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.nodes.value.add); i++) {
                               this.nodes.push(
                                     new cs.node({
                                           "network": this,
                                           "type": "Data/Value",
-                                          "value": random(-1, 1)
+                                          "value": min_max(config.nodes.value.init)
                                     })
                               );
                         }
                         // Add addition nodes to network
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.nodes.add.add); i++) {
                               this.nodes.push(
                                     new cs.node({
                                           "network": this,
@@ -657,7 +655,7 @@ cs.network = class {
                               );
                         }
                         // Add multiplication nodes to network
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.nodes.multiply.add); i++) {
                               this.nodes.push(
                                     new cs.node({
                                           "network": this,
@@ -666,17 +664,17 @@ cs.network = class {
                               );
                         }
                         // Remove nodes from network
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.nodes.value.remove); i++) {
                               if (this.node_types.value.length > 0) {
                                     this.remove_node(random_item(this.node_types.value));
                               }
                         }
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.nodes.add.remove); i++) {
                               if (this.node_types.add.length > 0) {
                                     this.remove_node(random_item(this.node_types.add));
                               }
                         }
-                        for (var i = 0; i < Math.round(random(1, 2)); i++) {
+                        for (var i = 0; i < min_max(config.nodes.multiply.remove); i++) {
                               if (this.node_types.multiply.length > 0) {
                                     this.remove_node(random_item(this.node_types.multiply));
                               }
