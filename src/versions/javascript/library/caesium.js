@@ -497,6 +497,72 @@ cs.network = class {
                         config.mutation_size = 0.1;
                   }
 
+                  if (!config.nodes) {
+                        config.nodes = {};
+                  }
+                  if (typeof(config.nodes) == "object") {
+                        if (!config.nodes.value) {
+                              config.nodes.value = {};
+                        }
+                        if (typeof(config.nodes.value) == "object") {
+                              if (!config.nodes.value.add) {
+                                    config.nodes.value.add = {};
+                              }
+                              if (typeof(config.nodes.value.add) == "object") {
+                                    if (!config.nodes.value.add.min) {
+                                          config.nodes.value.add.min = 0;
+                                    }
+                                    if (config.nodes.value.add.min < 0) {
+                                          console.error("Minimum number of value nodes to add must be at least 0.");
+                                          config.nodes.value.add.min = 0;
+                                    }
+
+                                    if (!config.nodes.value.add.max) {
+                                          config.nodes.value.add.max = 2;
+                                    }
+                                    if (config.nodes.value.add.max < 0) {
+                                          console.error("Maximum number of value nodes to add must be at least 0.");
+                                          config.nodes.value.add.max = 2;
+                                    }
+                              } else if (typeof(config.nodes.value.add) == "number") {
+                                    if (config.nodes.value.add < 0) {
+                                          console.error("Number of value nodes to add must be at least 0.");
+                                          config.nodes.value.add = 1;
+                                    }
+                              }
+
+                              if (!config.nodes.value.remove) {
+                                    config.nodes.value.remove = {};
+                              }
+                              if (typeof(config.nodes.value.remove) == "object") {
+                                    if (!config.nodes.value.remove.min) {
+                                          config.nodes.value.remove.min = 0;
+                                    }
+                                    if (config.nodes.value.remove.min < 0) {
+                                          console.error("Minimum number of value nodes to remove must be at least 0.");
+                                          config.nodes.value.remove.min = 0;
+                                    }
+
+                                    if (!config.nodes.value.remove.max) {
+                                          config.nodes.value.remove.max = 2;
+                                    }
+                                    if (config.nodes.value.remove.max < 0) {
+                                          console.error("Maximum number of value nodes to remove must be at least 0.");
+                                          config.nodes.value.remove.max = 2;
+                                    }
+                              } else if (typeof(config.nodes.value.remove) == "number") {
+                                    if (config.nodes.value.remove < 0) {
+                                          console.error("Number of value nodes to remove must be at least 0.");
+                                          config.nodes.value.remove = 1;
+                                    }
+                              }
+                        } else if (typeof(config.nodes.value) == "number") {
+                              if (config.nodes.value < 0) {
+                                    console.error("Number of value nodes to add or remove must be at least 0.");
+                              }
+                        }
+                  }
+
                   if (!config.connections) {
                         config.connections = {};
                   }
@@ -509,12 +575,14 @@ cs.network = class {
                                     config.connections.add.min = 0;
                               } else if (config.connections.add.min < 0) {
                                     console.error("Minimum number of connections to add must be at least 0.");
+                                    config.connections.add.min = 0;
                               }
 
                               if (!config.connections.add.max) {
                                     config.connections.add.max = 2;
                               } else if (config.connections.add.max < 0) {
                                     console.error("Maximum number of connections to add must be at least 0.");
+                                    config.connections.add.max = 2;
                               }
                         } else if (typeof(config.connections.add) == "number") {
                               if (config.connections.add < 0) {
