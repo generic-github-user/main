@@ -656,7 +656,8 @@ cs.network = class {
                                                 // Create new node
                                                 new cs.node({
                                                       "network": this,
-                                                      "type": attr
+                                                      "type": attr,
+                                                      "value": min_max(config.nodes[attr].init)
                                                 })
                                           );
                                     }
