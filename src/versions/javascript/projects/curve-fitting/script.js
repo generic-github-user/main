@@ -23,6 +23,26 @@ function f(x) {
       return y;
 }
 
+var network = new cs.network({
+      "inputs": 1,
+      "outputs": 1,
+      "nodes": {
+            "Data/Value": {
+                  "num": 2,
+                  "init": {
+                        "min": -1,
+                        "max": 1
+                  }
+            },
+            "Operation/Addition": {
+                  "num": 2
+            },
+            "Operation/Multiplication": {
+                  "num": 2
+            }
+      },
+      "connections": 1
+});
 var config = {
       type: "line",
       data: {
