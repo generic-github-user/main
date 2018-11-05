@@ -15,7 +15,7 @@ for (var i = 0; i < 4; i++) {
       coefficients.push(cs.random(-1, 1));
 }
 
-function f(x) {
+function f1(x) {
       var y = 0;
       for (var i = 0; i < coefficients.length; i++) {
             y += coefficients[i] * (x ** (coefficients.length - i - 1));
@@ -41,8 +41,23 @@ var network = new cs.network({
                   "num": 2
             }
       },
-      "connections": 1
+      "connections": 10
 });
+
+var x = [];
+var y1 = [];
+for (var i = 0; i < 50; i++) {
+      x.push(i - 25);
+      y1.push(f1(i - 25));
+}
+
+var input_data = [];
+var output_data = [];
+for (var i = 0; i < x.length; i++) {
+      input_data.push([x[i]]);
+      output_data.push([y1[i]]);
+}
+
 network = network.evolve({
       "iterations": 10,
       "population": 50,
@@ -138,10 +153,13 @@ var config = {
       }
 };
 
+var y2 = [];
 for (var i = 0; i < 50; i++) {
-      config.data.labels.push(i - 25);
-      config.data.datasets[0].data.push(f(i - 25));
+      y2.push(f2(i - 25));
 }
+config.data.labels = x;
+config.data.datasets[0].data = y1;
+config.data.datasets[1].data = y2;
 
 window.onload = function() {
       var ctx = document.getElementById("canvas").getContext('2d');
