@@ -116,7 +116,7 @@ function update() {
       }
       config.data.datasets[1].data = y2;
 
-      window.myLine.update();
+      chart.update();
 }
 
 var config = {
@@ -177,7 +177,7 @@ config.data.datasets[0].data = y1;
 
 window.onload = function() {
       var ctx = document.getElementById("canvas").getContext('2d');
-      window.myLine = new Chart(ctx, config);
+      window.chart = new Chart(ctx, config);
 };
 
 setInterval(update, 100);
