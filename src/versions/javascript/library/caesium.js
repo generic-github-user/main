@@ -475,14 +475,15 @@ cs.network = class {
                                           network_buffer.find_node(network_buffer.connections[j].source).value;
                               }
                         }
-                        // Remove placeholder value from multiplication nodes
                         for (var j = 0; j < this.nodes.length; j++) {
                               var node = this.nodes[j];
+
+                              // Remove placeholder value from multiplication nodes
                               if (node.type == "Operation/Multiplication" && node.value == 1) {
                                     node.value = 0;
                               }
 
-                              if (node.value < config.limit.min || node.value > config.limit.max) {
+                              if (node.value == NaN || node.value < config.limit.min || node.value > config.limit.max) {
                                     node.value = 0;
                               }
                         }
