@@ -143,10 +143,10 @@ cs.remove = function(array, element) {
 cs.min_max = function(variable) {
       var num;
       if (typeof(variable) == "object") {
-            num = Math.round(cs.random(
+            num = cs.random(
                   variable.min,
                   variable.max
-            ));
+            );
       } else if (typeof(variable) == "number") {
             num = variable;
       }
@@ -307,7 +307,7 @@ cs.network = class {
                   // If the node type does exist, add the set number of nodes to the network
                   if (node_type != undefined) {
                         // Add nodes to network
-                        for (var i = 0; i < cs.min_max(config.nodes[attr].num); i++) {
+                        for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].num)); i++) {
                               this.nodes.push(
                                     // Create new node
                                     new cs.node({
@@ -393,7 +393,7 @@ cs.network = class {
             }
 
             // Generate random connections between nodes
-            for (var i = 0; i < cs.min_max(config.connections); i++) {
+            for (var i = 0; i < Math.round(cs.min_max(config.connections)); i++) {
                   this.add_connection();
             }
 
@@ -651,7 +651,7 @@ cs.network = class {
                               // If the node type does exist, add and remove the set number of nodes
                               if (node_type != undefined) {
                                     // Add nodes to network
-                                    for (var i = 0; i < cs.min_max(config.nodes[attr].add); i++) {
+                                    for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].add)); i++) {
                                           this.nodes.push(
                                                 // Create new node
                                                 new cs.node({
@@ -662,7 +662,7 @@ cs.network = class {
                                           );
                                     }
                                     // Remove nodes from network
-                                    for (var i = 0; i < cs.min_max(config.nodes[attr].remove); i++) {
+                                    for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].remove)); i++) {
                                           if (this.node_types[node_type.name].length > 0) {
                                                 this.remove_node(cs.random_item(this.node_types[node_type.name]));
                                           }
@@ -675,11 +675,11 @@ cs.network = class {
                         }
 
                         // Add connections to network
-                        for (var i = 0; i < cs.min_max(config.connections.add); i++) {
+                        for (var i = 0; i < Math.round(cs.min_max(config.connections.add)); i++) {
                               this.add_connection();
                         }
                         // Remove connections from network
-                        for (var i = 0; i < cs.min_max(config.connections.remove); i++) {
+                        for (var i = 0; i < Math.round(cs.min_max(config.connections.remove)); i++) {
                               if (this.connections.length > 0) {
                                     this.remove_connection(cs.random_item(this.connections).id);
                               }
@@ -720,7 +720,7 @@ cs.network = class {
                                     population[j].update(config.update);
                                     // Calculate fitness score of network
                                     // |avg(y - x)|
-                                    population[j].score += Math.abs(average(cs.difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
+                                    population[j].score += Math.abs(cs.average(cs.difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
                               }
                         }
 
