@@ -577,61 +577,61 @@ cs.network = class {
                   //       }
                   // }
 
-                  if (!config.connections) {
-                        config.connections = {};
-                  }
-                  if (typeof(config.connections) == "object") {
-                        if (!config.connections.add) {
-                              config.connections.add = {};
-                        }
-                        if (typeof(config.connections.add) == "object") {
-                              if (!config.connections.add.min) {
-                                    config.connections.add.min = 0;
-                              } else if (config.connections.add.min < 0) {
-                                    console.error("Minimum number of connections to add must be at least 0.");
-                                    config.connections.add.min = 0;
-                              }
-
-                              if (!config.connections.add.max) {
-                                    config.connections.add.max = 2;
-                              } else if (config.connections.add.max < 0) {
-                                    console.error("Maximum number of connections to add must be at least 0.");
-                                    config.connections.add.max = 2;
-                              }
-                        } else if (typeof(config.connections.add) == "number") {
-                              if (config.connections.add < 0) {
-                                    console.error("Number of connections to add must be at least 0.");
-                                    config.connections.add = 1;
-                              }
-                        }
-
-                        if (!config.connections.remove) {
-                              config.connections.remove = {};
-                        }
-                        if (typeof(config.connections.remove) == "object") {
-                              if (!config.connections.remove.min) {
-                                    config.connections.remove.min = 0;
-                              } else if (config.connections.remove.min < 0) {
-                                    console.error("Minimum number of connections to remove must be at least 0.");
-                              }
-
-                              if (!config.connections.remove.max) {
-                                    config.connections.remove.max = 2;
-                              } else if (config.connections.remove.max < 0) {
-                                    console.error("Maximum number of connections to remove must be at least 0.");
-                              }
-                        } else if (typeof(config.connections.remove) == "number") {
-                              if (config.connections.remove < 0) {
-                                    console.error("Number of connections to remove must be at least 0.");
-                                    config.connections.remove = 1;
-                              }
-                        }
-                  } else if (typeof(config.connections) == "number") {
-                        if (config.connections < 0) {
-                              console.error("Number of connections to add and remove must be at least 0.");
-                              config.connections = 1;
-                        }
-                  }
+                  // if (!config.connections) {
+                  //       config.connections = {};
+                  // }
+                  // if (typeof(config.connections) == "object") {
+                  //       if (!config.connections.add) {
+                  //             config.connections.add = {};
+                  //       }
+                  //       if (typeof(config.connections.add) == "object") {
+                  //             if (!config.connections.add.min) {
+                  //                   config.connections.add.min = 0;
+                  //             } else if (config.connections.add.min < 0) {
+                  //                   console.error("Minimum number of connections to add must be at least 0.");
+                  //                   config.connections.add.min = 0;
+                  //             }
+                  //
+                  //             if (!config.connections.add.max) {
+                  //                   config.connections.add.max = 2;
+                  //             } else if (config.connections.add.max < 0) {
+                  //                   console.error("Maximum number of connections to add must be at least 0.");
+                  //                   config.connections.add.max = 2;
+                  //             }
+                  //       } else if (typeof(config.connections.add) == "number") {
+                  //             if (config.connections.add < 0) {
+                  //                   console.error("Number of connections to add must be at least 0.");
+                  //                   config.connections.add = 1;
+                  //             }
+                  //       }
+                  //
+                  //       if (!config.connections.remove) {
+                  //             config.connections.remove = {};
+                  //       }
+                  //       if (typeof(config.connections.remove) == "object") {
+                  //             if (!config.connections.remove.min) {
+                  //                   config.connections.remove.min = 0;
+                  //             } else if (config.connections.remove.min < 0) {
+                  //                   console.error("Minimum number of connections to remove must be at least 0.");
+                  //             }
+                  //
+                  //             if (!config.connections.remove.max) {
+                  //                   config.connections.remove.max = 2;
+                  //             } else if (config.connections.remove.max < 0) {
+                  //                   console.error("Maximum number of connections to remove must be at least 0.");
+                  //             }
+                  //       } else if (typeof(config.connections.remove) == "number") {
+                  //             if (config.connections.remove < 0) {
+                  //                   console.error("Number of connections to remove must be at least 0.");
+                  //                   config.connections.remove = 1;
+                  //             }
+                  //       }
+                  // } else if (typeof(config.connections) == "number") {
+                  //       if (config.connections < 0) {
+                  //             console.error("Number of connections to add and remove must be at least 0.");
+                  //             config.connections = 1;
+                  //       }
+                  // }
 
                   if (typeof(config.mutation_rate) != "number") {
                         console.error("Mutation rate must be a number.");
