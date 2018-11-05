@@ -46,9 +46,9 @@ var network = new cs.network({
 
 var x = [];
 var y1 = [];
-for (var i = 0; i < 50; i++) {
-      x.push(i - 25);
-      y1.push(f1(i - 25));
+for (var i = 0; i < 20; i++) {
+      x.push(i - 10);
+      y1.push(f1(i - 10));
 }
 
 var input_data = [];
@@ -58,47 +58,11 @@ for (var i = 0; i < x.length; i++) {
       output_data.push([y1[i]]);
 }
 
-network = network.evolve({
-      "iterations": 10,
-      "population": 50,
-      "inputs": input_data,
-      "outputs": output_data,
-      "mutate": {
-            "mutation_rate": 0.5,
-            "mutation_size": 0.1,
-            "nodes": {
-                  "Data/Value": {
-                        "add": 0,
-                        "remove": 0
-                  },
-                  "Operation/Addition": {
-                        "add": 0,
-                        "remove": 0
-                  },
-                  "Operation/Multiplication": {
-                        "add": 0,
-                        "remove": 0
-                  }
-            },
-            "connections": {
-                  "add": 0,
-                  "remove": 0
-            }
-      },
-      "update": {
-            "iterations": 5,
-            "limit": {
-                  "min": -10e6,
-                  "max": 10e6
-            }
-      },
-      "log": true
-});
 
 function f2(x) {
       network.set_inputs([x]);
       network.update({
-            "iterations": 5,
+            "iterations": 3,
             "limit": {
                   "min": -10e6,
                   "max": 10e6
@@ -106,6 +70,53 @@ function f2(x) {
       });
       var y = network.get_outputs()[0];
       return y;
+}
+
+function update() {
+      network = network.evolve({
+            "iterations": 1,
+            "population": 50,
+            "inputs": input_data,
+            "outputs": output_data,
+            "mutate": {
+                  "mutation_rate": 0.5,
+                  "mutation_size": 0.1,
+                  "nodes": {
+                        "Data/Value": {
+                              "add": 0,
+                              "remove": 0
+                        },
+                        "Operation/Addition": {
+                              "add": 0,
+                              "remove": 0
+                        },
+                        "Operation/Multiplication": {
+                              "add": 0,
+                              "remove": 0
+                        }
+                  },
+                  "connections": {
+                        "add": 0,
+                        "remove": 0
+                  }
+            },
+            "update": {
+                  "iterations": 3,
+                  "limit": {
+                        "min": -10e6,
+                        "max": 10e6
+                  }
+            },
+            "log": true
+      });
+
+      var y2 = [];
+      for (var i = 0; i < 20; i++) {
+            y2.push(f2(i - 10));
+      }
+      config.data.datasets[1].data = y2;
+
+      window.myLine.update();
 }
 
 var config = {
@@ -161,15 +172,12 @@ var config = {
       }
 };
 
-var y2 = [];
-for (var i = 0; i < 50; i++) {
-      y2.push(f2(i - 25));
-}
 config.data.labels = x;
 config.data.datasets[0].data = y1;
-config.data.datasets[1].data = y2;
 
 window.onload = function() {
       var ctx = document.getElementById("canvas").getContext('2d');
       window.myLine = new Chart(ctx, config);
 };
+
+setInterval(update, 100);
