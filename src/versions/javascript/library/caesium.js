@@ -142,7 +142,12 @@ cs.remove = function(array, element) {
 
 cs.min_max = function(variable) {
       var num;
-      if (typeof(variable) == "object") {
+      if (variable instanceof Array) {
+            num = cs.random(
+                  variable[0],
+                  variable[1]
+            );
+      } else if (variable instanceof Object) {
             num = cs.random(
                   variable.min,
                   variable.max
