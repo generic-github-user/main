@@ -481,6 +481,10 @@ cs.network = class {
                               if (node.type == "Operation/Multiplication" && node.value == 1) {
                                     node.value = 0;
                               }
+
+                              if (node.value < config.limit.min || node.value > config.limit.max) {
+                                    node.value = 0;
+                              }
                         }
                         // Log current iteration number and network to console
                         if (config.logs) {
