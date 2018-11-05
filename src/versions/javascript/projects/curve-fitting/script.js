@@ -79,6 +79,20 @@ network = network.evolve({
       },
       "log": true
 });
+
+function f2(x) {
+      network.set_inputs([x]);
+      network.update({
+            "iterations": 5,
+            "limit": {
+                  "min": -10e6,
+                  "max": 10e6
+            }
+      });
+      var y = network.get_outputs()[0];
+      return y;
+}
+
 var config = {
       type: "line",
       data: {
