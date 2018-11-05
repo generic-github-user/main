@@ -28,16 +28,17 @@ var network = new cs.network({
       "outputs": 1,
       "nodes": {
             "Data/Value": {
-                  "num": 0
+                  "num": 2,
+                  "init": [-1, 1]
             },
             "Operation/Addition": {
-                  "num": 0
+                  "num": 2
             },
             "Operation/Multiplication": {
-                  "num": 0
+                  "num": 2
             }
       },
-      "connections": 0
+      "connections": 10
 });
 
 var x = [];
@@ -71,7 +72,7 @@ function f2(x) {
 function update() {
       network = network.evolve({
             "iterations": 1,
-            "population": 10,
+            "population": 50,
             "inputs": input_data,
             "outputs": output_data,
             "mutate": {
@@ -80,20 +81,20 @@ function update() {
                   "nodes": {
                         "Data/Value": {
                               "add": [0, 0],
-                              "remove": [0, 0],
+                              "remove": [0, 1],
                               "init": [-1, 1]
                         },
                         "Operation/Addition": {
-                              "add": [0, 2],
-                              "remove": [0, 1]
+                              "add": [0, 1],
+                              "remove": [0, 01]
                         },
                         "Operation/Multiplication": {
-                              "add": [0, 2],
+                              "add": [0, 1],
                               "remove": [0, 1]
                         }
                   },
                   "connections": {
-                        "add": [0, 2],
+                        "add": [0, 5],
                         "remove": [0, 1]
                   }
             },
