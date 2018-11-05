@@ -732,7 +732,7 @@ cs.network = class {
                         // Find network of population with best score
                         var best_network = population[0];
                         for (var j = 0; j < population.length; j++) {
-                              if (population[j].score > best_network.score) {
+                              if (population[j].score < best_network.score) {
                                     best_network = population[j];
                               }
                         }
