@@ -12,7 +12,7 @@ var chartColors = {
 
 var coefficients = [];
 for (var i = 0; i < 4; i++) {
-      coefficients.push(Math.random());
+      coefficients.push(Math.random() - 0.5);
 }
 
 function f(x) {
