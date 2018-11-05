@@ -43,6 +43,42 @@ var network = new cs.network({
       },
       "connections": 1
 });
+network = network.evolve({
+      "iterations": 100,
+      "population": 100,
+      "inputs": input_data,
+      "outputs": output_data,
+      "mutate": {
+            "mutation_rate": 0.5,
+            "mutation_size": 0.01,
+            "nodes": {
+                  "Data/Value": {
+                        "add": 1,
+                        "remove": 1
+                  },
+                  "Operation/Addition": {
+                        "add": 1,
+                        "remove": 1
+                  },
+                  "Operation/Multiplication": {
+                        "add": 1,
+                        "remove": 1
+                  }
+            },
+            "connections": {
+                  "add": 1,
+                  "remove": 1
+            }
+      },
+      "update": {
+            "iterations": 1,
+            "limit": {
+                  "min": -10e6,
+                  "max": 10e6
+            }
+      },
+      "log": true
+});
 var config = {
       type: "line",
       data: {
