@@ -44,34 +44,34 @@ var network = new cs.network({
       "connections": 1
 });
 network = network.evolve({
-      "iterations": 100,
-      "population": 100,
+      "iterations": 10,
+      "population": 50,
       "inputs": input_data,
       "outputs": output_data,
       "mutate": {
             "mutation_rate": 0.5,
-            "mutation_size": 0.01,
+            "mutation_size": 0.1,
             "nodes": {
                   "Data/Value": {
-                        "add": 1,
-                        "remove": 1
+                        "add": 0,
+                        "remove": 0
                   },
                   "Operation/Addition": {
-                        "add": 1,
-                        "remove": 1
+                        "add": 0,
+                        "remove": 0
                   },
                   "Operation/Multiplication": {
-                        "add": 1,
-                        "remove": 1
+                        "add": 0,
+                        "remove": 0
                   }
             },
             "connections": {
-                  "add": 1,
-                  "remove": 1
+                  "add": 0,
+                  "remove": 0
             }
       },
       "update": {
-            "iterations": 1,
+            "iterations": 5,
             "limit": {
                   "min": -10e6,
                   "max": 10e6
