@@ -10,6 +10,19 @@ var chartColors = {
       grey: 'rgb(201, 203, 207)'
 };
 
+var coefficients = [];
+for (var i = 0; i < 4; i++) {
+      coefficients.push(Math.random());
+}
+
+function f(x) {
+      var y = 0;
+      for (var i = 0; i < coefficients.length; i++) {
+            y += coefficients[i] * (x ** (coefficients.length - i - 1));
+      }
+      return y;
+}
+
 var config = {
       type: "line",
       data: {
@@ -18,11 +31,7 @@ var config = {
                   label: "Real Data",
                   backgroundColor: window.chartColors.red,
                   borderColor: window.chartColors.red,
-                  data: [
-                        1,
-                        2,
-                        3
-                  ],
+                  data: [],
                   fill: false,
             }]
       },
@@ -58,6 +67,11 @@ var config = {
             }
       }
 };
+
+for (var i = 0; i < 50; i++) {
+      config.data.labels.push(i - 25);
+      config.data.datasets[0].data.push(f(i - 25));
+}
 
 window.onload = function() {
       var ctx = document.getElementById("canvas").getContext('2d');
