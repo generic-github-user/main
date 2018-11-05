@@ -28,20 +28,16 @@ var network = new cs.network({
       "outputs": 1,
       "nodes": {
             "Data/Value": {
-                  "num": 2,
-                  "init": {
-                        "min": -1,
-                        "max": 1
-                  }
+                  "num": 0
             },
             "Operation/Addition": {
-                  "num": 2
+                  "num": 0
             },
             "Operation/Multiplication": {
-                  "num": 2
+                  "num": 0
             }
       },
-      "connections": 10
+      "connections": 0
 });
 
 var x = [];
@@ -75,29 +71,30 @@ function f2(x) {
 function update() {
       network = network.evolve({
             "iterations": 1,
-            "population": 50,
+            "population": 10,
             "inputs": input_data,
             "outputs": output_data,
             "mutate": {
                   "mutation_rate": 0.5,
-                  "mutation_size": 0.1,
+                  "mutation_size": 0.5,
                   "nodes": {
                         "Data/Value": {
-                              "add": 0,
-                              "remove": 0
+                              "add": [0, 0],
+                              "remove": [0, 0],
+                              "init": [-1, 1]
                         },
                         "Operation/Addition": {
-                              "add": 0,
-                              "remove": 0
+                              "add": [0, 2],
+                              "remove": [0, 1]
                         },
                         "Operation/Multiplication": {
-                              "add": 0,
-                              "remove": 0
+                              "add": [0, 2],
+                              "remove": [0, 1]
                         }
                   },
                   "connections": {
-                        "add": 0,
-                        "remove": 0
+                        "add": [0, 2],
+                        "remove": [0, 1]
                   }
             },
             "update": {
