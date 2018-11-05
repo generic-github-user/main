@@ -111,14 +111,22 @@ function f2(x) {
 var config = {
       type: "line",
       data: {
-            labels: [1, 2, 3],
+            labels: [],
             datasets: [{
-                  label: "Real Data",
-                  backgroundColor: window.chartColors.red,
-                  borderColor: window.chartColors.red,
-                  data: [],
-                  fill: false,
-            }]
+                        label: "Real Data",
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        data: [],
+                        fill: false,
+                  },
+                  {
+                        label: "Generated Data",
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        data: [],
+                        fill: false,
+                  }
+            ]
       },
       options: {
             responsive: true,
