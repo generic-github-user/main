@@ -662,14 +662,16 @@ cs.network = class {
                               if (node_type != undefined) {
                                     // Add nodes to network
                                     for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].add)); i++) {
-                                          this.nodes.push(
-                                                // Create new node
-                                                new cs.node({
-                                                      "network": this,
-                                                      "type": attr,
-                                                      "value": cs.min_max(config.nodes[attr].init)
-                                                })
-                                          );
+                                          if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
+                                                this.nodes.push(
+                                                      // Create new node
+                                                      new cs.node({
+                                                            "network": this,
+                                                            "type": attr,
+                                                            "value": cs.min_max(config.nodes[attr].init)
+                                                      })
+                                                );
+                                          }
                                     }
                                     // Remove nodes from network
                                     for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].remove)); i++) {
@@ -686,7 +688,9 @@ cs.network = class {
 
                         // Add connections to network
                         for (var i = 0; i < Math.round(cs.min_max(config.connections.add)); i++) {
-                              this.add_connection();
+                              if (this.connections.length < config.connections.limit) {
+                                    this.add_connection();
+                              }
                         }
                         // Remove connections from network
                         for (var i = 0; i < Math.round(cs.min_max(config.connections.remove)); i++) {
