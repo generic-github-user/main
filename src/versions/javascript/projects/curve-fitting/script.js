@@ -23,6 +23,7 @@ function f1(x) {
       return y;
 }
 
+var y2 = [];
 var network = new cs.network({
       "inputs": 1,
       "outputs": 1,
@@ -108,7 +109,7 @@ function update() {
             "log": true
       });
 
-      var y2 = [];
+      y2 = [];
       for (var i = 0; i < 20; i++) {
             y2.push(f2(i - 10));
       }
