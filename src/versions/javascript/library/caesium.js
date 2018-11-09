@@ -158,6 +158,10 @@ cs.min_max = function(variable) {
       return num;
 }
 
+cs.apply = function(array, func) {
+      return array.map(x => func(x));
+}
+
 cs.node_types = function(name) {
       // Log error message to console
       console.error("Node type " + name + " does not exist. Please select a node type from the list of supported node types.");
@@ -746,7 +750,15 @@ cs.network = class {
                                     population[j].update(config.update);
                                     // Calculate fitness score of network
                                     // |avg(y - x)|
-                                    population[j].score += Math.abs(cs.average(cs.difference(population[j].get_outputs(), config.outputs[r]))) / config.inputs.length;
+                                    population[j].score += cs.average(
+                                          cs.apply(
+                                                cs.difference(
+                                                      population[j].get_outputs(),
+                                                      config.outputs[r]
+                                                ),
+                                                Math.abs
+                                          )
+                                    ) / config.inputs.length;
                               }
                         }
 
