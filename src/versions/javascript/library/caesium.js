@@ -49,7 +49,7 @@ cs.caesium = function() {
 
 // Generate a random number in between a minimum value and a maximum value
 cs.random = function(minimum, maximum) {
-      if (!minimum && !maximum) {
+      if (minimum == undefined && maximum == undefined) {
             return Math.random();
       } else {
             return minimum + (Math.random() * (maximum - minimum));
