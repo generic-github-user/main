@@ -56,18 +56,18 @@ for (var i = 0; i < x.length; i++) {
       output_data.push([y1[i]]);
 }
 
-
 function f2(x) {
-      network.set_inputs([x]);
-      network.update({
-            "iterations": 3,
-            "limit": {
-                  "min": -10e6,
-                  "max": 10e6
+      var y = network.evaluate({
+            "input": [x],
+            "update": {
+                  "iterations": 3,
+                  "limit": {
+                        "min": -10e3,
+                        "max": 10e3
+                  }
             }
       });
-      var y = network.get_outputs()[0];
-      return y;
+      return y[0];
 }
 
 function update() {

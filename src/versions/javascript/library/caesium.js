@@ -520,6 +520,15 @@ cs.network = class {
                   return this;
             }
 
+            this.evaluate = function(config) {
+                  this.reset();
+                  // Set values of input nodes of network to input data set
+                  this.set_inputs(config.input);
+                  // Update the network
+                  this.update(config.update);
+                  return this.get_outputs();
+            }
+
             // Mutate node values and topology/structure of network
             this.mutate = function(config) {
                   if (!config) {
@@ -743,17 +752,16 @@ cs.network = class {
                               population[j].score = 0;
                               // Loop through each set of inputs
                               for (var r = 0; r < config.inputs.length; r++) {
-                                    population[j].reset();
-                                    // Set values of input nodes of network to input set
-                                    population[j].set_inputs(config.inputs[r]);
-                                    // Update the network
-                                    population[j].update(config.update);
+                                    var y = population[j].evaluate({
+                                          "input": config.inputs[r],
+                                          "update": config.update
+                                    });
                                     // Calculate fitness score of network
                                     // |avg(y - x)|
                                     population[j].score += cs.average(
                                           cs.apply(
                                                 cs.difference(
-                                                      population[j].get_outputs(),
+                                                      y,
                                                       config.outputs[r]
                                                 ),
                                                 Math.abs
