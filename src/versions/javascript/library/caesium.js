@@ -432,6 +432,17 @@ cs.network = class {
                   return outputs;
             }
 
+            // Reset values of mutable nodes in network
+            this.reset = function() {
+                  for (var i = 0; i < this.nodes.length; i++) {
+                        var node = this.nodes[i];
+                        if (node.type != "Data/Value") {
+                              node.value = 0;
+                        }
+                  }
+                  return this;
+            }
+
             // Run one iteration of calculations for node values in network
             this.update = function(config) {
                   // If config object is missing, create one
@@ -728,6 +739,7 @@ cs.network = class {
                               population[j].score = 0;
                               // Loop through each set of inputs
                               for (var r = 0; r < config.inputs.length; r++) {
+                                    population[j].reset();
                                     // Set values of input nodes of network to input set
                                     population[j].set_inputs(config.inputs[r]);
                                     // Update the network
