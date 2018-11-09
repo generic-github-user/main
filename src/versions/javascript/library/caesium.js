@@ -779,7 +779,7 @@ cs.network = class {
                               }
                         }
 
-                        network = best_network;
+                        network = cs.clone(best_network);
                         if (config.log) {
                               console.log("Iteration " + (i + 1) + " complete.", network.score, network);
                         }
