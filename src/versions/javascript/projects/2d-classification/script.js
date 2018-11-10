@@ -6,23 +6,24 @@ context.canvas.width = window.innerWidth;
 // Set height to be equal to window height
 context.canvas.height = window.innerHeight;
 
-var trainingData = [];
+var inputs = [];
+var outputs = [];
 
 for (var i = 0; i < 2; i++) {
       for (var j = 0; j < 3; j++) {
-            var data = {
-                  input: [
-                        Math.random() * (canvas.width / 1000),
-                        Math.random() * (canvas.height / 1000),
-                  ],
-                  output: []
-            }
+            var input = [
+                  Math.random() * (canvas.width / 1000),
+                  Math.random() * (canvas.height / 1000),
+            ];
+            var output = [];
+
             for (var r = 0; r < 2; r++) {
-                  data.output.push(-1);
+                  output.push(-1);
             }
-            //data.output[Math.floor(Math.random() * data.output.length)] = 1;
-            data.output[i] = 1;
-            trainingData.push(data);
+            output[i] = 1;
+
+            inputs.push(input);
+            outputs.push(output);
       }
 }
 const colors = [0, 100];
