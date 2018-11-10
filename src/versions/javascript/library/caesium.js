@@ -3,7 +3,7 @@
 "use strict";
 
 // Global Caesium library object
-cs = {
+window.cs = {
       "all": {
             // List of all nodes
             "nodes": [],
