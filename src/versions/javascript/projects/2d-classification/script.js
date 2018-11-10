@@ -100,9 +100,9 @@ function evolve() {
                         }
                   },
                   "connections": {
-                        "add": [0, 10],
-                        "remove": [0, 10],
-                        "limit": 25
+                        "add": [0, 0],
+                        "remove": [0, 0],
+                        "limit": 5
                   }
             },
             "update": update_settings,
@@ -117,7 +117,10 @@ function evolve() {
                         i / 100
                   ];
                   //var hue = Math.round(evaluate(0, input)[0]) * 1000;
-                  var output = evaluate(0, input);
+                  var output = network.evaluate({
+                        "input": input,
+                        "update": update_settings
+                  });
                   if (output[0] < 0.5) {
                         var hue = 0;
                   } else {
@@ -131,9 +134,9 @@ function evolve() {
                   hue += colors[0] * output[0];
                   hue += colors[1] * output[1];
                   if (output[0] > output[1]) {
-                        //hue = colors[0];
+                        hue = colors[0];
                   } else {
-                        //hue = colors[1];
+                        hue = colors[1];
                   }
                   //hue = Math.tanh(hue) * 100;
                   //hue *= 10;
@@ -143,17 +146,20 @@ function evolve() {
             }
       }
 
-      for (var i = 0; i < trainingData.length; i++) {
-            var output = evaluate(0, trainingData[i].input);
-            var x = trainingData[i].input[0] * 1000;
-            var y = trainingData[i].input[1] * 1000;
+      for (var i = 0; i < inputs.length; i++) {
+            var output = network.evaluate({
+                  "input": input,
+                  "update": update_settings
+            });
+            var x = inputs[i][0] * 1000;
+            var y = inputs[i][1] * 1000;
 
-            context.fillStyle = "hsla(0, 0%, " + trainingData[i].output[0] * 100 + "%, 1)";
+            context.fillStyle = "hsla(0, 0%, " + outputs[i][0] * 100 + "%, 1)";
             context.beginPath();
             context.arc(x, y, 5, 0, 2 * Math.PI);
             context.fill();
 
-            var outputNumber = trainingData[i].output.length
+            var outputNumber = outputs[i].length
             for (var j = 0; j < outputNumber; j++) {
                   var text = output[j].toFixed(5)
                   var textx = x + 10;
@@ -162,7 +168,6 @@ function evolve() {
                   context.fillText(text, textx, texty);
             }
       }
-      console.log(neuralNetworks[0].score);
 }
 
 var interval = window.setInterval(evolve, 10);
