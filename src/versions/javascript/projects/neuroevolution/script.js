@@ -116,6 +116,11 @@ function update() {
             row.append(cell);
       }
       $("body").append(row);
+      window.scrollBy({
+            top: 1000,
+            left: 0,
+            behavior: "smooth"
+      });
 }
 
 setInterval(update, 1000);
