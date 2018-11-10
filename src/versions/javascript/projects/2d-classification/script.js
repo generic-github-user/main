@@ -46,26 +46,69 @@ var network = new cs.network({
       "connections": 0
 });
 
+var update_settings = {
+      "iterations": 4,
+      "limit": {
+            "min": -10e3,
+            "max": 10e3
+      }
+};
+
 function evolve() {
       var score = 0;
-      for (var i = 0; i < 50; i++) {
-            train.evolve.mutate(0, 10, 10, 0.01);
-            //(score / 10)
-            for (var j = 0; j < population.length; j++) {
-                  score = 0;
-                  for (var q = 0; q < trainingData.length; q++) {
-                        //optimize
-                        for (var w = 0; w < trainingData[q].output.length; w++) {
-                              var output = (train.evolve.evaluate(j, trainingData[q].input)[w]);
-                              score += Math.abs(output - trainingData[q].output[w]);
+      // for (var i = 0; i < 50; i++) {
+      //       train.evolve.mutate(0, 10, 10, 0.01);
+      //       //(score / 10)
+      //       for (var j = 0; j < population.length; j++) {
+      //             score = 0;
+      //             for (var q = 0; q < trainingData.length; q++) {
+      //                   //optimize
+      //                   for (var w = 0; w < trainingData[q].output.length; w++) {
+      //                         var output = (train.evolve.evaluate(j, trainingData[q].input)[w]);
+      //                         score += Math.abs(output - trainingData[q].output[w]);
+      //                   }
+      //             }
+      //             train.evolve.assignScore(j, score);
+      //       }
+      //       train.evolve.iterate(0, "min", 10);
+      // }
+      network = network.evolve({
+            "iterations": 1,
+            "population": 10,
+            "inputs": inputs,
+            "outputs": outputs,
+            "mutate": {
+                  "iterations": 1,
+                  "mutation_rate": 0.5,
+                  "mutation_size": 1,
+                  "nodes": {
+                        "Data/Value": {
+                              "add": [0, 0],
+                              "remove": [0, 0],
+                              "limit": 10,
+                              "init": [-1, 1]
+                        },
+                        "Operation/Addition": {
+                              "add": [0, 0],
+                              "remove": [0, 0],
+                              "limit": 10
+                        },
+                        "Operation/Multiplication": {
+                              "add": [0, 0],
+                              "remove": [0, 0],
+                              "limit": 10
                         }
+                  },
+                  "connections": {
+                        "add": [0, 10],
+                        "remove": [0, 10],
+                        "limit": 25
                   }
-                  train.evolve.assignScore(j, score);
-            }
-            train.evolve.iterate(0, "min", 10);
-            //var score = neuralNetworks[0].score;
-            //console.log(score);
-      }
+            },
+            "update": update_settings,
+            "log": false,
+            "return": "network"
+      });
 
       for (var i = 0; i < canvas.height; i += 10) {
             for (var j = 0; j < canvas.width; j += 10) {
