@@ -29,17 +29,17 @@ var network = new cs.network({
       "outputs": 1,
       "nodes": {
             "Data/Value": {
-                  "num": 2,
+                  "num": 3,
                   "init": [-1, 1]
             },
             "Operation/Addition": {
-                  "num": 2
+                  "num": 3
             },
             "Operation/Multiplication": {
-                  "num": 2
+                  "num": 3
             }
       },
-      "connections": 20
+      "connections": 0
 });
 
 var x = [];
