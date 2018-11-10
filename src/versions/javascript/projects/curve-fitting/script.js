@@ -56,16 +56,18 @@ for (var i = 0; i < x.length; i++) {
       output_data.push([y1[i]]);
 }
 
+var update_settings = {
+      "iterations": 4,
+      "limit": {
+            "min": -10e3,
+            "max": 10e3
+      }
+};
+
 function f2(x) {
       var y = network.evaluate({
             "input": [x],
-            "update": {
-                  "iterations": 4,
-                  "limit": {
-                        "min": -10e3,
-                        "max": 10e3
-                  }
-            }
+            "update": update_settings
       });
       return y[0];
 }
@@ -99,18 +101,12 @@ function update() {
                         }
                   },
                   "connections": {
-                        "add": [0, 5],
-                        "remove": [0, 5],
-                        "limit": 50
+                        "add": [0, 10],
+                        "remove": [0, 10],
+                        "limit": 25
                   }
             },
-            "update": {
-                  "iterations": 4,
-                  "limit": {
-                        "min": -10e6,
-                        "max": 10e6
-                  }
-            },
+            "update": update_settings,
             "log": true
       });
 
