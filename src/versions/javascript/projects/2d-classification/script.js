@@ -27,10 +27,23 @@ for (var i = 0; i < 2; i++) {
 }
 const colors = [0, 100];
 
-//Multiple populations
-//Crossover
-create([2, 4, 2]);
-console.log("Beginning neural network training.");
+var network = new cs.network({
+      "inputs": 2,
+      "outputs": 2,
+      "nodes": {
+            "Data/Value": {
+                  "num": 3,
+                  "init": [-1, 1]
+            },
+            "Operation/Addition": {
+                  "num": 3
+            },
+            "Operation/Multiplication": {
+                  "num": 3
+            }
+      },
+      "connections": 0
+});
 
 function evolve() {
       var score = 0;
