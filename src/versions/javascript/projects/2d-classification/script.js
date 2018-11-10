@@ -8,6 +8,7 @@ context.canvas.height = window.innerHeight;
 
 var inputs = [];
 var outputs = [];
+var resolution = 50;
 
 for (var i = 0; i < 2; i++) {
       for (var j = 0; j < 3; j++) {
@@ -43,7 +44,7 @@ var network = new cs.network({
                   "num": 3
             }
       },
-      "connections": 0
+      "connections": 20
 });
 
 var update_settings = {
@@ -100,8 +101,8 @@ function evolve() {
                         }
                   },
                   "connections": {
-                        "add": [0, 0],
-                        "remove": [0, 0],
+                        "add": [0, 1],
+                        "remove": [0, 1],
                         "limit": 5
                   }
             },
@@ -110,8 +111,8 @@ function evolve() {
             "return": "network"
       });
 
-      for (var i = 0; i < canvas.height; i += 10) {
-            for (var j = 0; j < canvas.width; j += 10) {
+      for (var i = 0; i < canvas.height; i += resolution) {
+            for (var j = 0; j < canvas.width; j += resolution) {
                   var input = [
                         j / 100,
                         i / 100
@@ -141,7 +142,7 @@ function evolve() {
                   //hue = Math.tanh(hue) * 100;
                   //hue *= 10;
                   context.fillStyle = "hsla(" + hue + ", 100%, 50%, 1)";
-                  context.fillRect(j, i, 10, 10);
+                  context.fillRect(j, i, resolution, resolution);
 
             }
       }
@@ -170,7 +171,7 @@ function evolve() {
       }
 }
 
-var interval = window.setInterval(evolve, 10);
+var interval = window.setInterval(evolve, 100);
 
 function round(number, digits) {
       return Math.round(number * (10 ** digits)) / (10 ** digits);
