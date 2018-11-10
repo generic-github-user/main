@@ -56,23 +56,6 @@ var update_settings = {
 };
 
 function evolve() {
-      var score = 0;
-      // for (var i = 0; i < 50; i++) {
-      //       train.evolve.mutate(0, 10, 10, 0.01);
-      //       //(score / 10)
-      //       for (var j = 0; j < population.length; j++) {
-      //             score = 0;
-      //             for (var q = 0; q < trainingData.length; q++) {
-      //                   //optimize
-      //                   for (var w = 0; w < trainingData[q].output.length; w++) {
-      //                         var output = (train.evolve.evaluate(j, trainingData[q].input)[w]);
-      //                         score += Math.abs(output - trainingData[q].output[w]);
-      //                   }
-      //             }
-      //             train.evolve.assignScore(j, score);
-      //       }
-      //       train.evolve.iterate(0, "min", 10);
-      // }
       network = network.evolve({
             "iterations": 1,
             "population": 10,
