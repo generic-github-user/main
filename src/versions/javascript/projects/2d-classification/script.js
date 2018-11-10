@@ -11,7 +11,7 @@ var outputs = [];
 var resolution = 50;
 
 for (var i = 0; i < 2; i++) {
-      for (var j = 0; j < 3; j++) {
+      for (var j = 0; j < 1; j++) {
             var input = [
                   Math.random() * (canvas.width / 1000),
                   Math.random() * (canvas.height / 1000),
@@ -34,21 +34,21 @@ var network = new cs.network({
       "outputs": 2,
       "nodes": {
             "Data/Value": {
-                  "num": 3,
+                  "num": 5,
                   "init": [-1, 1]
             },
             "Operation/Addition": {
-                  "num": 3
+                  "num": 5
             },
             "Operation/Multiplication": {
-                  "num": 3
+                  "num": 5
             }
       },
       "connections": 20
 });
 
 var update_settings = {
-      "iterations": 4,
+      "iterations": 5,
       "limit": {
             "min": -10e3,
             "max": 10e3
@@ -58,39 +58,39 @@ var update_settings = {
 function evolve() {
       network = network.evolve({
             "iterations": 1,
-            "population": 10,
+            "population": 100,
             "inputs": inputs,
             "outputs": outputs,
             "mutate": {
                   "iterations": 1,
                   "mutation_rate": 0.5,
-                  "mutation_size": 1,
+                  "mutation_size": 0.1,
                   "nodes": {
                         "Data/Value": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
+                              "add": [0, 2],
+                              "remove": [0, 2],
                               "limit": 10,
                               "init": [-1, 1]
                         },
                         "Operation/Addition": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
+                              "add": [0, 2],
+                              "remove": [0, 2],
                               "limit": 10
                         },
                         "Operation/Multiplication": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
+                              "add": [0, 2],
+                              "remove": [0, 2],
                               "limit": 10
                         }
                   },
                   "connections": {
-                        "add": [0, 1],
-                        "remove": [0, 1],
-                        "limit": 5
+                        "add": [0, 5],
+                        "remove": [0, 5],
+                        "limit": 50
                   }
             },
             "update": update_settings,
-            "log": false,
+            "log": true,
             "return": "network"
       });
 
@@ -122,8 +122,8 @@ function evolve() {
                   } else {
                         hue = colors[1];
                   }
-                  //hue = Math.tanh(hue) * 100;
-                  //hue *= 10;
+                  // hue = Math.tanh(hue) * 100;
+                  // hue /= 10;
                   context.fillStyle = "hsla(" + hue + ", 100%, 50%, 1)";
                   context.fillRect(j, i, resolution, resolution);
 
@@ -132,7 +132,7 @@ function evolve() {
 
       for (var i = 0; i < inputs.length; i++) {
             var output = network.evaluate({
-                  "input": input,
+                  "input": inputs[i],
                   "update": update_settings
             });
             var x = inputs[i][0] * 1000;
@@ -143,7 +143,7 @@ function evolve() {
             context.arc(x, y, 5, 0, 2 * Math.PI);
             context.fill();
 
-            var outputNumber = outputs[i].length
+            var outputNumber = outputs[i].length;
             for (var j = 0; j < outputNumber; j++) {
                   var text = output[j].toFixed(5)
                   var textx = x + 10;
