@@ -37,6 +37,9 @@ var network = new cs.network({
             },
             "Operation/Multiplication": {
                   "num": 3
+            },
+            "Operation/Tanh": {
+                  "num": 0
             }
       },
       "connections": 0
@@ -95,6 +98,11 @@ function update() {
                               "limit": 10
                         },
                         "Operation/Multiplication": {
+                              "add": [0, 0],
+                              "remove": [0, 0],
+                              "limit": 10
+                        },
+                        "Operation/Tanh": {
                               "add": [0, 0],
                               "remove": [0, 0],
                               "limit": 10

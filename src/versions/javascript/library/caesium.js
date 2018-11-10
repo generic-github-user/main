@@ -28,6 +28,9 @@ window.cs = {
                   },
                   {
                         "name": "Operation/Multiplication"
+                  },
+                  {
+                        "name": "Operation/Tanh"
                   }
             ]
       }
@@ -241,9 +244,17 @@ cs.node = class {
                   this.value = 0;
                   config.network.node_outputs.push(this.id);
             }
+            // Create multiplication node
+            else if (config.type == "Operation/Tanh") {
+                  config.network.node_types["Operation/Tanh"].push(this.id);
+
+                  config.network.node_inputs.push(this.id);
+                  this.value = 0;
+                  config.network.node_outputs.push(this.id);
+            }
             // Log error: node type not found
             else {
-                  console.error("'" + config.type + "'" + "is not a valid node type. Please use 'Data/Input', 'Data/Output', 'Data/Value', 'Operation/Addition', or 'Operation/Multiplication'.");
+                  node_types();
             }
 
             // Add node to global nodes list
@@ -481,7 +492,7 @@ cs.network = class {
                         for (var j = 0; j < this.nodes.length; j++) {
                               var node = this.nodes[j];
                               var type = node.type;
-                              if (type == "Data/Output" || type == "Operation/Addition") {
+                              if (type == "Data/Output" || type == "Operation/Addition" || type == "Operation/Tanh") {
                                     node.value = 0;
                               }
                               // Set value of multiplication nodes to 1 so that they can be multiplied by the value of each source node to calculate the product
@@ -493,7 +504,7 @@ cs.network = class {
                               // Store type of node in variable
                               var type = this.find_node(this.connections[j].destination).type;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
-                              if (type == "Data/Output" || type == "Operation/Addition") {
+                              if (type == "Data/Output" || type == "Operation/Addition" || type == "Operation/Tanh") {
                                     this.find_node(this.connections[j].destination).value +=
                                           network_buffer.find_node(network_buffer.connections[j].source).value;
                               }
@@ -505,6 +516,10 @@ cs.network = class {
                         }
                         for (var j = 0; j < this.nodes.length; j++) {
                               var node = this.nodes[j];
+
+                              if (node.type == "Operation/Tanh") {
+                                    node.value = Math.tanh(node.value);
+                              }
 
                               // Remove placeholder value from multiplication nodes
                               if (node.type == "Operation/Multiplication" && node.value == 1) {
@@ -803,6 +818,10 @@ cs.network = class {
                   }
                   if (config.log) {
                         console.log(config.iterations + " training iterations complete.", network);
+                        // console.log(network.evaluate({
+                        //       "input": config.inputs[0],
+                        //       "update": update_settings
+                        // }));
                   }
                   if (config.return == "all") {
                         return {
