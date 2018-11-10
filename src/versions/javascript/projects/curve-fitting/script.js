@@ -12,7 +12,7 @@ var chartColors = {
 
 var coefficients = [];
 for (var i = 0; i < 4; i++) {
-      coefficients.push(cs.random(-1, 1));
+      coefficients.push(cs.random());
 }
 
 function f1(x) {
@@ -60,7 +60,7 @@ function f2(x) {
       var y = network.evaluate({
             "input": [x],
             "update": {
-                  "iterations": 3,
+                  "iterations": 4,
                   "limit": {
                         "min": -10e3,
                         "max": 10e3
@@ -73,34 +73,39 @@ function f2(x) {
 function update() {
       network = network.evolve({
             "iterations": 1,
-            "population": 50,
+            "population": 100,
             "inputs": input_data,
             "outputs": output_data,
             "mutate": {
+                  "iterations": 1,
                   "mutation_rate": 0.5,
-                  "mutation_size": 0.5,
+                  "mutation_size": 1,
                   "nodes": {
                         "Data/Value": {
-                              "add": [0, 0],
+                              "add": [0, 1],
                               "remove": [0, 1],
+                              "limit": 10,
                               "init": [-1, 1]
                         },
                         "Operation/Addition": {
                               "add": [0, 1],
-                              "remove": [0, 01]
+                              "remove": [0, 1],
+                              "limit": 10
                         },
                         "Operation/Multiplication": {
                               "add": [0, 1],
-                              "remove": [0, 1]
+                              "remove": [0, 1],
+                              "limit": 10
                         }
                   },
                   "connections": {
-                        "add": [0, 5],
-                        "remove": [0, 1]
+                        "add": [0, 10],
+                        "remove": [0, 10],
+                        "limit": 100
                   }
             },
             "update": {
-                  "iterations": 3,
+                  "iterations": 4,
                   "limit": {
                         "min": -10e6,
                         "max": 10e6
