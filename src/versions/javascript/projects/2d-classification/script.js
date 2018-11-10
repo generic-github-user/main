@@ -155,7 +155,3 @@ function evolve() {
 }
 
 var interval = window.setInterval(evolve, 100);
-
-function round(number, digits) {
-      return Math.round(number * (10 ** digits)) / (10 ** digits);
-}
