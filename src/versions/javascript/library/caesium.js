@@ -3,7 +3,7 @@
 "use strict";
 
 // Global Caesium library object
-const cs = {
+cs = {
       "all": {
             // List of all nodes
             "nodes": [],
@@ -45,6 +45,10 @@ cs.caesium = function() {
    \\_____|/_/    \\_\\|______||_____/ |_____| \\____/ |_|  |_|  \n\
                                                              \
 ", "background: #e8efff; color: #4319ff; font-weight: 1000;");
+}
+
+cs.alias = function(variable) {
+      window[variable] = cs;
 }
 
 // Generate a random number in between a minimum value and a maximum value
