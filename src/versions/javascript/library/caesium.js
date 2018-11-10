@@ -280,12 +280,16 @@ cs.connection = class {
 cs.network = class {
       // Constructor for creating a network or computation graph
       constructor(config) {
+            if (!config) {
+                  config = {};
+            }
+
             // Assign a random ID to the the new network object
             this.id = cs.UUID();
             // Number of input nodes in the network
-            this.inputs = config.inputs;
+            this.inputs = config.inputs | 10;
             // Number of output nodes in the network
-            this.outputs = config.outputs;
+            this.outputs = config.outputs | 10;
 
             // List of nodes in network
             this.nodes = [];
@@ -331,7 +335,7 @@ cs.network = class {
                   // If the node type does exist, add the set number of nodes to the network
                   if (node_type != undefined) {
                         // Add nodes to network
-                        for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].num)); i++) {
+                        for (var i = 0; i < (Math.round(cs.min_max(config.nodes[attr].num)) | 0); i++) {
                               this.nodes.push(
                                     // Create new node
                                     new cs.node({
@@ -712,7 +716,7 @@ cs.network = class {
                                     // If the node type does exist, add and remove the set number of nodes
                                     if (node_type != undefined) {
                                           // Add nodes to network
-                                          for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].add)); j++) {
+                                          for (var j = 0; j < (Math.round(cs.min_max(config.nodes[attr].add)) | 0); j++) {
                                                 // Check if total number of nodes in network reaches the limit
                                                 if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
                                                       this.nodes.push(
@@ -726,7 +730,7 @@ cs.network = class {
                                                 }
                                           }
                                           // Remove nodes from network
-                                          for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].remove)); j++) {
+                                          for (var j = 0; j < (Math.round(cs.min_max(config.nodes[attr].remove)) | 0); j++) {
                                                 // Check if network has any nodes
                                                 if (this.node_types[node_type.name].length > 0) {
                                                       this.remove_node(cs.random_item(this.node_types[node_type.name]));
@@ -740,14 +744,14 @@ cs.network = class {
                               }
 
                               // Add connections to network
-                              for (var j = 0; j < Math.round(cs.min_max(config.connections.add)); j++) {
+                              for (var j = 0; j < (Math.round(cs.min_max(config.connections.add)) | 0); j++) {
                                     // Check if total number of connections in network reaches the limit
                                     if (this.connections.length < config.connections.limit) {
                                           this.add_connection();
                                     }
                               }
                               // Remove connections from network
-                              for (var j = 0; j < Math.round(cs.min_max(config.connections.remove)); j++) {
+                              for (var j = 0; j < (Math.round(cs.min_max(config.connections.remove)) | 0); j++) {
                                     // Check if network has any connections
                                     if (this.connections.length > 0) {
                                           this.remove_connection(cs.random_item(this.connections).id);
