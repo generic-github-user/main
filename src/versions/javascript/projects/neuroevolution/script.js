@@ -44,8 +44,8 @@ function update() {
       var generation = network.evolve({
             "iterations": 1,
             "population": 10,
-            "inputs": input_data,
-            "outputs": output_data,
+            "inputs": x,
+            "outputs": y,
             "mutate": {
                   "iterations": 1,
                   "mutation_rate": 0.5,
