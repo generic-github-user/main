@@ -40,10 +40,12 @@ var update_settings = {
       }
 };
 
+var population = 10;
+
 function update() {
       var generation = network.evolve({
             "iterations": 1,
-            "population": 10,
+            "population": population,
             "inputs": x,
             "outputs": y,
             "mutate": {
@@ -78,6 +80,19 @@ function update() {
             "log": false,
             "return": "all"
       });
+
+      var row = $("<div>");
+      for (var i = 0; i < population; i++) {
+            var cell = $("<div>");
+            cell.addClass("cell");
+            cell.width((100 / population) + "%");
+
+            var text = $("<p>");
+            text.text(generation.population[i].score);
+            cell.append(text);
+            row.append(cell);
+      }
+      $("body").append(row);
 }
 
 setInterval(update, 1000);
