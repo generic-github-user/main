@@ -1,3 +1,9 @@
+// Map number in one range to another range
+// https://stackoverflow.com/a/23202637
+function map(num, in_min, in_max, out_min, out_max) {
+      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 // var x = [1, 2, 3, 4, 5];
 var x = [
       [1],
@@ -80,15 +86,32 @@ function update() {
             "log": false,
             "return": "all"
       });
+      network = generation.network;
+
+      var scores = [];
+      for (var i = 0; i < population; i++) {
+            scores.push(generation.population[i].score);
+      }
+      var max = Math.max(...scores);
+      var min = Math.min(...scores);
 
       var row = $("<div>");
       for (var i = 0; i < population; i++) {
+            var lightness = map(generation.population[i].score, min, max, 95, 50);
+            if (isNaN(lightness)) {
+                  lightness = 50;
+            }
+            // Create color string in hsla format
+            var color = "hsla(200, 100%, " + lightness + "%, 1)";
+
             var cell = $("<div>");
             cell.addClass("cell");
             cell.width((100 / population) + "%");
+            // Set background color of cell
+            cell.css("background-color", color);
 
             var text = $("<p>");
-            text.text(generation.population[i].score);
+            text.text(generation.population[i].score.toFixed(2));
             cell.append(text);
             row.append(cell);
       }
