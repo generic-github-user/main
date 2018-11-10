@@ -107,7 +107,8 @@ function update() {
                   }
             },
             "update": update_settings,
-            "log": true
+            "log": true,
+            "return": "network"
       });
 
       y2 = [];

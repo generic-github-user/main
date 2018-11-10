@@ -800,8 +800,15 @@ cs.network = class {
                   if (config.log) {
                         console.log(config.iterations + " training iterations complete.", network);
                   }
-                  // Return trained network after neuroevolution process
-                  return network;
+                  if (config.return == "all") {
+                        return {
+                              "population": population,
+                              "network": network
+                        }
+                  } else {
+                        // Return trained network after neuroevolution process
+                        return network;
+                  }
             }
 
             // Add network to global list of networks
