@@ -438,12 +438,16 @@ cs.network = class {
 
             // Reset values of mutable nodes in network
             this.reset = function() {
+                  // Loop through network node list
                   for (var i = 0; i < this.nodes.length; i++) {
+                        // Store node in variable
                         var node = this.nodes[i];
+                        // If node is not a value node, reset value of node to 0
                         if (node.type != "Data/Value") {
                               node.value = 0;
                         }
                   }
+                  // Return updated network object
                   return this;
             }
 
@@ -520,12 +524,15 @@ cs.network = class {
                   return this;
             }
 
+            // Run a prediction using the network on a set of input data to produce an output
             this.evaluate = function(config) {
+                  // Reset mutable network values
                   this.reset();
                   // Set values of input nodes of network to input data set
                   this.set_inputs(config.input);
                   // Update the network
                   this.update(config.update);
+                  // Return outputs from network
                   return this.get_outputs();
             }
 
@@ -687,6 +694,7 @@ cs.network = class {
                                     if (node_type != undefined) {
                                           // Add nodes to network
                                           for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].add)); j++) {
+                                                // Check if total number of nodes in network reaches the limit
                                                 if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
                                                       this.nodes.push(
                                                             // Create new node
@@ -700,6 +708,7 @@ cs.network = class {
                                           }
                                           // Remove nodes from network
                                           for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].remove)); j++) {
+                                                // Check if network has any nodes
                                                 if (this.node_types[node_type.name].length > 0) {
                                                       this.remove_node(cs.random_item(this.node_types[node_type.name]));
                                                 }
@@ -713,12 +722,14 @@ cs.network = class {
 
                               // Add connections to network
                               for (var j = 0; j < Math.round(cs.min_max(config.connections.add)); j++) {
+                                    // Check if total number of connections in network reaches the limit
                                     if (this.connections.length < config.connections.limit) {
                                           this.add_connection();
                                     }
                               }
                               // Remove connections from network
                               for (var j = 0; j < Math.round(cs.min_max(config.connections.remove)); j++) {
+                                    // Check if network has any connections
                                     if (this.connections.length > 0) {
                                           this.remove_connection(cs.random_item(this.connections).id);
                                     }
