@@ -39,7 +39,7 @@ var network = new cs.network({
                   "num": 2
             }
       },
-      "connections": 10
+      "connections": 20
 });
 
 var x = [];
@@ -73,7 +73,7 @@ function f2(x) {
 function update() {
       network = network.evolve({
             "iterations": 1,
-            "population": 100,
+            "population": 50,
             "inputs": input_data,
             "outputs": output_data,
             "mutate": {
@@ -82,26 +82,26 @@ function update() {
                   "mutation_size": 1,
                   "nodes": {
                         "Data/Value": {
-                              "add": [0, 1],
-                              "remove": [0, 1],
+                              "add": [0, 0],
+                              "remove": [0, 0],
                               "limit": 10,
                               "init": [-1, 1]
                         },
                         "Operation/Addition": {
-                              "add": [0, 1],
-                              "remove": [0, 1],
+                              "add": [0, 0],
+                              "remove": [0, 0],
                               "limit": 10
                         },
                         "Operation/Multiplication": {
-                              "add": [0, 1],
-                              "remove": [0, 1],
+                              "add": [0, 0],
+                              "remove": [0, 0],
                               "limit": 10
                         }
                   },
                   "connections": {
-                        "add": [0, 10],
-                        "remove": [0, 10],
-                        "limit": 100
+                        "add": [0, 5],
+                        "remove": [0, 5],
+                        "limit": 50
                   }
             },
             "update": {
