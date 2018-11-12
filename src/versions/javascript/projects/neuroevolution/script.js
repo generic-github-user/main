@@ -112,6 +112,10 @@ function update() {
 
             var text = $("<p>");
             text.text(generation.population[i].score.toFixed(2));
+            // text.html("Network " + (i + 1) + "<br />" +
+            // generation.population[i].score.toFixed(2) + "<br />" +
+            // generation.population[i].nodes.length + " nodes" + "<br />" +
+            // generation.population[i].connections.length + " connections");
             cell.append(text);
             row.append(cell);
       }
