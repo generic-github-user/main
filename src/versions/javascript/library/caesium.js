@@ -762,6 +762,7 @@ cs.network = class {
 
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
+                  var start_time = performance.now();
                   if (config.log) {
                         console.log("Training network.", this);
                   }
@@ -816,8 +817,10 @@ cs.network = class {
                               console.log("Iteration " + (i + 1) + " complete.", network.score, network);
                         }
                   }
+                  var end_time = performance.now();
+
                   if (config.log) {
-                        console.log(config.iterations + " training iterations complete.", network);
+                        console.log(config.iterations + " training iterations complete in " + Math.round(end_time - start_time) + " milliseconds.", network);
                         // console.log(network.evaluate({
                         //       "input": config.inputs[0],
                         //       "update": update_settings
