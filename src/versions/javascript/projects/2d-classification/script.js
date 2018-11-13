@@ -11,27 +11,21 @@ var outputs = [];
 var resolution = 50;
 
 for (var i = 0; i < 2; i++) {
-      for (var j = 0; j < 1; j++) {
+      for (var j = 0; j < 2; j++) {
             var input = [
                   Math.random() * (canvas.width / 1000),
                   Math.random() * (canvas.height / 1000),
             ];
-            var output = [];
-
-            for (var r = 0; r < 2; r++) {
-                  output.push(-1);
-            }
-            output[i] = 1;
 
             inputs.push(input);
-            outputs.push(output);
+            outputs.push([Math.round(cs.random())]);
       }
 }
 const colors = [0, 100];
 
 var network = new cs.network({
       "inputs": 2,
-      "outputs": 2,
+      "outputs": 1,
       "nodes": {
             "Data/Value": {
                   "num": 5,
@@ -104,26 +98,15 @@ function evolve() {
                   var output = network.evaluate({
                         "input": input,
                         "update": update_settings
-                  });
-                  if (output[0] < 0.5) {
-                        var hue = 0;
-                  } else {
-                        var hue = 200;
-                  }
+                  })[0];
 
-                  //hue = output * 10000000000;
-                  var hue = Math.tanh(output[0]) * 100;
-                  //var lightness = Math.tanh(output[1]) * 100;
-                  var hue = 0;
-                  hue += colors[0] * output[0];
-                  hue += colors[1] * output[1];
-                  if (output[0] > output[1]) {
-                        hue = colors[0];
-                  } else {
-                        hue = colors[1];
-                  }
-                  // hue = Math.tanh(hue) * 100;
-                  // hue /= 10;
+                  var hue = Math.tanh(output) * 100;
+
+                  // if (output < 0.5) {
+                  //       hue = colors[0];
+                  // } else {
+                  //       hue = colors[1];
+                  // }
                   context.fillStyle = "hsla(" + hue + ", 100%, 50%, 1)";
                   context.fillRect(j, i, resolution, resolution);
 
@@ -134,7 +117,7 @@ function evolve() {
             var output = network.evaluate({
                   "input": inputs[i],
                   "update": update_settings
-            });
+            })[0];
             var x = inputs[i][0] * 1000;
             var y = inputs[i][1] * 1000;
 
@@ -143,14 +126,11 @@ function evolve() {
             context.arc(x, y, 5, 0, 2 * Math.PI);
             context.fill();
 
-            var outputNumber = outputs[i].length;
-            for (var j = 0; j < outputNumber; j++) {
-                  var text = output[j].toFixed(5)
-                  var textx = x + 10;
-                  var texty = y - (outputNumber * 20) + (j * 20);
-                  context.font = "20px Roboto";
-                  context.fillText(text, textx, texty);
-            }
+            var text = output.toFixed(5)
+            var textx = x + 10;
+            var texty = y - 20;
+            context.font = "20px Roboto";
+            context.fillText(text, textx, texty);
       }
 }
 
