@@ -1,3 +1,5 @@
+// lookup.js
+
 var nodes = new Array(100).fill({
       "id": cs.UUID(),
       "value": cs.random()
@@ -19,5 +21,5 @@ for (var i = 0; i < 100; i++) {
 }
 
 console.time("Test 2");
-node = nodes[nodes[49].id];
+node = nodes[nodes[id].id];
 console.timeEnd("Test 2");
