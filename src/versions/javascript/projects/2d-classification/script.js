@@ -49,6 +49,8 @@ var update_settings = {
       }
 };
 
+var a = 0;
+
 function evolve() {
       network = network.evolve({
             "iterations": 1,
@@ -61,19 +63,24 @@ function evolve() {
                   "mutation_size": 0.1,
                   "nodes": {
                         "Data/Value": {
-                              "add": [0, 2],
-                              "remove": [0, 2],
+                              "add": [0, a],
+                              "remove": [0, a],
                               "limit": 10,
                               "init": [-1, 1]
                         },
                         "Operation/Addition": {
-                              "add": [0, 2],
-                              "remove": [0, 2],
+                              "add": [0, a],
+                              "remove": [0, a],
                               "limit": 10
                         },
                         "Operation/Multiplication": {
-                              "add": [0, 2],
-                              "remove": [0, 2],
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 10
+                        },
+                        "Operation/Tanh": {
+                              "add": [0, a],
+                              "remove": [0, a],
                               "limit": 10
                         }
                   },
