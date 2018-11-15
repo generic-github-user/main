@@ -108,6 +108,10 @@ cs.clone = function(object) {
       throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
+cs.clone_2 = function(object) {
+      return JSON.parse(JSON.stringify(object));
+}
+
 cs.clone_network = function(network) {
       var cloned = cs.clone(network);
       cloned.id = cs.UUID();
@@ -439,7 +443,8 @@ cs.network = class {
                   }
                   for (var i = 0; i < config.iterations; i++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
-                        var network_buffer = cs.clone(this);
+                        // var network_buffer = cs.clone(this);
+                        var network_buffer = this;
                         // Reset node values
                         for (var attr in this.nodes) {
                               var node = this.nodes[attr];
