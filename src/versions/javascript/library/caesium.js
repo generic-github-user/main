@@ -195,60 +195,36 @@ cs.UUID = function() {
 // Node class
 cs.node = class {
       constructor(config) {
-            // Create UUID for node
-            this.id = cs.UUID();
             this.type = config.type;
 
             // Create input node
-            if (config.type == "Input") {
-                  config.network.node_types["Input"].push(this.id);
-
+            if (this.type == "Input") {
                   // Cannot be undefined
                   this.value = 0;
-                  config.network.node_outputs.push(this.id);
             }
             // Create output node
-            else if (config.type == "Output") {
-                  config.network.node_types["Output"].push(this.id);
-
-                  config.network.node_inputs.push(this.id);
+            else if (this.type == "Output") {
                   this.value = config.value;
-                  config.network.node_outputs.push(this.id);
             }
             // Create value node
-            else if (config.type == "Value") {
-                  config.network.node_types["Value"].push(this.id);
-
+            else if (this.type == "Value") {
                   this.value = config.value;
-                  config.network.node_outputs.push(this.id);
             }
             // Create addition node
-            else if (config.type == "Addition") {
-                  config.network.node_types["Addition"].push(this.id);
-
-                  config.network.node_inputs.push(this.id);
+            else if (this.type == "Addition") {
                   this.value = 0;
-                  config.network.node_outputs.push(this.id);
             }
             // Create multiplication node
-            else if (config.type == "Multiplication") {
-                  config.network.node_types["Multiplication"].push(this.id);
-
-                  config.network.node_inputs.push(this.id);
+            else if (this.type == "Multiplication") {
                   this.value = 0;
-                  config.network.node_outputs.push(this.id);
             }
-            // Create multiplication node
-            else if (config.type == "Tanh") {
-                  config.network.node_types["Tanh"].push(this.id);
-
-                  config.network.node_inputs.push(this.id);
+            // Create tanh node
+            else if (this.type == "Tanh") {
                   this.value = 0;
-                  config.network.node_outputs.push(this.id);
             }
             // Log error: node type not found
             else {
-                  node_types();
+                  cs.node_types();
             }
       }
 }
@@ -276,7 +252,7 @@ cs.network = class {
             this.outputs = config.outputs;
 
             // List of nodes in network
-            this.nodes = [];
+            this.nodes = {};
             // List of connections in network
             this.connections = [];
 
@@ -294,22 +270,67 @@ cs.network = class {
                   this.node_types[cs.settings.node_types[i].name] = [];
             }
 
+            this.add_node = function(config) {
+                  // Create UUID for node
+                  var id = cs.UUID();
+
+                  var node = new cs.node({
+                        "type": config.type,
+                        "value": config.value
+                  });
+                  this.nodes[id] = node;
+
+                  // Create input node
+                  if (node.type == "Input") {
+                        this.node_types["Input"].push(id);
+                        this.node_outputs.push(id);
+                  }
+                  // Create output node
+                  else if (node.type == "Output") {
+                        this.node_types["Output"].push(id);
+
+                        this.node_inputs.push(id);
+                        this.node_outputs.push(id);
+                  }
+                  // Create value node
+                  else if (node.type == "Value") {
+                        this.node_types["Value"].push(id);
+
+                        this.node_outputs.push(id);
+                  }
+                  // Create addition node
+                  else if (node.type == "Addition") {
+                        this.node_types["Addition"].push(id);
+
+                        this.node_inputs.push(id);
+                        this.node_outputs.push(id);
+                  }
+                  // Create multiplication node
+                  else if (node.type == "Multiplication") {
+                        this.node_types["Multiplication"].push(id);
+
+                        this.node_inputs.push(id);
+                        this.node_outputs.push(id);
+                  }
+                  // Create tanh node
+                  else if (node.type == "Tanh") {
+                        this.node_types["Tanh"].push(id);
+
+                        this.node_inputs.push(id);
+                        this.node_outputs.push(id);
+                  }
+            }
+
             for (var i = 0; i < this.inputs; i++) {
-                  this.nodes.push(
-                        new cs.node({
-                              "network": this,
-                              "type": "Input"
-                        })
-                  );
+                  this.add_node({
+                        "type": "Input"
+                  });
             }
             for (var i = 0; i < this.outputs; i++) {
-                  this.nodes.push(
-                        new cs.node({
-                              "network": this,
-                              "type": "Output",
-                              "value": 0
-                        })
-                  );
+                  this.add_node({
+                        "type": "Output",
+                        "value": 0
+                  });
             }
 
             // Loop through all defined node types in config object
@@ -320,14 +341,11 @@ cs.network = class {
                   if (node_type != undefined) {
                         // Add nodes to network
                         for (var i = 0; i < Math.round(cs.min_max(config.nodes[attr].num)); i++) {
-                              this.nodes.push(
-                                    // Create new node
-                                    new cs.node({
-                                          "network": this,
-                                          "type": attr,
-                                          "value": cs.min_max(config.nodes[attr].init)
-                                    })
-                              );
+                              // Create new node
+                              this.add_node({
+                                    "type": attr,
+                                    "value": cs.min_max(config.nodes[attr].init)
+                              });
                         }
                   }
                   // If the node type does not exist, log an error
@@ -337,19 +355,6 @@ cs.network = class {
             }
 
             // These functions must be defined before the connection generation code so they can be used there
-            // Get a node from the network given the node's ID
-            this.find_node = function(id) {
-                  // Search network's node list for a connection with the matching ID
-                  var node = this.nodes.find(x => x.id == id);
-                  // If node cannot be found, log an error
-                  if (!node) {
-                        console.error("Node with id " + id + " could not be found.");
-                  }
-                  // If node is found, return the node object
-                  else {
-                        return node;
-                  }
-            }
             // Get a node from the network given the connection's ID
             this.find_connection = function(id) {
                   // Search network's connection list for a connection with the matching ID
@@ -370,16 +375,16 @@ cs.network = class {
                         // Create a new connection with the constructor function
                         new cs.connection({
                               // Connection sources must be nodes with outputs
-                              "source": this.find_node(cs.random_item(this.node_outputs)).id,
+                              "source": cs.random_item(this.node_outputs),
                               // Connection destinations must be nodes with inputs
-                              "destination": this.find_node(cs.random_item(this.node_inputs)).id
+                              "destination": cs.random_item(this.node_inputs)
                         })
                   );
             }
             // Remove a node from the network, given its ID
             this.remove_node = function(id) {
                   // Remove node from main network nodes list
-                  cs.remove(this.nodes, this.find_node(id));
+                  delete this.nodes[id];
                   // Remove node ID from node type lists
                   for (var attr in this.node_types) {
                         cs.remove(this.node_types[attr], id);
@@ -420,7 +425,7 @@ cs.network = class {
                         return false;
                   } else if (inputs.length == num_inputs) {
                         for (var i = 0; i < inputs.length; i++) {
-                              this.find_node(this.node_types["Input"][i]).value = inputs[i];
+                              this.nodes[this.node_types["Input"][i]].value = inputs[i];
                         }
                         return this;
                   }
@@ -433,7 +438,7 @@ cs.network = class {
                   // Loop through all output nodes in network
                   for (var i = 0; i < this.node_types["Output"].length; i++) {
                         // Add value of output node to array
-                        outputs.push(this.find_node(this.node_types["Output"][i]).value);
+                        outputs.push(this.nodes[this.node_types["Output"][i]].value);
                   }
                   // Return array of outputs
                   return outputs;
@@ -442,9 +447,9 @@ cs.network = class {
             // Reset values of mutable nodes in network
             this.reset = function() {
                   // Loop through network node list
-                  for (var i = 0; i < this.nodes.length; i++) {
+                  for (var attr in this.nodes) {
                         // Store node in variable
-                        var node = this.nodes[i];
+                        var node = this.nodes[attr];
                         // If node is not a value node, reset value of node to 0
                         if (node.type != "Value") {
                               node.value = 0;
@@ -477,8 +482,8 @@ cs.network = class {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         var network_buffer = cs.clone(this);
                         // Reset node values
-                        for (var j = 0; j < this.nodes.length; j++) {
-                              var node = this.nodes[j];
+                        for (var attr in this.nodes) {
+                              var node = this.nodes[attr];
                               var type = node.type;
                               if (type == "Output" || type == "Addition" || type == "Tanh") {
                                     node.value = 0;
@@ -490,20 +495,20 @@ cs.network = class {
                         }
                         for (var j = 0; j < this.connections.length; j++) {
                               // Store type of node in variable
-                              var type = this.find_node(this.connections[j].destination).type;
+                              var type = this.nodes[this.connections[j].destination].type;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Output" || type == "Addition" || type == "Tanh") {
-                                    this.find_node(this.connections[j].destination).value +=
-                                          network_buffer.find_node(network_buffer.connections[j].source).value;
+                                    this.nodes[this.connections[j].destination].value +=
+                                          network_buffer.nodes[network_buffer.connections[j].source].value;
                               }
                               // Values for multiplication nodes can be calculated by multiplying together all of their inputs
                               else if (type == "Multiplication") {
-                                    this.find_node(this.connections[j].destination).value *=
-                                          network_buffer.find_node(network_buffer.connections[j].source).value;
+                                    this.nodes[this.connections[j].destination].value *=
+                                          network_buffer.nodes[network_buffer.connections[j].source].value;
                               }
                         }
-                        for (var j = 0; j < this.nodes.length; j++) {
-                              var node = this.nodes[j];
+                        for (attr in this.nodes) {
+                              var node = this.nodes[attr];
 
                               if (node.type == "Tanh") {
                                     node.value = Math.tanh(node.value);
@@ -687,9 +692,7 @@ cs.network = class {
                         for (var i = 0; i < config.iterations; i++) {
                               for (var j = 0; j < this.node_types["Value"].length; j++) {
                                     if (cs.random() < config.mutation_rate) {
-                                          this.find_node(this.node_types["Value"][j]).value += cs.random(-config.mutation_size,
-                                                config.mutation_size
-                                          );
+                                          this.nodes[this.node_types["Value"][j]].value += cs.random(-config.mutation_size, config.mutation_size);
                                     }
                               }
 
@@ -703,14 +706,10 @@ cs.network = class {
                                           for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].add)); j++) {
                                                 // Check if total number of nodes in network reaches the limit
                                                 if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
-                                                      this.nodes.push(
-                                                            // Create new node
-                                                            new cs.node({
-                                                                  "network": this,
-                                                                  "type": attr,
-                                                                  "value": cs.min_max(config.nodes[attr].init)
-                                                            })
-                                                      );
+                                                      this.add_node({
+                                                            "type": attr,
+                                                            "value": cs.min_max(config.nodes[attr].init)
+                                                      });
                                                 }
                                           }
                                           // Remove nodes from network
