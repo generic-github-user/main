@@ -1,7 +1,9 @@
 // Adapted from http://www.chartjs.org/samples/latest/charts/line/basic.html
 
+var degree = 3;
+
 var coefficients = [];
-for (var i = 0; i < 4; i++) {
+for (var i = 0; i < degree + 1; i++) {
       coefficients.push(cs.random());
 }
 
@@ -59,7 +61,7 @@ for (var i = 0; i < x.length; i++) {
 }
 
 var update_settings = {
-      "iterations": 4,
+      "iterations": degree,
       "limit": {
             "min": -10e3,
             "max": 10e3
