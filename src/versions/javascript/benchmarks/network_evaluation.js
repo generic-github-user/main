@@ -36,10 +36,8 @@ var update_settings = {
 
 // Run 100 speed tests
 for (var i = 0; i < 100; i++) {
-      inputs = [];
-      for (var j = 0; j < 20; j++) {
-            inputs.push(cs.random());
-      }
+      // Generate random input data
+      inputs = new Array(20).fill(cs.random());
 
       // Reset values of nodes in network
       network.reset();
