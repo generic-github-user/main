@@ -24,14 +24,14 @@ var network = new cs.network({
       "inputs": 1,
       "outputs": 1,
       "nodes": {
-            "Data/Value": {
+            "Value": {
                   "num": 3,
                   "init": [-1, 1]
             },
-            "Operation/Addition": {
+            "Addition": {
                   "num": 3
             },
-            "Operation/Multiplication": {
+            "Multiplication": {
                   "num": 3
             }
       },
@@ -59,18 +59,18 @@ function update() {
                   "mutation_rate": 0.5,
                   "mutation_size": 1,
                   "nodes": {
-                        "Data/Value": {
+                        "Value": {
                               "add": [0, 0],
                               "remove": [0, 0],
                               "limit": 10,
                               "init": [-1, 1]
                         },
-                        "Operation/Addition": {
+                        "Addition": {
                               "add": [0, 0],
                               "remove": [0, 0],
                               "limit": 10
                         },
-                        "Operation/Multiplication": {
+                        "Multiplication": {
                               "add": [0, 0],
                               "remove": [0, 0],
                               "limit": 10

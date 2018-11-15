@@ -27,15 +27,15 @@ var network = new cs.network({
       "inputs": 2,
       "outputs": 1,
       "nodes": {
-            "Data/Value": {
                   "num": 5,
+            "Value": {
                   "init": [-1, 1]
             },
-            "Operation/Addition": {
                   "num": 5
+            "Addition": {
             },
-            "Operation/Multiplication": {
                   "num": 5
+            "Multiplication": {
             }
       },
       "connections": 20
@@ -62,23 +62,23 @@ function evolve() {
                   "mutation_rate": 0.5,
                   "mutation_size": 0.1,
                   "nodes": {
-                        "Data/Value": {
+                        "Value": {
                               "add": [0, a],
                               "remove": [0, a],
                               "limit": 10,
                               "init": [-1, 1]
                         },
-                        "Operation/Addition": {
+                        "Addition": {
                               "add": [0, a],
                               "remove": [0, a],
                               "limit": 10
                         },
-                        "Operation/Multiplication": {
+                        "Multiplication": {
                               "add": [0, a],
                               "remove": [0, a],
                               "limit": 10
                         },
-                        "Operation/Tanh": {
+                        "Tanh": {
                               "add": [0, a],
                               "remove": [0, a],
                               "limit": 10
