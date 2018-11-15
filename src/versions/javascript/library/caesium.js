@@ -25,6 +25,15 @@ window.cs = {
                   },
                   {
                         "name": "Tanh"
+                  },
+                  {
+                        "name": "Sine"
+                  },
+                  {
+                        "name": "Cosine"
+                  },
+                  {
+                        "name": "Abs"
                   }
             ]
       }
