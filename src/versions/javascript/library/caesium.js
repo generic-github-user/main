@@ -713,6 +713,12 @@ cs.network = class {
                                           this.remove_connection(cs.random_item(this.connections).id);
                                     }
                               }
+
+                              for (var j = 0; j < this.connections.length; j++) {
+                                    if (cs.random() < config.connections.value.mutation_rate) {
+                                          this.connections[j].value += cs.random(-config.connections.value.mutation_size, config.connections.value.mutation_size);
+                                    }
+                              }
                         }
                   }
 

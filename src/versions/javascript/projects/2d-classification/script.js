@@ -121,7 +121,11 @@ function evolve() {
                         "add": [0, 10],
                         "remove": [0, 10],
                         "limit": 100,
-                        "init": [-1, 1]
+                        "init": [-1, 1],
+                        "value": {
+                              "mutation_rate": 0.5,
+                              "mutation_size": 1,
+                        }
                   }
             },
             "update": update_settings,
