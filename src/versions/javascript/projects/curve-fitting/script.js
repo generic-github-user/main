@@ -28,8 +28,18 @@ var network = new cs.network({
             "Multiplication": {
                   "num": 3
             },
-                  "num": 0
-            }
+            // "Tanh": {
+            //       "num": 3
+            // },
+            // "Sine": {
+            //       "num": 3
+            // },
+            // "Cosine": {
+            //       "num": 3
+            // },
+            // "Abs": {
+            //       "num": 3
+            // }
       },
       "connections": 0
 });
@@ -91,11 +101,26 @@ function update() {
                               "remove": [0, 0],
                               "limit": 10
                         },
-                        "Tanh": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
-                              "limit": 10
-                        }
+                        // "Tanh": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 10
+                        // },
+                        // "Sine": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 10
+                        // },
+                        // "Cosine": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 10
+                        // },
+                        // "Abs": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 10
+                        // }
                   },
                   "connections": {
                         "add": [0, 10],

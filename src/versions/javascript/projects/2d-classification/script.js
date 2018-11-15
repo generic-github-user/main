@@ -29,13 +29,28 @@ var network = new cs.network({
       "nodes": {
                   "num": 5,
             "Value": {
+                  "num": n,
                   "init": [-1, 1]
             },
                   "num": 5
             "Addition": {
+                  "num": n
             },
                   "num": 5
             "Multiplication": {
+                  "num": n
+            },
+            "Tanh": {
+                  "num": n
+            },
+            "Sine": {
+                  "num": n
+            },
+            "Cosine": {
+                  "num": n
+            },
+            "Abs": {
+                  "num": n
             }
       },
       "connections": 20
@@ -79,6 +94,21 @@ function evolve() {
                               "limit": 10
                         },
                         "Tanh": {
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 10
+                        },
+                        "Sine": {
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 10
+                        },
+                        "Cosine": {
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 10
+                        },
+                        "Abs": {
                               "add": [0, a],
                               "remove": [0, a],
                               "limit": 10

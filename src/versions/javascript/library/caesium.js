@@ -197,34 +197,11 @@ cs.node = class {
       constructor(config) {
             this.type = config.type;
 
-            // Create input node
-            if (this.type == "Input") {
-                  // Cannot be undefined
-                  this.value = 0;
-            }
-            // Create output node
-            else if (this.type == "Output") {
-                  this.value = config.value;
-            }
             // Create value node
-            else if (this.type == "Value") {
+            if (this.type == "Value") {
                   this.value = config.value;
-            }
-            // Create addition node
-            else if (this.type == "Addition") {
+            } else {
                   this.value = 0;
-            }
-            // Create multiplication node
-            else if (this.type == "Multiplication") {
-                  this.value = 0;
-            }
-            // Create tanh node
-            else if (this.type == "Tanh") {
-                  this.value = 0;
-            }
-            // Log error: node type not found
-            else {
-                  cs.node_types();
             }
       }
 }
@@ -281,44 +258,14 @@ cs.network = class {
                   this.nodes[id] = node;
 
                   // Create input node
-                  if (node.type == "Input") {
-                        this.node_types["Input"].push(id);
+                  if (node.type == "Input" || node.type == "Value") {
                         this.node_outputs.push(id);
-                  }
-                  // Create output node
-                  else if (node.type == "Output") {
-                        this.node_types["Output"].push(id);
-
+                  } else {
                         this.node_inputs.push(id);
                         this.node_outputs.push(id);
                   }
-                  // Create value node
-                  else if (node.type == "Value") {
-                        this.node_types["Value"].push(id);
 
-                        this.node_outputs.push(id);
-                  }
-                  // Create addition node
-                  else if (node.type == "Addition") {
-                        this.node_types["Addition"].push(id);
-
-                        this.node_inputs.push(id);
-                        this.node_outputs.push(id);
-                  }
-                  // Create multiplication node
-                  else if (node.type == "Multiplication") {
-                        this.node_types["Multiplication"].push(id);
-
-                        this.node_inputs.push(id);
-                        this.node_outputs.push(id);
-                  }
-                  // Create tanh node
-                  else if (node.type == "Tanh") {
-                        this.node_types["Tanh"].push(id);
-
-                        this.node_inputs.push(id);
-                        this.node_outputs.push(id);
-                  }
+                  this.node_types[node.type].push(id);
             }
 
             for (var i = 0; i < this.inputs; i++) {
@@ -328,8 +275,7 @@ cs.network = class {
             }
             for (var i = 0; i < this.outputs; i++) {
                   this.add_node({
-                        "type": "Output",
-                        "value": 0
+                        "type": "Output"
                   });
             }
 
@@ -485,7 +431,7 @@ cs.network = class {
                         for (var attr in this.nodes) {
                               var node = this.nodes[attr];
                               var type = node.type;
-                              if (type == "Output" || type == "Addition" || type == "Tanh") {
+                              if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
                                     node.value = 0;
                               }
                               // Set value of multiplication nodes to 1 so that they can be multiplied by the value of each source node to calculate the product
@@ -497,7 +443,7 @@ cs.network = class {
                               // Store type of node in variable
                               var type = this.nodes[this.connections[j].destination].type;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
-                              if (type == "Output" || type == "Addition" || type == "Tanh") {
+                              if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
                                     this.nodes[this.connections[j].destination].value +=
                                           network_buffer.nodes[network_buffer.connections[j].source].value;
                               }
@@ -512,6 +458,12 @@ cs.network = class {
 
                               if (node.type == "Tanh") {
                                     node.value = Math.tanh(node.value);
+                              } else if (node.type == "Sine") {
+                                    node.value = Math.sin(node.value);
+                              } else if (node.type == "Cosine") {
+                                    node.value = Math.cos(node.value);
+                              } else if (node.type == "Abs") {
+                                    node.value = Math.abs(node.value);
                               }
 
                               // Remove placeholder value from multiplication nodes
