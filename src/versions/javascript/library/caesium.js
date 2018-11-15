@@ -4,14 +4,8 @@
 
 // Global Caesium library object
 window.cs = {
-      "all": {
-            // List of all nodes
-            "nodes": [],
-            // List of all connections
-            "connections": [],
-            // List of all networks
-            "networks": []
-      },
+      // List of all networks
+      "networks": [],
       // Settings for networks
       "settings": {
             "node_types": [{
@@ -113,7 +107,7 @@ cs.clone_network = function(network) {
 
 // Find a network globally given its ID
 cs.get_network = function(id) {
-      return cs.all.networks.find(x => x.id == id);
+      return cs.networks.find(x => x.id == id);
 }
 
 // Find the difference between two arrays and return another array
@@ -256,9 +250,6 @@ cs.node = class {
             else {
                   node_types();
             }
-
-            // Add node to global nodes list
-            // cs.all.nodes.push(this);
       }
 }
 
@@ -270,9 +261,6 @@ cs.connection = class {
 
             this.source = config.source;
             this.destination = config.destination;
-
-            // Add node to global connections list
-            // cs.all.connections.push(this);
       }
 }
 
@@ -838,6 +826,6 @@ cs.network = class {
             }
 
             // Add network to global list of networks
-            cs.all.networks.push(this);
+            cs.networks.push(this);
       }
 }
