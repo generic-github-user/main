@@ -35,7 +35,10 @@ var network = new cs.network({
                   "num": 3
             }
       },
-      "connections": 0
+      "connections": {
+            "num": 0,
+            "init": [-1, 1]
+      }
 });
 
 var update_settings = {
@@ -79,7 +82,8 @@ function update() {
                   "connections": {
                         "add": [0, 10],
                         "remove": [0, 10],
-                        "limit": 25
+                        "limit": 25,
+                        "init": [-1, 1]
                   }
             },
             "update": update_settings,

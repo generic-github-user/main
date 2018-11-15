@@ -211,6 +211,7 @@ cs.connection = class {
       // Constructor for creating a connection between two nodes within a network
       constructor(config) {
             this.id = cs.UUID();
+            this.weight = config.weight;
 
             this.source = config.source;
             this.destination = config.destination;
@@ -315,11 +316,12 @@ cs.network = class {
                   }
             }
             // Add a new random connection to the network
-            this.add_connection = function() {
+            this.add_connection = function(config) {
                   // Push connection to network's connection array
                   this.connections.push(
                         // Create a new connection with the constructor function
                         new cs.connection({
+                              "weight": config.weight,
                               // Connection sources must be nodes with outputs
                               "source": cs.random_item(this.node_outputs),
                               // Connection destinations must be nodes with inputs
@@ -356,8 +358,10 @@ cs.network = class {
             }
 
             // Generate random connections between nodes
-            for (var i = 0; i < Math.round(cs.min_max(config.connections)); i++) {
-                  this.add_connection();
+            for (var i = 0; i < Math.round(cs.min_max(config.connections.num)); i++) {
+                  this.add_connection({
+                        "weight": cs.min_max(config.connections.init)
+                  });
             }
 
             // Function for setting input data of network
@@ -442,15 +446,16 @@ cs.network = class {
                         for (var j = 0; j < this.connections.length; j++) {
                               // Store type of node in variable
                               var type = this.nodes[this.connections[j].destination].type;
+                              var input_value = network_buffer.nodes[network_buffer.connections[j].source].value * this.connections[j].weight;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
                                     this.nodes[this.connections[j].destination].value +=
-                                          network_buffer.nodes[network_buffer.connections[j].source].value;
+                                          input_value;
                               }
                               // Values for multiplication nodes can be calculated by multiplying together all of their inputs
                               else if (type == "Multiplication") {
                                     this.nodes[this.connections[j].destination].value *=
-                                          network_buffer.nodes[network_buffer.connections[j].source].value;
+                                          input_value;
                               }
                         }
                         for (attr in this.nodes) {
@@ -682,7 +687,9 @@ cs.network = class {
                               for (var j = 0; j < Math.round(cs.min_max(config.connections.add)); j++) {
                                     // Check if total number of connections in network reaches the limit
                                     if (this.connections.length < config.connections.limit) {
-                                          this.add_connection();
+                                          this.add_connection({
+                                                "weight": cs.min_max(config.connections.init)
+                                          });
                                     }
                               }
                               // Remove connections from network

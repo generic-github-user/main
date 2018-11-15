@@ -53,7 +53,10 @@ var network = new cs.network({
                   "num": n
             }
       },
-      "connections": 20
+      "connections": {
+            "num": 100,
+            "init": [-1, 1]
+      }
 });
 
 var update_settings = {
@@ -115,9 +118,10 @@ function evolve() {
                         }
                   },
                   "connections": {
-                        "add": [0, 5],
-                        "remove": [0, 5],
-                        "limit": 50
+                        "add": [0, 10],
+                        "remove": [0, 10],
+                        "limit": 100,
+                        "init": [-1, 1]
                   }
             },
             "update": update_settings,
