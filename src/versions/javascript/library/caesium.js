@@ -472,9 +472,11 @@ cs.network = class {
                                           input_value;
                               }
                         }
+                        // Loop through all nodes
                         for (attr in this.nodes) {
                               var node = this.nodes[attr];
 
+                              // Apply mathematical operations to nodes
                               if (node.type == "Tanh") {
                                     node.value = Math.tanh(node.value);
                               } else if (node.type == "Sine") {
@@ -691,8 +693,11 @@ cs.network = class {
                               }
                         }
 
+                        // Mutate values of value nodes
                         for (var j = 0; j < this.node_types["Value"].length; j++) {
+                              // Randomly decide whether to mutate value or not
                               if (cs.random() < config.nodes["Value"].value.mutation_rate) {
+                                    // Add random/subtract amount to value
                                     this.nodes[this.node_types["Value"][j]].value += cs.random(-config.nodes["Value"].value.mutation_size, config.nodes["Value"].value.mutation_size);
                               }
                         }
@@ -714,8 +719,11 @@ cs.network = class {
                               }
                         }
 
+                        // Mutate connection weight values
                         for (var j = 0; j < this.connections.length; j++) {
+                              // Randomly decide whether to mutate weight
                               if (cs.random() < config.connections.value.mutation_rate) {
+                                    // Mutate weight value by a random amount
                                     this.connections[j].value += cs.random(-config.connections.value.mutation_size, config.connections.value.mutation_size);
                               }
                         }
