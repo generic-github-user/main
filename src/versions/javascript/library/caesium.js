@@ -653,74 +653,74 @@ cs.network = class {
                   //       }
                   // }
 
-                  if (typeof(config.mutation_rate) != "number") {
-                        console.error("Mutation rate must be a number.");
-                  } else if (config.mutation_rate < 0) {
-                        console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
-                  } else if (config.mutation_rate > 1) {
-                        console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
-                  } else {
-                        for (var i = 0; i < config.iterations; i++) {
-                              for (var j = 0; j < this.node_types["Value"].length; j++) {
-                                    if (cs.random() < config.mutation_rate) {
-                                          this.nodes[this.node_types["Value"][j]].value += cs.random(-config.mutation_size, config.mutation_size);
-                                    }
-                              }
-
-                              // Loop through all defined node types in config object
-                              for (var attr in config.nodes) {
-                                    // Search node types list for node type
-                                    var node_type = cs.settings.node_types.find(x => x.name == attr);
-                                    // If the node type does exist, add and remove the set number of nodes
-                                    if (node_type != undefined) {
-                                          // Add nodes to network
-                                          for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].add)); j++) {
-                                                // Check if total number of nodes in network reaches the limit
-                                                if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
-                                                      this.add_node({
-                                                            "type": attr,
-                                                            "value": cs.min_max(config.nodes[attr].init)
-                                                      });
-                                                }
-                                          }
-                                          // Remove nodes from network
-                                          for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].remove)); j++) {
-                                                // Check if network has any nodes
-                                                if (this.node_types[node_type.name].length > 0) {
-                                                      this.remove_node(cs.random_item(this.node_types[node_type.name]));
-                                                }
+                  // if (typeof(config.mutation_rate) != "number") {
+                  //       console.error("Mutation rate must be a number.");
+                  // } else if (config.mutation_rate < 0) {
+                  //       console.error("Mutation rate of " + config.mutation_rate + " is too low. Mutation rate must be between 0 and 1.");
+                  // } else if (config.mutation_rate > 1) {
+                  //       console.error("Mutation rate of " + config.mutation_rate + " is too high. Mutation rate must be between 0 and 1.");
+                  // } else {
+                  for (var i = 0; i < config.iterations; i++) {
+                        // Loop through all defined node types in config object
+                        for (var attr in config.nodes) {
+                              // Search node types list for node type
+                              var node_type = cs.settings.node_types.find(x => x.name == attr);
+                              // If the node type does exist, add and remove the set number of nodes
+                              if (node_type != undefined) {
+                                    // Add nodes to network
+                                    for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].add)); j++) {
+                                          // Check if total number of nodes in network reaches the limit
+                                          if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
+                                                this.add_node({
+                                                      "type": attr,
+                                                      "value": cs.min_max(config.nodes[attr].init)
+                                                });
                                           }
                                     }
-                                    // If the node type does not exist, log an error
-                                    else {
-                                          cs.node_types(attr);
+                                    // Remove nodes from network
+                                    for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].remove)); j++) {
+                                          // Check if network has any nodes
+                                          if (this.node_types[node_type.name].length > 0) {
+                                                this.remove_node(cs.random_item(this.node_types[node_type.name]));
+                                          }
                                     }
                               }
+                              // If the node type does not exist, log an error
+                              else {
+                                    cs.node_types(attr);
+                              }
+                        }
 
-                              // Add connections to network
-                              for (var j = 0; j < Math.round(cs.min_max(config.connections.add)); j++) {
-                                    // Check if total number of connections in network reaches the limit
-                                    if (this.connections.length < config.connections.limit) {
-                                          this.add_connection({
-                                                "weight": cs.min_max(config.connections.init)
-                                          });
-                                    }
+                        for (var j = 0; j < this.node_types["Value"].length; j++) {
+                              if (cs.random() < config.nodes["Value"].value.mutation_rate) {
+                                    this.nodes[this.node_types["Value"][j]].value += cs.random(-config.nodes["Value"].value.mutation_size, config.nodes["Value"].value.mutation_size);
                               }
-                              // Remove connections from network
-                              for (var j = 0; j < Math.round(cs.min_max(config.connections.remove)); j++) {
-                                    // Check if network has any connections
-                                    if (this.connections.length > 0) {
-                                          this.remove_connection(cs.random_item(this.connections).id);
-                                    }
-                              }
+                        }
 
-                              for (var j = 0; j < this.connections.length; j++) {
-                                    if (cs.random() < config.connections.value.mutation_rate) {
-                                          this.connections[j].value += cs.random(-config.connections.value.mutation_size, config.connections.value.mutation_size);
-                                    }
+                        // Add connections to network
+                        for (var j = 0; j < Math.round(cs.min_max(config.connections.add)); j++) {
+                              // Check if total number of connections in network reaches the limit
+                              if (this.connections.length < config.connections.limit) {
+                                    this.add_connection({
+                                          "weight": cs.min_max(config.connections.init)
+                                    });
+                              }
+                        }
+                        // Remove connections from network
+                        for (var j = 0; j < Math.round(cs.min_max(config.connections.remove)); j++) {
+                              // Check if network has any connections
+                              if (this.connections.length > 0) {
+                                    this.remove_connection(cs.random_item(this.connections).id);
+                              }
+                        }
+
+                        for (var j = 0; j < this.connections.length; j++) {
+                              if (cs.random() < config.connections.value.mutation_rate) {
+                                    this.connections[j].value += cs.random(-config.connections.value.mutation_size, config.connections.value.mutation_size);
                               }
                         }
                   }
+                  // }
 
                   // Return mutated network
                   return this;

@@ -87,14 +87,16 @@ function update() {
             "outputs": output_data,
             "mutate": {
                   "iterations": 1,
-                  "mutation_rate": 0.5,
-                  "mutation_size": 1,
                   "nodes": {
                         "Value": {
                               "add": [0, 0],
                               "remove": [0, 0],
                               "limit": 10,
-                              "init": [-1, 1]
+                              "init": [-1, 1],
+                              "value": {
+                                    "mutation_rate": 0.5,
+                                    "mutation_size": 1,
+                              }
                         },
                         "Addition": {
                               "add": [0, 0],
