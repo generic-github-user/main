@@ -21,9 +21,13 @@ var y = [
 ];
 
 var network = new cs.network({
-      "inputs": 1,
-      "outputs": 1,
       "nodes": {
+            "Input": {
+                  "num": 1
+            },
+            "Output": {
+                  "num": 1
+            },
             "Value": {
                   "num": 3,
                   "init": [-1, 1]
@@ -59,14 +63,16 @@ function update() {
             "outputs": y,
             "mutate": {
                   "iterations": 1,
-                  "mutation_rate": 0.5,
-                  "mutation_size": 1,
                   "nodes": {
                         "Value": {
                               "add": [0, 0],
                               "remove": [0, 0],
                               "limit": 10,
-                              "init": [-1, 1]
+                              "init": [-1, 1],
+                              "value": {
+                                    "mutation_rate": 0.5,
+                                    "mutation_size": 1,
+                              }
                         },
                         "Addition": {
                               "add": [0, 0],
