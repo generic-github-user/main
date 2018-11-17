@@ -1,6 +1,7 @@
 // Adapted from http://www.chartjs.org/samples/latest/charts/line/basic.html
 
 var degree = 3;
+var points = 10;
 
 var coefficients = [];
 for (var i = 0; i < degree + 1; i++) {
@@ -51,9 +52,9 @@ var network = new cs.network({
 
 var x = [];
 var y1 = [];
-for (var i = 0; i < 20; i++) {
-      x.push(i - 10);
-      y1.push(f1(i - 10));
+for (var i = 0; i < points; i++) {
+      x.push(i - (points / 2));
+      y1.push(f1(i - (points / 2)));
 }
 
 var input_data = [];
@@ -148,8 +149,8 @@ function update() {
       });
 
       y2 = [];
-      for (var i = 0; i < 20; i++) {
-            y2.push(f2(i - 10));
+      for (var i = 0; i < points; i++) {
+            y2.push(f2(i - (points / 2)));
       }
       config.data.datasets[1].data = y2;
 
