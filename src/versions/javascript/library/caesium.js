@@ -202,6 +202,7 @@ cs.UUID = function() {
       }
       // Generate UUID from substrings
       var id = s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
+      // Return generated ID
       return id;
 }
 
@@ -210,10 +211,15 @@ cs.node = class {
       // Node constructor object
       constructor(config) {
             if (config == undefined) {
+                  // Error is logged instead of creating a config object because certain parameters must be provided
                   console.error("Please provide a config object.");
-            } else if (config.type == undefined) {
+            }
+            // Only check for node type if config object was provided
+            else if (config.type == undefined) {
                   console.error("Please provide a node type.");
-            } else {
+            }
+            // Valid config object with node type was provided
+            else {
                   // Set type of node
                   this.type = config.type;
 
@@ -237,13 +243,18 @@ cs.node = class {
 cs.connection = class {
       // Constructor for creating a connection between two nodes within a network
       constructor(config) {
+            // Check for config object
             if (config == undefined) {
                   console.error("Please provide a config object.");
-            } else if (config.source == undefined) {
+            }
+            // Connection source and destination only need to be checked if a config object was provided
+            else if (config.source == undefined) {
                   console.error("Please provide a source node for the connection.");
             } else if (config.destination == undefined) {
                   console.error("Please provide a config object.");
-            } else {
+            }
+            // Valid config object with source and destination node IDs was provided
+            else {
                   // If no weight value is provided, set to default value (1)
                   if (config.weight == undefined) {
                         config.weight = 1;
