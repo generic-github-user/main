@@ -79,6 +79,8 @@ function f2(x) {
       return y[0];
 }
 
+a = 0;
+
 function update() {
       network = network.evolve({
             "iterations": 1,
@@ -89,8 +91,8 @@ function update() {
                   "iterations": 1,
                   "nodes": {
                         "Value": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
+                              "add": [0, a],
+                              "remove": [0, a],
                               "limit": 10,
                               "init": [-1, 1],
                               "value": {
@@ -99,13 +101,13 @@ function update() {
                               }
                         },
                         "Addition": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
+                              "add": [0, a],
+                              "remove": [0, a],
                               "limit": 10
                         },
                         "Multiplication": {
-                              "add": [0, 0],
-                              "remove": [0, 0],
+                              "add": [0, a],
+                              "remove": [0, a],
                               "limit": 10
                         },
                         // "Tanh": {
