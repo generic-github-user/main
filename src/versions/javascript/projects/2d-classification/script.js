@@ -23,20 +23,19 @@ for (var i = 0; i < 2; i++) {
 }
 const colors = [0, 100];
 
+n = 2;
+
 var network = new cs.network({
       "inputs": 2,
       "outputs": 1,
       "nodes": {
-                  "num": 5,
             "Value": {
                   "num": n,
                   "init": [-1, 1]
             },
-                  "num": 5
             "Addition": {
                   "num": n
             },
-                  "num": 5
             "Multiplication": {
                   "num": n
             },
@@ -77,14 +76,16 @@ function evolve() {
             "outputs": outputs,
             "mutate": {
                   "iterations": 1,
-                  "mutation_rate": 0.5,
-                  "mutation_size": 0.1,
                   "nodes": {
                         "Value": {
                               "add": [0, a],
                               "remove": [0, a],
                               "limit": 10,
-                              "init": [-1, 1]
+                              "init": [-1, 1],
+                              "value": {
+                                    "mutation_rate": 0.5,
+                                    "mutation_size": 1
+                              }
                         },
                         "Addition": {
                               "add": [0, a],
@@ -124,7 +125,7 @@ function evolve() {
                         "init": [-1, 1],
                         "value": {
                               "mutation_rate": 0.5,
-                              "mutation_size": 1,
+                              "mutation_size": 1
                         }
                   }
             },
