@@ -208,13 +208,22 @@ cs.UUID = function() {
 // Node class
 cs.node = class {
       constructor(config) {
-            this.type = config.type;
-
-            // Create value node
-            if (this.type == "Value") {
-                  this.value = config.value;
+            if (config == undefined) {
+                  console.error("Please provide a config object.");
+            } else if (config.type == undefined) {
+                  console.error("Please provide a node type.");
             } else {
-                  this.value = 0;
+                  this.type = config.type;
+
+                  // Create value node
+                  if (this.type == "Value") {
+                        if (config.value == undefined) {
+                              config.value = 1;
+                        }
+                        this.value = config.value;
+                  } else {
+                        this.value = 0;
+                  }
             }
       }
 }
@@ -223,11 +232,24 @@ cs.node = class {
 cs.connection = class {
       // Constructor for creating a connection between two nodes within a network
       constructor(config) {
-            this.id = cs.UUID();
-            this.weight = config.weight;
+            if (config == undefined) {
+                  console.error("Please provide a config object.");
+            } else if (config.source == undefined) {
+                  console.error("Please provide a source node for the connection.");
+            } else if (config.destination == undefined) {
+                  console.error("Please provide a config object.");
+            } else {
+                  // If no weight value is provided, set to default value (1)
+                  if (config.weight == undefined) {
+                        config.weight = 1;
+                  }
 
-            this.source = config.source;
-            this.destination = config.destination;
+                  this.id = cs.UUID();
+                  this.weight = config.weight;
+
+                  this.source = config.source;
+                  this.destination = config.destination;
+            }
       }
 }
 
@@ -235,6 +257,11 @@ cs.connection = class {
 cs.network = class {
       // Constructor for creating a network or computation graph
       constructor(config) {
+            // if (config == undefined) {
+            //       console.error("Please provide a config object.");
+            // }
+            // else if () {
+
             // Assign a random ID to the the new network object
             this.id = cs.UUID();
             // Number of input nodes in the network
@@ -262,24 +289,25 @@ cs.network = class {
             }
 
             this.add_node = function(config) {
-                  // Create UUID for node
-                  var id = cs.UUID();
-
-                  var node = new cs.node({
-                        "type": config.type,
-                        "value": config.value
-                  });
-                  this.nodes[id] = node;
-
-                  // Create input node
-                  if (node.type == "Input" || node.type == "Value") {
-                        this.node_outputs.push(id);
+                  if (config == undefined) {
+                        console.error("Please provide a config object.");
                   } else {
-                        this.node_inputs.push(id);
-                        this.node_outputs.push(id);
-                  }
+                        // Create UUID for node
+                        var id = cs.UUID();
 
-                  this.node_types[node.type].push(id);
+                        var node = new cs.node(config);
+                        this.nodes[id] = node;
+
+                        // Create input node
+                        if (node.type == "Input" || node.type == "Value") {
+                              this.node_outputs.push(id);
+                        } else {
+                              this.node_inputs.push(id);
+                              this.node_outputs.push(id);
+                        }
+
+                        this.node_types[node.type].push(id);
+                  }
             }
 
             for (var i = 0; i < this.inputs; i++) {
@@ -343,26 +371,36 @@ cs.network = class {
                   );
             }
             // Remove a node from the network, given its ID
-            this.remove_node = function(id) {
-                  // Remove node from main network nodes list
-                  delete this.nodes[id];
-                  // Remove node ID from node type lists
-                  for (var attr in this.node_types) {
-                        cs.remove(this.node_types[attr], id);
-                  }
-                  // // Remove() all instances
+            this.remove_node = function(config) {
+                  // If config object is missing, create one
+                  if (config == undefined) {
+                        console.error("Please provide a config object.");
+                  } else {
+                        // If no ID is provided, log an error
+                        if (config.id == undefined) {
+                              console.error("Missing ID of node to remove from network.");
+                        } else {
+                              // Remove node from main network nodes list
+                              delete this.nodes[id];
+                              // Remove node ID from node type lists
+                              for (var attr in this.node_types) {
+                                    cs.remove(this.node_types[attr], id);
+                              }
+                              // // Remove() all instances
 
-                  // Remove node ID from list of nodes with inputs
-                  cs.remove(this.node_inputs, id);
-                  // Remove node ID from list of nodes with outputs
-                  cs.remove(this.node_outputs, id);
+                              // Remove node ID from list of nodes with inputs
+                              cs.remove(this.node_inputs, id);
+                              // Remove node ID from list of nodes with outputs
+                              cs.remove(this.node_outputs, id);
 
-                  // Find connections that have the removed node as a source
-                  var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
-                  // Loop through list of dead connections
-                  for (var i = 0; i < dead_connections.length; i++) {
-                        // Remove connection
-                        cs.remove(this.connections, dead_connections[i]);
+                              // Find connections that have the removed node as a source
+                              var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
+                              // Loop through list of dead connections
+                              for (var i = 0; i < dead_connections.length; i++) {
+                                    // Remove connection
+                                    cs.remove(this.connections, dead_connections[i]);
+                              }
+                        }
                   }
             }
             // Remove a connection from the network, given its ID
@@ -425,11 +463,11 @@ cs.network = class {
             // Run one iteration of calculations for node values in network
             this.update = function(config) {
                   // If config object is missing, create one
-                  if (!config) {
+                  if (config == undefined) {
                         config = {};
                   }
                   // If no number of iterations is provided, set to default (1)
-                  if (!config.iterations) {
+                  if (config.iterations == undefined) {
                         config.iterations = 1;
                   }
                   // If number of iterations is provided and is not a number, log an error and set to default (1)
@@ -438,9 +476,10 @@ cs.network = class {
                         config.iterations = 1;
                   }
                   // If no console log status is provided, set to default (false)
-                  if (!config.logs) {
+                  if (config.logs == undefined) {
                         config.logs = false;
                   }
+
                   for (var i = 0; i < config.iterations; i++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         // var network_buffer = cs.clone(this);
