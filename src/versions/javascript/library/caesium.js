@@ -207,21 +207,26 @@ cs.UUID = function() {
 
 // Node class
 cs.node = class {
+      // Node constructor object
       constructor(config) {
             if (config == undefined) {
                   console.error("Please provide a config object.");
             } else if (config.type == undefined) {
                   console.error("Please provide a node type.");
             } else {
+                  // Set type of node
                   this.type = config.type;
 
-                  // Create value node
+                  // Create value (bias) node
                   if (this.type == "Value") {
+                        // If no value is provided, set to default value (1)
                         if (config.value == undefined) {
                               config.value = 1;
                         }
+                        // Set value of value node
                         this.value = cs.min_max(config.value);
                   } else {
+                        // Non-value nodes start with a value of 0
                         this.value = 0;
                   }
             }
@@ -244,10 +249,14 @@ cs.connection = class {
                         config.weight = 1;
                   }
 
+                  // Generate random ID for connection
                   this.id = cs.UUID();
+                  // Set connection weight
                   this.weight = cs.min_max(config.weight);
 
+                  // Set source node of connection
                   this.source = config.source;
+                  // Set destination node of connection
                   this.destination = config.destination;
             }
       }
@@ -284,10 +293,13 @@ cs.network = class {
 
             // Lists of specific node types in the network
             this.node_types = {};
+            // Loop through all node types in settings
             for (var i = 0; i < cs.settings.node_types.length; i++) {
+                  // Create array to store type of node
                   this.node_types[cs.settings.node_types[i].name] = [];
             }
 
+            // Add a node to the network
             this.add_node = function(config) {
                   if (config == undefined) {
                         console.error("Please provide a config object.");
@@ -295,26 +307,33 @@ cs.network = class {
                         // Create UUID for node
                         var id = cs.UUID();
 
+                        // Create a node with config object using the node constructor
                         var node = new cs.node(config);
+                        // Set node as value of property of network.nodes
                         this.nodes[id] = node;
 
-                        // Create input node
+                        // Input nodes and value nodes only have outputs
                         if (node.type == "Input" || node.type == "Value") {
                               this.node_outputs.push(id);
-                        } else {
+                        }
+                        // All other nodes have inputs and outputs
+                        else {
                               this.node_inputs.push(id);
                               this.node_outputs.push(id);
                         }
 
+                        // Add node ID to respective node type list
                         this.node_types[node.type].push(id);
                   }
             }
 
+            // Add input nodes to network
             for (var i = 0; i < this.inputs; i++) {
                   this.add_node({
                         "type": "Input"
                   });
             }
+            // Add output nodes to network
             for (var i = 0; i < this.outputs; i++) {
                   this.add_node({
                         "type": "Output"
