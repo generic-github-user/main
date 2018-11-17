@@ -23,9 +23,13 @@ for (var i = 0; i < 4; i++) {
 n = 2;
 
 var network = new cs.network({
-      "inputs": 2,
-      "outputs": 1,
       "nodes": {
+            "Input": {
+                  "num": 2
+            },
+            "Output": {
+                  "num": 1
+            },
             "Value": {
                   "num": n,
                   "init": [-1, 1]
@@ -116,13 +120,13 @@ function evolve() {
                         }
                   },
                   "connections": {
-                        "add": [0, 10],
-                        "remove": [0, 10],
+                        "add": [0, 0],
+                        "remove": [0, 0],
                         "limit": 100,
                         "init": [-1, 1],
                         "value": {
-                              "mutation_rate": 0.5,
-                              "mutation_size": 1
+                              "mutation_rate": 0.1,
+                              "mutation_size": 0.1
                         }
                   }
             },
