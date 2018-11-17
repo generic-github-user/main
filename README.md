@@ -282,6 +282,12 @@ Visualize all the nodes and connections in a Caesium network.
 ### [Curve Fitting](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/curve-fitting/)
 Approximate a polynomial function using neuroevolution.
 
+![image](./src/versions/javascript/projects/curve-fitting/screenshots/1.PNG)
+
+![image](./src/versions/javascript/projects/curve-fitting/screenshots/2.PNG)
+
+![image](./src/versions/javascript/projects/curve-fitting/screenshots/3.PNG)
+
 ### [Neuroevolution](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/neuroevolution/)
 Evolve a randomly generated population of neural networks.
 
