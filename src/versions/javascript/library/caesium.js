@@ -220,7 +220,7 @@ cs.node = class {
                         if (config.value == undefined) {
                               config.value = 1;
                         }
-                        this.value = config.value;
+                        this.value = cs.min_max(config.value);
                   } else {
                         this.value = 0;
                   }
@@ -245,7 +245,7 @@ cs.connection = class {
                   }
 
                   this.id = cs.UUID();
-                  this.weight = config.weight;
+                  this.weight = cs.min_max(config.weight);
 
                   this.source = config.source;
                   this.destination = config.destination;
@@ -332,7 +332,7 @@ cs.network = class {
                               // Create new node
                               this.add_node({
                                     "type": attr,
-                                    "value": cs.min_max(config.nodes[attr].init)
+                                    "value": config.nodes[attr].init
                               });
                         }
                   }
@@ -416,7 +416,7 @@ cs.network = class {
             // Generate random connections between nodes
             for (var i = 0; i < Math.round(cs.min_max(config.connections.num)); i++) {
                   this.add_connection({
-                        "weight": cs.min_max(config.connections.init)
+                        "weight": config.connections.init
                   });
             }
 
@@ -730,7 +730,7 @@ cs.network = class {
                                           if (this.node_types[node_type.name].length < config.nodes[attr].limit) {
                                                 this.add_node({
                                                       "type": attr,
-                                                      "value": cs.min_max(config.nodes[attr].init)
+                                                      "value": config.nodes[attr].init
                                                 });
                                           }
                                     }
@@ -762,7 +762,7 @@ cs.network = class {
                               // Check if total number of connections in network reaches the limit
                               if (this.connections.length < config.connections.limit) {
                                     this.add_connection({
-                                          "weight": cs.min_max(config.connections.init)
+                                          "weight": config.connections.init
                                     });
                               }
                         }
