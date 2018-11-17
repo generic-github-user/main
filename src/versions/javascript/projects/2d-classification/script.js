@@ -8,20 +8,17 @@ context.canvas.height = window.innerHeight;
 
 var inputs = [];
 var outputs = [];
-var resolution = 50;
+var resolution = 25;
 
-for (var i = 0; i < 2; i++) {
-      for (var j = 0; j < 2; j++) {
-            var input = [
-                  Math.random() * (canvas.width / 1000),
-                  Math.random() * (canvas.height / 1000),
-            ];
+for (var i = 0; i < 4; i++) {
+      var input = [
+            Math.random() * canvas.width,
+            Math.random() * canvas.height,
+      ];
 
-            inputs.push(input);
-            outputs.push([Math.round(cs.random())]);
-      }
+      inputs.push(input);
+      outputs.push([Math.round(cs.random())]);
 }
-const colors = [0, 100];
 
 n = 2;
 
@@ -136,10 +133,7 @@ function evolve() {
 
       for (var i = 0; i < canvas.height; i += resolution) {
             for (var j = 0; j < canvas.width; j += resolution) {
-                  var input = [
-                        j / 100,
-                        i / 100
-                  ];
+                  var input = [j, i];
                   //var hue = Math.round(evaluate(0, input)[0]) * 1000;
                   var output = network.evaluate({
                         "input": input,
@@ -149,13 +143,12 @@ function evolve() {
                   var hue = Math.tanh(output) * 100;
 
                   // if (output < 0.5) {
-                  //       hue = colors[0];
+                  //       hue = 0;
                   // } else {
-                  //       hue = colors[1];
+                  //       hue = 100;
                   // }
                   context.fillStyle = "hsla(" + hue + ", 100%, 50%, 1)";
                   context.fillRect(j, i, resolution, resolution);
-
             }
       }
 
@@ -164,8 +157,8 @@ function evolve() {
                   "input": inputs[i],
                   "update": update_settings
             })[0];
-            var x = inputs[i][0] * 1000;
-            var y = inputs[i][1] * 1000;
+            var x = inputs[i][0];
+            var y = inputs[i][1];
 
             context.fillStyle = "hsla(0, 0%, " + outputs[i][0] * 100 + "%, 1)";
             context.beginPath();
