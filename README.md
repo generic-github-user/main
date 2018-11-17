@@ -276,6 +276,8 @@ A series of demos to show just how cool Caesium is and what it is capable of. Fe
 ### [Basic Demo](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/basic-demo/)
 Literally just an HTML page with the Caesium library loaded. Have fun.
 
+![image](./src/versions/javascript/projects/basic-demo/screenshots/1.PNG)
+
 ### [Network Visualization](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/network-visualization/)
 Visualize all the nodes and connections in a Caesium network.
 
@@ -290,6 +292,8 @@ Approximate a polynomial function using neuroevolution.
 
 ### [Neuroevolution](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/neuroevolution/)
 Evolve a randomly generated population of neural networks.
+
+![image](./src/versions/javascript/projects/neuroevolution/screenshots/1.PNG)
 
 ### [2D Classification](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/2d-classification/)
 Learn to classify 2D points based on their X and Y coordinates.
