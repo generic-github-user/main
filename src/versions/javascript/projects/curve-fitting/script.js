@@ -18,9 +18,13 @@ function f1(x) {
 
 var y2 = [];
 var network = new cs.network({
-      "inputs": 1,
-      "outputs": 1,
       "nodes": {
+            "Input": {
+                  "num": 1
+            },
+            "Output": {
+                  "num": 1
+            },
             "Value": {
                   "num": 3,
                   "init": [-1, 1]

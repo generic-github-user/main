@@ -296,10 +296,6 @@ cs.network = class {
 
             // Assign a random ID to the the new network object
             this.id = cs.UUID();
-            // Number of input nodes in the network
-            this.inputs = config.inputs;
-            // Number of output nodes in the network
-            this.outputs = config.outputs;
 
             // List of nodes in network
             this.nodes = {};
@@ -348,19 +344,6 @@ cs.network = class {
                         // Add node ID to respective node type list
                         this.node_types[node.type].push(id);
                   }
-            }
-
-            // Add input nodes to network
-            for (var i = 0; i < this.inputs; i++) {
-                  this.add_node({
-                        "type": "Input"
-                  });
-            }
-            // Add output nodes to network
-            for (var i = 0; i < this.outputs; i++) {
-                  this.add_node({
-                        "type": "Output"
-                  });
             }
 
             // Loop through all defined node types in config object
@@ -467,7 +450,7 @@ cs.network = class {
                   if (config.inputs == undefined) {
                         console.error("Inputs for the network must be provided.");
                   } else {
-                        var num_inputs = this.inputs;
+                        var num_inputs = this.node_types["Input"].length;
 
                         if (config.inputs.length < num_inputs) {
                               console.error("The number of inputs you have provided (" + config.inputs.length + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
