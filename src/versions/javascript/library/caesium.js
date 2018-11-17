@@ -186,9 +186,18 @@ cs.node_types = function(name) {
       }
 }
 
-cs.help = function() {
-      console.log("Find documentation for Caesium on the GitHub page.", "https://github.com/generic-github-user/Caesium");
-      // console.log("Full list of available help commands:");
+cs.help = function(thing) {
+      if (thing == undefined) {
+            console.log("Find documentation for Caesium on the GitHub page.", "https://github.com/generic-github-user/Caesium");
+            console.log("Use either cs.help(function) or function.help() to get help with a specific Caesium function.");
+
+            console.log("Full list of available help commands:");
+            console.log("cs.node.help()");
+            console.log("cs.connection.help()");
+            console.log("cs.network.help()");
+      } else {
+            thing.help();
+      }
 }
 
 // Generate a random UUID
@@ -237,6 +246,9 @@ cs.node = class {
                   }
             }
       }
+      // help: function() {
+      //       console.log("Node help");
+      // }
 }
 
 // Connection class
