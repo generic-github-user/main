@@ -560,8 +560,8 @@ cs.network = class {
 
             // Run a prediction using the network on a set of input data to produce an output
             this.evaluate = function(config) {
-                  if (config.inputs == undefined) {
-                        console.error("No confid object was provided.");
+                  if (config.input == undefined) {
+                        console.error("No config object was provided.");
                   } else {
                         // Reset mutable network values
                         this.reset();
