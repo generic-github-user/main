@@ -1,7 +1,7 @@
 // Adapted from http://www.chartjs.org/samples/latest/charts/line/basic.html
 
 var degree = 3;
-var points = 10;
+var points = 25;
 
 var coefficients = [];
 for (var i = 0; i < degree + 1; i++) {
@@ -85,7 +85,7 @@ a = 0;
 function update() {
       network = network.evolve({
             "iterations": 1,
-            "population": 50,
+            "population": 100,
             "inputs": input_data,
             "outputs": output_data,
             "mutate": {
@@ -135,7 +135,7 @@ function update() {
                   "connections": {
                         "add": [0, 10],
                         "remove": [0, 10],
-                        "limit": 100,
+                        "limit": 50,
                         "init": [-1, 1],
                         "value": {
                               "mutation_rate": 0.5,
@@ -218,4 +218,4 @@ window.onload = function() {
       window.chart = new Chart(ctx, config);
 };
 
-setInterval(update, 100);
+setInterval(update, 1);
