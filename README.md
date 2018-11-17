@@ -269,6 +269,25 @@ var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
 var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
 ```
 
+## Demos
+
+A series of demos to show just how cool Caesium is and what it is capable of. Feel free to clone any demo and create a new project out of it.
+
+### [Basic Demo](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/basic-demo/)
+Literally just an HTML page with the Caesium library loaded. Have fun.
+
+### [Network Visualization](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/network-visualization/)
+Visualize all the nodes and connections in a Caesium network.
+
+### [Curve Fitting](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/curve-fitting/)
+Approximate a polynomial function using neuroevolution.
+
+### [Neuroevolution](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/neuroevolution/)
+Evolve a randomly generated population of neural networks.
+
+### [2D Classification](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/2d-classification/)
+Learn to classify 2D points based on their X and Y coordinates.
+
 ## Resources
 
 Media and images used in Caesium.
