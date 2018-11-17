@@ -804,7 +804,7 @@ cs.network = class {
                               // Randomly decide whether to mutate weight
                               if (cs.random() < config.connections.value.mutation_rate) {
                                     // Mutate weight value by a random amount
-                                    this.connections[j].value += cs.random(-config.connections.value.mutation_size, config.connections.value.mutation_size);
+                                    this.connections[j].weight += cs.random(-config.connections.value.mutation_size, config.connections.value.mutation_size);
                               }
                         }
                   }

@@ -143,7 +143,7 @@ function update() {
                         "init": [-1, 1],
                         "value": {
                               "mutation_rate": 0.5,
-                              "mutation_size": 1,
+                              "mutation_size": 0.1,
                         }
                   }
             },
