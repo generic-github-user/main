@@ -358,21 +358,26 @@ cs.network = class {
             }
             // Add a new random connection to the network
             this.add_connection = function(config) {
-                  // Push connection to network's connection array
-                  this.connections.push(
-                        // Create a new connection with the constructor function
-                        new cs.connection({
-                              "weight": config.weight,
-                              // Connection sources must be nodes with outputs
-                              "source": cs.random_item(this.node_outputs),
-                              // Connection destinations must be nodes with inputs
-                              "destination": cs.random_item(this.node_inputs)
-                        })
-                  );
+                  // If config object is missing, log an error
+                  if (config == undefined) {
+                        console.error("Please provide a config object.");
+                  } else {
+                        // Push connection to network's connection array
+                        this.connections.push(
+                              // Create a new connection with the constructor function
+                              new cs.connection({
+                                    "weight": config.weight,
+                                    // Connection sources must be nodes with outputs
+                                    "source": cs.random_item(this.node_outputs),
+                                    // Connection destinations must be nodes with inputs
+                                    "destination": cs.random_item(this.node_inputs)
+                              })
+                        );
+                  }
             }
             // Remove a node from the network, given its ID
             this.remove_node = function(config) {
-                  // If config object is missing, create one
+                  // If config object is missing, log an error
                   if (config == undefined) {
                         console.error("Please provide a config object.");
                   } else {
@@ -416,19 +421,24 @@ cs.network = class {
             }
 
             // Function for setting input data of network
-            this.set_inputs = function(inputs) {
-                  var num_inputs = this.inputs;
-                  if (inputs.length < num_inputs) {
-                        console.error("The number of inputs you have provided (" + inputs.length + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
-                        return false;
-                  } else if (inputs.length > num_inputs) {
-                        console.error("The number of inputs you have provided (" + inputs.length + ") is greater than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
-                        return false;
-                  } else if (inputs.length == num_inputs) {
-                        for (var i = 0; i < inputs.length; i++) {
-                              this.nodes[this.node_types["Input"][i]].value = inputs[i];
+            this.set_inputs = function(config) {
+                  if (config.inputs == undefined) {
+                        console.error("Inputs for the network must be provided.");
+                  } else {
+                        var num_inputs = this.inputs;
+
+                        if (config.inputs.length < num_inputs) {
+                              console.error("The number of inputs you have provided (" + config.inputs.length + ") is fewer than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
+                              return false;
+                        } else if (config.inputs.length > num_inputs) {
+                              console.error("The number of inputs you have provided (" + config.inputs.length + ") is greater than the number of input nodes in the network (" + num_inputs + "). Please provide " + num_inputs + " inputs.");
+                              return false;
+                        } else if (config.inputs.length == num_inputs) {
+                              for (var i = 0; i < config.inputs.length; i++) {
+                                    this.nodes[this.node_types["Input"][i]].value = config.inputs[i];
+                              }
+                              return this;
                         }
-                        return this;
                   }
             }
 
@@ -550,25 +560,31 @@ cs.network = class {
 
             // Run a prediction using the network on a set of input data to produce an output
             this.evaluate = function(config) {
-                  // Reset mutable network values
-                  this.reset();
-                  // Set values of input nodes of network to input data set
-                  this.set_inputs(config.input);
-                  // Update the network
-                  this.update(config.update);
-                  // Return outputs from network
-                  return this.get_outputs();
+                  if (config.inputs == undefined) {
+                        console.error("No confid object was provided.");
+                  } else {
+                        // Reset mutable network values
+                        this.reset();
+                        // Set values of input nodes of network to input data set
+                        this.set_inputs({
+                              "inputs": config.input
+                        });
+                        // Update the network
+                        this.update(config.update);
+                        // Return outputs from network
+                        return this.get_outputs();
+                  }
             }
 
             // Mutate node values and topology/structure of network
             this.mutate = function(config) {
-                  if (!config) {
+                  if (config == undefined) {
                         var config = {};
                   }
-                  if (!config.mutation_rate) {
+                  if (config.mutation_rate == undefined) {
                         config.mutation_rate = 0.5;
                   }
-                  if (!config.mutation_size) {
+                  if (config.mutation_size == undefined) {
                         config.mutation_size = 0.1;
                   }
 
