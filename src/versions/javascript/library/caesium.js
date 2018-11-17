@@ -416,7 +416,6 @@ cs.network = class {
                               for (var attr in this.node_types) {
                                     cs.remove(this.node_types[attr], id);
                               }
-                              // // Remove() all instances
 
                               // Remove node ID from list of nodes with inputs
                               cs.remove(this.node_inputs, id);
@@ -816,6 +815,7 @@ cs.network = class {
 
             // Evolve network using supervised learning to match a given set of inputs to a given set of outputs
             this.evolve = function(config) {
+                  // Record start time of envolution function for optimization and logging purposes
                   var start_time = performance.now();
                   if (config.log) {
                         console.log("Training network.", this);
@@ -828,6 +828,7 @@ cs.network = class {
                         var population = new Array(config.population);
                         // Fill population array with clones of network
                         for (var j = 0; j < population.length; j++) {
+                              // Deep clone network
                               population[j] = cs.clone(network);
                         }
                         // Loop through entire population
@@ -837,16 +838,19 @@ cs.network = class {
 
                               // Reset network score/fitness
                               population[j].score = 0;
-                              // Loop through each set of inputs
+                              // Loop through each set (batch) of inputs
                               for (var r = 0; r < config.inputs.length; r++) {
+                                    // Evaluate population with batch of inputs
                                     var y = population[j].evaluate({
                                           "input": config.inputs[r],
                                           "update": config.update
                                     });
                                     // Calculate fitness score of network
-                                    // |avg(y - x)|
+                                    // avg(|y - x|)
                                     population[j].score += cs.average(
+                                          // Absolute value of each x-y loss value
                                           cs.apply(
+                                                // Difference of xs and ys in batch
                                                 cs.difference(
                                                       y,
                                                       config.outputs[r]
@@ -857,10 +861,12 @@ cs.network = class {
                               }
                         }
 
-                        // Find best score from population
-                        // Find network of population with best score
+                        // Find network from population with best score
+                        // Start with first network
                         var best_network = population[0];
+                        // Loop through population of networks
                         for (var j = 0; j < population.length; j++) {
+                              // If score of current network is better than the score of the best network, set the best network to be the current network
                               if (population[j].score < best_network.score) {
                                     best_network = population[j];
                               }
@@ -871,18 +877,18 @@ cs.network = class {
                               console.log("Iteration " + (i + 1) + " complete.", network.score, network);
                         }
                   }
+                  // Record end time of evolution function
                   var end_time = performance.now();
 
                   if (config.log) {
                         console.log(config.iterations + " training iterations complete in " + Math.round(end_time - start_time) + " milliseconds.", network);
-                        // console.log(network.evaluate({
-                        //       "input": config.inputs[0],
-                        //       "update": update_settings
-                        // }));
                   }
                   if (config.return == "all") {
+                        // Return all relevant information from neuroevolution process
                         return {
+                              // Population of networks
                               "population": population,
+                              // Trained network
                               "network": network
                         }
                   } else {
