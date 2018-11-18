@@ -6,9 +6,13 @@ var times = [];
 for (var i = 0; i < 100; i++) {
       start = performance.now();
       network = new cs.network({
-            "inputs": 20,
-            "outputs": 20,
             "nodes": {
+                  "Input": {
+                        "num": 20
+                  },
+                  "Output": {
+                        "num": 20
+                  },
                   "Value": {
                         "num": 20,
                         "init": [-1, 1]

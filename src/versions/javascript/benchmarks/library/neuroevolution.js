@@ -31,9 +31,13 @@ for (var i = 0; i < 100; i++) {
 
       // Create a new network to train using neuroevolution
       network = new cs.network({
-            "inputs": 20,
-            "outputs": 20,
             "nodes": {
+                  "Input": {
+                        "num": 20
+                  },
+                  "Output": {
+                        "num": 20
+                  },
                   "Value": {
                         "num": 20,
                         "init": [-1, 1]
@@ -61,14 +65,16 @@ for (var i = 0; i < 100; i++) {
             "outputs": outputs,
             "mutate": {
                   "iterations": 1,
-                  "mutation_rate": 0.5,
-                  "mutation_size": 1,
                   "nodes": {
                         "Value": {
                               "add": [0, 1],
                               "remove": [0, 1],
                               "limit": 10,
-                              "init": [-1, 1]
+                              "init": [-1, 1],
+                              "value": {
+                                    "mutation_rate": 1,
+                                    "mutation_size": 0.5
+                              }
                         },
                         "Addition": {
                               "add": [0, 1],
@@ -89,7 +95,11 @@ for (var i = 0; i < 100; i++) {
                   "connections": {
                         "add": [0, 10],
                         "remove": [0, 10],
-                        "limit": 50
+                        "limit": 50,
+                        "value": {
+                              "mutation_rate": 0,
+                              "mutation_size": 0
+                        }
                   }
             },
             "update": update_settings,

@@ -6,9 +6,13 @@ var start, end, average, inputs, outputs;
 var times = [];
 // Create network to use for testing
 var network = new cs.network({
-      "inputs": 20,
-      "outputs": 20,
       "nodes": {
+            "Input": {
+                  "num": 20
+            },
+            "Output": {
+                  "num": 20
+            },
             "Value": {
                   "num": 20,
                   "init": [-1, 1]
@@ -23,7 +27,10 @@ var network = new cs.network({
                   "num": 20
             }
       },
-      "connections": 500
+      "connections": {
+            "num": 500,
+            "init": [-1, 1]
+      }
 });
 // Update settings for network evaluation
 var update_settings = {
