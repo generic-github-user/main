@@ -405,36 +405,42 @@ cs.network = class {
                   // If config object is missing, log an error
                   if (config == undefined) {
                         console.error("Please provide a config object.");
+                  } else if (config.id == undefined) {
+                        console.error("Missing ID of node to remove from network.");
                   } else {
-                        // If no ID is provided, log an error
-                        if (config.id == undefined) {
-                              console.error("Missing ID of node to remove from network.");
-                        } else {
-                              // Remove node from main network nodes list
-                              delete this.nodes[id];
-                              // Remove node ID from node type lists
-                              for (var attr in this.node_types) {
-                                    cs.remove(this.node_types[attr], id);
-                              }
+                        var id = config.id;
 
-                              // Remove node ID from list of nodes with inputs
-                              cs.remove(this.node_inputs, id);
-                              // Remove node ID from list of nodes with outputs
-                              cs.remove(this.node_outputs, id);
+                        // Remove node from main network nodes list
+                        delete this.nodes[id];
+                        // Remove node ID from node type lists
+                        for (var attr in this.node_types) {
+                              cs.remove(this.node_types[attr], id);
+                        }
 
-                              // Find connections that have the removed node as a source
-                              var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
-                              // Loop through list of dead connections
-                              for (var i = 0; i < dead_connections.length; i++) {
-                                    // Remove connection
-                                    cs.remove(this.connections, dead_connections[i]);
-                              }
+                        // Remove node ID from list of nodes with inputs
+                        cs.remove(this.node_inputs, id);
+                        // Remove node ID from list of nodes with outputs
+                        cs.remove(this.node_outputs, id);
+
+                        // Find connections that have the removed node as a source
+                        var dead_connections = this.connections.filter(x => x.source == id).concat(this.connections.filter(x => x.destination == id));
+                        // Loop through list of dead connections
+                        for (var i = 0; i < dead_connections.length; i++) {
+                              // Remove connection
+                              cs.remove(this.connections, dead_connections[i]);
                         }
                   }
             }
             // Remove a connection from the network, given its ID
-            this.remove_connection = function(id) {
-                  this.connections.splice(this.connections.indexOf(this.find_connection(id)), 1);
+            this.remove_connection = function(config) {
+                  // If config object is missing, log an error
+                  if (config == undefined) {
+                        console.error("Please provide a config object.");
+                  } else if (config.id == undefined) {
+                        console.error("Missing ID of connection to remove from network.");
+                  } else {
+                        this.connections.splice(this.connections.indexOf(this.find_connection(config.id)), 1);
+                  }
             }
 
             // Generate random connections between nodes
@@ -766,7 +772,9 @@ cs.network = class {
                                     for (var j = 0; j < Math.round(cs.min_max(config.nodes[attr].remove)); j++) {
                                           // Check if network has any nodes
                                           if (this.node_types[node_type.name].length > 0) {
-                                                this.remove_node(cs.random_item(this.node_types[node_type.name]));
+                                                this.remove_node({
+                                                      "id": cs.random_item(this.node_types[node_type.name])
+                                                });
                                           }
                                     }
                               }
@@ -798,7 +806,9 @@ cs.network = class {
                         for (var j = 0; j < Math.round(cs.min_max(config.connections.remove)); j++) {
                               // Check if network has any connections
                               if (this.connections.length > 0) {
-                                    this.remove_connection(cs.random_item(this.connections).id);
+                                    this.remove_connection({
+                                          "id": cs.random_item(this.connections).id
+                                    });
                               }
                         }
 
