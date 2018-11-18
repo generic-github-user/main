@@ -1,18 +1,18 @@
 // Converting a string to and from a one-hot encoded binary vector
 
 // Accepts a string and returns an array of 1s and 0s
-function encodeString(input, charset) {
+function encodeString(input, charset, length) {
       // Define output as a variable containing an empty array
       var output = [];
       // Convert input string to array of all characters in input
       input = input.split("");
       // Loop through each character of the input string
-      input.forEach(
+      for (var i = 0; i < length; i++) {
             // Loop through each possible character
-            str => charset.forEach(
+            charset.forEach(
                   char => {
                         // Check for a match between the current input character and the current character from the list; if there is a match, add a 1 to the output array
-                        if (str == char) {
+                        if (input[i] == char) {
                               output.push(1);
                         }
                         // If there is no match, add a 0 to the output array
@@ -21,7 +21,7 @@ function encodeString(input, charset) {
                         }
                   }
             )
-      );
+      }
       // Return output array
       return output;
 }
