@@ -38,12 +38,86 @@ var network = new cs.network({
 });
 
 var update_settings = {
-      "iterations": 1,
+      "iterations": 2,
       "limit": {
             "min": -10e3,
             "max": 10e3
       }
 };
+
+var inputs = [];
+var outputs = [];
+for (var i = 0; i < data.length; i++) {
+      inputs.push(encodeString(data[i].input, charset, chars));
+      outputs.push(encodeString(data[i].output, charset, chars));
+}
+
+a = 0;
+
+network = network.evolve({
+      "iterations": 10,
+      "population": 50,
+      "inputs": inputs,
+      "outputs": outputs,
+      "mutate": {
+            "iterations": 1,
+            "nodes": {
+                  "Value": {
+                        "add": [0, a],
+                        "remove": [0, a],
+                        "limit": 10,
+                        "init": [-1, 1],
+                        "value": {
+                              "mutation_rate": 0.5,
+                              "mutation_size": 1,
+                        }
+                  },
+                  "Addition": {
+                        "add": [0, a],
+                        "remove": [0, a],
+                        "limit": 10
+                  },
+                  "Multiplication": {
+                        "add": [0, a],
+                        "remove": [0, a],
+                        "limit": 10
+                  },
+                  // "Tanh": {
+                  //       "add": [0, a],
+                  //       "remove": [0, a],
+                  //       "limit": 10
+                  // },
+                  // "Sine": {
+                  //       "add": [0, a],
+                  //       "remove": [0, a],
+                  //       "limit": 10
+                  // },
+                  // "Cosine": {
+                  //       "add": [0, a],
+                  //       "remove": [0, a],
+                  //       "limit": 10
+                  // },
+                  // "Abs": {
+                  //       "add": [0, a],
+                  //       "remove": [0, a],
+                  //       "limit": 10
+                  // }
+            },
+            "connections": {
+                  "add": [0, 0],
+                  "remove": [0, 0],
+                  "limit": 50,
+                  "init": [-1, 1],
+                  "value": {
+                        "mutation_rate": 0.5,
+                        "mutation_size": 0.1,
+                  }
+            }
+      },
+      "update": update_settings,
+      "log": true,
+      "return": "network"
+});
 
 // don't use evaluate
 const predict = function(input) {
