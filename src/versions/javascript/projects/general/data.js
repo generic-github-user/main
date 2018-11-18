@@ -1,10 +1,22 @@
 var data = [{
             "input": "Hello",
-            "output": "Hello"
+            "output": "Hello."
       },
       {
             "input": "5+5=",
             "output": "10"
+      },
+      {
+            "input": "5=",
+            "output": "5"
+      },
+      {
+            "input": "2=",
+            "output": "2"
+      },
+      {
+            "input": "-27=",
+            "output": "27"
       },
       {
             "input": "8+2=",
@@ -41,6 +53,10 @@ var data = [{
       {
             "input": "9^2=",
             "output": "81"
+      },
+      {
+            "input": "2^5=",
+            "output": "32"
       },
       {
             "input": "2-7=",
