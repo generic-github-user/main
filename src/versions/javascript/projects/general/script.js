@@ -10,16 +10,16 @@ var network = new cs.network({
             "Output": {
                   "num": chars
             },
-            "Value": {
-                  "num": 30,
-                  "init": [-1, 1]
-            },
-            "Addition": {
-                  "num": 30
-            },
-            "Multiplication": {
-                  "num": 30
-            },
+            // "Value": {
+            //       "num": chars * 2,
+            //       "init": [-1, 1]
+            // },
+            // "Addition": {
+            //       "num": chars * 2
+            // },
+            // "Multiplication": {
+            //       "num": chars * 2
+            // },
             // "Tanh": {
             //       "num": 3
             // },
@@ -34,16 +34,16 @@ var network = new cs.network({
             // }
       },
       "connections": {
-            "num": chars * 5,
+            "num": 0, //(chars * 5) ** 2,
             "init": [-1, 1]
       }
 });
 
 var update_settings = {
-      "iterations": 2,
+      "iterations": 1,
       "limit": {
-            "min": -10e3,
-            "max": 10e3
+            "min": -10e5,
+            "max": 10e5
       }
 };
 
@@ -89,7 +89,7 @@ const predict = function(input) {
       );
 }
 
-a = 1;
+var a = 1;
 
 const update = function() {
       network = network.evolve({
@@ -103,47 +103,47 @@ const update = function() {
                         "Value": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 10,
+                              "limit": 100,
                               "init": [-1, 1],
                               "value": {
                                     "mutation_rate": 1,
-                                    "mutation_size": 0,
+                                    "mutation_size": 0.001,
                               }
                         },
                         "Addition": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 10
+                              "limit": 100
                         },
                         "Multiplication": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 10
+                              "limit": 100
                         },
                         "Tanh": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 10
+                              "limit": 100
                         },
-                        // "Sine": {
-                        //       "add": [0, a],
-                        //       "remove": [0, a],
-                        //       "limit": 10
-                        // },
-                        // "Cosine": {
-                        //       "add": [0, a],
-                        //       "remove": [0, a],
-                        //       "limit": 10
-                        // },
-                        // "Abs": {
-                        //       "add": [0, a],
-                        //       "remove": [0, a],
-                        //       "limit": 10
-                        // }
+                        "Sine": {
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 100
+                        },
+                        "Cosine": {
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 100
+                        },
+                        "Abs": {
+                              "add": [0, a],
+                              "remove": [0, a],
+                              "limit": 100
+                        }
                   },
                   "connections": {
-                        "add": [0, 5],
-                        "remove": [0, 5],
+                        "add": [0, 1],
+                        "remove": [0, 1],
                         "limit": 5000,
                         "init": [-1, 1],
                         "value": {
@@ -157,7 +157,7 @@ const update = function() {
             "return": "network"
       });
 
-      document.getElementById("output").innerText = predict("2+ 2=5");
+      document.getElementById("output").innerText = predict("2+2=");
 }
 
 setInterval(update, 1);
