@@ -297,6 +297,7 @@ Evolve a randomly generated population of neural networks.
 
 ### [2D Classification](https://generic-github-user.github.io/Caesium/src/versions/javascript/projects/2d-classification/)
 Learn to classify 2D points based on their X and Y coordinates.
+WARNING: Flashing colors
 
 ## Resources
 
