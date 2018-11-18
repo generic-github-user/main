@@ -517,10 +517,14 @@ cs.network = class {
                   for (var i = 0; i < config.iterations; i++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         // var network_buffer = cs.clone(this);
-                        var network_buffer = this;
+                        // var network_buffer = this;
+                        var network_buffer = {};
+
                         // Reset node values
                         for (var attr in this.nodes) {
                               var node = this.nodes[attr];
+                              network_buffer[attr] = node.value;
+
                               var type = node.type;
                               if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
                                     node.value = 0;
@@ -533,7 +537,7 @@ cs.network = class {
                         for (var j = 0; j < this.connections.length; j++) {
                               // Store type of node in variable
                               var type = this.nodes[this.connections[j].destination].type;
-                              var input_value = network_buffer.nodes[network_buffer.connections[j].source].value * this.connections[j].weight;
+                              var input_value = network_buffer[this.connections[j].source] * this.connections[j].weight;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
                                     this.nodes[this.connections[j].destination].value +=
