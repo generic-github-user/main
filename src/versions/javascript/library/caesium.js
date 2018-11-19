@@ -515,6 +515,9 @@ cs.network = class {
                         console.error("Number of iterations must be a number.");
                         config.iterations = 1;
                   }
+                  if (config.buffer == undefined) {
+                        config.buffer = true;
+                  }
                   // If no console log status is provided, set to default (false)
                   if (config.logs == undefined) {
                         config.logs = false;
@@ -523,13 +526,16 @@ cs.network = class {
                   for (var i = 0; i < config.iterations; i++) {
                         // Create a clone of the network so that all nodes can be updated simultaneously, without affecting other values
                         // var network_buffer = cs.clone(this);
-                        // var network_buffer = this;
-                        var network_buffer = {};
+                        if (config.buffer) {
+                              var network_buffer = {};
+                        }
 
                         // Reset node values
                         for (var attr in this.nodes) {
                               var node = this.nodes[attr];
-                              network_buffer[attr] = node.value;
+                              if (config.buffer) {
+                                    network_buffer[attr] = node.value;
+                              }
 
                               var type = node.type;
                               if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
@@ -543,7 +549,13 @@ cs.network = class {
                         for (var j = 0; j < this.connections.length; j++) {
                               // Store type of node in variable
                               var type = this.nodes[this.connections[j].destination].type;
-                              var input_value = network_buffer[this.connections[j].source] * this.connections[j].weight;
+                              var input_value;
+                              if (config.buffer) {
+                                    input_value = network_buffer[this.connections[j].source];
+                              } else {
+                                    input_value = this[this.connections[j].source].value;
+                              }
+                              input_value *= this.connections[j].weight;
                               // Values for output and addition nodes can be calculated by adding together all of their inputs
                               if (type == "Output" || type == "Addition" || type == "Tanh" || type == "Sine" || type == "Cosine" || type == "Abs") {
                                     this.nodes[this.connections[j].destination].value +=
