@@ -60,7 +60,7 @@ var network = new cs.network({
 });
 
 var update_settings = {
-      "iterations": 5,
+      "iterations": 1,
       "limit": {
             "min": -10e3,
             "max": 10e3
@@ -144,7 +144,8 @@ function evolve() {
                         "update": update_settings
                   })[0];
 
-                  var hue = Math.tanh(output) * 100;
+                  // var hue = Math.tanh(output / 100) * 100;
+                  var hue = output * 100;
 
                   // if (output < 0.5) {
                   //       hue = 0;
