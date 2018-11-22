@@ -920,7 +920,7 @@ cs.network = class {
                         };
                   }
                   if (config.evaluate == undefined) {
-                        config.evaluate = function(network, input) {
+                        config.evaluate = function(network, input, output) {
                               return network.evaluate({
                                     "input": input,
                                     "update": config.update
@@ -948,7 +948,7 @@ cs.network = class {
                               // Loop through each set (batch) of inputs
                               for (var r = 0; r < config.inputs.length; r++) {
                                     // Evaluate population with batch of inputs
-                                    var y = config.evaluate(population[j], config.inputs[r]);
+                                    var y = config.evaluate(population[j], config.inputs[r], config.outputs[r]);
                                     // Calculate fitness score of network
                                     // avg(|y - x|)
                                     population[j].score += cs.average(
@@ -957,6 +957,7 @@ cs.network = class {
                                                 // Difference of xs and ys in batch
                                                 cs.difference(
                                                       y,
+                                                      // x value
                                                       config.outputs[r]
                                                 ),
                                                 Math.abs

@@ -1,6 +1,5 @@
 var charset = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", ",", ".", "/", "<", ">", "?", " "];
 
-var chars = 5;
 var output_chars = 5;
 
 var network = new cs.network({
@@ -12,14 +11,14 @@ var network = new cs.network({
                   "num": charset.length
             },
             // "Value": {
-            //       "num": chars * 2,
+            //       "num": 3,
             //       "init": [-1, 1]
             // },
             // "Addition": {
-            //       "num": chars * 2
+            //       "num": 3
             // },
             // "Multiplication": {
-            //       "num": chars * 2
+            //       "num": 3
             // },
             // "Tanh": {
             //       "num": 3
@@ -35,7 +34,7 @@ var network = new cs.network({
             // }
       },
       "connections": {
-            "num": 0, //(chars * 5) ** 2,
+            "num": 1000,
             "init": [-1, 1]
       }
 });
@@ -48,11 +47,15 @@ var update_settings = {
       }
 };
 
-var inputs = [];
-var outputs = [];
+var input_data = [];
+var output_data = [];
 for (var i = 0; i < data.length; i++) {
-      inputs.push(cs.encode.one_hot(data[i].input, charset, 1));
-      outputs.push(cs.encode.one_hot(data[i].output, charset, 1));
+      var input_set = [];
+      for (var j = 0; j < data[i].input.length; j++) {
+            input_set.push(cs.encode.one_hot(data[i].input[j], charset, 1));
+      }
+      input_data.push(input_set);
+      output_data.push(cs.encode.one_hot(data[i].output, charset, data[i].output.length));
 }
 
 // Maximum of output values
@@ -83,14 +86,29 @@ const predict = function(input) {
       return output;
 }
 
+const evaluate = function(network, input, output) {
+      var outputs = [];
+      for (var i = 0; i < input.length; i++) {
+            network.set_inputs({
+                  "inputs": input[i]
+            });
+            network.update(update_settings);
+      }
+      for (var i = 0; i < output.length / charset.length; i++) {
+            network.update(update_settings);
+            outputs.push(...network.get_outputs());
+      }
+      return outputs;
+}
+
 var a = 1;
 
 const update = function() {
       network = network.evolve({
             "iterations": 1,
             "population": 100,
-            "inputs": inputs,
-            "outputs": outputs,
+            "inputs": input_data,
+            "outputs": output_data,
             "mutate": {
                   "iterations": 1,
                   "nodes": {
@@ -146,12 +164,12 @@ const update = function() {
                         }
                   }
             },
-            "update": update_settings,
+            "evaluate": evaluate,
             "log": true,
             "return": "network"
       });
 
-      document.getElementById("output").innerText = predict("5+5=");
+      document.getElementById("output").innerText = predict("Hello.");
 }
 
-setInterval(update, 1);
+setInterval(update, 100);
