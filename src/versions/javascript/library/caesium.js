@@ -205,8 +205,6 @@ cs.decode.integer = function(input, charset) {
 cs.encode.one_hot = function(input, charset, length) {
       // Define output as a variable containing an empty array
       var output = [];
-      // Convert input string to array of all characters in input
-      input = input.split("");
       // Loop through each character of the input string
       for (var i = 0; i < length; i++) {
             // Loop through each possible character

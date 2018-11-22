@@ -1,14 +1,15 @@
 var charset = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", " "];
 
-var chars = 10;
+var chars = 5;
+var output_chars = 5;
 
 var network = new cs.network({
       "nodes": {
             "Input": {
-                  "num": chars
+                  "num": charset.length
             },
             "Output": {
-                  "num": chars
+                  "num": charset.length
             },
             // "Value": {
             //       "num": chars * 2,
@@ -50,23 +51,36 @@ var update_settings = {
 var inputs = [];
 var outputs = [];
 for (var i = 0; i < data.length; i++) {
-      inputs.push(encode(data[i].input, charset, chars));
-      outputs.push(encode(data[i].output, charset, chars));
+      inputs.push(cs.encode.one_hot(data[i].input, charset, 1));
+      outputs.push(cs.encode.one_hot(data[i].output, charset, 1));
 }
 
 // Maximum of output values
 // don't use evaluate - reset
 const predict = function(input) {
-      return decode(
-            cs.apply(
-                  network.evaluate({
-                        "input": encode(input, charset, chars),
-                        "update": update_settings
-                  }),
-                  Math.round
-            ),
-            charset
-      );
+      var output = "";
+      network.reset();
+      for (var i = 0; i < input.length; i++) {
+            network.set_inputs({
+                  "inputs": cs.encode.one_hot(
+                        input[i],
+                        charset,
+                        1
+                  )
+            });
+            network.update(update_settings);
+      }
+      for (var i = 0; i < output_chars; i++) {
+            network.update(update_settings);
+            output += cs.decode.one_hot(
+                  cs.apply(
+                        network.get_outputs(),
+                        Math.round
+                  ),
+                  charset
+            );
+      }
+      return output;
 }
 
 var a = 1;
@@ -137,7 +151,7 @@ const update = function() {
             "return": "network"
       });
 
-      document.getElementById("output").innerText = predict("2+2=");
+      document.getElementById("output").innerText = predict("5+5=");
 }
 
 setInterval(update, 1);
