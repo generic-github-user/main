@@ -910,6 +910,23 @@ cs.network = class {
                   if (config.log) {
                         console.log("Training network.", this);
                   }
+                  if (config.update == undefined) {
+                        config.update = {
+                              "iterations": 1,
+                              "limit": {
+                                    "min": -10e9,
+                                    "max": 10e9
+                              }
+                        };
+                  }
+                  if (config.evaluate == undefined) {
+                        config.evaluate = function(network, input) {
+                              return network.evaluate({
+                                    "input": input,
+                                    "update": config.update
+                              })
+                        }
+                  }
                   // Temporary network object to store best network from population in
                   var network = this;
                   // Repeat evolution process for provided number of iterations (generations)
@@ -931,10 +948,7 @@ cs.network = class {
                               // Loop through each set (batch) of inputs
                               for (var r = 0; r < config.inputs.length; r++) {
                                     // Evaluate population with batch of inputs
-                                    var y = population[j].evaluate({
-                                          "input": config.inputs[r],
-                                          "update": config.update
-                                    });
+                                    var y = config.evaluate(population[j], config.inputs[r]);
                                     // Calculate fitness score of network
                                     // avg(|y - x|)
                                     population[j].score += cs.average(
