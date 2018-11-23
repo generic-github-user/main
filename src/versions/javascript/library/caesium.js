@@ -230,11 +230,15 @@ cs.decode.one_hot = function(input, charset) {
       // Define output as a variable containing an empty string
       var output = "";
       // Loop through each character of the input string
-      for (var i = 0; i < input.length; i++) {
-            // Check value of current element of input array
-            if (input[i] == 1) {
-                  output += charset[i % charset.length];
+      for (var i = 0; i < input.length / charset.length; i++) {
+            var max = 0;
+            for (var j = 0; j < charset.length; j++) {
+                  // Check value of current element of input array
+                  if (input[(charset.length * i) + j] > input[max]) {
+                        max = j;
+                  }
             }
+            output += charset[(charset.length * i) + max];
       }
       // Return output string
       return output;
