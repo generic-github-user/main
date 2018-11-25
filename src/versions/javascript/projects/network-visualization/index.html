@@ -40,7 +40,7 @@
                   Nodes will be labeled with their value.
             </div>
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-size">
-                        <input type="checkbox" id="controls-visualization-size" class="mdl-switch__input" oninput="update_settings(); network.update_display();" checked></input>
+                        <input type="checkbox" id="controls-visualization-size" class="mdl-switch__input" oninput="update_settings(); network.update_display();"></input>
                         <span class="mdl-switch__label">Size</span>
                   </label>
             <div class="mdl-tooltip" data-mdl-for="controls-visualization-size">
@@ -52,6 +52,13 @@
                   </label>
             <div class="mdl-tooltip" data-mdl-for="controls-visualization-brightness">
                   Nodes with higher values will be lighter.
+            </div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-type">
+                        <input type="checkbox" id="controls-visualization-type" class="mdl-switch__input" oninput="update_settings(); network.update_display();"></input>
+                        <span class="mdl-switch__label">Type</span>
+                  </label>
+            <div class="mdl-tooltip" data-mdl-for="controls-visualization-type">
+                  Nodes will be colored based on their type.
             </div>
 
             <div id="social-icons">
