@@ -261,7 +261,6 @@ network.update_display = function() {
                   }
             );
 
-
             var text = document.getElementById(node.display.text);
             if (visualization_settings.label) {
                   text.style.display = "";
@@ -283,6 +282,13 @@ network.update_display = function() {
             } else {
                   text.style.display = "none";
             }
+      }
+
+      for (var i = 0; i < this.connections.length; i++) {
+            var connection = this.connections[i];
+            var line = document.getElementById(connection.display.line);
+            line.setAttribute("opacity", (connection.weight / 2) + 0.5);
+            line.style.stroke = "#00243e";
       }
 }
 
