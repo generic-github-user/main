@@ -86,17 +86,21 @@ const predict = function(input) {
       return output;
 }
 
-const evaluate = function(network, input, output) {
+const evaluate = function(network_, input, output) {
       var outputs = [];
+      network_.reset();
       for (var i = 0; i < input.length; i++) {
-            network.set_inputs({
+            network_.set_inputs({
                   "inputs": input[i]
             });
-            network.update(update_settings);
+            network_.update(update_settings);
       }
+      network_.set_inputs({
+            "inputs": new Array(charset.length).fill(0)
+      });
       for (var i = 0; i < output.length / charset.length; i++) {
-            network.update(update_settings);
-            outputs.push(...network.get_outputs());
+            network_.update(update_settings);
+            outputs.push(...network_.get_outputs());
       }
       return outputs;
 }
