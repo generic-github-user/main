@@ -297,11 +297,10 @@ network.update_display = function() {
                   "opacity",
                   cs.map(
                         connection.weight,
-                        min, max,
+                        min_weight, max_weight,
                         0, 1
                   )
             );
-            line.style.stroke = "#00243e";
       }
 }
 
