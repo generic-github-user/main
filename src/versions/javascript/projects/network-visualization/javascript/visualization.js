@@ -284,10 +284,23 @@ network.update_display = function() {
             }
       }
 
+      var min_weight = Math.min.apply(Math, this.connections.map(function(x) {
+            return x.weight;
+      }));
+      var max_weight = Math.max.apply(Math, this.connections.map(function(x) {
+            return x.weight;
+      }));
       for (var i = 0; i < this.connections.length; i++) {
             var connection = this.connections[i];
             var line = document.getElementById(connection.display.line);
-            line.setAttribute("opacity", (connection.weight / 2) + 0.5);
+            line.setAttribute(
+                  "opacity",
+                  cs.map(
+                        connection.weight,
+                        min, max,
+                        0, 1
+                  )
+            );
             line.style.stroke = "#00243e";
       }
 }
