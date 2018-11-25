@@ -172,6 +172,12 @@ cs.min_max = function(variable) {
       return num;
 }
 
+// Map one range of numbers to another, given an input value and the two ranges
+// https://stackoverflow.com/a/23202637
+cs.map = function(num, in_min, in_max, out_min, out_max) {
+      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 cs.apply = function(array, func) {
       return array.map(x => func(x));
 }

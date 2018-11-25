@@ -1,9 +1,3 @@
-// Map number in one range to another range
-// https://stackoverflow.com/a/23202637
-function map(num, in_min, in_max, out_min, out_max) {
-      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
 // var x = [1, 2, 3, 4, 5];
 var x = [
       [1],
@@ -111,7 +105,7 @@ function update() {
 
       var row = $("<div>");
       for (var i = 0; i < population; i++) {
-            var lightness = map(generation.population[i].score, min, max, 95, 50);
+            var lightness = cs.map(generation.population[i].score, min, max, 95, 50);
             if (isNaN(lightness)) {
                   lightness = 50;
             }

@@ -1,8 +1,3 @@
-// Map one range of numbers to another, given an input value and the two ranges
-// https://stackoverflow.com/a/23202637
-const map = function(num, in_min, in_max, out_min, out_max) {
-      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
 // Change the brightness of a hexadecimal color value
 // https://stackoverflow.com/a/13542669
 const shade_color = function(color, percent) {
@@ -246,7 +241,7 @@ network.update_display = function() {
             // Check if node size is enabled in visualization settings
             if (visualization_settings.size) {
                   // Map node values to a 1 to 5 percent range
-                  radius = map(node.value, min, max, 1, 5);
+                  radius = cs.map(node.value, min, max, 1, 5);
             }
             // Set radius of circle as percentage
             circle.setAttribute("r", radius + "%");
@@ -258,7 +253,7 @@ network.update_display = function() {
                               if (visualization_settings.brightness) {
                                     color = shade_color(
                                           color,
-                                          map(node.value, min, max, -0.75, 0.75)
+                                          cs.map(node.value, min, max, -0.75, 0.75)
                                     );
                               }
                               circle.style.fill = color;
