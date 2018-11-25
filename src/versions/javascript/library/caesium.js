@@ -580,6 +580,7 @@ cs.network = class {
                   if (config == undefined) {
                         config = {};
                   }
+
                   // If no number of iterations is provided, set to default (1)
                   if (config.iterations == undefined) {
                         config.iterations = 1;
@@ -589,6 +590,17 @@ cs.network = class {
                         console.error("Number of iterations must be a number.");
                         config.iterations = 1;
                   }
+
+                  if (config.limit == undefined) {
+                        config.limit = {};
+                  }
+                  if (config.limit.min == undefined) {
+                        config.limit.min = -1e10;
+                  }
+                  if (config.limit.max == undefined) {
+                        config.limit.max = 1e10;
+                  }
+
                   if (config.buffer == undefined) {
                         config.buffer = true;
                   }
