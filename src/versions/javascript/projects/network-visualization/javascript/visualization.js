@@ -29,7 +29,7 @@ const to_pixels = {
 }
 
 const round = function(number, decimals) {
-      var factor = 10 ** decimals
+      var factor = 10 ** decimals;
       return Math.round(number * factor) / factor;
 }
 
@@ -73,17 +73,13 @@ var node_colors = [
 for (var i = 0; i < node_colors.length; i++) {
       cs.settings.node_types[i].color = node_colors[i];
 }
-var visualization_settings = {
-      "label": undefined,
-      "label": undefined,
-      "size": undefined,
-      "brightness": undefined
-};
+var visualization_settings = {};
 // Update program settings from user inputs
 const update_settings = function() {
       visualization_settings.label = document.querySelector("#controls-visualization-label").checked;
       visualization_settings.size = document.querySelector("#controls-visualization-size").checked;
       visualization_settings.brightness = document.querySelector("#controls-visualization-brightness").checked;
+      visualization_settings.type = document.querySelector("#controls-visualization-type").checked;
 }
 update_settings();
 
@@ -205,6 +201,8 @@ network.display = function() {
                   line.setAttribute("x2", document.getElementById(this.nodes[connection.destination].display.circle).getAttribute("cx"));
                   line.setAttribute("y2", document.getElementById(this.nodes[connection.destination].display.circle).getAttribute("cy"));
 
+                  line.style.stroke = "#00243e";
+
                   // Store reference to line element in corresponding connection object
                   var id = cs.UUID();
                   line.setAttribute("id", id);
@@ -249,7 +247,12 @@ network.update_display = function() {
             cs.settings.node_types.forEach(
                   (node_type) => {
                         if (node.type == node_type.name) {
-                              var color = node_type.color;
+                              var color;
+                              if (visualization_settings.type) {
+                                    color = node_type.color;
+                              } else {
+                                    color = "#7ab7fc";
+                              }
                               if (visualization_settings.brightness) {
                                     color = shade_color(
                                           color,
