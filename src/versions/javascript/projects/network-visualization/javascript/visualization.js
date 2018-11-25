@@ -1,13 +1,18 @@
 // Map one range of numbers to another, given an input value and the two ranges
 // https://stackoverflow.com/a/23202637
-const map = function (num, in_min, in_max, out_min, out_max) {
+const map = function(num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 // Change the brightness of a hexadecimal color value
 // https://stackoverflow.com/a/13542669
-const shade_color = function (color, percent) {
-    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
-    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+const shade_color = function(color, percent) {
+      var f = parseInt(color.slice(1), 16),
+            t = percent < 0 ? 0 : 255,
+            p = percent < 0 ? percent * -1 : percent,
+            R = f >> 16,
+            G = f >> 8 & 0x00FF,
+            B = f & 0x0000FF;
+      return "#" + (0x1000000 + (Math.round((t - R) * p) + R) * 0x10000 + (Math.round((t - G) * p) + G) * 0x100 + (Math.round((t - B) * p) + B)).toString(16).slice(1);
 }
 
 const to_percent = {
@@ -28,7 +33,7 @@ const to_pixels = {
       }
 }
 
-const round = function (number, decimals) {
+const round = function(number, decimals) {
       var factor = 10 ** decimals
       return Math.round(number * factor) / factor;
 }
@@ -47,7 +52,7 @@ var node_colors = [
       // Red
       "#f92c2c"
 ];
-for (var i = 0; i < node_colors.length; i ++) {
+for (var i = 0; i < node_colors.length; i++) {
       settings.node_types[i].color = node_colors[i];
 }
 var visualization_settings = {
@@ -57,7 +62,7 @@ var visualization_settings = {
       "brightness": undefined
 };
 // Update program settings from user inputs
-const update_settings = function () {
+const update_settings = function() {
       visualization_settings.label = document.querySelector("#controls-visualization-label").checked;
       visualization_settings.size = document.querySelector("#controls-visualization-size").checked;
       visualization_settings.brightness = document.querySelector("#controls-visualization-brightness").checked;
@@ -70,17 +75,25 @@ var sidebar = document.querySelector("#control-panel");
 var sidebar_hover = false;
 var sidebar_x = 0;
 var sidebar_y = 0;
-sidebar.addEventListener("mouseover", () => {sidebar_hover = true});
-sidebar.addEventListener("mouseout", () => {sidebar_hover = false});
+sidebar.addEventListener("mouseover", () => {
+      sidebar_hover = true
+});
+sidebar.addEventListener("mouseout", () => {
+      sidebar_hover = false
+});
 
 var body_hover = false;
 var body_x = 0;
 var body_y = 0;
-document.body.addEventListener("mouseover", () => {body_hover = true});
-document.body.addEventListener("mouseout", () => {body_hover = false});
+document.body.addEventListener("mouseover", () => {
+      body_hover = true
+});
+document.body.addEventListener("mouseout", () => {
+      body_hover = false
+});
 
 var speed = 0.025;
-const update_backgrounds = function () {
+const update_backgrounds = function() {
       if (sidebar_hover) {
             sidebar_x += speed;
             sidebar_y += speed;
@@ -100,7 +113,7 @@ setInterval(update_backgrounds, 10);
 
 // Display visualization of network
 // This function is only used the first time the network is displayed, as it generates the SVG elements used in the visualization
-network.display = function () {
+network.display = function() {
       svg.innerHTML = "";
 
       // Loop through each connection in network
@@ -187,11 +200,15 @@ network.display = function () {
       );
 }
 
-network.update_display = function () {
+network.update_display = function() {
       // Render nodes
       // https://stackoverflow.com/a/4020842
-      var min = Math.min.apply(Math, this.nodes.map(function(x) { return x.value; }));
-      var max = Math.max.apply(Math, this.nodes.map(function(x) { return x.value; }));
+      var min = Math.min.apply(Math, this.nodes.map(function(x) {
+            return x.value;
+      }));
+      var max = Math.max.apply(Math, this.nodes.map(function(x) {
+            return x.value;
+      }));
 
       this.nodes.forEach(
             (node) => {
@@ -241,8 +258,7 @@ network.update_display = function () {
                         text.setAttribute("x", (x + "%"));
                         // Set y position of text
                         text.setAttribute("y", (y + "%"));
-                  }
-                  else {
+                  } else {
                         text.style.display = "none";
                   }
             }
