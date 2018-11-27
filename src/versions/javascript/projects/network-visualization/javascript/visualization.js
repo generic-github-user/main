@@ -33,27 +33,30 @@ const round = function(number, decimals) {
       return Math.round(number * factor) / factor;
 }
 
+var num_nodes = 30;
+num_nodes /= 5;
+
 var network = new cs.network({
       "nodes": {
             "Input": {
-                  "num": 1
+                  "num": num_nodes
             },
             "Output": {
-                  "num": 1
+                  "num": num_nodes
             },
             "Value": {
-                  "num": 3,
+                  "num": num_nodes,
                   "init": [-1, 1]
             },
             "Addition": {
-                  "num": 3
+                  "num": num_nodes
             },
             "Multiplication": {
-                  "num": 3
+                  "num": num_nodes
             }
       },
       "connections": {
-            "num": 10,
+            "num": num_nodes ** 2,
             "init": [-1, 1]
       }
 });
