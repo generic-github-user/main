@@ -1024,6 +1024,13 @@ cs.network = class {
                   }
             }
 
+            this.export = function() {
+                  return JSON.stringify({
+                        "nodes": this.nodes,
+                        "connections": this.connections
+                  });
+            }
+
             // Add network to global list of networks
             cs.networks.push(this);
       }
