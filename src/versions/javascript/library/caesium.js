@@ -1024,36 +1024,48 @@ cs.network = class {
                   }
             }
 
+            // Export network information as a JSON-formatted string
             this.export = function() {
+                  // Return string
                   return JSON.stringify({
+                        // Only store nodes and connections - other information is nonessential and can be generated as it is needed
                         "nodes": this.nodes,
                         "connections": this.connections
                   });
             }
 
+            // Save network to browser localStorage
             this.save = function(config) {
                   // If config object is missing, create one
                   if (config == undefined) {
                         config = {};
                   }
+                  // Default name for network is "saved_network"
                   if (config.name == undefined) {
                         config.name = "saved_network";
                   }
+                  // By default, overwrite network stored in localStorage if there is a name conflict
                   if (config.overwrite == undefined) {
                         config.overwrite = true;
                   }
 
                   if (localStorage.getItem(config.name) == null || config.overwrite) {
+                        // Store data in localStorage
                         localStorage.setItem(
+                              // localStorage key to set value at
                               config.name,
+                              // Get network data as a string
                               this.export()
                         );
                   }
                   if (localStorage.getItem(config.name) != null && config.overwrite) {
+                        // Log overwrite message to console
                         console.log("Network stored at " + config.name + " overwritten.");
                   }
 
+                  // Log success message to console
                   console.log("Network successfully saved to browser localStorage as " + config.name + ".", this);
+                  return this;
             }
 
             // Add network to global list of networks
