@@ -14,3 +14,8 @@ You still need to pick the parameters
 
 loop function
 interactive demo
+
+1000 lines of code (main library)
+don't override network object
+networks with multiplication nodes stabilize quickly
+difficulty of choosing hyperparameters
