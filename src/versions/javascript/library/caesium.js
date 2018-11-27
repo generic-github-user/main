@@ -1031,6 +1031,31 @@ cs.network = class {
                   });
             }
 
+            this.save = function(config) {
+                  // If config object is missing, create one
+                  if (config == undefined) {
+                        config = {};
+                  }
+                  if (config.name == undefined) {
+                        config.name = "saved_network";
+                  }
+                  if (config.overwrite == undefined) {
+                        config.overwrite = true;
+                  }
+
+                  if (localStorage.getItem(config.name) == null || config.overwrite) {
+                        localStorage.setItem(
+                              config.name,
+                              this.export()
+                        );
+                  }
+                  if (localStorage.getItem(config.name) != null && config.overwrite) {
+                        console.log("Network stored at " + config.name + " overwritten.");
+                  }
+
+                  console.log("Network successfully saved to browser localStorage as " + config.name + ".", this);
+            }
+
             // Add network to global list of networks
             cs.networks.push(this);
       }
