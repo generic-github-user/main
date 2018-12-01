@@ -559,6 +559,40 @@ cs.network = class {
                   return outputs;
             }
 
+            // Find node with smallest value
+            this.min_node = function() {
+                  // Get list of node IDs
+                  var nodes = Object.keys(this.nodes);
+                  // Set starting minimum node to first node
+                  var min = this.nodes[nodes[0]];
+                  // Loop through all nodes
+                  for (var i = 0; i < nodes.length; i++) {
+                        // Check if current node's value is less than the current minimum node's value
+                        if (this.nodes[nodes[i]].value < min.value) {
+                              // If it is, set current minimum node to current node
+                              min = this.nodes[nodes[i]];
+                        }
+                  }
+                  return min;
+            }
+
+            // Find node with largest value
+            this.max_node = function() {
+                  // Get list of node IDs
+                  var nodes = Object.keys(this.nodes);
+                  // Set starting maximum node to first node
+                  var max = this.nodes[nodes[0]];
+                  // Loop through all nodes
+                  for (var i = 0; i < nodes.length; i++) {
+                        // Check if current node's value is more than the current maximum node's value
+                        if (this.nodes[nodes[i]].value > max.value) {
+                              // If it is, set current maximum node to current node
+                              max = this.nodes[nodes[i]];
+                        }
+                  }
+                  return max;
+            }
+
             // Reset values of mutable nodes in network
             this.reset = function() {
                   // Loop through network node list

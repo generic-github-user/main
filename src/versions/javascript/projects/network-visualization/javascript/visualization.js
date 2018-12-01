@@ -220,18 +220,9 @@ network.display = function() {
 network.update_display = function() {
       // Render nodes
       // https://stackoverflow.com/a/4020842
-      var min = 0;
-      for (attr in this.nodes) {
-            if (this.nodes[attr].value < min) {
-                  min = this.nodes[attr].value;
-            }
-      }
-      var max = 0;
-      for (attr in this.nodes) {
-            if (this.nodes[attr].value > max) {
-                  max = this.nodes[attr].value;
-            }
-      }
+
+      var min = network.min_node().value;
+      var max = network.max_node().value;
 
       for (attr in this.nodes) {
             var node = this.nodes[attr];
