@@ -221,8 +221,8 @@ network.update_display = function() {
       // Render nodes
       // https://stackoverflow.com/a/4020842
 
-      var min = network.min_node().value;
-      var max = network.max_node().value;
+      var min = this.min_node().value;
+      var max = this.max_node().value;
 
       this.loop_nodes(
             (node) => {
