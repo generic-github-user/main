@@ -151,6 +151,12 @@ network.set_inputs({
 });
 ```
 
+##### `get_outputs()`
+
+##### `update()`
+
+##### `mutate()`
+
 ##### `evolve()`
 
 Optimize the parameters of a network through neuroevolution. Any of the following model parameters can be optimized:
