@@ -7,11 +7,18 @@ window.randomScalingFactor = function() {
 var color = Chart.helpers.color;
 var chart_data = {
       datasets: [{
-            label: "Loss",
-            borderColor: window.chartColors.red,
-            backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
-            data: []
-      }]
+                  label: "Individual Loss",
+                  borderColor: window.chartColors.red,
+                  backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                  data: []
+            },
+            {
+                  label: "Best Network",
+                  borderColor: window.chartColors.blue,
+                  backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                  data: []
+            }
+      ]
 };
 
 window.onload = function() {

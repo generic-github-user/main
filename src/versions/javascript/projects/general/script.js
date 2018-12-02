@@ -179,8 +179,16 @@ const update = function() {
             chart_data.datasets[0].data.push({
                   x: epoch,
                   y: generation.population[i].score
-            })
+            });
       }
+      if (chart_data.datasets[0].data.length > generation.population.length * 10) {
+            console.log(true)
+            chart_data.datasets[0].data.splice(0, generation.population.length);
+      }
+      chart_data.datasets[1].data.push({
+            x: epoch,
+            y: generation.network.score
+      });
       chart.update();
 
       document.getElementById("output").innerText = predict("abc");
