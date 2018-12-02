@@ -12,8 +12,8 @@ var resolution = 25;
 
 for (var i = 0; i < 4; i++) {
       var input = [
-            Math.random() * canvas.width,
-            Math.random() * canvas.height,
+            cs.random() * canvas.width,
+            cs.random() * canvas.height,
       ];
 
       inputs.push(input);
