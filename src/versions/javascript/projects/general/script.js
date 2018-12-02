@@ -79,10 +79,7 @@ const predict = function(input) {
       for (var i = 0; i < output_chars; i++) {
             network.update(update_settings);
             output += cs.decode.one_hot(
-                  cs.apply(
-                        network.get_outputs(),
-                        Math.round
-                  ),
+                  network.get_outputs(),
                   charset
             );
       }
