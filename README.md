@@ -134,7 +134,22 @@ Example:
 var connection = network.connection("0b4b7920-a25f-727f-0d85-1b2c03da465b");
 ```
 
-###### Set Inputs
+##### `set_inputs()`
+
+Set the values of the input nodes for the network so that predictions can be run.
+
+Config object parameters:
+
+ - Inputs
+   - An array of inputs for the network
+
+Example:
+
+```javascript
+network.set_inputs({
+      "inputs": [4, 2, 8, 14, 9.6]
+});
+```
 
 ##### `evolve()`
 
