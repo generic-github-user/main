@@ -1,6 +1,6 @@
-var charset = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", ",", ".", "/", "<", ">", "?", " "];
+var charset = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"] //, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", ",", ".", "/", "<", ">", "?", " "];
 
-var output_chars = 5;
+var output_chars = 10;
 
 var network = new cs.network({
       "nodes": {
@@ -11,26 +11,26 @@ var network = new cs.network({
                   "num": charset.length
             },
             // "Value": {
-            //       "num": 3,
+            //       "num": charset.length * 3,
             //       "init": [-1, 1]
             // },
-            // "Addition": {
-            //       "num": 3
-            // },
+            "Addition": {
+                  "num": charset.length * 3
+            },
             // "Multiplication": {
-            //       "num": 3
+            //       "num": charset.length * 3
             // },
             // "Tanh": {
-            //       "num": 3
+            //       "num": 0
             // },
             // "Sine": {
-            //       "num": 3
+            //       "num": 30
             // },
             // "Cosine": {
-            //       "num": 3
+            //       "num": 30
             // },
             // "Abs": {
-            //       "num": 3
+            //       "num": 30
             // }
       },
       "connections": {
@@ -105,12 +105,12 @@ const evaluate = function(network_, input, output) {
       return outputs;
 }
 
-var a = 1;
+var a = 0;
 
 const update = function() {
       network = network.evolve({
             "iterations": 1,
-            "population": 100,
+            "population": 50,
             "inputs": input_data,
             "outputs": output_data,
             "mutate": {
@@ -119,47 +119,47 @@ const update = function() {
                         "Value": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 100,
+                              "limit": 1000,
                               "init": [-1, 1],
                               "value": {
-                                    "mutation_rate": 1,
-                                    "mutation_size": 0.001,
+                                    "mutation_rate": 0,
+                                    "mutation_size": 0,
                               }
                         },
                         "Addition": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 100
+                              "limit": 1000
                         },
                         "Multiplication": {
                               "add": [0, a],
                               "remove": [0, a],
-                              "limit": 100
+                              "limit": 1000
                         },
-                        "Tanh": {
-                              "add": [0, a],
-                              "remove": [0, a],
-                              "limit": 100
-                        },
-                        "Sine": {
-                              "add": [0, a],
-                              "remove": [0, a],
-                              "limit": 100
-                        },
-                        "Cosine": {
-                              "add": [0, a],
-                              "remove": [0, a],
-                              "limit": 100
-                        },
-                        "Abs": {
-                              "add": [0, a],
-                              "remove": [0, a],
-                              "limit": 100
-                        }
+                        // "Tanh": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 100
+                        // },
+                        // "Sine": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 100
+                        // },
+                        // "Cosine": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 100
+                        // },
+                        // "Abs": {
+                        //       "add": [0, a],
+                        //       "remove": [0, a],
+                        //       "limit": 100
+                        // }
                   },
                   "connections": {
-                        "add": [0, 1],
-                        "remove": [0, 1],
+                        "add": [0, 10],
+                        "remove": [0, 10],
                         "limit": 5000,
                         "init": [-1, 1],
                         "value": {
@@ -173,7 +173,7 @@ const update = function() {
             "return": "network"
       });
 
-      document.getElementById("output").innerText = predict("Hello.");
+      document.getElementById("output").innerText = predict("abc");
 }
 
 setInterval(update, 100);

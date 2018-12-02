@@ -11,22 +11,22 @@ var data = [
       //       "input": "wow",
       //       "output": "wow"
       // },
-      // {
-      //       "input": "abc",
-      //       "output": "abc"
-      // },
-      // {
-      //       "input": "cba",
-      //       "output": "cba"
-      // },
-      // {
-      //       "input": "bbb",
-      //       "output": "bbb"
-      // },
       {
-            "input": "b",
-            "output": "b"
+            "input": "abc",
+            "output": "abc"
       },
+      {
+            "input": "cba",
+            "output": "cba"
+      },
+      {
+            "input": "bbb",
+            "output": "bbb"
+      },
+      // {
+      //       "input": "b",
+      //       "output": "b"
+      // },
       // {
       //       "input": "5+5=",
       //       "output": "10"
