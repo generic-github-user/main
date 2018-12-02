@@ -224,62 +224,63 @@ network.update_display = function() {
       var min = network.min_node().value;
       var max = network.max_node().value;
 
-      for (attr in this.nodes) {
-            var node = this.nodes[attr];
-            var circle = document.getElementById(node.display.circle);
+      this.loop_nodes(
+            (node) => {
+                  var circle = document.getElementById(node.display.circle);
 
-            // Default radius is 2%
-            var radius = 2;
-            // Check if node size is enabled in visualization settings
-            if (visualization_settings.size) {
-                  // Map node values to a 1 to 5 percent range
-                  radius = cs.map(node.value, min, max, 1, 5);
-            }
-            // Set radius of circle as percentage
-            circle.setAttribute("r", radius + "%");
-
-            cs.settings.node_types.forEach(
-                  (node_type) => {
-                        if (node.type == node_type.name) {
-                              var color;
-                              if (visualization_settings.type) {
-                                    color = node_type.color;
-                              } else {
-                                    color = "#7ab7fc";
-                              }
-                              if (visualization_settings.brightness) {
-                                    color = shade_color(
-                                          color,
-                                          cs.map(node.value, min, max, -0.75, 0.75)
-                                    );
-                              }
-                              circle.style.fill = color;
-                        }
+                  // Default radius is 2%
+                  var radius = 2;
+                  // Check if node size is enabled in visualization settings
+                  if (visualization_settings.size) {
+                        // Map node values to a 1 to 5 percent range
+                        radius = cs.map(node.value, min, max, 1, 5);
                   }
-            );
+                  // Set radius of circle as percentage
+                  circle.setAttribute("r", radius + "%");
 
-            var text = document.getElementById(node.display.text);
-            if (visualization_settings.label) {
-                  text.style.display = "";
-                  text.innerHTML = round(node.value, 3);
+                  cs.settings.node_types.forEach(
+                        (node_type) => {
+                              if (node.type == node_type.name) {
+                                    var color;
+                                    if (visualization_settings.type) {
+                                          color = node_type.color;
+                                    } else {
+                                          color = "#7ab7fc";
+                                    }
+                                    if (visualization_settings.brightness) {
+                                          color = shade_color(
+                                                color,
+                                                cs.map(node.value, min, max, -0.75, 0.75)
+                                          );
+                                    }
+                                    circle.style.fill = color;
+                              }
+                        }
+                  );
 
-                  // To pixels
-                  radius = to_pixels.w(radius);
-                  text.style.fontSize = radius / 2;
+                  var text = document.getElementById(node.display.text);
+                  if (visualization_settings.label) {
+                        text.style.display = "";
+                        text.innerHTML = round(node.value, 3);
 
-                  // Don't use parseInt
-                  var x = parseFloat(circle.getAttribute("cx"));
-                  var y = parseFloat(circle.getAttribute("cy"));
-                  x -= to_percent.w(text.getBBox().width / 2);
-                  y += to_percent.h(text.getBBox().height / 3);
-                  // Set x position of text element within SVG element
-                  text.setAttribute("x", (x + "%"));
-                  // Set y position of text
-                  text.setAttribute("y", (y + "%"));
-            } else {
-                  text.style.display = "none";
+                        // To pixels
+                        radius = to_pixels.w(radius);
+                        text.style.fontSize = radius / 2;
+
+                        // Don't use parseInt
+                        var x = parseFloat(circle.getAttribute("cx"));
+                        var y = parseFloat(circle.getAttribute("cy"));
+                        x -= to_percent.w(text.getBBox().width / 2);
+                        y += to_percent.h(text.getBBox().height / 3);
+                        // Set x position of text element within SVG element
+                        text.setAttribute("x", (x + "%"));
+                        // Set y position of text
+                        text.setAttribute("y", (y + "%"));
+                  } else {
+                        text.style.display = "none";
+                  }
             }
-      }
+      );
 
       var min_weight = Math.min.apply(Math, this.connections.map(function(x) {
             return x.weight;
@@ -287,18 +288,20 @@ network.update_display = function() {
       var max_weight = Math.max.apply(Math, this.connections.map(function(x) {
             return x.weight;
       }));
-      for (var i = 0; i < this.connections.length; i++) {
-            var connection = this.connections[i];
-            var line = document.getElementById(connection.display.line);
-            line.setAttribute(
-                  "opacity",
-                  cs.map(
-                        connection.weight,
-                        min_weight, max_weight,
-                        0, 1
-                  )
-            );
-      }
+      this.loop_connections(
+            (connection) => {
+                  var line = document.getElementById(connection.display.line);
+                  line.setAttribute(
+                        "opacity",
+                        cs.map(
+                              connection.weight,
+                              this.min_weight(),
+                              this.max_weight(),
+                              0, 1
+                        )
+                  );
+            }
+      );
 }
 
 network.display();

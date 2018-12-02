@@ -593,6 +593,19 @@ cs.network = class {
                   return max;
             }
 
+
+            this.loop_nodes = function(callback) {
+                  for (attr in this.nodes) {
+                        callback(this.nodes[attr]);
+                  }
+            }
+
+            this.loop_connections = function(callback) {
+                  for (var i = 0; i < this.connections.length; i++) {
+                        callback(this.connections[i]);
+                  }
+            }
+
             // Reset values of mutable nodes in network
             this.reset = function() {
                   // Loop through network node list
