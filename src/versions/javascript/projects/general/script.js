@@ -106,9 +106,10 @@ const evaluate = function(network_, input, output) {
 }
 
 var a = 0;
+var epoch = 0;
 
 const update = function() {
-      network = network.evolve({
+      var generation = network.evolve({
             "iterations": 1,
             "population": 50,
             "inputs": input_data,
@@ -170,10 +171,21 @@ const update = function() {
             },
             "evaluate": evaluate,
             "log": true,
-            "return": "network"
+            "return": "all"
       });
 
+      network = generation.network;
+      // scatterChartData.datasets[0].data = [];
+      for (var i = 0; i < generation.population.length; i++) {
+            scatterChartData.datasets[0].data.push({
+                  x: epoch,
+                  y: generation.population[i].score
+            })
+      }
+      window.myScatter.update();
+
       document.getElementById("output").innerText = predict("abc");
+      epoch++;
 }
 
 setInterval(update, 100);
