@@ -182,12 +182,15 @@ const update = function() {
             });
       }
       if (chart_data.datasets[0].data.length > generation.population.length * 10) {
-            console.log(true)
             chart_data.datasets[0].data.splice(0, generation.population.length);
       }
       chart_data.datasets[1].data.push({
             x: epoch,
             y: generation.network.score
+      });
+      chart_data.datasets[2].data.push({
+            x: epoch,
+            y: generation.average
       });
       chart.update();
 
@@ -195,4 +198,4 @@ const update = function() {
       epoch++;
 }
 
-setInterval(update, 100);
+setInterval(update, 1000);

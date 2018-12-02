@@ -17,6 +17,12 @@ var chart_data = {
                   borderColor: window.chartColors.blue,
                   backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                   data: []
+            },
+            {
+                  label: "Average",
+                  borderColor: window.chartColors.green,
+                  backgroundColor: color(window.chartColors.green).alpha(0.2).rgbString(),
+                  data: []
             }
       ]
 };

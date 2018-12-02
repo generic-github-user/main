@@ -1012,6 +1012,7 @@ cs.network = class {
                   for (var i = 0; i < config.iterations; i++) {
                         // Create array to store "population" of networks in
                         var population = new Array(config.population);
+                        var average = 0;
                         // Fill population array with clones of network
                         for (var j = 0; j < population.length; j++) {
                               // Deep clone network
@@ -1043,6 +1044,8 @@ cs.network = class {
                                           )
                                     ) / config.inputs.length;
                               }
+
+                              average += population[j].score / population.length;
                         }
 
                         // Find network from population with best score
@@ -1073,7 +1076,8 @@ cs.network = class {
                               // Population of networks
                               "population": population,
                               // Trained network
-                              "network": network
+                              "network": network,
+                              "average": average
                         }
                   } else {
                         // Return trained network after neuroevolution process
