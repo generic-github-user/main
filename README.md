@@ -271,6 +271,18 @@ network = network.evolve({
 });
 ```
 
+##### `export()`
+
+Export all network information as a JSON-formatted string. The string can be saved as a text file, transmitted digitally, or saved for later use. For instance, you may want to train a model and then save it so that it can be used again repeatedly without needing to be re-trained. Model data saved with `export()` can be loaded using `import()`.
+
+`export()` accepts no parameters.
+
+Example:
+
+```javascript
+network.export();
+```
+
 ##### `save()`
 
 Save all network information to the web browser's localStorage. The network can be retrieved and reused even after the page has been reloaded. A network saved with `save()` can be loaded and used using `load()`.
