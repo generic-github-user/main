@@ -1,5 +1,7 @@
 # Caesium
 
+An evolutionary neural network implementation, inspired by [Neuroevolution of Augmenting Topologies](http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf). The Caesium library is currently available for JavaScript. Python and Node.js implementations are planned.
+
 # Design
 
 ## Architecture
