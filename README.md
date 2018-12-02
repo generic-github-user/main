@@ -299,6 +299,10 @@ network.save({
 
 A [Python implementation](https://github.com/generic-github-user/Caesium/issues/2) of Caesium is planned.
 
+## Node.js
+
+A [Node.js implementation](https://github.com/generic-github-user/Caesium/issues/97) of Caesium is planned.
+
 # Credits
 
 This project wouldn't have been possible without lots of great open-source technology that people have been kind enough to share with the world. All sources listed here are also credited in code comments.
