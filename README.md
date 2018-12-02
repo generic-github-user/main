@@ -271,6 +271,26 @@ network = network.evolve({
 });
 ```
 
+##### `save()`
+
+Save all network information to the web browser's localStorage. The network can be retrieved and reused even after the page has been reloaded. A network saved with `save()` can be loaded and used using `load()`.
+
+Config object parameters:
+
+ - `name`
+   - The key to save the network data at in localStorage.
+ - `overwrite`
+   - Whether or not to overwrite any data already stored at the provided `name`, if any exists.
+
+Example:
+
+```javascript
+network.save({
+      "name": "network-1",
+      "overwrite": false
+});
+```
+
 #### Node
 
 #### Connection
