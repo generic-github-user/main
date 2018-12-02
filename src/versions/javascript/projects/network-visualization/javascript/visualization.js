@@ -298,5 +298,13 @@ network.update_display = function() {
       );
 }
 
+const update = function() {
+      network.set_inputs({
+            "inputs": new Array(num_nodes).fill(cs.random())
+      });
+      network.update();
+      network.update_display();
+}
+
 network.display();
 network.update_display();
