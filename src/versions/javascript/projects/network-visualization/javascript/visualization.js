@@ -282,12 +282,6 @@ network.update_display = function() {
             }
       );
 
-      var min_weight = Math.min.apply(Math, this.connections.map(function(x) {
-            return x.weight;
-      }));
-      var max_weight = Math.max.apply(Math, this.connections.map(function(x) {
-            return x.weight;
-      }));
       this.loop_connections(
             (connection) => {
                   var line = document.getElementById(connection.display.line);

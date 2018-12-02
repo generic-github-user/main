@@ -593,6 +593,16 @@ cs.network = class {
                   return max;
             }
 
+            this.min_weight = function() {
+                  return Math.min.apply(Math, this.connections.map(function(x) {
+                        return x.weight;
+                  }));
+            }
+            this.max_weight = function() {
+                  return Math.max.apply(Math, this.connections.map(function(x) {
+                        return x.weight;
+                  }));
+            }
 
             this.loop_nodes = function(callback) {
                   for (attr in this.nodes) {
