@@ -1,8 +1,8 @@
-## JavaScript
+# JavaScript
 
 The JavaScript implementation of the Caesium library. This is the main version of Caesium. It currently is only meant for use in the browser as a script tag embedded in an HTML file. A [Node.js implementation](https://github.com/generic-github-user/Caesium/issues/97) is planned.
 
-### Usage
+## Usage
 
 Add the following script tag to your HTML code to add the Caesium library to your web page:
 ```html
@@ -11,13 +11,13 @@ Add the following script tag to your HTML code to add the Caesium library to you
 
 Alternatively, download [the full script](https://raw.githubusercontent.com/generic-github-user/Caesium/master/src/versions/javascript/library/caesium.js) and host it within your project. This is highly recommended for any production usage.
 
-### Classes
+## Classes
 
-#### Network
+### Network
 
 The main neural network class. This object contains all of the data and methods necessary to train and use a neural network.
 
-##### Constructor
+#### Constructor
 
 A new network object can be created using the `new cs.network` constructor.
 
@@ -44,21 +44,21 @@ var network = new cs.network({
 });
 ```
 
-##### Data
+#### Data
 
-###### ID
+##### ID
 
 The unique global ID of a network object, used to identify the networks. The ID of any given network is stored at `network.id`. It should be noted that the network ID is not essential information, as networks can be differentiated as distinct objects because, unlike nodes and connections, they are top-level objects.
 
-###### Nodes
+##### Nodes
 
 All the nodes that are contained within the structure of the network. Along with connections, these comprise the model architecture. To avoid object reference issues when duplicating entire network objects, each node object is only stored once in the network object and once in the global node list, `cs.all.nodes`. The full list of original connection objects can be found in `network.nodes`.
 
-###### Connections
+##### Connections
 
 All the connections that are contained within the structure of the network. Along with nodes, these comprise the model architecture. To avoid object reference issues when duplicating entire network objects, each connections object is only stored once in the network object and once in the global connection list, `cs.all.connections`. The full list of original connection objects can be found in `network.connections`.
 
-##### Methods
+#### Methods
 
 Methods are listed in the order they are defined in the library code.
 
@@ -232,6 +232,6 @@ network.save({
 });
 ```
 
-#### Node
+### Node
 
-#### Connection
+### Connection
