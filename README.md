@@ -42,13 +42,22 @@ For example, instead of stacking several multiplication nodes together to approx
 
 A hard limit can be placed on the number of nodes and/or connections that the neuroevolution algorithm can add to the network. This prevents the network growing indefinitely in size and reduces memory usage. It also encourages the evolution-based optimization algorithm to find better solutions to problems with fewer nodes, therefore reducing overfitting and improving generalization.
 
-# Implementation
+# Implementations
 
 This is a technical guide to specific aspects of the Caesium library implementation in different programming languages for development reference purposes. Full documentation will be created soon.
 
 ## JavaScript
 
 The JavaScript implementation of the Caesium library. This is the main version of Caesium. It currently is only meant for use in the browser as a script tag embedded in an HTML file. A [Node.js implementation](https://github.com/generic-github-user/Caesium/issues/97) is planned.
+
+### Usage
+
+Add the following script tag to your HTML code to add the Caesium library to your web page:
+```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/generic-github-user/caesium/src/versions/javascript/library/caesium.min.js"></script>
+```
+
+Alternatively, download [the full script](https://raw.githubusercontent.com/generic-github-user/Caesium/master/src/versions/javascript/library/caesium.js) and host it within your project. This is highly recommended for any production usage.
 
 ### Classes
 
