@@ -69,63 +69,6 @@ The main neural network class. This object contains all of the data and methods 
 
 A new network object can be created using the `new cs.network` constructor.
 
-Config:
-
-- Nodes
-  - Inputs
-    - The number of input nodes (`data/input`) to be added to the new network.
-    - Optional? `Yes`
-    - Default value: `5`
-    - Example: `{"input": 128}`
-    - Property name: `config.input`
-  - Outputs
-    - The number of output nodes (`data/output`) to be added to the new network.
-    - Optional? `Yes`
-    - Default value: `5`
-    - Example: `{"output": 128}`
-    - Property name: `config.output`
-  - Value
-    - Information about the value nodes (`data/value`) to be added to the new network.
-    - Optional? `Yes`
-    - Example: `{"value": {"num": 5, "value": }}`
-    - Property name: `config.value`
-    - Number
-      - The number of value nodes to be added to the new network. This must be at least 0. This can either be formatted as a constant value or as a minimum and maximum value that will be randomly selected between from a uniform distribution, non-inclusive, and rounded to the nearest integer.
-      - Optional? `Yes`
-      - Default value: `10`
-      - Example
-        - `{"value": {"num": 10}}`
-        - `{"value": {"num": {"min": 5, "max": 15}}}`
-      - Property name: `config.value.num`
-      - Minimum
-        - The lower bound for the number of value nodes. This is not needed if a constant value is provided.
-        - Optional? `Yes`
-        - Default value: `5`
-        - Property name: `config.value.num.min`
-      - Maximum
-        - The upper bound for the number of value nodes. This is not needed if a constant value is provided.
-        - Optional? `Yes`
-        - Default value: `15`
-        - Property name: `config.value.num.max`
-    - Value
-      - The starting value of value nodes can either be formatted as a constant value or as a minimum and maximum value that will be randomly selected between from a uniform distribution, non-inclusive. A normal (Gaussian) distribution option is planned.
-      - Optional? `Yes`
-      - Default value: `0`
-      - Example
-        - `{"value": {"value": 0}}`
-        - `{"value": {"value": {"min": -1, "max": 1}}}`
-      - Property name: `config.value.value`
-      - Minimum
-        - The lower bound for a randomly selected value for value nodes. This is not needed if a constant value is provided.
-        - Optional? `Yes`
-        - Default value: `-1`
-        - Property name: `config.value.value.min`
-      - Maximum
-        - The upper bound for a randomly selected value for value nodes. This is not needed if a constant value is provided.
-        - Optional? `Yes`
-        - Default value: `1`
-        - Property name: `config.value.value.max`
-
 Example:
 
 The following code will create a new network with 5 input nodes and 5 output nodes and store it in a new variable called `network`.
@@ -167,8 +110,7 @@ All the connections that are contained within the structure of the network. Alon
 
 Methods are listed in the order they are defined in the library code.
 
-###### Node
-`network.node()`
+##### `find_node()`
 
 Get a node from the network given its ID. Unlike most other functions and methods in Caesium, this method does not use a `config` object because it only has one parameter, `id`. This is the ID of the node you want to retrieve from the network. Remember that node IDs are local and used to identify the node of a specific network.
 
@@ -180,12 +122,11 @@ Example:
 var node = network.node("7f0e0525-48c9-9de0-63b5-f67b9da29938");
 ```
 
-###### Connection
-`network.connection()`
+##### `find_connection()`
 
 Get a connection from the network given its ID. Unlike most other functions and methods in Caesium, this method does not use a `config` object because it only has one parameter, `id`. This is the ID of the connection you want to retrieve from the network. Remember that connection IDs are local and used to identify the connection of a specific network.
 
-The `network.connection()` function retrieves a given connection from the connection list of the network object that it is called on. It uses the native `array.prototype.find` function to find a connection with a matching ID from the connection list. If no connection with the provided ID can be found, an error message is returned: `Connection with id [ID] could not be found.`
+The `network.find_connection()` function retrieves a given connection from the connection list of the network object that it is called on. It uses the native `array.prototype.find` function to find a connection with a matching ID from the connection list. If no connection with the provided ID can be found, an error message is returned: `Connection with id [ID] could not be found.`
 
 Example:
 
@@ -195,9 +136,9 @@ var connection = network.connection("0b4b7920-a25f-727f-0d85-1b2c03da465b");
 
 ###### Set Inputs
 
-###### Get Outputs
+##### `evolve()`
 
-###### Update
+Optimize the parameters of a network through neuroevolution. Any of the following model parameters can be optimized:
 
 ###### Mutate
 
