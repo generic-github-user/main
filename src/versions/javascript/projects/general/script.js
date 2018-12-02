@@ -175,14 +175,13 @@ const update = function() {
       });
 
       network = generation.network;
-      // scatterChartData.datasets[0].data = [];
       for (var i = 0; i < generation.population.length; i++) {
-            scatterChartData.datasets[0].data.push({
+            chart_data.datasets[0].data.push({
                   x: epoch,
                   y: generation.population[i].score
             })
       }
-      window.myScatter.update();
+      chart.update();
 
       document.getElementById("output").innerText = predict("abc");
       epoch++;

@@ -5,7 +5,7 @@ window.randomScalingFactor = function() {
 };
 
 var color = Chart.helpers.color;
-var scatterChartData = {
+var chart_data = {
       datasets: [{
             label: "Loss",
             borderColor: window.chartColors.red,
@@ -15,13 +15,13 @@ var scatterChartData = {
 };
 
 window.onload = function() {
-      var ctx = document.getElementById('canvas').getContext('2d');
-      window.myScatter = Chart.Scatter(ctx, {
-            data: scatterChartData,
+      var ctx = document.getElementById("canvas").getContext("2d");
+      chart = Chart.Scatter(ctx, {
+            data: chart_data,
             options: {
                   title: {
                         display: true,
-                        text: 'Chart.js Scatter Chart'
+                        text: "Network Loss"
                   }
             }
       });
