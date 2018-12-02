@@ -73,6 +73,9 @@ const predict = function(input) {
             });
             network.update(update_settings);
       }
+      network.set_inputs({
+            "inputs": new Array(charset.length).fill(0)
+      });
       for (var i = 0; i < output_chars; i++) {
             network.update(update_settings);
             output += cs.decode.one_hot(
