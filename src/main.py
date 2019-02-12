@@ -4,8 +4,10 @@ import tensorflow as tf
 
 icons = []
 for filename in glob.glob('../data/*.ico'):
-      img = Image.open(filename)
-      icons.append(img)
+      img = Image.open(filename).convert('RGBA')
+      img.thumbnail((32, 32), Image.ANTIALIAS)
+      icons.append(list(sum(list(img.getdata()), ())))
+
 
 inputs = tf.keras.Input(shape=(256,))
 a = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(inputs)
