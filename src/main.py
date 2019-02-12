@@ -19,10 +19,10 @@ inputs = tf.keras.Input(shape=(points,))
 a = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(inputs)
 b = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(a)
 c = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(b)
-outputs = tf.keras.layers.Dense(points, activation=tf.nn.sigmoid)(c)
+outputs = tf.keras.layers.Dense(points)(inputs)
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
-model.compile(optimizer=tf.train.GradientDescentOptimizer(1),
+model.compile(optimizer=tf.train.GradientDescentOptimizer(0.00001),
               loss='mean_squared_error',
               metrics=['accuracy'])
 
