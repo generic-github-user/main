@@ -1,6 +1,7 @@
 from PIL import Image
 import glob
 import tensorflow as tf
+from matplotlib import pyplot as plt
 tf.enable_eager_execution()
 
 resolution = 32
@@ -26,12 +27,16 @@ model.compile(optimizer=tf.train.GradientDescentOptimizer(0.00001),
               loss='mean_squared_error',
               metrics=['accuracy'])
 
+plot = plt.imshow(tf.zeros([resolution, resolution, 4]), interpolation='nearest')
+plt.ion()
+plt.show()
 class Render(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
         image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, 4096]))
         prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, 4]), tf.int32)
-        plt.imshow(prediction, interpolation='nearest')
-        plt.show()
+        plot.set_data(prediction)
+        plt.draw()
+        plt.pause(0.1)
 
 callback = Render()
 
