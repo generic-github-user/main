@@ -2,6 +2,7 @@ from PIL import Image
 import glob
 import tensorflow as tf
 from matplotlib import pyplot as plt
+import math
 tf.enable_eager_execution()
 
 resolution = 32
@@ -20,12 +21,16 @@ for filename in glob.glob('../data/*.ico'):
 data = tf.constant(icons, dtype=tf.float32)
 
 inputs = tf.keras.Input(shape=(points,))
-a = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(inputs)
-b = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(a)
-c = tf.keras.layers.Dense(2, activation=tf.nn.sigmoid)(b)
-d = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(c)
-e = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(d)
-outputs = tf.keras.layers.Dense(points)(e)
+layers = [inputs]
+for i in range(0, int(math.log(points, 8) - 1)):
+    nodes = int(points ** (1 / (8 ** i)))
+    new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
+    layers.append(new_layer)
+for i in range(1, int(math.log(points, 8) - 2)):
+    nodes = int(8 ** i)
+    new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
+    layers.append(new_layer)
+outputs = tf.keras.layers.Dense(points)(layers[len(layers)-1])
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
 model.compile(optimizer=optimizer,
