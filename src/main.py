@@ -19,8 +19,10 @@ data = tf.constant(icons, dtype=tf.float32)
 inputs = tf.keras.Input(shape=(points,))
 a = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(inputs)
 b = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(a)
-c = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(b)
-outputs = tf.keras.layers.Dense(points)(inputs)
+c = tf.keras.layers.Dense(2, activation=tf.nn.sigmoid)(b)
+d = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(c)
+e = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(d)
+outputs = tf.keras.layers.Dense(points)(e)
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
 model.compile(optimizer=tf.train.GradientDescentOptimizer(0.00001),
