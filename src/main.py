@@ -17,3 +17,10 @@ b = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(a)
 c = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(b)
 outputs = tf.keras.layers.Dense(4096, activation=tf.nn.sigmoid)(c)
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
+
+model.compile(optimizer=tf.train.GradientDescentOptimizer(1),
+              loss='mean_squared_error',
+              metrics=['accuracy'])
+
+model.fit(data, data, epochs=10)
+model.evaluate(data, data)
