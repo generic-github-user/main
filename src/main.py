@@ -15,6 +15,7 @@ points = (resolution ** 2) * channels
 epochs = 1000
 optimizer = tf.train.AdamOptimizer(0.01)
 delay = 0.1
+layer_ratio = 2
 
 icons = []
 for filename in glob.glob('../data/*.ico'):
@@ -27,12 +28,12 @@ data = tf.constant(icons, dtype=tf.float32)
 with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     inputs = tf.keras.Input(shape=(points,))
     layers = [inputs]
-    for i in range(0, int(math.log(points, 8) - 1)):
-        nodes = int(points ** (1 / (8 ** i)))
+    for i in range(0, int(math.log(points, layer_ratio) - 2)):
+        nodes = int(points * (0.5 ** (i + 1)))
         new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
         layers.append(new_layer)
-    for i in range(1, int(math.log(points, 8) - 2)):
-        nodes = int(8 ** i)
+    for i in range(1, int(math.log(points, layer_ratio))):
+        nodes = int(layer_ratio ** i)
         new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
         layers.append(new_layer)
     outputs = tf.keras.layers.Dense(points)(layers[len(layers)-1])
