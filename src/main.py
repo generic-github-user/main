@@ -26,5 +26,14 @@ model.compile(optimizer=tf.train.GradientDescentOptimizer(0.00001),
               loss='mean_squared_error',
               metrics=['accuracy'])
 
-model.fit(data, data, epochs=10)
+class Render(tf.keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs=None):
+        image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, 4096]))
+        prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, 4]), tf.int32)
+        plt.imshow(prediction, interpolation='nearest')
+        plt.show()
+
+callback = Render()
+
+model.fit(data, data, epochs=10, callbacks=[callback])
 model.evaluate(data, data)
