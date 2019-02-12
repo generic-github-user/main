@@ -3,19 +3,23 @@ import glob
 import tensorflow as tf
 tf.enable_eager_execution()
 
+resolution = 32
+channels = 4
+points = (resolution ** 2) * channels
+
 icons = []
 for filename in glob.glob('../data/*.ico'):
       img = Image.open(filename).convert('RGBA')
-      img = img.resize((32, 32))
+      img = img.resize((resolution, resolution))
       icons.append(list(sum(list(img.getdata()), ())))
 
 data = tf.constant(icons, dtype=tf.float32)
 
-inputs = tf.keras.Input(shape=(4096,))
+inputs = tf.keras.Input(shape=(points,))
 a = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(inputs)
 b = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(a)
 c = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(b)
-outputs = tf.keras.layers.Dense(4096, activation=tf.nn.sigmoid)(c)
+outputs = tf.keras.layers.Dense(points, activation=tf.nn.sigmoid)(c)
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
 model.compile(optimizer=tf.train.GradientDescentOptimizer(1),
