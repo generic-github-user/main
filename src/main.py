@@ -42,3 +42,6 @@ callback = Render()
 
 model.fit(data, data, epochs=10, callbacks=[callback])
 model.evaluate(data, data)
+
+print('Press enter to exit the program.')
+input()
