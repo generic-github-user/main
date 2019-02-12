@@ -17,12 +17,12 @@ for filename in glob.glob('../data/*.ico'):
       img = img.resize((resolution, resolution))
       icons.append(list(sum(list(img.getdata()), ())))
 
-data = tf.reshape(tf.constant(icons, dtype=tf.float32), [-1, resolution, resolution, channels])
+data = tf.constant(icons, dtype=tf.float32)
 
-inputs = tf.keras.Input(shape=(resolution, resolution, channels,))
-a = tf.layers.Conv2D(filters=8, kernel_size=3, strides=1, activation=tf.nn.sigmoid)(inputs)
-b = tf.layers.MaxPooling2D(pool_size=2, strides=2)(a)
-c = tf.layers.flatten(b)
+inputs = tf.keras.Input(shape=(points,))
+a = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(inputs)
+b = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(a)
+c = tf.keras.layers.Dense(2, activation=tf.nn.sigmoid)(b)
 d = tf.keras.layers.Dense(64, activation=tf.nn.sigmoid)(c)
 e = tf.keras.layers.Dense(128, activation=tf.nn.sigmoid)(d)
 outputs = tf.keras.layers.Dense(points)(e)
@@ -37,15 +37,16 @@ plt.ion()
 plt.show()
 class Render(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
-        image = tf.slice(tf.reshape(data, [-1, points]), tf.constant([0, 0]), tf.constant([1, points]))
-        prediction = tf.cast(tf.reshape(model(tf.reshape(image, [-1, resolution, resolution, channels])), [resolution, resolution, channels]), tf.int32)
+        image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, points]))
+        prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, channels]), tf.int32)
         plot.set_data(prediction)
         plt.draw()
         plt.pause(delay)
 
 callback = Render()
 
-model.fit(data, tf.reshape(data, [-1, points]), epochs=epochs, callbacks=[callback])
+model.fit(data, data, epochs=epochs, callbacks=[callback])
+model.evaluate(data, data)
 
 print('Press enter to exit the program.')
 input()
