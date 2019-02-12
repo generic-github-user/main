@@ -1,6 +1,7 @@
 from PIL import Image
 import glob
 import tensorflow as tf
+tf.enable_eager_execution()
 
 icons = []
 for filename in glob.glob('../data/*.ico'):
