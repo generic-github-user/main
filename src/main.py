@@ -58,7 +58,7 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         def on_epoch_end(self, epoch, logs=None):
             image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, points]))
             prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, channels]), tf.int32)
-            plot.set_data(prediction)
+            plot.set_data(tf.clip_by_value(prediction, 0, 255))
             plt.draw()
             plt.pause(delay)
 
