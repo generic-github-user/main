@@ -15,8 +15,9 @@ summary_writer = tf.contrib.summary.create_file_writer('C:/My Files/Programming/
 resolution = 32
 channels = 4
 points = (resolution ** 2) * channels
-epochs = 1000
-optimizer = tf.train.AdamOptimizer(0.01)
+epochs = 200
+loss = tf.losses.mean_squared_error
+optimizer = tf.train.AdamOptimizer(learning_rate=0.0001)
 delay = 0.1
 layer_ratio = 2
 shallowness = 3
@@ -70,9 +71,9 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
 
     # Compile model
     print('Compiling model for training . . .')
-    model.compile(optimizer=optimizer,
-                  loss='mean_squared_error',
-                  metrics=['accuracy'])
+    # autoencoder.compile(optimizer=optimizer,
+    #               loss='mean_squared_error',
+    #               metrics=['accuracy'])
     print('Model successfully compiled.')
 
     # f = plt.figure()
@@ -91,28 +92,35 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # Don't use block=True
     plt.show()
     # Render various data visualizations after each training epoch ends
-    class Render(tf.keras.callbacks.Callback):
-        def on_epoch_end(self, epoch, logs=None):
-            # Slice one image from the training data tensor
-            image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, points]))
-            # Run prediction (compression and reconstruction) with model
-            prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, channels]), tf.int32)
-            # Update plot with newly generated result
-            plot.set_data(tf.clip_by_value(prediction, 0, 255))
+    def on_epoch_end():
+        # Slice one image from the training data tensor
+        image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, points]))
+        # Run prediction (compression and reconstruction) with model
+        prediction = tf.cast(tf.reshape(autoencode(image), [resolution, resolution, channels]), tf.int32)
+        # Update plot with newly generated result
+        plot.set_data(tf.clip_by_value(prediction, 0, 255))
 
-            images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
-            predictions = tf.cast(tf.squeeze(tf.contrib.gan.eval.image_grid(model(images), [10, 10], [resolution, resolution], channels)), tf.int32)
-            reconstructions.set_data(tf.clip_by_value(predictions, 0, 255))
+        images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
+        predictions = tf.cast(tf.squeeze(tf.contrib.gan.eval.image_grid(autoencode(images), [10, 10], [resolution, resolution], channels)), tf.int32)
+        reconstructions.set_data(tf.clip_by_value(predictions, 0, 255))
 
-            plt.draw()
-            plt.pause(delay)
+        plt.draw()
+        plt.pause(delay)
 
     # Create callback to execute during training
-    callback = Render()
+    # callback = Render()
 
     print('Training model . . .')
-    model.fit(data, data, epochs=epochs, callbacks=[callback])
-    model.evaluate(data, data)
+    # autoencoder.fit(data, data, epochs=epochs, callbacks=[callback])
+    # autoencoder.evaluate(data, data)
+    # print(tf.GraphKeys.TRAINABLE_VARIABLES)
+    for i in range(epochs):
+        def calc_loss():
+            loss_value = loss(autoencode(data), data)
+            print(loss_value)
+            return loss_value
+        optimizer.minimize(calc_loss)
+        on_epoch_end()
     print('Model training complete.')
 
 # Wait for user input to close program
