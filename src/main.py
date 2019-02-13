@@ -39,22 +39,33 @@ data = tf.constant(icons, dtype=tf.float32)
 
 with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # Create autoencoder model
-    inputs = tf.keras.Input(shape=(points,))
-    layers = [inputs]
+    encoder_inputs = tf.keras.Input(shape=(points,))
+    layers = [encoder_inputs]
     print('Generating model layer structure:')
     num_layers = int(math.log(points, layer_ratio))
     for i in range(0, num_layers - 2 - shallowness):
         nodes = int(points * (0.5 ** (i + 1)))
-        new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
+        new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.relu)(layers[i])
         layers.append(new_layer)
         print(nodes)
-    for i in range(1 + shallowness, num_layers):
-        nodes = int(layer_ratio ** i)
-        new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
+
+    encoder = tf.keras.Model(inputs=encoder_inputs, outputs=layers[len(layers)-1])
+
+    decoder_inputs = tf.keras.Input(shape=(nodes,))
+    layers = [decoder_inputs]
+    for i in range(0, num_layers - shallowness - 1):
+        nodes = int(layer_ratio ** (i + 1 + shallowness))
+        new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.relu)(layers[i])
         layers.append(new_layer)
         print(nodes)
-    outputs = tf.keras.layers.Dense(points)(layers[len(layers)-1])
-    model = tf.keras.Model(inputs=inputs, outputs=outputs)
+    decoder_outputs = tf.keras.layers.Dense(points)(layers[len(layers)-1])
+    decoder = tf.keras.Model(inputs=decoder_inputs, outputs=decoder_outputs)
+
+    # autoencoder = tf.keras.Model(inputs=encoder_inputs, outputs=decoder_outputs)
+
+    def autoencode(inputs):
+        return decoder(encoder(inputs))
+
     print('Model generated.')
 
     # Compile model
