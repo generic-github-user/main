@@ -17,6 +17,7 @@ optimizer = tf.train.AdamOptimizer(0.01)
 delay = 0.1
 layer_ratio = 2
 
+print('Loading images for training . . .')
 icons = []
 for filename in glob.glob('../data/*.ico'):
       try:
@@ -47,9 +48,11 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
     print('Model generated.')
 
+    print('Compiling model for training . . .')
     model.compile(optimizer=optimizer,
                   loss='mean_squared_error',
                   metrics=['accuracy'])
+    print('Model successfully compiled.')
 
     plot = plt.imshow(tf.zeros([resolution, resolution, channels]), interpolation='nearest')
     plt.ion()
@@ -64,8 +67,10 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
 
     callback = Render()
 
+    print('Training model . . .')
     model.fit(data, data, epochs=epochs, callbacks=[callback])
     model.evaluate(data, data)
+    print('Model training complete.')
 
 print('Press enter to exit the program.')
 input()
