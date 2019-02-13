@@ -18,6 +18,7 @@ epochs = 1000
 optimizer = tf.train.AdamOptimizer(0.01)
 delay = 0.1
 layer_ratio = 2
+shallowness = 3
 
 # Load image data
 print('Loading images for training . . .')
@@ -38,13 +39,13 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     inputs = tf.keras.Input(shape=(points,))
     layers = [inputs]
     print('Generating model layer structure:')
-    num_layers = int(math.log(points, layer_ratio)
-    for i in range(0, num_layers - 2)):
+    num_layers = int(math.log(points, layer_ratio))
+    for i in range(0, num_layers - 2 - shallowness):
         nodes = int(points * (0.5 ** (i + 1)))
         new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
         layers.append(new_layer)
         print(nodes)
-    for i in range(1, num_layers):
+    for i in range(1 + shallowness, num_layers):
         nodes = int(layer_ratio ** i)
         new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.sigmoid)(layers[i])
         layers.append(new_layer)
