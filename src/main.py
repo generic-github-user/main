@@ -1,3 +1,4 @@
+# Import libraries
 from PIL import Image
 import glob
 import tensorflow as tf
@@ -5,10 +6,11 @@ from matplotlib import pyplot as plt
 import math
 tf.enable_eager_execution()
 
-
+# Set up TensorBoard
 global_step = tf.train.get_or_create_global_step()
 summary_writer = tf.contrib.summary.create_file_writer('C:/My Files/Programming/Python/icon-encoder/src/logs', flush_millis=10000)
 
+# Settings
 resolution = 32
 channels = 4
 points = (resolution ** 2) * channels
@@ -17,6 +19,7 @@ optimizer = tf.train.AdamOptimizer(0.01)
 delay = 0.1
 layer_ratio = 2
 
+# Load image data
 print('Loading images for training . . .')
 icons = []
 for filename in glob.glob('../data/*.ico'):
@@ -27,9 +30,11 @@ for filename in glob.glob('../data/*.ico'):
       except:
           print(filename + ' could not be loaded due to an error.')
 
+# Convert array of pixel data to TensorFlow tensor
 data = tf.constant(icons, dtype=tf.float32)
 
 with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
+    # Create autoencoder model
     inputs = tf.keras.Input(shape=(points,))
     layers = [inputs]
     print('Generating model layer structure:')
@@ -48,19 +53,24 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
     print('Model generated.')
 
+    # Compile model
     print('Compiling model for training . . .')
     model.compile(optimizer=optimizer,
                   loss='mean_squared_error',
                   metrics=['accuracy'])
     print('Model successfully compiled.')
 
+    # Prepare matplotlib plot for rendering outputs
     plot = plt.imshow(tf.zeros([resolution, resolution, channels]), interpolation='nearest')
     plt.ion()
     plt.show()
     class Render(tf.keras.callbacks.Callback):
         def on_epoch_end(self, epoch, logs=None):
+            # Slice one image from the training data tensor
             image = tf.slice(data, tf.constant([0, 0]), tf.constant([1, points]))
+            # Run prediction (compression and reconstruction) with model
             prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, channels]), tf.int32)
+            # Update plot with newly generated result
             plot.set_data(tf.clip_by_value(prediction, 0, 255))
             plt.draw()
             plt.pause(delay)
