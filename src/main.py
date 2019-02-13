@@ -19,9 +19,12 @@ layer_ratio = 2
 
 icons = []
 for filename in glob.glob('../data/*.ico'):
-      img = Image.open(filename).convert('RGBA')
-      img = img.resize((resolution, resolution))
-      icons.append(list(sum(list(img.getdata()), ())))
+      try:
+          img = Image.open(filename).convert('RGBA')
+          img = img.resize((resolution, resolution))
+          icons.append(list(sum(list(img.getdata()), ())))
+      except:
+          print(filename + ' could not be loaded due to an error.')
 
 data = tf.constant(icons, dtype=tf.float32)
 
