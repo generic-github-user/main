@@ -61,9 +61,19 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
                   metrics=['accuracy'])
     print('Model successfully compiled.')
 
+    # f = plt.figure()
+    f, axarr = plt.subplots(2, 2)
     # Prepare matplotlib plot for rendering outputs
-    plot = plt.imshow(tf.zeros([resolution, resolution, channels]), interpolation='nearest')
+    # plot = f.add_subplot(1,2, 1)
+    plot = axarr[0,0].imshow(tf.zeros([resolution, resolution, channels]), interpolation='nearest')
+    # reconstructions = f.add_subplot(1,2, 2)
+    reconstructions = axarr[0,1].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
+
+    x = axarr[1,0].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
+    y = axarr[1,1].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
+
     plt.ion()
+    # Don't use block=True
     plt.show()
     class Render(tf.keras.callbacks.Callback):
         def on_epoch_end(self, epoch, logs=None):
@@ -73,6 +83,11 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
             prediction = tf.cast(tf.reshape(model(image), [resolution, resolution, channels]), tf.int32)
             # Update plot with newly generated result
             plot.set_data(tf.clip_by_value(prediction, 0, 255))
+
+            images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
+            predictions = tf.cast(tf.squeeze(tf.contrib.gan.eval.image_grid(model(images), [10, 10], [resolution, resolution], channels)), tf.int32)
+            reconstructions.set_data(tf.clip_by_value(predictions, 0, 255))
+
             plt.draw()
             plt.pause(delay)
 
