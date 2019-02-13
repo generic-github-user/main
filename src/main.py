@@ -4,6 +4,7 @@ import glob
 import tensorflow as tf
 from matplotlib import pyplot as plt
 import math
+# Enable eager execution to allow imperative calls to the TensorFlow API
 tf.enable_eager_execution()
 
 # Set up TensorBoard
@@ -24,10 +25,12 @@ shallowness = 3
 print('Loading images for training . . .')
 icons = []
 for filename in glob.glob('../data/*.ico'):
+      # Attempt to load image and add its data to icons list
       try:
           img = Image.open(filename).convert('RGBA')
           img = img.resize((resolution, resolution))
           icons.append(list(sum(list(img.getdata()), ())))
+      # Print error message if image cannot be loaded
       except:
           print(filename + ' could not be loaded due to an error.')
 
@@ -72,9 +75,11 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     x = axarr[1,0].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
     y = axarr[1,1].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
 
+    # Enter interactive plotting mode so that plots can be updated while training without stopping the program flow
     plt.ion()
     # Don't use block=True
     plt.show()
+    # Render various data visualizations after each training epoch ends
     class Render(tf.keras.callbacks.Callback):
         def on_epoch_end(self, epoch, logs=None):
             # Slice one image from the training data tensor
@@ -91,6 +96,7 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
             plt.draw()
             plt.pause(delay)
 
+    # Create callback to execute during training
     callback = Render()
 
     print('Training model . . .')
@@ -98,5 +104,6 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     model.evaluate(data, data)
     print('Model training complete.')
 
+# Wait for user input to close program
 print('Press enter to exit the program.')
 input()
