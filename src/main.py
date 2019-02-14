@@ -42,6 +42,11 @@ iter = dataset.make_one_shot_iterator()
 # Don't use x as a variable name
 batch = iter.get_next()
 
+def random_average(a, b):
+    # c = tf.random_uniform([1])
+    c = tf.random_uniform(a.shape)
+    return (a * c) + (b * (1 - c))
+
 with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # Create autoencoder model
     encoder_inputs = tf.keras.Input(shape=(points,))
