@@ -47,6 +47,24 @@ def random_average(a, b):
     c = tf.random_uniform(a.shape)
     return (a * c) + (b * (1 - c))
 
+def make_prior(code_size):
+  loc = tf.zeros(code_size)
+  scale = tf.ones(code_size)
+  return tf.convert_to_tensor(tf.distributions.Normal(loc, scale))
+
+# def kl(x, y):
+#     X = tf.distributions.Categorical(probs=x)
+#     # Y = tf.distributions.Categorical(probs=y)
+#     Y = y
+#     return tf.distributions.kl_divergence(X, Y)
+
+def kl(value):
+    sd = 0.1
+    return tf.reduce_sum(-0.5 * tf.reduce_sum(1.0 + 2.0 * sd - tf.square(value) - tf.exp(2.0 * sd), 0))
+
+# def kl(a, b):
+#     tf.reduce_mean(-tf.nn.softmax_cross_entropy_with_logits_v2(labels=a, logits=b))
+
 with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # Create autoencoder model
     encoder_inputs = tf.keras.Input(shape=(points,))
@@ -75,9 +93,14 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     def autoencode(inputs):
         return decoder(encoder(inputs))
 
+    prior = tf.keras.backend.random_normal(shape=(16,))
     def calc_loss():
-        loss_value = loss(autoencode(batch), batch)
+        compressed = encoder(batch)
+        reconstruction = decoder(compressed)
+        kl_loss = kl(compressed)
+        loss_value = loss(reconstruction, batch) + kl_loss
         print(loss_value)
+        print('KL Loss' + str(kl_loss))
         return loss_value
 
     print('Model generated.')
