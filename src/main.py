@@ -90,8 +90,8 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # reconstructions = f.add_subplot(1,2, 2)
     reconstructions = axarr[0,1].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
 
-    x = axarr[1,0].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
-    y = axarr[1,1].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
+    random_generated = axarr[1,0].imshow(tf.zeros([resolution, resolution, channels]), interpolation='nearest')
+    random_generated_set = axarr[1,1].imshow(tf.zeros([resolution * 10, resolution * 10, channels]), interpolation='nearest')
 
     # Enter interactive plotting mode so that plots can be updated while training without stopping the program flow
     plt.ion()
@@ -109,6 +109,16 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
         predictions = tf.cast(tf.squeeze(tf.contrib.gan.eval.image_grid(autoencode(images), [10, 10], [resolution, resolution], channels)), tf.int32)
         reconstructions.set_data(tf.clip_by_value(predictions, 0, 255))
+
+        images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
+        compressed = encoder(images)
+        min = tf.reduce_min(compressed, axis=0)
+        max = tf.reduce_max(compressed, axis=0)
+
+        random_sample = tf.expand_dims(random_average(min, max), axis=0)
+        # random_sample = tf.random_uniform([1, 16]) * 10
+        generated = tf.reshape(decoder(random_sample), [resolution, resolution, channels])
+        random_generated.set_data(tf.clip_by_value(generated, 0, 255))
 
         plt.draw()
         plt.pause(delay)
