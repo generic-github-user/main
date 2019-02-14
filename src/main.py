@@ -49,8 +49,8 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         new_layer = tf.keras.layers.Dense(nodes, activation=tf.nn.relu)(layers[i])
         layers.append(new_layer)
         print(nodes)
-
     encoder = tf.keras.Model(inputs=encoder_inputs, outputs=layers[len(layers)-1])
+
 
     decoder_inputs = tf.keras.Input(shape=(nodes,))
     layers = [decoder_inputs]
@@ -66,6 +66,11 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
 
     def autoencode(inputs):
         return decoder(encoder(inputs))
+
+    def calc_loss():
+        loss_value = loss(autoencode(data), data)
+        print(loss_value)
+        return loss_value
 
     print('Model generated.')
 
@@ -115,10 +120,6 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # autoencoder.evaluate(data, data)
     # print(tf.GraphKeys.TRAINABLE_VARIABLES)
     for i in range(epochs):
-        def calc_loss():
-            loss_value = loss(autoencode(data), data)
-            print(loss_value)
-            return loss_value
         optimizer.minimize(calc_loss)
         on_epoch_end()
     print('Model training complete.')
