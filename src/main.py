@@ -55,7 +55,6 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         print(nodes)
     encoder = tf.keras.Model(inputs=encoder_inputs, outputs=layers[len(layers)-1])
 
-
     decoder_inputs = tf.keras.Input(shape=(nodes,))
     layers = [decoder_inputs]
     for i in range(0, num_layers - shallowness - 1):
@@ -77,13 +76,6 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         return loss_value
 
     print('Model generated.')
-
-    # Compile model
-    print('Compiling model for training . . .')
-    # autoencoder.compile(optimizer=optimizer,
-    #               loss='mean_squared_error',
-    #               metrics=['accuracy'])
-    print('Model successfully compiled.')
 
     # f = plt.figure()
     f, axarr = plt.subplots(2, 2)
@@ -116,13 +108,7 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         plt.draw()
         plt.pause(delay)
 
-    # Create callback to execute during training
-    # callback = Render()
-
     print('Training model . . .')
-    # autoencoder.fit(data, data, epochs=epochs, callbacks=[callback])
-    # autoencoder.evaluate(data, data)
-    # print(tf.GraphKeys.TRAINABLE_VARIABLES)
     for i in range(epochs):
         optimizer.minimize(calc_loss)
         on_epoch_end()
