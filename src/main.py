@@ -120,6 +120,7 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     plt.ion()
     # Don't use block=True
     plt.show()
+    random_sample = tf.random_normal(shape=[1, 16], stddev=standard_deviation)
     # Render various data visualizations after each training epoch ends
     def on_epoch_end():
         # Slice one image from the training data tensor
@@ -145,6 +146,9 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         # print(random_sample)
         # generated = tf.reshape(decoder(random_sample), [resolution, resolution, channels])
         # random_generated.set_data(tf.clip_by_value(generated, 0, 255))
+
+        generated = tf.reshape(decoder(random_sample), [resolution, resolution, channels])
+        random_generated.set_data(tf.clip_by_value(generated, 0, 255))
 
         plt.draw()
         plt.pause(delay)
