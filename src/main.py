@@ -133,18 +133,18 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         predictions = tf.cast(tf.squeeze(tf.contrib.gan.eval.image_grid(autoencode(images), [10, 10], [resolution, resolution], channels)), tf.int32)
         reconstructions.set_data(tf.clip_by_value(predictions, 0, 255))
 
-        images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
-        compressed = encoder(images)
-        min = tf.reduce_min(compressed, axis=0)
-        max = tf.reduce_max(compressed, axis=0)
+        # images = tf.slice(data, tf.constant([0, 0]), tf.constant([100, points]))
+        # compressed = encoder(images)
+        # min = tf.reduce_min(compressed, axis=0)
+        # max = tf.reduce_max(compressed, axis=0)
 
         # random_sample = tf.expand_dims(random_average(min, max), axis=0)
         # random_sample = tf.random_uniform([1, 16]) * 10
-        weights = tf.random_uniform([100, 1])
-        random_sample = tf.expand_dims(tf.reduce_sum(compressed * (weights / tf.reduce_sum(weights)), axis=0), axis=0)
-        print(random_sample)
-        generated = tf.reshape(decoder(random_sample), [resolution, resolution, channels])
-        random_generated.set_data(tf.clip_by_value(generated, 0, 255))
+        # weights = tf.random_uniform([100, 1])
+        # random_sample = tf.expand_dims(tf.reduce_sum(compressed * (weights / tf.reduce_sum(weights)), axis=0), axis=0)
+        # print(random_sample)
+        # generated = tf.reshape(decoder(random_sample), [resolution, resolution, channels])
+        # random_generated.set_data(tf.clip_by_value(generated, 0, 255))
 
         plt.draw()
         plt.pause(delay)
