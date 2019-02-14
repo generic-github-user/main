@@ -37,6 +37,10 @@ for filename in glob.glob('../data/*.ico'):
 
 # Convert array of pixel data to TensorFlow tensor
 data = tf.constant(icons, dtype=tf.float32)
+dataset = tf.data.Dataset.from_tensor_slices(data).repeat().batch(32)
+iter = dataset.make_one_shot_iterator()
+# Don't use x as a variable name
+batch = iter.get_next()
 
 with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # Create autoencoder model
@@ -68,7 +72,7 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         return decoder(encoder(inputs))
 
     def calc_loss():
-        loss_value = loss(autoencode(data), data)
+        loss_value = loss(autoencode(batch), batch)
         print(loss_value)
         return loss_value
 
