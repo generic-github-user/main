@@ -121,6 +121,7 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
     # Don't use block=True
     plt.show()
     random_sample = tf.random_normal(shape=[1, 16], stddev=standard_deviation)
+    random_sample_set = tf.random_normal(shape=[100, 16], stddev=standard_deviation)
     # Render various data visualizations after each training epoch ends
     def on_epoch_end():
         # Slice one image from the training data tensor
@@ -148,7 +149,10 @@ with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
         # random_generated.set_data(tf.clip_by_value(generated, 0, 255))
 
         generated = tf.reshape(decoder(random_sample), [resolution, resolution, channels])
-        random_generated.set_data(tf.clip_by_value(generated, 0, 255))
+        random_generated.set_data(tf.clip_by_value(tf.cast(generated, tf.int32), 0, 255))
+
+        generated_set = tf.squeeze(tf.contrib.gan.eval.image_grid(decoder(random_sample_set), [10, 10], [resolution, resolution], channels))
+        random_generated_set.set_data(tf.clip_by_value(tf.cast(generated_set, tf.int32), 0, 255))
 
         plt.draw()
         plt.pause(delay)
