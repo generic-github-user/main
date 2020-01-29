@@ -53,8 +53,10 @@ for u in range(iterations):
                     if [i, j] != [x, y]:
                         fire[i, j] += fuel_last[x, y] * fire_last[x, y] * spreading_factor / distance(i, j, x, y)
 
-                    fuel[i, j] - (fuel_decay * fire_last[i, j])
-                    fire[i, j] *= fuel[i, j]
+                    fuel[i, j] = np.clip(fuel[i, j] - (fuel_decay * fire_last[i, j]), 0, 1)
+            fire[i, j] *= fuel[i, j]
+            fire[i, j] = np.clip(fire[i, j], 0, 1)
+            # fire[i, j] = np.tanh(fire_last[i, j])
 
     # Update
     im = ax[0].imshow(
