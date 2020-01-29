@@ -11,6 +11,10 @@ plt.ion()
 width = 30
 height = 30
 radius = 7
+fuel_decay = 0
+# fire_decay = 0
+iterations = 100
+delay = 0.1
 
 # Matrix to store amount of fuel in each cell
 fuel = np.zeros([width, height])
@@ -34,7 +38,7 @@ fig, ax = plt.subplots()
 def distance(x1, y1, x2, y2):
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** (1/2)
 
-for u in range(100):
+for u in range(iterations):
     np.copyto(fuel_last, fuel)
     np.copyto(fire_last, fire)
 
@@ -48,6 +52,7 @@ for u in range(100):
                     if [i, j] != [x, y]:
                         fire[i, j] += fuel_last[x, y] * fire_last[x, y] / distance(i, j, x, y)
 
+                    fuel[i, j] - (fuel_decay * fire_last[i, j])
                     fire[i, j] *= fuel[i, j]
 
     # Update
@@ -58,6 +63,6 @@ for u in range(100):
         origin='lower'
     )
     # Wait until next timestep
-    plt.pause(1)
+    plt.pause(delay)
     # Display updated visualization
     plt.show()
