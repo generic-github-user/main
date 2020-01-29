@@ -10,12 +10,13 @@ plt.ion()
 
 width = 30
 height = 30
-radius = 7
+radius = 5
 fuel_decay = 0.01
 # fire_decay = 0
 iterations = 100
 delay = 1
-spreading_factor = 1
+spreading_factor = 0.01
+noise = 10
 
 # Matrix to store amount of fuel in each cell
 fuel = np.zeros([width, height])
@@ -23,7 +24,7 @@ for i in range(20):
     fuel[
         int(np.random.uniform(0, width)): int(np.random.uniform(0, width)),
         int(np.random.uniform(0, height)): int(np.random.uniform(0, height))
-    ] = 1#np.random.uniform(0.5, 1)
+    ] = np.random.uniform(0.5, 1)
 fuel_last = np.zeros([width, height])
 
 # Store intensity of fire/heat at each cell value
@@ -51,12 +52,11 @@ for u in range(iterations):
                     y = np.clip(w, 0, height-1)
 
                     if [i, j] != [x, y]:
-                        fire[i, j] += fuel_last[x, y] * fire_last[x, y] * spreading_factor / distance(i, j, x, y)
+                        fire[i, j] += fuel_last[x, y] * fire_last[x, y] * spreading_factor * np.random.uniform(1, 1+noise) / distance(i, j, x, y)
 
-                    fuel[i, j] = np.clip(fuel[i, j] - (fuel_decay * fire_last[i, j]), 0, 1)
+                    fuel[i, j] = np.clip(fuel[i, j] - (fuel_decay * fire_last[i, j] * np.random.uniform(1, 1+noise)), 0, 1)
             fire[i, j] *= fuel[i, j]
             fire[i, j] = np.clip(fire[i, j], 0, 1)
-            # fire[i, j] = np.tanh(fire_last[i, j])
 
     # Update
     im = ax[0].imshow(
