@@ -11,10 +11,11 @@ plt.ion()
 width = 30
 height = 30
 radius = 7
-fuel_decay = 0
+fuel_decay = 0.01
 # fire_decay = 0
 iterations = 100
-delay = 0.1
+delay = 1
+spreading_factor = 1
 
 # Matrix to store amount of fuel in each cell
 fuel = np.zeros([width, height])
