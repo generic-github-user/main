@@ -8,8 +8,8 @@ plt.ion()
 
 # Settings
 
-width = 10
-height = 10
+width = 30
+height = 30
 radius = 7
 
 # Matrix to store amount of fuel in each cell
@@ -18,7 +18,7 @@ for i in range(20):
     fuel[
         int(np.random.uniform(0, width)): int(np.random.uniform(0, width)),
         int(np.random.uniform(0, height)): int(np.random.uniform(0, height))
-    ] = np.random.uniform(0.5, 1)
+    ] = 1#np.random.uniform(0.5, 1)
 fuel_last = np.zeros([width, height])
 
 # Store intensity of fire/heat at each cell value
@@ -34,7 +34,7 @@ fig, ax = plt.subplots()
 def distance(x1, y1, x2, y2):
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** (1/2)
 
-for u in range(5):
+for u in range(100):
     np.copyto(fuel_last, fuel)
     np.copyto(fire_last, fire)
 
@@ -47,6 +47,8 @@ for u in range(5):
 
                     if [i, j] != [x, y]:
                         fire[i, j] += fuel_last[x, y] * fire_last[x, y] / distance(i, j, x, y)
+
+                    fire[i, j] *= fuel[i, j]
 
     # Update
     im = ax.imshow(
