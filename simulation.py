@@ -34,7 +34,7 @@ fire_last = np.zeros([width, height])
 # Rendered output composed from other two main matrices
 render = np.random.uniform(0, 1, [width, height, 3])
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(3)
 
 def distance(x1, y1, x2, y2):
     return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** (1/2)
@@ -57,7 +57,13 @@ for u in range(iterations):
                     fire[i, j] *= fuel[i, j]
 
     # Update
-    im = ax.imshow(
+    im = ax[0].imshow(
+        fuel,
+        interpolation='nearest',
+        cmap=cm.plasma,
+        origin='lower'
+    )
+    im2 = ax[1].imshow(
         fire,
         interpolation='nearest',
         cmap=cm.plasma,
