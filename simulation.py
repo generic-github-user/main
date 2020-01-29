@@ -51,7 +51,7 @@ for u in range(iterations):
                     y = np.clip(w, 0, height-1)
 
                     if [i, j] != [x, y]:
-                        fire[i, j] += fuel_last[x, y] * fire_last[x, y] / distance(i, j, x, y)
+                        fire[i, j] += fuel_last[x, y] * fire_last[x, y] * spreading_factor / distance(i, j, x, y)
 
                     fuel[i, j] - (fuel_decay * fire_last[i, j])
                     fire[i, j] *= fuel[i, j]
