@@ -14,8 +14,9 @@ radius = 5
 fuel_decay = 0.01
 # fire_decay = 0
 iterations = 100
-delay = 1
-spreading_factor = 0.01
+delay = 0.1
+spreading_factor = 0.05
+threshold = 0.02
 noise = 10
 
 # Matrix to store amount of fuel in each cell
@@ -67,6 +68,9 @@ for u in range(iterations):
                     fuel[i, j] = np.clip(fuel[i, j] - (fuel_decay * fire_last[i, j] * np.random.uniform(1, 1+noise)), 0, 1)
             # Multiply current fire intensity by fuel amount in cell
             fire[i, j] *= fuel[i, j]
+            if fire[i, j] < threshold:
+                fire[i, j] = 0
+
             fire[i, j] = np.clip(fire[i, j], 0, 1)
 
     # Update
