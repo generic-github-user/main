@@ -46,3 +46,6 @@ class Drawer:
             self.points.append(letterShape)
         pp = pprint.PrettyPrinter(indent=4)
         # pp.pprint(self.points)
+
+    def clear(self):
+        self.canvas = np.zeros(dims)
