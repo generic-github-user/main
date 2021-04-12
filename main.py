@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pprint
 
-canvas = np.zeros([300, 600])
-plt.imshow(canvas)
-plt.show()
+npa = np.array
+
 outlines = {
     # 'a': ['left', 'down']
     'a': 'ur,u,l,dl,d,r,ur,dr'
@@ -49,3 +49,7 @@ class Drawer:
 
     def clear(self):
         self.canvas = np.zeros(dims)
+
+    def show(self):
+        plt.imshow(self.canvas)
+        plt.show()
