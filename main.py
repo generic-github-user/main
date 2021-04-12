@@ -31,3 +31,18 @@ class Drawer:
         self.points = []
         self.curveType = 'momentum'
         self.pen = Pen(start, npa([0, 0]))
+
+    def write(self):
+        for letter in self.text:
+            p = outlines[letter].split(',')
+            letterShape = []
+            for point in p:
+                # m = npa([0, 0])
+                if len(point) == 1:
+                    m = coords[point]
+                elif len(point) == 2:
+                    m = coords[point[0]] + coords[point[1]]
+                letterShape.append(m)
+            self.points.append(letterShape)
+        pp = pprint.PrettyPrinter(indent=4)
+        # pp.pprint(self.points)
