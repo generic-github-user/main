@@ -53,3 +53,6 @@ class Drawer:
     def show(self):
         plt.imshow(self.canvas)
         plt.show()
+
+d = Drawer('aaa')
+d.write()
