@@ -32,22 +32,34 @@ def normalize(v):
     return v/norm
 
 class Pen:
+    """A single simulated writing instrument, with a position and possibly other properties"""
     def __init__(self, pos, vel, canvas, shaking=None):
-        self.pos = pos
+        """Create a new pen"""
+        self.pos: np.ndarray = pos
+        """Initial position of pen"""
         self.vel = vel
+        """Initial velocity of pen"""
         self.canvas = canvas
-        self.penSize = 5
-        self.friction = 0.04
+        """Canvas that pen should write on"""
+        self.penSize: float = 5.
+        """Width of line drawn by pen"""
+        self.friction: float = 0.04
+        """Simulated friction for pen; reduces maximum speed"""
+        # self.smoothness
 
         if not shaking:
             self.shaking = np.random.normal(0, 0.1, [2, 2])
         else:
-            self.shaking = shaking
+            self.shaking: np.ndarray = shaking
+            """A 2x2 array of floats representing normal distribution parameters; the first row will be the means and the (absolute value of) the second row will be the standard deviations"""
         # self.fineShaking =
-        self.normShaking = False
+        self.normShaking: boolean = False
+        """If `True`, normalize shaking to a unit vector"""
         self.shakeProb = np.random.uniform()
         print(self.shaking)
-    def step(self, target):
+    def step(self, target: np.ndarray):
+        """Execute one step of the simulated pen"""
+
         # self.vel += np.sqrt((target - self.pos))
         # self.vel = (target - self.pos) / 1000
         # delta =
