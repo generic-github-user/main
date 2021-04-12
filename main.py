@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pprint
+import random
 
 npa = np.array
 
@@ -31,21 +32,34 @@ def normalize(v):
     return v/norm
 
 class Pen:
-    def __init__(self, pos, vel, canvas):
+    def __init__(self, pos, vel, canvas, shaking=None):
         self.pos = pos
         self.vel = vel
         self.canvas = canvas
         self.penSize = 5
         self.friction = 0.04
+
+        if not shaking:
+            self.shaking = np.random.normal(0, 0.05, [2, 2])
+        else:
+            self.shaking = shaking
+        # self.fineShaking = 
+        print(self.shaking)
     def step(self, target):
         # self.vel += np.sqrt((target - self.pos))
         # self.vel = (target - self.pos) / 1000
+        # delta =
         self.vel += (target - self.pos) / 80 - (self.vel * self.friction)
         # self.vel += (target - self.pos) / 800 * self.friction
         # self.vel += (target - self.pos) / 50 - (np.mean(self.vel) * self.friction)
         # print((target - self.pos))
         # print(np.sqrt((target - self.pos)))
         # self.vel += normalize(target - self.pos)
+        if 1 > 0.5:
+            s = self.shaking
+            # subtract?
+            self.pos += np.random.normal(-s[0], np.abs(s[1]), [2]) * self.vel
+            # self.vel += np.random.normal(-s[0], np.abs(s[1]), [2]) * self.vel
         self.pos += self.vel * 0.1
         x, y = np.round(self.pos).astype('int')
         # print(x, y)
