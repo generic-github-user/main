@@ -21,3 +21,13 @@ class Pen:
     def __init__(self, pos, vel):
         self.pos = pos
         self.vel = vel
+
+class Drawer:
+    def __init__(self, text, dims=[300, 600], letterSize=30):
+        self.text = text
+        self.canvas = np.zeros(dims)
+        self.start = [100, 100]
+        self.letterSize = letterSize
+        self.points = []
+        self.curveType = 'momentum'
+        self.pen = Pen(start, npa([0, 0]))
