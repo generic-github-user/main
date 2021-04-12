@@ -16,3 +16,8 @@ coords = {
     'l': npa([-1, 0]),
     'm': npa([-1, 0]),
 }
+
+class Pen:
+    def __init__(self, pos, vel):
+        self.pos = pos
+        self.vel = vel
