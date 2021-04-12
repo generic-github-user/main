@@ -71,16 +71,30 @@ class Pen:
         self.canvas[x-v: x+v, y-v: y+v].fill(1)
 
 class Drawer:
-    def __init__(self, text, dims=[900, 600], letterSize=20.):
-        self.text = text
+    """Stores one or more pens and writes out some text"""
+    def __init__(self, text, dims=[900, 600], letterSize=20., curveType='momentum', pen=None):
+        self.text: str = text
+        """The text that is to be written; `abacus`"""
+        self.dims = dims
+        """A list of the x and y dimensions for the canvas; `[900, 600]`"""
         self.canvas = np.zeros(dims)
         self.start = npa([200., 200.])
-        self.letterSize = letterSize
+        self.letterSize: float = letterSize
+        """The size of each letter in pixels"""
         self.size2D = npa([1., -1.]) * letterSize
         self.letterSpacing = npa([4., 0.])
+        """The separation between letters"""
         self.points = []
-        self.curveType = 'momentum'
-        self.pen = Pen(pos=self.start, vel=npa([0., 0.]), canvas=self.canvas)
+        self.curveType: String = curveType
+        """
+        The curve algorithm used for drawing the letters:
+         - `momentum`: Simulate the velocity and motion of the pen at each step by attracting toward the next point to be drawn
+        """
+        if pen:
+            self.pen = pen
+        else:
+            self.pen: Pen = Pen(pos=self.start, vel=npa([0., 0.]), canvas=self.canvas)
+            """A pen to be used by the Drawer (allows for more precise configuration)"""
 
     def write(self):
         for letter in self.text:
