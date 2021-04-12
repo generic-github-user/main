@@ -48,14 +48,16 @@ class Pen:
         self.canvas[x-v: x+v, y-v: y+v].fill(1)
 
 class Drawer:
-    def __init__(self, text, dims=[300, 600], letterSize=30):
+    def __init__(self, text, dims=[900, 600], letterSize=30.):
         self.text = text
         self.canvas = np.zeros(dims)
-        self.start = [100, 100]
+        self.start = npa([200., 200.])
         self.letterSize = letterSize
+        self.size2D = npa([1., -1.]) * letterSize
+        self.letterSpacing = npa([3., 0.])
         self.points = []
         self.curveType = 'momentum'
-        self.pen = Pen(start, npa([0, 0]))
+        self.pen = Pen(pos=self.start, vel=npa([0., 0.]), canvas=self.canvas)
 
     def write(self):
         for letter in self.text:
@@ -67,17 +69,51 @@ class Drawer:
                     m = coords[point]
                 elif len(point) == 2:
                     m = coords[point[0]] + coords[point[1]]
+                # m *= npa([1, -1])
                 letterShape.append(m)
             self.points.append(letterShape)
         pp = pprint.PrettyPrinter(indent=4)
         # pp.pprint(self.points)
 
+        offset = self.start
+        size = self.size2D
+
+
+        letterStart = self.points[0][0] * self.letterSize + offset - self.letterSize
+        self.pen.pos = (self.points[0][0].astype('float') * self.letterSize) + letterStart
+
+        targets = []
+        for i, letter in enumerate(self.points):
+            o = (self.letterSpacing * self.letterSize * float(i))
+            # print(npa([0, 50]) * npa([50, 0]))
+            letterStart = letter[0] * self.letterSize + offset - self.letterSize + o
+            # print(letterStart)
+            if False:
+                for point in letter:
+                    target = (point * self.letterSize) + letterStart
+                    # print(target)
+                    for i in range(200):
+                        self.pen.step(target=target)
+                    targets.append(target)
+                    # print(self.pen.vel)
+            for point in letter:
+                target = npa([0, 0])
+                counter = 0
+                while np.linalg.norm(target-self.pen.pos) > 5 and counter < 1000:
+                    target = (point * self.letterSize) + letterStart
+                    self.pen.step(target=target)
+                    counter += 1
+        # x, y = zip(*targets)
+        # plt.scatter(x, y)
+        # plt.show()
+
     def clear(self):
         self.canvas = np.zeros(dims)
 
     def show(self):
-        plt.imshow(self.canvas)
+        plt.imshow(self.canvas.transpose())
         plt.show()
 
-d = Drawer('aaa')
+d = Drawer('aaaaa')
 d.write()
+d.show()
