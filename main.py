@@ -8,7 +8,8 @@ npa = np.array
 
 outlines = {
     # 'a': ['left', 'down']
-    'a': 'ur,u,l,dl,d,r,ur,dr'
+    # 'a': 'ur,u,l,dl,d,r,ur,dr'
+    'a': 'ur,l,dl,d,r,ur,u'
 }
 
 coords = {
@@ -73,7 +74,7 @@ class Drawer:
                 letterShape.append(m)
             self.points.append(letterShape)
         pp = pprint.PrettyPrinter(indent=4)
-        # pp.pprint(self.points)
+        pp.pprint(self.points)
 
         offset = self.start
         size = self.size2D
@@ -96,16 +97,20 @@ class Drawer:
                         self.pen.step(target=target)
                     targets.append(target)
                     # print(self.pen.vel)
+
+            target = npa([0., 0.])
+            target += letterStart
             for point in letter:
-                target = npa([0, 0])
                 counter = 0
+                target += (point * self.letterSize)
+                targets.append(np.copy(target))
+                print(target)
                 while np.linalg.norm(target-self.pen.pos) > 5 and counter < 1000:
-                    target = (point * self.letterSize) + letterStart
                     self.pen.step(target=target)
                     counter += 1
-        # x, y = zip(*targets)
-        # plt.scatter(x, y)
-        # plt.show()
+        x, y = zip(*targets)
+        plt.scatter(x, y)
+        plt.show()
 
     def clear(self):
         self.canvas = np.zeros(dims)
