@@ -40,10 +40,11 @@ class Pen:
         self.friction = 0.04
 
         if not shaking:
-            self.shaking = np.random.normal(0, 0.05, [2, 2])
+            self.shaking = np.random.normal(0, 0.1, [2, 2])
         else:
             self.shaking = shaking
-        # self.fineShaking = 
+        # self.fineShaking =
+        self.normShaking = False
         print(self.shaking)
     def step(self, target):
         # self.vel += np.sqrt((target - self.pos))
@@ -58,7 +59,10 @@ class Pen:
         if 1 > 0.5:
             s = self.shaking
             # subtract?
-            self.pos += np.random.normal(-s[0], np.abs(s[1]), [2]) * self.vel
+            if self.normShaking:
+                self.pos += normalize(np.random.normal(-s[0], np.abs(s[1]), [2])) * self.vel
+            else:
+                self.pos += np.random.normal(-s[0], np.abs(s[1]), [2]) * self.vel
             # self.vel += np.random.normal(-s[0], np.abs(s[1]), [2]) * self.vel
         self.pos += self.vel * 0.1
         x, y = np.round(self.pos).astype('int')
