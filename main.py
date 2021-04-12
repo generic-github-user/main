@@ -9,7 +9,11 @@ npa = np.array
 outlines = {
     # 'a': ['left', 'down']
     # 'a': 'ur,u,l,dl,d,r,ur,dr'
-    'a': 'ur,l,dl,d,r,ur,u'
+    'a': 'ur,l,dl,d,r,ur,u,d,d',
+    'b': 'u,u,u,u,d,d,d,d,r,ru,ul',
+    'c': 'ur,ur,l,dl,d,dr,r',
+    'd': 'dl,d,r,u,u,u,u,d,d,d,d',
+    'e': 'ur,ur,l,d,dr,r'
 }
 
 coords = {
@@ -49,13 +53,13 @@ class Pen:
         self.canvas[x-v: x+v, y-v: y+v].fill(1)
 
 class Drawer:
-    def __init__(self, text, dims=[900, 600], letterSize=30.):
+    def __init__(self, text, dims=[900, 600], letterSize=20.):
         self.text = text
         self.canvas = np.zeros(dims)
         self.start = npa([200., 200.])
         self.letterSize = letterSize
         self.size2D = npa([1., -1.]) * letterSize
-        self.letterSpacing = npa([3., 0.])
+        self.letterSpacing = npa([4., 0.])
         self.points = []
         self.curveType = 'momentum'
         self.pen = Pen(pos=self.start, vel=npa([0., 0.]), canvas=self.canvas)
@@ -87,7 +91,8 @@ class Drawer:
         for i, letter in enumerate(self.points):
             o = (self.letterSpacing * self.letterSize * float(i))
             # print(npa([0, 50]) * npa([50, 0]))
-            letterStart = letter[0] * self.letterSize + offset - self.letterSize + o
+            letterStart = offset - self.letterSize + o - (letter[0] * self.letterSize)
+            # letterStart = offset + o
             # print(letterStart)
             if False:
                 for point in letter:
@@ -100,17 +105,18 @@ class Drawer:
 
             target = npa([0., 0.])
             target += letterStart
+            # target -= (letter[0] * self.letterSize)
             for point in letter:
                 counter = 0
                 target += (point * self.letterSize)
                 targets.append(np.copy(target))
                 print(target)
-                while np.linalg.norm(target-self.pen.pos) > 5 and counter < 1000:
+                while np.linalg.norm(target-self.pen.pos) > 2 and counter < 1000:
                     self.pen.step(target=target)
                     counter += 1
-        x, y = zip(*targets)
-        plt.scatter(x, y)
-        plt.show()
+        # x, y = zip(*targets)
+        # plt.scatter(x, y)
+        # plt.show()
 
     def clear(self):
         self.canvas = np.zeros(dims)
@@ -119,6 +125,6 @@ class Drawer:
         plt.imshow(self.canvas.transpose())
         plt.show()
 
-d = Drawer('aaaaa')
+d = Drawer('abcde')
 d.write()
 d.show()
