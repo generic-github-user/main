@@ -45,18 +45,20 @@ class Pen:
             self.shaking = shaking
         # self.fineShaking =
         self.normShaking = False
+        self.shakeProb = np.random.uniform()
         print(self.shaking)
     def step(self, target):
         # self.vel += np.sqrt((target - self.pos))
         # self.vel = (target - self.pos) / 1000
         # delta =
         self.vel += (target - self.pos) / 80 - (self.vel * self.friction)
+        ### self.vel -= self.friction
         # self.vel += (target - self.pos) / 800 * self.friction
         # self.vel += (target - self.pos) / 50 - (np.mean(self.vel) * self.friction)
         # print((target - self.pos))
         # print(np.sqrt((target - self.pos)))
         # self.vel += normalize(target - self.pos)
-        if 1 > 0.5:
+        if np.random.uniform() > self.shakeProb:
             s = self.shaking
             # subtract?
             if self.normShaking:
