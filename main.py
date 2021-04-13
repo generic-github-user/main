@@ -1,6 +1,9 @@
 import json
 import time
 import random
+import datetime
+from recurrent.event_parser import RecurringEvent
+from dateutil import rrule
 
 class Task:
     def __init__(self, content='', name='', created=None, modified=None, datestring=None):
@@ -20,6 +23,22 @@ class Task:
             self.modified = current_time
 
         self.datestring = datestring
+
+        try:
+            now = datetime.datetime.now()
+            # now = datetime.datetime(2010, 1, 1)
+            r = RecurringEvent(now_date=now)
+            self.dateparse = r.parse(self.datestring)
+            self.dateparams = r.get_params()
+            self.datesummary = r.format(self.dateparse)
+            if r.is_recurring:
+                rr = rrule.rrulestr(r.get_RFC_rrule())
+                self.next = rr.after(now)
+
+                print(self.dateparse, self.dateparams, self.datesummary, self.next)
+        except:
+            pass
+
     # is name dict reserved?
     def as_dict(self, compressed=True):
         if compressed:
@@ -46,8 +65,9 @@ class Task:
         self.content = data['c']
         self.created = data['tc']
         self.modified = data['tm']
-        # self.datestring = data['ds']
-        
+        if hasattr(data, 'ds'):
+            self.datestring = data['ds']
+
         return self
 
 def load_data(path='cq_data.json'):
