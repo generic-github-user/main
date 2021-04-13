@@ -37,9 +37,12 @@ class Task:
     def stringify(self, compressed=True):
         return json.dumps(self.as_dict(compressed))
 
-    with open(path, 'r') as json_file:
-        loaded_data = json.loads(json_file.read())
 def load_data(path='cq_data.json'):
+    try:
+        with open(path, 'w') as json_file:
+            loaded_data = json.loads(json_file.read())
+    except:
+        loaded_data = []
     return loaded_data
 
 def save_data(data, path='cq_data.json'):
