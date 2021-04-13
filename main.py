@@ -8,6 +8,8 @@ from dateutil import rrule
 
 class Aliases:
     add = ['add', 'create', 'make', 'new']
+    find = ['list', 'find', 'show', 'search']
+    all = ['*', 'all', 'any', 'everything']
 
 class Settings:
     markers = {
@@ -114,6 +116,12 @@ def run_command(text):
 
         new_task = Task(content=c[1], datestring=date_string)
         session_data.append(new_task)
+    elif first in Aliases.find:
+        if c[1] in Aliases.all:
+            for task in session_data:
+                print(task.as_dict())
+    else:
+        print("I don't understand")
 
     save_buffer = []
     for task in session_data:
