@@ -35,20 +35,21 @@ class Task:
 
         self.datestring = datestring
 
-        try:
-            now = datetime.datetime.now()
-            # now = datetime.datetime(2010, 1, 1)
-            r = RecurringEvent(now_date=now)
-            self.dateparse = r.parse(self.datestring)
-            self.dateparams = r.get_params()
-            self.datesummary = r.format(self.dateparse)
-            if r.is_recurring:
-                rr = rrule.rrulestr(r.get_RFC_rrule())
-                self.next = rr.after(now)
+        if self.datestring != None and len(self.datestring) > 0:
+            try:
+                now = datetime.datetime.now()
+                # now = datetime.datetime(2010, 1, 1)
+                r = RecurringEvent(now_date=now)
+                self.dateparse = r.parse(self.datestring)
+                self.dateparams = r.get_params()
+                self.datesummary = r.format(self.dateparse)
+                if r.is_recurring:
+                    rr = rrule.rrulestr(r.get_RFC_rrule())
+                    self.next = rr.after(now)
 
-                print(self.dateparse, self.dateparams, self.datesummary, self.next)
-        except:
-            pass
+                    print(self.dateparse, self.dateparams, self.datesummary, self.next)
+            except:
+                pass
 
     # is name dict reserved?
     def as_dict(self, compressed=True):
@@ -106,7 +107,10 @@ def run_command(text):
 
     if first in Aliases.add:
         a, b = Settings.markers['dates']
-        date_string = t[t.find(a)+1:t.find(b)]
+        if a in t:
+            date_string = t[t.find(a)+1:t.find(b)]
+        else:
+            date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
         session_data.append(new_task)
