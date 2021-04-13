@@ -49,3 +49,22 @@ def save_data(data, path='cq_data.json'):
     with open(path, 'w') as save_file:
         json.dump(data, save_file)
     return True
+
+session_data = load_data()
+
+class Aliases:
+    add = ['add', 'create', 'make', 'new']
+
+def run_command(text):
+    cmd_parts = text.split(' ')
+    first = cmd_parts[0]
+    c = cmd_parts
+
+    if first in Aliases.add:
+        new_task = Task(content=c[1])
+        session_data.append(new_task)
+
+    save_buffer = []
+    for task in session_data:
+        save_buffer.append(task.as_dict(compressed=True))
+    save_data(data=save_buffer)
