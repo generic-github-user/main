@@ -17,6 +17,23 @@ class Task:
             self.modified = modified
         else:
             self.modified = current_time
+    # is name dict reserved?
+    def as_dict(self, compressed=True):
+        if compressed:
+            task_dict = {
+                'n': self.name,
+                'c': self.content,
+                'tc': self.created,
+                'tm': self.modified
+            }
+        else:
+            task_dict = {
+                'name': self.name,
+                'content': self.content,
+                'created': self.created,
+                'modified': self.modified
+            }
+        return task_dict
 
 def load_data(self, path='cq_data.json'):
     with open(path, 'r') as json_file:
