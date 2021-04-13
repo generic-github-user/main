@@ -3,7 +3,7 @@ import time
 
 class Task:
     def __init__(self, content, name='', created=None, modified=None):
-        current_time = time.time()
+        current_time = round(time.time())
 
         self.name = name
         self.content = content
@@ -35,7 +35,7 @@ class Task:
             }
         return task_dict
     def stringify(self, compressed=True):
-        return json.dumps(self.as_dict(compressed))
+        return json.dump(self.as_dict(compressed))
 
 def load_data(path='cq_data.json'):
     try:
