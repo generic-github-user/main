@@ -1,5 +1,6 @@
 import json
 import time
+import random
 
 class Task:
     def __init__(self, content, name='', created=None, modified=None):
@@ -55,6 +56,8 @@ session_data = load_data()
 class Aliases:
     add = ['add', 'create', 'make', 'new']
 
+greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
+
 def run_command(text):
     cmd_parts = text.split(' ')
     first = cmd_parts[0]
@@ -69,7 +72,7 @@ def run_command(text):
         save_buffer.append(task.as_dict(compressed=True))
     save_data(data=save_buffer)
 
-
+print(random.choice(greetings)+'!')
 for i in range(20):
     input_text = input()
     run_command(input_text)
