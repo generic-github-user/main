@@ -40,7 +40,7 @@ class Task:
 
 def load_data(path='cq_data.json'):
     try:
-        with open(path, 'w') as json_file:
+        with open(path, 'r') as json_file:
             loaded_data = json.loads(json_file.read())
     except:
         loaded_data = []
