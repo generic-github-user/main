@@ -47,11 +47,11 @@ class Task:
                 self.datesummary = r.format(self.dateparse)
                 if r.is_recurring:
                     rr = rrule.rrulestr(r.get_RFC_rrule())
-                    self.next = rr.after(now)
+                    self.next = str(rr.after(now))
 
                     print(self.dateparse, self.dateparams, self.datesummary, self.next)
-            except:
-                pass
+            except Exception as e:
+                print(e)
 
     # is name dict reserved?
     def as_dict(self, compressed=True):
