@@ -34,6 +34,8 @@ class Task:
                 'modified': self.modified
             }
         return task_dict
+    def stringify(self, compressed=True):
+        return json.dumps(self.as_dict(compressed))
 
 def load_data(self, path='cq_data.json'):
     with open(path, 'r') as json_file:
