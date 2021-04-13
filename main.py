@@ -3,7 +3,7 @@ import time
 import random
 
 class Task:
-    def __init__(self, content, name='', created=None, modified=None):
+    def __init__(self, content='', name='', created=None, modified=None, datestring=None):
         current_time = round(time.time())
 
         self.name = name
@@ -37,6 +37,15 @@ class Task:
         return task_dict
     def stringify(self, compressed=True):
         return json.dump(self.as_dict(compressed))
+    def from_dict(self, data, compressed=True):
+        # prop_names = []
+        self.name = data['n']
+        self.content = data['c']
+        self.created = data['tc']
+        self.modified = data['tm']
+        # self.datestring = data['ds']
+        
+        return self
 
 def load_data(path='cq_data.json'):
     try:
@@ -51,7 +60,7 @@ def save_data(data, path='cq_data.json'):
         json.dump(data, save_file)
     return True
 
-session_data = load_data()
+session_data = [Task().from_dict(d) for d in load_data()]
 
 class Aliases:
     add = ['add', 'create', 'make', 'new']
