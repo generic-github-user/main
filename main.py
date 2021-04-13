@@ -68,3 +68,8 @@ def run_command(text):
     for task in session_data:
         save_buffer.append(task.as_dict(compressed=True))
     save_data(data=save_buffer)
+
+
+for i in range(20):
+    input_text = input()
+    run_command(input_text)
