@@ -18,6 +18,8 @@ class Task:
             self.modified = modified
         else:
             self.modified = current_time
+
+        self.datestring = datestring
     # is name dict reserved?
     def as_dict(self, compressed=True):
         if compressed:
@@ -25,7 +27,8 @@ class Task:
                 'n': self.name,
                 'c': self.content,
                 'tc': self.created,
-                'tm': self.modified
+                'tm': self.modified,
+                'ds': self.datestring
             }
         else:
             task_dict = {
@@ -65,15 +68,24 @@ session_data = [Task().from_dict(d) for d in load_data()]
 class Aliases:
     add = ['add', 'create', 'make', 'new']
 
+class Settings:
+    markers = {
+        'dates': '<>'
+    }
+
 greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 
 def run_command(text):
     cmd_parts = text.split(' ')
     first = cmd_parts[0]
     c = cmd_parts
+    t = text
 
     if first in Aliases.add:
-        new_task = Task(content=c[1])
+        a, b = Settings.markers['dates']
+        date_string = t[t.find(a)+1:t.find(b)]
+
+        new_task = Task(content=c[1], datestring=date_string)
         session_data.append(new_task)
 
     save_buffer = []
