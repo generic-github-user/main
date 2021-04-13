@@ -5,6 +5,17 @@ import datetime
 from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 
+
+class Aliases:
+    add = ['add', 'create', 'make', 'new']
+
+class Settings:
+    markers = {
+        'dates': '<>'
+    }
+    task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next']
+    task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx']
+
 class Task:
     def __init__(self, content='', name='', created=None, modified=None, datestring=None):
         current_time = round(time.time())
@@ -41,32 +52,30 @@ class Task:
 
     # is name dict reserved?
     def as_dict(self, compressed=True):
+        task_dict = {}
         if compressed:
-            task_dict = {
-                'n': self.name,
-                'c': self.content,
-                'tc': self.created,
-                'tm': self.modified,
-                'ds': self.datestring
-            }
+            for i, prop in enumerate(Settings.task_properties):
+                short = Settings.task_props_short[i]
+                if hasattr(self, prop):
+                    # print(prop)
+                    task_dict[short] = getattr(self, prop)
         else:
-            task_dict = {
-                'name': self.name,
-                'content': self.content,
-                'created': self.created,
-                'modified': self.modified
-            }
+            for i, prop in enumerate(Settings.task_properties):
+                short = Settings.task_props_short[i]
+                if hasattr(self, prop):
+                    task_dict[prop] = getattr(self, prop)
         return task_dict
     def stringify(self, compressed=True):
         return json.dump(self.as_dict(compressed))
     def from_dict(self, data, compressed=True):
-        # prop_names = []
-        self.name = data['n']
-        self.content = data['c']
-        self.created = data['tc']
-        self.modified = data['tm']
-        if hasattr(data, 'ds'):
-            self.datestring = data['ds']
+        if compressed:
+            for i, prop in enumerate(Settings.task_properties):
+                short = Settings.task_props_short[i]
+                # if hasattr(data, short):
+                if short in data:
+                    setattr(self, prop, data[short])
+        else:
+            pass
 
         return self
 
@@ -85,13 +94,7 @@ def save_data(data, path='cq_data.json'):
 
 session_data = [Task().from_dict(d) for d in load_data()]
 
-class Aliases:
-    add = ['add', 'create', 'make', 'new']
 
-class Settings:
-    markers = {
-        'dates': '<>'
-    }
 
 greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 
