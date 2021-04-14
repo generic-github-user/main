@@ -88,6 +88,7 @@ class Task:
                 # if hasattr(data, short):
                 if short in data:
                     setattr(self, prop, data[short])
+            self.importance['calculated'] = round(self.importance['calculated'])
         else:
             pass
 
@@ -136,7 +137,7 @@ def rank():
 
     response = input()
     delta = (z(b) - z(a)) / 2. + 20.
-    print(delta)
+    delta = round(delta)
     if response == '1':
         a.importance['calculated'] += delta
         b.importance['calculated'] -= delta
