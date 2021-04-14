@@ -6,9 +6,10 @@ from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 
 from settings import *
+from duration import *
 
 class Task:
-    def __init__(self, content='', name='', created=None, modified=None, datestring=None, importance=1000):
+    def __init__(self, content='', name='', created=None, modified=None, datestring=None, importance=1000, durationstring=None):
         current_time = round(time.time())
 
         self.name = name
@@ -26,6 +27,7 @@ class Task:
         else:
             self.modified = current_time
 
+        # self.next = 1
         self.datestring = datestring
 
         if self.datestring != None and len(self.datestring) > 0:
@@ -44,12 +46,19 @@ class Task:
             except Exception as e:
                 print(e)
 
+        self.durationstring = durationstring
+
+        if self.durationstring != None and len(self.durationstring) > 0:
+            self.duration = parse_duration(self.durationstring)
+
         self.importance = {
             'user_defined': importance,
             'calculated': 1000.,
             'history': [],
             'ranked': []
         }
+
+    # there might be a bug here where some of the properties are misaligned with their values...
 
     # is name dict reserved?
     def as_dict(self, compressed=True):

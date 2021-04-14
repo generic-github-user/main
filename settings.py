@@ -1,6 +1,7 @@
 class Settings:
     markers = {
-        'dates': '<>'
+        'dates': '<>',
+        'durations': '[]'
     }
     task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next', 'id', 'importance', 'durationstring', 'duration']
     task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i', 'im', 'ds_', 'dp_']
