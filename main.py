@@ -15,6 +15,9 @@ class Aliases:
     exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
     undo = ['u', 'undo', 'reverse', 'rollback']
 
+    task = ['t', 'task', 'todo']
+    tag = ['@', 'tag', 'label']
+
 class Settings:
     markers = {
         'dates': '<>'
