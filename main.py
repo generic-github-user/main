@@ -125,13 +125,19 @@ def save_data(data, path='cq_data.json'):
         json.dump(data, save_file)
     return True
 
-session_data = [Task().from_dict(d) for d in load_data()]
+class session_data:
+    ld = load_data()
+    tasks = [Task().from_dict(d) for d in ld['tasks']]
+    # are these local?
 
 def save_all():
-    save_buffer = []
-    for task in session_data:
-        save_buffer.append(task.as_dict(compressed=True))
-        save_data(data=save_buffer)
+    save_buffer = {
+        'tasks': []
+    }
+    for task in session_data.tasks:
+        save_buffer['tasks'].append(task.as_dict(compressed=True))
+    # moved this out of the loop
+    save_data(data=save_buffer)
 
 save_all()
 
@@ -139,7 +145,7 @@ greetings = ['Hey', 'Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 farewells = ['Bye', 'Goodbye', 'Until next time']
 
 def get_random_task():
-    return random.choice(session_data)
+    return random.choice(session_data.tasks)
 
 
 def z(x):
@@ -181,11 +187,11 @@ def run_command(text):
             date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
-        session_data.append(new_task)
+        session_data.tasks.append(new_task)
         save_all()
     elif first in Aliases.find:
         if c[1] in Aliases.all:
-            for task in session_data:
+            for task in session_data.tasks:
                 print(task.as_dict())
     elif first in Aliases.rank:
         for i in range(int(c[1])):
