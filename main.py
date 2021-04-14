@@ -10,6 +10,7 @@ class Aliases:
     add = ['add', 'create', 'make', 'new']
     find = ['list', 'find', 'show', 'search']
     all = ['*', 'all', 'any', 'everything']
+    exit = ['exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
 
 class Settings:
     markers = {
@@ -99,7 +100,8 @@ session_data = [Task().from_dict(d) for d in load_data()]
 
 
 
-greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
+greetings = ['Hey', 'Hello', 'Good morning', 'Buenos dias', 'Welcome back']
+farewells = ['Bye', 'Goodbye', 'Until next time']
 
 def run_command(text):
     cmd_parts = text.split(' ')
@@ -120,6 +122,9 @@ def run_command(text):
         if c[1] in Aliases.all:
             for task in session_data:
                 print(task.as_dict())
+    elif first in Aliases.exit:
+        print(random.choice(farewells))
+        quit()
     else:
         print("I don't understand")
 
