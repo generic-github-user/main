@@ -68,9 +68,12 @@ class Task:
     # is name dict reserved?
     def as_dict(self, compressed=True):
         task_dict = {}
+        # If 'compressed' is set to True, use the abbreviated task properties (as listed in settings)
         if compressed:
             for i, prop in enumerate(Settings.task_properties):
+                # Abbreviated attribute name
                 short = Settings.task_props_short[i]
+                # Only add the property if this task has it
                 if hasattr(self, prop):
                     # print(prop)
                     task_dict[short] = getattr(self, prop)
@@ -81,6 +84,7 @@ class Task:
                     task_dict[prop] = getattr(self, prop)
         return task_dict
     def stringify(self, compressed=True):
+        # Get dictionary and convert to a string, then return
         return json.dump(self.as_dict(compressed))
     def from_dict(self, data, compressed=True):
         if compressed:
@@ -89,6 +93,7 @@ class Task:
                 # if hasattr(data, short):
                 if short in data:
                     setattr(self, prop, data[short])
+            # For backwards-compatibility, round existing calculated importance scores if they have extra precision
             self.importance['calculated'] = round(self.importance['calculated'])
         else:
             pass
