@@ -196,14 +196,19 @@ def run_command(text):
     # Add a new task
     if first in Aliases.add:
         if c[1] in Aliases.task:
+            content = ' '.join(c[2:])
+
             # Handle date tag in task content
             a, b = Settings.markers['dates']
-            if a in t:
-                date_string = t[t.find(a)+1:t.find(b)]
+            if a in content:
+                a_ = content.find(a)
+                b_ = content.find(b)
+                date_string = content[a_+1:b_]
+                content = content[:a_] + content[b_+1:]
             else:
                 date_string = ''
 
-            new_task = Task(content=c[2], datestring=date_string)
+            new_task = Task(content=content, datestring=date_string)
             store_command(add_task(new_task))
         elif c[1] in Aliases.tag:
             new_tag = Tag(name=c[2])
