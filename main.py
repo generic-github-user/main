@@ -8,9 +8,9 @@ import uuid
 
 
 class Aliases:
-    add = ['add', 'create', 'make', 'new']
-    find = ['list', 'find', 'show', 'search']
-    all = ['*', 'all', 'any', 'everything']
+    add = ['a', '.', 'add', 'create', 'make', 'new']
+    find = ['f', 'list', 'find', 'show', 'search']
+    all = ['e', '*', 'all', 'any', 'everything']
     rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
     exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
 
