@@ -89,7 +89,10 @@ class Task:
                 if short in data:
                     setattr(self, prop, data[short])
             # For backwards-compatibility, round existing calculated importance scores if they have extra precision
-            self.importance['calculated'] = round(self.importance['calculated'])
+            try:
+                self.importance['calculated'] = round(self.importance['calculated'])
+            except:
+                pass
         else:
             pass
 
