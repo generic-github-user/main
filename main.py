@@ -117,6 +117,7 @@ session_data = [Task().from_dict(d) for d in load_data()]
 
 def save_all():
     save_buffer = []
+    # Loop through all tasks in memory
     for task in session_data:
         save_buffer.append(task.as_dict(compressed=True))
         save_data(data=save_buffer)
@@ -129,11 +130,12 @@ farewells = ['Bye', 'Goodbye', 'Until next time']
 def get_random_task():
     return random.choice(session_data)
 
-
+# Abbreviation
 def z(x):
     return x.importance['calculated']
 
 def rank():
+    # Get two random tasks
     a = get_random_task()
     b = get_random_task()
     if a.id == b.id:
@@ -144,11 +146,14 @@ def rank():
     print('2. '+b.content+'\n')
 
     response = input()
+    # The formula for computing each task's score change (inverted for the losing item)
     delta = (z(b) - z(a)) / 2. + 20.
     delta = round(delta)
+    # First one wins matchup
     if response == '1':
         a.importance['calculated'] += delta
         b.importance['calculated'] -= delta
+    # Second one wins
     elif response == '2':
         a.importance['calculated'] -= delta
         b.importance['calculated'] += delta
@@ -161,7 +166,9 @@ def run_command(text):
     c = cmd_parts
     t = text
 
+    # Add a new task
     if first in Aliases.add:
+        # Handle date tag in task content
         a, b = Settings.markers['dates']
         if a in t:
             date_string = t[t.find(a)+1:t.find(b)]
@@ -171,16 +178,20 @@ def run_command(text):
         new_task = Task(content=c[1], datestring=date_string)
         session_data.append(new_task)
         save_all()
+    # Search for certain tasks
     elif first in Aliases.find:
         if c[1] in Aliases.all:
             for task in session_data:
                 print(task.as_dict())
+    # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
             rank()
+    # Close the program
     elif first in Aliases.exit:
         print(random.choice(farewells))
         quit()
+    # Unclear command
     else:
         print("I don't understand")
 
