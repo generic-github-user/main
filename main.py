@@ -160,7 +160,7 @@ def load_data(path='cq_data.json'):
         with open(path, 'r') as json_file:
             loaded_data = json.loads(json_file.read())
     except:
-        loaded_data = []
+        loaded_data = {}
     return loaded_data
 
 def save_data(data, path='cq_data.json'):
@@ -171,15 +171,24 @@ def save_data(data, path='cq_data.json'):
 class session_data:
     ld = load_data()
     tasks = [Task().from_dict(d) for d in ld['tasks']]
+
+    if 'tags' in ld:
+        tags = [Tag().from_dict(v) for v in ld['tags']]
+    else:
+        tags = []
+
     # are these local?
 
 def save_all():
     save_buffer = {
-        'tasks': []
+        'tasks': [],
+        'tags': []
     }
     # Loop through all tasks in memory
     for task in session_data.tasks:
         save_buffer['tasks'].append(task.as_dict(compressed=True))
+    for tag in session_data.tags:
+        save_buffer['tags'].append(tag.as_dict(compressed=True))
     # moved this out of the loop
     save_data(data=save_buffer)
 
@@ -247,6 +256,16 @@ def add_task(task):
 
     return reverse
 
+def add_tag(tag):
+    session_data.tags.append(tag)
+    save_all()
+
+    def reverse():
+        session_data.tags.remove(tag)
+        print('Reverted tag creation')
+
+    return reverse
+
 def undo():
     # command_buffer[-1].reverse()
     command_buffer[-1]()
@@ -261,15 +280,19 @@ def run_command(text):
 
     # Add a new task
     if first in Aliases.add:
-        # Handle date tag in task content
-        a, b = Settings.markers['dates']
-        if a in t:
-            date_string = t[t.find(a)+1:t.find(b)]
-        else:
-            date_string = ''
+        if c[1] in Aliases.task:
+            # Handle date tag in task content
+            a, b = Settings.markers['dates']
+            if a in t:
+                date_string = t[t.find(a)+1:t.find(b)]
+            else:
+                date_string = ''
 
-        new_task = Task(content=c[1], datestring=date_string)
-        store_command(add_task(new_task))
+            new_task = Task(content=c[2], datestring=date_string)
+            store_command(add_task(new_task))
+        elif c[1] in Aliases.tag:
+            new_tag = Tag(name=c[2])
+            store_command(add_tag(new_tag))
     # Search for certain tasks
     elif first in Aliases.find:
         if c[1] in Aliases.all:
