@@ -7,10 +7,10 @@ from dateutil import rrule
 
 
 class Aliases:
-    add = ['add', 'create', 'make', 'new']
-    find = ['list', 'find', 'show', 'search']
-    all = ['*', 'all', 'any', 'everything']
-    exit = ['exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
+    add = ['a', '.', 'add', 'create', 'make', 'new']
+    find = ['f', 'list', 'find', 'show', 'search']
+    all = ['e', '*', 'all', 'any', 'everything']
+    exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
 
 class Settings:
     markers = {
