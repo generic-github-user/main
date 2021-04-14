@@ -162,6 +162,9 @@ def rank():
     print('1. '+a.content+'\n')
     print('2. '+b.content+'\n')
 
+    a_prev = z(a)
+    b_prev = z(b)
+
     response = input()
     delta = (z(b) - z(a)) / 2. + 20.
     delta = round(delta)
@@ -172,7 +175,13 @@ def rank():
         a.importance['calculated'] -= delta
         b.importance['calculated'] += delta
 
+    def reverse():
+        a.importance['calculated'] = a_prev
+        b.importance['calculated'] = b_prev
+        print('Reversed ranking change')
+
     save_all()
+    return reverse
 
 command_buffer = []
 
@@ -209,7 +218,7 @@ def run_command(text):
                 print(task.as_dict())
     elif first in Aliases.rank:
         for i in range(int(c[1])):
-            rank()
+            command_buffer.append(rank())
     elif first in Aliases.undo:
         undo()
     elif first in Aliases.exit:
