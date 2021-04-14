@@ -21,6 +21,23 @@ class Settings:
     task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next, id', 'importance']
     task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i', 'im']
 
+class Tag:
+    def __init__(self, name='', created=None, modified=None):
+        current_time = round(time.time())
+        self.name = name
+        self.color = None
+        self.parent = None
+
+        if created:
+            self.created = created
+        else:
+            self.created = current_time
+
+        if modified:
+            self.modified = modified
+        else:
+            self.modified = current_time
+
 class Task:
     def __init__(self, content='', name='', created=None, modified=None, datestring=None, importance=1000):
         current_time = round(time.time())
