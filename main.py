@@ -138,21 +138,14 @@ class session_data:
     # are these local?
 
 def save_all():
-<<<<<<< comments
-    save_buffer = []
-    # Loop through all tasks in memory
-    for task in session_data:
-        save_buffer.append(task.as_dict(compressed=True))
-        save_data(data=save_buffer)
-=======
     save_buffer = {
         'tasks': []
     }
+    # Loop through all tasks in memory
     for task in session_data.tasks:
         save_buffer['tasks'].append(task.as_dict(compressed=True))
     # moved this out of the loop
     save_data(data=save_buffer)
->>>>>>> master
 
 save_all()
 
@@ -240,13 +233,8 @@ def run_command(text):
             date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
-<<<<<<< comments
-        session_data.append(new_task)
-        save_all()
-    # Search for certain tasks
-=======
         store_command(add_task(new_task))
->>>>>>> master
+    # Search for certain tasks
     elif first in Aliases.find:
         if c[1] in Aliases.all:
             for task in session_data.tasks:
@@ -254,14 +242,10 @@ def run_command(text):
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
-<<<<<<< comments
-            rank()
-    # Close the program
-=======
             store_command(rank())
     elif first in Aliases.undo:
         undo()
->>>>>>> master
+    # Close the program
     elif first in Aliases.exit:
         print(random.choice(farewells))
         quit()
