@@ -21,6 +21,7 @@ class Settings:
     }
     task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next, id', 'importance']
     task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i', 'im']
+    command_buffer_size = 20
 
 class Tag:
     def __init__(self, name='', created=None, modified=None):
@@ -185,6 +186,11 @@ def rank():
 
 command_buffer = []
 
+def store_command(undo_function):
+    command_buffer.append(undo_function)
+    if len(command_buffer) > Settings.command_buffer_size:
+        command_buffer.pop(0)
+
 def add_task(task):
     session_data.tasks.append(task)
     def reverse():
@@ -210,7 +216,7 @@ def run_command(text):
             date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
-        command_buffer.append(add_task(new_task))
+        store_command(add_task(new_task))
         save_all()
     elif first in Aliases.find:
         if c[1] in Aliases.all:
@@ -218,7 +224,7 @@ def run_command(text):
                 print(task.as_dict())
     elif first in Aliases.rank:
         for i in range(int(c[1])):
-            command_buffer.append(rank())
+            store_command(rank())
     elif first in Aliases.undo:
         undo()
     elif first in Aliases.exit:
