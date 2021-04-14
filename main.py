@@ -193,8 +193,12 @@ def store_command(undo_function):
 
 def add_task(task):
     session_data.tasks.append(task)
+    save_all()
+
     def reverse():
         session_data.tasks.remove(task)
+        print('Reverted add task')
+
     return reverse
 
 def undo():
@@ -218,7 +222,6 @@ def run_command(text):
 
         new_task = Task(content=c[1], datestring=date_string)
         store_command(add_task(new_task))
-        save_all()
     elif first in Aliases.find:
         if c[1] in Aliases.all:
             for task in session_data.tasks:
