@@ -193,12 +193,12 @@ def get_arg(command, labels):
     if a in p:
         a_ = p.find(a)
         b_ = p.find(b)
-        arg_string = content[a_+1:b_]
+        arg_string = p[a_+1:b_]
         p = p[:a_] + p[b_+1:]
     else:
         arg_string = ''
 
-    return command, arg_string
+    return p, arg_string
 
 def run_command(text):
     cmd_parts = text.split(' ')
