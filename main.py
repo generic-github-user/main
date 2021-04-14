@@ -13,6 +13,7 @@ class Aliases:
     all = ['e', '*', 'all', 'any', 'everything']
     rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
     exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
+    undo = ['u', 'undo', 'reverse', 'rollback']
 
 class Settings:
     markers = {
@@ -173,6 +174,19 @@ def rank():
 
     save_all()
 
+command_buffer = []
+
+def add_task(task):
+    session_data.tasks.append(task)
+    def reverse():
+        session_data.tasks.remove(task)
+    return reverse
+
+def undo():
+    # command_buffer[-1].reverse()
+    command_buffer[-1]()
+    save_all()
+
 def run_command(text):
     cmd_parts = text.split(' ')
     first = cmd_parts[0]
@@ -187,7 +201,7 @@ def run_command(text):
             date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
-        session_data.tasks.append(new_task)
+        command_buffer.append(add_task(new_task))
         save_all()
     elif first in Aliases.find:
         if c[1] in Aliases.all:
@@ -196,6 +210,8 @@ def run_command(text):
     elif first in Aliases.rank:
         for i in range(int(c[1])):
             rank()
+    elif first in Aliases.undo:
+        undo()
     elif first in Aliases.exit:
         print(random.choice(farewells))
         quit()
