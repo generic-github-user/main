@@ -4,6 +4,7 @@ import random
 import datetime
 from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
+import uuid
 
 
 class Aliases:
@@ -15,8 +16,8 @@ class Settings:
     markers = {
         'dates': '<>'
     }
-    task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next']
-    task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx']
+    task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next, id']
+    task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i']
 
 class Task:
     def __init__(self, content='', name='', created=None, modified=None, datestring=None):
@@ -24,6 +25,8 @@ class Task:
 
         self.name = name
         self.content = content
+
+        self.id = uuid.uuid4().hex
 
         if created:
             self.created = created
