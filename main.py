@@ -200,6 +200,7 @@ def add_task(task):
 def undo():
     # command_buffer[-1].reverse()
     command_buffer[-1]()
+    command_buffer.pop()
     save_all()
 
 def run_command(text):
