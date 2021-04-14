@@ -11,16 +11,17 @@ class Aliases:
     add = ['add', 'create', 'make', 'new']
     find = ['list', 'find', 'show', 'search']
     all = ['*', 'all', 'any', 'everything']
+    rank = ['order', 'sort', 'vote', 'arrange', 'rank']
 
 class Settings:
     markers = {
         'dates': '<>'
     }
-    task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next, id']
-    task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i']
+    task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next, id', 'importance']
+    task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i', 'im']
 
 class Task:
-    def __init__(self, content='', name='', created=None, modified=None, datestring=None):
+    def __init__(self, content='', name='', created=None, modified=None, datestring=None, importance=1000):
         current_time = round(time.time())
 
         self.name = name
@@ -55,6 +56,13 @@ class Task:
                     print(self.dateparse, self.dateparams, self.datesummary, self.next)
             except Exception as e:
                 print(e)
+
+        self.importance = {
+            'user_defined': importance,
+            'calculated': 1000.,
+            'history': [],
+            'ranked': []
+        }
 
     # is name dict reserved?
     def as_dict(self, compressed=True):
@@ -104,6 +112,40 @@ session_data = [Task().from_dict(d) for d in load_data()]
 
 greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 
+def get_random_task():
+    return random.choice(session_data)
+
+def save_all():
+    save_buffer = []
+    for task in session_data:
+        save_buffer.append(task.as_dict(compressed=True))
+    save_data(data=save_buffer)
+
+def z(x):
+    return x.importance['calculated']
+
+def rank():
+    a = get_random_task()
+    b = get_random_task()
+    if a.id == b.id:
+        b = get_random_task()
+
+    print('Which is more important?\n')
+    print('1. '+a.content+'\n')
+    print('2. '+b.content+'\n')
+
+    response = input()
+    delta = (z(b) - z(a)) / 2. + 20.
+    print(delta)
+    if response == '1':
+        a.importance['calculated'] += delta
+        b.importance['calculated'] -= delta
+    elif response == '2':
+        a.importance['calculated'] -= delta
+        b.importance['calculated'] += delta
+
+    save_all()
+
 def run_command(text):
     cmd_parts = text.split(' ')
     first = cmd_parts[0]
@@ -119,17 +161,16 @@ def run_command(text):
 
         new_task = Task(content=c[1], datestring=date_string)
         session_data.append(new_task)
+        save_all()
     elif first in Aliases.find:
         if c[1] in Aliases.all:
             for task in session_data:
                 print(task.as_dict())
+    elif first in Aliases.rank:
+        for i in range(int(c[1])):
+            rank()
     else:
         print("I don't understand")
-
-    save_buffer = []
-    for task in session_data:
-        save_buffer.append(task.as_dict(compressed=True))
-    save_data(data=save_buffer)
 
 print(random.choice(greetings)+'!')
 for i in range(20):
