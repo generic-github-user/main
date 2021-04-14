@@ -11,7 +11,8 @@ class Aliases:
     add = ['add', 'create', 'make', 'new']
     find = ['list', 'find', 'show', 'search']
     all = ['*', 'all', 'any', 'everything']
-    rank = ['order', 'sort', 'vote', 'arrange', 'rank']
+    rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
+    exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
 
 class Settings:
     markers = {
@@ -117,7 +118,8 @@ def save_all():
 
 save_all()
 
-greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
+greetings = ['Hey', 'Hello', 'Good morning', 'Buenos dias', 'Welcome back']
+farewells = ['Bye', 'Goodbye', 'Until next time']
 
 def get_random_task():
     return random.choice(session_data)
@@ -171,6 +173,9 @@ def run_command(text):
     elif first in Aliases.rank:
         for i in range(int(c[1])):
             rank()
+    elif first in Aliases.exit:
+        print(random.choice(farewells))
+        quit()
     else:
         print("I don't understand")
 
