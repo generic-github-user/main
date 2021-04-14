@@ -109,18 +109,19 @@ def save_data(data, path='cq_data.json'):
 
 session_data = [Task().from_dict(d) for d in load_data()]
 
+def save_all():
+    save_buffer = []
+    for task in session_data:
+        save_buffer.append(task.as_dict(compressed=True))
+        save_data(data=save_buffer)
 
+save_all()
 
 greetings = ['Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 
 def get_random_task():
     return random.choice(session_data)
 
-def save_all():
-    save_buffer = []
-    for task in session_data:
-        save_buffer.append(task.as_dict(compressed=True))
-    save_data(data=save_buffer)
 
 def z(x):
     return x.importance['calculated']
