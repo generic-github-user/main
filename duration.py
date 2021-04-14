@@ -14,3 +14,14 @@ def parse_duration(duration):
         parts = duration.split(':')
         for i, p in enumerate(parts.reverse()):
             result += float(p) * time_info[i][0]
+    else:
+        parts = duration.replace(',', '').replace('and', '').split(' ')
+        for i, p in enumerate(parts):
+            if p.isnumeric():
+                for v in time_info:
+                    unit = parts[i+1]
+                    # if (unit in v) or (unit+'s' in v):
+                    if (unit in v) or (unit[-1] == 's' and unit[:-1] in v):
+                        result += float(p) * v[0]
+                        break
+    return result
