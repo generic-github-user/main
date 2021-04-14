@@ -6,6 +6,8 @@ from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 import uuid
 
+import termtables as tt
+
 from task import *
 from settings import *
 
@@ -209,8 +211,15 @@ def run_command(text):
     # Search for certain tasks
     elif first in Aliases.find:
         if c[1] in Aliases.all:
-            for task in session_data.tasks:
-                print(task.as_dict())
+            search_results = []
+            for i, task in enumerate(session_data.tasks):
+                search_results.append([(i+1), task.name, task.content])
+            table_header = ('#', 'Name', 'Content')
+            tt.print(
+                search_results,
+                header=table_header,
+                padding=(0, 1)
+            )
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
