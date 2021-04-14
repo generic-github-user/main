@@ -13,7 +13,6 @@ class Aliases:
     all = ['e', '*', 'all', 'any', 'everything']
     rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
     exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
-    undo = ['u', 'undo', 'reverse', 'rollback']
 
 class Settings:
     markers = {
@@ -21,24 +20,6 @@ class Settings:
     }
     task_properties = ['name', 'content', 'created', 'modified', 'datestring', 'dateparse', 'dateparams', 'datesummary', 'next, id', 'importance']
     task_props_short = ['n', 'c', 'tc', 'tm', 'ds', 'dp', 'dr', 'dv', 'nx', 'i', 'im']
-    command_buffer_size = 20
-
-class Tag:
-    def __init__(self, name='', created=None, modified=None):
-        current_time = round(time.time())
-        self.name = name
-        self.color = None
-        self.parent = None
-
-        if created:
-            self.created = created
-        else:
-            self.created = current_time
-
-        if modified:
-            self.modified = modified
-        else:
-            self.modified = current_time
 
 class Task:
     def __init__(self, content='', name='', created=None, modified=None, datestring=None, importance=1000):
@@ -127,19 +108,13 @@ def save_data(data, path='cq_data.json'):
         json.dump(data, save_file)
     return True
 
-class session_data:
-    ld = load_data()
-    tasks = [Task().from_dict(d) for d in ld['tasks']]
-    # are these local?
+session_data = [Task().from_dict(d) for d in load_data()]
 
 def save_all():
-    save_buffer = {
-        'tasks': []
-    }
-    for task in session_data.tasks:
-        save_buffer['tasks'].append(task.as_dict(compressed=True))
-    # moved this out of the loop
-    save_data(data=save_buffer)
+    save_buffer = []
+    for task in session_data:
+        save_buffer.append(task.as_dict(compressed=True))
+        save_data(data=save_buffer)
 
 save_all()
 
@@ -147,7 +122,7 @@ greetings = ['Hey', 'Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 farewells = ['Bye', 'Goodbye', 'Until next time']
 
 def get_random_task():
-    return random.choice(session_data.tasks)
+    return random.choice(session_data)
 
 
 def z(x):
@@ -163,9 +138,6 @@ def rank():
     print('1. '+a.content+'\n')
     print('2. '+b.content+'\n')
 
-    a_prev = z(a)
-    b_prev = z(b)
-
     response = input()
     delta = (z(b) - z(a)) / 2. + 20.
     delta = round(delta)
@@ -176,31 +148,6 @@ def rank():
         a.importance['calculated'] -= delta
         b.importance['calculated'] += delta
 
-    def reverse():
-        a.importance['calculated'] = a_prev
-        b.importance['calculated'] = b_prev
-        print('Reversed ranking change')
-
-    save_all()
-    return reverse
-
-command_buffer = []
-
-def store_command(undo_function):
-    command_buffer.append(undo_function)
-    if len(command_buffer) > Settings.command_buffer_size:
-        command_buffer.pop(0)
-
-def add_task(task):
-    session_data.tasks.append(task)
-    def reverse():
-        session_data.tasks.remove(task)
-    return reverse
-
-def undo():
-    # command_buffer[-1].reverse()
-    command_buffer[-1]()
-    command_buffer.pop()
     save_all()
 
 def run_command(text):
@@ -217,17 +164,15 @@ def run_command(text):
             date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
-        store_command(add_task(new_task))
+        session_data.append(new_task)
         save_all()
     elif first in Aliases.find:
         if c[1] in Aliases.all:
-            for task in session_data.tasks:
+            for task in session_data:
                 print(task.as_dict())
     elif first in Aliases.rank:
         for i in range(int(c[1])):
-            store_command(rank())
-    elif first in Aliases.undo:
-        undo()
+            rank()
     elif first in Aliases.exit:
         print(random.choice(farewells))
         quit()
