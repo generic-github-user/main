@@ -187,6 +187,19 @@ def undo():
     command_buffer.pop()
     save_all()
 
+def get_arg(command, labels):
+    p = command
+    a, b = labels
+    if a in p:
+        a_ = p.find(a)
+        b_ = p.find(b)
+        arg_string = content[a_+1:b_]
+        p = p[:a_] + p[b_+1:]
+    else:
+        arg_string = ''
+
+    return command, arg_string
+
 def run_command(text):
     cmd_parts = text.split(' ')
     first = cmd_parts[0]
@@ -199,14 +212,7 @@ def run_command(text):
             content = ' '.join(c[2:])
 
             # Handle date tag in task content
-            a, b = Settings.markers['dates']
-            if a in content:
-                a_ = content.find(a)
-                b_ = content.find(b)
-                date_string = content[a_+1:b_]
-                content = content[:a_] + content[b_+1:]
-            else:
-                date_string = ''
+            content, date_string = get_arg(command=content, labels=Settings.markers['dates'])
 
             new_task = Task(content=content, datestring=date_string)
             store_command(add_task(new_task))
