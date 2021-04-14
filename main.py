@@ -87,9 +87,12 @@ class Task:
     # is name dict reserved?
     def as_dict(self, compressed=True):
         task_dict = {}
+        # If 'compressed' is set to True, use the abbreviated task properties (as listed in settings)
         if compressed:
             for i, prop in enumerate(Settings.task_properties):
+                # Abbreviated attribute name
                 short = Settings.task_props_short[i]
+                # Only add the property if this task has it
                 if hasattr(self, prop):
                     # print(prop)
                     task_dict[short] = getattr(self, prop)
@@ -100,6 +103,7 @@ class Task:
                     task_dict[prop] = getattr(self, prop)
         return task_dict
     def stringify(self, compressed=True):
+        # Get dictionary and convert to a string, then return
         return json.dump(self.as_dict(compressed))
     def from_dict(self, data, compressed=True):
         if compressed:
@@ -108,6 +112,7 @@ class Task:
                 # if hasattr(data, short):
                 if short in data:
                     setattr(self, prop, data[short])
+            # For backwards-compatibility, round existing calculated importance scores if they have extra precision
             self.importance['calculated'] = round(self.importance['calculated'])
         else:
             pass
@@ -133,6 +138,13 @@ class session_data:
     # are these local?
 
 def save_all():
+<<<<<<< comments
+    save_buffer = []
+    # Loop through all tasks in memory
+    for task in session_data:
+        save_buffer.append(task.as_dict(compressed=True))
+        save_data(data=save_buffer)
+=======
     save_buffer = {
         'tasks': []
     }
@@ -140,6 +152,7 @@ def save_all():
         save_buffer['tasks'].append(task.as_dict(compressed=True))
     # moved this out of the loop
     save_data(data=save_buffer)
+>>>>>>> master
 
 save_all()
 
@@ -149,11 +162,12 @@ farewells = ['Bye', 'Goodbye', 'Until next time']
 def get_random_task():
     return random.choice(session_data.tasks)
 
-
+# Abbreviation
 def z(x):
     return x.importance['calculated']
 
 def rank():
+    # Get two random tasks
     a = get_random_task()
     b = get_random_task()
     if a.id == b.id:
@@ -167,11 +181,14 @@ def rank():
     b_prev = z(b)
 
     response = input()
+    # The formula for computing each task's score change (inverted for the losing item)
     delta = (z(b) - z(a)) / 2. + 20.
     delta = round(delta)
+    # First one wins matchup
     if response == '1':
         a.importance['calculated'] += delta
         b.importance['calculated'] -= delta
+    # Second one wins
     elif response == '2':
         a.importance['calculated'] -= delta
         b.importance['calculated'] += delta
@@ -213,7 +230,9 @@ def run_command(text):
     c = cmd_parts
     t = text
 
+    # Add a new task
     if first in Aliases.add:
+        # Handle date tag in task content
         a, b = Settings.markers['dates']
         if a in t:
             date_string = t[t.find(a)+1:t.find(b)]
@@ -221,19 +240,32 @@ def run_command(text):
             date_string = ''
 
         new_task = Task(content=c[1], datestring=date_string)
+<<<<<<< comments
+        session_data.append(new_task)
+        save_all()
+    # Search for certain tasks
+=======
         store_command(add_task(new_task))
+>>>>>>> master
     elif first in Aliases.find:
         if c[1] in Aliases.all:
             for task in session_data.tasks:
                 print(task.as_dict())
+    # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
+<<<<<<< comments
+            rank()
+    # Close the program
+=======
             store_command(rank())
     elif first in Aliases.undo:
         undo()
+>>>>>>> master
     elif first in Aliases.exit:
         print(random.choice(farewells))
         quit()
+    # Unclear command
     else:
         print("I don't understand")
 
