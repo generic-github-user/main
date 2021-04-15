@@ -14,11 +14,14 @@ from tag import *
 
 class Aliases:
     add = ['a', '.', 'add', 'create', 'make', 'new']
-    find = ['f', 'list', 'find', 'show', 'search']
+    find = ['f', 'list', 'find', 'show', 'search', 'print']
     all = ['e', '*', 'all', 'any', 'everything']
     rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
     exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
     undo = ['u', 'undo', 'reverse', 'rollback']
+    select = ['s', 'sel', 'select', 'selection']
+    deselect = ['d', 'deselect']
+    archive = ['z', 'archive', 'store', 'arch']
 
     task = ['t', 'task', 'todo']
     tag = ['@', 'tag', 'label']
@@ -109,6 +112,10 @@ def rank():
 
 command_buffer = []
 
+class Session:
+    selection = []
+    context = []
+
 def store_command(undo_function):
     command_buffer.append(undo_function)
     if len(command_buffer) > Settings.command_buffer_size:
@@ -116,6 +123,7 @@ def store_command(undo_function):
 
 def add_task(task):
     session_data.tasks.append(task)
+    Session.context = [task]
     save_all()
 
     def reverse():
@@ -126,6 +134,7 @@ def add_task(task):
 
 def add_tag(tag):
     session_data.tags.append(tag)
+    Session.context = [tag]
     save_all()
 
     def reverse():
@@ -153,11 +162,33 @@ def get_arg(command, labels):
 
     return p, arg_string
 
+def search(search_func):
+    return list(filter(search_func, session_data.tasks))
+
+def not_archived():
+    return search(lambda t: not t.archived_())
+
+def print_tasks(tasks):
+    task_info = []
+    for i, task in enumerate(tasks):
+        task_info.append([(i+1), task.name, task.content])
+
+    if len(task_info) > 0:
+        table_header = ('#', 'Name', 'Content')
+        tt.print(
+            task_info,
+            header=table_header,
+            padding=(0, 1)
+        )
+    else:
+        print('Nothing is selected')
+
 def run_command(text):
-    cmd_parts = text.split(' ')
+    cmd_parts = text.split()
     first = cmd_parts[0]
     c = cmd_parts
     t = text
+    arg_num = len(cmd_parts)
 
     # Add a new task
     if first in Aliases.add:
@@ -176,16 +207,41 @@ def run_command(text):
             store_command(add_tag(new_tag))
     # Search for certain tasks
     elif first in Aliases.find:
-        if c[1] in Aliases.all:
-            search_results = []
-            for i, task in enumerate(session_data.tasks):
-                search_results.append([(i+1), task.name, task.content])
-            table_header = ('#', 'Name', 'Content')
-            tt.print(
-                search_results,
-                header=table_header,
-                padding=(0, 1)
-            )
+        search_results = []
+        if arg_num == 1 or c[1] in Aliases.select:
+            sr = Session.selection
+            # search_results = not_archived()
+            for i, task in enumerate(sr):
+                search_results.append(task)
+        elif c[1] in Aliases.all:
+            for i, task in enumerate(not_archived()):
+                search_results.append(task)
+            Session.context = search_results
+
+        print_tasks(search_results)
+    elif first in Aliases.select:
+        if arg_num == 1:
+            Session.selection = Session.context
+        elif c[1] in Aliases.all:
+            for t in session_data.tasks:
+                Session.selection.append(t)
+        else:
+            def sf(task):
+                search_term = c[1].lower()
+                return (search_term in task.content.lower()) or (search_term in task.name.lower()) and (not task.archived_())
+            results = search(sf)
+            Session.selection = results
+            Session.context = results
+
+        print_tasks(Session.selection)
+    elif first in Aliases.deselect:
+        print('Deselected {} tasks'.format(len(Session.selection)))
+        Session.selection = []
+    elif first in Aliases.archive:
+        for task in Session.selection:
+            task.archived = True
+        print('Archived {} tasks'.format(len(Session.selection)))
+        save_all()
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):

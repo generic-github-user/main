@@ -104,3 +104,6 @@ class Task:
 
         self.update()
         return self
+    def archived_(self):
+        if hasattr(self, 'archived'):
+            return self.archived
