@@ -13,22 +13,6 @@ from task import *
 from settings import *
 from tag import *
 
-class Aliases:
-    add = ['a', '.', 'add', 'create', 'make', 'new']
-    find = ['f', 'list', 'find', 'show', 'search', 'print']
-    all = ['e', '*', 'all', 'any', 'everything']
-    rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
-    exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
-    undo = ['u', 'undo', 'reverse', 'rollback']
-    select = ['s', 'sel', 'select', 'selection']
-    deselect = ['d', 'deselect']
-    archive = ['z', 'archive', 'store', 'arch']
-    remove = ['remove', 'delete']
-    backup = ['b', 'save', 'backup']
-
-    task = ['t', 'task', 'todo']
-    tag = ['@', 'tag', 'label']
-
 def load_data(path='cq_data.json'):
     try:
         with open(path, 'r') as json_file:
