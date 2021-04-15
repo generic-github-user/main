@@ -164,6 +164,9 @@ def get_arg(command, labels):
 def search(search_func):
     return list(filter(search_func, session_data.tasks))
 
+def not_archived():
+    return search(lambda t: not t.archived_())
+
 def run_command(text):
     cmd_parts = text.split()
     first = cmd_parts[0]
