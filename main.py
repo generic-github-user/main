@@ -220,6 +220,9 @@ def run_command(text):
             results = search(sf)
             Session.selection = results
             Session.context = results
+    elif first in Aliases.deselect:
+        print('Deselected {} tasks'.format(len(Session.selection)))
+        Session.selection = []
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
