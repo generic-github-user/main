@@ -167,6 +167,21 @@ def search(search_func):
 def not_archived():
     return search(lambda t: not t.archived_())
 
+def print_tasks(tasks):
+    task_info = []
+    for i, task in enumerate(tasks):
+        task_info.append([(i+1), task.name, task.content])
+
+    if len(task_info) > 0:
+        table_header = ('#', 'Name', 'Content')
+        tt.print(
+            task_info,
+            header=table_header,
+            padding=(0, 1)
+        )
+    else:
+        print('Nothing is selected')
+
 def run_command(text):
     cmd_parts = text.split()
     first = cmd_parts[0]
@@ -191,26 +206,18 @@ def run_command(text):
             store_command(add_tag(new_tag))
     # Search for certain tasks
     elif first in Aliases.find:
+        search_results = []
         if arg_num == 1 or c[1] in Aliases.select:
             sr = Session.selection
-            search_results = []
+            # search_results = not_archived()
             for i, task in enumerate(sr):
-                search_results.append([(i+1), task.name, task.content])
+                search_results.append(task)
         elif c[1] in Aliases.all:
-            search_results = []
-            for i, task in enumerate(session_data.tasks):
-                search_results.append([(i+1), task.name, task.content])
+            for i, task in enumerate(not_archived()):
+                search_results.append(task)
             Session.context = search_results
 
-        if len(search_results) > 0:
-            table_header = ('#', 'Name', 'Content')
-            tt.print(
-                search_results,
-                header=table_header,
-                padding=(0, 1)
-            )
-        else:
-            print('Nothing is selected')
+        print_tasks(search_results)
     elif first in Aliases.select:
         if arg_num == 1:
             Session.selection = Session.context
