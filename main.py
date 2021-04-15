@@ -58,18 +58,24 @@ class session_data:
 
     # are these local?
 
-def save_all():
+def jsonify():
     save_buffer = {
         'tasks': [],
-        'tags': []
+        'tags': [],
+        'settings': {}
     }
     # Loop through all tasks in memory
     for task in session_data.tasks:
         save_buffer['tasks'].append(task.as_dict(compressed=True))
     for tag in session_data.tags:
         save_buffer['tags'].append(tag.as_dict(compressed=True))
+    save_buffer['settings'] = session_data.settings
+
+    return save_buffer
+
+def save_all():
     # moved this out of the loop
-    save_data(data=save_buffer)
+    save_data(data=jsonify())
 
 save_all()
 
