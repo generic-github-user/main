@@ -6,6 +6,8 @@ from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 import uuid
 from pathlib import Path
+import zlib
+import base64
 
 import termtables as tt
 
@@ -196,6 +198,25 @@ def print_tasks(tasks):
     else:
         print('Nothing is selected')
 
+def backup(compress=False, compress_level=6):
+    backup_data = json.dumps(jsonify()).encode('utf-8')
+    if compress:
+        backup_data = base64.b64encode(zlib.compress(backup_data, level=compress_level))
+        extension = 'txt'
+    else:
+        extension = 'json'
+
+    bd = session_data.settings['backup_dir']
+    Path('./'+bd).mkdir(parents=True, exist_ok=True)
+    # timestamp = str(datetime.datetime.now())
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H_%M_%S')
+    backup_path = './{}/{}.{}'.format(bd, timestamp, extension)
+
+    # save_data(backup_data, path=backup_path)
+    with open(backup_path, 'w') as save_file:
+        save_file.write(str(backup_data))
+    print('Backup saved to '+backup_path)
+
 def run_command(text):
     cmd_parts = text.split()
     first = cmd_parts[0]
@@ -256,13 +277,10 @@ def run_command(text):
         print('Archived {} tasks'.format(len(Session.selection)))
         save_all()
     elif first in Aliases.backup:
-        bd = session_data.settings['backup_dir']
-        Path('./'+bd).mkdir(parents=True, exist_ok=True)
-        # timestamp = str(datetime.datetime.now())
-        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H_%M_%S')
-        backup_path = './{}/{}.json'.format(bd, timestamp)
-        save_data(jsonify(), path=backup_path)
-        print('Backup saved to '+backup_path)
+        if arg_num == 1:
+            backup()
+        elif c[1] == 'true':
+            backup(compress=True)
     elif first in Aliases.remove:
         store_command(remove_tasks(Session.selection))
     # Spend some time sorting tasks to rank their importance/other properties
