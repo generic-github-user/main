@@ -199,24 +199,35 @@ def print_tasks(tasks):
         print('Nothing is selected')
 
 def backup(compress=False, compress_level=6):
+    # Dump the current session's data to a string
     backup_data = json.dumps(jsonify()).encode('utf-8')
     original_length = len(backup_data)
     if compress:
+        # Compress the text data with zlib and encode in base 64
         backup_data = base64.b64encode(zlib.compress(backup_data, level=compress_level))
         compressed_length = len(backup_data)
+        # If compressed, store data in txt file
         extension = 'txt'
     else:
+        # Use json file if saving raw data
         extension = 'json'
 
+    # Get backup directory from settings
     bd = session_data.settings['backup_dir']
+    # Make the backup directory if it doesn't exist
     Path('./'+bd).mkdir(parents=True, exist_ok=True)
     # timestamp = str(datetime.datetime.now())
+    # Current time formatted in a string (that is an acceptable Windows file name)
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H_%M_%S')
+    # Relative file path where backup data will be stored
     backup_path = './{}/{}.{}'.format(bd, timestamp, extension)
 
     # save_data(backup_data, path=backup_path)
+
+    # Write the data
     with open(backup_path, 'w') as save_file:
         save_file.write(str(backup_data))
+    # Print backup info
     print('Backup saved to '+backup_path)
     if compress:
         print('{} characters; compressed to {} characters ({}%)'.format(original_length, compressed_length, round(compressed_length / original_length * 100)))
