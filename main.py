@@ -5,6 +5,7 @@ import datetime
 from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 import uuid
+from pathlib import Path
 
 import termtables as tt
 
@@ -23,6 +24,7 @@ class Aliases:
     deselect = ['d', 'deselect']
     archive = ['z', 'archive', 'store', 'arch']
     remove = ['remove', 'delete']
+    backup = ['b', 'save', 'backup']
 
     task = ['t', 'task', 'todo']
     tag = ['@', 'tag', 'label']
@@ -269,6 +271,14 @@ def run_command(text):
             task.archived = True
         print('Archived {} tasks'.format(len(Session.selection)))
         save_all()
+    elif first in Aliases.backup:
+        bd = session_data.settings['backup_dir']
+        Path('./'+bd).mkdir(parents=True, exist_ok=True)
+        # timestamp = str(datetime.datetime.now())
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H_%M_%S')
+        backup_path = './{}/{}.json'.format(bd, timestamp)
+        save_data(jsonify(), path=backup_path)
+        print('Backup saved to '+backup_path)
     elif first in Aliases.remove:
         store_command(remove_tasks(Session.selection))
     # Spend some time sorting tasks to rank their importance/other properties
