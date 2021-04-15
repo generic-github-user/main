@@ -49,6 +49,13 @@ class session_data:
     else:
         tags = []
 
+    if 'settings' not in ld:
+        settings = {
+            'backup_dir': 'cq_backup'
+        }
+    else:
+        settings = ld['settings']
+
     # are these local?
 
 def save_all():
