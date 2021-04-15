@@ -57,6 +57,8 @@ class Task:
             'history': [],
             'ranked': []
         }
+        if hasattr(self, 'dateparse'):
+            self.dateparse = str(self.dateparse)
 
     def update(self):
         if hasattr(self, 'duration') and hasattr(self, 'importance') and self.duration != 0:
