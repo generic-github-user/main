@@ -207,6 +207,19 @@ def run_command(text):
             )
         else:
             print('Nothing is selected')
+    elif first in Aliases.select:
+        if arg_num == 1:
+            Session.selection = Session.context
+        elif c[1] in Aliases.all:
+            for t in session_data.tasks:
+                Session.selection.append(t)
+        else:
+            def sf(task):
+                search_term = c[1].lower()
+                return (search_term in task.content.lower()) or (search_term in task.name.lower())
+            results = search(sf)
+            Session.selection = results
+            Session.context = results
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
