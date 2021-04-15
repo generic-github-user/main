@@ -5,6 +5,7 @@ import datetime
 from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 import uuid
+from pathlib import Path
 
 import termtables as tt
 
@@ -22,6 +23,8 @@ class Aliases:
     select = ['s', 'sel', 'select', 'selection']
     deselect = ['d', 'deselect']
     archive = ['z', 'archive', 'store', 'arch']
+    remove = ['remove', 'delete']
+    backup = ['b', 'save', 'backup']
 
     task = ['t', 'task', 'todo']
     tag = ['@', 'tag', 'label']
@@ -48,20 +51,33 @@ class session_data:
     else:
         tags = []
 
+    if 'settings' not in ld:
+        settings = {
+            'backup_dir': 'cq_backup'
+        }
+    else:
+        settings = ld['settings']
+
     # are these local?
 
-def save_all():
+def jsonify():
     save_buffer = {
         'tasks': [],
-        'tags': []
+        'tags': [],
+        'settings': {}
     }
     # Loop through all tasks in memory
     for task in session_data.tasks:
         save_buffer['tasks'].append(task.as_dict(compressed=True))
     for tag in session_data.tags:
         save_buffer['tags'].append(tag.as_dict(compressed=True))
+    save_buffer['settings'] = session_data.settings
+
+    return save_buffer
+
+def save_all():
     # moved this out of the loop
-    save_data(data=save_buffer)
+    save_data(data=jsonify())
 
 save_all()
 
@@ -129,6 +145,19 @@ def add_task(task):
     def reverse():
         session_data.tasks.remove(task)
         print('Reverted add task')
+
+    return reverse
+
+def remove_tasks(task_list):
+    for task in task_list:
+        session_data.tasks.remove(task)
+    print('Removed {} tasks'.format(len(task_list)))
+    save_all()
+
+    def reverse():
+        for task in task_list:
+            session_data.tasks.append(task)
+        print('Action undone')
 
     return reverse
 
@@ -242,6 +271,16 @@ def run_command(text):
             task.archived = True
         print('Archived {} tasks'.format(len(Session.selection)))
         save_all()
+    elif first in Aliases.backup:
+        bd = session_data.settings['backup_dir']
+        Path('./'+bd).mkdir(parents=True, exist_ok=True)
+        # timestamp = str(datetime.datetime.now())
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H_%M_%S')
+        backup_path = './{}/{}.json'.format(bd, timestamp)
+        save_data(jsonify(), path=backup_path)
+        print('Backup saved to '+backup_path)
+    elif first in Aliases.remove:
+        store_command(remove_tasks(Session.selection))
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
