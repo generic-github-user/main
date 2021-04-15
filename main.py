@@ -200,8 +200,10 @@ def print_tasks(tasks):
 
 def backup(compress=False, compress_level=6):
     backup_data = json.dumps(jsonify()).encode('utf-8')
+    original_length = len(backup_data)
     if compress:
         backup_data = base64.b64encode(zlib.compress(backup_data, level=compress_level))
+        compressed_length = len(backup_data)
         extension = 'txt'
     else:
         extension = 'json'
@@ -216,6 +218,10 @@ def backup(compress=False, compress_level=6):
     with open(backup_path, 'w') as save_file:
         save_file.write(str(backup_data))
     print('Backup saved to '+backup_path)
+    if compress:
+        print('{} characters; compressed to {} characters ({}%)'.format(original_length, compressed_length, round(compressed_length / original_length * 100)))
+    else:
+        print('{} characters written'.format(original_length))
 
 def run_command(text):
     cmd_parts = text.split()
