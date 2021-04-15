@@ -58,6 +58,10 @@ class Task:
             'ranked': []
         }
 
+    def update(self):
+        if hasattr(self, 'duration') and hasattr(self, 'importance') and self.duration != 0:
+            self.efficiency_ratio = self.importance['calculated'] / self.duration
+
     # there might be a bug here where some of the properties are misaligned with their values...
 
     # is name dict reserved?
@@ -96,4 +100,5 @@ class Task:
         else:
             pass
 
+        self.update()
         return self
