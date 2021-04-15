@@ -138,6 +138,14 @@ def remove_tasks(task_list):
         session_data.tasks.remove(task)
     print('Removed {} tasks'.format(len(task_list)))
     save_all()
+
+    def reverse():
+        for task in task_list:
+            session_data.tasks.append(task)
+        print('Action undone')
+
+    return reverse
+
 def add_tag(tag):
     session_data.tags.append(tag)
     Session.context = [tag]
