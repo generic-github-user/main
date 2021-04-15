@@ -187,16 +187,26 @@ def run_command(text):
             store_command(add_tag(new_tag))
     # Search for certain tasks
     elif first in Aliases.find:
-        if c[1] in Aliases.all:
+        if arg_num == 1 or c[1] in Aliases.select:
+            sr = Session.selection
+            search_results = []
+            for i, task in enumerate(sr):
+                search_results.append([(i+1), task.name, task.content])
+        elif c[1] in Aliases.all:
             search_results = []
             for i, task in enumerate(session_data.tasks):
                 search_results.append([(i+1), task.name, task.content])
+            Session.context = search_results
+
+        if len(search_results) > 0:
             table_header = ('#', 'Name', 'Content')
             tt.print(
                 search_results,
                 header=table_header,
                 padding=(0, 1)
             )
+        else:
+            print('Nothing is selected')
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
