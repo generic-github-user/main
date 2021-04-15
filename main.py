@@ -111,6 +111,10 @@ def rank():
 
 command_buffer = []
 
+class Session:
+    selection = []
+    context = []
+
 def store_command(undo_function):
     command_buffer.append(undo_function)
     if len(command_buffer) > Settings.command_buffer_size:
@@ -118,6 +122,7 @@ def store_command(undo_function):
 
 def add_task(task):
     session_data.tasks.append(task)
+    Session.context = [task]
     save_all()
 
     def reverse():
@@ -128,6 +133,7 @@ def add_task(task):
 
 def add_tag(tag):
     session_data.tags.append(tag)
+    Session.context = [tag]
     save_all()
 
     def reverse():
