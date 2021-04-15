@@ -165,10 +165,11 @@ def search(search_func):
     return list(filter(search_func, session_data.tasks))
 
 def run_command(text):
-    cmd_parts = text.split(' ')
+    cmd_parts = text.split()
     first = cmd_parts[0]
     c = cmd_parts
     t = text
+    arg_num = len(cmd_parts)
 
     # Add a new task
     if first in Aliases.add:
