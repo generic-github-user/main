@@ -161,6 +161,9 @@ def get_arg(command, labels):
 
     return p, arg_string
 
+def search(search_func):
+    return list(filter(search_func, session_data.tasks))
+
 def run_command(text):
     cmd_parts = text.split(' ')
     first = cmd_parts[0]
