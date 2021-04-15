@@ -14,11 +14,13 @@ from tag import *
 
 class Aliases:
     add = ['a', '.', 'add', 'create', 'make', 'new']
-    find = ['f', 'list', 'find', 'show', 'search']
+    find = ['f', 'list', 'find', 'show', 'search', 'print']
     all = ['e', '*', 'all', 'any', 'everything']
     rank = ['r', 'order', 'sort', 'vote', 'arrange', 'rank']
     exit = ['q', 'exit', 'quit', 'leave', 'stop', 'goodbye', 'shutdown', 'end', 'close', 'bye']
     undo = ['u', 'undo', 'reverse', 'rollback']
+    select = ['s', 'sel', 'select', 'selection']
+    deselect = ['d', 'deselect']
 
     task = ['t', 'task', 'todo']
     tag = ['@', 'tag', 'label']
