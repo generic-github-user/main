@@ -171,7 +171,8 @@ def run_command(text):
             new_task = Task(content=content, datestring=date_string, durationstring=duration_string)
             store_command(add_task(new_task))
         elif c[1] in Aliases.tag:
-            new_tag = Tag(name=c[2])
+            tag_name = ' '.join(c[2:])
+            new_tag = Tag(name=tag_name)
             store_command(add_tag(new_tag))
     # Search for certain tasks
     elif first in Aliases.find:
