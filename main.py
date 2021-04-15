@@ -21,6 +21,7 @@ class Aliases:
     undo = ['u', 'undo', 'reverse', 'rollback']
     select = ['s', 'sel', 'select', 'selection']
     deselect = ['d', 'deselect']
+    archive = ['z', 'archive', 'store', 'arch']
 
     task = ['t', 'task', 'todo']
     tag = ['@', 'tag', 'label']
@@ -227,13 +228,20 @@ def run_command(text):
         else:
             def sf(task):
                 search_term = c[1].lower()
-                return (search_term in task.content.lower()) or (search_term in task.name.lower())
+                return (search_term in task.content.lower()) or (search_term in task.name.lower()) and (not task.archived_())
             results = search(sf)
             Session.selection = results
             Session.context = results
+
+        print_tasks(Session.selection)
     elif first in Aliases.deselect:
         print('Deselected {} tasks'.format(len(Session.selection)))
         Session.selection = []
+    elif first in Aliases.archive:
+        for task in Session.selection:
+            task.archived = True
+        print('Archived {} tasks'.format(len(Session.selection)))
+        save_all()
     # Spend some time sorting tasks to rank their importance/other properties
     elif first in Aliases.rank:
         for i in range(int(c[1])):
