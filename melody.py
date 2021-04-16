@@ -33,3 +33,10 @@ class Melody:
                 time.sleep(part.seconds(tempo))
                 if clip:
                     part.stop()
+
+    def step(self, change):
+        for part in self.sequence:
+            part.step(change)
+        return self
+
+    shift = step
