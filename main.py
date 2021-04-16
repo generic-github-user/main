@@ -67,13 +67,19 @@ def midi_note(note_name, octave=None):
 
 print(midi_note('D',8))
 
-def scale(start, steps):
+def scale(start, steps, use_chord=False, chord_size=3):
     player.set_instrument(0)
+
+    if type(start) is str:
+        start = midi_note(start)
 
     # for i in [range(0, steps) + range(steps, 0)]:
     # print(list(chain(range(0, steps), range(steps, 0, -1))))
     for i in list(chain(range(0, steps), range(steps, 0, -1))):
-        player.note_on(start+i, 127)
+        if use_chord:
+            chord(start+i, num=chord_size)
+        else:
+            player.note_on(start+i, 127)
         time.sleep(0.20)
 
 
