@@ -47,6 +47,9 @@ pg.mixer.set_num_channels(20)
 # del player
 # pg.midi.quit()
 
+note_list = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
+note_list = [n.split('/') for n in note_list.split(',')]
+num_notes = len(note_list)
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
