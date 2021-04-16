@@ -79,6 +79,11 @@ class Composition:
                 return base
         return -1
 
+    def note_name(self, midi, simple=False):
+        k = 12
+        # print(self.notes[(midi % k)])
+        return '/'.join(self.notes[(midi % k)]) + '.' + str(midi // k)
+
     # print(midi_note('D',8))
 
     def play_note(self, pitch, velocity=127):
