@@ -1,9 +1,13 @@
 class Note:
-    def __init__(self, pitch, player=None, velocity=120, length=1/8):
+    def __init__(self, pitch, player=None, velocity=120, length=1/8, key=None):
         self.pitch = pitch
         self.velocity = velocity
         self.length = length
         self.player = player
+
+        if key:
+            self.update_key(key)
+
     def seconds(self, tempo):
         # beats * (beats / minute) = beats * beats / 60 seconds
         return self.length * (tempo / 60)
