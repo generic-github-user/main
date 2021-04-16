@@ -6,6 +6,8 @@ import pygame as pg
 import time
 import pygame.midi
 
+from itertools import chain
+
 audio_path = './Middle_C.mp3'
 # playsound.playsound(audio_path)
 
@@ -48,11 +50,18 @@ pg.mixer.set_num_channels(20)
 
 pg.midi.init()
 player = pg.midi.Output(0)
-player.set_instrument(0)
 
-for i in range(20):
-    player.note_on(60+i, 127)
-    time.sleep(0.20)
+notes = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
+notes = [n.split('/') for n in notes.split(',')]
+print(notes)
+
+def midi_note(note_name, octave):
+    for i, note in enumerate(notes):
+        if note_name in note:
+            return ((octave + 2) * len(notes)) + i
+
+print(midi_note('D',8))
+
 def scale(start, steps):
     player.set_instrument(0)
 
