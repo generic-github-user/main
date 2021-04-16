@@ -122,6 +122,13 @@ class Note:
                 self.pitch.step(-0.5)
             elif acc == '^' or acc == '#':
                 self.pitch.step(+0.5)
+    def info(self):
+        self.pitch.info()
+        print()
+        for w in ['key', 'velocity', 'length']:
+            value = getattr(self, w)
+            print(w + ': ' + str(value))
+
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
