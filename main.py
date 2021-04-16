@@ -110,6 +110,18 @@ class Note:
         return self.length * (tempo / 60)
     def play(self):
         self.player.note_on(self.pitch.midi, self.velocity)
+    def update_key(self, key):
+        self.key = key
+        self.key_notes = [n[0] for n in self.key]
+
+        natural = self.pitch.natural
+        # print(natural)
+        if natural in self.key_notes:
+            acc = self.key[self.key_notes.index(natural)][1]
+            if acc == '_':
+                self.pitch.step(-0.5)
+            elif acc == '^' or acc == '#':
+                self.pitch.step(+0.5)
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
