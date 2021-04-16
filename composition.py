@@ -180,9 +180,11 @@ class Composition:
         Chord(Pitch(32, ptype='natural'), player=self.p, key=self.key, num=3).play()
 
         time.sleep(1)
-        self.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=3)
-        time.sleep(1)
-        self.scale('B_.3', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=5)
+        # self.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=False)
+        for i in range(1, 5):
+            print('Playing chord with {} simultaneous notes'.format(i))
+            self.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=i)
+            time.sleep(1)
 
         time.sleep(5)
 
