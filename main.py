@@ -213,19 +213,31 @@ class Composition:
         return base
 
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
-        if type(start) is str:
-            start = self.midi_note(start)
-        # start = 7
+        # if type(start) is str:
+        #     start = self.midi_note(start)
+        # start = 59
+        # start = (8*5)
+
+        start = Note(Pitch(start))
+        start = start.pitch.nat
 
         # for i in [range(0, steps) + range(steps, 0)]:
         # print(list(chain(range(0, steps), range(steps, 0, -1))))
-        for i in list(chain(range(0, steps), range(steps, 0, -1))):
+        # s = steps + 1
+        for i in list(chain(range(0, steps), range(steps, -1, -1))):
             if use_chord:
                 self.chord(start+i, num=chord_size)
             else:
                 # self.player.note_on(self.adjust_pitch(start+i), velocity)
                 # print(start+i)
-                self.play_note(pitch=start+i)
+                # self.play_note(pitch=start+i)
+                # self.play_note(note=Note(Pitch(start+i,type='natural')))
+
+                nnote = Note(Pitch(start+i, ptype='natural'), self.player)
+                # nnote.pitch.info()
+                # nnote.play()
+
+                self.play_note(nnote)
             time.sleep(note_length)
 
 
