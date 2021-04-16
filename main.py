@@ -108,6 +108,8 @@ class Note:
         self.player = player
     def seconds(self, tempo):
         return self.length * (tempo / 60)
+    def play(self):
+        self.player.note_on(self.pitch.midi, self.velocity)
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
