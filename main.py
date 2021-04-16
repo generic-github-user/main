@@ -81,8 +81,16 @@ class Composition:
 
     # print(midi_note('D',8))
 
-    # def play_note(self):
-    #
+    def play_note(self, pitch, velocity=127):
+        if type(pitch) is int:
+            # base = self.get_base(pitch)
+            base = round(pitch * (2/3))
+            base = self.get_base(base)
+            # print(base)
+            if base in self.key_notes:
+                pitch += self.accidentals[self.key[self.key_notes.index(base)][1]]
+            print((self.note_name(pitch), pitch))
+            self.player.note_on(pitch, velocity)
 
     def adjust_pitch(self, note):
         if any([((note - m) % 12 == 0) for m in (1, 3, 6, 8, 10)]):
