@@ -15,8 +15,10 @@ class Melody:
             self.sequence.append(next_note)
         return self
 
-    def play(self, player, tempo=120):
+    def play(self, player, tempo=120, clip=True):
         for part in self.sequence:
             part.play(player)
             if type(part) is Note:
                 time.sleep(part.seconds(tempo))
+                if clip:
+                    part.stop()
