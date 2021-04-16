@@ -14,6 +14,9 @@ class Chord:
             start = start.pitch.nat
         elif type(start) is Pitch:
             start = start.nat
+        elif type(start) is str:
+            start = Note(start)
+            start = start.pitch.nat
 
         for n in range(num):
             pitch = start + (offset * n)
