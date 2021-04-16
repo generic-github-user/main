@@ -138,6 +138,22 @@ class Note:
             value = getattr(self, w)
             print(w + ': ' + str(value))
 
+class Melody:
+    def __init__(self):
+        self.notes = []
+
+    def randomize(self, length):
+        for n in range(length):
+            # next_note = Note(random.choice(naturals))
+            next_note = Note(Pitch(random.randint(40, 60), ptype='natural'))
+            self.notes.append(next_note)
+        return self
+
+    def play(self, player):
+        for note in self.notes:
+            note.play(player)
+            time.sleep(0.1)
+
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
