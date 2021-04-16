@@ -33,6 +33,8 @@ class Note:
                 self.pitch.step(-0.5)
             elif acc == '^' or acc == '#':
                 self.pitch.step(+0.5)
+    def step(self, change):
+        self.pitch.step(change)
     def info(self):
         self.pitch.info()
         print()
