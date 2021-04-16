@@ -39,29 +39,56 @@ class Composition:
         self.main_melody = Melody(key=self.key)
         print(self.main_melody.sequence)
 
-    def gen(self, current=0, depth=2, pls=None):
+    def gen(self, current=0, depth=3, pls=None, reuse_prob=None):
         # print(current)
         new_section = Melody(key=self.key)
         pl = random.randint(*pls[current])
+        print(pl)
         if current < depth:
-            for b in range(pl):
-                new_section.add(self.gen(current=current+1, pls=pls))
+            potential_melodies = self.sections_[current]
+            # Randomly select an existing melody from this level of the tree
+            if random.uniform(0,1) < reuse_prob[current] and len(potential_melodies) > 0:
+                # does this need to be cloned?
+                rep_section = random.choice(potential_melodies)#.clone()
+                for b in range(pl):
+                    new_section.add(rep_section)
+            # Otherwise, create a new melody (and submelodies, possibly) and add to the list
+            else:
+                # print('a', current)
+                # why doesn't this work?
+                # subsection = self.gen(current=current+1, pls=pls, reuse_prob=reuse_prob, depth=depth)#.clone()
+                # print('sb', subsection)
+                for b in range(pl // 2 + 1):
+                    subsection = self.gen(current=current+1, pls=pls, reuse_prob=reuse_prob, depth=depth)
+                    new_section.add(subsection)
+                    self.sections_[current].append(subsection)
         # Bottom level is reached
         elif current == depth:
+            # does this need to be turned off ?
             new_section = Melody(key=self.key).randomize(length=pl)
 
+
+            # alternatively, randomly select for each bottom-level melody it should be newly generated
+
+            # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(3, 6), (4, 6), (2,3)]):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,4)], reuse_prob=[0.5,0.5,0.5,0.5,0.5,0.5]):
         """Generate a random piece of music based on a set of structural parameters"""
 
+        # 2 or 3?
+        depth = 5
+        self.sections_ = [[] for d in range(depth)]
+
         # for g in range(6):
-        self.main_melody.add(self.gen(pls=part_lengths))
+        self.main_melody.add(self.gen(pls=part_lengths, depth=depth, reuse_prob=reuse_prob))
             # rand_melody = Melody(key=self.key)
             # rand_melody.randomize(3)
             # self.main_melody.sequence.append(rand_melody.clone().randomize(3))
         print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
+        print([len(h) for h in self.sections_])
         self.main_melody.print_tree()
+        # breakpoint()
 
     def play_(self):
         self.play_melody(self.main_melody)
