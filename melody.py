@@ -57,3 +57,7 @@ class Melody:
         print(('\t'*l)+str(l))
         for t in self.sequence:
             t.print_tree(l=l+1)
+
+    def reverse(self):
+        self.sequence.reverse()
+        return self
