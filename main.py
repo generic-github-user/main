@@ -109,7 +109,9 @@ class Note:
     def seconds(self, tempo):
         # beats * (beats / minute) = beats * beats / 60 seconds
         return self.length * (tempo / 60)
-    def play(self):
+    def play(self, player=None):
+        if player:
+            self.player = player
         # Turn on note using midi pitch and velocity
         self.player.note_on(self.pitch.midi, self.velocity)
     def update_key(self, key):
