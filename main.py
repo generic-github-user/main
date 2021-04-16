@@ -44,6 +44,23 @@ pg.mixer.set_num_channels(20)
 #
 # del player
 # pg.midi.quit()
+
+
+pg.midi.init()
+player = pg.midi.Output(0)
+player.set_instrument(0)
+
+for i in range(20):
+    player.note_on(60+i, 127)
+    time.sleep(0.20)
+
+del player
+pg.midi.quit()
+
+
+# TODO: evolved music composition
+
+
 # sound = AudioSegment.from_file(audio_path)
 # octaves = 0.5
 # new_sample_rate = int(sound.frame_rate * (2.0 ** octaves))
