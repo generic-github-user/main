@@ -53,6 +53,17 @@ player.set_instrument(0)
 for i in range(20):
     player.note_on(60+i, 127)
     time.sleep(0.20)
+def scale(start, steps):
+    player.set_instrument(0)
+
+    # for i in [range(0, steps) + range(steps, 0)]:
+    # print(list(chain(range(0, steps), range(steps, 0, -1))))
+    for i in list(chain(range(0, steps), range(steps, 0, -1))):
+        player.note_on(start+i, 127)
+        time.sleep(0.20)
+
+
+scale(60, 20)
 
 del player
 pg.midi.quit()
