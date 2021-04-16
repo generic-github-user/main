@@ -1,11 +1,14 @@
+import time
+
 from note import *
 from pitch import *
 
 class Chord:
-    def __init__(self, start, player=None, num=3, offset=2, key=None):
+    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1):
         self.notes = []
         self.player = player
         self.key = key
+        self.length = length
 
         if type(start) is Note:
             start = start.pitch.nat
@@ -23,3 +26,5 @@ class Chord:
             self.player = player
         for note in self.notes:
             note.play(player=self.player)
+        # TODO:
+        time.sleep(self.length)
