@@ -13,6 +13,7 @@ class Composition:
     def __init__(self, key='B_,E_', instrument=0):
         pg.midi.init()
         self.player = pg.midi.Output(0)
+        self.p = self.player
 
         self.notes = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
         self.notes = [n.split('/') for n in self.notes.split(',')]
@@ -53,7 +54,7 @@ class Composition:
 
     def generate(self, part_lengths=[(3, 6), (4, 6), (1,3)]):
         """Generate a random piece of music based on a set of structural parameters"""
-        
+
         # for g in range(6):
         self.main_melody.add(self.gen(pls=part_lengths))
             # rand_melody = Melody(key=self.key)
@@ -139,7 +140,6 @@ class Composition:
         #     start = self.midi_note(start)
         # start = 59
         # start = (8*5)
-
         start = Note(Pitch(start))
         start = start.pitch.nat
 
@@ -149,27 +149,41 @@ class Composition:
         for i in list(chain(range(0, steps), range(steps, -1, -1))):
             if use_chord:
                 # self.chord(start+i, num=chord_size)
-                nnote = Chord(Pitch(start+i, ptype='natural'), self.player, key=self.key)
-                self.play(nnote)
+
+                nnote = Chord(Pitch(start+i, ptype='natural'), player=self.player, key=self.key, length=0.2)
+                # self.play(nnote)
+                nnote.play()
             else:
                 # self.player.note_on(self.adjust_pitch(start+i), velocity)
                 # print(start+i)
                 # self.play_note(pitch=start+i)
                 # self.play_note(note=Note(Pitch(start+i,type='natural')))
 
-                nnote = Note(Pitch(start+i, ptype='natural'), self.player)
                 # nnote.pitch.info()
                 # nnote.play()
 
+                nnote = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key)
                 self.play(nnote)
-            time.sleep(note_length)
+            # time.sleep(note_length)
 
     def play(self, content):
         if type(content) is Melody:
             self.play_melody(content)
         elif type(content) is Note:
             self.play_note(content)
+        # self.play chord?
 
+    def demo(self):
+        Chord(Pitch(30, ptype='natural'), player=self.p, key=self.key, num=3).play()
+        Chord(Pitch(30, ptype='natural'), player=self.p, key=self.key, num=5).play()
+        Chord(Pitch(32, ptype='natural'), player=self.p, key=self.key, num=3).play()
+
+        time.sleep(1)
+        self.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=3)
+        time.sleep(1)
+        self.scale('B_.3', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=5)
+
+        time.sleep(5)
 
     # scale(60, 20)
 
