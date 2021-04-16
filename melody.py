@@ -25,7 +25,7 @@ class Melody:
                 # quantize = 4 -> [0.25, 0.5, 0.75, 1.0]
                 possible_lengths = [r/quantize for r in range(1, quantize)]
             rand_length = min(possible_lengths, key=lambda x: abs(rand_length - x))
-            print(rand_length)
+            # print(rand_length)
 
             # next_note = Note(random.choice(naturals))
             next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key)
@@ -49,3 +49,6 @@ class Melody:
 
     def clone(self):
         return copy.deepcopy(self)
+
+    def add(self, x):
+        self.sequence.append(x)
