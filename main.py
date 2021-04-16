@@ -60,8 +60,9 @@ pg.mixer.set_num_channels(20)
 comp = Composition(key='B_,E_')
 # comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
 
-m = Melody().randomize(length=50)
-comp.play_melody(m)
+m = Melody().randomize(length=5)
+# comp.play_melody(m)
+comp.repeat_melody(m, n=4)
 
 time.sleep(1)
 comp.end()

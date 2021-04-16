@@ -2,6 +2,7 @@ import pygame as pg
 
 from note import *
 from pitch import *
+from melody import *
 
 class Composition:
     def __init__(self, key='B_,E_'):
@@ -22,7 +23,7 @@ class Composition:
             '_': -1
         }
 
-        self.tempo = 100
+        self.tempo = 160
 
         h = Note(Pitch((3*8)+5, ptype='natural'), self.player)
         h.update_key(self.key)
@@ -87,7 +88,11 @@ class Composition:
         return base
 
     def play_melody(self, melody):
-        melody.play(self.player)
+        melody.play(self.player, tempo=self.tempo)
+
+    def repeat_melody(self, melody, n):
+        parent_melody = Melody([melody] * n)
+        self.play_melody(parent_melody)
 
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
         # if type(start) is str:
