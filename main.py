@@ -58,11 +58,12 @@ pg.init()
 
 
 comp = Composition(key='B_,E_', instrument=0)
-# comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
+comp.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=3)
 
-m = Melody().randomize(length=5)
+# m = Melody().randomize(length=5)
+# comp.repeat_melody(m, n=4)
+
 # comp.play_melody(m)
-comp.repeat_melody(m, n=4)
 
 time.sleep(1)
 comp.end()

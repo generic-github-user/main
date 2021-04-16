@@ -1,8 +1,10 @@
 import pygame as pg
+from itertools import chain
 
 from note import *
 from pitch import *
 from melody import *
+from chord import *
 
 class Composition:
     def __init__(self, key='B_,E_', instrument=0):
@@ -65,6 +67,8 @@ class Composition:
             note.update_key(self.key)
             note.info()
             note.play()
+        elif type(note) is Chord:
+            note.play()
 
     def adjust_pitch(self, note):
         if any([((note - m) % 12 == 0) for m in (1, 3, 6, 8, 10)]):
@@ -108,7 +112,9 @@ class Composition:
         # s = steps + 1
         for i in list(chain(range(0, steps), range(steps, -1, -1))):
             if use_chord:
-                self.chord(start+i, num=chord_size)
+                # self.chord(start+i, num=chord_size)
+                nnote = Chord(Pitch(start+i, ptype='natural'), self.player, key=self.key)
+                self.play_note(nnote)
             else:
                 # self.player.note_on(self.adjust_pitch(start+i), velocity)
                 # print(start+i)
