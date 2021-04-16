@@ -1,6 +1,12 @@
+from pitch import *
+
 class Note:
-    def __init__(self, pitch, player=None, velocity=120, length=1/8, key=None):
-        self.pitch = pitch
+    def __init__(self, pitch, player=None, velocity=120, length=1/8, key=None, ptype='midi'):
+        if type(pitch) is Pitch:
+            self.pitch = pitch
+        elif type(pitch) in [str, int]:
+            self.pitch = Pitch(pitch, ptype)
+
         self.velocity = velocity
         self.length = length
         self.player = player
