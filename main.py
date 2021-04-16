@@ -44,3 +44,28 @@ pg.mixer.set_num_channels(20)
 #
 # del player
 # pg.midi.quit()
+# sound = AudioSegment.from_file(audio_path)
+# octaves = 0.5
+# new_sample_rate = int(sound.frame_rate * (2.0 ** octaves))
+# chipmunk_sound = sound._spawn(sound.raw_data, overrides={'frame_rate': new_sample_rate})
+# chipmunk_ready_to_export = chipmunk_sound.set_frame_rate(44100)
+
+# import soundfile as sf
+# import pyrubberband as pyrb
+# y, sr = sf.read(audio_path)
+# # Play back at double speed
+# y_stretch = pyrb.time_stretch(y, sr, 2.0)
+# # Play back two semi-tones higher
+# y_shift = pyrb.pitch_shift(y, sr, 2)
+
+
+# import numpy as np
+# import sox
+# # sample rate in Hz
+# sample_rate = 44100
+# # generate a 1-second sine tone at 440 Hz
+# y = np.sin(2 * np.pi * 440.0 * np.arange(sample_rate * 1.0) / sample_rate)
+# # create a transformer
+# tfm = sox.Transformer()
+# # shift the pitch up by 2 semitones
+# tfm.pitch(2)
