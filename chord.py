@@ -19,24 +19,24 @@ class Chord:
             start = Note(start, ptype='natural')
             start = start.pitch.nat
 
+
+        def cn(pitch):
+            chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key)
+            self.notes.append(chord_note)
+            # step?
+
         if custom:
             for b in custom:
-                pitch = start + b
-                chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key)
-                self.notes.append(chord_note)
-                # TODO
+                cn(start + b)
         elif interval:
             x, y, z = interval
             for c in range(x, y+1, z):
-                pitch = start + c
-                chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key)
-                self.notes.append(chord_note)
+                cn(start + c)
         elif num:
             for n in range(num):
-                pitch = start + (offset * n)
-                chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key)
-                self.notes.append(chord_note)
-                # step?
+                cn(start + (offset * n))
+
+
 
     def play(self, player=None):
         if player:
