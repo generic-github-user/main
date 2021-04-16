@@ -101,7 +101,7 @@ class Pitch:
             print(w + ': ' + str(value))
 
 class Note:
-    def __init__(self, pitch, player=None, velocity=120, length=0.25):
+    def __init__(self, pitch, player=None, velocity=120, length=1/8):
         self.pitch = pitch
         self.velocity = velocity
         self.length = length
@@ -142,17 +142,17 @@ class Melody:
     def __init__(self):
         self.notes = []
 
-    def randomize(self, length):
+    def randomize(self, length, note_length=(1/16,1/4)):
         for n in range(length):
             # next_note = Note(random.choice(naturals))
-            next_note = Note(Pitch(random.randint(40, 60), ptype='natural'))
+            next_note = Note(Pitch(random.randint(40, 60), ptype='natural'), length=random.uniform(*note_length))
             self.notes.append(next_note)
         return self
 
-    def play(self, player):
+    def play(self, player, tempo=120):
         for note in self.notes:
             note.play(player)
-            time.sleep(0.1)
+            time.sleep(note.seconds(tempo))
 
 class Composition:
     def __init__(self, key='B_,E_'):
