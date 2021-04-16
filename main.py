@@ -55,10 +55,15 @@ notes = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
 notes = [n.split('/') for n in notes.split(',')]
 print(notes)
 
-def midi_note(note_name, octave):
+def midi_note(note_name, octave=None):
+    nn = note_name.split('.')
+    if len(nn) > 1:
+        octave = int(nn[1])
+    nn = nn[0]
     for i, note in enumerate(notes):
-        if note_name in note:
+        if nn in note:
             return ((octave + 2) * len(notes)) + i
+    return -1
 
 print(midi_note('D',8))
 
