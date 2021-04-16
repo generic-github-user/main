@@ -1,5 +1,6 @@
 import pygame as pg
 from itertools import chain
+import copy
 
 from note import *
 from pitch import *
@@ -94,8 +95,9 @@ class Composition:
     def play_melody(self, melody):
         melody.play(self.player, tempo=self.tempo)
 
-    def repeat_melody(self, melody, n):
-        parent_melody = Melody([melody] * n)
+    def repeat_melody(self, melody, n, offset=0):
+        # parent_melody = Melody([melody] * n)
+        parent_melody = Melody([melody.clone().step(offset*j) for j in range(n)], key=self.key)
         self.play_melody(parent_melody)
 
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
