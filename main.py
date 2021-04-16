@@ -61,8 +61,11 @@ comp = Composition(key=mainkey, instrument=0)
 # comp.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=3)
 
 mainkey = mainkey.split(',')
-m = Melody(key=mainkey).randomize(length=5)
-comp.repeat_melody(melody=m, n=4, offset=1)
+# m = Melody(key=mainkey).randomize(length=5)
+# comp.repeat_melody(melody=m, n=4, offset=1)
+
+comp.generate()
+comp.play_()
 
 # comp.play_melody(m)
 

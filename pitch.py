@@ -37,7 +37,7 @@ class Pitch:
         k = 12
         # print(self.notes[(midi % k)])
         midi = self.midi
-        print(midi)
+        # print(midi)
         # return '/'.join(note_list[(midi % k)]) + '.' + str(midi // k)
         return '/'.join(note_list[(midi % k) + 0])
     def info(self):
