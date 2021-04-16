@@ -8,10 +8,21 @@ class Melody:
     def __init__(self, seq=[]):
         self.sequence = seq
 
-    def randomize(self, length, note_length=(1/16,1/4)):
+    def randomize(self, length, note_length=(1/32,1/2), quantize='log2'):
         for n in range(length):
+            rand_length = random.uniform(*note_length)
+            if type(quantize) is str:
+                if quantize == 'log2':
+                    possible_lengths = [1/(2**r) for r in range(0, 5)]
+            else:
+                # Quantize to nearest linear increment
+                # quantize = 4 -> [0.25, 0.5, 0.75, 1.0]
+                possible_lengths = [r/quantize for r in range(1, quantize)]
+            rand_length = min(possible_lengths, key=lambda x: abs(rand_length - x))
+            print(rand_length)
+
             # next_note = Note(random.choice(naturals))
-            next_note = Note(Pitch(random.randint(40, 60), ptype='natural'), length=random.uniform(*note_length))
+            next_note = Note(Pitch(random.randint(40, 60), ptype='natural'), length=rand_length)
             self.sequence.append(next_note)
         return self
 
