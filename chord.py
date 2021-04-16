@@ -17,3 +17,9 @@ class Chord:
             chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key)
             self.notes.append(chord_note)
             # step?
+
+    def play(self, player=None):
+        if player:
+            self.player = player
+        for note in self.notes:
+            note.play(player=self.player)
