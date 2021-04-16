@@ -148,6 +148,12 @@ class Composition:
             '_': -1
         }
 
+        self.tempo = 100
+
+        h = Note(Pitch((3*8)+5, ptype='natural'), self.player)
+        h.update_key(self.key)
+        # h.info()
+
     def midi_note(self, note_name, octave=None):
         nn = note_name.split('.')
         if len(nn) > 1:
@@ -228,9 +234,11 @@ class Composition:
         pg.midi.quit()
 
 
-comp = Composition()
+
+
+comp = Composition(key='B_,E_')
 comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
-time.sleep(10)
+time.sleep(1)
 comp.end()
 # TODO: evolved music composition
 
