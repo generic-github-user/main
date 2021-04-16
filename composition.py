@@ -32,6 +32,21 @@ class Composition:
         h.update_key(self.key)
         # h.info()
 
+        self.main_melody = Melody(key=self.key)
+        print(self.main_melody.sequence)
+
+    def gen(self, current=0, depth=2, pls=None):
+        # print(current)
+        new_section = Melody(key=self.key)
+        pl = random.randint(*pls[current])
+        if current < depth:
+            for b in range(pl):
+                new_section.add(self.gen(current=current+1, pls=pls))
+        # Bottom level is reached
+        elif current == depth:
+            new_section = Melody(key=self.key).randomize(length=pl)
+
+        return new_section
     def midi_note(self, note_name, octave=None):
         nn = note_name.split('.')
         if len(nn) > 1:
