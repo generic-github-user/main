@@ -141,7 +141,7 @@ class Composition:
         #     start = self.midi_note(start)
         # start = 59
         # start = (8*5)
-        start = Note(Pitch(start))
+        start = Note(start)
         start = start.pitch.nat
 
         # for i in [range(0, steps) + range(steps, 0)]:
@@ -151,7 +151,7 @@ class Composition:
             if use_chord:
                 # self.chord(start+i, num=chord_size)
 
-                nnote = Chord(Pitch(start+i, ptype='natural'), player=self.player, key=self.key, length=0.2)
+                nnote = Chord(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
                 # self.play(nnote)
                 nnote.play()
             else:
