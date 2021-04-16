@@ -1,5 +1,6 @@
 import random
 import time
+import copy
 
 from pitch import *
 from note import *
@@ -41,3 +42,6 @@ class Melody:
         return self
 
     shift = step
+
+    def clone(self):
+        return copy.deepcopy(self)
