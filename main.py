@@ -99,6 +99,13 @@ class Pitch:
         for w in ['natural', 'octave', 'midi', 'nat', 'note_name']:
             value = getattr(self, w)
             print(w + ': ' + str(value))
+
+class Note:
+    def __init__(self, pitch, player=None, velocity=120, length=0.25):
+        self.pitch = pitch
+        self.velocity = velocity
+        self.length = length
+        self.player = player
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
