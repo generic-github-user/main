@@ -54,6 +54,7 @@ class Composition:
 
         self.notes = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
         self.notes = [n.split('/') for n in self.notes.split(',')]
+        self.base_notes = list('CDEFGAB')
         print(self.notes)
 
         self.player.set_instrument(0)
@@ -115,6 +116,7 @@ class Composition:
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
         if type(start) is str:
             start = self.midi_note(start)
+        # start = 7
 
         # for i in [range(0, steps) + range(steps, 0)]:
         # print(list(chain(range(0, steps), range(steps, 0, -1))))
@@ -122,7 +124,9 @@ class Composition:
             if use_chord:
                 self.chord(start+i, num=chord_size)
             else:
-                self.player.note_on(self.adjust_pitch(start+i), velocity)
+                # self.player.note_on(self.adjust_pitch(start+i), velocity)
+                # print(start+i)
+                self.play_note(pitch=start+i)
             time.sleep(note_length)
 
 
@@ -137,7 +141,7 @@ class Composition:
 
 
 comp = Composition()
-comp.scale('C.3', 8, velocity=126, note_length=0.2, use_chord=False, chord_size=3)
+comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
 time.sleep(10)
 comp.end()
 # TODO: evolved music composition
