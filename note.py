@@ -12,6 +12,7 @@ class Note:
         self.velocity = velocity
         self.length = length
         self.player = player
+        self.variation = variation
 
         if key:
             self.update_key(key)
@@ -19,7 +20,8 @@ class Note:
     def seconds(self, tempo):
         # beats * (beats / minute) = beats * beats / 60 seconds
         # return self.length * (tempo / 60)
-        return self.length * (60 / tempo) * (1+random.uniform(-variation, variation))
+        v = self.variation
+        return self.length * (60 / tempo) * (1+random.uniform(-v, v))
     def play(self, player=None):
         if player:
             self.player = player
