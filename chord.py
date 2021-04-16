@@ -4,7 +4,7 @@ from note import *
 from pitch import *
 
 class Chord:
-    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1, interval=None, custom=None, variation=0.1):
+    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1, interval=None, custom=None, variation=0.1, ptype='natural'):
         self.notes = []
         self.player = player
         self.key = key
@@ -51,3 +51,6 @@ class Chord:
     def seconds(self, tempo):
         v = self.variation
         return self.length * (60 / tempo) * (1+random.uniform(-v, v))
+
+    def print_tree(self, l):
+        pass

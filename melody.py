@@ -4,6 +4,7 @@ import copy
 
 from pitch import *
 from note import *
+from chord import *
 
 class Melody:
     def __init__(self, seq=None, key=None):
@@ -14,7 +15,7 @@ class Melody:
         self.key = key
         self.level = None
 
-    def randomize(self, length, note_length=(1/32,1/2), quantize='log2'):
+    def randomize(self, length, note_length=(1/32,1/2), quantize='log2', chord=True):
         for n in range(length):
             rand_length = random.uniform(*note_length)
             if type(quantize) is str:
@@ -28,7 +29,13 @@ class Melody:
             # print(rand_length)
 
             # next_note = Note(random.choice(naturals))
-            next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key)
+            if chord:
+                num = random.randint(1,5)
+                offset = 2
+                next_note = Chord(random.randint(30, 50), ptype='natural', length=rand_length, key=self.key, num=num, offset=offset)
+            else:
+                next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key)
+
             self.sequence.append(next_note)
         return self
 
