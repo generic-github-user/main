@@ -69,6 +69,15 @@ class Composition:
 
     # print(midi_note('D',8))
 
+    # def play_note(self):
+    #
+
+    def adjust_pitch(self, note):
+        if any([((note - m) % 12 == 0) for m in (1, 3, 6, 8, 10)]):
+            print(True)
+            note -= 1
+        return note
+
     def chord(self, start, num=3):
         if type(start) is str:
             start = self.midi_note(start)
