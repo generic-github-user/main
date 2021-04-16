@@ -6,9 +6,13 @@ from pitch import *
 from note import *
 
 class Melody:
-    def __init__(self, seq=[], key=None):
-        self.sequence = seq
+    def __init__(self, seq=None, key=None):
+        if seq is None:
+            self.sequence = []
+        else:
+            self.sequence = seq
         self.key = key
+        self.level = None
 
     def randomize(self, length, note_length=(1/32,1/2), quantize='log2'):
         for n in range(length):
