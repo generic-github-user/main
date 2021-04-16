@@ -1,6 +1,7 @@
 import pygame as pg
 from itertools import chain
 import copy
+import random
 
 from note import *
 from pitch import *
@@ -26,7 +27,7 @@ class Composition:
             '_': -1
         }
 
-        self.tempo = 160
+        self.tempo = 120
 
         h = Note(Pitch((3*8)+5, ptype='natural'), self.player)
         h.update_key(self.key)
@@ -47,6 +48,18 @@ class Composition:
             new_section = Melody(key=self.key).randomize(length=pl)
 
         return new_section
+
+    def generate(self, part_lengths=[(3, 6), (4, 6), (1,3)]):
+        # for g in range(6):
+        self.main_melody.add(self.gen(pls=part_lengths))
+            # rand_melody = Melody(key=self.key)
+            # rand_melody.randomize(3)
+            # self.main_melody.sequence.append(rand_melody.clone().randomize(3))
+        print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
+
+    def play_(self):
+        self.play_melody(self.main_melody)
+
     def midi_note(self, note_name, octave=None):
         nn = note_name.split('.')
         if len(nn) > 1:
@@ -131,7 +144,7 @@ class Composition:
             if use_chord:
                 # self.chord(start+i, num=chord_size)
                 nnote = Chord(Pitch(start+i, ptype='natural'), self.player, key=self.key)
-                self.play_note(nnote)
+                self.play(nnote)
             else:
                 # self.player.note_on(self.adjust_pitch(start+i), velocity)
                 # print(start+i)
@@ -142,7 +155,7 @@ class Composition:
                 # nnote.pitch.info()
                 # nnote.play()
 
-                self.play_note(nnote)
+                self.play(nnote)
             time.sleep(note_length)
 
     def play(self, content):
