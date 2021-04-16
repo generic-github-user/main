@@ -20,16 +20,16 @@ audio_path = './Middle_C.mp3'
 pg.mixer.init()
 pg.init()
 
-notes = ['c', 'd', 'a']
-sounds = []
-for i in range(2):
-    note = random.choice(notes)
-    note_path = './piano-{}_{}_major.wav'.format(note, note.upper())
+# notes = ['c', 'd', 'a']
+# sounds = []
+# for i in range(2):
+#     note = random.choice(notes)
+#     note_path = './piano-{}_{}_major.wav'.format(note, note.upper())
     # playsound.playsound(note_path, False)
 
-    sounds.append(pg.mixer.Sound(note_path))
-
-pg.mixer.set_num_channels(20)
+#     sounds.append(pg.mixer.Sound(note_path))
+#
+# pg.mixer.set_num_channels(20)
 
 
 # for s in sounds:
@@ -57,7 +57,7 @@ pg.mixer.set_num_channels(20)
 
 
 
-comp = Composition(key='B_,E_')
+comp = Composition(key='B_,E_', instrument=0)
 # comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
 
 m = Melody().randomize(length=5)

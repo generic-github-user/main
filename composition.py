@@ -5,7 +5,7 @@ from pitch import *
 from melody import *
 
 class Composition:
-    def __init__(self, key='B_,E_'):
+    def __init__(self, key='B_,E_', instrument=0):
         pg.midi.init()
         self.player = pg.midi.Output(0)
 
@@ -14,7 +14,7 @@ class Composition:
         self.base_notes = list('CDEFGAB')
         print(self.notes)
 
-        self.player.set_instrument(0)
+        self.player.set_instrument(instrument)
         self.key = key.split(',')
         self.key_notes = [n[0] for n in self.key]
 
