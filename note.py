@@ -46,3 +46,6 @@ class Note:
         for w in ['key', 'velocity', 'length']:
             value = getattr(self, w)
             print(w + ': ' + str(value))
+
+    def print_tree(self, l):
+        print(('\t'*l)+self.pitch.note_name)

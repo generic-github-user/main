@@ -52,3 +52,8 @@ class Melody:
 
     def add(self, x):
         self.sequence.append(x)
+
+    def print_tree(self, l=0):
+        print(('\t'*l)+str(l))
+        for t in self.sequence:
+            t.print_tree(l=l+1)

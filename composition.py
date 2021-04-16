@@ -52,7 +52,7 @@ class Composition:
 
         return new_section
 
-    def generate(self, part_lengths=[(3, 6), (4, 6), (1,3)]):
+    def generate(self, part_lengths=[(3, 6), (4, 6), (2,3)]):
         """Generate a random piece of music based on a set of structural parameters"""
 
         # for g in range(6):
@@ -61,6 +61,7 @@ class Composition:
             # rand_melody.randomize(3)
             # self.main_melody.sequence.append(rand_melody.clone().randomize(3))
         print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
+        self.main_melody.print_tree()
 
     def play_(self):
         self.play_melody(self.main_melody)
