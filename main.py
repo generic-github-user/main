@@ -288,7 +288,11 @@ class Composition:
 
 
 comp = Composition(key='B_,E_')
-comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
+# comp.scale('B_.3', 16, velocity=126, note_length=0.1, use_chord=False, chord_size=3)
+
+m = Melody().randomize(length=50)
+comp.play_melody(m)
+
 time.sleep(1)
 comp.end()
 # TODO: evolved music composition
