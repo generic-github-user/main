@@ -12,6 +12,10 @@ class Note:
             self.player = player
         # Turn on note using midi pitch and velocity
         self.player.note_on(self.pitch.midi, self.velocity)
+    def stop(self, player=None):
+        if player:
+            self.player = player
+        self.player.note_off(self.pitch.midi, self.velocity)
     def update_key(self, key):
         self.key = key
         # Extract naturals from key
