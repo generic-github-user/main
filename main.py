@@ -237,6 +237,9 @@ class Composition:
         print((base, pitch))
         return base
 
+    def play_melody(self, melody):
+        melody.play(self.player)
+
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
         # if type(start) is str:
         #     start = self.midi_note(start)
@@ -264,6 +267,12 @@ class Composition:
 
                 self.play_note(nnote)
             time.sleep(note_length)
+
+    def play(self, content):
+        if type(content) is Melody:
+            self.play_melody(content)
+        elif type(content) is Note:
+            self.play_note(content)
 
 
     # scale(60, 20)
