@@ -47,59 +47,63 @@ pg.mixer.set_num_channels(20)
 # del player
 # pg.midi.quit()
 
+class Composition:
+    def __init__(self):
+        pg.midi.init()
+        self.player = pg.midi.Output(0)
 
-pg.midi.init()
-player = pg.midi.Output(0)
+        self.notes = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
+        self.notes = [n.split('/') for n in self.notes.split(',')]
+        print(self.notes)
 
-notes = 'C,C^/D_,D,D^/E_,E,F,F^/G_,G,G^/A_,A,A^/B_,B'
-notes = [n.split('/') for n in notes.split(',')]
-print(notes)
+        self.player.set_instrument(0)
+    def midi_note(self, note_name, octave=None):
+        nn = note_name.split('.')
+        if len(nn) > 1:
+            octave = int(nn[1])
+        nn = nn[0]
+        for i, note in enumerate(self.notes):
+            if nn in note:
+                return ((octave + 2) * len(self.notes)) + i
+        return -1
 
-def midi_note(note_name, octave=None):
-    nn = note_name.split('.')
-    if len(nn) > 1:
-        octave = int(nn[1])
-    nn = nn[0]
-    for i, note in enumerate(notes):
-        if nn in note:
-            return ((octave + 2) * len(notes)) + i
-    return -1
+    # print(midi_note('D',8))
 
-print(midi_note('D',8))
+    def chord(self, start, num=3):
+        if type(start) is str:
+            start = self.midi_note(start)
 
-def scale(start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
-    player.set_instrument(0)
+        for n in range(num):
+            self.player.note_on(start+(2*n), 127)
 
-    if type(start) is str:
-        start = midi_note(start)
+    def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
+        if type(start) is str:
+            start = self.midi_note(start)
 
-    # for i in [range(0, steps) + range(steps, 0)]:
-    # print(list(chain(range(0, steps), range(steps, 0, -1))))
-    for i in list(chain(range(0, steps), range(steps, 0, -1))):
-        if use_chord:
-            chord(start+i, num=chord_size)
-        else:
-            player.note_on(start+i, velocity)
-        time.sleep(note_length)
+        # for i in [range(0, steps) + range(steps, 0)]:
+        # print(list(chain(range(0, steps), range(steps, 0, -1))))
+        for i in list(chain(range(0, steps), range(steps, 0, -1))):
+            if use_chord:
+                self.chord(start+i, num=chord_size)
+            else:
+                self.player.note_on(start+i, velocity)
+            time.sleep(note_length)
 
 
-# scale(60, 20)
+    # scale(60, 20)
 
-def chord(start, num=3):
-    if type(start) is str:
-        start = midi_note(start)
-    for n in range(num):
-        player.note_on(start+(2*n), 127)
 
-# chord('C.3', 3)
-scale('C.3', 8, velocity=64, note_length=0.1, use_chord=True, chord_size=3)
+    # chord('C.3', 3)
 
+    def end(self):
+        del self.player
+        pg.midi.quit()
+
+
+comp = Composition()
+comp.scale('C.3', 8, velocity=127, note_length=0.2, use_chord=True, chord_size=3)
 time.sleep(10)
-
-del player
-pg.midi.quit()
-
-
+comp.end()
 # TODO: evolved music composition
 
 
