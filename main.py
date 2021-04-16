@@ -77,7 +77,18 @@ def scale(start, steps):
         time.sleep(0.20)
 
 
-scale(60, 20)
+# scale(60, 20)
+
+def chord(start, num=3):
+    if type(start) is str:
+        start = midi_note(start)
+    for n in range(num):
+        player.note_on(start+(2*n), 127)
+
+# chord('C.3', 3)
+scale('C.3', 8, use_chord=True, chord_size=3)
+
+time.sleep(10)
 
 del player
 pg.midi.quit()
