@@ -94,6 +94,11 @@ class Pitch:
         print(midi)
         # return '/'.join(note_list[(midi % k)]) + '.' + str(midi // k)
         return '/'.join(note_list[(midi % k) + 0])
+    def info(self):
+        print()
+        for w in ['natural', 'octave', 'midi', 'nat', 'note_name']:
+            value = getattr(self, w)
+            print(w + ': ' + str(value))
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
