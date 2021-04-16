@@ -10,7 +10,8 @@ class Note:
 
     def seconds(self, tempo):
         # beats * (beats / minute) = beats * beats / 60 seconds
-        return self.length * (tempo / 60)
+        # return self.length * (tempo / 60)
+        return self.length * (60 / tempo)
     def play(self, player=None):
         if player:
             self.player = player
