@@ -56,12 +56,13 @@ pg.init()
 
 
 
+mainkey = 'B_,E_'
+comp = Composition(key=mainkey, instrument=0)
+# comp.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=3)
 
-comp = Composition(key='B_,E_', instrument=0)
-comp.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=True, chord_size=3)
-
-# m = Melody().randomize(length=5)
-# comp.repeat_melody(m, n=4)
+mainkey = mainkey.split(',')
+m = Melody(key=mainkey).randomize(length=5)
+comp.repeat_melody(melody=m, n=4, offset=1)
 
 # comp.play_melody(m)
 
