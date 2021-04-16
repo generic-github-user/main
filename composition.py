@@ -9,6 +9,7 @@ from melody import *
 from chord import *
 
 class Composition:
+    """A musical arrangement that brings together Melodies and properties such as a key signature, common tempo, etc."""
     def __init__(self, key='B_,E_', instrument=0):
         pg.midi.init()
         self.player = pg.midi.Output(0)
@@ -27,7 +28,8 @@ class Composition:
             '_': -1
         }
 
-        self.tempo = 120
+        self.tempo: int = 120
+        """The tempo of the piece in beats per minute"""
 
         h = Note(Pitch((3*8)+5, ptype='natural'), self.player)
         h.update_key(self.key)
@@ -50,6 +52,8 @@ class Composition:
         return new_section
 
     def generate(self, part_lengths=[(3, 6), (4, 6), (1,3)]):
+        """Generate a random piece of music based on a set of structural parameters"""
+        
         # for g in range(6):
         self.main_melody.add(self.gen(pls=part_lengths))
             # rand_melody = Melody(key=self.key)
@@ -124,11 +128,13 @@ class Composition:
         melody.play(self.player, tempo=self.tempo)
 
     def repeat_melody(self, melody, n, offset=0):
+        """Repeat a melody x times"""
         # parent_melody = Melody([melody] * n)
         parent_melody = Melody([melody.clone().step(offset*j) for j in range(n)], key=self.key)
         self.play_melody(parent_melody)
 
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
+        """Generate a scale given a starting point, number of steps, and information about each note"""
         # if type(start) is str:
         #     start = self.midi_note(start)
         # start = 59
@@ -171,5 +177,6 @@ class Composition:
     # chord('C.3', 3)
 
     def end(self):
+        """Clean up pygame midi handlers"""
         del self.player
         pg.midi.quit()
