@@ -113,6 +113,12 @@ class Composition:
             pitch = start + (2 * n)
             self.player.note_on(self.adjust_pitch(pitch), 127)
 
+    def get_base(self, pitch):
+        rel_index = (pitch + 0) % len(self.base_notes)
+        base = self.base_notes[rel_index]
+        print((base, pitch))
+        return base
+
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
         if type(start) is str:
             start = self.midi_note(start)
