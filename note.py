@@ -1,7 +1,9 @@
+import random
+
 from pitch import *
 
 class Note:
-    def __init__(self, pitch, player=None, velocity=120, length=1/8, key=None, ptype='midi'):
+    def __init__(self, pitch, player=None, velocity=120, length=1/8, key=None, ptype='midi', variation=0.1):
         if type(pitch) is Pitch:
             self.pitch = pitch
         elif type(pitch) in [str, int]:
@@ -17,7 +19,7 @@ class Note:
     def seconds(self, tempo):
         # beats * (beats / minute) = beats * beats / 60 seconds
         # return self.length * (tempo / 60)
-        return self.length * (60 / tempo)
+        return self.length * (60 / tempo) * (1+random.uniform(-variation, variation))
     def play(self, player=None):
         if player:
             self.player = player

@@ -4,11 +4,12 @@ from note import *
 from pitch import *
 
 class Chord:
-    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1, interval=None, custom=None):
+    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1, interval=None, custom=None, variation=0.1):
         self.notes = []
         self.player = player
         self.key = key
         self.length = length
+        self.variation = variation
 
         if type(start) is Note:
             start = start.pitch.nat
@@ -48,4 +49,5 @@ class Chord:
         return self
 
     def seconds(self, tempo):
-        return self.length * (60 / tempo)# * (1+random.uniform(-variation, variation))
+        v = self.variation
+        return self.length * (60 / tempo) * (1+random.uniform(-v, v))
