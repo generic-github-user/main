@@ -67,7 +67,7 @@ def midi_note(note_name, octave=None):
 
 print(midi_note('D',8))
 
-def scale(start, steps, use_chord=False, chord_size=3):
+def scale(start, steps, velocity=127, use_chord=False, chord_size=3):
     player.set_instrument(0)
 
     if type(start) is str:
@@ -79,7 +79,7 @@ def scale(start, steps, use_chord=False, chord_size=3):
         if use_chord:
             chord(start+i, num=chord_size)
         else:
-            player.note_on(start+i, 127)
+            player.note_on(start+i, velocity)
         time.sleep(0.20)
 
 
@@ -92,7 +92,7 @@ def chord(start, num=3):
         player.note_on(start+(2*n), 127)
 
 # chord('C.3', 3)
-scale('C.3', 8, use_chord=True, chord_size=3)
+scale('C.3', 8, velocity=64, use_chord=True, chord_size=3)
 
 time.sleep(10)
 
