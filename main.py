@@ -69,6 +69,19 @@ class Pitch:
                 if p in note:
                     self.midi = ((self.octave + 2) * len(note_list)) + i
                     break
+
+        elif type(pitch) is int:
+            if ptype == 'midi':
+                self.midi = pitch
+            elif ptype == 'natural':
+                self.nat = pitch
+                offset = self.nat % num_naturals
+                self.natural = naturals[offset]
+                self.octave = self.nat // num_naturals
+                self.note_name = self.natural
+                # self.midi = ((self.octave + 0) * len(note_list)) + (self.nat % num_naturals + 2)
+                self.midi = ((self.octave) * num_notes) + note_list.index([self.note_name])
+        self.ptype = ptype
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
