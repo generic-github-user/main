@@ -106,6 +106,8 @@ class Note:
         self.velocity = velocity
         self.length = length
         self.player = player
+    def seconds(self, tempo):
+        return self.length * (tempo / 60)
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
