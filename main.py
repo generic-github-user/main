@@ -48,7 +48,7 @@ pg.mixer.set_num_channels(20)
 # pg.midi.quit()
 
 class Composition:
-    def __init__(self):
+    def __init__(self, key='B_,E_'):
         pg.midi.init()
         self.player = pg.midi.Output(0)
 
@@ -57,6 +57,14 @@ class Composition:
         print(self.notes)
 
         self.player.set_instrument(0)
+        self.key = key.split(',')
+        self.key_notes = [n[0] for n in self.key]
+
+        self.accidentals = {
+            '^': 1,
+            '_': -1
+        }
+
     def midi_note(self, note_name, octave=None):
         nn = note_name.split('.')
         if len(nn) > 1:
@@ -64,7 +72,11 @@ class Composition:
         nn = nn[0]
         for i, note in enumerate(self.notes):
             if nn in note:
-                return ((octave + 2) * len(self.notes)) + i
+                base = ((octave + 2) * len(self.notes)) + i
+                if nn in self.key_notes:
+                    base += self.accidentals[self.key[self.key_notes.index(nn)]]
+                print((nn, base))
+                return base
         return -1
 
     # print(midi_note('D',8))
@@ -83,7 +95,9 @@ class Composition:
             start = self.midi_note(start)
 
         for n in range(num):
-            self.player.note_on(start+(2*n), 127)
+            # self.player.note_on(start+(2*n), 127)
+            pitch = start + (2 * n)
+            self.player.note_on(self.adjust_pitch(pitch), 127)
 
     def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
         if type(start) is str:
@@ -95,7 +109,7 @@ class Composition:
             if use_chord:
                 self.chord(start+i, num=chord_size)
             else:
-                self.player.note_on(start+i, velocity)
+                self.player.note_on(self.adjust_pitch(start+i), velocity)
             time.sleep(note_length)
 
 
@@ -110,7 +124,7 @@ class Composition:
 
 
 comp = Composition()
-comp.scale('C.3', 8, velocity=127, note_length=0.2, use_chord=True, chord_size=3)
+comp.scale('C.3', 8, velocity=126, note_length=0.2, use_chord=False, chord_size=3)
 time.sleep(10)
 comp.end()
 # TODO: evolved music composition
