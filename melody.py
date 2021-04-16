@@ -5,8 +5,9 @@ from pitch import *
 from note import *
 
 class Melody:
-    def __init__(self, seq=[]):
+    def __init__(self, seq=[], key=None):
         self.sequence = seq
+        self.key = key
 
     def randomize(self, length, note_length=(1/32,1/2), quantize='log2'):
         for n in range(length):
@@ -22,11 +23,11 @@ class Melody:
             print(rand_length)
 
             # next_note = Note(random.choice(naturals))
-            next_note = Note(Pitch(random.randint(40, 60), ptype='natural'), length=rand_length)
+            next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key)
             self.sequence.append(next_note)
         return self
 
-    def play(self, player, tempo=120, clip=True):
+    def play(self, player, tempo=60, clip=True):
         for part in self.sequence:
             part.play(player)
             if type(part) is Note:
