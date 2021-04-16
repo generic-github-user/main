@@ -174,10 +174,23 @@ class Composition:
             self.play_note(content)
         # self.play chord?
 
+    # TODO: chord constructor? (would inherit key, tempo, etc. from parent composition)
+    # recommended style/convention for subclass constructors?
+
     def demo(self):
-        Chord(Pitch(30, ptype='natural'), player=self.p, key=self.key, num=3).play()
-        Chord(Pitch(30, ptype='natural'), player=self.p, key=self.key, num=5).play()
-        Chord(Pitch(32, ptype='natural'), player=self.p, key=self.key, num=3).play()
+        k_ = self.key
+        Chord('C.3', custom=[1,5], player=self.p, key=k_).play()
+        Chord('C.3', custom=[3,7], player=self.p, key=k_).play()
+
+        # double-check these
+        Chord('C.3', interval=(0, 6, 1), player=self.p, key=k_).play()
+        Chord('C.3', interval=(0, 6, 2), player=self.p, key=k_).play()
+
+        Chord(Pitch(30, ptype='natural'), player=self.p, key=k_, num=3).play()
+        Chord(Pitch(30, ptype='natural'), player=self.p, key=k_, num=5).play()
+        Chord(Pitch(32, ptype='natural'), player=self.p, key=k_, num=3).play()
+
+        Chord('C.3', player=self.p).play()
 
         time.sleep(1)
         # self.scale('B_.2', 8, velocity=126, note_length=0.2, use_chord=False)
