@@ -53,6 +53,22 @@ num_notes = len(note_list)
 
 naturals = list('CDEFGAB')
 num_naturals = len(naturals)
+
+class Pitch:
+    def __init__(self, pitch, ptype='midi'):
+        if type(pitch) is str:
+            print(True)
+            p = pitch.split('.')
+            if len(p) > 1:
+                self.octave = int(p[1])
+            self.note_name = p[0]
+            self.natural = self.note_name[0]
+            self.nat = ((self.octave + 2) * num_naturals) + naturals.index(self.natural)
+
+            for i, note in enumerate(note_list):
+                if p in note:
+                    self.midi = ((self.octave + 2) * len(note_list)) + i
+                    break
 class Composition:
     def __init__(self, key='B_,E_'):
         pg.midi.init()
