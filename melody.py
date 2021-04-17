@@ -7,21 +7,25 @@ from note import *
 from chord import *
 
 class Melody:
-    def __init__(self, seq=None, key=None):
+    def __init__(self, seq=None, key=None, tempo=100):
         if seq is None:
             self.sequence = []
         else:
             self.sequence = seq
         self.key = key
         self.level = None
+        self.tempo = tempo
 
-    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True):
+    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', temp=(50, 150, 'uniform')):
+        quantize = 4
+        self.tempo = random.randint(*temp[:2])
+
         for n in range(length):
             rand_length = random.uniform(*note_length)
             if type(quantize) is str:
                 if quantize == 'log2':
                     possible_lengths = [1/(2**r) for r in range(0, 5)]
-            else:
+            elif type(quantize) is int:
                 # Quantize to nearest linear increment
                 # quantize = 4 -> [0.25, 0.5, 0.75, 1.0]
                 possible_lengths = [r/quantize for r in range(1, quantize)]
@@ -32,20 +36,24 @@ class Melody:
             if chord:
                 num = random.randint(1,5)
                 offset = 2
-                next_note = Chord(random.randint(30, 50), ptype='natural', length=rand_length, key=self.key, num=num, offset=offset)
+                next_note = Chord(random.randint(25, 45), ptype='natural', length=rand_length, key=self.key, num=num, offset=offset)
             else:
                 next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key)
 
             self.sequence.append(next_note)
         return self
 
-    def play(self, player, tempo=60, clip=True):
+    def play(self, player, tempo=None, clip=True):
+        if tempo is None:
+            tempo = self.tempo
+
         for part in self.sequence:
             part.play(player)
             if type(part) is Note:
                 time.sleep(part.seconds(tempo))
                 if clip:
                     part.stop()
+        time.sleep(0.25)
 
     def step(self, change):
         for part in self.sequence:

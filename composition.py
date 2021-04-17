@@ -148,7 +148,7 @@ class Composition:
         return base
 
     def play_melody(self, melody):
-        melody.play(self.player, tempo=self.tempo)
+        melody.play(self.player)
 
     def repeat_melody(self, melody, n, offset=0):
         """Repeat a melody x times"""
