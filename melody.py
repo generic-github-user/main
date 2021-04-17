@@ -7,7 +7,7 @@ from note import *
 from chord import *
 
 class Melody:
-    def __init__(self, seq=None, key=None, tempo=100):
+    def __init__(self, seq=None, key=None, tempo=100, velocity=100):
         if seq is None:
             self.sequence = []
         else:
@@ -15,10 +15,12 @@ class Melody:
         self.key = key
         self.level = None
         self.tempo = tempo
+        self.velocity = velocity
 
-    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', temp=(50, 150, 'uniform')):
+    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', temp=(50, 150, 'uniform'), vel=(50, 100, 'uniform')):
         quantize = 4
         self.tempo = random.randint(*temp[:2])
+        self.velocity = random.randint(*vel[:2])
 
         for n in range(length):
             rand_length = random.uniform(*note_length)
@@ -36,9 +38,9 @@ class Melody:
             if chord:
                 num = random.randint(1,5)
                 offset = 2
-                next_note = Chord(random.randint(25, 45), ptype='natural', length=rand_length, key=self.key, num=num, offset=offset)
+                next_note = Chord(random.randint(25, 45), ptype='natural', length=rand_length, key=self.key, num=num, offset=offset, velocity=self.velocity)
             else:
-                next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key)
+                next_note = Note(Pitch(random.randint(30, 40), ptype='natural'), length=rand_length, key=self.key, velocity=self.velocity)
 
             self.sequence.append(next_note)
         return self

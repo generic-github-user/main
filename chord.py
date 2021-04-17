@@ -4,12 +4,13 @@ from note import *
 from pitch import *
 
 class Chord:
-    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1, interval=None, custom=None, variation=0.1, ptype='natural'):
+    def __init__(self, start, player=None, num=3, offset=2, key=None, length=1, interval=None, custom=None, variation=0.1, ptype='natural', velocity=100):
         self.notes = []
         self.player = player
         self.key = key
         self.length = length
         self.variation = variation
+        self.velocity = velocity
 
         if type(start) is Note:
             start = start.pitch.nat
@@ -21,7 +22,7 @@ class Chord:
 
 
         def cn(pitch):
-            chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key)
+            chord_note = Note(Pitch(pitch, ptype='natural'), key=self.key, velocity=self.velocity)
             self.notes.append(chord_note)
             # step?
 

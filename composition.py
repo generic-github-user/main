@@ -36,7 +36,7 @@ class Composition:
         self.main_melody = Melody(key=self.key)
         print(self.main_melody.sequence)
 
-    def gen(self, current=0, depth=5, pls=None, reuse_prob=None, reverse_prob=None, shift_prob=None):
+    def gen(self, current=0, depth=5, pls=None, reuse_prob=None, reverse_prob=None, shift_prob=None, method='recursive', passes=2):
         new_section = Melody(key=self.key)
         pl = random.randint(*pls[current])
         print(pl)
