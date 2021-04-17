@@ -17,7 +17,7 @@ class Melody:
         self.tempo = tempo
         self.velocity = velocity
 
-    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', temp=(50, 150, 'uniform'), vel=(50, 100, 'uniform')):
+    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', temp=(50, 150, 'uniform'), vel=(90, 127, 'uniform')):
         quantize = 4
         self.tempo = random.randint(*temp[:2])
         self.velocity = random.randint(*vel[:2])
@@ -55,7 +55,7 @@ class Melody:
                 time.sleep(part.seconds(self.tempo))
                 if clip:
                     part.stop()
-        time.sleep(0.25)
+        time.sleep(0.0)
 
     def step(self, change):
         for part in self.sequence:

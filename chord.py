@@ -66,7 +66,7 @@ class Chord:
     def step(self, change):
         for note in self.notes:
             note.step(change)
-            # note.update_key(self.key)
+            note.update_key(self.key)
         return self
 
     shift = step

@@ -36,7 +36,8 @@ class Composition:
         self.main_melody = Melody(key=self.key)
         print(self.main_melody.sequence)
 
-    def gen(self, current=0, depth=5, pls=None, reuse_prob=None, reverse_prob=None, shift_prob=None, method='recursive', passes=2):
+    def gen(self, current=0, depth=5, pls=None, reuse_prob=None, reverse_prob=None, shift_prob=None, passes=2):
+
         new_section = Melody(key=self.key)
         pl = random.randint(*pls[current])
         print(pl)
@@ -72,16 +73,54 @@ class Composition:
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.0]*6):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
         self.sections_ = [[] for d in range(depth)]
 
-        self.main_melody.add(self.gen(pls=part_lengths, depth=depth, reuse_prob=reuse_prob, reverse_prob=reverse_prob, shift_prob=shift_prob))
-        print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
-        print([len(h) for h in self.sections_])
-        self.main_melody.print_tree()
+        if method == 'recursive':
+            self.main_melody.add(self.gen(pls=part_lengths, depth=depth, reuse_prob=reuse_prob, reverse_prob=reverse_prob, shift_prob=shift_prob))
+            print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
+            print([len(h) for h in self.sections_])
+            self.main_melody.print_tree()
+        elif method == 'iterative':
+            self.samples = []
+            comb_length = (2, 4)
+
+            # Generate the base melodies that will be combined into longer sequences
+            for v in range(10):
+                new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=False)
+                self.samples.append(new_sample)
+
+            for g in range(20):
+                numsamples = random.randint(*comb_length)
+                subsamples = random.choices(self.samples, k=numsamples)
+                if flatten:
+                    combined = Melody([item for sublist in subsamples for item in sublist.sequence], key=self.key)
+                else:
+                    combined = Melody(subsamples, key=self.key)
+
+                if random.uniform(0,1) < 0.2:
+                    combined.reverse()
+
+                if random.uniform(0,1) < 0.2:
+                    combined.shift(random.randint(-1, 1))
+
+                self.samples.append(combined)
+
+            self.melody_sequence = []
+
+            for r in range(30):
+                self.melody_sequence.append(random.choice(self.samples))
+
+            self.main_melody = Melody(self.melody_sequence, key=self.key)
+            self.main_melody.print_tree()
+            print(self.samples)
+                # TODO: melody combination method
+        else:
+            print('Unknown generation method: '+method)
+
         # breakpoint()
 
     def play_(self):
