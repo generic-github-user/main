@@ -44,13 +44,13 @@ class Melody:
         return self
 
     def play(self, player, tempo=None, clip=True):
-        if tempo is None:
-            tempo = self.tempo
+        # if tempo is None:
+        tempo = self.tempo
 
         for part in self.sequence:
             part.play(player)
-            if type(part) is Note:
-                time.sleep(part.seconds(tempo))
+            if type(part) is Note or type(part) is Chord:
+                time.sleep(part.seconds(self.tempo))
                 if clip:
                     part.stop()
         time.sleep(0.25)

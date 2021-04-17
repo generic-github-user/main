@@ -48,6 +48,13 @@ class Chord:
 
         return self
 
+
+    def stop(self, player=None):
+        if player:
+            self.player = player
+        for note in self.notes:
+            note.stop(player=self.player)
+
     def seconds(self, tempo):
         v = self.variation
         return self.length * (60 / tempo) * (1+random.uniform(-v, v))
