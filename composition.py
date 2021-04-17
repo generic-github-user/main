@@ -36,7 +36,7 @@ class Composition:
         self.main_melody = Melody(key=self.key)
         print(self.main_melody.sequence)
 
-    def gen(self, current=0, depth=3, pls=None, reuse_prob=None):
+    def gen(self, current=0, depth=3, pls=None, reuse_prob=None, reverse_prob=None):
         new_section = Melody(key=self.key)
         pl = random.randint(*pls[current])
         print(pl)
@@ -50,27 +50,32 @@ class Composition:
                     new_section.add(rep_section)
             # Otherwise, create a new melody (and submelodies, possibly) and add to the list
             else:
+                # ?
                 for b in range(pl // 2 + 1):
-                    subsection = self.gen(current=current+1, pls=pls, reuse_prob=reuse_prob, depth=depth)
+                    subsection = self.gen(current=current+1, pls=pls, reuse_prob=reuse_prob, reverse_prob=reverse_prob, depth=depth)
                     new_section.add(subsection)
                     self.sections_[current].append(subsection)
+
         # Bottom level is reached
         elif current == depth:
             # does this need to be turned off ?
             new_section = Melody(key=self.key).randomize(length=pl)
 
 
+        if random.uniform(0,1) < reverse_prob[current]:
+            new_section.reverse()
+
             # alternatively, randomly select for each bottom-level melody it should be newly generated
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,4)], reuse_prob=[0.5,0.5,0.5,0.5,0.5,0.5]):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
         self.sections_ = [[] for d in range(depth)]
 
-        self.main_melody.add(self.gen(pls=part_lengths, depth=depth, reuse_prob=reuse_prob))
+        self.main_melody.add(self.gen(pls=part_lengths, depth=depth, reuse_prob=reuse_prob, reverse_prob=reverse_prob))
         print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
         print([len(h) for h in self.sections_])
         self.main_melody.print_tree()

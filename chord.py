@@ -53,4 +53,4 @@ class Chord:
         return self.length * (60 / tempo) * (1+random.uniform(-v, v))
 
     def print_tree(self, l):
-        pass
+        self.notes[0].print_tree(l)

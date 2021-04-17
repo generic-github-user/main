@@ -15,7 +15,7 @@ class Melody:
         self.key = key
         self.level = None
 
-    def randomize(self, length, note_length=(1/32,1/2), quantize='log2', chord=True):
+    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True):
         for n in range(length):
             rand_length = random.uniform(*note_length)
             if type(quantize) is str:
