@@ -13,6 +13,8 @@ class Melody:
         else:
             self.sequence = seq
         self.key = key
+        assert self.key is not None
+
         self.level = None
         self.tempo = tempo
         self.velocity = velocity

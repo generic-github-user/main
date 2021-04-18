@@ -14,8 +14,11 @@ class Note:
         self.player = player
         self.variation = variation
 
-        if key:
-            self.update_key(key)
+        # if key:
+        #     self.update_key(key)
+
+        self.update_key(key)
+        assert self.key is not None
 
     def seconds(self, tempo):
         # beats * (beats / minute) = beats * beats / 60 seconds
@@ -50,6 +53,8 @@ class Note:
                 self.pitch.step(+0.5)
     def step(self, change):
         self.pitch.step(change)
+        # ?
+        self.update_key(self.key)
     def info(self):
         self.pitch.info()
         print()
@@ -59,3 +64,6 @@ class Note:
 
     def print_tree(self, l):
         print(('\t'*l)+self.pitch.note_name)
+
+class Rest:
+    pass

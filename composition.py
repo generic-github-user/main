@@ -91,7 +91,7 @@ class Composition:
             # Generate the base melodies that will be combined into longer sequences
             for v in range(10):
                 if random.uniform(0,1) < 0.8:
-                    new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=False)
+                    new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=True)
                 else:
                     new_sample = self.scale(start=random.randint(30,40), steps=random.randint(4,16), use_chord=True, skip=random.randint(1,3))
                 self.samples.append(new_sample)
@@ -217,11 +217,11 @@ class Composition:
         # start = 59
         # start = (8*5)
         if type(start) is Pitch:
-            start = Note(start, ptype='natural')
+            start = Note(start, ptype='natural', key=self.key)
         elif type(start) is int:
-            start = Note(Pitch(start, ptype='natural'))
+            start = Note(Pitch(start, ptype='natural'), key=self.key)
         elif type(start) is str:
-            start = Note(start)
+            start = Note(start, key=self.key)
 
         start = start.pitch.nat
 
