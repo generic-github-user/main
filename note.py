@@ -25,6 +25,9 @@ class Note:
         # return self.length * (tempo / 60)
         v = self.variation
         return self.length * (60 / tempo) * (1+random.uniform(-v, v))
+
+    time = seconds
+
     def play(self, player=None):
         if player:
             self.player = player

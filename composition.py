@@ -74,7 +74,7 @@ class Composition:
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(150, 200, 'uniform'), velocity=(100, 127, 'uniform'), scale_steps=(4,8), scale_skip=(1,3), segments=(20, 20, 20), reverse=0.2, shift=0.0, shift_size=2, sample_length=(2,6)):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(50, 150, 'uniform'), velocity=(100, 127, 'uniform'), scale_steps=(4,8), scale_skip=(1,3), segments=(20, 20, 20), reverse=0.2, shift=0.0, shift_size=2, sample_length=(2,6)):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
@@ -122,6 +122,7 @@ class Composition:
 
             self.main_melody = Melody(self.melody_sequence, key=self.key)
             self.main_melody.print_tree()
+            print(self.main_melody.time())
             print(self.samples)
 
             # print([v.notes[0].pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(1).sequence])

@@ -45,7 +45,7 @@ class Chord:
         for note in self.notes:
             note.play(player=self.player)
         # TODO:
-        time.sleep(self.seconds(tempo=80))
+        # time.sleep(self.seconds(tempo=80))
 
         return self
 
@@ -59,6 +59,8 @@ class Chord:
     def seconds(self, tempo):
         v = self.variation
         return self.length * (60 / tempo) * (1+random.uniform(-v, v))
+
+    time = seconds
 
     def print_tree(self, l):
         print('Chord')

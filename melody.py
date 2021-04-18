@@ -20,7 +20,7 @@ class Melody:
         self.velocity = velocity
         self.player = player
 
-    def randomize(self, length, note_length=(1/32,1/2), quantize='log2', chord=True, dist='exp', tempo=(50, 150, 'uniform'), velocity=(90, 127, 'uniform')):
+    def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', tempo=(50, 150, 'uniform'), velocity=(90, 127, 'uniform')):
         quantize = 4
         self.tempo = random.randint(*tempo[:2])
         self.velocity = random.randint(*velocity[:2])
@@ -83,3 +83,12 @@ class Melody:
     def reverse(self):
         self.sequence.reverse()
         return self
+
+    def time(self, tempo=None):
+        if hasattr(self, 'tempo'):
+            tempo = self.tempo
+
+        self.duration = 0
+        for t in self.sequence:
+            self.duration += t.time(tempo=self.tempo)
+        return self.duration
