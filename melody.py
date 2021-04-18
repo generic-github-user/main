@@ -120,3 +120,8 @@ class Melody:
         for t in self.sequence:
             self.duration += t.time(tempo=self.tempo)
         return self.duration
+
+    def merge(self, other):
+        self.tempo = mean(self.tempo, other.tempo)
+        self.velocity = mean(self.velocity, other.velocity)
+        return self
