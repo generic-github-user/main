@@ -14,6 +14,8 @@ class Scale(Melody):
         self.p = self.player
         super().__init__(key=self.key, player=self.player)
 
+        # TODO: allow start and stop arguments
+
         default_args = {
             'start': 40,
             'steps': 8,
@@ -28,14 +30,18 @@ class Scale(Melody):
             'custom': [(8,1), (0,-1)]
         }
 
+        # Combine default arguments with provided arguments
         kwargs = default_args | kwargs
+        # Loop through list of arguments
         for key, value in kwargs.items():
+            # Tuple is provided; generate random value
             if type(value) is tuple:
                 first = value[0]
                 if type(first) is int:
                     param_value = random.randint(*value[:2])
                 elif type(first) is float:
                     param_value = random.uniform(*value[:2])
+            # Single numeric or boolean value is provided; use value as-is
             elif type(value) in [int, float, bool, list]:
                 param_value = value
             elif type(value) is str:
@@ -46,6 +52,7 @@ class Scale(Melody):
                         param_value = random.choice([True, False])
                 else:
                     raise ValueError('Invalid value; must be "rand"', key, value)
+            # Incorrect type provided
             else:
                 raise TypeError('Invalid type for argument ', key, value)
 
