@@ -13,6 +13,16 @@ class Scale(Melody):
         self.p = self.player
         super().__init__(key=self.key, player=self.player)
 
+        default_args = {
+            'start': 40,
+            'steps': 8,
+            'velocity': 127,
+            'chord_size': 3,
+            'play_scale': False,
+            'skip': 1,
+            'use_chord': False,
+            'note_length': 1/4
+        }
         if type(start) is Pitch:
             start = Note(start, ptype='natural', key=self.key)
         elif type(start) is int:
