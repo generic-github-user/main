@@ -106,6 +106,10 @@ class Melody:
 
         return self
 
+    def clear(self):
+        self.sequence = []
+        return self
+
     def time(self, tempo=None):
         """Get length of melody in seconds"""
 
