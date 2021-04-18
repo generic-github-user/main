@@ -30,17 +30,17 @@ class Scale(Melody):
             if type(value) is tuple:
                 first = value[0]
                 if type(first) is int:
-                    setattr(self, key, random.randint(*value[:2]))
+                    param_value = random.randint(*value[:2])
                 elif type(first) is float:
-                    setattr(self, key, random.uniform(*value[:2]))
-            elif type(value) is int or type(value) is float:
-                setattr(self, key, value)
-            elif type(value) is bool:
-                setattr(self, key, value)
+                    param_value = random.uniform(*value[:2])
+            elif type(value) in [int, float, bool]:
+                param_value = value
             elif type(value) is str and value == 'rand':
-                setattr(self, key, random.choice([True, False]))
+                param_value = random.choice([True, False])
             else:
                 print('Invalid type for argument '+key)
+
+            setattr(self, key, param_value)
 
         start = self.start
         if type(start) is Pitch:
