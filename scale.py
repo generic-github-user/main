@@ -35,10 +35,13 @@ class Scale(Melody):
                     param_value = random.uniform(*value[:2])
             elif type(value) in [int, float, bool]:
                 param_value = value
-            elif type(value) is str and value == 'rand':
-                param_value = random.choice([True, False])
+            elif type(value) is str:
+                if value == 'rand':
+                    param_value = random.choice([True, False])
+                else:
+                    raise ValueError('Invalid value; must be "rand"', key, value)
             else:
-                print('Invalid type for argument '+key)
+                raise TypeError('Invalid type for argument ', key, value)
 
             setattr(self, key, param_value)
 
