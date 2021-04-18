@@ -7,7 +7,10 @@ from note import *
 from chord import *
 
 class Melody:
+    """Container for a sequence of notes or chords"""
     def __init__(self, seq=None, key=None, tempo=100, velocity=100, player=None):
+        """Create a new melody"""
+
         if seq is None:
             self.sequence = []
         else:
@@ -16,11 +19,15 @@ class Melody:
         assert self.key is not None
 
         self.level = None
-        self.tempo = tempo
-        self.velocity = velocity
+        self.tempo: int = tempo
+        """The tempo to play this melody at (in beats per minute)"""
+        self.velocity: int = velocity
+        """The velocity of each note; will be overridden by velocities set at lower levels (nested melodies)"""
         self.player = player
 
     def randomize(self, length, note_length=(1/32,1), quantize='log2', chord=True, dist='exp', tempo=(50, 150, 'uniform'), velocity=(90, 127, 'uniform')):
+        """Generate a random melody"""
+
         quantize = 4
         self.tempo = random.randint(*tempo[:2])
         self.velocity = random.randint(*velocity[:2])
@@ -49,6 +56,8 @@ class Melody:
         return self
 
     def play(self, player, tempo=None, clip=True):
+        """Play this melody and all sub-melodies"""
+
         # if tempo is None:
         tempo = self.tempo
         if player:
@@ -63,6 +72,8 @@ class Melody:
         time.sleep(0.0)
 
     def step(self, change):
+        """Shift all notes, chords, and sub-melodies by the specified amount"""
+
         for part in self.sequence:
             part.step(change)
         return self
@@ -70,21 +81,29 @@ class Melody:
     shift = step
 
     def clone(self):
+        """Make a deep copy of this melody and nested notes/melodies"""
+
         return copy.deepcopy(self)
 
     def add(self, x):
         self.sequence.append(x)
 
     def print_tree(self, l=0):
+        """Recursively print information about each nested part in the sequence"""
+
         print(('\t'*l)+str(l))
         for t in self.sequence:
             t.print_tree(l=l+1)
 
     def reverse(self):
+        """Invert the melody"""
+
         self.sequence.reverse()
         return self
 
     def time(self, tempo=None):
+        """Get length of melody in seconds"""
+
         if hasattr(self, 'tempo'):
             tempo = self.tempo
 
