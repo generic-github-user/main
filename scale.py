@@ -22,7 +22,10 @@ class Scale(Melody):
             'play_scale': False,
             'skip': 1,
             'use_chord': False,
-            'note_length': 1/4
+            'note_length': 1/4,
+            # 'direction': 'both',
+            'dirs': ['up', 'down'],
+            'custom': [(8,1), (0,-1)]
         }
 
         kwargs = default_args | kwargs
@@ -33,11 +36,14 @@ class Scale(Melody):
                     param_value = random.randint(*value[:2])
                 elif type(first) is float:
                     param_value = random.uniform(*value[:2])
-            elif type(value) in [int, float, bool]:
+            elif type(value) in [int, float, bool, list]:
                 param_value = value
             elif type(value) is str:
                 if value == 'rand':
-                    param_value = random.choice([True, False])
+                    if key == 'dirs':
+                        param_value = random.choice([['up'], ['down'], ['up', 'down'], ['down', 'up']])
+                    else:
+                        param_value = random.choice([True, False])
                 else:
                     raise ValueError('Invalid value; must be "rand"', key, value)
             else:
@@ -55,7 +61,16 @@ class Scale(Melody):
 
         start = start.pitch.nat
 
-        for i in list(chain(range(0, self.steps, self.skip), range(self.steps, -1, -self.skip))):
+        ranges = []
+        for d in self.dirs:
+            if d == 'up':
+                # TODO: make relative
+                ranges.append(range(0, self.steps, self.skip))
+            elif d == 'down':
+                ranges.append(range(self.steps, -1, -self.skip))
+
+        # Combine ranges and loop through indices
+        for i in list(chain(*ranges)):
             if self.use_chord:
                 scale_note = Chord(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=self.note_length, num=self.chord_size)
             else:
