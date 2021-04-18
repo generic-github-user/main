@@ -73,7 +73,7 @@ class Composition:
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(150, 200, 'uniform'), velocity=(100, 127, 'uniform')):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
@@ -90,8 +90,8 @@ class Composition:
 
             # Generate the base melodies that will be combined into longer sequences
             for v in range(10):
-                if random.uniform(0,1) < 0.8:
-                    new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=True)
+                if random.uniform(0,1) < 0.6:
+                    new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=True, tempo=tempo, velocity=velocity)
                 else:
                     new_sample = self.scale(start=random.randint(30,40), steps=random.randint(4,16), use_chord=True, skip=random.randint(1,3))
                 self.samples.append(new_sample)
@@ -210,7 +210,7 @@ class Composition:
         parent_melody = Melody([melody.clone().step(offset*j) for j in range(n)], key=self.key)
         self.play_melody(parent_melody)
 
-    def scale(self, start, steps, velocity=127, note_length=1/2, use_chord=False, chord_size=3, play=False, skip=1):
+    def scale(self, start, steps, velocity=127, note_length=1/4, use_chord=False, chord_size=3, play=False, skip=1):
         """Generate a scale given a starting point, number of steps, and information about each note"""
         # if type(start) is str:
         #     start = self.midi_note(start)
