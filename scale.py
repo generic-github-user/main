@@ -52,13 +52,16 @@ class Scale(Melody):
 
         start = start.pitch.nat
 
-        for i in list(chain(range(0, steps, skip), range(steps, -1, -skip))):
-            if use_chord:
-                scale_note = Chord(Pitch(start+i,ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
+        for i in list(chain(range(0, self.steps, self.skip), range(self.steps, -1, -self.skip))):
+            if self.use_chord:
+                scale_note = Chord(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=self.note_length, num=self.chord_size)
             else:
-                scale_note = Note(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length)
+                scale_note = Note(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=self.note_length)
 
             self.add(scale_note)
 
-        if play:
+        if self.play_scale:
             self.play()
+
+    def random_scale(self):
+        pass
