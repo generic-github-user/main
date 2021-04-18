@@ -5,6 +5,7 @@ from melody import *
 class Scale(Melody):
     def __init__(self, start, steps, velocity=127, note_length=1/4, use_chord=False, chord_size=3, play=False, skip=1, key=None, player=None):
         """Generate a scale given a starting point, number of steps, and information about each note"""
+        
         assert key is not None
         assert player is not None
         self.key = key
@@ -20,9 +21,6 @@ class Scale(Melody):
             start = Note(start, key=self.key)
 
         start = start.pitch.nat
-
-        if play:
-            print(True)
 
         if play:
             # for i in [range(0, steps) + range(steps, 0)]:
@@ -44,11 +42,10 @@ class Scale(Melody):
                     nnote = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key)
                     self.play(nnote)
         else:
-            generated_scale = Melody(key=self.key)
             for i in list(chain(range(0, steps, skip), range(steps, -1, -skip))):
                 if use_chord:
                     scale_note = Chord(Pitch(start+i,ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
                 else:
                     scale_note = Note(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length)
 
-                generated_scale.add(scale_note)
+                self.add(scale_note)
