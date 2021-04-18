@@ -80,34 +80,43 @@ class Composition:
         depth = 5
         self.sections_ = [[] for d in range(depth)]
 
+        # Recursively generate new sub-melodies to the desired depth, randomly creating new ones on the fly
         if method == 'recursive':
             self.main_melody.add(self.gen(pls=part_lengths, depth=depth, reuse_prob=reuse_prob, reverse_prob=reverse_prob, shift_prob=shift_prob))
             print(self.main_melody.sequence[0].sequence[0].sequence[0].sequence)
             print([len(h) for h in self.sections_])
             self.main_melody.print_tree()
+        # Generate a few samples, combine them randomly, then generate the piece start-to-finish
         elif method == 'iterative':
             self.samples = []
             comb_length = (2, 4)
 
             # Generate the base melodies that will be combined into longer sequences
             for v in range(segments[0]):
+                # Randomly choose whether to create a random melody or a scale
                 if random.uniform(0,1) < 0.6:
                     new_sample = Melody(key=self.key).randomize(length=random.randint(*sample_length), chord=True, tempo=tempo, velocity=velocity)
                 else:
-                    new_sample = Scale(start=(30,40), steps=scale_steps, use_chord='rand', chord_size=(2,5), skip=scale_skip, key=self.key, player=self.p, note_length=(1/32,1/2), velocity=velocity)
+                    new_sample = Scale(start=(30,40), steps=scale_steps, use_chord='rand', chord_size=(2,5), skip=scale_skip, key=self.key, player=self.p, note_length=(1/16,1/2), velocity=velocity, dirs='rand')
                 self.samples.append(new_sample)
 
+            # Combine the melodies generated above into longer sequences (which are then added to the list and can be randomly selected, allowing nesting of melodies)
             for g in range(segments[1]):
                 numsamples = random.randint(*comb_length)
                 subsamples = random.choices(self.samples, k=numsamples)
+
+                # If flatten is True, extract submelodies before creating combined melody
                 if flatten:
                     combined = Melody([item for sublist in subsamples for item in sublist.sequence], key=self.key)
+                # Otherwise, use nested melodies
                 else:
                     combined = Melody(subsamples, key=self.key)
 
+                # Randomly decide whether to reverse section
                 if random.uniform(0,1) < reverse:
                     combined.reverse()
 
+                # Randomly decide whether to shift section
                 if random.uniform(0,1) < shift:
                     combined.shift(random.randint(-shift_size, shift_size))
 
@@ -115,16 +124,20 @@ class Composition:
 
             self.melody_sequence = Melody(key=self.key)
 
+            # Determine number of times to attempt adding a melody
             if target and max:
                 rep = max
             elif segments:
                 rep = segments[2]
 
             for r in range(rep):
+                # Choose a random sample
                 rand_sample = random.choice(self.samples)
+                # Randomly repeat sample between 1 and 4 times
                 for x in range(random.randint(1,4)):
                     self.melody_sequence.add(rand_sample)
 
+                # Stop if composition length target is met or exceeded
                 if self.melody_sequence.time() >= target:
                     break
 
