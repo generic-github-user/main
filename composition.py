@@ -94,7 +94,7 @@ class Composition:
                 if random.uniform(0,1) < 0.6:
                     new_sample = Melody(key=self.key).randomize(length=random.randint(*sample_length), chord=True, tempo=tempo, velocity=velocity)
                 else:
-                    new_sample = Scale(start=random.randint(30,40), steps=random.randint(*scale_steps), use_chord=True, skip=random.randint(*scale_skip), key=self.key, player=self.p)
+                    new_sample = Scale(start=(30,40), steps=scale_steps, use_chord='rand', chord_size=(2,5), skip=scale_skip, key=self.key, player=self.p, note_length=(1/32,1/2), velocity=velocity)
                 self.samples.append(new_sample)
 
             for g in range(segments[1]):
