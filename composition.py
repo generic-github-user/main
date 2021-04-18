@@ -74,7 +74,7 @@ class Composition:
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(50, 150, 'uniform'), velocity=(100, 127, 'uniform'), scale_steps=(4,8), scale_skip=(1,3), segments=(20, 20, 20), reverse=0.2, shift=0.0, shift_size=2, sample_length=(2,6)):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(50, 150, 'uniform'), velocity=(100, 127, 'uniform'), scale_steps=(4,8), scale_skip=(1,3), segments=(20, 20, 20), reverse=0.2, shift=0.0, shift_size=2, sample_length=(2,6), target=60, max=1000):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
@@ -113,14 +113,22 @@ class Composition:
 
                 self.samples.append(combined)
 
-            self.melody_sequence = []
+            self.melody_sequence = Melody(key=self.key)
 
-            for r in range(segments[2]):
+            if target and max:
+                rep = max
+            elif segments:
+                rep = segments[2]
+
+            for r in range(rep):
                 rand_sample = random.choice(self.samples)
                 for x in range(random.randint(1,4)):
-                    self.melody_sequence.append(rand_sample)
+                    self.melody_sequence.add(rand_sample)
 
-            self.main_melody = Melody(self.melody_sequence, key=self.key)
+                if self.melody_sequence.time() >= target:
+                    break
+
+            self.main_melody = self.melody_sequence
             self.main_melody.print_tree()
             print(self.main_melody.time())
             print(self.samples)
