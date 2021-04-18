@@ -73,7 +73,7 @@ class Composition:
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(150, 200, 'uniform'), velocity=(100, 127, 'uniform')):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False, tempo=(150, 200, 'uniform'), velocity=(100, 127, 'uniform'), scale_steps=(4,8), scale_skip=(1,3), segments=(20, 20, 20), reverse=0.2, shift=0.0, shift_size=2, sample_length=(2,6)):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
@@ -89,14 +89,14 @@ class Composition:
             comb_length = (2, 4)
 
             # Generate the base melodies that will be combined into longer sequences
-            for v in range(10):
+            for v in range(segments[0]):
                 if random.uniform(0,1) < 0.6:
-                    new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=True, tempo=tempo, velocity=velocity)
+                    new_sample = Melody(key=self.key).randomize(length=random.randint(*sample_length), chord=True, tempo=tempo, velocity=velocity)
                 else:
-                    new_sample = self.scale(start=random.randint(30,40), steps=random.randint(4,16), use_chord=True, skip=random.randint(1,3))
+                    new_sample = self.scale(start=random.randint(30,40), steps=random.randint(*scale_steps), use_chord=True, skip=random.randint(*scale_skip))
                 self.samples.append(new_sample)
 
-            for g in range(20):
+            for g in range(segments[1]):
                 numsamples = random.randint(*comb_length)
                 subsamples = random.choices(self.samples, k=numsamples)
                 if flatten:
@@ -104,17 +104,17 @@ class Composition:
                 else:
                     combined = Melody(subsamples, key=self.key)
 
-                if random.uniform(0,1) < 0.2:
+                if random.uniform(0,1) < reverse:
                     combined.reverse()
 
-                if random.uniform(0,1) < 0.0:
-                    combined.shift(random.randint(-1, 1))
+                if random.uniform(0,1) < shift:
+                    combined.shift(random.randint(-shift_size, shift_size))
 
                 self.samples.append(combined)
 
             self.melody_sequence = []
 
-            for r in range(20):
+            for r in range(segments[2]):
                 rand_sample = random.choice(self.samples)
                 for x in range(random.randint(1,4)):
                     self.melody_sequence.append(rand_sample)
