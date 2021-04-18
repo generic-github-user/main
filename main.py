@@ -64,8 +64,8 @@ mainkey = mainkey.split(',')
 # m = Melody(key=mainkey).randomize(length=5)
 # comp.repeat_melody(melody=m, n=4, offset=1)
 
-comp.generate()
-comp.play_()
+comp.generate(play=True)
+# comp.play_()
 # comp.demo()
 
 # comp.play_melody(m)

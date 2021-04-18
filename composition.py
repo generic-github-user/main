@@ -73,7 +73,7 @@ class Composition:
             # TODO: reverse some sections
         return new_section
 
-    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False):
+    def generate(self, part_lengths=[(1,5), (1,5), (1,5), (3,5), (2,5), (2,6)], reuse_prob=[0.3]*6, reverse_prob=[0.3]*6, shift_prob=[0.1]*6, method='iterative', flatten=False, play=False):
         """Generate a random piece of music based on a set of structural parameters"""
 
         depth = 5
@@ -114,15 +114,27 @@ class Composition:
 
             self.melody_sequence = []
 
-            for r in range(30):
-                self.melody_sequence.append(random.choice(self.samples))
+            for r in range(20):
+                rand_sample = random.choice(self.samples)
+                for x in range(random.randint(1,4)):
+                    self.melody_sequence.append(rand_sample)
 
             self.main_melody = Melody(self.melody_sequence, key=self.key)
             self.main_melody.print_tree()
             print(self.samples)
-                # TODO: melody combination method
+
+            print([v.notes[0].pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(1).sequence])
+            print([v.notes[0].pitch.midi for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(0).sequence])
+
+            print([v.pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=False).shift(1).sequence])
+            print([v.pitch.midi for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=False).shift(0).sequence])
+            # TODO: melody combination method
+            # TODO: overlaying multiple melodies (alternate, merge, etc.)
         else:
             print('Unknown generation method: '+method)
+
+        if play:
+            self.play_()
 
         # breakpoint()
 
