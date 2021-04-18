@@ -7,6 +7,7 @@ from note import *
 from pitch import *
 from melody import *
 from chord import *
+from scale import *
 
 class Composition:
     """A musical arrangement that brings together Melodies and properties such as a key signature, common tempo, etc."""
@@ -93,7 +94,7 @@ class Composition:
                 if random.uniform(0,1) < 0.6:
                     new_sample = Melody(key=self.key).randomize(length=random.randint(*sample_length), chord=True, tempo=tempo, velocity=velocity)
                 else:
-                    new_sample = self.scale(start=random.randint(30,40), steps=random.randint(*scale_steps), use_chord=True, skip=random.randint(*scale_skip))
+                    new_sample = Scale(start=random.randint(30,40), steps=random.randint(*scale_steps), use_chord=True, skip=random.randint(*scale_skip), key=self.key, player=self.p)
                 self.samples.append(new_sample)
 
             for g in range(segments[1]):
@@ -123,11 +124,12 @@ class Composition:
             self.main_melody.print_tree()
             print(self.samples)
 
-            print([v.notes[0].pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(1).sequence])
-            print([v.notes[0].pitch.midi for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(0).sequence])
+            # print([v.notes[0].pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(1).sequence])
+            # print([v.notes[0].pitch.midi for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=True).shift(0).sequence])
+            #
+            # print([v.pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=False).shift(1).sequence])
+            # print([v.pitch.midi for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=False).shift(0).sequence])
 
-            print([v.pitch.note_name for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=False).shift(1).sequence])
-            print([v.pitch.midi for v in self.scale(start=random.randint(30,40), steps=random.randint(4,16), skip=1, use_chord=False).shift(0).sequence])
             # TODO: melody combination method
             # TODO: overlaying multiple melodies (alternate, merge, etc.)
         else:
@@ -209,60 +211,6 @@ class Composition:
         # parent_melody = Melody([melody] * n)
         parent_melody = Melody([melody.clone().step(offset*j) for j in range(n)], key=self.key)
         self.play_melody(parent_melody)
-
-    def scale(self, start, steps, velocity=127, note_length=1/4, use_chord=False, chord_size=3, play=False, skip=1):
-        """Generate a scale given a starting point, number of steps, and information about each note"""
-        # if type(start) is str:
-        #     start = self.midi_note(start)
-        # start = 59
-        # start = (8*5)
-        if type(start) is Pitch:
-            start = Note(start, ptype='natural', key=self.key)
-        elif type(start) is int:
-            start = Note(Pitch(start, ptype='natural'), key=self.key)
-        elif type(start) is str:
-            start = Note(start, key=self.key)
-
-        start = start.pitch.nat
-
-        if play:
-            print(True)
-
-        if play:
-            # for i in [range(0, steps) + range(steps, 0)]:
-            # print(list(chain(range(0, steps), range(steps, 0, -1))))
-            # s = steps + 1
-            for i in list(chain(range(0, steps, skip), range(steps, -1, -skip))):
-                if use_chord:
-                    # self.chord(start+i, num=chord_size)
-
-                    nnote = Chord(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
-                    # self.play(nnote)
-                    nnote.play()
-                else:
-                    # self.player.note_on(self.adjust_pitch(start+i), velocity)
-                    # print(start+i)
-                    # self.play_note(pitch=start+i)
-                    # self.play_note(note=Note(Pitch(start+i,type='natural')))
-
-                    # nnote.pitch.info()
-                    # nnote.play()
-
-                    nnote = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key)
-                    self.play(nnote)
-                # time.sleep(note_length)
-            return True
-        else:
-            generated_scale = Melody(key=self.key)
-            for i in list(chain(range(0, steps, skip), range(steps, -1, -skip))):
-                if use_chord:
-                    scale_note = Chord(Pitch(start+i,ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
-                else:
-                    # scale_note = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key, length=note_length)
-                    scale_note = Note(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length)
-
-                generated_scale.add(scale_note)
-            return generated_scale
 
     def play(self, content):
         if type(content) is Melody:

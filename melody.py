@@ -7,7 +7,7 @@ from note import *
 from chord import *
 
 class Melody:
-    def __init__(self, seq=None, key=None, tempo=100, velocity=100):
+    def __init__(self, seq=None, key=None, tempo=100, velocity=100, player=None):
         if seq is None:
             self.sequence = []
         else:
@@ -18,6 +18,7 @@ class Melody:
         self.level = None
         self.tempo = tempo
         self.velocity = velocity
+        self.player = player
 
     def randomize(self, length, note_length=(1/32,1/2), quantize='log2', chord=True, dist='exp', tempo=(50, 150, 'uniform'), velocity=(90, 127, 'uniform')):
         quantize = 4
@@ -50,6 +51,8 @@ class Melody:
     def play(self, player, tempo=None, clip=True):
         # if tempo is None:
         tempo = self.tempo
+        if player:
+            self.player = player
 
         for part in self.sequence:
             part.play(player)
