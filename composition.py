@@ -90,7 +90,10 @@ class Composition:
 
             # Generate the base melodies that will be combined into longer sequences
             for v in range(10):
-                new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=False)
+                if random.uniform(0,1) < 0.8:
+                    new_sample = Melody(key=self.key).randomize(length=random.randint(2,6), chord=False)
+                else:
+                    new_sample = self.scale(start=random.randint(30,40), steps=random.randint(4,16))
                 self.samples.append(new_sample)
 
             for g in range(20):
@@ -195,37 +198,53 @@ class Composition:
         parent_melody = Melody([melody.clone().step(offset*j) for j in range(n)], key=self.key)
         self.play_melody(parent_melody)
 
-    def scale(self, start, steps, velocity=127, note_length=0.20, use_chord=False, chord_size=3):
+    def scale(self, start, steps, velocity=127, note_length=1/2, use_chord=False, chord_size=3, play=False):
         """Generate a scale given a starting point, number of steps, and information about each note"""
         # if type(start) is str:
         #     start = self.midi_note(start)
         # start = 59
         # start = (8*5)
-        start = Note(start)
+        if type(start) is Pitch:
+            start = Note(start)
+        elif type(start) is int:
+            start = Note(Pitch(start, ptype='natural'))
+
         start = start.pitch.nat
 
-        # for i in [range(0, steps) + range(steps, 0)]:
-        # print(list(chain(range(0, steps), range(steps, 0, -1))))
-        # s = steps + 1
-        for i in list(chain(range(0, steps), range(steps, -1, -1))):
-            if use_chord:
-                # self.chord(start+i, num=chord_size)
+        if play:
+            # for i in [range(0, steps) + range(steps, 0)]:
+            # print(list(chain(range(0, steps), range(steps, 0, -1))))
+            # s = steps + 1
+            for i in list(chain(range(0, steps), range(steps, -1, -1))):
+                if use_chord:
+                    # self.chord(start+i, num=chord_size)
 
-                nnote = Chord(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
-                # self.play(nnote)
-                nnote.play()
-            else:
-                # self.player.note_on(self.adjust_pitch(start+i), velocity)
-                # print(start+i)
-                # self.play_note(pitch=start+i)
-                # self.play_note(note=Note(Pitch(start+i,type='natural')))
+                    nnote = Chord(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
+                    # self.play(nnote)
+                    nnote.play()
+                else:
+                    # self.player.note_on(self.adjust_pitch(start+i), velocity)
+                    # print(start+i)
+                    # self.play_note(pitch=start+i)
+                    # self.play_note(note=Note(Pitch(start+i,type='natural')))
 
-                # nnote.pitch.info()
-                # nnote.play()
+                    # nnote.pitch.info()
+                    # nnote.play()
 
-                nnote = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key)
-                self.play(nnote)
-            # time.sleep(note_length)
+                    nnote = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key)
+                    self.play(nnote)
+                # time.sleep(note_length)
+            return True
+        else:
+            generated_scale = Melody(key=self.key)
+            for i in list(chain(range(0, steps), range(steps, -1, -1))):
+                if use_chord:
+                    scale_note = Chord(Pitch(start+i,ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
+                else:
+                    scale_note = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key, length=note_length)
+
+                generated_scale.add(scale_note)
+            return generated_scale
 
     def play(self, content):
         if type(content) is Melody:
