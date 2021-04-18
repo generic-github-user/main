@@ -125,3 +125,12 @@ class Melody:
         self.tempo = mean(self.tempo, other.tempo)
         self.velocity = mean(self.velocity, other.velocity)
         return self
+
+    # TODO: allow combination of more than 2 at a time
+    def interlay(self, other, average=True, steps=(1, 1)):
+        if average:
+            self.merge(other)
+
+        for i in range(0, len(other.sequence), steps[0]):
+            self.sequence.insert(i, other.sequence[i])
+        return self
