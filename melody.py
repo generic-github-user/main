@@ -95,10 +95,15 @@ class Melody:
         for t in self.sequence:
             t.print_tree(l=l+1)
 
-    def reverse(self):
+    def reverse(self, recursive=True):
         """Invert the melody"""
 
         self.sequence.reverse()
+        if recursive:
+            for t in self.sequence:
+                if type(t) in [Melody]:
+                    t.reverse(recursive=True)
+
         return self
 
     def time(self, tempo=None):
