@@ -1,9 +1,10 @@
 from itertools import chain
+import random
 
 from melody import *
 
 class Scale(Melody):
-    def __init__(self, start, steps, velocity=127, note_length=1/4, use_chord=False, chord_size=3, play=False, skip=1, key=None, player=None):
+    def __init__(self, key=None, player=None, **kwargs):
         """Generate a scale given a starting point, number of steps, and information about each note"""
 
         assert key is not None
@@ -23,6 +24,25 @@ class Scale(Melody):
             'use_chord': False,
             'note_length': 1/4
         }
+
+        kwargs = default_args | kwargs
+        for key, value in kwargs.items():
+            if type(value) is tuple:
+                first = value[0]
+                if type(first) is int:
+                    setattr(self, key, random.randint(*value[:2]))
+                elif type(first) is float:
+                    setattr(self, key, random.uniform(*value[:2]))
+            elif type(value) is int or type(value) is float:
+                setattr(self, key, value)
+            elif type(value) is bool:
+                setattr(self, key, value)
+            elif type(value) is str and value == 'rand':
+                setattr(self, key, random.choice([True, False]))
+            else:
+                print('Invalid type for argument '+key)
+
+        start = self.start
         if type(start) is Pitch:
             start = Note(start, ptype='natural', key=self.key)
         elif type(start) is int:
