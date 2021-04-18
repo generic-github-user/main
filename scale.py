@@ -12,11 +12,6 @@ class Scale(Melody):
         self.p = self.player
         super().__init__(key=self.key, player=self.player)
 
-
-        # if type(start) is str:
-        #     start = self.midi_note(start)
-        # start = 59
-        # start = (8*5)
         if type(start) is Pitch:
             start = Note(start, ptype='natural', key=self.key)
         elif type(start) is int:
@@ -46,19 +41,14 @@ class Scale(Melody):
                     # self.play_note(pitch=start+i)
                     # self.play_note(note=Note(Pitch(start+i,type='natural')))
 
-                    # nnote.pitch.info()
-                    # nnote.play()
-
                     nnote = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key)
                     self.play(nnote)
-                # time.sleep(note_length)
         else:
             generated_scale = Melody(key=self.key)
             for i in list(chain(range(0, steps, skip), range(steps, -1, -skip))):
                 if use_chord:
                     scale_note = Chord(Pitch(start+i,ptype='natural'), player=self.p, key=self.key, length=note_length, num=chord_size)
                 else:
-                    # scale_note = Note(Pitch(start+i, ptype='natural'), self.player, key=self.key, length=note_length)
                     scale_note = Note(Pitch(start+i, ptype='natural'), player=self.p, key=self.key, length=note_length)
 
                 generated_scale.add(scale_note)
