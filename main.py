@@ -34,10 +34,18 @@ class RowGame:
 
                 if streak_len >= self.n and player_streak != 0:
                     return player_streak
-        return player_streak
+        return 0
+
+    def diagonalize(self, grid):
+        x, y = grid.shape
+        result = []
+        for d in range(-y, x):
+            result.append(grid.diagonal(d))
+        return result
 
     def check(self):
-        for g in [self.board, self.board.transpose()]:
+        d_ = self.diagonalize
+        for g in [self.board, self.board.transpose(), d_(self.board), d_(self.board.transpose())]:
             winner = self.checkArray(g)
             if winner != 0:
                 return winner
