@@ -16,6 +16,9 @@ class RowGame:
     def clone(self):
         return copy.deepcopy(self)
 
+    def print(self):
+        print(self.board)
+
     # def checkDim(self):
 
     def checkArray(self, grid):
@@ -39,3 +42,12 @@ class RowGame:
             if winner != 0:
                 return winner
         return 0
+
+class DecisionTree:
+    def __init__(self):
+        self.nodes = []
+
+
+game = RowGame()
+game.print()
+print(game.check())
