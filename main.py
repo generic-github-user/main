@@ -1,5 +1,5 @@
 import numpy as np
-import deepcopy
+import copy
 
 class RowGame:
     def __init__(self, m=3, k=3, n=3, r=1):
@@ -10,4 +10,4 @@ class RowGame:
         self.board = np.zeros([m, k])
 
     def clone(self):
-        return deepcopy.copy(self)
+        return copy.deepcopy(self)
