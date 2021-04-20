@@ -2,8 +2,9 @@ import numpy as np
 import copy
 
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, symbol):
         self.name = name
+        self.symbol = symbol
 
 class RowGame:
     def __init__(self, m=3, k=3, n=3, r=1):
@@ -12,12 +13,25 @@ class RowGame:
         self.n = n
         self.r = r
         self.board = np.zeros([m, k])
+        self.players = []
+        self.defaultChar = ' '
 
     def clone(self):
         return copy.deepcopy(self)
 
-    def print(self):
-        print(self.board)
+    def cellSym(self, n):
+        if n != 0:
+            return self.players[int(n)-1].symbol
+        else:
+            return self.defaultChar
+
+    def print(self, type='normal'):
+        if type == 'normal':
+            for row in self.board:
+                row_string = ' '.join([self.cellSym(col) for col in row])
+                print(row_string)
+        elif type == 'raw':
+            print(self.board)
 
     # def checkDim(self):
 
