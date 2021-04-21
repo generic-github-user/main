@@ -99,3 +99,15 @@ class Node:
             node_list.append(n)
             node_list.extend(n.subnodes())
         return node_list
+
+    # def min(self):
+    #     return max(self.child_nodes, key=lambda x: x.score)
+    #
+    # def max(self):
+    #     return min(self.child_nodes, key=lambda x: x.score)
+
+    def min(self):
+        return min(self.child_nodes, key=lambda x: x.score)
+
+    def max(self):
+        return max(self.child_nodes, key=lambda x: x.score)
