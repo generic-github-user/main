@@ -11,6 +11,7 @@ class Node:
         self.turn = 2
         self.terminate = False
         self.outcome = 0
+        self.inf = 1000000
 
     def generate_branches(self, mutator=None, num=3, recursive=True):
         for n in range(num):
@@ -43,7 +44,7 @@ class Node:
             total += n.count_subnodes()
         return total
 
-    def backpropagate(self, q=0, direction='down', aggregator='average'):
+    def backpropagate(self, q=0, direction='down', aggregator='minimax'):
         if direction == 'up':
             if self.terminate:
                 if self.outcome == 2:
@@ -59,9 +60,9 @@ class Node:
         elif direction == 'down':
             if self.terminate:
                 if self.outcome == 2:
-                    self.score += 1
+                    self.score += self.inf
                 elif self.outcome == 1:
-                    self.score -= 1
+                    self.score -= self.inf
             else:
                 if aggregator == 'minimax':
                     # current_turn = None
@@ -70,10 +71,22 @@ class Node:
                     cscores = [c.backpropagate() for c in cs]
                     # It is the algorithm's turn
                     if self.state.currentTurn == self.turn:
-                        self.score = max(cscores) if cscores else 0
+                        # self.score = max(cscores) if cscores else 0
+
+                        max_score = -self.inf
+                        for c in self.child_nodes:
+                            if c.score > max_score:
+                                max_score = c.score
+                        self.score = max_score
                     # It is the other player's turn
                     else:
-                        self.score = min(cscores) if cscores else 0
+                        # self.score = min(cscores) if cscores else 0
+                        
+                        min_score = +self.inf
+                        for c in self.child_nodes:
+                            if c.score < min_score:
+                                min_score = c.score
+                        self.score = min_score
                 elif aggregator == 'sum':
                     pass
                 elif aggregator == 'average':

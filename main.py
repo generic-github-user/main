@@ -45,8 +45,8 @@ for i in range(tree.root.max_depth):
         # print(type(g))
         # g = g.child_nodes[0]
 
-        # g = g.best()
-        g = g.max()
+        g = g.best()
+        # g = g.max()
     except:
         pass
 
