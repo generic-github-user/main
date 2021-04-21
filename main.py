@@ -201,4 +201,27 @@ game.players.append(Player('Computer', 'O'))
 for i in range(9):
     game.playRandom()
 game.print()
+print(game.board)
 print(game.check())
+print(game.diagonalize(game.board))
+# print(game.diagonalize(game.board.transpose()))
+# print(game.diagonalize(np.transpose(game.board)))
+print(game.diagonalize(np.fliplr(game.board)))
+
+tree = DecisionTree()
+
+tree.root.state.players.append(Player('P1', 'X'))
+tree.root.state.players.append(Player('Computer', 'O'))
+
+tree.simulate()
+# print(tree.root.child_nodes[0].child_nodes[0].child_nodes[0].child_nodes[0])
+g = tree.root
+for i in range(tree.root.max_depth):
+    try:
+        # print(g.state.board)
+        g.state.print()
+        g = g.child_nodes[0]
+    except:
+        pass
+print(tree.root.count_subnodes())
+print(len(tree.root.term_nodes()))
