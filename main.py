@@ -63,7 +63,9 @@ class RowGame:
     def playRandom(self):
         free_spaces = self.getFree()
         if len(free_spaces) > 0:
-            self.move(*random.choice(free_spaces))
+            return self.move(*random.choice(free_spaces))
+        else:
+            return 0
 
     def cellSym(self, n):
         if n != 0:
