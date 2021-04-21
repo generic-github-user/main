@@ -233,9 +233,9 @@ class Node:
         return node_list
 
 class DecisionTree:
-    def __init__(self):
+    def __init__(self, start):
         # self.nodes = []
-        self.initial_state = RowGame()
+        self.initial_state = start
         self.root = Node(state=self.initial_state, depth=1)
 
     def simulate(self):
