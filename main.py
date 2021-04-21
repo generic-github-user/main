@@ -108,15 +108,18 @@ class RowGame:
         x, y = grid.shape
         result = []
         # Loop through diagonal offsets; a [3, 5] array will have offsets from -5 to 3
-        for d in range(-y, x):
+        for d in range(-y+1, x):
             result.append(grid.diagonal(d))
         return result
 
     def check(self):
+        # tr = np.transpose
+        tr = np.fliplr
         d_ = self.diagonalize
         # Loop through rows, columns, and both diagonals
-        for g in [self.board, self.board.transpose(), d_(self.board), d_(self.board.transpose())]:
+        for g in [self.board, np.transpose(self.board), d_(self.board), d_(tr(self.board))]:
             winner = self.checkArray(g)
+            # print(winner)
             # Return the winner if it is a player
             if winner != 0:
                 return winner
@@ -128,11 +131,13 @@ class Node:
         self.child_nodes = []
         self.score = 0
         self.state = state
-        self.max_depth = 6
+        self.max_depth = 9
         self.depth = depth
         self.turn = 2
+        self.terminate = False
+        self.outcome = 0
 
-    def generate_branches(self, mutator=None, num=4, recursive=True):
+    def generate_branches(self, mutator=None, num=2, recursive=True):
         for n in range(num):
             if self.depth <= self.max_depth:
                 branch = Node(state=self.state.clone(), depth=self.depth+1)
