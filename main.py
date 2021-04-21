@@ -48,6 +48,8 @@ class RowGame:
             self.nextTurn()
         else:
             print('Not a legal move')
+        # return self
+        return self.check()
 
     def getFree(self):
         # Get a list of coordinates (2D array indices) where the board state is 0 (no move played yet)
@@ -56,10 +58,12 @@ class RowGame:
             return empty
         else:
             print('No free spaces')
+            return empty
 
     def playRandom(self):
         free_spaces = self.getFree()
-        self.move(*random.choice(free_spaces))
+        if len(free_spaces) > 0:
+            self.move(*random.choice(free_spaces))
 
     def cellSym(self, n):
         if n != 0:
