@@ -9,7 +9,7 @@ class Player:
         self.symbol = symbol
 
 class RowGame:
-    def __init__(self, m=3, k=3, n=3, r=1):
+    def __init__(self, m=3, k=3, n=3, r=1, f=1):
         self.m = m
         self.k = k
         self.n = n
@@ -17,7 +17,7 @@ class RowGame:
         self.board = np.zeros([m, k])
         self.players = []
         self.defaultChar = ' '
-        self.currentTurn = 1
+        self.currentTurn = f
 
     def clone(self):
         return copy.deepcopy(self)
@@ -266,7 +266,7 @@ print(game.diagonalize(game.board))
 # print(game.diagonalize(np.transpose(game.board)))
 print(game.diagonalize(np.fliplr(game.board)))
 
-tree = DecisionTree()
+tree = DecisionTree(RowGame(m=4, k=4, f=2))
 
 tree.root.state.players.append(Player('P1', 'X'))
 tree.root.state.players.append(Player('Computer', 'O'))
