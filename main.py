@@ -216,6 +216,15 @@ class DecisionTree:
         for u in self.root.term_nodes():
             u.backpropagate()
 
+    def print_tree(self, r=None, l=0):
+        if r is None:
+            r = self.root
+
+        print((' '*l*2) + '({}) '.format(l) + str(r.score) + ' / ' + str(len(r.child_nodes)) + ' / ' + str(len(r.parent_nodes)))
+        for n in r.child_nodes:
+            self.print_tree(r=n, l=l+1)
+
+
 game = RowGame()
 # game.board[0,0] = 2
 # game.board[1,1] = 2
