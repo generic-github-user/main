@@ -14,7 +14,11 @@ class DecisionTree:
     def backpropagate(self):
         # for u in self.root.term_nodes():
         #     u.backpropagate()
+
         self.root.backpropagate()
+
+        # for n in self.root.child_nodes:
+        #     n.backpropagate()
 
     def print_tree(self, r=None, l=0):
         if r is None:

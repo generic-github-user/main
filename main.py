@@ -7,8 +7,8 @@ from game import *
 from node import *
 from tree import *
 
-z = 3
-game = RowGame(m=z, k=z, f=2)
+z = 4
+game = RowGame(m=z, k=z, n=z, f=2)
 game.move(1, 1)
 # game.board[0,0] = 2
 # game.board[1,1] = 2
@@ -26,33 +26,39 @@ print(game.diagonalize(game.board))
 # print(game.diagonalize(np.transpose(game.board)))
 print(game.diagonalize(np.fliplr(game.board)))
 
-tree = DecisionTree(RowGame(m=z, k=z, f=2))
+tree = DecisionTree(RowGame(m=z, k=z, n=z, f=2))
 
 tree.root.state.players.append(Player('P1', 'X'))
-tree.root.state.players.append(Player('Computer', 'O'))
-tree.root.state.center()
+tree.root.state.players.append(Player('Computer', 'C'))
+# tree.root.state.center()
 
 tree.simulate()
+tree.backpropagate()
 # print(tree.root.child_nodes[0].child_nodes[0].child_nodes[0].child_nodes[0])
 g = tree.root
 for i in range(tree.root.max_depth):
     try:
         # print(g.state.board)
         g.state.print()
-        g = g.child_nodes[0]
+        print(g.score)
+        # print([v.score for v in g.child_nodes])
+        # print(type(g))
+        # g = g.child_nodes[0]
+
+        # g = g.best()
+        g = g.max()
     except:
         pass
 
-tree.backpropagate()
 # tree.print_tree()
 
 print(tree.root.count_subnodes())
 print(len(tree.root.term_nodes()))
 print(tree.root)
 
-random.choice(tree.root.term_nodes()).state.print()
+# random.choice(tree.root.term_nodes()).state.print()
 
 print(len(tree.all_nodes()))
 # print(tree.match(game))
-game.print()
-tree.match(game).state.print()
+# game.print()
+# tree.match(game).state.print()
