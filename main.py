@@ -116,6 +116,13 @@ class RowGame:
                 return winner
         return 0
 
+class Node:
+    def __init__(self):
+        self.parent_nodes = []
+        self.child_nodes = []
+        self.score = 0
+        self.state = None
+
 class DecisionTree:
     def __init__(self):
         self.nodes = []
