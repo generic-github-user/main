@@ -161,6 +161,14 @@ class Node:
             total += n.count_subnodes()
         return total
 
+    def __str__(self):
+        # return json.dumps(self.__dict__, indent=2)
+        node_dict = {}
+        for a in ['score', 'depth', 'max_depth']:
+            node_dict[a] = getattr(self, a)
+        node_string = json.dumps(node_dict, indent=2)
+        return node_string
+
 class DecisionTree:
     def __init__(self):
         # self.nodes = []
