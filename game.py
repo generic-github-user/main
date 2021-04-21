@@ -10,6 +10,7 @@ class Player:
 
 class RowGame:
     def __init__(self, m=3, k=3, n=3, r=1, f=1):
+        """Create a new game instance"""
         self.m = m
         self.k = k
         self.n = n
@@ -20,9 +21,11 @@ class RowGame:
         self.currentTurn = f
 
     def clone(self):
+        """Make a deep copy of this game object and all nested objects"""
         return copy.deepcopy(self)
 
     def nextTurn(self):
+        """Switch to the next player"""
         self.currentTurn += 1
         # If maximum turn number is exceeded, go back to first player
         if self.currentTurn > len(self.players):
@@ -31,9 +34,11 @@ class RowGame:
         return self
 
     def between(self, n, b, a=0):
+        """Shorthand function for checking if a given value is between two other values"""
         return a <= n <= b
 
     def legal(self, x, y):
+        """Check if a given move is allowed"""
         be = self.between
         x_, y_ = self.board.shape
         # For a space to be a legal move:
@@ -44,6 +49,7 @@ class RowGame:
         return all(conditions)
 
     def move(self, x, y):
+        """Place a player marker at the provided location and go to the next player"""
         if self.legal(x, y):
             self.board[x, y] = self.currentTurn
             # Go to next player
@@ -54,12 +60,13 @@ class RowGame:
         return self.check()
 
     def center(self):
+        """Take the current player's turn at the center of the board (or nearest available)"""
         x, y = np.round(np.array(self.board.shape) / 2)
         x, y = int(x)-1, int(y)-1
         self.move(x, y)
 
     def getFree(self):
-        # Get a list of coordinates (2D array indices) where the board state is 0 (no move played yet)
+        """Get a list of coordinates (2D array indices) where the board state is 0 (no move played yet)"""
         empty = np.argwhere(self.board == 0)
         if len(empty) > 0:
             return empty
@@ -68,6 +75,7 @@ class RowGame:
             return empty
 
     def playRandom(self):
+        """Play a move in a randomly selected available space"""
         free_spaces = self.getFree()
         if len(free_spaces) > 0:
             return self.move(*random.choice(free_spaces))
@@ -75,12 +83,14 @@ class RowGame:
             return 0
 
     def cellSym(self, n):
+        """Get the symbol representing a cell in the game board"""
         if n != 0:
             return self.players[int(n)-1].symbol
         else:
             return self.defaultChar
 
     def print(self, type='normal', grid=True):
+        """Display the game board in the console"""
         # print('players', self.players)
         if type == 'normal':
             # Loop through rows
@@ -103,6 +113,7 @@ class RowGame:
     # def checkDim(self):
 
     def checkArray(self, grid):
+        """Check a list of strides for winning rows"""
         for row in grid:
             # Track the player who made the current move(s)
             player_streak = 0
@@ -124,6 +135,7 @@ class RowGame:
         return 0
 
     def diagonalize(self, grid):
+        """Create a list of diagonal strides through the game board"""
         x, y = grid.shape
         result = []
         # Loop through diagonal offsets; a [3, 5] array will have offsets from -5 to 3
@@ -132,6 +144,7 @@ class RowGame:
         return result
 
     def check(self):
+        """Check the game state for any winners"""
         # tr = np.transpose
         tr = np.fliplr
         d_ = self.diagonalize
