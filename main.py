@@ -15,10 +15,17 @@ class RowGame:
         self.board = np.zeros([m, k])
         self.players = []
         self.defaultChar = ' '
+        self.currentTurn = 1
 
     def clone(self):
         return copy.deepcopy(self)
 
+    def nextTurn(self):
+        self.currentTurn += 1
+        if self.currentTurn > len(self.players):
+            self.currentTurn = 1
+
+        return self
     def cellSym(self, n):
         if n != 0:
             return self.players[int(n)-1].symbol
