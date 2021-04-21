@@ -146,6 +146,15 @@ class Node:
                     branch.generate_branches()
                 self.child_nodes.append(branch)
 
+    def term_nodes(self):
+        results = []
+        for c in self.child_nodes:
+            if c.terminate:
+                results.append(c)
+            else:
+                results.extend(c.term_nodes())
+        return results
+
     def count_subnodes(self):
         total = len(self.child_nodes)
         for n in self.child_nodes:
