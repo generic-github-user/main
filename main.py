@@ -141,6 +141,12 @@ class Node:
                     branch.generate_branches()
                 self.child_nodes.append(branch)
 
+    def count_subnodes(self):
+        total = len(self.child_nodes)
+        for n in self.child_nodes:
+            total += n.count_subnodes()
+        return total
+
 class DecisionTree:
     def __init__(self):
         self.nodes = []
