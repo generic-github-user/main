@@ -275,6 +275,7 @@ tree = DecisionTree(RowGame(m=4, k=4, f=2))
 
 tree.root.state.players.append(Player('P1', 'X'))
 tree.root.state.players.append(Player('Computer', 'O'))
+tree.root.state.center()
 
 tree.simulate()
 # print(tree.root.child_nodes[0].child_nodes[0].child_nodes[0].child_nodes[0])
@@ -293,3 +294,10 @@ tree.backpropagate()
 print(tree.root.count_subnodes())
 print(len(tree.root.term_nodes()))
 print(tree.root)
+
+random.choice(tree.root.term_nodes()).state.print()
+
+print(len(tree.all_nodes()))
+# print(tree.match(game))
+game.print()
+tree.match(game).state.print()
