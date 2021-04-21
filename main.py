@@ -1,5 +1,6 @@
 import numpy as np
 import copy
+import random
 
 class Player:
     def __init__(self, name, symbol):
@@ -41,6 +42,18 @@ class RowGame:
             self.nextTurn()
         else:
             print('Not a legal move')
+
+    def getFree(self):
+        empty = np.argwhere(self.board == 0)
+        if len(empty) > 0:
+            return empty
+        else:
+            print('No free spaces')
+
+    def playRandom(self):
+        free_spaces = self.getFree()
+        self.move(*random.choice(free_spaces))
+
     def cellSym(self, n):
         if n != 0:
             return self.players[int(n)-1].symbol
