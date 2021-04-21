@@ -6,7 +6,7 @@ class Node:
         self.child_nodes = []
         self.score = 0
         self.state = state
-        self.max_depth = 9
+        self.max_depth = 8
         self.depth = depth
         self.turn = 2
         self.terminate = False
@@ -43,7 +43,7 @@ class Node:
             total += n.count_subnodes()
         return total
 
-    def backpropagate(self, q=0, direction='down'):
+    def backpropagate(self, q=0, direction='down', aggregator='minimax'):
         if direction == 'up':
             if self.terminate:
                 if self.outcome == 2:
@@ -63,9 +63,23 @@ class Node:
                 elif self.outcome == 1:
                     self.score -= 1
             else:
-                num_children = len(self.child_nodes)
-                for c in self.child_nodes:
-                    self.score += c.backpropagate() / num_children
+                if aggregator == 'minimax':
+                    # current_turn = None
+                    cs = self.child_nodes
+                    # print(cs)
+                    cscores = [c.backpropagate() for c in cs]
+                    # It is the algorithm's turn
+                    if self.state.currentTurn == self.turn:
+                        self.score = max(cscores) if cscores else 0
+                    # It is the other player's turn
+                    else:
+                        self.score = min(cscores) if cscores else 0
+                elif aggregator == 'average':
+                    num_children = len(self.child_nodes)
+                    for c in self.child_nodes:
+                        self.score += c.backpropagate() / num_children
+                else:
+                    raise ValueError('Invalid aggregation function')
 
             return self.score
         else:

@@ -7,8 +7,8 @@ from game import *
 from node import *
 from tree import *
 
-
-game = RowGame(m=4, k=4, f=2)
+z = 3
+game = RowGame(m=z, k=z, f=2)
 game.move(1, 1)
 # game.board[0,0] = 2
 # game.board[1,1] = 2
@@ -26,7 +26,7 @@ print(game.diagonalize(game.board))
 # print(game.diagonalize(np.transpose(game.board)))
 print(game.diagonalize(np.fliplr(game.board)))
 
-tree = DecisionTree(RowGame(m=4, k=4, f=2))
+tree = DecisionTree(RowGame(m=z, k=z, f=2))
 
 tree.root.state.players.append(Player('P1', 'X'))
 tree.root.state.players.append(Player('Computer', 'O'))
