@@ -143,6 +143,9 @@ class RowGame:
                 return winner
         return 0
 
+    def __sub__(self, b):
+        return self.board - b.board
+
 class Node:
     def __init__(self, state=None, depth=1):
         self.parent_nodes = []
