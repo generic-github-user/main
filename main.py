@@ -212,6 +212,9 @@ class DecisionTree:
     def simulate(self):
         self.root.generate_branches()
 
+    def backpropagate(self):
+        for u in self.root.term_nodes():
+            u.backpropagate()
 
 game = RowGame()
 # game.board[0,0] = 2
