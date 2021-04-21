@@ -34,6 +34,13 @@ class RowGame:
         be = self.between
         x_, y_ = self.board.shape
         return be(x,x_) and be(y,y_) and self.board[x, y] == 0
+
+    def move(self, x, y):
+        if self.legal(x, y):
+            self.board[x, y] = self.currentTurn
+            self.nextTurn()
+        else:
+            print('Not a legal move')
     def cellSym(self, n):
         if n != 0:
             return self.players[int(n)-1].symbol
