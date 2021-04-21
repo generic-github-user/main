@@ -149,7 +149,12 @@ class Node:
 
 class DecisionTree:
     def __init__(self):
-        self.nodes = []
+        # self.nodes = []
+        self.initial_state = RowGame()
+        self.root = Node(state=self.initial_state, depth=1)
+
+    def simulate(self):
+        self.root.generate_branches()
 
 
 game = RowGame()
