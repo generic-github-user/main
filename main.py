@@ -74,17 +74,25 @@ class RowGame:
         else:
             return self.defaultChar
 
-    def print(self, type='normal'):
+    def print(self, type='normal', grid=True):
         # print('players', self.players)
         if type == 'normal':
             # Loop through rows
-            for row in self.board:
+            for i, row in enumerate(self.board):
+                if grid:
+                    divider = '|'
+                else:
+                    divider = self.defaultChar
                 # Generate and print string representing row of game board
-                row_string = ' '.join([self.cellSym(col) for col in row])
+                row_string = divider.join([self.cellSym(col) for col in row])
                 print(row_string)
+
+                if grid and i < len(self.board) - 1:
+                    print('-'.join(['-'] * len(row)))
         elif type == 'raw':
             # Print plain NumPy array
             print(self.board)
+        print()
 
     # def checkDim(self):
 
