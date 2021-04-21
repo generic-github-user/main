@@ -31,7 +31,19 @@ class DecisionTree:
     def all_nodes(self):
         return self.root.subnodes()
 
-game = RowGame()
+    def search(self):
+        pass
+
+    def match(self, state):
+        node_list = self.all_nodes()
+        return min(node_list, key=lambda w: np.sum(np.abs(w.state - state)))
+
+    def best(self):
+        pass
+
+
+game = RowGame(m=4, k=4, f=2)
+game.move(1, 1)
 # game.board[0,0] = 2
 # game.board[1,1] = 2
 # game.board[2,2] = 1
