@@ -150,7 +150,7 @@ class Node:
         self.terminate = False
         self.outcome = 0
 
-    def generate_branches(self, mutator=None, num=2, recursive=True):
+    def generate_branches(self, mutator=None, num=3, recursive=True):
         for n in range(num):
             if self.depth <= self.max_depth:
                 branch = Node(state=self.state.clone(), depth=self.depth+1)
@@ -159,7 +159,7 @@ class Node:
                 # print(move_result)
                 if move_result != 0:
                     branch.terminate = True
-                    branch.outcome = move_result
+                    branch.outcome = int(move_result)
 
                 branch.parent_nodes.append(self)
                 if recursive and not branch.terminate:
@@ -181,7 +181,7 @@ class Node:
             total += n.count_subnodes()
         return total
 
-    def backpropagate(self, q=0, direction='up'):
+    def backpropagate(self, q=0, direction='down'):
         if direction == 'up':
             if self.terminate:
                 if self.outcome == 2:
@@ -227,8 +227,9 @@ class DecisionTree:
         self.root.generate_branches()
 
     def backpropagate(self):
-        for u in self.root.term_nodes():
-            u.backpropagate()
+        # for u in self.root.term_nodes():
+        #     u.backpropagate()
+        self.root.backpropagate()
 
     def print_tree(self, r=None, l=0):
         if r is None:
@@ -271,5 +272,10 @@ for i in range(tree.root.max_depth):
         g = g.child_nodes[0]
     except:
         pass
+
+tree.backpropagate()
+# tree.print_tree()
+
 print(tree.root.count_subnodes())
 print(len(tree.root.term_nodes()))
+print(tree.root)
