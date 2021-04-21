@@ -23,6 +23,7 @@ class RowGame:
 
     def nextTurn(self):
         self.currentTurn += 1
+        # If maximum turn number is exceeded, go back to first player
         if self.currentTurn > len(self.players):
             self.currentTurn = 1
 
@@ -34,16 +35,22 @@ class RowGame:
     def legal(self, x, y):
         be = self.between
         x_, y_ = self.board.shape
+        # For a space to be a legal move:
+        # x must be in the range [0, m)
+        # y must be in the range [0, k)
+        # board_{x,y} must be 0
         return be(x,x_) and be(y,y_) and self.board[x, y] == 0
 
     def move(self, x, y):
         if self.legal(x, y):
             self.board[x, y] = self.currentTurn
+            # Go to next player
             self.nextTurn()
         else:
             print('Not a legal move')
 
     def getFree(self):
+        # Get a list of coordinates (2D array indices) where the board state is 0 (no move played yet)
         empty = np.argwhere(self.board == 0)
         if len(empty) > 0:
             return empty
@@ -104,6 +111,7 @@ class RowGame:
         # Loop through rows, columns, and both diagonals
         for g in [self.board, self.board.transpose(), d_(self.board), d_(self.board.transpose())]:
             winner = self.checkArray(g)
+            # Return the winner if it is a player
             if winner != 0:
                 return winner
         return 0
