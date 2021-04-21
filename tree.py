@@ -17,15 +17,15 @@ class DecisionTree:
 
         self.root.backpropagate()
 
-        # for n in self.root.child_nodes:
+        # for n in self.root.children:
         #     n.backpropagate()
 
     def print_tree(self, r=None, l=0):
         if r is None:
             r = self.root
 
-        print((' '*l*2) + '({}) '.format(l) + str(r.score) + ' / ' + str(len(r.child_nodes)) + ' / ' + str(len(r.parent_nodes)))
-        for n in r.child_nodes:
+        print((' '*l*2) + '({}) '.format(l) + str(r.score) + ' / ' + str(len(r.children)) + ' / ' + str(len(r.parents)))
+        for n in r.children:
             self.print_tree(r=n, l=l+1)
 
     def all_nodes(self):

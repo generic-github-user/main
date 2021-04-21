@@ -2,8 +2,8 @@ import json
 
 class Node:
     def __init__(self, state=None, depth=1):
-        self.parent_nodes = []
-        self.child_nodes = []
+        self.parents = []
+        self.children = []
         self.score = 0
         self.state = state
         self.max_depth = 8
@@ -24,14 +24,14 @@ class Node:
                     branch.terminate = True
                     branch.outcome = int(move_result)
 
-                branch.parent_nodes.append(self)
+                branch.parents.append(self)
                 if recursive and not branch.terminate:
                     branch.generate_branches()
-                self.child_nodes.append(branch)
+                self.children.append(branch)
 
     def term_nodes(self):
         results = []
-        for c in self.child_nodes:
+        for c in self.children:
             if c.terminate:
                 results.append(c)
             else:
@@ -39,8 +39,8 @@ class Node:
         return results
 
     def count_subnodes(self):
-        total = len(self.child_nodes)
-        for n in self.child_nodes:
+        total = len(self.children)
+        for n in self.children:
             total += n.count_subnodes()
         return total
 
@@ -52,10 +52,10 @@ class Node:
                 elif self.outcome == 1:
                     self.score -= 1
             else:
-                self.score += (q / len(self.child_nodes))
+                self.score += (q / len(self.children))
                 # self.score += q / self.count_subnodes()
 
-            for p in self.parent_nodes:
+            for p in self.parents:
                 p.backpropagate(q=self.score)
         elif direction == 'down':
             if self.terminate:
@@ -71,14 +71,14 @@ class Node:
             else:
                 if aggregator == 'minimax':
                     # current_turn = None
-                    cs = self.child_nodes
+                    cs = self.children
                     # print(cs)
                     cscores = [c.backpropagate() for c in cs]
                     # It is the algorithm's turn
                     if self.state.currentTurn == self.turn:
                         if use_inf:
                             max_score = -self.inf
-                            for c in self.child_nodes:
+                            for c in self.children:
                                 if c.score > max_score:
                                     max_score = c.score
                             self.score = max_score
@@ -88,7 +88,7 @@ class Node:
                     else:
                         if use_inf:
                             min_score = +self.inf
-                            for c in self.child_nodes:
+                            for c in self.children:
                                 if c.score < min_score:
                                     min_score = c.score
                             self.score = min_score
@@ -97,17 +97,17 @@ class Node:
                 elif aggregator == 'sum':
                     pass
                 elif aggregator == 'average':
-                    num_children = len(self.child_nodes)
+                    num_children = len(self.children)
 
-                    for c in self.child_nodes:
+                    for c in self.children:
                         self.score += c.backpropagate() / num_children
 
                     # ?
                     # if self.state.currentTurn == self.turn:
-                    #     for c in self.child_nodes:
+                    #     for c in self.children:
                     #         self.score += c.backpropagate() / num_children
                     # else:
-                    #     for c in self.child_nodes:
+                    #     for c in self.children:
                     #         self.score -= c.backpropagate() / num_children
                 else:
                     raise ValueError('Invalid aggregation function')
@@ -126,22 +126,22 @@ class Node:
 
     def subnodes(self):
         node_list = []
-        for n in self.child_nodes:
+        for n in self.children:
             node_list.append(n)
             node_list.extend(n.subnodes())
         return node_list
 
     # def min(self):
-    #     return max(self.child_nodes, key=lambda x: x.score)
+    #     return max(self.children, key=lambda x: x.score)
     #
     # def max(self):
-    #     return min(self.child_nodes, key=lambda x: x.score)
+    #     return min(self.children, key=lambda x: x.score)
 
     def min(self):
-        return min(self.child_nodes, key=lambda x: x.score)
+        return min(self.children, key=lambda x: x.score)
 
     def max(self):
-        return max(self.child_nodes, key=lambda x: x.score)
+        return max(self.children, key=lambda x: x.score)
 
     def best(self):
         if self.state.currentTurn == self.turn:

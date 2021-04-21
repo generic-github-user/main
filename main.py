@@ -34,16 +34,16 @@ tree.root.state.players.append(Player('Computer', 'C'))
 
 tree.simulate()
 tree.backpropagate()
-# print(tree.root.child_nodes[0].child_nodes[0].child_nodes[0].child_nodes[0])
+# print(tree.root.children[0].children[0].children[0].children[0])
 g = tree.root
 for i in range(tree.root.max_depth):
     try:
         # print(g.state.board)
         g.state.print()
         print(g.score)
-        # print([v.score for v in g.child_nodes])
+        # print([v.score for v in g.children])
         # print(type(g))
-        # g = g.child_nodes[0]
+        # g = g.children[0]
 
         g = g.best()
         # g = g.max()
