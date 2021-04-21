@@ -52,6 +52,11 @@ class RowGame:
         # return self
         return self.check()
 
+    def center(self):
+        x, y = np.round(np.array(self.board.shape) / 2)
+        x, y = int(x), int(y)
+        self.move(x, y)
+
     def getFree(self):
         # Get a list of coordinates (2D array indices) where the board state is 0 (no move played yet)
         empty = np.argwhere(self.board == 0)
