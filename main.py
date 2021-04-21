@@ -26,6 +26,14 @@ class RowGame:
             self.currentTurn = 1
 
         return self
+
+    def between(self, n, b, a=0):
+        return a <= n <= b
+
+    def legal(self, x, y):
+        be = self.between
+        x_, y_ = self.board.shape
+        return be(x,x_) and be(y,y_) and self.board[x, y] == 0
     def cellSym(self, n):
         if n != 0:
             return self.players[int(n)-1].symbol
