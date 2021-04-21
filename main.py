@@ -217,6 +217,13 @@ class Node:
         node_string = json.dumps(node_dict, indent=2)
         return node_string
 
+    def subnodes(self):
+        node_list = []
+        for n in self.child_nodes:
+            node_list.append(n)
+            node_list.extend(n.subnodes())
+        return node_list
+
 class DecisionTree:
     def __init__(self):
         # self.nodes = []
@@ -239,6 +246,8 @@ class DecisionTree:
         for n in r.child_nodes:
             self.print_tree(r=n, l=l+1)
 
+    def all_nodes(self):
+        return self.root.subnodes()
 
 game = RowGame()
 # game.board[0,0] = 2
