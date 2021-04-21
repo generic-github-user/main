@@ -40,7 +40,8 @@ class RowGame:
         # x must be in the range [0, m)
         # y must be in the range [0, k)
         # board_{x,y} must be 0
-        return be(x,x_) and be(y,y_) and self.board[x, y] == 0
+        conditions = [be(x,x_), be(y,y_), self.board[x, y] == 0]
+        return all(conditions)
 
     def move(self, x, y):
         if self.legal(x, y):
