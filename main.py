@@ -181,6 +181,20 @@ class Node:
             total += n.count_subnodes()
         return total
 
+    def backpropagate(self, q=0, direction='up'):
+        if direction == 'up':
+            if self.terminate:
+                if self.outcome == 2:
+                    self.score += 1
+                elif self.outcome == 1:
+                    self.score -= 1
+            else:
+                self.score += (q / len(self.child_nodes))
+                # self.score += q / self.count_subnodes()
+
+            for p in self.parent_nodes:
+                p.backpropagate(q=self.score)
+
     def __str__(self):
         # return json.dumps(self.__dict__, indent=2)
         node_dict = {}
