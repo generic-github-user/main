@@ -44,7 +44,7 @@ class Node:
             total += n.count_subnodes()
         return total
 
-    def backpropagate(self, q=0, direction='down', aggregator='minimax'):
+    def backpropagate(self, q=0, direction='down', aggregator='minimax', use_inf=False):
         if direction == 'up':
             if self.terminate:
                 if self.outcome == 2:
@@ -59,6 +59,11 @@ class Node:
                 p.backpropagate(q=self.score)
         elif direction == 'down':
             if self.terminate:
+                if use_inf:
+                    delta = self.inf
+                else:
+                    delta = 1
+
                 if self.outcome == 2:
                     self.score += self.inf
                 elif self.outcome == 1:
@@ -71,22 +76,24 @@ class Node:
                     cscores = [c.backpropagate() for c in cs]
                     # It is the algorithm's turn
                     if self.state.currentTurn == self.turn:
-                        # self.score = max(cscores) if cscores else 0
-
-                        max_score = -self.inf
-                        for c in self.child_nodes:
-                            if c.score > max_score:
-                                max_score = c.score
-                        self.score = max_score
+                        if use_inf:
+                            max_score = -self.inf
+                            for c in self.child_nodes:
+                                if c.score > max_score:
+                                    max_score = c.score
+                            self.score = max_score
+                        else:
+                            self.score = max(cscores) if cscores else 0
                     # It is the other player's turn
                     else:
-                        # self.score = min(cscores) if cscores else 0
-                        
-                        min_score = +self.inf
-                        for c in self.child_nodes:
-                            if c.score < min_score:
-                                min_score = c.score
-                        self.score = min_score
+                        if use_inf:
+                            min_score = +self.inf
+                            for c in self.child_nodes:
+                                if c.score < min_score:
+                                    min_score = c.score
+                            self.score = min_score
+                        else:
+                            self.score = min(cscores) if cscores else 0
                 elif aggregator == 'sum':
                     pass
                 elif aggregator == 'average':
