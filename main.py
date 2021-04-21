@@ -114,5 +114,13 @@ class DecisionTree:
 
 
 game = RowGame()
+# game.board[0,0] = 2
+# game.board[1,1] = 2
+# game.board[2,2] = 1
+# game.board[1,2] = 1
+game.players.append(Player('P1', 'X'))
+game.players.append(Player('Computer', 'O'))
+for i in range(9):
+    game.playRandom()
 game.print()
 print(game.check())
