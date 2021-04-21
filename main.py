@@ -117,11 +117,25 @@ class RowGame:
         return 0
 
 class Node:
-    def __init__(self):
+    def __init__(self, state=None, depth=1):
         self.parent_nodes = []
         self.child_nodes = []
         self.score = 0
-        self.state = None
+        self.state = state
+        self.max_depth = 6
+        self.depth = depth
+        self.turn = 2
+
+    def generate_branches(self, mutator=None, num=4, recursive=True):
+        for n in range(num):
+            if self.depth <= self.max_depth:
+                branch = Node(state=self.state.clone(), depth=self.depth+1)
+                # if branch.state.currentTurn == self.turn:
+                branch.state.playRandom()
+                branch.parent_nodes.append(self)
+                if recursive:
+                    branch.generate_branches()
+                self.child_nodes.append(branch)
 
 class DecisionTree:
     def __init__(self):
