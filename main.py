@@ -135,9 +135,14 @@ class Node:
             if self.depth <= self.max_depth:
                 branch = Node(state=self.state.clone(), depth=self.depth+1)
                 # if branch.state.currentTurn == self.turn:
-                branch.state.playRandom()
+                move_result = branch.state.playRandom()
+                # print(move_result)
+                if move_result != 0:
+                    branch.terminate = True
+                    branch.outcome = move_result
+
                 branch.parent_nodes.append(self)
-                if recursive:
+                if recursive and not branch.terminate:
                     branch.generate_branches()
                 self.child_nodes.append(branch)
 
