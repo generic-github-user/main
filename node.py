@@ -111,3 +111,10 @@ class Node:
 
     def max(self):
         return max(self.child_nodes, key=lambda x: x.score)
+
+    def best(self):
+        if self.state.currentTurn == self.turn:
+            best_move = self.max()
+        else:
+            best_move = self.min()
+        return best_move
