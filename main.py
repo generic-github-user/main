@@ -194,6 +194,20 @@ class Node:
 
             for p in self.parent_nodes:
                 p.backpropagate(q=self.score)
+        elif direction == 'down':
+            if self.terminate:
+                if self.outcome == 2:
+                    self.score += 1
+                elif self.outcome == 1:
+                    self.score -= 1
+            else:
+                num_children = len(self.child_nodes)
+                for c in self.child_nodes:
+                    self.score += c.backpropagate() / num_children
+
+            return self.score
+        else:
+            raise ValueError('Invalid value propagation direction')
 
     def __str__(self):
         # return json.dumps(self.__dict__, indent=2)
