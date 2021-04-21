@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 import random
+import json
 
 class Player:
     def __init__(self, name, symbol):
@@ -74,6 +75,7 @@ class RowGame:
             return self.defaultChar
 
     def print(self, type='normal'):
+        # print('players', self.players)
         if type == 'normal':
             # Loop through rows
             for row in self.board:
@@ -91,14 +93,17 @@ class RowGame:
             # Track the player who made the current move(s)
             player_streak = 0
             streak_len = 0
+            # print(row)
             # Loop through each mark in row (after transformation; so the "row" might actually be a column or diagonal)
             for x in row:
                 if x == player_streak:
                     streak_len += 1
                 else:
-                    streak_len = 0
+                    streak_len = 1
                     player_streak = x
 
+                # print(streak_len)
+                # print(2. == 2)
                 if streak_len >= self.n and player_streak != 0:
                     return player_streak
         # If no player won in any of the checked rows, return 0
