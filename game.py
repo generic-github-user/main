@@ -55,7 +55,7 @@ class RowGame:
 
     def center(self):
         x, y = np.round(np.array(self.board.shape) / 2)
-        x, y = int(x), int(y)
+        x, y = int(x)-1, int(y)-1
         self.move(x, y)
 
     def getFree(self):
