@@ -68,3 +68,9 @@ game3D = RowGame(dims=[5, 5, 5], n=4)
 game3D.randomGame()
 print(game3D.board)
 game3D.print()
+
+ndim = 3
+game_ndim = RowGame(dims=[7]*ndim, n=4)
+game_ndim.randomGame()
+print(game_ndim.board)
+game_ndim.print()
