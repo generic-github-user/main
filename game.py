@@ -56,8 +56,9 @@ class RowGame:
         be = self.between
         if pos is None:
             pos = [x, y, 0]
-        x, y, z = pos
-        x_, y_, z_ = self.board.shape
+        x, y, z = pos[:3]
+        x_, y_, z_ = self.board.shape[:3]
+
         # For a space to be a legal move:
         # x must be in the range [0, m)
         # y must be in the range [0, k)
@@ -234,7 +235,7 @@ class RowGame:
 
     def diagonalize(self, grid):
         """Create a list of diagonal strides through the game board"""
-        x, y = grid.shape
+        x, y, z = grid.shape[:3]
         result = []
         # Loop through diagonal offsets; a [3, 5] array will have offsets from -5 to 3
         for d in range(-y+1, x):
