@@ -9,13 +9,21 @@ class Player:
         self.symbol = symbol
 
 class RowGame:
-    def __init__(self, m=3, k=3, n=3, r=1, f=1):
+    def __init__(self, dims=None, m=3, k=3, n=3, r=1, f=1):
         """Create a new game instance"""
+
         self.m = m
         self.k = k
+
+        if dims is None:
+            self.dimensions = [m, k]
+        else:
+            self.dimensions = dims
+        self.dims = self.dimensions
+
         self.n = n
         self.r = r
-        self.board = np.zeros([m, k])
+        self.board = np.zeros(self.dims)
         self.players = []
         self.defaultChar = ' '
         self.currentTurn = f
