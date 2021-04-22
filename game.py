@@ -68,10 +68,14 @@ class RowGame:
         print(conditions)
         return all(conditions)
 
-    def move(self, x, y):
+    def move(self, pos=None, x=0, y=0):
         """Place a player marker at the provided location and go to the next player"""
-        if self.legal(x, y):
-            self.board[x, y] = self.currentTurn
+        if pos is None:
+            pos = [x, y, 0]
+        pos = tuple(pos)
+
+        if self.legal(pos):
+            self.board[pos] = self.currentTurn
             # Go to next player
             self.nextTurn()
         else:
