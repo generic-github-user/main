@@ -121,24 +121,57 @@ class RowGame:
 
     def print(self, type='normal', grid=True):
         """Display the game board in the console"""
-        # print('players', self.players)
-        if type == 'normal':
-            # Loop through rows
-            for i, row in enumerate(self.board):
-                if grid:
-                    divider = '|'
-                else:
-                    divider = self.defaultChar
-                # Generate and print string representing row of game board
-                row_string = divider.join([self.cellSym(col) for col in row])
-                print(row_string)
 
-                if grid and i < len(self.board) - 1:
-                    print('-'.join(['-'] * len(row)))
+        new_shape = self.dims[:2] + [-1]
+        board_layers = self.board.reshape(new_shape)
+
+        ns = board_layers.shape
+        # w = self.board.shape
+        a = ns[-1] * ns[0] * 2 - 1
+        b = ns[1] * 2
+        # Create a placeholder array to store the output text
+        # char_list = [[' '] * a] * b
+        char_list = []
+        for bi in range(b):
+            char_list.append([' ']*a)
+        print(a, b)
+
+        if grid:
+            divider = '|'
+        else:
+            divider = self.defaultChar
+
+        if type == 'normal':
+            # for l, layer in enumerate(board_layers):
+                # print('players', self.players)
+                    # Loop through rows
+                    # for r, row in enumerate(layer):
+                        # Generate and print string representing row of game board
+                        # row_string = divider.join([self.cellSym(col) for col in row])
+                        # print(row_string)
+
+                        # if grid and i < len(layer) - 1:
+                        #     print('-'.join(['-'] * len(row)))
+            for l, layer in enumerate(board_layers):
+                for r, row in enumerate(layer):
+                    # Why -2 ?
+                    section_length = (ns[0] + 1) * 2 - 2
+                    index = l * section_length
+                    row_array = [self.cellSym(c) for c in row]
+                    row_array = self.intersperse(row_array, divider) + [' ']
+                    char_list[r * 2][index:index+section_length] = row_array
+
+                    # divider_len = ns[0] * ns[-1] * 2 - 1
+                    divider_len = a
+                    char_list[r * 2 + 1] = ['-'] * divider_len
+
+            for row in char_list:
+                row_string = ''.join(row)
+                print(row_string)
+            print()
         elif type == 'raw':
             # Print plain NumPy array
-            print(self.board)
-        print()
+            print(layer)
 
     # def checkDim(self):
 
