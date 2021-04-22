@@ -8,8 +8,8 @@ from node import *
 from tree import *
 
 z = 4
-game = RowGame(m=z, k=z, n=z, f=2)
-game.move(1, 1)
+game = RowGame(dims=[z]*3, n=z, f=2)
+game.move(x=1, y=1)
 # game.board[0,0] = 2
 # game.board[1,1] = 2
 # game.board[2,2] = 1
@@ -26,7 +26,7 @@ print(game.diagonalize(game.board))
 # print(game.diagonalize(np.transpose(game.board)))
 print(game.diagonalize(np.fliplr(game.board)))
 
-tree = DecisionTree(RowGame(m=z, k=z, n=z, f=2))
+tree = DecisionTree(RowGame(dims=[z]*3, n=z, f=2))
 
 tree.root.state.players.append(Player('P1', 'X'))
 tree.root.state.players.append(Player('Computer', 'C'))
@@ -34,6 +34,7 @@ tree.root.state.players.append(Player('Computer', 'C'))
 
 tree.simulate()
 tree.backpropagate()
+
 # print(tree.root.children[0].children[0].children[0].children[0])
 g = tree.root
 for i in range(tree.root.max_depth):
