@@ -24,13 +24,15 @@ class RowGame:
         self.n = n
         self.r = r
         self.board = np.zeros(self.dims)
-        self.players = players
         self.defaultChar = ' '
         self.currentTurn = f
 
-        if not self.players:
+        if players is None:
+            self.players = []
             self.players.append(Player('Player 1', 'X'))
             self.players.append(Player('Computer', 'C'))
+        else:
+            self.players = players
 
     def clone(self):
         """Make a deep copy of this game object and all nested objects"""
