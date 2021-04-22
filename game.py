@@ -177,23 +177,25 @@ class RowGame:
 
     def checkArray(self, grid):
         """Check a list of strides for winning rows"""
-        for row in grid:
-            # Track the player who made the current move(s)
-            player_streak = 0
-            streak_len = 0
-            # print(row)
-            # Loop through each mark in row (after transformation; so the "row" might actually be a column or diagonal)
-            for x in row:
-                if x == player_streak:
-                    streak_len += 1
-                else:
-                    streak_len = 1
-                    player_streak = x
+        # TODO: reshape grid into one large (zero-separated) stride?
+        for layer in grid:
+            for row in layer:
+                # Track the player who made the current move(s)
+                player_streak = 0
+                streak_len = 0
+                # print(row)
+                # Loop through each mark in row (after transformation; so the "row" might actually be a column or diagonal)
+                for x in row:
+                    if x == player_streak:
+                        streak_len += 1
+                    else:
+                        streak_len = 1
+                        player_streak = x
 
-                # print(streak_len)
-                # print(2. == 2)
-                if streak_len >= self.n and player_streak != 0:
-                    return player_streak
+                    # print(streak_len)
+                    # print(2. == 2)
+                    if streak_len >= self.n and player_streak != 0:
+                        return player_streak
         # If no player won in any of the checked rows, return 0
         return 0
 
