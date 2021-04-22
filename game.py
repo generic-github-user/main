@@ -9,7 +9,7 @@ class Player:
         self.symbol = symbol
 
 class RowGame:
-    def __init__(self, dims=None, m=3, k=3, n=3, r=1, f=1):
+    def __init__(self, dims=None, m=3, k=3, n=3, r=1, f=1, players=None):
         """Create a new game instance"""
 
         self.m = m
@@ -24,9 +24,13 @@ class RowGame:
         self.n = n
         self.r = r
         self.board = np.zeros(self.dims)
-        self.players = []
+        self.players = players
         self.defaultChar = ' '
         self.currentTurn = f
+
+        if not self.players:
+            self.players.append(Player('Player 1', 'X'))
+            self.players.append(Player('Computer', 'C'))
 
     def clone(self):
         """Make a deep copy of this game object and all nested objects"""
