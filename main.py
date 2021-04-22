@@ -62,3 +62,9 @@ print(len(tree.all_nodes()))
 # print(tree.match(game))
 # game.print()
 # tree.match(game).state.print()
+
+
+game3D = RowGame(dims=[5, 5, 5], n=4)
+game3D.randomGame()
+print(game3D.board)
+game3D.print()
