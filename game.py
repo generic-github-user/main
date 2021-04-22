@@ -195,7 +195,14 @@ class RowGame:
     def checkArray(self, grid):
         """Check a list of strides for winning rows"""
         # TODO: reshape grid into one large (zero-separated) stride?
-        if len(grid.shape) == 1:
+        # if type(grid) is list:
+        #     gridshape = grid[0].shape + (len(grid))
+        if type(grid) is list:
+            gdims = len(grid[0].shape) + len(grid)
+        else:
+            gdims = len(grid.shape)
+
+        if gdims == 1:
             # Track the player who made the current move(s)
             player_streak = 0
             streak_len = 0
@@ -218,7 +225,10 @@ class RowGame:
             result_list = []
             for layer in grid:
                 result_list.append(self.checkArray(layer))
-            return result_list
+            return max(result_list)
+
+            # for layer in grid:
+            #     self.checkArray(layer)
         # If no player won in any of the checked rows, return 0
         return 0
 
@@ -229,6 +239,7 @@ class RowGame:
         # Loop through diagonal offsets; a [3, 5] array will have offsets from -5 to 3
         for d in range(-y+1, x):
             result.append(grid.diagonal(d))
+        # result = np.stack(result)
         return result
 
     def randomGame(self):
@@ -244,6 +255,7 @@ class RowGame:
         d_ = self.diagonalize
         # Loop through rows, columns, and both diagonals
         for g in [self.board, np.transpose(self.board), d_(self.board), d_(tr(self.board))]:
+            # print(g)
             winner = self.checkArray(g)
             # print(winner)
             # Return the winner if it is a player
