@@ -49,15 +49,21 @@ class RowGame:
         """Shorthand function for checking if a given value is between two other values"""
         return a <= n <= b
 
-    def legal(self, x, y):
+    def legal(self, pos=None, x=0, y=0):
         """Check if a given move is allowed"""
         be = self.between
-        x_, y_ = self.board.shape
+        if pos is None:
+            pos = [x, y, 0]
+        x, y, z = pos
+        x_, y_, z_ = self.board.shape
         # For a space to be a legal move:
         # x must be in the range [0, m)
         # y must be in the range [0, k)
         # board_{x,y} must be 0
-        conditions = [be(x,x_), be(y,y_), self.board[x, y] == 0]
+        print(pos)
+        pos = tuple(pos)
+        conditions = [be(x,x_), be(y,y_), self.board[pos] == 0]
+        print(conditions)
         return all(conditions)
 
     def move(self, x, y):
