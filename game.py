@@ -113,6 +113,12 @@ class RowGame:
         else:
             return self.defaultChar
 
+    # https://stackoverflow.com/a/5921708
+    def intersperse(self, lst, item):
+        result = [item] * (len(lst) * 2 - 1)
+        result[0::2] = lst
+        return result
+
     def print(self, type='normal', grid=True):
         """Display the game board in the console"""
         # print('players', self.players)
