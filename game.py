@@ -119,7 +119,7 @@ class RowGame:
         result[0::2] = lst
         return result
 
-    def print(self, type='normal', grid=False):
+    def print(self, ptype='normal', grid=False, spacing=2):
         """Display the game board in the console"""
 
         new_shape = self.dims[:2] + [-1]
@@ -145,7 +145,14 @@ class RowGame:
             # divider = self.defaultChar
             divider = ''
 
-        if type == 'normal':
+        if type(spacing) is int:
+            space = ' ' * spacing
+        elif type(spacing) is str:
+            space = spacing
+        else:
+            raise TypeError('Invalid type for spacing argument')
+
+        if ptype == 'normal':
             # for l, layer in enumerate(board_layers):
                 # print('players', self.players)
                     # Loop through rows
@@ -159,12 +166,15 @@ class RowGame:
             for l, layer in enumerate(board_layers):
                 for r, row in enumerate(layer):
                     # Why -2 ?
-                    section_length = (ns[0] + 1) * ag - 2
+                    section_length = (ns[0] + 1) * ag - bg
                     index = l * section_length
+
+                    if not grid:
+                        self.defaultChar = '-'
                     row_array = [self.cellSym(c) for c in row]
                     if grid:
                         row_array = self.intersperse(row_array, divider)
-                    row_array += [' ']
+                    row_array += [space]
                     char_list[r * ag][index:index+section_length] = row_array
 
                     if grid:
@@ -176,7 +186,7 @@ class RowGame:
                 row_string = ''.join(row)
                 print(row_string)
             print()
-        elif type == 'raw':
+        elif ptype == 'raw':
             # Print plain NumPy array
             print(layer)
 
