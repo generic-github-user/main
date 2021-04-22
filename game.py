@@ -208,6 +208,12 @@ class RowGame:
             result.append(grid.diagonal(d))
         return result
 
+    def randomGame(self):
+        moves = int(np.product(self.dims) * 0.4)
+        for i in range(moves):
+            self.playRandom()
+        return self
+
     def check(self):
         """Check the game state for any winners"""
         # tr = np.transpose
