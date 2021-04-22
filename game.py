@@ -119,16 +119,19 @@ class RowGame:
         result[0::2] = lst
         return result
 
-    def print(self, type='normal', grid=True):
+    def print(self, type='normal', grid=False):
         """Display the game board in the console"""
 
         new_shape = self.dims[:2] + [-1]
         board_layers = self.board.reshape(new_shape)
 
+        ag = 2 if grid else 1
+        bg = 1 if grid else 0
+
         ns = board_layers.shape
         # w = self.board.shape
-        a = ns[-1] * ns[0] * 2 - 1
-        b = ns[1] * 2
+        a = ns[-1] * ns[0] * ag - 1
+        b = ns[1] * ag
         # Create a placeholder array to store the output text
         # char_list = [[' '] * a] * b
         char_list = []
@@ -139,7 +142,8 @@ class RowGame:
         if grid:
             divider = '|'
         else:
-            divider = self.defaultChar
+            # divider = self.defaultChar
+            divider = ''
 
         if type == 'normal':
             # for l, layer in enumerate(board_layers):
@@ -155,15 +159,18 @@ class RowGame:
             for l, layer in enumerate(board_layers):
                 for r, row in enumerate(layer):
                     # Why -2 ?
-                    section_length = (ns[0] + 1) * 2 - 2
+                    section_length = (ns[0] + 1) * ag - 2
                     index = l * section_length
                     row_array = [self.cellSym(c) for c in row]
-                    row_array = self.intersperse(row_array, divider) + [' ']
-                    char_list[r * 2][index:index+section_length] = row_array
+                    if grid:
+                        row_array = self.intersperse(row_array, divider)
+                    row_array += [' ']
+                    char_list[r * ag][index:index+section_length] = row_array
 
-                    # divider_len = ns[0] * ns[-1] * 2 - 1
-                    divider_len = a
-                    char_list[r * 2 + 1] = ['-'] * divider_len
+                    if grid:
+                        # divider_len = ns[0] * ns[-1] * 2 - 1
+                        divider_len = a
+                        char_list[r * ag + 1] = ['-'] * divider_len
 
             for row in char_list:
                 row_string = ''.join(row)
