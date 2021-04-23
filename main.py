@@ -25,7 +25,7 @@ draw = ImageDraw.Draw(im)
 # im.save(sys.stdout, "PNG")
 # im.show()
 class Object:
-    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill=None):
+    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill=None, sides=3, rotation=0):
         self.form = form
         self.drawer = drawer
         self.args = args
@@ -33,11 +33,13 @@ class Object:
         self.d = d
         if position is None:
             position = [100, 100]
+        # TODO: make sure aliases don't interfere with updating/retrieving values
         self.position = self.p = np.array(position)
         self.r = 10
         self.bounds = None
         self.circle = [*self.p[:2], self.r]
         self.sides = sides
+        self.rotation = rotation
 
         self.update()
 
@@ -61,7 +63,7 @@ class Object:
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
             self.drawer.ellipse(coords, fill=self.fill)
         elif self.form == 'polygon':
-            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill)
+            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill, rotation=self.rotation)
 
         return self
 
@@ -195,8 +197,15 @@ class Scene:
                     sel = new
             self.context = context_
 
+        # Rotate
         elif x == 'r':
-            pass
+            angle = int(args[1])
+            for o in context:
+                if len(args) > 2 and args[2] in '@!':
+                    o.rotation = angle
+                else:
+                    o.rotation += angle
+        # Undo
         elif x == 'u':
             pass
         # Select
