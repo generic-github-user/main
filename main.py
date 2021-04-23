@@ -43,7 +43,6 @@ class Object:
 
     def draw(self, vflip=None):
         # self.drawer[drawfunc](args)
-        # self.d()
         if self.form == 'circle':
             coords = self.bounds
             if vflip:
@@ -137,14 +136,12 @@ class Scene:
 
     def command(self, c):
         if type(c) is str:
-            # self.cmds[c](20)
             c = c.replace('/', ' ')
             c = c.replace(',', ' ')
             args = c.split(' ')
         elif type(c) is list:
             args = c
 
-        print(args)
         x = args[0][0]
 
         q=40
@@ -188,7 +185,6 @@ class Scene:
         elif x == 'q':
             quit()
 
-        # clear_output()
         self.clear()
         self.render()
 
@@ -220,16 +216,12 @@ class Scene:
 # generate_panel(img)
 
 s = Scene(dims=[400, 400])
-if True:
-    s.command('ac')
-    # s.command('mr')
-    # scm = s.command
-    # scm('f red')
-    # scm('d 4 md')
-    # scm('r')
+
+s.command('ac')
+# s.command('mr')
+# scm = s.command
+# scm('f red')
+# scm('d 4 md')
+# scm('r')
 
 s.interact()
-# input()
-
-# print(np.asarray(s.canvas))
-# s.render()
