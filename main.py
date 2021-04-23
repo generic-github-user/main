@@ -74,13 +74,14 @@ class Object:
 
     def clone(self):
         # return copy.deepcopy(self)
-        obj_copy = Object(self.form, self.drawer)
+        obj_copy = Object(self.form, self.drawer, position=self.position)
         shallow = ['form', 'r', 'fill', 'drawer']
-        deep = ['bounds']
+        deep = ['bounds', 'position']
         for s in shallow:
             setattr(obj_copy, s, getattr(self, s))
         for d in deep:
             setattr(obj_copy, d, copy.deepcopy(getattr(self, d)))
+        obj_copy.update()
         return obj_copy
 
 class Scene:
