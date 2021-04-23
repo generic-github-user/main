@@ -45,3 +45,6 @@ class Object:
         self.bounds = [t(self.p-self.r), t(self.p+self.r)]
         if d:
             self.draw()
+
+    def clone(self):
+        return copy.deepcopy(self)
