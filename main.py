@@ -55,6 +55,9 @@ class Object:
         if d:
             self.draw()
 
+    def bound(self, pos):
+        pos = np.array(pos)
+        return [t(pos-self.r), t(pos+self.r)]
     def clone(self):
         return copy.deepcopy(self)
 
