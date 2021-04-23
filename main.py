@@ -45,7 +45,6 @@ class Object:
         # self.drawer[drawfunc](args)
         # self.d()
         if self.form == 'circle':
-            print(self.p)
             coords = self.bounds
             if vflip:
                 # coords = [tuple(vflip - f for f in c) for c in coords]
@@ -61,7 +60,8 @@ class Object:
 
     def move(self, w, d=False):
         self.position += w
-        self.bounds = [t(self.p-self.r), t(self.p+self.r)]
+        # self.bounds = [t(self.p-self.r), t(self.p+self.r)]
+        self.update()
         if d:
             self.draw()
 
@@ -107,6 +107,7 @@ class Scene:
         self.channels = 3
         self.cmap = None
         self.grayscale = False
+        self.fill = 'green'
 
         # self.renderer = plt.imshow(canvas)
         self.fig, self.ax = plt.subplots(1,1)
@@ -114,7 +115,7 @@ class Scene:
         self.im = self.ax.imshow(self.canvas)
         self.fig.show()
 
-        z = 50
+        z = 20
         self.directions = {
             'r': [z, 0],
             'l': [-z, 0],
