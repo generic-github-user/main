@@ -25,7 +25,7 @@ draw = ImageDraw.Draw(im)
 # im.save(sys.stdout, "PNG")
 # im.show()
 class Object:
-    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None):
+    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill=None):
         self.form = form
         self.drawer = drawer
         self.args = args
@@ -38,7 +38,8 @@ class Object:
         self.bounds = None
         self.update()
 
-        self.fill = (200) * 3
+        # self.fill = (200) * 3
+        self.fill = fill
 
     def draw(self, vflip=None):
         # self.drawer[drawfunc](args)
