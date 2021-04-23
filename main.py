@@ -30,3 +30,12 @@ class Object:
         self.bounds = [t(self.p-self.r), t(self.p+self.r)]
 
         self.fill = (200) * 3
+
+    def draw(self):
+        # self.drawer[drawfunc](args)
+        # self.d()
+        if self.form == 'circle':
+            print(self.p)
+            # self.drawer.arc(self.bounds, 0, 360, fill=0)
+            self.drawer.ellipse(self.bounds, fill=self.fill)
+        return self
