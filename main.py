@@ -177,3 +177,16 @@ class Scene:
                     context_.append(new)
                     sel = new
             self.context = context_
+
+        elif x == 'r':
+            pass
+        elif x == 'u':
+            pass
+        elif x == 'x':
+            self.objects.remove(self.objects[-1])
+        elif x == 'q':
+            quit()
+
+        # clear_output()
+        self.clear()
+        self.render()
