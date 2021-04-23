@@ -158,3 +158,20 @@ class Scene:
                 o.move(shift)
         elif x == 'f':
             self.objects[-1].fill = args[1]
+        elif x == 'd':
+            # why only 6?
+            print(self.objects)
+            num = int(args[1])
+            sel = self.context[0]
+            con = [o for o in self.context]
+            context_ = []
+            for o in con:
+                sel = o
+                for n in range(num):
+                    new = sel.clone()
+                    self.context = [new]
+                    self.command(args[2:])
+                    self.add(new)
+                    context_.append(new)
+                    sel = new
+            self.context = context_
