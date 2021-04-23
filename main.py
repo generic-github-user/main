@@ -148,10 +148,13 @@ class Scene:
         if x == 'a':
             if args[0][1] == 'c':
                 # d = lambda: self.draw.arc([t(self.m-q), t(self.m+q)], 0, 360, fill=0, width=5)
-                self.add(Object('circle', self.draw, position=self.m))
+                new = Object('circle', self.draw, position=self.m, fill='green')
+                self.add(new)
+            self.context = [new]
         elif x == 'm':
             shift = self.directions[args[0][1]]
             shift = np.array(shift)
-            self.objects[-1].move(shift)
+            for o in self.context:
+                o.move(shift)
         elif x == 'f':
             self.objects[-1].fill = args[1]
