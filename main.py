@@ -123,3 +123,6 @@ class Scene:
             'c': lambda q: self.draw.arc([t(self.m-q), t(self.m+q)], 0, 360, fill=0, width=5)
             # 'c': lambda q: draw.line((0, im.size[1], im.size[0], 0), fill=128)
         }
+
+    def clear(self):
+        self.draw.rectangle((0, 0, *self.dims), fill=(self.bg,)*self.channels)
