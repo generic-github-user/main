@@ -33,9 +33,10 @@ class Object:
         self.d = d
         if position is None:
             position = [100, 100]
-        self.position = self.p = position
-        self.r = 50
-        self.bounds = [t(self.p-self.r), t(self.p+self.r)]
+        self.position = self.p = np.array(position)
+        self.r = 10
+        self.bounds = None
+        self.update()
 
         self.fill = (200) * 3
 
