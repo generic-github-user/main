@@ -117,6 +117,7 @@ class Spinner:
         self.linewidth = self.lw = linewidth
         self.opacity = opacity
         self.render = True
+        self.parent = None
 
     def step(self, w=1):
         self.theta += self.speed * w
@@ -134,6 +135,8 @@ class Spinner:
             # s.draw(c)
         if self.render:
             offset = np.array(c.shape) / 2
+            if self.parent is not None:
+                offset += self.parent.position
             x_, y_ = (np.array(self.position, dtype='int') + offset).astype('int')
             lw = self.lw
             # print(self.position)
