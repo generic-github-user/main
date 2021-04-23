@@ -24,6 +24,16 @@ draw = ImageDraw.Draw(im)
 # write to stdout
 # im.save(sys.stdout, "PNG")
 # im.show()
+
+
+# middle = [dim / 2 for dim in canvas_size]
+middle = canvas_size / 2
+t = tuple
+
+defaults = {
+        'c': []
+}
+
 class Object:
     def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill=None, sides=3, rotation=0):
         self.form = form
@@ -188,6 +198,7 @@ class Scene:
             context_ = []
             for o in con:
                 sel = o
+                context_.append(sel)
                 for n in range(num):
                     new = sel.clone()
                     self.context = [new]
@@ -256,7 +267,7 @@ class Scene:
 
 s = Scene(dims=[400, 400])
 
-s.command('ac')
+# s.command('ac')
 # s.command('mr')
 # scm = s.command
 # scm('f red')
