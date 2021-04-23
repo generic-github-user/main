@@ -144,10 +144,14 @@ class Scene:
         return o
 
     def command(self, c):
+        # Command is provided as string
         if type(c) is str:
+            # Remove alternative separators
             c = c.replace('/', ' ')
             c = c.replace(',', ' ')
+            # Split on space
             args = c.split(' ')
+        # Command is provided as list of arguments
         elif type(c) is list:
             args = c
 
@@ -169,6 +173,7 @@ class Scene:
             shift = np.array(shift)
             for o in self.context:
                 o.move(shift)
+        # Change fill color
         elif x == 'f':
             for o in self.context:
                 o.fill = args[1]
@@ -220,6 +225,7 @@ class Scene:
 
     def interact(self):
         for i in range(100):
+            # Get input from user and pass string to command function
             c = input()
             self.command(c)
 
