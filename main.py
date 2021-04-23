@@ -62,3 +62,8 @@ class Scene:
 
         self.command_history = []
         self.objects = []
+
+
+        self.channels = 3
+        self.cmap = None
+        self.grayscale = False
