@@ -130,3 +130,10 @@ class Scene:
     def add(self, o):
         self.objects.append(o)
         return o
+
+    def command(self, c):
+        # self.cmds[c](20)
+        c = c.replace('/', ' ')
+        c = c.replace(',', ' ')
+        args = c.split(' ')
+        x = args[0][0]
