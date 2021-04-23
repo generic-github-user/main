@@ -123,3 +123,16 @@ class Spinner:
         # print(self.position)
         for s in self.spinners:
             s.step(w)
+
+    def draw(self, c):
+        for s in self.spinners:
+            # c +=
+            c = s.draw(c)
+            # s.draw(c)
+        offset = np.array(c.shape) / 2
+        x_, y_ = (np.array(self.position, dtype='int') + offset).astype('int')
+        lw = self.lw
+        # print(self.position)
+        # c[self.x: self.x+self.lw, self.y: self.y+self.lw] += self.opacity
+        c[x_:x_+lw, y_:y_+lw] += self.opacity
+        return c
