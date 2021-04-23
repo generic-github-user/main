@@ -67,3 +67,9 @@ class Scene:
         self.channels = 3
         self.cmap = None
         self.grayscale = False
+
+        # self.renderer = plt.imshow(canvas)
+        self.fig, self.ax = plt.subplots(1,1)
+        # image = numpy.array([[1,1,1], [2,2,2], [3,3,3]])
+        self.im = self.ax.imshow(self.canvas)
+        self.fig.show()
