@@ -124,6 +124,10 @@ class Spinner:
         max_theta = 2*math.pi
         if self.theta > max_theta:
             self.theta = self.theta % max_theta
+
+        # center = self.parent.position if self.parent is not None else (0, 0)
+        center = (0, 0)
+        self.position = [*rfast(self.position, self.theta, origin=center)]
         # print(self.position)
         for s in self.spinners:
             s.step(w)
