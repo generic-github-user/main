@@ -42,15 +42,17 @@ class Object:
         self.fill = fill
 
     def draw(self, vflip=None):
+        coords = self.bounds
+        if vflip:
+            # coords = [tuple(vflip - f for f in c) for c in coords]
+            # coords = [(c[0], vflip - c[1]) for c in coords]
+            pos_ = [b for b in self.p]
+            pos_[1] = vflip - pos_[1]
+            coords = self.bound(pos_)
+            self.circle = [self.p[0], (vflip-self.p[1]), self.r]
+
         # self.drawer[drawfunc](args)
         if self.form == 'circle':
-            coords = self.bounds
-            if vflip:
-                # coords = [tuple(vflip - f for f in c) for c in coords]
-                # coords = [(c[0], vflip - c[1]) for c in coords]
-                pos_ = [b for b in self.p]
-                pos_[1] = vflip - pos_[1]
-                coords = self.bound(pos_)
             # self.update()
 
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
