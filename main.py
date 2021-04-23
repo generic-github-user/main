@@ -126,7 +126,7 @@ class Spinner:
         for s in self.spinners:
             s.step(w)
 
-    def draw(self, c):
+    def draw(self, c, method='add'):
         for s in self.spinners:
             # c +=
             c = s.draw(c)
@@ -137,7 +137,10 @@ class Spinner:
             lw = self.lw
             # print(self.position)
             # c[self.x: self.x+self.lw, self.y: self.y+self.lw] += self.opacity
-            c[x_:x_+lw, y_:y_+lw] += self.opacity
+            if method == 'add':
+                c[x_:x_+lw, y_:y_+lw] += self.opacity
+            elif method == 'set':
+                c[x_:x_+lw, y_:y_+lw] = self.opacity
         return c
 
     def add(self, s):
