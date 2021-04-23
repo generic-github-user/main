@@ -101,3 +101,11 @@ class Scene:
         # image = numpy.array([[1,1,1], [2,2,2], [3,3,3]])
         self.im = self.ax.imshow(self.canvas)
         self.fig.show()
+
+        z = 50
+        self.directions = {
+            'r': [z, 0],
+            'l': [-z, 0],
+            'u': [0, z],
+            'd': [0, -z]
+        }
