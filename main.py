@@ -190,3 +190,19 @@ class Scene:
         # clear_output()
         self.clear()
         self.render()
+
+    def render(self):
+        for o in self.objects:
+            o.draw(vflip=self.y)
+        if self.grayscale:
+            self.canvas.convert('L')
+
+        # plt.imshow(np.asarray(self.canvas), cmap=self.cmap)
+        # plt.show()
+
+        # fig = plt.gcf()
+        # fig.gca().add_artist(circle)
+        # plt.draw()
+
+        self.im.set_data(self.canvas)
+        self.fig.canvas.draw_idle()
