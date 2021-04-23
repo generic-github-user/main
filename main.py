@@ -147,3 +147,5 @@ class Scene:
             shift = self.directions[args[0][1]]
             shift = np.array(shift)
             self.objects[-1].move(shift)
+        elif x == 'f':
+            self.objects[-1].fill = args[1]
