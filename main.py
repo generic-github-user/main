@@ -68,6 +68,10 @@ class Scene:
         if dims is None:
             dims = [200, 200]
         self.dimensions = self.dims = np.array(dims)
+        self.axes = list('xyzw')[:len(self.dims)]
+        for i, a in enumerate(self.axes):
+            setattr(self, a, self.dims[i])
+
         self.canvas = Image.new('RGB', t(self.dims), (self.bg,)*3)
         self.draw = ImageDraw.Draw(self.canvas)
         self.middle = self.m = self.dims / 2
