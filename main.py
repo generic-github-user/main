@@ -16,3 +16,17 @@ draw = ImageDraw.Draw(im)
 # write to stdout
 # im.save(sys.stdout, "PNG")
 # im.show()
+class Object:
+    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None):
+        self.form = form
+        self.drawer = drawer
+        self.args = args
+        self.drawfunc = drawfunc
+        self.d = d
+        if position is None:
+            position = [100, 100]
+        self.position = self.p = position
+        self.r = 50
+        self.bounds = [t(self.p-self.r), t(self.p+self.r)]
+
+        self.fill = (200) * 3
