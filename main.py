@@ -212,3 +212,24 @@ class Scene:
         for i in range(100):
             c = input()
             self.command(c)
+
+
+
+# plt.ion()
+# img = np.ones((400, 400, 3))
+# generate_panel(img)
+
+s = Scene(dims=[400, 400])
+if True:
+    s.command('ac')
+    # s.command('mr')
+    # scm = s.command
+    # scm('f red')
+    # scm('d 4 md')
+    # scm('r')
+
+s.interact()
+# input()
+
+# print(np.asarray(s.canvas))
+# s.render()
