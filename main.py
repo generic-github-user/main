@@ -139,3 +139,14 @@ class Spinner:
             # c[self.x: self.x+self.lw, self.y: self.y+self.lw] += self.opacity
             c[x_:x_+lw, y_:y_+lw] += self.opacity
         return c
+
+class Roulette:
+    def __init__(self, base=None, dims=None):
+        if base is None:
+            self.base = Spinner()
+        else:
+            self.base = base
+
+        if dims is None:
+            self.dimensions = self.dims = [100, 100]
+        self.canvas = np.zeros(self.dims)
