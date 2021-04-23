@@ -58,6 +58,10 @@ class Object:
     def bound(self, pos):
         pos = np.array(pos)
         return [t(pos-self.r), t(pos+self.r)]
+
+    def update(self):
+        self.bounds = self.bound(self.p)
+
     def clone(self):
         return copy.deepcopy(self)
 
