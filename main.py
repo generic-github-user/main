@@ -140,10 +140,16 @@ class Spinner:
             c[x_:x_+lw, y_:y_+lw] += self.opacity
         return c
 
+    def add(self, s):
+        s.parent = self
+        self.spinners.append(s)
+        return self
+
 class Roulette:
     def __init__(self, base=None, dims=None):
         if base is None:
             self.base = Spinner()
+            self.base.add(Spinner(radius=10, speed=0.001))
         else:
             self.base = base
 
@@ -166,7 +172,7 @@ class Roulette:
 
 
 r = Roulette()
-r.step(n=200)
+r.step(n=300)
 im = r.render()
 plt.imshow(im)
 plt.show()
