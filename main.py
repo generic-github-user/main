@@ -48,3 +48,17 @@ class Object:
 
     def clone(self):
         return copy.deepcopy(self)
+
+class Scene:
+    def __init__(self, dims=None, bg=255):
+        self.bg = bg
+
+        if dims is None:
+            dims = [200, 200]
+        self.dimensions = self.dims = np.array(dims)
+        self.canvas = Image.new('RGB', t(self.dims), (self.bg,)*3)
+        self.draw = ImageDraw.Draw(self.canvas)
+        self.middle = self.m = self.dims / 2
+
+        self.command_history = []
+        self.objects = []
