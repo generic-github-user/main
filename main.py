@@ -129,7 +129,7 @@ class Spinner:
     def draw(self, c, method='add'):
         for s in self.spinners:
             # c +=
-            c = s.draw(c)
+            c = s.draw(c, method=method)
             # s.draw(c)
         if self.render:
             offset = np.array(c.shape) / 2
@@ -162,23 +162,23 @@ class Roulette:
 
         self.canvas = np.zeros(self.dims)
 
-    def step(self, n=1, w=1, r=True):
+    def step(self, n=1, w=1, r=True, method='set'):
         for i in range(n):
             self.base.step(w)
             if r:
-                self.render()
+                self.render(method=method)
 
-    def render(self):
+    def render(self, method='add'):
         if len(self.dims) == 2:
             # self.base.draw(c=self.canvas)
-            self.canvas = self.base.draw(c=self.canvas)
+            self.canvas = self.base.draw(c=self.canvas, method=method)
 
         return self.canvas
 
 
 r = Roulette(dims=[300]*2)
-r.step(n=300)
-im = r.render()
+r.step(n=300, method='set')
+im = r.render(method='set')
 plt.imshow(im)
 plt.show()
 # input()
