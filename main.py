@@ -206,3 +206,8 @@ class Scene:
 
         self.im.set_data(self.canvas)
         self.fig.canvas.draw_idle()
+
+    def interact(self):
+        for i in range(100):
+            c = input()
+            self.command(c)
