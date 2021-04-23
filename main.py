@@ -115,3 +115,11 @@ class Spinner:
         self.linewidth = self.lw = linewidth
         self.opacity = opacity
         self.render = True
+
+    def step(self, w=1):
+        self.theta += self.speed * w
+        self.theta = self.theta % 2*math.pi
+        self.position = [*rfast(self.position, self.theta)]
+        # print(self.position)
+        for s in self.spinners:
+            s.step(w)
