@@ -133,10 +133,15 @@ class Scene:
         return o
 
     def command(self, c):
-        # self.cmds[c](20)
-        c = c.replace('/', ' ')
-        c = c.replace(',', ' ')
-        args = c.split(' ')
+        if type(c) is str:
+            # self.cmds[c](20)
+            c = c.replace('/', ' ')
+            c = c.replace(',', ' ')
+            args = c.split(' ')
+        elif type(c) is list:
+            args = c
+
+        print(args)
         x = args[0][0]
 
         q=40
