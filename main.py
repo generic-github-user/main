@@ -151,6 +151,12 @@ class Roulette:
             self.dimensions = self.dims = [100, 100]
         self.canvas = np.zeros(self.dims)
 
+    def step(self, n=1, w=1, r=True):
+        for i in range(n):
+            self.base.step(w)
+            if r:
+                self.render()
+
     def render(self):
         if len(self.dims) == 2:
             # self.base.draw(c=self.canvas)
