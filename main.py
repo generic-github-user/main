@@ -199,15 +199,25 @@ class Scene:
             pass
         elif x == 'u':
             pass
+        # Select
+        elif x == 's':
+            pass
+        # Remove/delete
         elif x == 'x':
             self.objects.remove(self.objects[-1])
+        elif x == 'clear':
+            pass
+        # Quit
         elif x == 'q':
             quit()
 
+        # Clear canvas
         self.clear()
+        # Render scene
         self.render()
 
     def render(self):
+        # Draw each object
         for o in self.objects:
             o.draw(vflip=self.y)
         if self.grayscale:
