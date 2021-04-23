@@ -126,3 +126,7 @@ class Scene:
 
     def clear(self):
         self.draw.rectangle((0, 0, *self.dims), fill=(self.bg,)*self.channels)
+
+    def add(self, o):
+        self.objects.append(o)
+        return o
