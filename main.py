@@ -39,3 +39,9 @@ class Object:
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
             self.drawer.ellipse(self.bounds, fill=self.fill)
         return self
+
+    def move(self, w, d=False):
+        self.position += w
+        self.bounds = [t(self.p-self.r), t(self.p+self.r)]
+        if d:
+            self.draw()
