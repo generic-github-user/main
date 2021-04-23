@@ -137,3 +137,9 @@ class Scene:
         c = c.replace(',', ' ')
         args = c.split(' ')
         x = args[0][0]
+
+        q=40
+        if x == 'a':
+            if args[0][1] == 'c':
+                # d = lambda: self.draw.arc([t(self.m-q), t(self.m+q)], 0, 360, fill=0, width=5)
+                self.add(Object('circle', self.draw, position=self.m))
