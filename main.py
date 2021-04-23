@@ -3,6 +3,14 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import copy
+
+# from IPython.display import clear_output
+
+
+import matplotlib.image as mpimg
+
+
+
 # with Image.open("hopper.jpg") as im:
 
 canvas_size = np.array([100]*2)
@@ -90,7 +98,8 @@ class Scene:
 
         self.command_history = []
         self.objects = []
-
+        self.selection = []
+        self.context = []
 
         self.channels = 3
         self.cmap = None
@@ -108,4 +117,9 @@ class Scene:
             'l': [-z, 0],
             'u': [0, z],
             'd': [0, -z]
+        }
+
+        self.cmds = {
+            'c': lambda q: self.draw.arc([t(self.m-q), t(self.m+q)], 0, 360, fill=0, width=5)
+            # 'c': lambda q: draw.line((0, im.size[1], im.size[0], 0), fill=128)
         }
