@@ -150,3 +150,10 @@ class Roulette:
         if dims is None:
             self.dimensions = self.dims = [100, 100]
         self.canvas = np.zeros(self.dims)
+
+    def render(self):
+        if len(self.dims) == 2:
+            # self.base.draw(c=self.canvas)
+            self.canvas = self.base.draw(c=self.canvas)
+
+        return self.canvas
