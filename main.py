@@ -102,3 +102,16 @@ def rotate_around_point_highperf(xy, radians, origin=(0, 0)):
     qy = offset_y + -sin_rad * adjusted_x + cos_rad * adjusted_y
 
     return qx, qy
+rfast = rotate_around_point_highperf
+
+class Spinner:
+    def __init__(self, theta=0, speed=0.05, radius=30, linewidth=3, opacity=1):
+        self.spinners = []
+        self.speed = speed
+        self.radius = self.r = radius
+        self.theta = theta
+        self.position = [0, self.r]
+        self.x, self.y = self.position
+        self.linewidth = self.lw = linewidth
+        self.opacity = opacity
+        self.render = True
