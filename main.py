@@ -129,10 +129,11 @@ class Spinner:
             # c +=
             c = s.draw(c)
             # s.draw(c)
-        offset = np.array(c.shape) / 2
-        x_, y_ = (np.array(self.position, dtype='int') + offset).astype('int')
-        lw = self.lw
-        # print(self.position)
-        # c[self.x: self.x+self.lw, self.y: self.y+self.lw] += self.opacity
-        c[x_:x_+lw, y_:y_+lw] += self.opacity
+        if self.render:
+            offset = np.array(c.shape) / 2
+            x_, y_ = (np.array(self.position, dtype='int') + offset).astype('int')
+            lw = self.lw
+            # print(self.position)
+            # c[self.x: self.x+self.lw, self.y: self.y+self.lw] += self.opacity
+            c[x_:x_+lw, y_:y_+lw] += self.opacity
         return c
