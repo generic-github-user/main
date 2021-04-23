@@ -157,7 +157,9 @@ class Roulette:
             self.base = base
 
         if dims is None:
-            self.dimensions = self.dims = [100, 100]
+            dims = [100, 100]
+        self.dimensions = self.dims = dims
+
         self.canvas = np.zeros(self.dims)
 
     def step(self, n=1, w=1, r=True):
@@ -174,7 +176,7 @@ class Roulette:
         return self.canvas
 
 
-r = Roulette()
+r = Roulette(dims=[300]*2)
 r.step(n=300)
 im = r.render()
 plt.imshow(im)
