@@ -31,13 +31,22 @@ class Object:
 
         self.fill = (200) * 3
 
-    def draw(self):
+    def draw(self, vflip=None):
         # self.drawer[drawfunc](args)
         # self.d()
         if self.form == 'circle':
             print(self.p)
+            coords = self.bounds
+            if vflip:
+                # coords = [tuple(vflip - f for f in c) for c in coords]
+                # coords = [(c[0], vflip - c[1]) for c in coords]
+                pos_ = [b for b in self.p]
+                pos_[1] = vflip - pos_[1]
+                coords = self.bound(pos_)
+            # self.update()
+
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
-            self.drawer.ellipse(self.bounds, fill=self.fill)
+            self.drawer.ellipse(coords, fill=self.fill)
         return self
 
     def move(self, w, d=False):
