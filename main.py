@@ -63,7 +63,15 @@ class Object:
         self.bounds = self.bound(self.p)
 
     def clone(self):
-        return copy.deepcopy(self)
+        # return copy.deepcopy(self)
+        obj_copy = Object(self.form, self.drawer)
+        shallow = ['form', 'r', 'fill', 'drawer']
+        deep = ['bounds']
+        for s in shallow:
+            setattr(obj_copy, s, getattr(self, s))
+        for d in deep:
+            setattr(obj_copy, d, copy.deepcopy(getattr(self, d)))
+        return obj_copy
 
 class Scene:
     def __init__(self, dims=None, bg=255):
