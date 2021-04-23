@@ -107,7 +107,7 @@ def rotate_around_point_highperf(xy, radians, origin=(0, 0)):
 rfast = rotate_around_point_highperf
 
 class Spinner:
-    def __init__(self, theta=0, speed=0.05, radius=30, linewidth=3, opacity=1):
+    def __init__(self, theta=0, speed=0.05, radius=30, linewidth=1, opacity=1):
         self.spinners = []
         self.speed = speed
         self.radius = self.r = radius
@@ -163,3 +163,11 @@ class Roulette:
             self.canvas = self.base.draw(c=self.canvas)
 
         return self.canvas
+
+
+r = Roulette()
+r.step(n=200)
+im = r.render()
+plt.imshow(im)
+plt.show()
+# input()
