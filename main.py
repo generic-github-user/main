@@ -114,7 +114,7 @@ class Scene:
         self.im = self.ax.imshow(self.canvas)
         self.fig.show()
 
-        z = 20
+        z = 30
         self.directions = {
             'r': [z, 0],
             'l': [-z, 0],
@@ -157,7 +157,8 @@ class Scene:
             for o in self.context:
                 o.move(shift)
         elif x == 'f':
-            self.objects[-1].fill = args[1]
+            for o in self.context:
+                o.fill = args[1]
         elif x == 'd':
             # why only 6?
             print(self.objects)
