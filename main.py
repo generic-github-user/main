@@ -36,6 +36,9 @@ class Object:
         self.position = self.p = np.array(position)
         self.r = 10
         self.bounds = None
+        self.circle = [*self.p[:2], self.r]
+        self.sides = sides
+
         self.update()
 
         # self.fill = (200) * 3
@@ -57,6 +60,9 @@ class Object:
 
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
             self.drawer.ellipse(coords, fill=self.fill)
+        elif self.form == 'polygon':
+            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill)
+
         return self
 
     def move(self, w, d=False):
@@ -72,11 +78,12 @@ class Object:
 
     def update(self):
         self.bounds = self.bound(self.p)
+        self.circle = [*self.p[:2], self.r]
 
     def clone(self):
         # return copy.deepcopy(self)
         obj_copy = Object(self.form, self.drawer, position=self.position)
-        shallow = ['form', 'r', 'fill', 'drawer']
+        shallow = ['form', 'r', 'fill', 'drawer', 'sides']
         deep = ['bounds', 'position']
         for s in shallow:
             setattr(obj_copy, s, getattr(self, s))
@@ -150,9 +157,13 @@ class Scene:
         if x == 'a':
             if args[0][1] == 'c':
                 # d = lambda: self.draw.arc([t(self.m-q), t(self.m+q)], 0, 360, fill=0, width=5)
-                new = Object('circle', self.draw, position=self.m, fill='green')
-                self.add(new)
-            self.context = [new]
+                new_obj = Object('circle', self.draw, position=self.m, fill='green')
+            elif args[0][1] == 'p':
+                num = int(args[1])
+                new_obj = Object('polygon', self.draw, position=self.m, sides=num, fill='green')
+
+            self.add(new_obj)
+            self.context = [new_obj]
         elif x == 'm':
             shift = self.directions[args[0][1]]
             shift = np.array(shift)
