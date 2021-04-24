@@ -123,6 +123,13 @@ class Object:
     def add_child(self, c):
         self.children.append(c)
 
+class Camera:
+    def __init__(self, zoom=1.0, position=None):
+        self.zoom = zoom
+        if position is None:
+            position = np.array([0, 0])
+        self.position = position
+
 class Scene:
     def __init__(self, dims=200, bg=255):
         self.bg = bg
