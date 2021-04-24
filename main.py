@@ -111,11 +111,14 @@ class Object:
         return obj_copy
 
 class Scene:
-    def __init__(self, dims=None, bg=255):
+    def __init__(self, dims=200, bg=255):
         self.bg = bg
 
         if dims is None:
             dims = [200, 200]
+        elif type(dims) is int:
+            dims = [dims] * 2
+
         self.dimensions = self.dims = np.array(dims)
         self.axes = list('xyzw')[:len(self.dims)]
         for i, a in enumerate(self.axes):
@@ -275,7 +278,7 @@ class Scene:
 # img = np.ones((400, 400, 3))
 # generate_panel(img)
 
-s = Scene(dims=[400, 400])
+s = Scene(dims=400)
 
 # s.command('ac')
 # s.command('mr')
