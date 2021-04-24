@@ -34,6 +34,15 @@ defaults = {
         'c': []
 }
 
+class Arrow(Object):
+    """Arrow"""
+
+    def __init__(self, start, end, length=None, direction=None):
+        super(Arrow, self).__init__()
+        self.start = start
+        self.end = end
+
+
 class Object:
     def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill='black', stroke_fill='black', sides=3, rotation=0, text='text', scale=1, outline_color='black', outline_width=1):
         self.form = form
