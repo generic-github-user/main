@@ -184,6 +184,20 @@ class Scene:
         self.objects.append(o)
         return o
 
+    def split_numeric(self, text):
+        block = ''
+        block_numeric = text[0].isnumeric()
+        output = []
+        for t in text:
+            if t.isnumeric() == block_numeric:
+                block += t
+            else:
+                output.append(block)
+                block = t
+                block_numeric = t.isnumeric()
+        return output
+
+
     def command(self, c):
         # Command is provided as string
         if type(c) is str:
