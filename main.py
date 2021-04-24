@@ -238,6 +238,19 @@ class Scene:
         elif x == 'f':
             for o in self.context:
                 o.fill = args[1]
+        # Set border properties
+        elif x == 'b':
+            first = self.split_numeric(args[0])
+            print(first)
+
+            # Border color
+            if args[0][1] == 'c':
+                pass
+            # Border width
+            elif args[0][1] == 'w':
+                width = first[1]
+                for o in self.context:
+                    o.outline_width = width
         elif x == 'd':
             # why only 6?
             print(self.objects)
