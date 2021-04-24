@@ -186,21 +186,24 @@ class Scene:
         self.objects.append(o)
         return o
 
+    def isnum(self, x):
+        return x in '1234567890.-'
+
     def split_numeric(self, text, parse=True):
         block = ''
-        block_numeric = text[0].isnumeric()
+        block_numeric = self.isnum(text[0])
         output = []
         for t in text:
-            if t.isnumeric() == block_numeric:
+            if self.isnum(t) == block_numeric:
                 block += t
             else:
                 if block_numeric:
-                    block = int(block)
+                    block = float(block)
                 output.append(block)
                 block = t
-                block_numeric = t.isnumeric()
+                block_numeric = self.isnum(t)
         if block_numeric:
-            block = int(block)
+            block = float(block)
         output.append(block)
         return output
 
