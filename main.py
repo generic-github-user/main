@@ -54,6 +54,8 @@ class Object:
         self.text = text
         self.stroke_fill = stroke_fill
 
+        self.children = []
+
         self.update()
 
         # self.fill = (200) * 3
@@ -81,6 +83,9 @@ class Object:
             font = ImageFont.truetype('arial.ttf', self.size*2)
             self.drawer.text(tuple(self.position), self.text, stroke_width=0, stroke_fill=self.stroke_fill, fill=self.fill, font=font)
 
+        for c in children:
+            c.draw(vflip)
+
         return self
 
     def move(self, w, d=False):
@@ -98,7 +103,7 @@ class Object:
         self.bounds = self.bound(self.p)
         self.circle = [*self.p[:2], self.r]
 
-    def clone(self):
+    def clone(self, clone_children=True):
         # return copy.deepcopy(self)
         obj_copy = Object(self.form, self.drawer, position=self.position)
         shallow = ['form', 'r', 'fill', 'drawer', 'sides']
@@ -107,8 +112,16 @@ class Object:
             setattr(obj_copy, s, getattr(self, s))
         for d in deep:
             setattr(obj_copy, d, copy.deepcopy(getattr(self, d)))
+
+        if self.children and clone_children:
+            for c in self.children:
+                obj_copy.children.append(c.clone(clone_children=clone_children))
+
         obj_copy.update()
         return obj_copy
+
+    def add_child(self, c):
+        self.children.append(c)
 
 class Scene:
     def __init__(self, dims=200, bg=255):
