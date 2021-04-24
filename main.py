@@ -199,6 +199,9 @@ class Scene:
                 output.append(block)
                 block = t
                 block_numeric = t.isnumeric()
+        if block_numeric:
+            block = int(block)
+        output.append(block)
         return output
 
 
