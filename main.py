@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
@@ -35,7 +35,7 @@ defaults = {
 }
 
 class Object:
-    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill=None, sides=3, rotation=0):
+    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill='black', stroke_fill='black', sides=3, rotation=0, text='text'):
         self.form = form
         self.drawer = drawer
         self.args = args
@@ -46,10 +46,13 @@ class Object:
         # TODO: make sure aliases don't interfere with updating/retrieving values
         self.position = self.p = np.array(position)
         self.r = 10
+        self.size = self.r
         self.bounds = None
         self.circle = [*self.p[:2], self.r]
         self.sides = sides
         self.rotation = rotation
+        self.text = text
+        self.stroke_fill = stroke_fill
 
         self.update()
 
@@ -74,6 +77,9 @@ class Object:
             self.drawer.ellipse(coords, fill=self.fill)
         elif self.form == 'polygon':
             self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill, rotation=self.rotation)
+        elif self.form == 'text':
+            font = ImageFont.truetype('arial.ttf', self.size*2)
+            self.drawer.text(tuple(self.position), self.text, stroke_width=0, stroke_fill=self.stroke_fill, fill=self.fill, font=font)
 
         return self
 
@@ -176,7 +182,11 @@ class Scene:
                 new_obj = Object('circle', self.draw, position=self.m, fill='green')
             elif args[0][1] == 'p':
                 num = int(args[1])
-                new_obj = Object('polygon', self.draw, position=self.m, sides=num, fill='green')
+                new_obj = Object('polygon', self.draw, position=self.m, sides=num)
+            elif args[0][1] == 't':
+                text = ' '.join(args[1:])
+                print(text)
+                new_obj = Object('text', self.draw, position=self.m, text=text, fill='black')
 
             self.add(new_obj)
             self.context = [new_obj]
