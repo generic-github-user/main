@@ -286,12 +286,21 @@ class Scene:
                     o.rotation = angle
                 else:
                     o.rotation -= angle
+        elif x == 't':
+            pass
         # Undo
         elif x == 'u':
             pass
-        # Select
+        # Scale
         elif x == 's':
-            pass
+            scale = self.split_numeric(args[0])[1]
+            for o in self.context:
+                if len(args) > 2 and args[2] in 'a!':
+                    o.r = scale
+                else:
+                    o.r *= scale
+                print(o.r)
+
         # Remove/delete
         elif x == 'x':
             self.objects.remove(self.objects[-1])
