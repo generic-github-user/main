@@ -280,12 +280,12 @@ class Scene:
 
         # Rotate
         elif x == 'r':
-            angle = int(args[1])
-            for o in context:
+            angle = self.split_numeric(args[0])[1]
+            for o in self.context:
                 if len(args) > 2 and args[2] in '@!':
                     o.rotation = angle
                 else:
-                    o.rotation += angle
+                    o.rotation -= angle
         # Undo
         elif x == 'u':
             pass
