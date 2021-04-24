@@ -35,7 +35,7 @@ defaults = {
 }
 
 class Object:
-    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill='black', stroke_fill='black', sides=3, rotation=0, text='text'):
+    def __init__(self, form, drawer, position=None, d=None, args=None, drawfunc=None, fill='black', stroke_fill='black', sides=3, rotation=0, text='text', scale=1, outline_color='black', outline_width=1):
         self.form = form
         self.drawer = drawer
         self.args = args
@@ -58,6 +58,8 @@ class Object:
 
         self.update()
 
+        self.outline_color = outline_color
+        self.outline_width = outline_width
         # self.fill = (200) * 3
         self.fill = fill
 
@@ -76,9 +78,9 @@ class Object:
             # self.update()
 
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
-            self.drawer.ellipse(coords, fill=self.fill)
+            self.drawer.ellipse(coords, fill=self.fill, outline=self.outline_color, width=self.outline_width)
         elif self.form == 'polygon':
-            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill, rotation=self.rotation)
+            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill, rotation=self.rotation, outline=self.outline_color, width=self.outline_width)
         elif self.form == 'text':
             font = ImageFont.truetype('arial.ttf', self.size*2)
             self.drawer.text(tuple(self.position), self.text, stroke_width=0, stroke_fill=self.stroke_fill, fill=self.fill, font=font)
@@ -221,7 +223,7 @@ class Scene:
                 new_obj = Object('circle', self.draw, position=self.m, fill='green')
             elif args[0][1] == 'p':
                 num = int(args[1])
-                new_obj = Object('polygon', self.draw, position=self.m, sides=num)
+                new_obj = Object('polygon', self.draw, position=self.m, sides=num, fill='white')
             elif args[0][1] == 't':
                 text = ' '.join(args[1:])
                 print(text)
