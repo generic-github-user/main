@@ -280,12 +280,12 @@ class Scene:
         elif x == 'q':
             quit()
 
-        # Clear canvas
-        self.clear()
         # Render scene
         self.render()
 
     def render(self):
+        # Clear canvas
+        self.clear()
         # Draw each object
         for o in self.objects:
             o.draw(vflip=self.y)
