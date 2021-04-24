@@ -63,6 +63,8 @@ class Object:
         # self.fill = (200) * 3
         self.fill = fill
 
+        self.scale = scale
+
     def draw(self, vflip=None):
         coords = self.bounds
         if vflip:
@@ -80,12 +82,12 @@ class Object:
             # self.drawer.arc(self.bounds, 0, 360, fill=0)
             self.drawer.ellipse(coords, fill=self.fill, outline=self.outline_color, width=self.outline_width)
         elif self.form == 'polygon':
-            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill, rotation=self.rotation, outline=self.outline_color, width=self.outline_width)
+            self.drawer.regular_polygon(t(self.circle), self.sides, fill=self.fill, rotation=self.rotation, outline=self.outline_color)
         elif self.form == 'text':
             font = ImageFont.truetype('arial.ttf', self.size*2)
             self.drawer.text(tuple(self.position), self.text, stroke_width=0, stroke_fill=self.stroke_fill, fill=self.fill, font=font)
 
-        for c in children:
+        for c in self.children:
             c.draw(vflip)
 
         return self
@@ -345,6 +347,7 @@ class Scene:
 # generate_panel(img)
 
 s = Scene(dims=400)
+print(s.split_numeric('ietuoe5372jtk13845msty3227f'))
 
 # s.command('ac')
 # s.command('mr')
