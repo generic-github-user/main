@@ -184,7 +184,7 @@ class Scene:
         self.objects.append(o)
         return o
 
-    def split_numeric(self, text):
+    def split_numeric(self, text, parse=True):
         block = ''
         block_numeric = text[0].isnumeric()
         output = []
@@ -192,6 +192,8 @@ class Scene:
             if t.isnumeric() == block_numeric:
                 block += t
             else:
+                if block_numeric:
+                    block = int(block)
                 output.append(block)
                 block = t
                 block_numeric = t.isnumeric()
