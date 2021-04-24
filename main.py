@@ -1,30 +1,17 @@
 from PIL import Image, ImageDraw, ImageFont
 import sys
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import numpy as np
 import copy
 
-# from IPython.display import clear_output
-
-
-import matplotlib.image as mpimg
-
 from object import *
-
-# with Image.open("hopper.jpg") as im:
 
 canvas_size = np.array([100]*2)
 n, m = canvas_size
 im = Image.new('RGB', (n, m), (255, 255, 255))
 
 draw = ImageDraw.Draw(im)
-# draw.line((0, 0) + im.size, fill=128)
-# draw.line((0, im.size[1], im.size[0], 0), fill=128)
-
-# write to stdout
-# im.save(sys.stdout, "PNG")
-# im.show()
-
 
 # middle = [dim / 2 for dim in canvas_size]
 middle = canvas_size / 2
@@ -137,7 +124,7 @@ class Scene:
         if x == 'a':
             if args[0][1] == 'c':
                 # d = lambda: self.draw.arc([t(self.m-q), t(self.m+q)], 0, 360, fill=0, width=5)
-                new_obj = Object('circle', self.draw, position=self.m, fill='green')
+                new_obj = Object('circle', self.draw, position=self.m, fill='white')
             elif args[0][1] == 'p':
                 num = int(args[1])
                 new_obj = Object('polygon', self.draw, position=self.m, sides=num, fill='white')
