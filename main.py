@@ -2,15 +2,18 @@ from tkinter import *
 import random
 import numpy as np
 
-root = Tk()
-# root.title()
-# root.resizable(False, False)
-canvas = Canvas(root, width = 400, height = 400)
-canvas.pack()
 
-def step(i=0, n=10):
-    canvas.create_rectangle(20, 20, 50, 50, fill='red')
-    canvas.after(50, lambda: step(i=i+1))
+class Scene:
+    def __init__(self):
+        self.root = Tk()
+        # root.title()
+        # root.resizable(False, False)
+        self.canvas = Canvas(self.root, width = 400, height = 400)
+        self.canvas.pack()
+    def step(self, i=0, n=10):
+        self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
+        self.canvas.after(50, lambda: self.step(i=i+1))
 
-step()
-root.mainloop()
+main_scene = Scene()
+main_scene.step()
+main_scene.root.mainloop()
