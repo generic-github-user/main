@@ -2,6 +2,14 @@ from tkinter import *
 import random
 import numpy as np
 
+class Automata:
+    """A generic cellular automaton world"""
+
+    def __init__(self, size):
+        if size is None:
+            size = [64, 64]
+        self.size = size
+
 
 class Scene:
     def __init__(self):
