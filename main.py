@@ -5,10 +5,16 @@ import numpy as np
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size):
+    def __init__(self, size=None):
         if size is None:
             size = [64, 64]
         self.size = size
+        self.cell_width = 10
+        self.world = np.random.randint(0, 2, self.size)
+        # self.world = np.zeros(self.size)
+        self.zoom = 1
+        self.birth = [3]
+        self.live = [2, 3]
 
 
 class Scene:
