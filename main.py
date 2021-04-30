@@ -1,6 +1,7 @@
 from tkinter import *
 import random
 import numpy as np
+import time
 
 class Automata:
     """A generic cellular automaton world"""
@@ -55,8 +56,11 @@ class Scene:
             self.content.evolve()
             self.canvas.after(100, lambda: self.step(i=i+1, n=n))
         else:
-            print('Simulated {} frames'.format(n))
+            self.end_time = time.time()
+            elapsed = round(self.end_time-self.start_time, 1)
+            print('Simulated {} frames in {} seconds'.format(n, elapsed))
     def simulate(self, frames=10):
+        self.start_time = time.time()
         self.step(n=frames)
 
 main_scene = Scene()
