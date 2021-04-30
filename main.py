@@ -3,6 +3,7 @@ import random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
+from colour import Color
 
 class Automata:
     """A generic cellular automaton world"""
@@ -19,6 +20,7 @@ class Automata:
         self.live = [2, 3]
         self.population = []
         self.generation = 0
+        self.age = np.zeros(self.size)
 
     def evolve(self):
         temp = np.pad(self.world.copy(), 1, constant_values=0)
@@ -35,6 +37,9 @@ class Automata:
             # elif?
             if neighbors not in self.live:
                 self.world[ix, iy] = 0
+                self.age[ix, iy] = 0
+            else:
+                self.age[ix, iy] += 1
         self.population.append(self.world.sum())
         self.generation += 1
         self.compute = self.generation * np.product(self.world.shape)
@@ -63,7 +68,10 @@ class Scene:
             width = self.content.cell_width
             for ix, iy in zip(*np.where(world == 1)):
                 x, y = ix * width, iy * width
-                self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
+                intensity = self.content.age[ix, iy] / self.content.age.max()
+                c = Color(hue=intensity, saturation=1, luminance=0.5)
+                hex = c.hex
+                self.canvas.create_rectangle(x, y, x+width, y+width, fill=hex)
             self.canvas.after(1, lambda: self.step(i=i+1, n=n, render=render))
         else:
             self.end_time = time.time()
