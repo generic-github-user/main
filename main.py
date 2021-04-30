@@ -18,6 +18,7 @@ class Automata:
         self.birth = [3]
         self.live = [2, 3]
         self.population = []
+        self.generation = 0
 
     def evolve(self):
         temp = np.pad(self.world.copy(), 1, constant_values=0)
@@ -35,6 +36,8 @@ class Automata:
             if neighbors not in self.live:
                 self.world[ix, iy] = 0
         self.population.append(self.world.sum())
+        self.generation += 1
+        self.compute = self.generation * np.product(self.world.shape)
         # print(temp.shape)
 
 
@@ -65,8 +68,8 @@ class Scene:
         else:
             self.end_time = time.time()
             elapsed = round(self.end_time-self.start_time, 1)
-            print('Simulated {} frames in {} seconds'.format(n, elapsed))
-    def simulate(self, frames=10):
+            print('Simulated {} frames in {} seconds ({} cells processed)'.format(n, elapsed, self.content.compute))
+    def simulate(self, frames=10, render=True):
         self.start_time = time.time()
         self.step(n=frames, render=render)
 
