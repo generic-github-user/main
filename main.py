@@ -41,10 +41,22 @@ class Scene:
         # root.resizable(False, False)
         self.canvas = Canvas(self.root, width = 400, height = 400)
         self.canvas.pack()
+        self.content = Automata(size=[10, 10])
     def step(self, i=0, n=10):
-        self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
-        self.canvas.after(50, lambda: self.step(i=i+1))
+        # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
+        world = self.content.world
+        self.canvas.delete('all')
+        for ix, iy in np.ndindex(world.shape):
+            cell = world[ix, iy]
+            if cell == 1:
+                width = self.content.cell_width
+                x, y = ix * width, iy * width
+                self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
+        self.content.evolve()
+        self.canvas.after(200, lambda: self.step(i=i+1))
 
 main_scene = Scene()
 main_scene.step()
 main_scene.root.mainloop()
+
+# TODO: cube visualization, pattern search
