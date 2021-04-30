@@ -42,20 +42,25 @@ class Scene:
         self.canvas = Canvas(self.root, width = 400, height = 400)
         self.canvas.pack()
         self.content = Automata(size=[30, 30])
-    def step(self, i=0, n=10):
-        # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
-        world = self.content.world
-        self.canvas.delete('all')
-        # print(np.where(world == 1))
-        width = self.content.cell_width
-        for ix, iy in zip(*np.where(world == 1)):
-            x, y = ix * width, iy * width
-            self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
-        self.content.evolve()
-        self.canvas.after(100, lambda: self.step(i=i+1))
+    def step(self, i=0, n=20):
+        if i < n:
+            # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
+            world = self.content.world
+            self.canvas.delete('all')
+            # print(np.where(world == 1))
+            width = self.content.cell_width
+            for ix, iy in zip(*np.where(world == 1)):
+                x, y = ix * width, iy * width
+                self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
+            self.content.evolve()
+            self.canvas.after(100, lambda: self.step(i=i+1, n=n))
+        else:
+            print('Simulated {} frames'.format(n))
+    def simulate(self, frames=10):
+        self.step(n=frames)
 
 main_scene = Scene()
-main_scene.step()
+main_scene.simulate(frames=50)
 main_scene.root.mainloop()
 
 # TODO: cube visualization, pattern search
