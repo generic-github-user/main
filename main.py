@@ -54,6 +54,12 @@ class Automata:
         self.compute = self.generation * np.product(self.world.shape)
         # print(temp.shape)
 
+class CGOL(Automata):
+    """Convenience class that produces a cellular automata based on Conway's Game of Life"""
+
+    def __init__(self):
+        super(CGOL, self).__init__()
+
 
 class Scene:
     def __init__(self, content=None):
@@ -92,7 +98,8 @@ class Scene:
         self.step(n=frames, render=render)
 
 live_rule = [random.randint(3, 10) for v in range(2)]
-automata = Automata(birth=[(2,4)], live=live_rule, neighborhood=(1,2))
+# automata = Automata(birth=[(2,4)], live=live_rule, neighborhood=(1,2))
+automata = CGOL()
 main_scene = Scene(content=automata)
 main_scene.simulate(frames=500, render=False)
 main_scene.root.mainloop()
