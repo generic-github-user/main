@@ -2,6 +2,7 @@ from tkinter import *
 import random
 import numpy as np
 import time
+import matplotlib.pyplot as plt
 
 class Automata:
     """A generic cellular automaton world"""
@@ -16,6 +17,7 @@ class Automata:
         self.zoom = 1
         self.birth = [3]
         self.live = [2, 3]
+        self.population = []
 
     def evolve(self):
         temp = np.pad(self.world.copy(), 1, constant_values=0)
@@ -32,6 +34,7 @@ class Automata:
             # elif?
             if neighbors not in self.live:
                 self.world[ix, iy] = 0
+        self.population.append(self.world.sum())
         # print(temp.shape)
 
 
@@ -71,5 +74,8 @@ class Scene:
 main_scene = Scene()
 main_scene.simulate(frames=50)
 main_scene.root.mainloop()
+
+plt.plot(main_scene.content.population)
+plt.show()
 
 # TODO: cube visualization, pattern search
