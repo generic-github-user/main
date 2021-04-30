@@ -21,6 +21,7 @@ class Automata:
         self.population = []
         self.generation = 0
         self.age = np.zeros(self.size)
+        self.neighbors = np.zeros(self.size)
         self.age_history = []
 
     def evolve(self):
@@ -29,6 +30,7 @@ class Automata:
             # :/
             current = self.world[ix, iy]
             neighbors = np.sum(temp[ix:ix+3, iy:iy+3]) - temp[ix+1, iy+1]
+            self.neighbors[ix, iy] = neighbors
             # print(temp[ix-1:ix+2, iy-1:iy+2])
             # print(temp[ix:ix+3, iy:iy+3])
             # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
@@ -60,7 +62,8 @@ class Scene:
         w, h = self.dimensions
         self.canvas = Canvas(self.root, width = w, height = h)
         self.canvas.pack()
-    def step(self, i=0, n=20, render=True):
+    def step(self, i=0, n=20, render=True, cell_colors='neighbors'):
+        color_source = getattr(self.content, cell_colors)
         if i < n:
             self.content.evolve()
             # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
@@ -70,7 +73,7 @@ class Scene:
             width = self.content.cell_width
             for ix, iy in zip(*np.where(world == 1)):
                 x, y = ix * width, iy * width
-                intensity = self.content.age[ix, iy] / self.content.age.max()
+                intensity = color_source[ix, iy] / color_source.max()
                 c = Color(hue=intensity, saturation=1, luminance=0.5)
                 hex = c.hex
                 self.canvas.create_rectangle(x, y, x+width, y+width, fill=hex)
