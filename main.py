@@ -8,7 +8,7 @@ from colour import Color
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size=None):
+    def __init__(self, size=None, birth=[3], live=[2,3]):
         if size is None:
             size = [64, 64]
         self.size = np.array(size)
@@ -16,8 +16,12 @@ class Automata:
         self.world = np.random.randint(0, 2, self.size)
         # self.world = np.zeros(self.size)
         self.zoom = 1
-        self.birth = [3]
-        self.live = [2, 3]
+
+        if type(birth[0]) in [tuple, list]:
+            birth = [random.randint(*b) for b in birth]
+        self.birth = birth
+        self.live = live
+        
         self.population = []
         self.generation = 0
         self.age = np.zeros(self.size)
@@ -86,7 +90,8 @@ class Scene:
         self.start_time = time.time()
         self.step(n=frames, render=render)
 
-main_scene = Scene()
+automata = Automata(birth=[(2,5)])
+main_scene = Scene(content=automata)
 main_scene.simulate(frames=500, render=False)
 main_scene.root.mainloop()
 
