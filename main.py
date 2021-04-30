@@ -61,18 +61,17 @@ class Scene:
             for ix, iy in zip(*np.where(world == 1)):
                 x, y = ix * width, iy * width
                 self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
-            self.content.evolve()
-            self.canvas.after(100, lambda: self.step(i=i+1, n=n))
+            self.canvas.after(1, lambda: self.step(i=i+1, n=n, render=render))
         else:
             self.end_time = time.time()
             elapsed = round(self.end_time-self.start_time, 1)
             print('Simulated {} frames in {} seconds'.format(n, elapsed))
     def simulate(self, frames=10):
         self.start_time = time.time()
-        self.step(n=frames)
+        self.step(n=frames, render=render)
 
 main_scene = Scene()
-main_scene.simulate(frames=50)
+main_scene.simulate(frames=500, render=False)
 main_scene.root.mainloop()
 
 plt.plot(main_scene.content.population)
