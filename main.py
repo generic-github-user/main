@@ -8,7 +8,7 @@ from colour import Color
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size=None, birth=[3], live=[2,3]):
+    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1):
         if size is None:
             size = [64, 64]
         self.size = np.array(size)
@@ -21,19 +21,20 @@ class Automata:
             birth = [random.randint(*b) for b in birth]
         self.birth = birth
         self.live = live
-        
+
         self.population = []
         self.generation = 0
         self.age = np.zeros(self.size)
         self.neighbors = np.zeros(self.size)
         self.age_history = []
 
-    def evolve(self):
-        temp = np.pad(self.world.copy(), 1, constant_values=0)
+        if type(neighborhood) in [tuple, list]:
+            neighborhood = random.randint(*neighborhood)
+        self.neighborhood = neighborhood
         for ix, iy in np.ndindex(self.world.shape):
             # :/
             current = self.world[ix, iy]
-            neighbors = np.sum(temp[ix:ix+3, iy:iy+3]) - temp[ix+1, iy+1]
+            neighbors = np.sum(temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - temp[ix+self.neighborhood, iy+self.neighborhood]
             self.neighbors[ix, iy] = neighbors
             # print(temp[ix-1:ix+2, iy-1:iy+2])
             # print(temp[ix:ix+3, iy:iy+3])
@@ -66,7 +67,7 @@ class Scene:
         w, h = self.dimensions
         self.canvas = Canvas(self.root, width = w, height = h)
         self.canvas.pack()
-    def step(self, i=0, n=20, render=True, cell_colors='neighbors'):
+    def step(self, i=0, n=20, render=True, cell_colors='age'):
         color_source = getattr(self.content, cell_colors)
         if i < n:
             self.content.evolve()
@@ -90,13 +91,14 @@ class Scene:
         self.start_time = time.time()
         self.step(n=frames, render=render)
 
-automata = Automata(birth=[(2,5)])
+live_rule = [random.randint(3, 10) for v in range(2)]
+automata = Automata(birth=[(2,4)], live=live_rule, neighborhood=(1,2))
 main_scene = Scene(content=automata)
 main_scene.simulate(frames=500, render=False)
 main_scene.root.mainloop()
 
 # plt.plot(main_scene.content.population)
-plt.plot(main_scene.content.age_history)
-plt.show()
+# plt.plot(main_scene.content.age_history)
+# plt.show()
 
 # TODO: cube visualization, pattern search
