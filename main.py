@@ -21,6 +21,7 @@ class Automata:
         self.population = []
         self.generation = 0
         self.age = np.zeros(self.size)
+        self.age_history = []
 
     def evolve(self):
         temp = np.pad(self.world.copy(), 1, constant_values=0)
@@ -41,6 +42,7 @@ class Automata:
             else:
                 self.age[ix, iy] += 1
         self.population.append(self.world.sum())
+        self.age_history.append(self.age.mean())
         self.generation += 1
         self.compute = self.generation * np.product(self.world.shape)
         # print(temp.shape)
@@ -85,7 +87,8 @@ main_scene = Scene()
 main_scene.simulate(frames=500, render=False)
 main_scene.root.mainloop()
 
-plt.plot(main_scene.content.population)
+# plt.plot(main_scene.content.population)
+plt.plot(main_scene.content.age_history)
 plt.show()
 
 # TODO: cube visualization, pattern search
