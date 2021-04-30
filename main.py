@@ -16,6 +16,23 @@ class Automata:
         self.birth = [3]
         self.live = [2, 3]
 
+    def evolve(self):
+        temp = np.pad(self.world.copy(), 1, constant_values=0)
+        for ix, iy in np.ndindex(self.world.shape):
+            # :/
+            current = self.world[ix, iy]
+            neighbors = np.sum(temp[ix:ix+3, iy:iy+3]) - temp[ix+1, iy+1]
+            # print(temp[ix-1:ix+2, iy-1:iy+2])
+            print(temp[ix:ix+3, iy:iy+3])
+            # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
+            # print(neighbors)
+            if neighbors in self.birth:
+                self.world[ix, iy] = 1
+            # elif?
+            if neighbors not in self.live:
+                self.world[ix, iy] = 0
+        # print(temp.shape)
+
 
 class Scene:
     def __init__(self):
