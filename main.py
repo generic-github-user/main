@@ -36,11 +36,13 @@ class Automata:
 
 
 class Scene:
-    def __init__(self):
+    def __init__(self, content=None):
         self.root = Tk()
         # root.title()
         # root.resizable(False, False)
-        self.content = Automata(size=[30, 30])
+        if content is None:
+            content = Automata(size=[64, 64])
+        self.content = content
         self.dimensions = self.content.size * self.content.cell_width
         w, h = self.dimensions
         self.canvas = Canvas(self.root, width = w, height = h)
