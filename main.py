@@ -23,7 +23,7 @@ class Automata:
             current = self.world[ix, iy]
             neighbors = np.sum(temp[ix:ix+3, iy:iy+3]) - temp[ix+1, iy+1]
             # print(temp[ix-1:ix+2, iy-1:iy+2])
-            print(temp[ix:ix+3, iy:iy+3])
+            # print(temp[ix:ix+3, iy:iy+3])
             # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
             # print(neighbors)
             if neighbors in self.birth:
@@ -41,19 +41,18 @@ class Scene:
         # root.resizable(False, False)
         self.canvas = Canvas(self.root, width = 400, height = 400)
         self.canvas.pack()
-        self.content = Automata(size=[10, 10])
+        self.content = Automata(size=[30, 30])
     def step(self, i=0, n=10):
         # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
         world = self.content.world
         self.canvas.delete('all')
-        for ix, iy in np.ndindex(world.shape):
-            cell = world[ix, iy]
-            if cell == 1:
-                width = self.content.cell_width
-                x, y = ix * width, iy * width
-                self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
+        # print(np.where(world == 1))
+        width = self.content.cell_width
+        for ix, iy in zip(*np.where(world == 1)):
+            x, y = ix * width, iy * width
+            self.canvas.create_rectangle(x, y, x+width, y+width, fill='red')
         self.content.evolve()
-        self.canvas.after(200, lambda: self.step(i=i+1))
+        self.canvas.after(100, lambda: self.step(i=i+1))
 
 main_scene = Scene()
 main_scene.step()
