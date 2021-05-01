@@ -112,6 +112,12 @@ class Aggregator:
             for g in range(100):
                 trial.evolve(use_convolutions=True)
             self.results.append([getattr(trial, m)[-1] for m in self.metrics])
+
+    def display(self):
+        print(list(zip(*self.results)))
+        plt.scatter(*zip(*self.results))
+        plt.show()
+
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
