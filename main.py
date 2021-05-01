@@ -45,18 +45,25 @@ class Automata:
     def evolve(self, n=1, use_convolutions=True):
         # for i in range(n)
         if use_convolutions:
+            # Make a copy of the current world so the previous state can be used to determine the next state without unwanted modification
             self.temp = self.world.copy()
+            # Apply kernel to each cell in the world (and handle edges with specified method) to generate a matrix of neighbor counts
             n = signal.convolve2d(self.temp, self.kernel, boundary=self.edges)
+            # Omit the edges
             n = n[1:-1, 1:-1]
             # print(n.shape)
             # print(np.isin(np.array([2, 3, 5]), self.live))
             birth_cond = np.logical_and(self.temp == 0, np.isin(n, self.birth))
             survival_cond = np.logical_and(self.temp == 1, np.isin(n, self.live))
+            # Apply rules to every cell and output 1 where true, 0 where false
+            # np.where is preferable to looping through each cell in the world since NumPy can vectorize some operations, dramatically improving efficiency
             indices = np.where(np.logical_or(survival_cond, birth_cond), 1, 0)
             # self.world = np.where(indices == 1)
             # self.world = indices
             self.world = indices.copy()
+            # Add indices matrix to age
             self.age += indices
+            # Multiply by indices matrix to reset age of dead cells (where value is 0)
             self.age *= indices
             # print(indices, n)
         else:
@@ -199,6 +206,7 @@ class Scene:
         # self.canvas.update_idletasks()
 
     def step(self, i=0, n=20, render=True, cell_colors='age'):
+        # Get the attribute that should be used to color cells in the visualization
         color_source = getattr(self.content, cell_colors)
         if i < n:
             # new_frame = self.content.evolve()
@@ -208,6 +216,7 @@ class Scene:
             # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
             world = self.content.world
             new_frame = world
+            # Clear the canvas
             self.canvas.delete('all')
             # print(len(self.m))
             # print(np.where(world == 1))
