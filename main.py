@@ -109,6 +109,7 @@ class Scene:
         self.canvas.pack()
         self.m = []
         self.paused = False
+        self.pen_size = 1
         # self.canvas.mainloop()
 
     # self.canvas.bind("<B1-Motion>", click_callback)
@@ -120,8 +121,11 @@ class Scene:
         cw = self.content.cell_width
         coords = np.round(coords / cw).astype(int)
         print(coords)
-        self.content.world[tuple(coords)] = 1
-        self.content.temp[tuple(coords)] = 1
+        x, y = tuple(coords)
+        p = self.pen_size
+        x_, y_ = x+p, y+p
+        self.content.world[x:x_, y:y_] = 1
+        self.content.temp[x:x_, y:y_] = 1
         x, y = coords * cw
         print(x, y)
         self.m.append(event)
@@ -143,6 +147,16 @@ class Scene:
             self.paused = False
         else:
             self.paused = True
+
+    def key_press(self, event):
+        char = event.char
+        # print(char)
+        if char == '-' and self.pen_size > 1:
+            self.pen_size -= 1
+        elif char == '=' and self.pen_size < 100:
+            self.pen_size += 1
+        print('Changed pen size to {}'.format(self.pen_size))
+        # self.canvas.update_idletasks()
 
     def step(self, i=0, n=20, render=True, cell_colors='age'):
         color_source = getattr(self.content, cell_colors)
@@ -168,6 +182,7 @@ class Scene:
             self.canvas.bind("<B1-Motion>", self.click_callback)
             self.canvas.bind("<B3-Motion>", self.right_click)
             self.canvas.bind("<Double-Button-1>", self.toggle_pause)
+            self.root.bind("<Key>", self.key_press)
         else:
             self.end_time = time.time()
             elapsed = round(self.end_time-self.start_time, 1)
