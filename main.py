@@ -91,8 +91,8 @@ class Aggregator:
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
-    def __init__(self):
-        super(CGOL, self).__init__()
+    def __init__(self, **kwargs):
+        super(CGOL, self).__init__(**kwargs)
 
 
 class Scene:
@@ -101,7 +101,7 @@ class Scene:
         # root.title()
         # root.resizable(False, False)
         if content is None:
-            content = Automata(size=[64, 64])
+            content = Automata()
         self.content = content
         self.dimensions = self.content.size * self.content.cell_width
         w, h = self.dimensions
