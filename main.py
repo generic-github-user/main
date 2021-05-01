@@ -99,6 +99,18 @@ class Scene:
         w, h = self.dimensions
         self.canvas = Canvas(self.root, width = w, height = h)
         self.canvas.pack()
+
+        def click_callback(event):
+            # print(event.x, event.y)
+            coords = event.x, event.y
+            coords = np.array(coords)
+            cw = self.content.cell_width
+            coords = tuple(np.round(coords / cw).astype(int))
+            print(coords)
+            self.content.world[coords] = 1
+            self.content.temp[coords] = 1
+
+        self.canvas.bind("<B1-Motion>", click_callback)
     def step(self, i=0, n=20, render=True, cell_colors='age'):
         color_source = getattr(self.content, cell_colors)
         if i < n:
