@@ -87,7 +87,7 @@ class Automata:
         # print(temp.shape)
 
 class Aggregator:
-    def __init__(self):
+    def __init__(self, hyperparameters=None, metrics=None, selection='random', randomizer=random.uniform, trials=20):
         self.simulations = []
         if hyperparameters is None:
             hyperparameters = {
@@ -96,6 +96,11 @@ class Aggregator:
         if metrics is None:
             metrics = ['population', 'age_history']
 
+        self.hyperparameters = hyperparameters
+        self.hp = self.hyperparameters
+        self.metrics = metrics
+        self.results = []
+        self.trials = trials
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
