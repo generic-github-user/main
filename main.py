@@ -4,6 +4,7 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 from colour import Color
+from scipy import signal
 
 class Automata:
     """A generic cellular automaton world"""
@@ -15,6 +16,7 @@ class Automata:
         self.cell_width = 10
         self.world = np.random.randint(0, 2, self.size)
         # self.world = np.zeros(self.size)
+        # self.world[10:12,10:12]=1
         self.zoom = 1
 
         if type(birth[0]) in [tuple, list]:
@@ -31,23 +33,47 @@ class Automata:
         if type(neighborhood) in [tuple, list]:
             neighborhood = random.randint(*neighborhood)
         self.neighborhood = neighborhood
-        for ix, iy in np.ndindex(self.world.shape):
-            # :/
-            current = self.world[ix, iy]
-            neighbors = np.sum(temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - temp[ix+self.neighborhood, iy+self.neighborhood]
-            self.neighbors[ix, iy] = neighbors
-            # print(temp[ix-1:ix+2, iy-1:iy+2])
-            # print(temp[ix:ix+3, iy:iy+3])
-            # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
-            # print(neighbors)
-            if neighbors in self.birth:
-                self.world[ix, iy] = 1
-            # elif?
-            if neighbors not in self.live:
-                self.world[ix, iy] = 0
-                self.age[ix, iy] = 0
-            else:
-                self.age[ix, iy] += 1
+
+        self.conv = np.ones([self.neighborhood*2+1]*2)
+        # np.put(self.conv, self.neighborhood**2//2, 0)
+        np.put(self.conv, self.conv.size//2, 0)
+        print(self.conv)
+
+    def evolve(self, n=1, use_convolutions=True):
+        # for i in range(n)
+        if use_convolutions:
+            temp = self.world.copy()
+            n = signal.convolve2d(temp, self.conv, boundary='wrap')
+            n = n[1:-1, 1:-1]
+            # print(n.shape)
+            # print(np.isin(np.array([2, 3, 5]), self.live))
+            birth_cond = np.logical_and(temp == 0, np.isin(n, self.birth))
+            survival_cond = np.logical_and(temp == 1, np.isin(n, self.live))
+            indices = np.where(np.logical_or(survival_cond, birth_cond), 1, 0)
+            # self.world = np.where(indices == 1)
+            # self.world = indices
+            self.world = indices.copy()
+            # print(indices, n)
+        else:
+            temp = np.pad(self.world.copy(), self.neighborhood, constant_values=0)
+            for ix, iy in np.ndindex(self.world.shape):
+                # :/
+                current = self.world[ix, iy]
+                neighbors = np.sum(temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - temp[ix+self.neighborhood, iy+self.neighborhood]
+                self.neighbors[ix, iy] = neighbors
+                # print(temp[ix-1:ix+2, iy-1:iy+2])
+                # print(temp[ix:ix+3, iy:iy+3])
+                # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
+                # print(neighbors)
+                if neighbors in self.birth:
+                    self.world[ix, iy] = 1
+                # elif?
+                if neighbors not in self.live:
+                    self.world[ix, iy] = 0
+                    self.age[ix, iy] = 0
+                else:
+                    self.age[ix, iy] += 1
+
         self.population.append(self.world.sum())
         self.age_history.append(self.age.mean())
         self.generation += 1
