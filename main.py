@@ -89,6 +89,12 @@ class Automata:
 class Aggregator:
     def __init__(self):
         self.simulations = []
+        if hyperparameters is None:
+            hyperparameters = {
+                'size': 32
+            }
+        if metrics is None:
+            metrics = ['population', 'age_history']
 
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
