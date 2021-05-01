@@ -125,6 +125,14 @@ class Scene:
         # self.canvas.update_idletasks()
         # self.canvas.draw_idle()
 
+    def right_click(self, event):
+        coords = event.x, event.y
+        coords = np.array(coords)
+        cw = self.content.cell_width
+        coords = np.round(coords / cw).astype(int)
+        self.content.world[tuple(coords)] = 0
+        self.content.temp[tuple(coords)] = 0
+
     def step(self, i=0, n=20, render=True, cell_colors='age'):
         color_source = getattr(self.content, cell_colors)
         if i < n:
@@ -141,6 +149,8 @@ class Scene:
                 hex = c.hex
                 self.canvas.create_rectangle(x, y, x+width, y+width, fill=hex)
             self.canvas.after(1, lambda: self.step(i=i+1, n=n, render=render))
+            self.canvas.bind("<B1-Motion>", self.click_callback)
+            self.canvas.bind("<B3-Motion>", self.right_click)
         else:
             self.end_time = time.time()
             elapsed = round(self.end_time-self.start_time, 1)
