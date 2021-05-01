@@ -42,24 +42,24 @@ class Automata:
     def evolve(self, n=1, use_convolutions=True):
         # for i in range(n)
         if use_convolutions:
-            temp = self.world.copy()
-            n = signal.convolve2d(temp, self.conv, boundary='wrap')
+            self.temp = self.world.copy()
+            n = signal.convolve2d(self.temp, self.conv, boundary='wrap')
             n = n[1:-1, 1:-1]
             # print(n.shape)
             # print(np.isin(np.array([2, 3, 5]), self.live))
-            birth_cond = np.logical_and(temp == 0, np.isin(n, self.birth))
-            survival_cond = np.logical_and(temp == 1, np.isin(n, self.live))
+            birth_cond = np.logical_and(self.temp == 0, np.isin(n, self.birth))
+            survival_cond = np.logical_and(self.temp == 1, np.isin(n, self.live))
             indices = np.where(np.logical_or(survival_cond, birth_cond), 1, 0)
             # self.world = np.where(indices == 1)
             # self.world = indices
             self.world = indices.copy()
             # print(indices, n)
         else:
-            temp = np.pad(self.world.copy(), self.neighborhood, constant_values=0)
+            self.temp = np.pad(self.world.copy(), self.neighborhood, constant_values=0)
             for ix, iy in np.ndindex(self.world.shape):
                 # :/
                 current = self.world[ix, iy]
-                neighbors = np.sum(temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - temp[ix+self.neighborhood, iy+self.neighborhood]
+                neighbors = np.sum(self.temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - self.temp[ix+self.neighborhood, iy+self.neighborhood]
                 self.neighbors[ix, iy] = neighbors
                 # print(temp[ix-1:ix+2, iy-1:iy+2])
                 # print(temp[ix:ix+3, iy:iy+3])
