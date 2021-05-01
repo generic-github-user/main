@@ -101,6 +101,17 @@ class Aggregator:
         self.metrics = metrics
         self.results = []
         self.trials = trials
+
+    def run(self, trials=None):
+        if trials is None:
+            trials = self.trials
+        print('Running {} trials'.format(trials))
+
+        for t in range(trials):
+            trial = Automata()
+            for g in range(100):
+                trial.evolve(use_convolutions=True)
+            self.results.append([getattr(trial, m)[-1] for m in self.metrics])
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
