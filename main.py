@@ -112,9 +112,13 @@ class Aggregator:
             for g in range(100):
                 trial.evolve(use_convolutions=True)
             self.results.append([getattr(trial, m)[-1] for m in self.metrics])
+            if (t+1) % 10 == 0:
+                print('{} trials ({}%) complete'.format(t+1, round((t+1)/trials*100, 2)))
+        print('Simulation complete')
 
     def display(self):
-        print(list(zip(*self.results)))
+        # print(list(zip(*self.results)))
+        print('Displaying results ({} trials)'.format(len(self.results)))
         plt.scatter(*zip(*self.results))
         plt.show()
 
