@@ -106,6 +106,7 @@ class Scene:
         self.canvas = Canvas(self.root, width = w, height = h)
         self.canvas.pack()
         self.m = []
+        self.paused = False
         # self.canvas.mainloop()
 
     # self.canvas.bind("<B1-Motion>", click_callback)
@@ -135,13 +136,22 @@ class Scene:
         self.content.world[tuple(coords)] = 0
         self.content.temp[tuple(coords)] = 0
 
+    def toggle_pause(self, event):
+        if self.paused:
+            self.paused = False
+        else:
+            self.paused = True
+
     def step(self, i=0, n=20, render=True, cell_colors='age'):
         color_source = getattr(self.content, cell_colors)
         if i < n:
-            new_frame = self.content.evolve()
-            print(new_frame.mean())
+            # new_frame = self.content.evolve()
+            if not self.paused:
+                self.content.evolve()
+            # print(new_frame.mean())
             # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
             world = self.content.world
+            new_frame = world
             self.canvas.delete('all')
             # print(len(self.m))
             # print(np.where(world == 1))
@@ -155,6 +165,7 @@ class Scene:
             self.canvas.after(1, lambda: self.step(i=i+1, n=n, render=render))
             self.canvas.bind("<B1-Motion>", self.click_callback)
             self.canvas.bind("<B3-Motion>", self.right_click)
+            self.canvas.bind("<Double-Button-1>", self.toggle_pause)
         else:
             self.end_time = time.time()
             elapsed = round(self.end_time-self.start_time, 1)
