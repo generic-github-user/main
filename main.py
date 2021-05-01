@@ -36,16 +36,16 @@ class Automata:
             neighborhood = random.randint(*neighborhood)
         self.neighborhood = neighborhood
 
-        self.conv = np.ones([self.neighborhood*2+1]*2)
+        self.kernel = np.ones([self.neighborhood*2+1]*2)
         # np.put(self.conv, self.neighborhood**2//2, 0)
-        np.put(self.conv, self.conv.size//2, 0)
-        print(self.conv)
+        np.put(self.kernel, self.kernel.size//2, 0)
+        # print(self.conv)
 
     def evolve(self, n=1, use_convolutions=True):
         # for i in range(n)
         if use_convolutions:
             self.temp = self.world.copy()
-            n = signal.convolve2d(self.temp, self.conv, boundary='wrap')
+            n = signal.convolve2d(self.temp, self.kernel, boundary='wrap')
             n = n[1:-1, 1:-1]
             # print(n.shape)
             # print(np.isin(np.array([2, 3, 5]), self.live))
