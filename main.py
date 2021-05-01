@@ -9,17 +9,18 @@ from scipy import signal
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1):
+    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5):
         if size is None:
             size = [64, 64]
         elif type(size) is int:
             size = [size] * 2
         self.size = np.array(size)
-        self.cell_width = 5
+        self.cell_width = cell_width
         self.world = np.random.randint(0, 2, self.size)
         # self.world = np.zeros(self.size)
         # self.world[10:12,10:12]=1
         self.zoom = 1
+        self.edges = edges
 
         if type(birth[0]) in [tuple, list]:
             birth = [random.randint(*b) for b in birth]
@@ -45,7 +46,7 @@ class Automata:
         # for i in range(n)
         if use_convolutions:
             self.temp = self.world.copy()
-            n = signal.convolve2d(self.temp, self.kernel, boundary='wrap')
+            n = signal.convolve2d(self.temp, self.kernel, boundary=self.edges)
             n = n[1:-1, 1:-1]
             # print(n.shape)
             # print(np.isin(np.array([2, 3, 5]), self.live))
