@@ -55,6 +55,8 @@ class Automata:
             # self.world = np.where(indices == 1)
             # self.world = indices
             self.world = indices.copy()
+            self.age += indices
+            self.age *= indices
             # print(indices, n)
         else:
             self.temp = np.pad(self.world.copy(), self.neighborhood, constant_values=0)
