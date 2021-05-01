@@ -12,8 +12,10 @@ class Automata:
     def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1):
         if size is None:
             size = [64, 64]
+        elif type(size) is int:
+            size = [size] * 2
         self.size = np.array(size)
-        self.cell_width = 10
+        self.cell_width = 5
         self.world = np.random.randint(0, 2, self.size)
         # self.world = np.zeros(self.size)
         # self.world[10:12,10:12]=1
@@ -176,7 +178,7 @@ class Scene:
 
 live_rule = [random.randint(3, 10) for v in range(2)]
 # automata = Automata(birth=[(2,4)], live=live_rule, neighborhood=(1,2))
-automata = CGOL()
+automata = CGOL(size=128)
 main_scene = Scene(content=automata)
 main_scene.simulate(frames=500, render=False)
 main_scene.root.mainloop()
