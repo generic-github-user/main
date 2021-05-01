@@ -78,6 +78,8 @@ class Automata:
         self.age_history.append(self.age.mean())
         self.generation += 1
         self.compute = self.generation * np.product(self.world.shape)
+
+        return self.world
         # print(temp.shape)
 
 class Aggregator:
@@ -136,13 +138,15 @@ class Scene:
     def step(self, i=0, n=20, render=True, cell_colors='age'):
         color_source = getattr(self.content, cell_colors)
         if i < n:
-            self.content.evolve()
+            new_frame = self.content.evolve()
+            print(new_frame.mean())
             # self.canvas.create_rectangle(20, 20, 50, 50, fill='red')
             world = self.content.world
             self.canvas.delete('all')
+            # print(len(self.m))
             # print(np.where(world == 1))
             width = self.content.cell_width
-            for ix, iy in zip(*np.where(world == 1)):
+            for ix, iy in zip(*np.where(new_frame)):
                 x, y = ix * width, iy * width
                 intensity = color_source[ix, iy] / color_source.max()
                 c = Color(hue=intensity, saturation=1, luminance=0.5)
