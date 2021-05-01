@@ -223,10 +223,15 @@ class Scene:
 
 live_rule = [random.randint(3, 10) for v in range(2)]
 # automata = Automata(birth=[(2,4)], live=live_rule, neighborhood=(1,2))
-automata = CGOL(size=128)
-main_scene = Scene(content=automata)
-main_scene.simulate(frames=500, render=False)
-main_scene.root.mainloop()
+
+# automata = CGOL(size=128)
+# main_scene = Scene(content=automata)
+# main_scene.simulate(frames=5000, render=False)
+# main_scene.root.mainloop()
+
+test_analysis = Aggregator(trials=100)
+test_analysis.run()
+test_analysis.display()
 
 # plt.plot(main_scene.content.population)
 # plt.plot(main_scene.content.age_history)
