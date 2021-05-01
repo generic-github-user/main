@@ -88,7 +88,9 @@ class Automata:
         # print(temp.shape)
 
 class Aggregator:
+    """A set of cellular automata worlds generated according to a provided space of initial conditions; simulates worlds sampled from this space and collects the results for analysis (for example, analyzing the relationship between the initial density of living cells in Conway's Game of Life and the population after 1000 generations)"""
     def __init__(self, hyperparameters=None, metrics=None, selection='random', randomizer=random.uniform, trials=20):
+        """Create a new Aggregator instance"""
         self.simulations = []
         if hyperparameters is None:
             hyperparameters = {
@@ -101,9 +103,11 @@ class Aggregator:
         self.hp = self.hyperparameters
         self.metrics = metrics
         self.results = []
-        self.trials = trials
+        self.trials: int = trials
+        """The number of trials to run"""
 
     def run(self, trials=None):
+        """Run the specified number of trials with set hyperparameters"""
         if trials is None:
             trials = self.trials
         print('Running {} trials'.format(trials))
@@ -118,6 +122,7 @@ class Aggregator:
         print('Simulation complete')
 
     def display(self):
+        """Display corrected results in a graph"""
         # print(list(zip(*self.results)))
         print('Displaying results ({} trials)'.format(len(self.results)))
         plt.scatter(*zip(*self.results))
