@@ -80,6 +80,10 @@ class Automata:
         self.compute = self.generation * np.product(self.world.shape)
         # print(temp.shape)
 
+class Aggregator:
+    def __init__(self):
+        self.simulations = []
+
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
