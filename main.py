@@ -5,6 +5,8 @@ import time
 import matplotlib.pyplot as plt
 from colour import Color
 from scipy import signal
+from copy import deepcopy
+import math
 
 class Automata:
     """A generic cellular automaton world"""
@@ -122,6 +124,9 @@ class Automata:
 
         return self.world
         # print(temp.shape)
+
+    def clone(self):
+        return deepcopy(self)
 
 class Aggregator:
     """A set of cellular automata worlds generated according to a provided space of initial conditions; simulates worlds sampled from this space and collects the results for analysis (for example, analyzing the relationship between the initial density of living cells in Conway's Game of Life and the population after 1000 generations)"""
