@@ -54,6 +54,7 @@ class Automata:
         self.birth = birth
         self.live = live
 
+        self.activity = np.zeros(self.size)
         self.population = []
         self.generation = 0
         self.age = np.zeros(self.size)
@@ -120,6 +121,7 @@ class Automata:
 
             self.population.append(self.world.sum())
             self.age_history.append(self.age.mean())
+            self.activity += self.world
             self.neighbor_history.append(n.mean())
             self.generation += 1
             self.compute = self.generation * np.product(self.world.shape)
