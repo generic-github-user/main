@@ -268,6 +268,19 @@ class Search:
         self.best_score = None
         print(self.pattern)
 
+    def run(self, n=50):
+        for i in range(n):
+            trial = Automata()
+            trial.evolve(steps=100)
+            score = signal.convolve2d(trial.world, self.pattern, boundary='wrap').max()
+            if self.best_score is None:
+                self.best = trial.clone()
+                self.best_score = score
+            elif score > self.best_score:
+                self.best = trial.clone()
+                self.best_score = score
+        return self.best
+
 
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
