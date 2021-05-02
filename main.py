@@ -183,10 +183,10 @@ class Aggregator:
             if m[2] in np_functions:
                 reduction_func = np_functions[m[2]]
                 self.results = reduction_func(self.results, axis=0)
-            elif m[2] in ['last']:
+            if m[1] in ['last']:
                 self.results = self.results[-1]
         print(self.results.shape)
-        self.results = np.mean(self.results, axis=0).squeeze()
+        self.results = self.results.squeeze()
         print('Simulation complete')
         return self.results
 
@@ -195,7 +195,7 @@ class Aggregator:
         # print(list(zip(*self.results)))
         print('Displaying results ({} trials)'.format(len(self.results)))
         # data = np.array(list(zip(*self.results)))
-        data = self.results
+        data = self.results.swapaxes(0,-1)
         print(data)
         # dims = len(data.shape)
         dims = len(self.metrics)
