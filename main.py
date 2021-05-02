@@ -155,7 +155,19 @@ class Aggregator:
         print('Running {} trials'.format(trials))
 
         for t in range(trials):
-            trial = Automata()
+            # trial_params = deepcopy(hyperparameters)
+            trial_params = {}
+            for k, v in self.hyperparameters.items():
+                if type(v) in [int, float]:
+                    trial_params[k] = v
+                elif type(v) in [tuple, list]:
+                    if type(v[0]) is float:
+                        trial_params[k] = random.uniform(*v)
+                    elif type(v[0]) is int:
+                        trial_params[k] = random.randint(*v)
+            # TODO: delegate random parameter value generation to cellular automata constructor
+
+            trial = Automata(**trial_params)
             for g in range(self.hp['generations']):
                 trial.evolve(use_convolutions=True)
 
