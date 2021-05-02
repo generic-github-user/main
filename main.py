@@ -168,7 +168,7 @@ class Aggregator:
         # dims = len(data.shape)
         dims = len(self.metrics)
         if dims == 1:
-            plt.plot(data)
+            plt.plot(data, color='blue', alpha=0.2)
             plt.show()
         elif dims == 2:
             plt.scatter(*data)
