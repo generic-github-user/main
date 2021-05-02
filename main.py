@@ -420,9 +420,10 @@ live_rule = [random.randint(3, 10) for v in range(2)]
 # main_scene.simulate(frames=5000, render=False)
 # main_scene.root.mainloop()
 
-test_analysis = Aggregator(trials=100)
-test_analysis.run()
-test_analysis.display()
+# test_analysis = Aggregator(trials=200)
+# test_analysis.run()
+# test_analysis.display()
+
 test_pattern = np.array([
     [0, 0, 0, 0, 0],
     [0, 1, 0, 1, 0],
@@ -443,10 +444,10 @@ test_goals = [
     lambda x: x.age_history[-1],
 ]
 test_search = Search(goal=test_goals[0])
-result = test_search.run(n=100, search_all_gens=True)
+result = test_search.run(n=100, gens=10, search_all_gens=True)
 # print(result.world)
 print(test_search.best_score)
-plt.imshow(result.world)
+plt.imshow(result.world, interpolation=None)
 plt.show()
 
 # plt.plot(main_scene.content.population)
