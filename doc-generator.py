@@ -37,6 +37,19 @@ def extract_info(s):
     section = 'text'
     subsection = ''
     # print(lines)
+    for l in lines:
+
+        t = indent_width(l)
+        if t == 0:
+            if l and l[0] == '@':
+                section = l[1:]
+
+            if section not in info:
+                info[section] = {}
+            if section == 'text':
+                if 'val' not in info['text']:
+                    info['text']['val'] = []
+                info[section]['val'].append(l)
 for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
     if cls.__module__ == module_name:
         section_content = template_content
