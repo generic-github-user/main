@@ -104,7 +104,16 @@ class Aggregator:
                 'size': 32
             }
         if metrics is None:
-            metrics = ['population', 'age_history']
+            metrics = [
+                # Each metric is formatted as [title, temporal_reduction, population_reduction]
+                # title describes the metric assigned to that axis
+                # temporal_reduction is how the time axis of each trial is eliminated with respect to the corresponding metric; if 'none', each data point will be displayed
+                # population_reduction is how metrics are summarized across trials; for example, creating a line graph of the average population trajectory across 500 simulations
+                # note: spacial reduction is handled by the Automata class, which averages metrics for every cell
+                ['population', 'none', 'none'],
+                # ['age_history', 'last', 'mean'],
+                # ['neighbor_history', 'last', 'mean']
+            ]
 
         self.hyperparameters = hyperparameters
         self.hp = self.hyperparameters
