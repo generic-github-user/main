@@ -181,6 +181,15 @@ class Aggregator:
             for m in self.metrics:
                 data_slice = getattr(trial, m[0])
                 trial_data.append(data_slice)
+                # self.axes.append(m[0])
+            for h in self.hyperparameters:
+                data_slice = getattr(trial, h)
+                if type(data_slice) not in [int, float]:
+                    data_slice = data_slice[0]
+                data_slice = [data_slice] * self.hp['generations']
+                trial_data.append(data_slice)
+                # self.axes.append(h)
+                # print(h, data_slice)
             self.results.append(trial_data)
 
             if (t+1) % 10 == 0:
