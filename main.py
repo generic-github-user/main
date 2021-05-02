@@ -123,12 +123,15 @@ class Aggregator:
         self.simulations = []
         default_params = {
             'size': 32,
-            'generations': 30
+            'generations': 30,
+            'initial': 0.5,
+            'initial_size': 0.25
         }
         if hyperparameters is None:
             hyperparameters = default_params
         elif type(hyperparameters) is dict:
             hyperparameters = hyperparameters | default_params
+
         if metrics is None:
             metrics = [
                 # Each metric is formatted as [title, temporal_reduction, population_reduction]
