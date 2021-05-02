@@ -149,9 +149,11 @@ class Automata:
         # print(temp.shape)
 
     def clone(self):
+        """Create a deep copy of this class instance and all its attributes"""
         return deepcopy(self)
 
     def display(self, source='world', renderer='pyplot', norm=None, history=False):
+        """Render a graph of one of the cellular automata's properties"""
         if history:
             ax = plt.figure().add_subplot(projection='3d')
             print(self.history.shape)
@@ -345,11 +347,14 @@ class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
     def __init__(self, **kwargs):
+        """Create an instance of Conway's Game of Life"""
         super(CGOL, self).__init__(**kwargs)
 
 
 class Scene:
+    """A wrapper containing a cellular automata and renderer; primarily used for user interaction"""
     def __init__(self, content=None):
+        """Create a new scene and display it"""
         self.root = Tk()
         # root.title()
         # root.resizable(False, False)
@@ -412,6 +417,7 @@ class Scene:
         # self.canvas.update_idletasks()
 
     def step(self, i=0, n=20, render=True, cell_colors='age'):
+        """Move the simulation forward and display on the canvas"""
         # Get the attribute that should be used to color cells in the visualization
         color_source = getattr(self.content, cell_colors)
         if i < n:
