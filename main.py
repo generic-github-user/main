@@ -70,7 +70,7 @@ class Automata:
         np.put(self.kernel, self.kernel.size//2, 0)
         # print(self.conv)
 
-    def evolve(self, steps=None, use_convolutions=True):
+    def evolve(self, steps=None, use_convolutions=True, return_value='world'):
         if steps is None:
             steps = self.generations
         # print(steps)
@@ -125,7 +125,10 @@ class Automata:
             self.compute = self.generation * np.product(self.world.shape)
         # print(self.population[-1])
 
-        return self.world
+        if return_value == 'self':
+            return self
+        elif return_value == 'world':
+            return self.world
         # print(temp.shape)
 
     def clone(self):
