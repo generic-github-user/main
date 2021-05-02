@@ -260,7 +260,10 @@ class Search:
     """A search for starting values in a particular automata that produce a specific pattern or condition"""
 
     def __init__(self, pattern):
-        self.pattern = pattern
+        self.pattern = np.where(pattern, 1, -1)
+        self.best = None
+        self.best_score = None
+        print(self.pattern)
 
 
 class CGOL(Automata):
