@@ -280,18 +280,22 @@ class Search:
             self.update_best(trial, score)
         elif score > self.best_score:
             self.update_best(trial, score)
+        return score
 
-    def run(self, n=50, search_all_gens=True):
+    def run(self, n=50, search_all_gens=True, stop_if_found=True):
         for i in range(n):
             trial = Automata()
+            
             if search_all_gens:
                 for j in range(100):
                     trial.evolve(steps=1)
-                    self.assess(trial)
+                    score = self.assess(trial)
             else:
                 trial.evolve(steps=100)
-                self.assess(trial)
+                score = self.assess(trial)
 
+            if stop_if_found and score == self.max_score:
+                break
 
         return self.best
 
