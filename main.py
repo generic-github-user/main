@@ -9,7 +9,7 @@ from scipy import signal
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5, initial=0.5):
+    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5, initial=0.5, initial_size=0.25, generations=30, **kwargs):
         if size is None:
             size = [64, 64]
         elif type(size) is int:
@@ -19,6 +19,8 @@ class Automata:
         # self.world = np.random.randint(0, 2, self.size)
         # self.world = np.round(np.random.uniform(*initial, self.size)+0.41)
         self.world = np.zeros(self.size)
+        self.generations = generations
+        self.args = kwargs
 
         self.initial_size = initial_size
         """
