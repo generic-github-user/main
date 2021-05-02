@@ -103,7 +103,8 @@ class Aggregator:
         self.simulations = []
         if hyperparameters is None:
             hyperparameters = {
-                'size': 32
+                'size': 32,
+                'generations': 100
             }
         if metrics is None:
             metrics = [
@@ -132,7 +133,7 @@ class Aggregator:
 
         for t in range(trials):
             trial = Automata()
-            for g in range(100):
+            for g in range(self.hp['generations']):
                 trial.evolve(use_convolutions=True)
 
             trial_data = []
