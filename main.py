@@ -149,7 +149,7 @@ class Aggregator:
         return self.results
 
     def display(self):
-        """Display corrected results in a graph"""
+        """Display collected results in a graph"""
         # print(list(zip(*self.results)))
         print('Displaying results ({} trials)'.format(len(self.results)))
         # data = np.array(list(zip(*self.results)))
