@@ -9,14 +9,18 @@ from scipy import signal
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5):
+    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5, initial=0.5):
         if size is None:
             size = [64, 64]
         elif type(size) is int:
             size = [size] * 2
         self.size = np.array(size)
         self.cell_width = cell_width
-        self.world = np.random.randint(0, 2, self.size)
+        # self.world = np.random.randint(0, 2, self.size)
+        # self.world = np.round(np.random.uniform(*initial, self.size)+0.41)
+        if type(initial) is float:
+            initial = [1-initial, initial]
+        self.world = np.random.choice([0, 1], self.size, p=initial)
         # self.world = np.zeros(self.size)
         # self.world[10:12,10:12]=1
         self.zoom = 1
