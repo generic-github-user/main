@@ -149,5 +149,5 @@ for name, cls in doc_classes:
 with open(output, 'w') as file:
     file.write(result)
 
-# print(result)
+print(result)
 # print('{}% of classes and {}% of methods documented')
