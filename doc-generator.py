@@ -29,6 +29,14 @@ def clean_tabs(text):
     # for l in lines:
     #     l = l[tabs:]
     return '\n'.join([l[tabs:] for l in lines])
+
+def extract_info(s):
+    info = {}
+    s = clean_tabs(s)
+    lines = s.split('\n')
+    section = 'text'
+    subsection = ''
+    # print(lines)
 for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
     if cls.__module__ == module_name:
         section_content = template_content
