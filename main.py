@@ -251,6 +251,13 @@ class Aggregator:
             ax.set_zlabel(self.axes[2])
             plt.show()
 
+class Search:
+    """A search for starting values in a particular automata that produce a specific pattern or condition"""
+
+    def __init__(self, pattern):
+        self.pattern = pattern
+
+
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
 
