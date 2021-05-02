@@ -32,6 +32,7 @@ class Automata:
         self.age = np.zeros(self.size)
         self.neighbors = np.zeros(self.size)
         self.age_history = []
+        self.neighbor_history = []
 
         if type(neighborhood) in [tuple, list]:
             neighborhood = random.randint(*neighborhood)
@@ -88,6 +89,7 @@ class Automata:
 
         self.population.append(self.world.sum())
         self.age_history.append(self.age.mean())
+        self.neighbor_history.append(n.mean())
         self.generation += 1
         self.compute = self.generation * np.product(self.world.shape)
 
