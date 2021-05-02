@@ -270,17 +270,29 @@ class Search:
         self.best_score = None
         print(self.pattern)
 
-    def run(self, n=50):
+    def update_best(self, trial, score):
+        self.best = trial.clone()
+        self.best_score = score
+
+    def assess(self, trial):
+        score = signal.convolve2d(trial.world, self.pattern, boundary='wrap').max()
+        if self.best_score is None:
+            self.update_best(trial, score)
+        elif score > self.best_score:
+            self.update_best(trial, score)
+
+    def run(self, n=50, search_all_gens=True):
         for i in range(n):
             trial = Automata()
-            trial.evolve(steps=100)
-            score = signal.convolve2d(trial.world, self.pattern, boundary='wrap').max()
-            if self.best_score is None:
-                self.best = trial.clone()
-                self.best_score = score
-            elif score > self.best_score:
-                self.best = trial.clone()
-                self.best_score = score
+            if search_all_gens:
+                for j in range(100):
+                    trial.evolve(steps=1)
+                    self.assess(trial)
+            else:
+                trial.evolve(steps=100)
+                self.assess(trial)
+
+
         return self.best
 
 
