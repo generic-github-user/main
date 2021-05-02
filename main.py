@@ -468,12 +468,18 @@ test_goals = [
     lambda x: -x.population[-1],
     lambda x: x.age_history[-1],
 ]
-test_search = Search(goal=test_goals[0])
-result = test_search.run(n=100, gens=10, search_all_gens=True)
+# test_search = Search(goal=test_goals[0], goal_score=100)
+# result = test_search.run(n=100, gens=200, search_all_gens=True)
+# print(test_search.best_score)
+# plt.imshow(result.world, interpolation=None, cmap='plasma')
+# plt.show()
+
+CGOL(size=128).evolve(steps=500, return_value='self').display('activity', norm=np.sqrt)
+# CGOL(size=16).evolve(steps=50, return_value='self').display(norm=np.sqrt, history=True)
+
+
 # print(result.world)
-print(test_search.best_score)
-plt.imshow(result.world, interpolation=None)
-plt.show()
+# plt.imshow(result.activity, interpolation=None, cmap='plasma')
 
 # plt.plot(main_scene.content.population)
 # plt.plot(main_scene.content.age_history)
