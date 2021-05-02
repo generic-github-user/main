@@ -84,3 +84,6 @@ for name, cls in inspect.getmembers(importlib.import_module(module_name), inspec
         section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
 
         result += section_content + '\n'
+
+with open(output, 'w') as file:
+    file.write(result)
