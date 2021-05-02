@@ -70,6 +70,16 @@ def extract_info(s):
 
     return info
 
+def generate_section(stype, object, replacements):
+    docstring = object.__doc__
+    if docstring is None:
+        docstring = 'Not yet documented'
+    replacements.append(('{docstring}', docstring))
+    content = template_content[stype]
+    for r in replacements:
+        content = content.replace(*r)
+    return content
+
 doc_module = importlib.import_module(module_name)
 doc_classes = inspect.getmembers(doc_module, inspect.isclass)
 for name, cls in doc_classes:
