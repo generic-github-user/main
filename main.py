@@ -265,12 +265,13 @@ class Search:
     """A search for starting values in a particular automata that produce a specific pattern or condition"""
 
     def __init__(self, pattern=None, goal=None):
-        self.max_score = pattern.sum()
-        self.pattern = np.where(pattern, 1, -1)
+        self.pattern = pattern
+        if pattern:
+            self.max_score = pattern.sum()
+            self.pattern = np.where(pattern, 1, -1)
         self.best = None
         self.best_score = None
         self.goal = goal
-        print(self.pattern)
 
     def update_best(self, trial, score):
         self.best = trial.clone()
