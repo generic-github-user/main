@@ -67,8 +67,9 @@ def extract_info(s):
 
     return info
 
-
-for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
+doc_module = importlib.import_module(module_name)
+doc_classes = inspect.getmembers(doc_module, inspect.isclass)
+for name, cls in doc_classes:
     if cls.__module__ == module_name:
         section_content = template_content
         # print(name, cls)
