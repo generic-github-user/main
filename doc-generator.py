@@ -84,24 +84,24 @@ doc_module = importlib.import_module(module_name)
 doc_classes = inspect.getmembers(doc_module, inspect.isclass)
 for name, cls in doc_classes:
     if cls.__module__ == module_name:
-        section_content = template_content
+
         # print(name, cls)
         # print(docstring)
-        try:
-            print(cls.__annotations__)
-        except:
-            pass
-        docstring = cls.__doc__
-        if docstring is None:
-            docstring = 'Not yet documented'
-        section_content = section_content.replace('{class}', name)
-        section_content = section_content.replace('{docstring}', docstring)
+        # try:
+        #     print(cls.__annotations__)
+        # except:
+        #     pass
+
+        # section_content = section_content.replace('{class}', name)
+        # section_content = section_content.replace('{docstring}', docstring)
+        section_content = generate_section('class', cls, [('{class}', name)])
+        print(section_content)
 
         methods = inspect.getmembers(cls, predicate=inspect.isfunction)
         # print(methods)
         method_info = ''
         for m in methods:
-            subsection_content = method_template
+            subsection_content = template_content['method']
             subsection_content = subsection_content.replace('{method}', m[0])
             mstring = m[1].__doc__
             if mstring is None:
