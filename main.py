@@ -243,7 +243,9 @@ class Aggregator:
         elif dims == 3:
             fig = plt.figure()
             ax = fig.add_subplot(projection='3d')
-            ax.scatter(*data)
+            print(*data[:3])
+            ax.scatter(*data[:3])
+
             ax.set_xlabel(self.axes[0])
             ax.set_ylabel(self.axes[1])
             ax.set_zlabel(self.axes[2])
