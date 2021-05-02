@@ -20,6 +20,15 @@ def indent_width(s):
     # print(indent)
     return indent
 
+def clean_tabs(text):
+    lines = text.split('\n')
+    if not lines[0]:
+        lines = lines[1:]
+    tabs = indent_width(lines[0])
+    # print(lines[0])
+    # for l in lines:
+    #     l = l[tabs:]
+    return '\n'.join([l[tabs:] for l in lines])
 for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
     if cls.__module__ == module_name:
         section_content = template_content
