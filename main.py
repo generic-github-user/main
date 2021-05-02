@@ -132,8 +132,17 @@ class Aggregator:
         """Display corrected results in a graph"""
         # print(list(zip(*self.results)))
         print('Displaying results ({} trials)'.format(len(self.results)))
-        plt.scatter(*zip(*self.results))
-        plt.show()
+        data = np.array(list(zip(*self.results)))
+        # dims = len(data.shape)
+        dims = len(self.metrics)
+        if dims == 2:
+            plt.scatter(*data)
+            plt.show()
+        elif dims == 3:
+            fig = plt.figure()
+            ax = fig.add_subplot(projection='3d')
+            ax.scatter(*data)
+            plt.show()
 
 class CGOL(Automata):
     """Convenience class that produces a cellular automata based on Conway's Game of Life"""
