@@ -165,12 +165,14 @@ class Aggregator:
         self.results = []
         self.trials: int = trials
         """The number of trials to run"""
+        self.axes = []
 
     def run(self, trials=None):
         """Run the specified number of trials with set hyperparameters"""
         if trials is None:
             trials = self.trials
         print('Running {} trials'.format(trials))
+        self.axes = [m[0] for m in self.metrics] + [h for h in self.hyperparameters]#[:2]
 
         for t in range(trials):
             # trial_params = deepcopy(hyperparameters)
