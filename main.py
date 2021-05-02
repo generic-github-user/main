@@ -142,13 +142,19 @@ class Automata:
     def clone(self):
         return deepcopy(self)
 
-    def display(self, source='world', renderer='pyplot', norm=None):
-        processed = getattr(self, source)
-        if norm:
-            processed = norm(processed.copy())
-        if renderer == 'pyplot':
-            plt.imshow(processed, interpolation='none', cmap='plasma')
+    def display(self, source='world', renderer='pyplot', norm=None, history=False):
+        if history:
+            ax = plt.figure().add_subplot(projection='3d')
+            print(self.history.shape)
+            ax.voxels(self.history, alpha=0.5)
             plt.show()
+        else:
+            processed = getattr(self, source)
+            if norm:
+                processed = norm(processed.copy())
+            if renderer == 'pyplot':
+                plt.imshow(processed, interpolation='none', cmap='plasma')
+                plt.show()
 
 class Aggregator:
     """A set of cellular automata worlds generated according to a provided space of initial conditions; simulates worlds sampled from this space and collects the results for analysis (for example, analyzing the relationship between the initial density of living cells in Conway's Game of Life and the population after 1000 generations)"""
