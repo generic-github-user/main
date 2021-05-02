@@ -153,6 +153,10 @@ class Aggregator:
         }
 
         self.results = np.array(self.results)
+        for i, m in enumerate(self.metrics):
+            # if m[2] in ['mean', 'average']:
+            reduction_func = np_functions[m[2]]
+            self.results = reduction_func(self.results, axis=0)
         print(self.results.shape)
         self.results = np.mean(self.results, axis=0).squeeze()
         print('Simulation complete')
