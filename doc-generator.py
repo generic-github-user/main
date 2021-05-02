@@ -90,6 +90,13 @@ def generate_section(stype, object, replacements):
                 param_content = generate_section('parameter', v, [('{parameter}', k)])
                 param_list.append(param_content)
         content = content.replace('[params]', '\n'.join(param_list))
+    elif stype == 'parameter':
+        content = content.replace('{label}', doc_info[0]['label'])
+        type_list = []
+        for t in doc_info:
+            type_list.append('- {}: {}'.format(t['type'], t['label']))
+        content = content.replace('[types]', '\n'.join(type_list))
+
     return content
 
 doc_module = importlib.import_module(module_name)
