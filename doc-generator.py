@@ -29,3 +29,19 @@ for name, cls in inspect.getmembers(importlib.import_module(module_name), inspec
             docstring = 'Not yet documented'
         section_content = section_content.replace('{class}', name)
         section_content = section_content.replace('{docstring}', docstring)
+
+        methods = inspect.getmembers(cls, predicate=inspect.isfunction)
+        # print(methods)
+        method_info = ''
+        for m in methods:
+            subsection_content = method_template
+            subsection_content = subsection_content.replace('{method}', m[0])
+            mstring = m[1].__doc__
+            if mstring is None:
+                mstring = 'Not yet documented'
+            subsection_content = subsection_content.replace('{docstring}', mstring)
+            method_info += subsection_content + '\n'
+        section_content = section_content.replace('[methods]', method_info)
+        section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
+
+        result += section_content + '\n'
