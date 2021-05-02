@@ -131,9 +131,12 @@ class Automata:
     def clone(self):
         return deepcopy(self)
 
-    def display(self, source='world', renderer='pyplot'):
+    def display(self, source='world', renderer='pyplot', norm=None):
+        processed = getattr(self, source)
+        if norm:
+            processed = norm(processed.copy())
         if renderer == 'pyplot':
-            plt.imshow(getattr(self, source), interpolation='none', cmap='plasma')
+            plt.imshow(processed, interpolation='none', cmap='plasma')
             plt.show()
 
 class Aggregator:
