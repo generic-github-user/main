@@ -70,6 +70,13 @@ def extract_info(s):
 
     return info
 
+symbols = {
+    '<': 'less than',
+    '>': 'greater than',
+    '<=': 'less than or equal to',
+    '>=': 'greater than or equal to',
+}
+
 def generate_section(stype, object, replacements):
     docstring = object.__doc__
     if docstring is None:
