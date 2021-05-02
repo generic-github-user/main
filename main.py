@@ -65,55 +65,60 @@ class Automata:
         np.put(self.kernel, self.kernel.size//2, 0)
         # print(self.conv)
 
-    def evolve(self, n=1, use_convolutions=True):
-        # for i in range(n)
-        if use_convolutions:
-            # Make a copy of the current world so the previous state can be used to determine the next state without unwanted modification
-            self.temp = self.world.copy()
-            # Apply kernel to each cell in the world (and handle edges with specified method) to generate a matrix of neighbor counts
-            n = signal.convolve2d(self.temp, self.kernel, boundary=self.edges)
-            # Omit the edges
-            n = n[1:-1, 1:-1]
-            # print(n.shape)
-            # print(np.isin(np.array([2, 3, 5]), self.live))
-            birth_cond = np.logical_and(self.temp == 0, np.isin(n, self.birth))
-            survival_cond = np.logical_and(self.temp == 1, np.isin(n, self.live))
-            # Apply rules to every cell and output 1 where true, 0 where false
-            # np.where is preferable to looping through each cell in the world since NumPy can vectorize some operations, dramatically improving efficiency
-            indices = np.where(np.logical_or(survival_cond, birth_cond), 1, 0)
-            # self.world = np.where(indices == 1)
-            # self.world = indices
-            self.world = indices.copy()
-            # Add indices matrix to age
-            self.age += indices
-            # Multiply by indices matrix to reset age of dead cells (where value is 0)
-            self.age *= indices
-            # print(indices, n)
-        else:
-            self.temp = np.pad(self.world.copy(), self.neighborhood, constant_values=0)
-            for ix, iy in np.ndindex(self.world.shape):
-                # :/
-                current = self.world[ix, iy]
-                neighbors = np.sum(self.temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - self.temp[ix+self.neighborhood, iy+self.neighborhood]
-                self.neighbors[ix, iy] = neighbors
-                # print(temp[ix-1:ix+2, iy-1:iy+2])
-                # print(temp[ix:ix+3, iy:iy+3])
-                # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
-                # print(neighbors)
-                if neighbors in self.birth:
-                    self.world[ix, iy] = 1
-                # elif?
-                if neighbors not in self.live:
-                    self.world[ix, iy] = 0
-                    self.age[ix, iy] = 0
-                else:
-                    self.age[ix, iy] += 1
+    def evolve(self, steps=None, use_convolutions=True):
+        if steps is None:
+            steps = self.generations
+        # print(steps)
+        for i_ in range(steps):
+            # for i in range(n)
+            if use_convolutions:
+                # Make a copy of the current world so the previous state can be used to determine the next state without unwanted modification
+                self.temp = self.world.copy()
+                # Apply kernel to each cell in the world (and handle edges with specified method) to generate a matrix of neighbor counts
+                n = signal.convolve2d(self.temp, self.kernel, boundary=self.edges)
+                # Omit the edges
+                n = n[1:-1, 1:-1]
+                # print(n.shape)
+                # print(np.isin(np.array([2, 3, 5]), self.live))
+                birth_cond = np.logical_and(self.temp == 0, np.isin(n, self.birth))
+                survival_cond = np.logical_and(self.temp == 1, np.isin(n, self.live))
+                # Apply rules to every cell and output 1 where true, 0 where false
+                # np.where is preferable to looping through each cell in the world since NumPy can vectorize some operations, dramatically improving efficiency
+                indices = np.where(np.logical_or(survival_cond, birth_cond), 1, 0)
+                # self.world = np.where(indices == 1)
+                # self.world = indices
+                self.world = indices.copy()
+                # Add indices matrix to age
+                self.age += indices
+                # Multiply by indices matrix to reset age of dead cells (where value is 0)
+                self.age *= indices
+                # print(indices, n)
+            else:
+                self.temp = np.pad(self.world.copy(), self.neighborhood, constant_values=0)
+                for ix, iy in np.ndindex(self.world.shape):
+                    # :/
+                    current = self.world[ix, iy]
+                    neighbors = np.sum(self.temp[ix:ix+2+self.neighborhood, iy:iy+2+self.neighborhood]) - self.temp[ix+self.neighborhood, iy+self.neighborhood]
+                    self.neighbors[ix, iy] = neighbors
+                    # print(temp[ix-1:ix+2, iy-1:iy+2])
+                    # print(temp[ix:ix+3, iy:iy+3])
+                    # print(ix-1, ix, ix+1, iy-1, iy, iy+1)
+                    # print(neighbors)
+                    if neighbors in self.birth:
+                        self.world[ix, iy] = 1
+                    # elif?
+                    if neighbors not in self.live:
+                        self.world[ix, iy] = 0
+                        self.age[ix, iy] = 0
+                    else:
+                        self.age[ix, iy] += 1
 
-        self.population.append(self.world.sum())
-        self.age_history.append(self.age.mean())
-        self.neighbor_history.append(n.mean())
-        self.generation += 1
-        self.compute = self.generation * np.product(self.world.shape)
+            self.population.append(self.world.sum())
+            self.age_history.append(self.age.mean())
+            self.neighbor_history.append(n.mean())
+            self.generation += 1
+            self.compute = self.generation * np.product(self.world.shape)
+        # print(self.population[-1])
 
         return self.world
         # print(temp.shape)
