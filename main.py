@@ -21,6 +21,9 @@ class Automata:
         # self.world = np.random.randint(0, 2, self.size)
         # self.world = np.round(np.random.uniform(*initial, self.size)+0.41)
         self.world = np.zeros(self.size)
+
+        if type(generations) in [tuple, list]:
+            generations = random.randint(*generations)
         self.generations = generations
         self.args = kwargs
 
