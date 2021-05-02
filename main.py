@@ -230,6 +230,9 @@ class Aggregator:
             fig = plt.figure()
             ax = fig.add_subplot(projection='3d')
             ax.scatter(*data)
+            ax.set_xlabel(self.axes[0])
+            ax.set_ylabel(self.axes[1])
+            ax.set_zlabel(self.axes[2])
             plt.show()
 
 class CGOL(Automata):
