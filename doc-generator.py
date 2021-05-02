@@ -14,3 +14,18 @@ with open(template, 'r') as file:
     # print(template_content)
 with open(method_template, 'r') as file:
     method_template = file.read()
+
+for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
+    if cls.__module__ == module_name:
+        section_content = template_content
+        # print(name, cls)
+        # print(docstring)
+        try:
+            print(cls.__annotations__)
+        except:
+            pass
+        docstring = cls.__doc__
+        if docstring is None:
+            docstring = 'Not yet documented'
+        section_content = section_content.replace('{class}', name)
+        section_content = section_content.replace('{docstring}', docstring)
