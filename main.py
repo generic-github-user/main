@@ -38,8 +38,8 @@ class Automata:
             initial = [1-initial, initial]
         print(x1, y1, x2, y2)
         c = [x1, y1, x2, y2]
-        x1, y1, x2, y2 = [round(m) for m in c]
-        self.world[x1:x2, y1:y2] = np.random.choice([0, 1], initial_size.astype(int), p=initial)
+        x1, y1, x2, y2 = [math.floor(m) for m in c]
+        self.world[x1:x2, y1:y2] = np.random.choice([0, 1], initial_size.astype(int), p=self.initial)
         # self.world[10:12,10:12]=1
         self.zoom = 1
         self.edges = edges
