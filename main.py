@@ -141,10 +141,15 @@ class Aggregator:
         """Display corrected results in a graph"""
         # print(list(zip(*self.results)))
         print('Displaying results ({} trials)'.format(len(self.results)))
-        data = np.array(list(zip(*self.results)))
+        # data = np.array(list(zip(*self.results)))
+        data = self.results
+        print(data)
         # dims = len(data.shape)
         dims = len(self.metrics)
-        if dims == 2:
+        if dims == 1:
+            plt.plot(data)
+            plt.show()
+        elif dims == 2:
             plt.scatter(*data)
             plt.show()
         elif dims == 3:
