@@ -132,10 +132,21 @@ class Aggregator:
             trial = Automata()
             for g in range(100):
                 trial.evolve(use_convolutions=True)
-            self.results.append([getattr(trial, m)[-1] for m in self.metrics])
+
+            trial_data = []
+            for m in self.metrics:
+                data_slice = getattr(trial, m[0])
+                trial_data.append(data_slice)
+            self.results.append(trial_data)
+
             if (t+1) % 10 == 0:
                 print('{} trials ({}%) complete'.format(t+1, round((t+1)/trials*100, 2)))
+
+        self.results = np.array(self.results)
+        print(self.results.shape)
+        self.results = np.mean(self.results, axis=0).squeeze()
         print('Simulation complete')
+        return self.results
 
     def display(self):
         """Display corrected results in a graph"""
