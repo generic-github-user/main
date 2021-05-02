@@ -94,10 +94,15 @@ for name, cls in inspect.getmembers(importlib.import_module(module_name), inspec
                 mstring = 'Not yet documented'
             subsection_content = subsection_content.replace('{docstring}', mstring)
             method_info += subsection_content + '\n'
+            print(extract_info(mstring))
         section_content = section_content.replace('[methods]', method_info)
         section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
+
 
         result += section_content + '\n'
 
 with open(output, 'w') as file:
     file.write(result)
+
+# print(result)
+# print('{}% of classes and {}% of methods documented')
