@@ -50,6 +50,10 @@ def extract_info(s):
                 if 'val' not in info['text']:
                     info['text']['val'] = []
                 info[section]['val'].append(l)
+        elif t in [1, 4]:
+            subsection = clean_tabs(l)
+            if subsection not in info[section]:
+                info[section][subsection] = []
 for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
     if cls.__module__ == module_name:
         section_content = template_content
