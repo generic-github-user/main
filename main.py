@@ -12,6 +12,15 @@ class Automata:
     """A generic cellular automaton world"""
 
     def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5, initial=0.5, initial_size=0.25, generations=30, record=True, **kwargs):
+        """
+        Create a new cellular automaton
+        @params
+            size
+                [int]: Both width and height of world
+                [[int], l2]: Width and height of world
+            neighborhood
+                [int, r>=1]: Size of neighborhood in cells from center; `2` would produce a 5x5 neighborhood
+                [int][2]: Width and height of neighborhood {planned}
         if size is None:
             size = [64, 64]
         elif type(size) is int:
