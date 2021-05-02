@@ -11,7 +11,7 @@ import math
 class Automata:
     """A generic cellular automaton world"""
 
-    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5, initial=0.5, initial_size=0.25, generations=30, **kwargs):
+    def __init__(self, size=None, birth=[3], live=[2, 3], neighborhood=1, edges='wrap', cell_width=5, initial=0.5, initial_size=0.25, generations=30, record=True, **kwargs):
         if size is None:
             size = [64, 64]
         elif type(size) is int:
@@ -71,6 +71,10 @@ class Automata:
         np.put(self.kernel, self.kernel.size//2, 0)
         # print(self.conv)
 
+        # self.history = self.world.copy()
+        self.record = record
+        self.history = np.expand_dims(self.age.copy(), axis=0)
+
     def evolve(self, steps=None, use_convolutions=True, return_value='world'):
         if steps is None:
             steps = self.generations
@@ -125,6 +129,8 @@ class Automata:
             self.neighbor_history.append(n.mean())
             self.generation += 1
             self.compute = self.generation * np.product(self.world.shape)
+            if self.record:
+                self.history = np.append(self.history, np.expand_dims(self.world, axis=0), axis=0)
         # print(self.population[-1])
 
         if return_value == 'self':
