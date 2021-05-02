@@ -437,9 +437,13 @@ test_pattern = np.array([
     [1, 0, 1],
 ])
 
-
-test_search = Search(test_pattern)
-result = test_search.run(n=40)
+test_goals = [
+    lambda x: x.population[-1],
+    lambda x: -x.population[-1],
+    lambda x: x.age_history[-1],
+]
+test_search = Search(goal=test_goals[0])
+result = test_search.run(n=100, search_all_gens=True)
 # print(result.world)
 print(test_search.best_score)
 plt.imshow(result.world)
