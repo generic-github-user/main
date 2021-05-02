@@ -413,6 +413,15 @@ test_pattern = np.array([
     [0, 1, 0],
     [1, 0, 1],
 ])
+
+
+test_search = Search(test_pattern)
+result = test_search.run(n=40)
+# print(result.world)
+print(test_search.best_score)
+plt.imshow(result.world)
+plt.show()
+
 # plt.plot(main_scene.content.population)
 # plt.plot(main_scene.content.age_history)
 # plt.show()
