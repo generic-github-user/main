@@ -18,10 +18,26 @@ class Automata:
         self.cell_width = cell_width
         # self.world = np.random.randint(0, 2, self.size)
         # self.world = np.round(np.random.uniform(*initial, self.size)+0.41)
+        self.world = np.zeros(self.size)
+
+        self.initial_size = initial_size
+        """
+        Size of initial random cells; one of:
+        - float from 0 to 1 dictating what fraction of width/height should be filled at the start
+        - integer from 0 to `size` describing the width/height (in cells) of the random noise
+        - a list or tuple containing two of the above, the first for the width and the second for the height
+        """
+        if type(initial_size) is float:
+            initial_size *= self.size
+        x1, y1 = (self.size // 2) - (initial_size // 2)
+        x2, y2 = (x1, y1) + initial_size
+
         if type(initial) is float:
             initial = [1-initial, initial]
-        self.world = np.random.choice([0, 1], self.size, p=initial)
-        # self.world = np.zeros(self.size)
+        print(x1, y1, x2, y2)
+        c = [x1, y1, x2, y2]
+        x1, y1, x2, y2 = [round(m) for m in c]
+        self.world[x1:x2, y1:y2] = np.random.choice([0, 1], initial_size.astype(int), p=initial)
         # self.world[10:12,10:12]=1
         self.zoom = 1
         self.edges = edges
