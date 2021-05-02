@@ -15,6 +15,11 @@ with open(template, 'r') as file:
 with open(method_template, 'r') as file:
     method_template = file.read()
 
+def indent_width(s):
+    indent = len(s) - len(s.lstrip())
+    # print(indent)
+    return indent
+
 for name, cls in inspect.getmembers(importlib.import_module(module_name), inspect.isclass):
     if cls.__module__ == module_name:
         section_content = template_content
