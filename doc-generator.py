@@ -94,7 +94,11 @@ def generate_section(stype, object, replacements):
         content = content.replace('{label}', doc_info[0]['label'])
         type_list = []
         for t in doc_info:
-            type_list.append('- {}: {}'.format(t['type'], t['label']))
+            typestring = ''
+            for req in t['type']:
+                if req in ['int', 'str', 'float', 'bool']:
+                    typestring += '`{}`'.format(req)
+            type_list.append('- {}: {}'.format(typestring, t['label']))
         content = content.replace('[types]', '\n'.join(type_list))
 
     return content
