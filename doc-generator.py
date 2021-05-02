@@ -82,6 +82,14 @@ def generate_section(stype, object, replacements):
     content = template_content[stype]
     for r in replacements:
         content = content.replace(*r)
+
+    if stype == 'method':
+        param_list = []
+        if 'params' in doc_info:
+            for k, v in doc_info['params'].items():
+                param_content = generate_section('parameter', v, [('{parameter}', k)])
+                param_list.append(param_content)
+        content = content.replace('[params]', '\n'.join(param_list))
     return content
 
 doc_module = importlib.import_module(module_name)
@@ -99,20 +107,15 @@ for name, cls in doc_classes:
         # section_content = section_content.replace('{class}', name)
         # section_content = section_content.replace('{docstring}', docstring)
         section_content = generate_section('class', cls, [('{class}', name)])
-        print(section_content)
+        # print(section_content)
 
         methods = inspect.getmembers(cls, predicate=inspect.isfunction)
         # print(methods)
         method_info = ''
         for m in methods:
-            subsection_content = template_content['method']
-            subsection_content = subsection_content.replace('{method}', m[0])
-            mstring = m[1].__doc__
-            if mstring is None:
-                mstring = 'Not yet documented'
-            subsection_content = subsection_content.replace('{docstring}', mstring)
+            subsection_content = generate_section('method', m[1], [('{method}', m[0])])
             method_info += subsection_content + '\n'
-            print(extract_info(mstring))
+            # print(extract_info(mstring))
         section_content = section_content.replace('[methods]', method_info)
         section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
 
