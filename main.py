@@ -121,11 +121,14 @@ class Aggregator:
     def __init__(self, hyperparameters=None, metrics=None, selection='random', randomizer=random.uniform, trials=20):
         """Create a new Aggregator instance"""
         self.simulations = []
+        default_params = {
+            'size': 32,
+            'generations': 30
+        }
         if hyperparameters is None:
-            hyperparameters = {
-                'size': 32,
-                'generations': 100
-            }
+            hyperparameters = default_params
+        elif type(hyperparameters) is dict:
+            hyperparameters = hyperparameters | default_params
         if metrics is None:
             metrics = [
                 # Each metric is formatted as [title, temporal_reduction, population_reduction]
