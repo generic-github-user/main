@@ -406,6 +406,11 @@ test_pattern = np.array([
     [0, 1, 1, 1, 0]
 ])
 
+test_pattern = np.array([
+    [1, 0, 1],
+    [0, 1, 0],
+    [1, 0, 1],
+])
 # plt.plot(main_scene.content.population)
 # plt.plot(main_scene.content.age_history)
 # plt.show()
