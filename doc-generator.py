@@ -74,7 +74,11 @@ def generate_section(stype, object, replacements):
     docstring = object.__doc__
     if docstring is None:
         docstring = 'Not yet documented'
-    replacements.append(('{docstring}', docstring))
+    if stype in ['class', 'method']:
+        doc_info = extract_info(docstring)
+        replacements.append(('{docstring}', doc_info['text']['val'][0]))
+    else:
+        doc_info = object
     content = template_content[stype]
     for r in replacements:
         content = content.replace(*r)
