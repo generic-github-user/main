@@ -382,6 +382,13 @@ live_rule = [random.randint(3, 10) for v in range(2)]
 test_analysis = Aggregator(trials=100)
 test_analysis.run()
 test_analysis.display()
+test_pattern = np.array([
+    [0, 0, 0, 0, 0],
+    [0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1],
+    [0, 1, 1, 1, 0]
+])
 
 # plt.plot(main_scene.content.population)
 # plt.plot(main_scene.content.age_history)
