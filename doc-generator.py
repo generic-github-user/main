@@ -111,6 +111,9 @@ def generate_section(stype, object, replacements):
                         typestring += ' between `{}` and `{}`'.format(*limits)
                         # elif any(c in req for c in '<>')
                         # elif '<' in req:
+                    elif any(s in req for s in symbols):
+                        typestring += ' {} {}'.format(symbols[req[1]], req[-1])
+
             type_list.append('- {}: {}'.format(typestring, t['label']))
         content = content.replace('[types]', '\n'.join(type_list))
 
