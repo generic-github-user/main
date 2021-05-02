@@ -110,9 +110,9 @@ class Aggregator:
                 # temporal_reduction is how the time axis of each trial is eliminated with respect to the corresponding metric; if 'none', each data point will be displayed
                 # population_reduction is how metrics are summarized across trials; for example, creating a line graph of the average population trajectory across 500 simulations
                 # note: spacial reduction is handled by the Automata class, which averages metrics for every cell
-                ['population', 'none', 'none'],
-                # ['age_history', 'last', 'mean'],
-                # ['neighbor_history', 'last', 'mean']
+                ['population', 'none', 'max'],
+                # ['age_history', 'none', 'none'],
+                # ['neighbor_history', 'none', 'none']
             ]
 
         self.hyperparameters = hyperparameters
@@ -141,6 +141,13 @@ class Aggregator:
 
             if (t+1) % 10 == 0:
                 print('{} trials ({}%) complete'.format(t+1, round((t+1)/trials*100, 2)))
+
+        np_functions = {
+            'mean': np.mean,
+            'average': np.mean,
+            'max': np.max,
+            'min': np.min
+        }
 
         self.results = np.array(self.results)
         print(self.results.shape)
