@@ -124,10 +124,10 @@ class Aggregator:
         """Create a new Aggregator instance"""
         self.simulations = []
         default_params = {
-            'size': 32,
+            'initial': (0.05, 0.95),
+            'initial_size': (0.25, 0.75),
+            # 'size': 32,
             'generations': 30,
-            'initial': 0.5,
-            'initial_size': 0.25
         }
         if hyperparameters is None:
             hyperparameters = default_params
