@@ -105,6 +105,12 @@ def generate_section(stype, object, replacements):
             for req in t['type']:
                 if req in ['int', 'str', 'float', 'bool']:
                     typestring += '`{}`'.format(req)
+                elif req[0] == 'r':
+                    if ':' in req:
+                        limits = req[1:].split(':')
+                        typestring += ' between `{}` and `{}`'.format(*limits)
+                        # elif any(c in req for c in '<>')
+                        # elif '<' in req:
             type_list.append('- {}: {}'.format(typestring, t['label']))
         content = content.replace('[types]', '\n'.join(type_list))
 
