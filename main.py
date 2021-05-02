@@ -131,6 +131,11 @@ class Automata:
     def clone(self):
         return deepcopy(self)
 
+    def display(self, source='world', renderer='pyplot'):
+        if renderer == 'pyplot':
+            plt.imshow(getattr(self, source), interpolation='none', cmap='plasma')
+            plt.show()
+
 class Aggregator:
     """A set of cellular automata worlds generated according to a provided space of initial conditions; simulates worlds sampled from this space and collects the results for analysis (for example, analyzing the relationship between the initial density of living cells in Conway's Game of Life and the population after 1000 generations)"""
     def __init__(self, hyperparameters=None, metrics=None, selection='random', randomizer=random.uniform, trials=20):
