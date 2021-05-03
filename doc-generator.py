@@ -149,6 +149,9 @@ for name, cls in doc_classes:
 
         result += section_content + '\n'
 
+result = result.replace('{CA}', 'cellular automata')
+result = result.replace('{planned}', '`[not yet implemented]`')
+
 with open(output, 'w') as file:
     file.write(result)
 
