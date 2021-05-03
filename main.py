@@ -319,7 +319,15 @@ class Aggregator:
 class Search:
     """A search for starting values in a particular automata that produce a specific pattern or condition"""
 
-    def __init__(self, pattern=None, goal=None):
+    def __init__(self, pattern=None, goal=None, goal_score=None):
+        """
+        Initialize a new search object
+        @params
+            pattern
+                [['int', 2]]: Pattern to search for; indices of live cells should be marked with a positive value and the rest with 0s
+            goal
+                ['func', ['Automata', 'float']]: Function that returns a 'score' for a particular trial
+        """
         self.pattern = pattern
         if pattern:
             self.max_score = pattern.sum()
