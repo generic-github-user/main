@@ -1,3 +1,7 @@
 ### `{method}`
 
 {docstring}
+
+#### Parameters
+
+[params]
