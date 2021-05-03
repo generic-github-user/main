@@ -326,6 +326,20 @@ class Search:
         return score
 
     def run(self, n=50, gens=100, search_all_gens=True, stop_if_found=True):
+        """
+        Run the search and return the best result
+        @params
+            n
+                ['int']: The number of trials to run
+            gens
+                ['int']: The number of generations to run for each trial
+            search_all_gens
+                ['bool']: Check the search criteria after each generation
+            stop_if_found
+                ['bool']: Stop the search early if an exact match is found
+        """
+        gens: int
+
         for i in range(n):
             trial = Automata()
             
