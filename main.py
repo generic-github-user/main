@@ -349,9 +349,9 @@ class Search:
         Run the search and return the best result
         @params
             n
-                ['int']: The number of trials to run
+                ['int']: The number of trials to run {ex:2,1,1000}
             gens
-                ['int']: The number of generations to run for each trial
+                ['int']: The number of generations to run for each trial {ex:2,1,1000}
             search_all_gens
                 ['bool']: Check the search criteria after each generation
             stop_if_found
