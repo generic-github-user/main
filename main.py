@@ -21,6 +21,15 @@ class Automata:
             neighborhood
                 [int, r>=1]: Size of neighborhood in cells from center; `2` would produce a 5x5 neighborhood
                 [int][2]: Width and height of neighborhood {planned}
+            edges
+                [str, o['wrap']]: Method for evaluating cells whose neighborhoods cross the edge of the world
+            initial
+                [float, r0-1]: Probability that a given cell is initialized as 'living'
+            initial_size
+                [float, r0-1]: Portion of width and height to be randomly filled at start
+                [int, r>=1]: Both width and height of initial cell region
+                [[int], l2]: Width and height of initial cell region
+        """
         if size is None:
             size = [64, 64]
         elif type(size) is int:
