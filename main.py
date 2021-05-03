@@ -8,6 +8,16 @@ from scipy import signal
 from copy import deepcopy
 import math
 
+class Terms:
+    """
+    Glossary
+    @terms
+        neighborhood
+        cell
+    @abbreviations
+        CA: cellular automata
+    """
+
 class Automata:
     """A generic cellular automaton world"""
 
