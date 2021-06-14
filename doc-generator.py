@@ -77,6 +77,26 @@ symbols = {
     '>=': 'greater than or equal to',
 }
 
+def isnum(self, x):
+    return x in '1234567890.-'
+
+def split_numeric(self, text, parse=True):
+    block = ''
+    block_numeric = self.isnum(text[0])
+    output = []
+    for t in text:
+        if self.isnum(t) == block_numeric:
+            block += t
+        else:
+            if block_numeric:
+                block = float(block)
+            output.append(block)
+            block = t
+            block_numeric = self.isnum(t)
+    if block_numeric:
+        block = float(block)
+    output.append(block)
+    return output
 def generate_section(stype, object, replacements):
     docstring = object.__doc__
     if docstring is None:
