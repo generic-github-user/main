@@ -23,3 +23,13 @@ transforms = [
 ]
 iterable = [list, tuple]
 ast_iterable = [ast.List, ast.Tuple]
+booleans = {
+    True: [
+        [ast.And, True, True],
+        [ast.Or, True, False],
+    ],
+    False: [
+        [ast.And, True, False],
+        [ast.Or, False, False],
+    ]
+}
