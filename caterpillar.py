@@ -314,6 +314,16 @@ def attrstring(a, b):
         else:
             return None
     return result
+
+def firstavailable(m, *props):
+    for p in props:
+        # if hasattr(m, p):
+            # return getattr(m, p)
+        value = attrstring(m, p)
+        if value:
+            return value
+    return 'None'
+
 uniques = ast_iterable + [ast.BinOp, ast.Assign, ast.Dict, ast.BoolOp, ast.Call]
 from pyvis.utils import check_html
 class NetworkVis(Network):
