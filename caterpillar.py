@@ -59,3 +59,6 @@ def modify_node(node):
             node = ast.BinOp(a, op(), b)
             if inv in [ops.mul, ops.truediv] and node_int:
                 node = ast.Call(ast.Name('round'), [node], [])
+
+            if random.random() < 0.5:
+                node = ast.Call(ast.Lambda([], body=node), [], [])
