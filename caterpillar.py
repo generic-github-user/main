@@ -6,6 +6,7 @@ import operator as ops
 import string
 import itertools
 import re
+import math
 from pyvis.network import Network
 
 
@@ -49,6 +50,17 @@ transforms = [
     [ops.mul, ast.Div, 2],
     [ops.truediv, ast.Mult, 2],
 ]
+# Trigonometric functions
+for f in ['sin', 'cos', 'tan']:
+    func = getattr(math, f)
+    print(func)
+    def buildfunc(h, j):
+        temp = 'math.a'+h+'({})'
+        return lambda q: make_tree(temp, j(q))
+    # transforms.append([func, (lambda q: make_tree(temp, func(q))), 1])
+    transforms.append([func, buildfunc(f, func), 1])
+# print(transforms[4][1](5).body[0].func.id, transforms[6][1](5).body[0].func.id)
+
 # TODO: add other math operations (sqrt, modulo, trig functions, etc.)
 # TODO: add bit shift operators
 iterable = [list, tuple]
@@ -148,9 +160,18 @@ def modify_node(node):
                 a = ast.Call(ast.Name(type(val).__name__), [ast.Constant(str(a.value))], [])
 
                 node_int = type(node.value) == int
-                node = ast.BinOp(a, op(), b)
+                inverted_val = 0
+                # if isinstance(op, ast.AST):
+                if arity == 2:
+                    node = ast.BinOp(a, op(), b)
+                else:
+                    inverted_val = inv(node.value)
+                    node = op(inverted_val)
+                    print(inv)
+                    print(node.body[0].value.func.attr)
+
                 # Round nodes that might produce float values if the node originally stored an integer
-                if inv in [ops.mul, ops.truediv] and node_int:
+                if (inv in [ops.mul, ops.truediv] or type(inverted_val) is float) and node_int:
                     node = ast.Call(ast.Name('round'), [node], [])
             # Generate a random string with len == value and encode the integer as the length of the string
             elif m == 2 and node.value <= 10:
