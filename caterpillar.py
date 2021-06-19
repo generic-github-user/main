@@ -53,16 +53,23 @@ booleans = {
 def gen_string(n):
     return ''.join(random.choices(string.printable, k=n))
 
+def remove_duplicates(x):
+    # return [y for y in x if (x.count(y) == 1)]
+    newlist = []
+    [newlist.append(y) for y in x if y not in newlist]
+    return newlist
+
 def segment(sequence, num=None):
     chars = len(sequence)
     if not num:
         num = round(random.uniform(0, 0.1) * chars)
     indices = [0] + [random.randint(0, chars) for x in range(num)] + [chars]
-    indices = list(set(indices))
+    print(indices)
+    indices = remove_duplicates(indices)
     indices.sort(reverse=False)
     # print(indices)
     # print([(indices[i-1], j) for i, j in enumerate(indices[1:])])
-    parts = [sequence[indices[i]:j] for i, j in enumerate(indices[1:])]
+    parts = [sequence[indices[i]:j] for (i, j) in enumerate(indices[1:])]
     # print(parts)
     return parts
 
