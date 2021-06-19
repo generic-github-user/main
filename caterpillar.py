@@ -237,7 +237,21 @@ parse = ast.parse(content)
 # for n in ast.walk(parse):
 #     n = modify_node(n)
 
+names = {}
+
 class NodeRewriter(ast.NodeTransformer):
+    def visit_alias(self, node):
+        # for i, n in enumerate(node.names):
+        if node.name not in names:
+            newname = gen_string(5, charset=string.ascii_letters)
+            names[node.name] = newname
+            if node.asname:
+                names[node.asname] = newname
+            # node.names[i].asname = newname
+            return ast.alias(node.name, newname)
+        else:
+            return node
+
     def visit_Constant(self, node):
         return modify_node(node)
 
@@ -265,10 +279,24 @@ class NodeRewriter(ast.NodeTransformer):
         else:
             return node
 
+    # def visit_Name(self, node):
+        # if random.random() < 1 and node.id in globals():
+        #     return ast.Subscript(ast.Call(ast.Name('globals'), [], []), ast.Constant(node.id))
+        # else:
+        #     return node
+
 
     # def generic_visit(self, node):
     #     print('m')
     #     return modify_node(node)
+
+class NameRewriter(ast.NodeTransformer):
+    def visit_Name(self, node):
+        if node.id in names:
+            # node.id = names[node.id]
+            return ast.Name(names[node.id], node.ctx)
+        else:
+            return node
 
 def obfuscate(p, iterations=1):
     for i in range(iterations):
