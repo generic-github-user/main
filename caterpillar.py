@@ -301,8 +301,19 @@ class NameRewriter(ast.NodeTransformer):
 def obfuscate(p, iterations=1):
     for i in range(iterations):
         p = NodeRewriter().visit(p)
+        p = NameRewriter().visit(p)
     return p
 
+def attrstring(a, b):
+    result = a
+    # if '.' in b:
+    b = b.split('.')
+    for p in b:
+        if hasattr(result, p):
+            result = getattr(result, p)
+        else:
+            return None
+    return result
 uniques = ast_iterable + [ast.BinOp, ast.Assign, ast.Dict, ast.BoolOp, ast.Call]
 from pyvis.utils import check_html
 class NetworkVis(Network):
