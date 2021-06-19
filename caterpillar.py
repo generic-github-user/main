@@ -160,11 +160,15 @@ def modify_node(node):
             # Randomly wrap the node in a lambda function and a function call that executes it
             if random.random() < 0.5:
                 node = ast.Call(ast.Lambda([], body=node), [], [])
+        # Rewrite strings (string literals/constants)
         elif type(node.value) is str:
+            # Randomly select a transformation
             m = random.choice([1, 2, 3, 4])
 
+            # Apply no transform
             if m == 1:
                 pass
+            # Split the string into random segments and represent it as the concatenation of these segments
             elif m == 2:
                 parts = segment(node.value)
                 if random.random() < 0.5:
@@ -177,12 +181,14 @@ def modify_node(node):
                         [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
                         []
                     )
+            # Rewrite the string as the (equivalent) result of replacing a sequence of characters
             elif m == 3:
                 g = gen_string(3, charset=string.ascii_uppercase)
                 if node.value and g not in node.value:
                     c = random.choice(node.value)
                     node.value = node.value.replace(c, g)
                     node = make_tree('{}.replace({}, {})', node, g, c)
+            # "Compress" the string by finding a repeated pattern/substring and encoding this part of the string as a repeated string literal (e.g., "0.6666666" might become something like "0." + "6" * 7)
             elif m == 4:
                 reps = list(repetitions(node.value))
                 if reps:
