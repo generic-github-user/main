@@ -376,6 +376,20 @@ descriptors = {
     ast.Compare: lambda x: type(x.ops[0]).__name__,
     ast.FunctionDef: 'name',
     ast.BinOp: lambda x: type(x.op).__name__,
+    ast.List: lambda x: 'List',
+    ast.Tuple: lambda x: 'Tuple',
+    ast.ListComp: lambda x: 'ListComp',
+    ast.Attribute: lambda x: x.attr,
+    # ast.Attribute: lambda x: 'Attribute',
+    # ast.Call: lambda x: str(x.func),
+    # ast.Call: lambda x: 'Function Call',
+    ast.Call: lambda x: firstavailable(x, 'func.id', 'func.attr'),
+    ast.Subscript: lambda x: 'Subscript',
+    ast.BoolOp: lambda x: type(x.op).__name__,
+    ast.Assign: lambda x: 'Assign',
+    ast.IfExp: lambda x: 'IfExp',
+    ast.Dict: lambda x: 'Dictionary',
+    ast.UnaryOp: lambda x: type(x.op).__name__,
 }
 parse = obfuscate(parse, 1)
 
