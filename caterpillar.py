@@ -168,8 +168,12 @@ class NodeRewriter(ast.NodeTransformer):
     #     print('m')
     #     return modify_node(node)
 
+def obfuscate(p, iterations=1):
+    for i in range(iterations):
+        p = NodeRewriter().visit(p)
+    return p
 
-parse = NodeRewriter().visit(parse)
+parse = obfuscate(parse, 1)
 result = ast.unparse(parse)
 # result = ast.dump(parse)
 # print(result)
