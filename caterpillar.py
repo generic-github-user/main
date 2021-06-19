@@ -162,6 +162,8 @@ class NodeRewriter(ast.NodeTransformer):
         return modify_node(node)
 
     def visit_List(self, node):
+        self.generic_visit(node)
+
         # print([a.value for a in node.elts if type(a) is ast.Constant])
         # print([type(a) for a in node.elts])
         if random.random() < 0.5:
@@ -170,6 +172,8 @@ class NodeRewriter(ast.NodeTransformer):
             return node
 
     def visit_Tuple(self, node):
+        self.generic_visit(node)
+
         if random.random() < 0.5:
             return ast.Tuple([ast.Tuple(a) for a in segment(node.elts)])
         else:
