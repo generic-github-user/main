@@ -111,3 +111,18 @@ def modify_node(node):
                     [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
                     []
                 )
+        elif type(node.value) is bool:
+            # print(node.value)
+            ac = ast.Constant
+            m = random.choice([1, 2, 3, 4, 5])
+            # if random.random() < 1:
+            if m == 1:
+                x = random.randint(-50, 50)
+                y = random.randint(1, 100)
+                if node.value:
+                    z = x - y
+                    node = ast.Compare(ac(x), [ast.Gt()], [ac(z)])
+                else:
+                    z = x - y
+                    node = ast.Compare(ac(x), [ast.Lt()], [ac(z)])
+                node = ast.Expr(node)
