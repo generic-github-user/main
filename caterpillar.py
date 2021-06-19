@@ -359,6 +359,20 @@ class NetworkVis(Network):
             return self.write_html(name, notebook=True)
         else:
             self.write_html(name)
+
+vis = NetworkVis(directed=True)
+# vis.toggle_physics(False)
+# def add_node(node)
+descriptors = {
+    ast.Constant: 'value',
+    ast.Name: 'id',
+    ast.Starred: lambda x: 'starred',
+    # ast.Call: lambda x: x.func.id if type(x.func) is ast.Name else
+    # ast.Compare: lambda x: ast.unparse(x.ops[0]),
+    ast.Compare: lambda x: type(x.ops[0]).__name__,
+    ast.FunctionDef: 'name',
+    ast.BinOp: lambda x: type(x.op).__name__,
+}
 parse = obfuscate(parse, 1)
 result = ast.unparse(parse)
 fix = '=+'
