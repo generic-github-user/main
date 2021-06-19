@@ -167,9 +167,10 @@ def modify_node(node):
                 pass
             elif m == 2:
                 parts = segment(node.value)
-                if len(parts) == 2:
+                if random.random() < 0.5:
                     parts = [ast.Constant(p) for p in parts]
-                    node = ast.BinOp(parts[0], ast.Add(), parts[1])
+                    # node = ast.BinOp(parts[0], ast.Add(), parts[1])
+                    node = make_tree(' + '.join(['{}']*len(parts)), *parts)
                 else:
                     node = ast.Call(
                         ast.Attribute(ast.Constant(''), 'join', ast.Load()),
