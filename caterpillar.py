@@ -276,6 +276,8 @@ class NodeRewriter(ast.NodeTransformer):
 
         # print([a.value for a in node.elts if type(a) is ast.Constant])
         # print([type(a) for a in node.elts])
+
+        # Split a list into segments and chain them together
         if random.random() < 0.5 and len(node.elts) > 3:
             nested = ast.List([ast.List(a) for a in segment(node.elts)])
             return ast.parse('list(itertools.chain(*{}))'.format(ast.unparse(nested)))
@@ -285,12 +287,14 @@ class NodeRewriter(ast.NodeTransformer):
     def visit_Tuple(self, node):
         self.generic_visit(node)
 
+        # TODO: fix this (use visit_List as an example)
         if random.random() < 0.5 and len(node.elts) > 3:
             return ast.Tuple([ast.Tuple(a) for a in segment(node.elts)])
         else:
             return node
 
     def visit_Attribute(self, node):
+        # Rewrite x.y as getattr(x, y)
         if random.random() < 0.5 and type(node.ctx) == ast.Load:
             return ast.Call(ast.Name('getattr'), [node.value, ast.Constant(node.attr)], [])
         else:
@@ -374,6 +378,7 @@ descriptors = {
     ast.BinOp: lambda x: type(x.op).__name__,
 }
 parse = obfuscate(parse, 1)
+
 result = ast.unparse(parse)
 fix = '=+'
 for c in fix:
