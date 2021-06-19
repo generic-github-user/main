@@ -6,8 +6,7 @@ import operator as ops
 import string
 import itertools
 import re
-
-
+from pyvis.network import Network
 
 
 for i in range(2, 50):
@@ -27,6 +26,7 @@ q = True, False
 t = True
 # r = list(range(0, 30, 4))
 r = [5, 7, 9, 2, 3, 5, 7, 5, 2, 6, 4]
+v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
@@ -326,7 +326,7 @@ def firstavailable(m, *props):
             return value
     return 'None'
 
-uniques = ast_iterable + [ast.BinOp, ast.Assign, ast.Dict, ast.BoolOp, ast.Call]
+uniques = ast_iterable + [ast.BinOp, ast.Assign, ast.Dict, ast.BoolOp, ast.Call, ast.Compare, ast.Constant]
 from pyvis.utils import check_html
 class NetworkVis(Network):
     def __init__(self, *args, **kwargs):
@@ -346,5 +346,7 @@ for c in fix:
     result = result.replace('{} \n'.format(c), '= ')
 # result = ast.dump(parse)
 # print(result)
+
+
 with open('./butterfly.py', 'w') as file:
     file.write(result)
