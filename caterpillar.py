@@ -50,7 +50,7 @@ def gen_string(n):
 def modify_node(node):
     if type(node) is ast.Constant:
         if type(node.value) is int:
-            m = random.choice([1, 2, 3])
+            m = random.choice([1, 2, 3, 4])
             if m ==1:
                 equ_expr = random.randint(-50, 50)
                 # if random.random() < 0.5:
@@ -73,6 +73,13 @@ def modify_node(node):
             elif m == 2:
                 node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
             elif m == 3:
+                shuffled_chars = list(string.printable)
+                random.shuffle(shuffled_chars)
+                shuffled_chars = ''.join(shuffled_chars)
+                # print(shuffled_chars)
+                if 0 <= node.value < len(shuffled_chars):
+                    node = ast.Call(ast.Attribute(ast.Constant(shuffled_chars), 'index', ast.Load()), [ast.Constant(shuffled_chars[node.value])], [])
+            elif m == 4:
                 pass
 
             if random.random() < 0.5:
