@@ -206,11 +206,14 @@ def modify_node(node):
 
             # TODO: use detected patterns for replacements
 
+        # Encode booleans
         elif type(node.value) is bool:
             # print(node.value)
             ac = ast.Constant
             m = random.choice([1, 2, 3, 4, 5])
             # if random.random() < 1:
+
+            # Rewrite boolean as a comparison between numerical values that is guaranteed to evaluate to the original True/False value
             if m == 1:
                 x = random.randint(-50, 50)
                 y = random.randint(1, 100)
@@ -221,20 +224,26 @@ def modify_node(node):
                     z = x - y
                     node = ast.Compare(ac(x), [ast.Lt()], [ac(z)])
                 node = ast.Expr(node)
+            # Rewrite the boolean as a logical operation on other boolean values
+            # e.g., True might become (True or False) or False might become (False and True)
             elif m == 2:
                 parts = random.choice(booleans[node.value])
                 if type(parts) in iterable:
                     node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
                 elif type(parts) is str:
                     node = make_tree(parts)
+            # Encode the boolean as a casting from a numerical value to a bool; 0 will become False and anything else will evaluate as True
             elif m == 3:
                 node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
+            # Rewrite as boolean inverse ("not" operator)
             elif m == 4:
                 node = ast.UnaryOp(ast.Not(), ac(not node.value))
             elif m == 5:
                 pass
 
     return node
+
+# TODO: add eval() based rewrites
 
 with open(__file__, 'r') as file:
     content = file.read()
