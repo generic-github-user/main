@@ -47,6 +47,8 @@ def modify_node(node):
             # else:
             #     val, op = node.value-equ_expr, ast.Add()
             inv, op = random.choice(transforms)
+            if inv == ops.truediv and equ_expr == 0:
+                inv = ops.mul
             val = inv(node.value, equ_expr)
 
             a, b = ast.Constant(val), ast.Constant(equ_expr)
