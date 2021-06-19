@@ -79,8 +79,11 @@ booleans = {
 # TODO: use ord() and chr()
 # TODO: get global variables as strings
 # TODO: use any() and all() functions
+# TODO: use iterable manipulations (slices, reversals, etc.) to encode data
 
 def gen_string(n, charset=string.printable):
+    if type(n) in iterable:
+        n = random.randint(*n)
     return ''.join(random.choices(charset, k=n))
 
 def remove_duplicates(x):
