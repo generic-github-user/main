@@ -316,6 +316,12 @@ class NameRewriter(ast.NodeTransformer):
             return node
 
 def obfuscate(p, iterations=1):
+    """
+    Obfuscate source code by applying logical transformations that convert abstract syntax tree nodes into other nodes (or combinations of nodes) that are semantically equivalent
+
+    Params:
+        iterations: The number of times to apply the obfuscation
+    """
     for i in range(iterations):
         p = NodeRewriter().visit(p)
         p = NameRewriter().visit(p)
