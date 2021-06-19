@@ -126,3 +126,6 @@ def modify_node(node):
                     z = x - y
                     node = ast.Compare(ac(x), [ast.Lt()], [ac(z)])
                 node = ast.Expr(node)
+            elif m == 2:
+                parts = random.choice(booleans[node.value])
+                node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
