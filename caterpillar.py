@@ -303,6 +303,18 @@ def obfuscate(p, iterations=1):
         p = NodeRewriter().visit(p)
     return p
 
+uniques = ast_iterable + [ast.BinOp, ast.Assign, ast.Dict, ast.BoolOp, ast.Call]
+from pyvis.utils import check_html
+class NetworkVis(Network):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def show(self, name):
+        check_html(name)
+        if self.template is not None:
+            return self.write_html(name, notebook=True)
+        else:
+            self.write_html(name)
 parse = obfuscate(parse, 1)
 result = ast.unparse(parse)
 fix = '=+'
