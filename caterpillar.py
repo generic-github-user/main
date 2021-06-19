@@ -43,6 +43,8 @@ booleans = {
 # TODO: randomly use n // 1 instead of round
 # TODO: map string length to integer
 # TODO: randomize order in which transforms are applied to different node types
+# TODO: use ord() and chr()
+# TODO: get global variables as strings
 
 def gen_string(n):
     return ''.join(random.choices(string.printable, k=n))
@@ -131,3 +133,9 @@ def modify_node(node):
                 node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
             elif m == 3:
                 node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
+            elif m == 4:
+                node = ast.UnaryOp(ast.Not(), ac(not node.value))
+            elif m == 5:
+                pass
+
+    return node
