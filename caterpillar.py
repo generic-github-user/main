@@ -33,7 +33,7 @@ v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
 # TODO: list standard characters (printables excluding special characters)
-
+# TODO: add progressive code generation (i.e., output intermediate results of obfuscation)
 
 primitives = [str, int, float, bool]
 def make_tree(source, *nested):
@@ -291,7 +291,7 @@ class NodeRewriter(ast.NodeTransformer):
     def visit_alias(self, node):
         # for i, n in enumerate(node.names):
         if node.name not in names:
-            newname = gen_string(5, charset=string.ascii_letters)
+            newname = gen_string([3, 9], charset=string.ascii_letters)
             names[node.name] = newname
             if node.asname:
                 names[node.asname] = newname
