@@ -157,9 +157,6 @@ def modify_node(node):
             elif m == 4:
                 pass
 
-            # Randomly wrap the node in a lambda function and a function call that executes it
-            if random.random() < 0.5:
-                node = ast.Call(ast.Lambda([], body=node), [], [])
         # Rewrite strings (string literals/constants)
         elif type(node.value) is str:
             # Randomly select a transformation
@@ -240,6 +237,10 @@ def modify_node(node):
                 node = ast.UnaryOp(ast.Not(), ac(not node.value))
             elif m == 5:
                 pass
+
+    # Randomly wrap the node in a lambda function and a function call that executes it
+    if random.random() < 0.5:
+        node = ast.Call(ast.Lambda([], body=node), [], [])
 
     return node
 
