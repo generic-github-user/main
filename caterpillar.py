@@ -143,11 +143,11 @@ def modify_node(node):
                 if inv in [ops.mul, ops.truediv] and node_int:
                     node = ast.Call(ast.Name('round'), [node], [])
             # Generate a random string with len == value and encode the integer as the length of the string
-            elif m == 2:
+            elif m == 2 and node.value <= 10:
                 node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
             # Generate a shuffled list of characters and use an index method call to encode the integer
             elif m == 3:
-                shuffled_chars = list(string.printable)
+                shuffled_chars = list(string.printable[:30])
                 random.shuffle(shuffled_chars)
                 shuffled_chars = ''.join(shuffled_chars)
                 # print(shuffled_chars)
