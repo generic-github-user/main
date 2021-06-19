@@ -30,6 +30,8 @@ v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
+# TODO: convert numeric strings to numbers
+# TODO: list standard characters (printables excluding special characters)
 
 
 transforms = [
@@ -67,6 +69,7 @@ booleans = {
 # TODO: randomize order in which transforms are applied to different node types
 # TODO: use ord() and chr()
 # TODO: get global variables as strings
+# TODO: use any() and all() functions
 
 def gen_string(n, charset=string.printable):
     return ''.join(random.choices(charset, k=n))
