@@ -44,10 +44,10 @@ def make_tree(source, *nested):
         return ast.parse(source)
 
 transforms = [
-    [ops.add, ast.Sub],
-    [ops.sub, ast.Add],
-    [ops.mul, ast.Div],
-    [ops.truediv, ast.Mult],
+    [ops.add, ast.Sub, 2],
+    [ops.sub, ast.Add, 2],
+    [ops.mul, ast.Div, 2],
+    [ops.truediv, ast.Mult, 2],
 ]
 # TODO: add other math operations (sqrt, modulo, trig functions, etc.)
 # TODO: add bit shift operators
@@ -134,12 +134,14 @@ def modify_node(node):
                 #     val, op = node.value+equ_expr, ast.Sub()
                 # else:
                 #     val, op = node.value-equ_expr, ast.Add()
-                inv, op = random.choice(transforms)
+                inv, op, arity = random.choice(transforms)
 
                 # Avoid division by 0 by switching the inverse operation
                 if inv == ops.truediv and equ_expr == 0:
                     inv = ops.mul
-                val = inv(node.value, equ_expr)
+
+                arglist = [node.value, equ_expr]
+                val = inv(*arglist[:arity])
 
                 a, b = ast.Constant(val), ast.Constant(equ_expr)
                 # a = str(a)
