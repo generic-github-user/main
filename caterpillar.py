@@ -161,7 +161,8 @@ def modify_node(node):
             if random.random() < 0.5:
                 node = ast.Call(ast.Lambda([], body=node), [], [])
         elif type(node.value) is str:
-            m = random.choice([1, 2, 3])
+            m = random.choice([1, 2, 3, 4])
+
             if m == 1:
                 pass
             elif m == 2:
@@ -201,7 +202,7 @@ def modify_node(node):
                 parts = random.choice(booleans[node.value])
                 if type(parts) in iterable:
                     node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
-                else:
+                elif type(parts) is str:
                     node = make_tree(parts)
             elif m == 3:
                 node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
