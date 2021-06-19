@@ -15,6 +15,10 @@ for i in range(2, 50):
 a = 'This is a test string'
 print(a)
 q = True, False
+t = True
+# r = list(range(0, 30, 4))
+r = [5, 7, 9, 2, 3, 5, 7, 5, 2, 6, 4]
+
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 
@@ -160,7 +164,16 @@ class NodeRewriter(ast.NodeTransformer):
     def visit_List(self, node):
         # print([a.value for a in node.elts if type(a) is ast.Constant])
         # print([type(a) for a in node.elts])
-        return node
+        if random.random() < 0.5:
+            return ast.List([ast.List(a) for a in segment(node.elts)])
+        else:
+            return node
+
+    def visit_Tuple(self, node):
+        if random.random() < 0.5:
+            return ast.Tuple([ast.Tuple(a) for a in segment(node.elts)])
+        else:
+            return node
 
     def visit_Attribute(self, node):
         if random.random() < 0.5:
