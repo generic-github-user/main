@@ -261,21 +261,22 @@ class NodeRewriter(ast.NodeTransformer):
 
         # print([a.value for a in node.elts if type(a) is ast.Constant])
         # print([type(a) for a in node.elts])
-        if random.random() < 0.5:
-            return ast.List([ast.List(a) for a in segment(node.elts)])
+        if random.random() < 0.5 and len(node.elts) > 3:
+            nested = ast.List([ast.List(a) for a in segment(node.elts)])
+            return ast.parse('list(itertools.chain(*{}))'.format(ast.unparse(nested)))
         else:
             return node
 
     def visit_Tuple(self, node):
         self.generic_visit(node)
 
-        if random.random() < 0.5:
+        if random.random() < 0.5 and len(node.elts) > 3:
             return ast.Tuple([ast.Tuple(a) for a in segment(node.elts)])
         else:
             return node
 
     def visit_Attribute(self, node):
-        if random.random() < 0.5:
+        if random.random() < 0.5 and type(node.ctx) == ast.Load:
             return ast.Call(ast.Name('getattr'), [node.value, ast.Constant(node.attr)], [])
         else:
             return node
