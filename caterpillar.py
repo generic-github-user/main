@@ -14,3 +14,12 @@ for i in range(2, 50):
 a = 'This is a test string'
 print(a)
 q = True, False
+
+transforms = [
+    [ops.add, ast.Sub],
+    [ops.sub, ast.Add],
+    [ops.mul, ast.Div],
+    [ops.truediv, ast.Mult],
+]
+iterable = [list, tuple]
+ast_iterable = [ast.List, ast.Tuple]
