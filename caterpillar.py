@@ -37,3 +37,18 @@ booleans = {
 }
 # TODO: add boolean comparison operators
 # TODO: add boolean to numerical/other comparison (string inequalities?)
+
+def modify_node(node):
+    if type(node) is ast.Constant:
+        if type(node.value) is int:
+            equ_expr = random.randint(-50, 50)
+            # if random.random() < 0.5:
+            #     val, op = node.value+equ_expr, ast.Sub()
+            # else:
+            #     val, op = node.value-equ_expr, ast.Add()
+            inv, op = random.choice(transforms)
+            val = inv(node.value, equ_expr)
+
+            a, b = ast.Constant(val), ast.Constant(equ_expr)
+            # a = str(a)
+            a = ast.Call(ast.Name(type(val).__name__), [ast.Constant(str(a.value))], [])
