@@ -4,6 +4,11 @@ import ast
 import random
 import operator as ops
 import string
+import itertools
+import re
+
+
+
 
 for i in range(2, 50):
     for j in range(2, i):
@@ -11,6 +16,10 @@ for i in range(2, 50):
             break
     else:
         print(i)
+
+test1 = 'appleb6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>pear'
+test2 = 'g5g5g5g5g5g5g5g5g5testing'
+test3 = 'helloworld121212121212121212'
 
 a = 'This is a test string'
 print(a)
@@ -21,6 +30,7 @@ r = [5, 7, 9, 2, 3, 5, 7, 5, 2, 6, 4]
 
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
+
 
 transforms = [
     [ops.add, ast.Sub],
