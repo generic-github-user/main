@@ -10,3 +10,7 @@ for i in range(2, 50):
             break
     else:
         print(i)
+
+a = 'This is a test string'
+print(a)
+q = True, False
