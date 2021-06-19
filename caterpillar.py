@@ -21,6 +21,8 @@ transforms = [
     [ops.mul, ast.Div],
     [ops.truediv, ast.Mult],
 ]
+# TODO: add other math operations (sqrt, modulo, trig functions, etc.)
+# TODO: add bit shift operators
 iterable = [list, tuple]
 ast_iterable = [ast.List, ast.Tuple]
 booleans = {
@@ -33,3 +35,5 @@ booleans = {
         [ast.Or, False, False],
     ]
 }
+# TODO: add boolean comparison operators
+# TODO: add boolean to numerical/other comparison (string inequalities?)
