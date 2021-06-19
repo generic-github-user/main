@@ -73,6 +73,21 @@ def remove_duplicates(x):
     [newlist.append(y) for y in x if y not in newlist]
     return newlist
 
+# https://stackoverflow.com/a/29489919/10940584
+def principal_period(s):
+    i = (s+s).find(s, 1, -1)
+    return None if i == -1 else s[:i]
+
+print(principal_period('0.6666666666666666'))
+
+# https://stackoverflow.com/a/9079897/10940584
+def repetitions(s):
+   r = re.compile(r"(.+?)\1+")
+   for match in r.finditer(s):
+       yield (match.group(1), len(match.group(0))/len(match.group(1)))
+print(list(repetitions('0.6666666666666666')))
+print(list(repetitions('762e380mkf94dljrip1catnbsqohg5')))
+
 def segment(sequence, num=None):
     chars = len(sequence)
     if not num:
