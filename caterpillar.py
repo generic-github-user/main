@@ -129,3 +129,5 @@ def modify_node(node):
             elif m == 2:
                 parts = random.choice(booleans[node.value])
                 node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
+            elif m == 3:
+                node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
