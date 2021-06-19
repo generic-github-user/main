@@ -106,6 +106,15 @@ def segment(sequence, num=None):
     # print(parts)
     return parts
 
+primitives = [str, int, float, bool]
+def make_tree(source, *nested):
+    if nested:
+        nested = [ast.Constant(n) if type(n) in primitives else n for n in nested]
+        return ast.parse(source.format(*[ast.unparse(n) for n in nested]))
+    else:
+        # print(source, ast.dump(ast.parse(source)))
+        return ast.parse(source)
+
 def modify_node(node):
     if type(node) is ast.Constant:
         if type(node.value) is int:
