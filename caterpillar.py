@@ -44,27 +44,36 @@ booleans = {
 # TODO: map string length to integer
 # TODO: randomize order in which transforms are applied to different node types
 
+def gen_string(n):
+    return ''.join(random.choices(string.printable, k=n))
+
 def modify_node(node):
     if type(node) is ast.Constant:
         if type(node.value) is int:
-            equ_expr = random.randint(-50, 50)
-            # if random.random() < 0.5:
-            #     val, op = node.value+equ_expr, ast.Sub()
-            # else:
-            #     val, op = node.value-equ_expr, ast.Add()
-            inv, op = random.choice(transforms)
-            if inv == ops.truediv and equ_expr == 0:
-                inv = ops.mul
-            val = inv(node.value, equ_expr)
+            m = random.choice([1, 2, 3])
+            if m ==1:
+                equ_expr = random.randint(-50, 50)
+                # if random.random() < 0.5:
+                #     val, op = node.value+equ_expr, ast.Sub()
+                # else:
+                #     val, op = node.value-equ_expr, ast.Add()
+                inv, op = random.choice(transforms)
+                if inv == ops.truediv and equ_expr == 0:
+                    inv = ops.mul
+                val = inv(node.value, equ_expr)
 
-            a, b = ast.Constant(val), ast.Constant(equ_expr)
-            # a = str(a)
-            a = ast.Call(ast.Name(type(val).__name__), [ast.Constant(str(a.value))], [])
+                a, b = ast.Constant(val), ast.Constant(equ_expr)
+                # a = str(a)
+                a = ast.Call(ast.Name(type(val).__name__), [ast.Constant(str(a.value))], [])
 
-            node_int = type(node.value) == int
-            node = ast.BinOp(a, op(), b)
-            if inv in [ops.mul, ops.truediv] and node_int:
-                node = ast.Call(ast.Name('round'), [node], [])
+                node_int = type(node.value) == int
+                node = ast.BinOp(a, op(), b)
+                if inv in [ops.mul, ops.truediv] and node_int:
+                    node = ast.Call(ast.Name('round'), [node], [])
+            elif m == 2:
+                node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
+            elif m == 3:
+                pass
 
             if random.random() < 0.5:
                 node = ast.Call(ast.Lambda([], body=node), [], [])
