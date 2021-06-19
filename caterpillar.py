@@ -156,3 +156,14 @@ class NodeRewriter(ast.NodeTransformer):
         # print([a.value for a in node.elts if type(a) is ast.Constant])
         # print([type(a) for a in node.elts])
         return node
+
+    def visit_Attribute(self, node):
+        if random.random() < 0.5:
+            return ast.Call(ast.Name('getattr'), [node.value, ast.Constant(node.attr)], [])
+        else:
+            return node
+
+
+    # def generic_visit(self, node):
+    #     print('m')
+    #     return modify_node(node)
