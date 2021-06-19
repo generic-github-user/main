@@ -51,13 +51,16 @@ def modify_node(node):
     if type(node) is ast.Constant:
         if type(node.value) is int:
             m = random.choice([1, 2, 3, 4])
-            if m ==1:
+            # Generate a mathematical expression that produces the number
+            if m == 1:
                 equ_expr = random.randint(-50, 50)
                 # if random.random() < 0.5:
                 #     val, op = node.value+equ_expr, ast.Sub()
                 # else:
                 #     val, op = node.value-equ_expr, ast.Add()
                 inv, op = random.choice(transforms)
+
+                # Avoid division by 0 by switching the inverse operation
                 if inv == ops.truediv and equ_expr == 0:
                     inv = ops.mul
                 val = inv(node.value, equ_expr)
@@ -68,10 +71,13 @@ def modify_node(node):
 
                 node_int = type(node.value) == int
                 node = ast.BinOp(a, op(), b)
+                # Round nodes that might produce float values if the node originally stored an integer
                 if inv in [ops.mul, ops.truediv] and node_int:
                     node = ast.Call(ast.Name('round'), [node], [])
+            # Generate a random string with len == value and encode the integer as the length of the string
             elif m == 2:
                 node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
+            # Generate a shuffled list of characters and use an index method call to encode the integer
             elif m == 3:
                 shuffled_chars = list(string.printable)
                 random.shuffle(shuffled_chars)
@@ -79,9 +85,11 @@ def modify_node(node):
                 # print(shuffled_chars)
                 if 0 <= node.value < len(shuffled_chars):
                     node = ast.Call(ast.Attribute(ast.Constant(shuffled_chars), 'index', ast.Load()), [ast.Constant(shuffled_chars[node.value])], [])
+            # Leave the node unchanged
             elif m == 4:
                 pass
 
+            # Randomly wrap the node in a lambda function and a function call that executes it
             if random.random() < 0.5:
                 node = ast.Call(ast.Lambda([], body=node), [], [])
         elif type(node.value) is str:
