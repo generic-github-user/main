@@ -48,12 +48,16 @@ booleans = {
         [ast.Or, True, False],
         'True == True',
         'False == False',
+        'True != False',
+        'False != True',
     ],
     False: [
         [ast.And, True, False],
         [ast.Or, False, False],
         'True == False',
         'False == True',
+        'True != True',
+        'False != False',
     ]
 }
 # TODO: add boolean comparison operators
