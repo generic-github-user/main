@@ -68,8 +68,8 @@ booleans = {
 # TODO: use ord() and chr()
 # TODO: get global variables as strings
 
-def gen_string(n):
-    return ''.join(random.choices(string.printable, k=n))
+def gen_string(n, charset=string.printable):
+    return ''.join(random.choices(charset, k=n))
 
 def remove_duplicates(x):
     # return [y for y in x if (x.count(y) == 1)]
