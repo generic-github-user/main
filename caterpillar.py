@@ -36,10 +36,14 @@ booleans = {
     True: [
         [ast.And, True, True],
         [ast.Or, True, False],
+        'True == True',
+        'False == False',
     ],
     False: [
         [ast.And, True, False],
         [ast.Or, False, False],
+        'True == False',
+        'False == True',
     ]
 }
 # TODO: add boolean comparison operators
@@ -146,7 +150,10 @@ def modify_node(node):
                 node = ast.Expr(node)
             elif m == 2:
                 parts = random.choice(booleans[node.value])
-                node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
+                if type(parts) in iterable:
+                    node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
+                else:
+                    node = make_tree(parts)
             elif m == 3:
                 node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
             elif m == 4:
