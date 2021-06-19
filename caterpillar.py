@@ -147,3 +147,12 @@ parse = ast.parse(content)
 # print(content, parse)
 # for n in ast.walk(parse):
 #     n = modify_node(n)
+
+class NodeRewriter(ast.NodeTransformer):
+    def visit_Constant(self, node):
+        return modify_node(node)
+
+    def visit_List(self, node):
+        # print([a.value for a in node.elts if type(a) is ast.Constant])
+        # print([type(a) for a in node.elts])
+        return node
