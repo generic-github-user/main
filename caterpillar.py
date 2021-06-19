@@ -55,6 +55,7 @@ def modify_node(node):
             # a = str(a)
             a = ast.Call(ast.Name(type(val).__name__), [ast.Constant(str(a.value))], [])
 
+            node_int = type(node.value) == int
             node = ast.BinOp(a, op(), b)
-            if inv in [ops.mul, ops.truediv]:
+            if inv in [ops.mul, ops.truediv] and node_int:
                 node = ast.Call(ast.Name('round'), [node], [])
