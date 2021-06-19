@@ -14,6 +14,8 @@ for i in range(2, 50):
 a = 'This is a test string'
 print(a)
 q = True, False
+# TODO: random string replacements + string repetition
+# TODO: visualize program as graph of nodes
 
 transforms = [
     [ops.add, ast.Sub],
@@ -62,3 +64,22 @@ def modify_node(node):
 
             if random.random() < 0.5:
                 node = ast.Call(ast.Lambda([], body=node), [], [])
+        elif type(node.value) is str:
+            segments = random.randint(0, 8)
+            chars = len(node.value)
+            indices = [0] + [random.randint(0, chars) for x in range(segments)] + [chars]
+            indices = list(set(indices))
+            indices.sort(reverse=False)
+            # print(indices)
+            # print([(indices[i-1], j) for i, j in enumerate(indices[1:])])
+            parts = [node.value[indices[i]:j] for i, j in enumerate(indices[1:])]
+            # print(parts)
+            if len(parts) == 2:
+                parts = [ast.Constant(p) for p in parts]
+                node = ast.BinOp(parts[0], ast.Add(), parts[1])
+            else:
+                node = ast.Call(
+                    ast.Attribute(ast.Constant(''), 'join', ast.Load()),
+                    [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
+                    []
+                )
