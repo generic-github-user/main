@@ -123,16 +123,27 @@ def modify_node(node):
             if random.random() < 0.5:
                 node = ast.Call(ast.Lambda([], body=node), [], [])
         elif type(node.value) is str:
-            parts = segment(node.value)
-            if len(parts) == 2:
-                parts = [ast.Constant(p) for p in parts]
-                node = ast.BinOp(parts[0], ast.Add(), parts[1])
-            else:
-                node = ast.Call(
-                    ast.Attribute(ast.Constant(''), 'join', ast.Load()),
-                    [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
-                    []
-                )
+            m = random.choice([1, 2, 3])
+            if m == 1:
+                pass
+            elif m == 2:
+                parts = segment(node.value)
+                if len(parts) == 2:
+                    parts = [ast.Constant(p) for p in parts]
+                    node = ast.BinOp(parts[0], ast.Add(), parts[1])
+                else:
+                    node = ast.Call(
+                        ast.Attribute(ast.Constant(''), 'join', ast.Load()),
+                        [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
+                        []
+                    )
+            elif m == 3:
+                g = gen_string(3, charset=string.ascii_uppercase)
+                if node.value and g not in node.value:
+                    c = random.choice(node.value)
+                    node.value = node.value.replace(c, g)
+                    node = make_tree('{}.replace({}, {})', node, g, c)
+
         elif type(node.value) is bool:
             # print(node.value)
             ac = ast.Constant
