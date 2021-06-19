@@ -182,6 +182,22 @@ def modify_node(node):
                     c = random.choice(node.value)
                     node.value = node.value.replace(c, g)
                     node = make_tree('{}.replace({}, {})', node, g, c)
+            elif m == 4:
+                reps = list(repetitions(node.value))
+                if reps:
+                    selected = max(reps, key=lambda s: len(s[0]) * s[1])
+                    pattern, num = selected
+                    start = node.value.find(pattern)
+                    end = node.value.rfind(pattern)+len(pattern)
+                    a = node.value[:start]
+                    b = make_tree('{} * {}', pattern, round(num))
+                    c = node.value[end:]
+                    h = [g for g in [a, b, c] if g]
+                    # node = make_tree('{} + {} + {}', a, b, c)
+                    node = make_tree(' + '.join(['{}']*len(h)), *h)
+
+
+            # TODO: use detected patterns for replacements
 
         elif type(node.value) is bool:
             # print(node.value)
