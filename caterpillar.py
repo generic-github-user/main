@@ -34,6 +34,15 @@ v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 # TODO: list standard characters (printables excluding special characters)
 
 
+primitives = [str, int, float, bool]
+def make_tree(source, *nested):
+    if nested:
+        nested = [ast.Constant(n) if type(n) in primitives else n for n in nested]
+        return ast.parse(source.format(*[ast.unparse(n) for n in nested]))
+    else:
+        # print(source, ast.dump(ast.parse(source)))
+        return ast.parse(source)
+
 transforms = [
     [ops.add, ast.Sub],
     [ops.sub, ast.Add],
@@ -109,14 +118,7 @@ def segment(sequence, num=None):
     # print(parts)
     return parts
 
-primitives = [str, int, float, bool]
-def make_tree(source, *nested):
-    if nested:
-        nested = [ast.Constant(n) if type(n) in primitives else n for n in nested]
-        return ast.parse(source.format(*[ast.unparse(n) for n in nested]))
-    else:
-        # print(source, ast.dump(ast.parse(source)))
-        return ast.parse(source)
+
 
 def modify_node(node):
     if type(node) is ast.Constant:
