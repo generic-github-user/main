@@ -401,7 +401,7 @@ result = ast.unparse(parse)
 fix = '=+'
 for c in fix:
     # result = result.replace(f'{c} \n', '= ')
-    result = result.replace('{} \n'.format(c), '= ')
+    result = result.replace('{} \n'.format(c), c+' ')
 # result = ast.dump(parse)
 # print(result)
 
