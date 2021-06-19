@@ -3,6 +3,7 @@
 import ast
 import random
 import operator as ops
+import string
 
 for i in range(2, 50):
     for j in range(2, i):
@@ -39,6 +40,9 @@ booleans = {
 }
 # TODO: add boolean comparison operators
 # TODO: add boolean to numerical/other comparison (string inequalities?)
+# TODO: randomly use n // 1 instead of round
+# TODO: map string length to integer
+# TODO: randomize order in which transforms are applied to different node types
 
 def modify_node(node):
     if type(node) is ast.Constant:
