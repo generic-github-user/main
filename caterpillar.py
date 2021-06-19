@@ -167,3 +167,11 @@ class NodeRewriter(ast.NodeTransformer):
     # def generic_visit(self, node):
     #     print('m')
     #     return modify_node(node)
+
+
+parse = NodeRewriter().visit(parse)
+result = ast.unparse(parse)
+# result = ast.dump(parse)
+# print(result)
+with open('./butterfly.py', 'w') as file:
+    file.write(result)
