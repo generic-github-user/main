@@ -139,3 +139,11 @@ def modify_node(node):
                 pass
 
     return node
+
+with open(__file__, 'r') as file:
+    content = file.read()
+
+parse = ast.parse(content)
+# print(content, parse)
+# for n in ast.walk(parse):
+#     n = modify_node(n)
