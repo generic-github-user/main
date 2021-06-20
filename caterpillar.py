@@ -29,6 +29,10 @@ t = True
 r = [5, 7, 9, 2, 3, 5, 7, 5, 2, 6, 4]
 v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 
+# https://stackoverflow.com/a/29920015/10940584
+def camel_case_split(identifier):
+    matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
+    return [m.group(0) for m in matches]
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
