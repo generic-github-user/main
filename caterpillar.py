@@ -66,9 +66,13 @@ for f in ['sin', 'cos', 'tan']:
     # transforms.append([func, (lambda q: make_tree(temp, func(q))), 1])
     transforms.append([func, buildfunc(f, func), 1])
 # print(transforms[4][1](5).body[0].func.id, transforms[6][1](5).body[0].func.id)
+# TODO: make auto-generated data readable
 
 # TODO: add other math operations (sqrt, modulo, trig functions, etc.)
 # TODO: add bit shift operators
+# TODO: add other .join() strings
+# TODO: add other trig functions
+
 iterable = [list, tuple]
 ast_iterable = [ast.List, ast.Tuple]
 booleans = {
@@ -98,6 +102,7 @@ booleans = {
 # TODO: get global variables as strings
 # TODO: use any() and all() functions
 # TODO: use iterable manipulations (slices, reversals, etc.) to encode data
+# TODO: add decoy instructions (nops)
 
 def gen_string(n, charset=string.printable):
     if type(n) in iterable:
