@@ -83,6 +83,26 @@ with open(__file__, 'r') as file:
         lambda m: not has_nums(m) and len(m) > 2,
         remove_punctuation(ownsource, ' ').split()
     ))
+keywords = list(set(keywords))
+keywords = [k.lower() for k in keywords]
+print(keywords)
+
+def rand_format(text):
+    if type(text) is str:
+        text = [text]
+    # inclusive?
+    text = [t.lower() for t in text]
+    m = random.randint(1, 4)
+    if m == 1:
+        pass
+    elif m == 2:
+        text = [t.upper() for t in text]
+    elif m == 3:
+        text = [t[0].upper() + t[1:] for t in text]
+    elif m == 4:
+        text = [''.join(random.choice([c.upper(), c.lower()]) for c in t) for t in text]
+
+    return ''.join(text)
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
