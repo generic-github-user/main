@@ -208,7 +208,32 @@ def segment(sequence, num=None):
     # print(parts)
     return parts
 
+def condense(text):
+    reps = list(repetitions(text))
+    if reps:
+        selected = max(reps, key=lambda s: len(s[0]) * s[1])
+        pattern, num = selected
+        length = round(len(pattern) * num)
+        chunk = pattern * int(num)
+        # start = text.find(pattern)
+        start = text.find(chunk)
+        # end = text.rfind(pattern)+len(pattern)
+        # if end > start + length:
+        end = start + length
+        a = text[:start]
+        b = make_tree('{} * {}', pattern, round(num))
+        c = text[end:]
 
+        h = [g for g in [a, b, c] if g]
+        return h
+    else:
+        return None
+s = '0.6666666666666666'
+print(s, condense(s))
+s = '__name__'
+print(s, condense(s))
+s = '777777abacus77777778888'
+print(s, condense(s))
 
 def modify_node(node):
     if type(node) is ast.Constant:
@@ -293,19 +318,10 @@ def modify_node(node):
                     node = make_tree('{}.replace({}, {})', node, g, c)
             # "Compress" the string by finding a repeated pattern/substring and encoding this part of the string as a repeated string literal (e.g., "0.6666666" might become something like "0." + "6" * 7)
             elif m == 4:
-                reps = list(repetitions(node.value))
-                if reps:
-                    selected = max(reps, key=lambda s: len(s[0]) * s[1])
-                    pattern, num = selected
-                    start = node.value.find(pattern)
-                    end = node.value.rfind(pattern)+len(pattern)
-                    a = node.value[:start]
-                    b = make_tree('{} * {}', pattern, round(num))
-                    c = node.value[end:]
-                    h = [g for g in [a, b, c] if g]
+                sections = condense(node.value)
+                if sections:
                     # node = make_tree('{} + {} + {}', a, b, c)
-                    node = make_tree(' + '.join(['{}']*len(h)), *h)
-
+                    node = make_tree(' + '.join(['{}']*len(sections)), *sections)
 
             # TODO: use detected patterns for replacements
 
