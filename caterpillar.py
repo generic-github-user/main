@@ -125,6 +125,7 @@ def principal_period(s):
     return None if i == -1 else s[:i]
 
 print(principal_period('0.6666666666666666'))
+# TODO: add list of keywords
 
 # https://stackoverflow.com/a/9079897/10940584
 def repetitions(s):
@@ -133,6 +134,8 @@ def repetitions(s):
        yield (match.group(1), len(match.group(0))/len(match.group(1)))
 print(list(repetitions('0.6666666666666666')))
 print(list(repetitions('762e380mkf94dljrip1catnbsqohg5')))
+s = '__name__'
+print(s, list(repetitions(s)))
 
 def segment(sequence, num=None):
     chars = len(sequence)
@@ -266,7 +269,7 @@ def modify_node(node):
                 else:
                     z = x - y
                     node = ast.Compare(ac(x), [ast.Lt()], [ac(z)])
-                node = ast.Expr(node)
+                # node = ast.Expr(node)
             # Rewrite the boolean as a logical operation on other boolean values
             # e.g., True might become (True or False) or False might become (False and True)
             elif m == 2:
@@ -291,6 +294,7 @@ def modify_node(node):
     return node
 
 # TODO: add eval() based rewrites
+# TODO: fix issue with empty strings vanishing
 
 with open(__file__, 'r') as file:
     content = file.read()
