@@ -432,10 +432,10 @@ descriptors = {
 parse = obfuscate(parse, 1)
 
 result = ast.unparse(parse)
-fix = '=+'
+fix = [c+' ' for c in list('=+-*/(,') + ['if']]
 for c in fix:
     # result = result.replace(f'{c} \n', '= ')
-    result = result.replace('{} \n'.format(c), c+' ')
+    result = result.replace('{}\n'.format(c), c+' ')
 # result = ast.dump(parse)
 # print(result)
 
