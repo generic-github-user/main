@@ -73,6 +73,16 @@ keyword_sources = [__builtins__]
 for k in keyword_sources:
     for p in dir(k):
         keywords.extend([c for c in camel_case_split(p) if c not in keywords])
+
+for i, k in enumerate(keywords):
+    keywords[i] = remove_punctuation(k)
+
+with open(__file__, 'r') as file:
+    ownsource = file.read()
+    keywords.extend(filter(
+        lambda m: not has_nums(m) and len(m) > 2,
+        remove_punctuation(ownsource, ' ').split()
+    ))
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
