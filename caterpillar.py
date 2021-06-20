@@ -111,14 +111,21 @@ transforms = [
     [ops.truediv, ast.Mult, 2],
 ]
 # Trigonometric functions
-for f in ['sin', 'cos', 'tan']:
-    func = getattr(math, f)
-    print(func)
-    def buildfunc(h, j):
-        temp = 'math.a'+h+'({})'
-        return lambda q: make_tree(temp, j(q))
-    # transforms.append([func, (lambda q: make_tree(temp, func(q))), 1])
-    transforms.append([func, buildfunc(f, func), 1])
+def trig_funcs(pre):
+    for f, domain in [['sin', [-1, 1]], ['cos', [-1, 1]], ['tan', [-100, 100]]]:
+        if not pre[0]:
+            domain = [-100, 100]
+        func = getattr(math, pre[0]+f)
+        print(func)
+        def buildfunc(h, j, k):
+            temp = 'math.'+pre[1]+h+'({})'
+            return lambda q: make_tree(temp, j(q))
+        # transforms.append([func, (lambda q: make_tree(temp, func(q))), 1])
+        transforms.append([func, buildfunc(f, func, domain)] + [1] + [domain])
+
+p = ['', 'a']
+trig_funcs(p)
+trig_funcs(p[::-1])
 # print(transforms[4][1](5).body[0].func.id, transforms[6][1](5).body[0].func.id)
 # TODO: make auto-generated data readable
 
