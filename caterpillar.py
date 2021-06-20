@@ -8,7 +8,7 @@ import itertools
 import re
 import math
 from pyvis.network import Network
-
+normal_chars = string.ascii_letters + string.digits
 
 for i in range(2, 50):
     for j in range(2, i):
@@ -104,7 +104,7 @@ booleans = {
 # TODO: use iterable manipulations (slices, reversals, etc.) to encode data
 # TODO: add decoy instructions (nops)
 
-def gen_string(n, charset=string.printable):
+def gen_string(n, charset=normal_chars):
     if type(n) in iterable:
         n = random.randint(*n)
     return ''.join(random.choices(charset, k=n))
@@ -189,7 +189,7 @@ def modify_node(node):
                 node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
             # Generate a shuffled list of characters and use an index method call to encode the integer
             elif m == 3:
-                shuffled_chars = list(string.printable[:30])
+                shuffled_chars = list(normal_chars[:30])
                 random.shuffle(shuffled_chars)
                 shuffled_chars = ''.join(shuffled_chars)
                 # print(shuffled_chars)
