@@ -110,10 +110,14 @@ def rand_format(text):
 # TODO: add progressive code generation (i.e., output intermediate results of obfuscation)
 
 primitives = [str, int, float, bool]
-def make_tree(source, *nested):
+def make_tree(source, *nested, ctx=None):
     if nested:
         nested = [ast.Constant(n) if type(n) in primitives else n for n in nested]
-        return ast.parse(source.format(*[ast.unparse(n) for n in nested]))
+        tree = ast.parse(source.format(*[ast.unparse(n) for n in nested]))
+        if type(tree) is ast.Module:
+            tree = tree.body[0].value
+            tree.ctx = ctx if ctx else ast.Load()
+        return tree
     else:
         # print(source, ast.dump(ast.parse(source)))
         return ast.parse(source)
