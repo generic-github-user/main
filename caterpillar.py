@@ -44,6 +44,12 @@ def make_tree(source, *nested):
         # print(source, ast.dump(ast.parse(source)))
         return ast.parse(source)
 
+# Store a list of mathematical transforms for generating expressions equivalent to numeric values
+# Each sub-list contains:
+    # the initial operation applied to generate the "obfuscated" value; f(x)
+    # a function that takes an int or float creates an AST node representing the inverse operation, f^-1(x)
+    # the arity or number of arguments the function or inverse function accepts
+    # the lower and upper bounds of the domain of f(x)
 transforms = [
     [ops.add, ast.Sub, 2],
     [ops.sub, ast.Add, 2],
