@@ -437,13 +437,20 @@ descriptors = {
 parse = obfuscate(parse, 1)
 
 result = ast.unparse(parse)
-fix = [c+' ' for c in list('=+-*/(,') + ['if']]
+# terms = list('=+-*/(,[') + ['if', ' :']
+terms = []
+fix = []
+for t in terms:
+    fix.append(t+' ')
+    fix.append(t)
+
 for c in fix:
     # result = result.replace(f'{c} \n', '= ')
+    print(r'{}\n'.format(c))
     result = result.replace('{}\n'.format(c), c+' ')
+    result = result.replace('{}\r\n'.format(c), c+' ')
 # result = ast.dump(parse)
 # print(result)
-
 
 with open('./butterfly.py', 'w') as file:
     file.write(result)
