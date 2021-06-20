@@ -39,6 +39,9 @@ def remove_punctuation(text, rep=''):
     for p in punc:
         text = text.replace(p, rep)
     return text
+
+def has_nums(text):
+    return any(c.isdigit() for c in text)
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
