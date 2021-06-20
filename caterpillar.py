@@ -33,6 +33,12 @@ v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 def camel_case_split(identifier):
     matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
     return [m.group(0) for m in matches]
+
+def remove_punctuation(text, rep=''):
+    punc = string.punctuation + '_'
+    for p in punc:
+        text = text.replace(p, rep)
+    return text
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
