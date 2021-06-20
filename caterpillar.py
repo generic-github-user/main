@@ -42,6 +42,31 @@ def remove_punctuation(text, rep=''):
 
 def has_nums(text):
     return any(c.isdigit() for c in text)
+
+keywords = """
+foo
+bar
+integer
+bits
+random
+select
+token
+generator
+iterator
+available
+range
+memory
+enable
+toggle
+data
+check
+test
+next
+previous
+arbitrary
+distribution
+probability
+"""
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
