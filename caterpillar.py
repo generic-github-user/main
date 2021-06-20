@@ -67,6 +67,12 @@ arbitrary
 distribution
 probability
 """
+all_used = []
+keywords = keywords.splitlines()
+keyword_sources = [__builtins__]
+for k in keyword_sources:
+    for p in dir(k):
+        keywords.extend([c for c in camel_case_split(p) if c not in keywords])
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
