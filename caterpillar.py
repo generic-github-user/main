@@ -70,6 +70,20 @@ previous
 arbitrary
 distribution
 probability
+iterpolate
+extrapolate
+expand
+raise
+explore
+integrate
+combine
+extension
+extend
+use
+request
+append
+portion
+value
 """
 all_used = []
 keywords = keywords.splitlines()
