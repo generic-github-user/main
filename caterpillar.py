@@ -17,6 +17,10 @@ for i in range(2, 50):
     else:
         print(i)
 
+# TODO: add base64 and other string and/or integer conversions
+# TODO: add string encryption
+# TODO: use bit-shifting
+
 test1 = 'appleb6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>pear'
 test2 = 'g5g5g5g5g5g5g5g5g5testing'
 test3 = 'helloworld121212121212121212'
