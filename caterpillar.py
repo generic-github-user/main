@@ -223,6 +223,13 @@ s = '__name__'
 print(s, list(repetitions(s)))
 
 def segment(sequence, num=None):
+    """
+    Randomly divide an iterable (list, string, or tuple) into a number of sections
+
+    Params:
+        sequence: The iterable to be segmented
+        num: The number of sections the result should have; if `None`, the number will be randomly determined from the length of the input sequence
+    """
     chars = len(sequence)
     if not num:
         num = round(random.uniform(0, 0.1) * chars)
