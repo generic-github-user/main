@@ -539,6 +539,26 @@ descriptors = {
     ast.Dict: lambda x: 'Dictionary',
     ast.UnaryOp: lambda x: type(x.op).__name__,
 }
+def get_label(node):
+    ntype = type(node)
+    if ntype in descriptors:
+        desc = descriptors[ntype]
+        if type(desc) is str:
+            data = getattr(node, desc)
+        elif callable(desc):
+            data = desc(node)
+        label = str(data)
+        # print(label)
+        g = type(data).__name__ + '/' + ntype.__name__
+        # print(g)
+
+        # if ntype in ast_iterable + [ast.BinOp, ast.Assign, ast.Dict]:
+        #     label += ' ' + str(id(node))
+        id_ = id(node) if ntype in uniques else label
+        # print(id_, label, g, desc)
+        return id_, label, g
+    else:
+        return ['None'] * 3
 parse = obfuscate(parse, 1)
 
 result = ast.unparse(parse)
