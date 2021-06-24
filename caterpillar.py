@@ -220,10 +220,17 @@ booleans = {
 # TODO: use iterable manipulations (slices, reversals, etc.) to encode data
 # TODO: add decoy instructions (nops)
 
-def gen_string(n, charset=normal_chars):
+def gen_string(n, charset=normal_chars, strict=True):
     if type(n) in iterable:
         n = random.randint(*n)
-    return ''.join(random.choices(charset, k=n))
+
+    gen = gen_from_keywords(n)
+    if len(gen) > n:
+        gen = gen[:n]
+    if random.random() < 0.5 and (not strict or len(gen) == n):
+        return gen
+    else:
+        return ''.join(random.choices(charset, k=n))
 
 def remove_duplicates(x):
     # return [y for y in x if (x.count(y) == 1)]
