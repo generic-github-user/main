@@ -332,7 +332,7 @@ def modify_node(node):
                 shuffled_chars = ''.join(shuffled_chars)
                 # print(shuffled_chars)
                 if 0 <= node.value < len(shuffled_chars):
-                    node = ast.Call(ast.Attribute(ast.Constant(shuffled_chars), 'index', ast.Load()), [ast.Constant(shuffled_chars[node.value])], [])
+                    node = ast.Call(ast.Attribute(ast.Constant(shuffled_chars), 'index', ctx=ast.Load()), [ast.Constant(shuffled_chars[node.value])], [])
             # Leave the node unchanged
             elif m == 4:
                 pass
@@ -354,7 +354,7 @@ def modify_node(node):
                     node = make_tree(' + '.join(['{}']*len(parts)), *parts)
                 else:
                     node = ast.Call(
-                        ast.Attribute(ast.Constant(''), 'join', ast.Load()),
+                        ast.Attribute(ast.Constant(''), 'join', ctx=ast.Load()),
                         [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
                         []
                     )
@@ -452,8 +452,12 @@ class NodeRewriter(ast.NodeTransformer):
 
         # Split a list into segments and chain them together
         if random.random() < 0.5 and len(node.elts) > 3:
-            nested = ast.List([ast.List(a) for a in segment(node.elts)])
-            return ast.parse('list(itertools.chain(*{}))'.format(ast.unparse(nested)))
+            nested = ast.List([ast.List(a, ctx=ast.Load()) for a in segment(node.elts)], ctx=ast.Load())
+            newlist = ast.parse('list(itertools.chain(*{}))'.format(ast.unparse(nested)))
+            # newlist.body.ctx = ast.Load()
+            newlist = newlist.body[0].value
+            newlist.ctx = ast.Load()
+            return newlist
         else:
             return node
 
