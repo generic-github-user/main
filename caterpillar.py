@@ -121,6 +121,19 @@ def rand_format(text):
         text = [''.join(random.choice([c.upper(), c.lower()]) for c in t) for t in text]
 
     return ''.join(text)
+
+
+def gen_from_keywords(length, reuse=False, reuse_global=True, test=False):
+    generated = ''
+    words = []
+    used = []
+    for i in range(round(8 * length / (sum(len(k) for k in keywords) / len(keywords)))):
+        if len(generated) < length:
+            candidates = [k for k in keywords]
+            if not reuse:
+                candidates = list(set(candidates) - set(used))
+            if not reuse_global:
+                candidates = list(set(candidates) - set(all_used))
 # TODO: random string replacements + string repetition
 # TODO: visualize program as graph of nodes
 # TODO: convert numeric strings to numbers
