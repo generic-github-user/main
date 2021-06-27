@@ -63,6 +63,16 @@ types = {
     'STRING': r'(\"LETTER+?\")',
 #     'COM': '(#.*\n)'
 }
+for G in range(3):
+    for a, b in types.items():
+        for c, d in types.items():
+    #         print(types[a] == b, types[a], b)
+            types[a] = types[a].replace(c, '(?:'+d[1:])
+
+for n, m in types.items():
+    print(n, m)
+#         print('NUM' in b)
+
 def iterate(f, g, n):
     h = '{}({})'.format(f, g)
     for i in range(n):
