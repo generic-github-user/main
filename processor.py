@@ -48,3 +48,8 @@ types = {
     'STRING': r'(\"LETTER+?\")',
 #     'COM': '(#.*\n)'
 }
+def iterate(f, g, n):
+    h = '{}({})'.format(f, g)
+    for i in range(n):
+        h = '{}({})'.format(f, h)
+    return h
