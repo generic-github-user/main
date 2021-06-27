@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[56]:
+# In[57]:
 
 
 import itertools
@@ -24,6 +24,7 @@ M = [m[0] for m in manipulations]
 options = []
 max_ops = 3
 print(f'Testing {max_ops**len(manipulations)} operations across {len(examples)} examples')
+checked = 0
 for n in range(max_ops):
     for i in itertools.product(M, repeat=n+1):
     #     sequence = []
@@ -48,7 +49,8 @@ for n in range(max_ops):
         else:
             print(S, True)
             options.append(i)
+        checked += 1
     
-    
+print(f'Checked {checked} combinations and found {len(options)} matches')
 print(options)
 
