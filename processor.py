@@ -53,3 +53,10 @@ def iterate(f, g, n):
     for i in range(n):
         h = '{}({})'.format(f, h)
     return h
+
+def tile(n, m):
+    print(n, m)
+    s = f'[{n}]'
+    for i in ast.literal_eval(m):
+        s = f'[{s} * {i}]'
+    return s
