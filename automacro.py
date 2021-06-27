@@ -24,13 +24,17 @@ manipulations = [
 ]
 M = [m[0] for m in manipulations]
 options = []
-max_ops = 3
+max_ops = 4
 print(f'Testing {max_ops**len(manipulations)} operations across {len(examples)} examples')
 checked = 0
+limit = 200000
 for n in range(max_ops):
     print((n+1)**len(manipulations))
     for i in itertools.product(manipulations, repeat=n+1):
     #     sequence = []
+        checked += 1
+        if checked > limit:
+            break
         for ex in examples:
     #         print('Testing sample {} -> {}'.format(*ex))
             S = ex[0]
@@ -58,7 +62,6 @@ for n in range(max_ops):
         else:
             print(S, True)
             options.append(i)
-        checked += 1
     
 print(f'Checked {checked} combinations and found {len(options)} matches')
 print(options)
