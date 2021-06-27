@@ -29,3 +29,22 @@ A$B$C$x
 F^6(x)
 C ++
 """
+# a...c?
+
+# (20??100) ?? (200??1000)
+# """
+types = {
+    'NAT': r'(\d+)',
+    'NUM': r'([+-]?\d+\.?\d*)',
+    'DIV': r'(\,?[ ]*)',
+    'LIST': r'(\[ (?: VAL DIV?){1,}? \])',
+    'TUPLE': r'(\((?:NUM(?:,+|\s?)){1,}\))',
+    'NAME': r'([a-zA-Z]+)',
+    'EXPR': r'(\((?:OP|NAME|VAL)+?\))',
+    'OP': r'((?:NAME|VAL)(?:[\+\-\*/] | \?{2})(?:NAME|VAL))',
+    'VAL': r'(NAT|NUM)',
+    'LETTER': r'([a-zA-Z])',
+    'LRANGE': r'(LETTER)[.]{3}(LETTER)',
+    'STRING': r'(\"LETTER+?\")',
+#     'COM': '(#.*\n)'
+}
