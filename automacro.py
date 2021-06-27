@@ -13,10 +13,10 @@ examples = [
     ['Machine learning', 'ML']
 ]
 manipulations = [
-    lambda x: x[0],
-    lambda x: x[::-1],
-    str.lower,
-    str.upper,
-    str.split,
-    lambda x: ''.join(x)
+    [lambda x: x[0], 'First char'],
+    [lambda x: x[::-1], 'Reverse'],
+    [str.lower, 'Lowercase'],
+    [str.upper, 'Capitalize'],
+    [str.split, 'Split'],
+    [lambda x: ''.join(x), 'Join'],
 ]
