@@ -7,10 +7,12 @@
 import itertools
 
 examples = [
-    ['United States', 'US'],
-    ['Continuous Integration', 'CI'],
-    ['artificial intelligence', 'AI'],
-    ['Machine learning', 'ML']
+#     ['United States', 'US'],
+#     ['Continuous Integration', 'CI'],
+#     ['artificial intelligence', 'AI'],
+#     ['Machine  learning', 'ML']
+    ['First Last', 'Last, First'],
+#     ['First Middle Last', 'Last, First Middle'],
 ]
 manipulations = [
     [lambda x: x[0], 'First char'],
