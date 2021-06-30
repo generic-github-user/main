@@ -55,3 +55,15 @@ def makelist(items):
     return ', '.join(items[:-1])+', and '+items[-1]
 
 makelist(list('xyz'))
+# In[66]:
+
+
+def plural(a, b, prepend=False):
+    if b != 1:
+        if a[-1] == 'y':
+            a = a[:-1] + 'ies'
+        elif a[-1] != 's':
+            a += 's'
+    if prepend:
+        a = f'{b} {a}'
+    return a
