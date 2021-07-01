@@ -5,6 +5,12 @@
 # 
 # Prints out a list of prime numbers in the specified range.
 
+# In[ ]:
+
+
+
+
+
 # In[2]:
 
 
@@ -99,10 +105,13 @@ def plural(a, b, prepend=False):
     return a
 
 
-# In[71]:
+# In[74]:
 
 
 values = [
+    [100, '$100 bill'],
+    [50, '$50 bill'],
+    [20, '$20 bill'],
     [10, '$10 bill'],
     [5, '$5 bill'],
     [1, '$1 bill'],
@@ -111,3 +120,30 @@ values = [
     [0.05, 'nickel'],
     [0.01, 'penny']
 ]
+nums, labels = list(zip(*values))
+c = subdivide(12.34, nums)
+print(nums)
+makelist(['{} x {}'.format(int(b[1]), labels[nums.index(b[0])]) for b in c])
+
+
+# In[75]:
+
+
+makelist([plural(labels[nums.index(b[0])], int(b[1]), True) for b in c])
+
+
+# In[76]:
+
+
+def change(amount):
+    c = subdivide(amount, nums)
+    return makelist([plural(labels[nums.index(b[0])], int(b[1]), True) for b in c])
+
+print(change(378.22))
+
+
+# In[42]:
+
+
+# TODO: flood fill
+
