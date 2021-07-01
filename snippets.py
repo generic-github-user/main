@@ -97,3 +97,17 @@ def plural(a, b, prepend=False):
     if prepend:
         a = f'{b} {a}'
     return a
+
+
+# In[71]:
+
+
+values = [
+    [10, '$10 bill'],
+    [5, '$5 bill'],
+    [1, '$1 bill'],
+    [0.25, 'quarter'],
+    [0.10, 'dime'],
+    [0.05, 'nickel'],
+    [0.01, 'penny']
+]
