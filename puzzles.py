@@ -122,6 +122,17 @@ def V(t, n, **kwargs):
     for k in range(n):
         t = F(t, **kwargs)
     return t
+
+q = 100
+print(F([299]))
+a = list(range(1, q+1))
+output = V(a, 8, mem=True)
+
+fig = plt.figure()
+fig, ax = plt.subplots()
+ax.plot(output)
+# ax.set_yscale('log')
+print(sum(output))
 # ## Automated Logical Induction
 # 
 # Compose a short heuristic program that, given a series of logical statements, can infer logical conclusions.
