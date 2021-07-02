@@ -19,3 +19,20 @@ for d in range(4):
         if str(root) in str(num):
             print(num)
             break
+
+
+# In[2]:
+
+
+import math
+def check(A, B=None):
+    s = str(A)
+    if B is None:
+        num = s+s[::-1]
+    else:
+        num = s+str(B)+s[::-1]
+#     print(num)
+    root = math.floor(int(num) ** (1/2))
+    if str(root) in num:
+#         print(num)
+        return num, root
