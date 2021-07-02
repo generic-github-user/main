@@ -80,6 +80,39 @@ previous = {}
 
 
 # In[134]:
+
+
+
+def factorial(z):
+#     global previous
+    
+    r = 1
+    if z in previous:
+        return previous[z]
+    if z == 0:
+        return 1
+    i = 1
+    
+    if previous:
+        bounded = filter(lambda h: h[0]<z, previous.items())
+        try:
+            p = max(bounded, key=lambda d: d[0])
+            i, r = p
+        except:
+            pass
+#     max(p[0], 1)
+    for w in range(i+1, z):
+#         if w not in previous:
+#             f = 
+#             r *= w
+#             previous[w] = r
+#         else:
+#             r *= previous[w]
+        
+        r *= w
+    out = r * z
+    previous[z] = out
+    return out
 # Determine the number of possible ways a 2-dimensional chessboard (i.e., an 8 by 8 grid) could be covered in dominoes if a single domino covers two directly adjacent squares on the board, each domino must not overlap or share any squares with another, and the entire board would be covered. For a hint, take a look at this illuminating slideshow: https://www.math.cmu.edu/~bwsulliv/domino-tilings.pdf
 
 # Challenge: assume the chessboard in the previous problem is projected onto the surface of a torus such that its edges "wrap" around to the other size. That is, a domino can cross between two opposite edges of the board.
