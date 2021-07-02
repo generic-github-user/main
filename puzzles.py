@@ -79,11 +79,45 @@ import matplotlib.pyplot as plt
 previous = {}
 
 
-# In[140]:
+# In[149]:
+
+
+# This snippet is from https://stackoverflow.com/q/13657265/10940584
+def multiply_range(n, m):
+    if n == m:
+        return n
+    if m < n:
+        return 1
+    else:
+        return multiply_range(n, (n+m)//2) * multiply_range((n+m)//2+1, m)
+
+def divide_and_conquer(n):
+    return multiply_range(1, n)
+
+
+# In[152]:
+
+
+divide_and_conquer(20)
+
+
+# In[148]:
+
+
+math.factorial(20)
+
+
+# In[157]:
+
+
+print(factorial(5))
+
+
+# In[161]:
 
 
 
-def factorial(z):
+def factorial(z, threshold=10e4):
 #     global previous
     
     r = 1
@@ -101,7 +135,7 @@ def factorial(z):
         except:
             pass
 #     max(p[0], 1)
-    for w in range(i+1, z):
+#     for w in range(i+1, z):
 #         if w not in previous:
 #             f = 
 #             r *= w
@@ -109,11 +143,18 @@ def factorial(z):
 #         else:
 #             r *= previous[w]
         
-        r *= w
+#         r *= w
+
+    if z < threshold:
+        r *= math.factorial(z-i)
+#     Above threshold, use faster "divide and conquer" factorial algorithm
+    else:
+        r *= divide_and_conquer(z-i)
+    
     out = r * z
     previous[z] = out
     return out
-print(factorial(5))
+
 def F(g, mem=True):
     fact = factorial if mem else math.factorial
     return [math.ceil(math.log10(fact(h))) for h in g]
@@ -126,7 +167,7 @@ def V(t, n, **kwargs):
 q = 100
 print(F([299]))
 a = list(range(1, q+1))
-output = V(a, 8, mem=True)
+output = V(a, 9, mem=True)
 
 fig = plt.figure()
 fig, ax = plt.subplots()
