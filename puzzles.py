@@ -56,6 +56,30 @@ for a in range(10000):
 # \displaystyle
 # \sum\limits_{b \in a} V(b, 42)
 # \end{equation}
+
+# If you attain sufficient efficiency on these terms (perhaps execution in under 30 seconds), attempt to further optimize your algorithm and scale the number of inputs by an order of magnitude or more.
+
+# In[3]:
+
+
+math.log10(567)
+
+
+# In[8]:
+
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# In[91]:
+
+
+previous = {}
+
+
+# In[134]:
 # Determine the number of possible ways a 2-dimensional chessboard (i.e., an 8 by 8 grid) could be covered in dominoes if a single domino covers two directly adjacent squares on the board, each domino must not overlap or share any squares with another, and the entire board would be covered. For a hint, take a look at this illuminating slideshow: https://www.math.cmu.edu/~bwsulliv/domino-tilings.pdf
 
 # Challenge: assume the chessboard in the previous problem is projected onto the surface of a torus such that its edges "wrap" around to the other size. That is, a domino can cross between two opposite edges of the board.
