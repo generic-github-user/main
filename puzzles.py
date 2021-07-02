@@ -49,3 +49,7 @@ for a in range(10000):
 # Determine the number of possible ways a 2-dimensional chessboard (i.e., an 8 by 8 grid) could be covered in dominoes if a single domino covers two directly adjacent squares on the board, each domino must not overlap or share any squares with another, and the entire board would be covered. For a hint, take a look at this illuminating slideshow: https://www.math.cmu.edu/~bwsulliv/domino-tilings.pdf
 
 # Challenge: assume the chessboard in the previous problem is projected onto the surface of a torus such that its edges "wrap" around to the other size. That is, a domino can cross between two opposite edges of the board.
+
+# Generalize the chessboard-tiling algorithm to the case where the board size is $n \times m$ and $n\ge1, m\ge1$. Note that some combinations (most obviously, the 1 by 1 board) cannot be perfectly tiled using only 1 by 2 dominoes (as an additional challenge, you may find a heuristic for determining which board sizes are solvable).
+
+# Further generalize the algorithm from the previous questions to 3 dimensions (with an 8x8x8 chessboard). The third dimension of the dominoes should be one unit wide (so they are 2x1x1).
