@@ -79,7 +79,7 @@ import matplotlib.pyplot as plt
 previous = {}
 
 
-# In[134]:
+# In[140]:
 
 
 
@@ -113,6 +113,15 @@ def factorial(z):
     out = r * z
     previous[z] = out
     return out
+print(factorial(5))
+def F(g, mem=True):
+    fact = factorial if mem else math.factorial
+    return [math.ceil(math.log10(fact(h))) for h in g]
+
+def V(t, n, **kwargs):
+    for k in range(n):
+        t = F(t, **kwargs)
+    return t
 # ## Automated Logical Induction
 # 
 # Compose a short heuristic program that, given a series of logical statements, can infer logical conclusions.
