@@ -36,3 +36,13 @@ def check(A, B=None):
     if str(root) in num:
 #         print(num)
         return num, root
+
+for a in range(10000):
+    r = check(a)
+    if r:
+#         break
+        print(r)
+    for b in range(10):
+        t = check(a, b)
+        if t:
+            print(t)
