@@ -105,3 +105,14 @@ response.sort(reverse=True, key=lambda r: r['open_issues_count'])
 for repo in response[:]:
     if not repo['fork']:
         content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
+
+with open(cache_path, 'w') as newcache:
+    json.dump(repo_trees, newcache)
+Markdown(content)
+
+
+# In[ ]:
+
+
+
+
