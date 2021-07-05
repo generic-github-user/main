@@ -101,10 +101,7 @@ columns = [
     ('Created', lambda r: datetime.datetime.strptime(r['created_at'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %Y')),
     ('Size', 'size', None, ' KB')
 ]
-divider = ' | '.join(['---']*len(columns))
-dash = '-'*3
-header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(f':{dash}:' if c[0] in ['README', 'Issues', 'Created'] else dash for c in columns)
-content = header
+
 
 
 
@@ -131,14 +128,34 @@ except:
     print('No cache found')
 
 
-# In[187]:
+# In[197]:
 
+
+sum(map(bool, ['test']))
+
+
+# In[205]:
+
+
+divider = ' | '.join(['---']*len(columns))
+dash = '-'*3
+header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(f':{dash}:' if c[0] in ['README', 'Issues', 'Created'] else dash for c in columns)
+content = header
 
 # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
 for repo in response:
     repo['milliseconds'] = datetime.datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ').timestamp()
 response.sort(reverse=True, key=lambda r: r['milliseconds'])
-    
+
+def count_prop(c):
+#     return sum([(p in repo and repo[p]) for repo in response])
+    return sum(map(bool, [format_info(*c, r=r) for r in response if not r['fork']]))
+
+exclude_cols = ['Title', 'Issues', 'Created', 'Size']
+content += '\n' + ' | '.join(
+    map(str, [str(round(count_prop(col) / len(response) * 100))+'%' if col[0] not in exclude_cols else ' ' for col in columns])
+)
+
 for repo in response[:]:
     if not repo['fork']:
         content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
