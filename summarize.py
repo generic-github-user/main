@@ -60,3 +60,11 @@ def readme(repo, cache=True):
         return '✅'
     else:
         return ''
+
+columns = [
+    ('Title', 'name', ''),
+    ('Description', 'description'),
+    ('Issues', 'open_issues_count', 'issues'),
+    ('README', readme),
+    ('Size', 'size', None, ' KB')
+]
