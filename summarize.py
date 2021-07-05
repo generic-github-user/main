@@ -24,3 +24,22 @@ for p in range(1, 6):
 
 print(len(response))
 JSON(response[:5])
+
+
+# In[42]:
+
+
+requests.get('https://api.github.com/repos/generic-github-user/Alexandria/git/trees/master?recursive=1').json()
+
+
+# In[79]:
+
+
+repo_trees = {}
+
+
+# In[95]:
+
+
+with open('./API_TOKEN.txt', 'r') as tokenfile:
+    TOKEN = tokenfile.read()
