@@ -72,6 +72,15 @@ def readme(repo, cache=True):
     else:
         return ''
 
+def truncate(x):
+    x = [x_ for x_ in x]
+    num = len(x)
+    for i in range(len(x)):
+        if sum(map(len, x)) < 30:
+            break
+        else:
+            x.pop()
+    return x, (num-len(x))
 columns = [
     ('Title', 'name', ''),
     ('Description', 'description'),
