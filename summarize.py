@@ -43,3 +43,20 @@ repo_trees = {}
 
 with open('./API_TOKEN.txt', 'r') as tokenfile:
     TOKEN = tokenfile.read()
+
+def readme(repo, cache=True):
+    title = repo['name']
+    if cache and title in repo_trees and 'tree' in repo_trees[title]:
+        tree = repo_trees[title]
+    else:
+        branch = repo['default_branch']
+        request_path = '/'.join([repo['url']] + ['git', 'trees', f'{branch}?recursive=1'])
+        print(f'Requesting data about repository {title} from {request_path}...')
+        tree = requests.get(request_path, headers={'Authorization': 'token '+TOKEN}).json()
+        repo_trees[title] = tree
+        time.sleep(0.1)
+    
+    if 'tree' in tree and any(f['path'] == 'README.md' for f in tree['tree']):
+        return '✅'
+    else:
+        return ''
