@@ -81,9 +81,15 @@ def truncate(x):
         else:
             x.pop()
     return x, (num-len(x))
+        
+def format_topics(r):
+    topics, n = truncate(r['topics'])
+    return ' '.join(f'`{t}`' for t in topics) + (f'*({n} more)*' if n else '')
+    
 columns = [
     ('Title', 'name', ''),
     ('Description', 'description'),
+    ('Topics', lambda r: format_topics(r)),
     ('Issues', 'open_issues_count', 'issues'),
     ('README', readme),
     ('Size', 'size', None, ' KB')
