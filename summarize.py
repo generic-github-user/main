@@ -71,3 +71,22 @@ columns = [
 divider = ' | '.join(['---']*len(columns))
 header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(['---', '---', ':---:', ':---:', ':---:'])
 content = header
+
+def plain(x):
+    return x if (x and x not in ['None', 'null']) else ''
+
+def format_info(x, y, z=None, w=None, r=None):
+    if callable(y) and r:
+        result = y(r)
+    else:
+        result = plain(str(repo[y]).strip())
+    
+    if z is not None:
+        url = repo['html_url']
+        link = url+'/'+z
+        result = f'[{result}]({link})'
+    if w:
+        result += w
+        
+    return result
+
