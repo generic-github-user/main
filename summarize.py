@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[62]:
+# In[1]:
 
 
 import requests
@@ -12,37 +12,40 @@ import json
 from IPython.display import display, Markdown, JSON
 
 
-# In[185]:
+# In[3]:
 
+
+with open('./API_TOKEN.txt', 'r') as tokenfile:
+    TOKEN = tokenfile.read()
 
 request_headers = {
     'Authorization': 'token '+TOKEN,
     'Accept': 'application/vnd.github.mercy-preview+json'
 }
 
-# Fetch data from GitHub API via HTTPS request
-response = []
-for p in range(1, 6):
-    query = 'https://api.github.com/users/generic-github-user/repos?page='+str(p)
-    data = requests.get(query, headers=request_headers).json()
-#     print(data)
-    response.extend(data)
+def get_repos():
+    # Fetch data from GitHub API via HTTPS request
+    response = []
+    for p in range(1, 6):
+        query = 'https://api.github.com/users/generic-github-user/repos?page='+str(p)
+        data = requests.get(query, headers=request_headers).json()
+    #     print(data)
+        response.extend(data)
+    return response
 
+response = get_repos()
 print(len(response))
 JSON(response[:5])
 
 
-# In[79]:
+# In[4]:
 
 
 repo_trees = {}
 
 
-# In[186]:
+# In[8]:
 
-
-with open('./API_TOKEN.txt', 'r') as tokenfile:
-    TOKEN = tokenfile.read()
 
 def find_file(repo, filename, cache=True):
     title = repo['name']
@@ -109,10 +112,10 @@ def format_info(x, y, z=None, w=None, r=None):
     if callable(y) and r:
         result = y(r)
     else:
-        result = plain(str(repo[y]).strip())
+        result = plain(str(r[y]).strip())
     
     if z is not None:
-        url = repo['html_url']
+        url = r['html_url']
         link = url+'/'+z
         result = f'[{result}]({link})'
     if w:
@@ -128,46 +131,52 @@ except:
     print('No cache found')
 
 
-# In[197]:
+# In[9]:
 
 
 sum(map(bool, ['test']))
 
 
-# In[205]:
+# In[10]:
 
-
-divider = ' | '.join(['---']*len(columns))
-dash = '-'*3
-header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(f':{dash}:' if c[0] in ['README', 'Issues', 'Created'] else dash for c in columns)
-content = header
-
-# response.sort(reverse=True, key=lambda r: r['open_issues_count'])
-for repo in response:
-    repo['milliseconds'] = datetime.datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ').timestamp()
-response.sort(reverse=True, key=lambda r: r['milliseconds'])
 
 def count_prop(c):
 #     return sum([(p in repo and repo[p]) for repo in response])
     return sum(map(bool, [format_info(*c, r=r) for r in response if not r['fork']]))
 
-exclude_cols = ['Title', 'Issues', 'Created', 'Size']
-content += '\n' + ' | '.join(
-    map(str, [str(round(count_prop(col) / len(response) * 100))+'%' if col[0] not in exclude_cols else ' ' for col in columns])
-)
+def generate_table():
+    response = get_repos()
+    divider = ' | '.join(['---']*len(columns))
+    dash = '-'*3
+    header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(f':{dash}:' if c[0] in ['README', 'Issues', 'Created'] else dash for c in columns)
+    content = header
 
-for repo in response[:]:
-    if not repo['fork']:
-        content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
-with open('./output.md', 'w', encoding='UTF-8') as outputfile:
-    outputfile.write(content)
+    # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
+    for repo in response:
+        repo['milliseconds'] = datetime.datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ').timestamp()
+    response.sort(reverse=True, key=lambda r: r['milliseconds'])
+
+    exclude_cols = ['Title', 'Issues', 'Created', 'Size']
+    content += '\n' + ' | '.join(
+        map(str, [str(round(count_prop(col) / len(response) * 100))+'%' if col[0] not in exclude_cols else ' ' for col in columns])
+    )
+
+    for repo in response[:]:
+        if not repo['fork']:
+            content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
+    
+    with open('./output.md', 'w', encoding='UTF-8') as outputfile:
+        outputfile.write(content)
+    with open(cache_path, 'w') as newcache:
+        json.dump(repo_trees, newcache)
         
-with open(cache_path, 'w') as newcache:
-    json.dump(repo_trees, newcache)
+    return content
+    
+content = generate_table()
 Markdown(content)
 
 
-# In[182]:
+# In[ ]:
 
 
 x = [print(repo['name']) for repo in response]
