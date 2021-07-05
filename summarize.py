@@ -49,7 +49,7 @@ repo_trees = {}
 JSON(response[:8])
 
 
-# In[162]:
+# In[166]:
 
 
 with open('./API_TOKEN.txt', 'r') as tokenfile:
@@ -81,14 +81,23 @@ def truncate(x):
         else:
             x.pop()
     return x, (num-len(x))
-        
+
+def plain(x):
+    return x if (x and x not in ['None', 'null']) else ''
+
 def format_topics(r):
     topics, n = truncate(r['topics'])
     return ' '.join(f'`{t}`' for t in topics) + (f'*({n} more)*' if n else '')
+
+def format_description(r):
+    desc = plain(r['description'])
+    if len(desc) > 50:
+        desc = desc[:50] + ('.'*3)
+    return desc
     
 columns = [
     ('Title', 'name', ''),
-    ('Description', 'description'),
+    ('Description', format_description),
     ('Topics', lambda r: format_topics(r)),
     ('Issues', 'open_issues_count', 'issues'),
     ('README', readme),
@@ -99,8 +108,7 @@ divider = ' | '.join(['---']*len(columns))
 header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(['---', '---', '---', ':---:', ':---:', '---', ':---:'])
 content = header
 
-def plain(x):
-    return x if (x and x not in ['None', 'null']) else ''
+
 
 def format_info(x, y, z=None, w=None, r=None):
     if callable(y) and r:
@@ -125,7 +133,7 @@ except:
     print('No cache found')
 
 
-# In[163]:
+# In[167]:
 
 
 # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
