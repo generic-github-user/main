@@ -50,13 +50,13 @@ repo_trees = {}
 JSON(response[:8])
 
 
-# In[177]:
+# In[183]:
 
 
 with open('./API_TOKEN.txt', 'r') as tokenfile:
     TOKEN = tokenfile.read()
 
-def readme(repo, cache=True):
+def find_file(repo, filename, cache=True):
     title = repo['name']
     if cache and title in repo_trees and 'tree' in repo_trees[title]:
         tree = repo_trees[title]
@@ -71,7 +71,7 @@ def readme(repo, cache=True):
         time.sleep(0.1)
     
 #     Check if tree exists and a README file exists
-    if 'tree' in tree and any(f['path'] == 'README.md' for f in tree['tree']):
+    if 'tree' in tree and any(filename in f['path'] for f in tree['tree']):
         return '✅'
     else:
         return ''
@@ -108,7 +108,8 @@ columns = [
     ('Topics', lambda r: format_topics(r)),
 #     ('Issues', 'open_issues_count', 'issues'),
     ('Issues', lambda r: f'**[{r["open_issues_count"]}]({r["html_url"]+"/issues"})** [+]({r["html_url"]+"/issues/new"})'),
-    ('README', readme),
+    ('README', lambda r: find_file(r, 'README.md')),
+    ('License', lambda r: find_file(r, 'LICENSE')),
     ('Created', lambda r: datetime.datetime.strptime(r['created_at'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %Y')),
     ('Size', 'size', None, ' KB')
 ]
@@ -142,7 +143,7 @@ except:
     print('No cache found')
 
 
-# In[178]:
+# In[184]:
 
 
 # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
@@ -159,6 +160,12 @@ with open('./output.md', 'w', encoding='UTF-8') as outputfile:
 with open(cache_path, 'w') as newcache:
     json.dump(repo_trees, newcache)
 Markdown(content)
+
+
+# In[182]:
+
+
+x = [print(repo['name']) for repo in response]
 
 
 # In[ ]:
