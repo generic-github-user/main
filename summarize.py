@@ -12,13 +12,18 @@ import json
 from IPython.display import display, Markdown, JSON
 
 
-# In[61]:
+# In[159]:
 
+
+request_headers = {
+    'Authorization': 'token '+TOKEN,
+    'Accept': 'application/vnd.github.mercy-preview+json'
+}
 
 response = []
 for p in range(1, 6):
     query = 'https://api.github.com/users/generic-github-user/repos?page='+str(p)
-    data = requests.get(query).json()
+    data = requests.get(query, headers=request_headers).json()
 #     print(data)
     response.extend(data)
 
@@ -38,7 +43,13 @@ requests.get('https://api.github.com/repos/generic-github-user/Alexandria/git/tr
 repo_trees = {}
 
 
-# In[95]:
+# In[158]:
+
+
+JSON(response[:8])
+
+
+# In[162]:
 
 
 with open('./API_TOKEN.txt', 'r') as tokenfile:
