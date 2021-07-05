@@ -20,6 +20,7 @@ request_headers = {
     'Accept': 'application/vnd.github.mercy-preview+json'
 }
 
+# Fetch data from GitHub API via HTTPS request
 response = []
 for p in range(1, 6):
     query = 'https://api.github.com/users/generic-github-user/repos?page='+str(p)
@@ -60,13 +61,16 @@ def readme(repo, cache=True):
     if cache and title in repo_trees and 'tree' in repo_trees[title]:
         tree = repo_trees[title]
     else:
+#         Request the file tree of the repository's default branch (as of the latest commit)
         branch = repo['default_branch']
         request_path = '/'.join([repo['url']] + ['git', 'trees', f'{branch}?recursive=1'])
         print(f'Requesting data about repository {title} from {request_path}...')
         tree = requests.get(request_path, headers={'Authorization': 'token '+TOKEN}).json()
         repo_trees[title] = tree
+#         Rate limit requests to avoid exceeding quota
         time.sleep(0.1)
     
+#     Check if tree exists and a README file exists
     if 'tree' in tree and any(f['path'] == 'README.md' for f in tree['tree']):
         return '✅'
     else:
@@ -82,13 +86,16 @@ def truncate(x):
             x.pop()
     return x, (num-len(x))
 
+# Convert NoneType and None/null string values to empty strings
 def plain(x):
     return x if (x and x not in ['None', 'null']) else ''
 
+# Convert a list of topic strings to a formatted list
 def format_topics(r):
     topics, n = truncate(r['topics'])
     return ' '.join(f'`{t}`' for t in topics) + (f'*({n} more)*' if n else '')
 
+# Shorten the repository description if it exceeds a set length
 def format_description(r):
     desc = plain(r['description'])
     if len(desc) > 50:
