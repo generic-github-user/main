@@ -68,3 +68,6 @@ columns = [
     ('README', readme),
     ('Size', 'size', None, ' KB')
 ]
+divider = ' | '.join(['---']*len(columns))
+header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(['---', '---', ':---:', ':---:', ':---:'])
+content = header
