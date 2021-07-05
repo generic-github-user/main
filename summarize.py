@@ -96,3 +96,12 @@ try:
         repo_trees = json.loads(cachefile.read())
 except:
     print('No cache found')
+
+
+# In[98]:
+
+
+response.sort(reverse=True, key=lambda r: r['open_issues_count'])
+for repo in response[:]:
+    if not repo['fork']:
+        content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
