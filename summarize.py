@@ -105,9 +105,6 @@ columns = [
     ('Size', 'size', None, ' KB')
 ]
 
-
-
-
 def format_info(x, y, z=None, w=None, r=None):
     if callable(y) and r:
         result = y(r)
@@ -145,28 +142,40 @@ def count_prop(c):
     return sum(map(bool, [format_info(*c, r=r) for r in response if not r['fork']]))
 
 def generate_table():
+    """
+    Produce a table summarizing selected attributes of each retrieved repository
+    """
+    
     response = get_repos()
     divider = ' | '.join(['---']*len(columns))
     dash = '-'*3
+#     Build the header from the column titles and alignments
     header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(f':{dash}:' if c[0] in ['README', 'Issues', 'Created'] else dash for c in columns)
     content = header
 
     # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
+#     Convert the timestamp to a human-readable string
     for repo in response:
         repo['milliseconds'] = datetime.datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ').timestamp()
+#     Sort repos
     response.sort(reverse=True, key=lambda r: r['milliseconds'])
 
+#     Columns to ignore when calculating totals/counting attributes
     exclude_cols = ['Title', 'Issues', 'Created', 'Size']
     content += '\n' + ' | '.join(
         map(str, [str(round(count_prop(col) / len(response) * 100))+'%' if col[0] not in exclude_cols else ' ' for col in columns])
     )
 
+#     Loop through repositories and generate rows
     for repo in response[:]:
+#         Exclude forked repos
         if not repo['fork']:
             content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
     
+#     Write output to file
     with open('./output.md', 'w', encoding='UTF-8') as outputfile:
         outputfile.write(content)
+#     Cache data requested from GitHub API
     with open(cache_path, 'w') as newcache:
         json.dump(repo_trees, newcache)
         
