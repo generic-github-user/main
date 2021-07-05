@@ -90,3 +90,9 @@ def format_info(x, y, z=None, w=None, r=None):
         
     return result
 
+cache_path = './github-cache.json'
+try:
+    with open(cache_path, 'r') as cachefile:
+        repo_trees = json.loads(cachefile.read())
+except:
+    print('No cache found')
