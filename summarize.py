@@ -49,7 +49,7 @@ repo_trees = {}
 JSON(response[:8])
 
 
-# In[169]:
+# In[177]:
 
 
 with open('./API_TOKEN.txt', 'r') as tokenfile:
@@ -106,7 +106,8 @@ columns = [
     ('Size', 'size', None, ' KB')
 ]
 divider = ' | '.join(['---']*len(columns))
-header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(['---', '---', '---', ':---:', ':---:', '---', ':---:'])
+dash = '-'*3
+header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(f':{dash}:' if c[0] in ['README', 'Issues', 'Created'] else dash for c in columns)
 content = header
 
 
@@ -134,7 +135,7 @@ except:
     print('No cache found')
 
 
-# In[170]:
+# In[178]:
 
 
 # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
