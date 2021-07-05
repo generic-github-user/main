@@ -12,7 +12,7 @@ import json
 from IPython.display import display, Markdown, JSON
 
 
-# In[159]:
+# In[185]:
 
 
 request_headers = {
@@ -32,25 +32,13 @@ print(len(response))
 JSON(response[:5])
 
 
-# In[42]:
-
-
-requests.get('https://api.github.com/repos/generic-github-user/Alexandria/git/trees/master?recursive=1').json()
-
-
 # In[79]:
 
 
 repo_trees = {}
 
 
-# In[158]:
-
-
-JSON(response[:8])
-
-
-# In[183]:
+# In[186]:
 
 
 with open('./API_TOKEN.txt', 'r') as tokenfile:
@@ -143,7 +131,7 @@ except:
     print('No cache found')
 
 
-# In[184]:
+# In[187]:
 
 
 # response.sort(reverse=True, key=lambda r: r['open_issues_count'])
