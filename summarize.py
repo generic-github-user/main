@@ -92,10 +92,11 @@ columns = [
     ('Topics', lambda r: format_topics(r)),
     ('Issues', 'open_issues_count', 'issues'),
     ('README', readme),
+    ('Created', lambda r: datetime.datetime.strptime(r['created_at'], '%Y-%m-%dT%H:%M:%SZ').strftime('%b %Y')),
     ('Size', 'size', None, ' KB')
 ]
 divider = ' | '.join(['---']*len(columns))
-header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(['---', '---', ':---:', ':---:', ':---:'])
+header = ' | '.join([c[0] for c in columns]) + '\n' + ' | '.join(['---', '---', '---', ':---:', ':---:', '---', ':---:'])
 content = header
 
 def plain(x):
@@ -124,10 +125,14 @@ except:
     print('No cache found')
 
 
-# In[98]:
+# In[163]:
 
 
-response.sort(reverse=True, key=lambda r: r['open_issues_count'])
+# response.sort(reverse=True, key=lambda r: r['open_issues_count'])
+for repo in response:
+    repo['milliseconds'] = datetime.datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ').timestamp()
+response.sort(reverse=True, key=lambda r: r['milliseconds'])
+    
 for repo in response[:]:
     if not repo['fork']:
         content += '\n' + ' | '.join([format_info(*col, r=repo) for col in columns])
