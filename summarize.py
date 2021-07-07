@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Project Summary
+# 
+# This is a small tool to compile a formatted list of information about a user's GitHub repositories. It includes relevant links and can summarize the completion of tasks across many repositories (for example, adding a README or license file).
+# 
+# ## Usage
+# 
+# If (a) you want to include branch-level data like specific files included in a repository **and** (b) more than 50 or so repositories are being queried, you will need to add an API key/token since GitHub places fairly restrictive rate limits on API calls; making authenticated calls raises this limit from ~60 to 5000 calls per hour (depending on which service is being requested). To do this, [generate a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) then either input it into the command-line prompt when the script requests it, or create a file named `API_TOKEN.txt` containing the token inside the repo's main directory (the same one as `summarize.ipynb`).
+
 # In[1]:
 
 
