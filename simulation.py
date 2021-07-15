@@ -16,3 +16,21 @@ import itertools
 offsets = [[0, 1], [0, -1], [1, 0], [-1, 0]]
 offsets = list(map(np.array, offsets))
 print(offsets)
+
+
+# In[14]:
+
+
+
+
+schematic = """
+              v                                 
+              v                                 
+    i>>->>x>->x>>>>>>>>>>>>>>>>>>>>>>>>>>>>>j   
+       v  ^ v |                                 
+  i>>>> />- ->a                                 
+       | v    v                                 
+       ->a>>>>o                                 
+              v                                 
+              v       ??????                    
+"""
