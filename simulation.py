@@ -59,3 +59,18 @@ operators = [
     ['^', 'up', '^', lambda x, y: (x+1, y), False],
     ['v', 'down', 'v', lambda x, y: (x-1, y), False],
 ]
+
+colors = {}
+# for i in range(len(operators)):
+#     if operators[i][0] != '.':
+#         colors.append(num_states + i)
+#         colors[operators[i][0]] = (num_states + i)
+#     else:
+#         colors.append(None)
+#         colors[operators[i][0]] = None
+
+c=0
+for op in operators:
+    if op[0] in 'xajio':
+        colors[op[0]] = (num_states + c)
+        c += 1
