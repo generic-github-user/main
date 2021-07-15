@@ -34,3 +34,19 @@ schematic = """
               v                                 
               v       ??????                    
 """
+
+
+num_states = 2
+
+# TODO: generate directed graph of components/oeprators
+chr(172)
+# xor = (1-np.max(q))*np.max(q)
+xor = lambda q: np.sum(q) % 2
+operators = [
+    ['.', 'identity', '.', np.max, True],
+    ['-', 'identity', '-', np.max, True],
+    ['o', 'or', 'o', np.max, True],
+#     ['?', 'random', '?', lambda q: np.random.randint(num_states), True],
+    ['a', 'and', '∧', np.min, True],
+    ['x', 'xor', '⊻', xor, True],
+]
