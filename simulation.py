@@ -43,10 +43,12 @@ chr(172)
 # xor = (1-np.max(q))*np.max(q)
 xor = lambda q: np.sum(q) % 2
 operators = [
+    ['i', 'input', '#', None, True],
     ['.', 'identity', '.', np.max, True],
     ['-', 'identity', '-', np.max, True],
     ['o', 'or', 'o', np.max, True],
 #     ['?', 'random', '?', lambda q: np.random.randint(num_states), True],
+    ['j', 'output', '.', np.max, True],
     ['a', 'and', '∧', np.min, True],
     ['x', 'xor', '⊻', xor, True],
     ['|', 'vpull', '|', lambda x, y: (x-2, y), False],
