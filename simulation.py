@@ -49,4 +49,11 @@ operators = [
 #     ['?', 'random', '?', lambda q: np.random.randint(num_states), True],
     ['a', 'and', '∧', np.min, True],
     ['x', 'xor', '⊻', xor, True],
+    ['|', 'vpull', '|', lambda x, y: (x-2, y), False],
+    ['/', 'hpull', '/', lambda x, y: (x, y-2), False],
+#     double-check these
+    ['<', 'left', '<', lambda x, y: (x, y+1), False],
+    ['>', 'right', '>', lambda x, y: (x, y-1), False],
+    ['^', 'up', '^', lambda x, y: (x+1, y), False],
+    ['v', 'down', 'v', lambda x, y: (x-1, y), False],
 ]
