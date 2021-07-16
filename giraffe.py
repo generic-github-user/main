@@ -127,3 +127,15 @@ class Graph:
         for xi in x:
             self.add_node(xi)
         return self
+            
+class Node:
+    def init(self, value, grouped=None, graph=None):
+        self.value = value
+        if grouped is None:
+            grouped = []
+#         self.grouped = [g if type(g) is Node else Node(g, graph=graph) for g in grouped]
+        self.graph = graph
+        self.grouped = [g if type(g) is Node else self.graph.add_node(g) for g in grouped]
+        self.unique = not (type(self.value) is int)
+        if graph:
+            graph.add_node(self)
