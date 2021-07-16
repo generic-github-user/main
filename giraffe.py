@@ -122,3 +122,8 @@ class Graph:
             return new_node
         else:
             return self
+    
+    def add_nodes(self, x):
+        for xi in x:
+            self.add_node(xi)
+        return self
