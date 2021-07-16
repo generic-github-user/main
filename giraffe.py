@@ -90,3 +90,20 @@ class Graph:
     
     def find(self, x):
         return list(filter(lambda n: n.value == x and n.unique, self.nodes))
+    
+    def add_node(self, data, duplicate=False, return_node=True):
+        new_node = None
+        if type(data) in [list, tuple]:
+            matches = self.find(data[0])
+            if (not matches) or duplicate:
+                connecting_node = Node(data[0], data[1:], graph=self)
+    #             self.nodes.append(connecting_node)
+                self.add_node(connecting_node)
+                new_node = connecting_node
+            elif matches:
+                new_node = matches[0]
+        
+        if return_node:
+            return new_node
+        else:
+            return self
