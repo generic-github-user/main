@@ -53,3 +53,19 @@ for x, y in itertools.product(a, b):
 pprinter = pprint.PrettyPrinter()
 pprinter.pprint(pairs[:5])
 print(len(pairs))
+
+
+# In[218]:
+
+
+G.find(random.choice(G.nodes).value)
+
+
+# In[226]:
+
+
+class Graph:
+    def init(self, nodes=None):
+        if nodes is None:
+            nodes = []
+        self.nodes = nodes
