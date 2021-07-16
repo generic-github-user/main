@@ -87,3 +87,6 @@ class Graph:
 #                 print([n.grouped for n in self.nodes])
                 self.visualization.add_edge(*[x.value for x in node.grouped], length=d, label=node.value)
         return self.visualization.show('./visualization.html')
+    
+    def find(self, x):
+        return list(filter(lambda n: n.value == x and n.unique, self.nodes))
