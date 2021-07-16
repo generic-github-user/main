@@ -24,3 +24,32 @@ def words_to_sent(w):
     return s
 hamlet = list(map(words_to_sent, hamlet))
 hamlet = list(filter(lambda l: len(l) >= 10, hamlet))
+
+
+# In[96]:
+
+
+pyvis.network.Network.add_node
+
+
+# In[225]:
+
+
+w = 200
+def clip(x):
+    return x[:20]
+a = random.choices(hamlet, k=w)
+b = random.choices(hamlet, k=w)
+a, b = map(clip, a), map(clip, b)
+pairs = []
+limit = 400
+for x, y in itertools.product(a, b):
+    dist = fuzz.token_set_ratio(x, y)
+    if dist > 60:
+        pairs.append([dist, x, y])
+    if len(pairs) >= limit:
+        break
+
+pprinter = pprint.PrettyPrinter()
+pprinter.pprint(pairs[:5])
+print(len(pairs))
