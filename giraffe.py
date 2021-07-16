@@ -69,3 +69,16 @@ class Graph:
         if nodes is None:
             nodes = []
         self.nodes = nodes
+        
+    def visualize(self, **kwargs):
+        self.visualization = pyvis.network.Network(notebook=True, **kwargs)
+        added_nodes = []
+        for node in self.nodes:
+            text = node.value
+            if not node.grouped:
+#                 print(node.degree())
+                deg = node.degree()
+                self.visualization.add_node(text, group=deg, size=10)#, size=deg**(1/4)*10)
+#             for g in node.grouped:
+#                 self.visualization.add_edge(text, g.value)
+        return self.visualization.show('./visualization.html')
