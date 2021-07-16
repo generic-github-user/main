@@ -111,6 +111,12 @@ class Graph:
                 new_node = data
             elif matches:
                 new_node = matches[0]
+        elif type(data) in [str, int, float, bool]:
+            matches = self.find(data)
+            if (not matches) or duplicate:
+                new_node = Node(data, graph=self)
+            elif matches:
+                new_node = matches[0]
         
         if return_node:
             return new_node
