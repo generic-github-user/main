@@ -76,6 +76,10 @@ for op in operators:
         c += 1
 
 repetitions = 5
+S = np.array(list(filter(None, map(list, schematic.splitlines()))))
+S = np.swapaxes(np.tile(S.T, repetitions), 0, 1)
+values = np.full_like(S, -1, dtype=int)
+
 inputs = [1,0,0]*repetitions
 strict_inputs = True
 directions = '<>^v'
