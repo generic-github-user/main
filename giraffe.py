@@ -102,6 +102,15 @@ class Graph:
                 new_node = connecting_node
             elif matches:
                 new_node = matches[0]
+        elif type(data) in [Node]:
+            matches = self.find(data.value)
+#             print(matches, data.value)
+            if (not matches) or duplicate:
+#             if not matches or type(data.value) is int:
+                self.nodes.append(data)
+                new_node = data
+            elif matches:
+                new_node = matches[0]
         
         if return_node:
             return new_node
