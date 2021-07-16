@@ -81,6 +81,13 @@ S = np.swapaxes(np.tile(S.T, repetitions), 0, 1)
 values = np.full_like(S, -1, dtype=int)
 
 inputs = [1,0,0]*repetitions
+w = np.where(S=='i')
+print(w)
+values[w] = inputs[:len(w[0])]
 strict_inputs = True
 directions = '<>^v'
 history = []
+
+r = np.where(S=='?')
+# print(len(r), r)
+values[r] = np.random.randint(0, num_states, size=len(r[0]))
