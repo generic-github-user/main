@@ -152,3 +152,7 @@ class Node:
 for cls in [Graph, Node]:
     setattr(cls, '__init__', getattr(cls, 'init'))
     
+
+G = Graph()
+G.add_nodes(pairs).nodes[0].value
+G.visualize(width=800, height=800)
