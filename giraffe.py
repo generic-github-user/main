@@ -81,4 +81,9 @@ class Graph:
                 self.visualization.add_node(text, group=deg, size=10)#, size=deg**(1/4)*10)
 #             for g in node.grouped:
 #                 self.visualization.add_edge(text, g.value)
+        for node in self.nodes:
+            if len(node.grouped) == 2:
+                d = int(10e2*1/(node.value*0.1))
+#                 print([n.grouped for n in self.nodes])
+                self.visualization.add_edge(*[x.value for x in node.grouped], length=d, label=node.value)
         return self.visualization.show('./visualization.html')
