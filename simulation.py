@@ -74,3 +74,9 @@ for op in operators:
     if op[0] in 'xajio':
         colors[op[0]] = (num_states + c)
         c += 1
+
+repetitions = 5
+inputs = [1,0,0]*repetitions
+strict_inputs = True
+directions = '<>^v'
+history = []
