@@ -148,6 +148,9 @@ class Node:
             self.deg = sum(self in x.grouped for x in self.graph.nodes)
 #             print(self.deg)
         return self.deg
+            
+    def __str__(self):
+        return str(self.value)
         
 for cls in [Graph, Node]:
     setattr(cls, '__init__', getattr(cls, 'init'))
@@ -156,3 +159,26 @@ for cls in [Graph, Node]:
 G = Graph()
 G.add_nodes(pairs).nodes[0].value
 G.visualize(width=800, height=800)
+
+# Graph(rule=)
+
+
+# In[195]:
+
+
+# G.nodes[35].grouped
+# G.nodes
+sorted(list(map(str, [list(map(str, g.grouped)) for g in G.nodes])), reverse=True)
+
+
+# In[109]:
+
+
+JSON(G.nodes)
+
+
+# In[ ]:
+
+
+
+
