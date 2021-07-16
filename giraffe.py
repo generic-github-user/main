@@ -139,3 +139,12 @@ class Node:
         self.unique = not (type(self.value) is int)
         if graph:
             graph.add_node(self)
+            
+    def degree(self):
+        self.deg = None
+        if self.graph:
+#             self.deg = sum(int(self in x.grouped) for x in self.graph.nodes)
+#             self.deg = sum(map(bool, self.graph.find(self.value)))
+            self.deg = sum(self in x.grouped for x in self.graph.nodes)
+#             print(self.deg)
+        return self.deg
