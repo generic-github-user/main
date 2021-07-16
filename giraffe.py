@@ -148,3 +148,7 @@ class Node:
             self.deg = sum(self in x.grouped for x in self.graph.nodes)
 #             print(self.deg)
         return self.deg
+        
+for cls in [Graph, Node]:
+    setattr(cls, '__init__', getattr(cls, 'init'))
+    
