@@ -195,10 +195,23 @@ for cls in [Graph, Node]:
         setattr(cls, '__init__', getattr(cls, 'init'))
     
 
-G = Graph()
-G.add_nodes(pairs).nodes[0].value
-G.visualize(width=800, height=800)
+# G = Graph()
+# G.add_nodes(pairs, metadata=[dict(cat='similarity'), dict(cat='text')]).nodes[0].value
+# G.visualize(width=1000, height=1000)
 
+
+# In[330]:
+
+
+symbols = '++--'
+num = [dict(cat='num')]
+op = [dict(unique=False), dict(unique=False)]
+# G = Graph(nodes=[1, 1], duplicate=True, metadata=num)
+
+L = 6
+#     start_values = [2, 12, 4, 32, 7]
+start_values = [random.randint(-10, 10) for i in range(6)]
+G = Graph(start_values, False, False, metadata=num)
 # Graph(rule=)
 
 
