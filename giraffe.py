@@ -178,7 +178,44 @@ G.visualize(width=800, height=800)
 # Graph(rule=)
 
 
-# In[195]:
+# In[87]:
+
+
+G.nodes.__sizeof__()
+
+
+# In[88]:
+
+
+j
+
+
+# In[199]:
+
+
+list(map(str, G.nodes))
+
+
+# In[90]:
+
+
+G.find(cat='num').nodes
+
+
+# In[91]:
+
+
+# [c.cat for c in G.nodes]
+for c in G.nodes:
+#     if hasattr(c, 'cat'):
+#         print(c.cat, c.value)
+    print(c.value, list(map(str, c.grouped)), c.unique)
+
+
+# In[ ]:
+
+
+G.duplicate
 
 
 # G.nodes[35].grouped
