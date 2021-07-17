@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[108]:
+# In[1]:
 
 
 import nltk
@@ -14,7 +14,7 @@ import pyvis
 from IPython.display import JSON
 
 
-# In[8]:
+# In[2]:
 
 
 hamlet = nltk.corpus.gutenberg.sents('shakespeare-hamlet.txt')
@@ -26,7 +26,13 @@ hamlet = list(map(words_to_sent, hamlet))
 hamlet = list(filter(lambda l: len(l) >= 10, hamlet))
 
 
-# In[96]:
+# In[3]:
+
+
+len(hamlet)
+
+
+# In[4]:
 
 
 pyvis.network.Network.add_node
@@ -47,8 +53,8 @@ a, b = map(clip, a), map(clip, b)
 pairs = []
 limit = 1000
 for x, y in itertools.product(a, b):
-    dist = fuzz.token_set_ratio(x, y)
-    if dist > 60:
+    dist = fuzz.token_sort_ratio(x, y)
+    if 60 < dist < 97:
         pairs.append([dist, x, y])
     if len(pairs) >= limit:
         break
@@ -58,17 +64,17 @@ pprinter.pprint(pairs[:5])
 print(len(pairs))
 
 
-# In[218]:
+# In[6]:
 
 
 G.find(random.choice(G.nodes).value)
 
 
-# In[226]:
+# In[323]:
 
 
 class Graph:
-    def init(self, nodes=None):
+    def __init__(self, nodes=None, duplicate=False, u=False, **kwargs):
         if nodes is None:
             nodes = []
         self.nodes = nodes
@@ -85,6 +91,7 @@ class Graph:
 #             for g in node.grouped:
 #                 self.visualization.add_edge(text, g.value)
         for node in self.nodes:
+#             print([list(map(str, n.grouped)) for n in self.nodes])
             if len(node.grouped) == 2:
                 d = int(10e2*1/(node.value*0.1))
 #                 print([n.grouped for n in self.nodes])
@@ -180,7 +187,8 @@ class Node:
         return str(self.value)
         
 for cls in [Graph, Node]:
-    setattr(cls, '__init__', getattr(cls, 'init'))
+    if hasattr(cls, 'init'):
+        setattr(cls, '__init__', getattr(cls, 'init'))
     
 
 G = Graph()
