@@ -236,14 +236,19 @@ class Graph(Graph):
 
 
 class Graph(Graph):
-    def AdjacencyMatrix(self):
+    def AdjacencyMatrix(self, use_weights=True, weight_prop='weight'):
         matrix = np.zeros([len(self.nodes)//2+2]*2)
         for a, b in itertools.product(self.nodes, repeat=2):
             if a in b.adjacent():
-                matrix[self.nodes.index(a), self.nodes.index(b)] = 1
+                connecting_node = list(filter(lambda x: all(y in x.grouped for y in [a, b]), self.nodes))[0]
+                if use_weights and hasattr(connecting_node, weight_prop):
+                    value = getattr(connecting_node, weight_prop)
+                else:
+                    value = 1
+                matrix[self.nodes.index(a), self.nodes.index(b)] = value
         return matrix
 
-R = RandomGraph(30, 30)
+R = RandomGraph(30, 30, weighted=True)
 plt.imshow(R.AdjacencyMatrix())
 
 
