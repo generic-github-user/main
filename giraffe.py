@@ -181,6 +181,21 @@ class Graph:
     def __bool__(self):
         return bool(self.nodes)
     
+# semi-toroidal graphs
+
+
+# In[227]:
+
+
+class RandomGraph(Graph):
+    def __init__(self, n, m):
+        super().__init__()
+        self.add_nodes(list(range(1,n+1)))
+        for im in range(m):
+            self.add_node([n+im]+random.sample(self.nodes[:n], k=2))
+        
+R = RandomGraph(100, 100)
+# R.visualize(width=1000, height=1000, node_options={'shape': 'circle'})
 class Node:
     def init(self, value, grouped=None, graph=None, metadata=None, **kwargs):
         self.value = value
