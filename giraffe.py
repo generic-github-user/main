@@ -107,7 +107,7 @@ class Graph(Graph):
                 else:
                     metric = node.value
                 
-                metric = node.degree()
+#                 metric = node.degree()
                 deg = f'hsl({metric*6}, 80%, 50%)'
                 
                 if not text:
@@ -117,17 +117,21 @@ class Graph(Graph):
 #                 self.visualization.add_edge(text, g.value)
         for node in self.nodes:
 #             print([list(map(str, n.grouped)) for n in self.nodes])
+            defaults = {
+                'smooth': True
+            }
+            edge_options = defaults | edge_options
             if len(node.grouped) == 2:
                 if type(node.value) in [int, float]:
 #                     d = int(10e2*1/(node.value*0.1))
                     
                     try:
-                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, smooth=True, **edge_options)
+                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, **edge_options)
                     except:
                         pass
                 else:
                     try:
-                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, smooth=True, **edge_options)
+                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, **edge_options)
                     except:
                         pass
         return self.visualization.show('./visualization.html')
