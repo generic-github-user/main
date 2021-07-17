@@ -167,7 +167,10 @@ class Node:
     def adjacent(self, exclude=None):
         grouping_nodes = [x for x in self.graph.nodes if (self in x.grouped)]
         return Graph(nodes=[n for gn in grouping_nodes for n in gn.grouped if (n is not self and (not exclude or n not in exclude.nodes))])
-        
+    
+    def extend(self, z, w, **kwargs):
+        self.graph.add_node([w, self, z], **kwargs)
+        return self
     
     def __str__(self):
         return str(self.value)
