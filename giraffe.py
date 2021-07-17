@@ -175,6 +175,14 @@ class Graph:
             self.add_node(xi, **kwargs)
         return self
     
+    def join(self, x, q='s'):
+        lx = len(x.nodes)
+        for i in range(lx):
+            val = x.nodes[i].value
+            if 'e' not in val:
+                self.nodes[i].extend(x.nodes[i].value+str(i)+q, f'e{val}{i}'+q, duplicate=True)
+        return self
+    
     def __getitem__(self, i):
         return self.nodes[i]
     
