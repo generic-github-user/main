@@ -32,17 +32,20 @@ hamlet = list(filter(lambda l: len(l) >= 10, hamlet))
 pyvis.network.Network.add_node
 
 
-# In[225]:
+# In[5]:
 
 
-w = 200
+w = 800
 def clip(x):
     return x[:20]
-a = random.choices(hamlet, k=w)
-b = random.choices(hamlet, k=w)
+
+c = random.choices(hamlet, k=w*2)
+a = c[:w]
+b = c[w:]
+
 a, b = map(clip, a), map(clip, b)
 pairs = []
-limit = 400
+limit = 1000
 for x, y in itertools.product(a, b):
     dist = fuzz.token_set_ratio(x, y)
     if dist > 60:
