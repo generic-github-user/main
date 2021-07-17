@@ -228,6 +228,28 @@ L = 6
 #     start_values = [2, 12, 4, 32, 7]
 start_values = [random.randint(-10, 10) for i in range(6)]
 G = Graph(start_values, False, False, metadata=num)
+# G.evolve(lambda x: x.branch(lambda y: y+))
+# print(G.nodes)
+buffer = [v for v in G.nodes]
+for i in range(30):
+#         s = sorted(G.find(cat='num').nodes, key=lambda k: k.value, reverse=True)[:3]
+    s = buffer[-L:]
+
+#     print(s, G.nodes)
+#         print([a.value for a in s])
+#         j = G.add_node(sum(n.value for n in s), metadata=num)
+    s = [v.value for v in s]
+    j = G.add_node(((s[-1]+s[-3])-s[-4])-(abs(s[-5])+1), metadata=num, duplicate=True)
+    buffer.append(j)
+    buffer.pop(0)
+#         G.add_node(['+', s[0], j], metadata=op, duplicate=False)
+#         G.add_node(['+', s[1], j], metadata=op)
+    for l in range(4):
+#             G.add_node(Node('+', [s[l], j], graph=G), duplicate=False)
+#             breakpoint()
+        Node(symbols[l], [s[l], j], graph=G, duplicate=False)
+#     *s?
+G.visualize(width=1000, height=1000, directed=True, node_options={'shape': 'circle'})
 
 
 # graph lambda
