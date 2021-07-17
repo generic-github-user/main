@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[299]:
 
 
 import nltk
@@ -12,6 +12,8 @@ import itertools
 import pprint
 import pyvis
 from IPython.display import JSON
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 # In[2]:
@@ -85,7 +87,7 @@ class Graph:
         
 
 
-# In[246]:
+# In[277]:
 
 
 class Graph(Graph):
@@ -241,7 +243,7 @@ R = RandomGraph(30, 30)
 plt.imshow(R.AdjacencyMatrix())
 
 
-# In[328]:
+# In[376]:
 
 
 class RandomGraph(Graph):
