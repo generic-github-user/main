@@ -182,16 +182,26 @@ class Graph:
         return bool(self.nodes)
     
 class Node:
-    def init(self, value, grouped=None, graph=None):
+    def init(self, value, grouped=None, graph=None, metadata=None, **kwargs):
         self.value = value
         if grouped is None:
             grouped = []
 #         self.grouped = [g if type(g) is Node else Node(g, graph=graph) for g in grouped]
         self.graph = graph
-        self.grouped = [g if type(g) is Node else self.graph.add_node(g) for g in grouped]
-        self.unique = not (type(self.value) is int)
-        if graph:
-            graph.add_node(self)
+        if metadata:
+            M = metadata[1:]
+        else:
+            M = None
+        self.grouped = [g if type(g) is Node else self.graph.add_node(g, metadata=M, **kwargs) for g in grouped]
+        self.unique = True#not (type(self.value) is int)
+#         print(self.graph, self.value)
+#         if self.graph:
+        if self.graph is not None:
+            self.graph.add_node(self, duplicate=True)#, **kwargs)
+        
+        if metadata:
+            for k, v in metadata[0].items():
+                setattr(self, k, v)
             
     def degree(self):
         self.deg = None
