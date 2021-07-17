@@ -91,8 +91,12 @@ class Graph:
                 self.visualization.add_edge(*[x.value for x in node.grouped], length=d, label=node.value)
         return self.visualization.show('./visualization.html')
     
-    def find(self, x):
-        return list(filter(lambda n: n.value == x and n.unique, self.nodes))
+    def find(self, **kwargs):
+        defaults = dict(unique=True)
+        kwargs |= defaults
+#         return list(filter(lambda n: n.value == x and n.unique, self.nodes))
+        results = list(filter(lambda n: all((k in vars(n) and getattr(n, k) == v) for k, v in kwargs.items()), self.nodes))
+        return Graph(nodes=results, duplicate=self.duplicate)
     
     def add_node(self, data, duplicate=False, return_node=True):
         new_node = None
