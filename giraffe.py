@@ -90,8 +90,18 @@ class Graph:
             text = node.value
             if not node.grouped:
 #                 print(node.degree())
-                deg = node.degree()
-                self.visualization.add_node(text, group=deg, size=10)#, size=deg**(1/4)*10)
+                
+#                 deg = node.degree()
+#                 deg = node.value
+
+                if type(node.value) is str:
+                    metric = len(node.value)
+                else:
+                    metric = node.value
+                deg = f'hsl({metric*6}, 80%, 50%)'
+                if not text:
+                    text = ' '
+                self.visualization.add_node(id(node), label=text, group=deg, **node_options)#, color=deg)#, size=deg**(1/4)*10)
 #             for g in node.grouped:
 #                 self.visualization.add_edge(text, g.value)
         for node in self.nodes:
