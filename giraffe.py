@@ -187,7 +187,9 @@ class Graph(Graph):
             elif matches:
                 new_node = matches[0]
         
-        if return_node:
+        if return_node == 'inner':
+            return new_node.grouped
+        elif return_node:
             return new_node
         else:
             return self
