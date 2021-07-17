@@ -223,6 +223,38 @@ for c in G.nodes:
 G.duplicate
 
 
+# In[ ]:
+
+
+# G.add_node([5], return_node=False).nodes
+list(map(str,G.nodes))
+# add callbacks
+
+
+# In[ ]:
+
+
+r = G.find(cat='text').sample_nodes()[0]
+visited = Graph()
+for i in range(20):
+    print(r.value)
+    visited.add_node(r)
+    neighbors = r.adjacent(exclude=visited).nodes
+    if neighbors:
+        r = neighbors[0]
+    else:
+        break
+
+
+# In[ ]:
+
+
+r[0].cat
+
+
+# In[ ]:
+
+
 # G.nodes[35].grouped
 # G.nodes
 sorted(list(map(str, [list(map(str, g.grouped)) for g in G.nodes])), reverse=True)
