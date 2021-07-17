@@ -238,6 +238,32 @@ class RandomGraph(Graph):
         
 R = RandomGraph(100, 100)
 # R.visualize(width=1000, height=1000, node_options={'shape': 'circle'})
+
+
+# In[ ]:
+
+
+pyvis.network.Network
+
+
+# In[280]:
+
+
+class CompleteGraph(Graph):
+    def __init__(self, n):
+        super().__init__()
+        self.add_nodes(list(range(1,n+1)))
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+#                     print(i, j)
+                    ni = self.nodes[i]
+                    nj = self.nodes[j]
+#                     why is duplicate=True necessary?
+                    self.add_node([f'E{ni.value+nj.value}', ni, nj], duplicate=True)
+        
+R = CompleteGraph(7)
+R.visualize(width=1000, height=1000, node_options={'shape': 'circle'}, edge_options={'smooth': True})
 class Node:
     def init(self, value, grouped=None, graph=None, metadata=None, **kwargs):
         self.value = value
