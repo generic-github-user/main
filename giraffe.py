@@ -137,7 +137,7 @@ class Graph:
             elif matches:
                 new_node = matches[0]
         elif type(data) in [Node]:
-            matches = self.find(data.value)
+            matches = self.find(value=data.value)
 #             print(matches, data.value)
             if (not matches) or duplicate:
 #             if not matches or type(data.value) is int:
@@ -146,9 +146,9 @@ class Graph:
             elif matches:
                 new_node = matches[0]
         elif type(data) in [str, int, float, bool]:
-            matches = self.find(data)
             if (not matches) or duplicate:
                 new_node = Node(data, graph=self)
+            matches = self.find(value=data)
             elif matches:
                 new_node = matches[0]
         
