@@ -70,7 +70,7 @@ print(len(pairs))
 G.find(random.choice(G.nodes).value)
 
 
-# In[323]:
+# In[243]:
 
 
 class Graph:
@@ -83,6 +83,7 @@ class Graph:
         if nodes:
             self.add_nodes(nodes, duplicate=u, **kwargs)
         
+
     def visualize(self, node_options={}, edge_options={}, **kwargs):
         self.visualization = pyvis.network.Network(notebook=True, **kwargs)
         added_nodes = []
@@ -91,14 +92,17 @@ class Graph:
             if not node.grouped:
 #                 print(node.degree())
                 
-#                 deg = node.degree()
+
 #                 deg = node.value
 
                 if type(node.value) is str:
                     metric = len(node.value)
                 else:
                     metric = node.value
+                
+                metric = node.degree()
                 deg = f'hsl({metric*6}, 80%, 50%)'
+                
                 if not text:
                     text = ' '
                 self.visualization.add_node(id(node), label=text, group=deg, **node_options)#, color=deg)#, size=deg**(1/4)*10)
@@ -108,9 +112,12 @@ class Graph:
 #             print([list(map(str, n.grouped)) for n in self.nodes])
             if len(node.grouped) == 2:
                 if type(node.value) in [int, float]:
-                    d = int(10e2*1/(node.value*0.1))
+#                     d = int(10e2*1/(node.value*0.1))
                     
-                    self.visualization.add_edge(*[id(x) for x in node.grouped], length=d, label=node.value, **edge_options)
+                    try:
+                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, smooth=True, **edge_options)
+                    except:
+                        pass
                 else:
                     try:
                         self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, smooth=True, **edge_options)
