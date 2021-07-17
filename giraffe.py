@@ -77,7 +77,11 @@ class Graph:
     def __init__(self, nodes=None, duplicate=False, u=False, **kwargs):
         if nodes is None:
             nodes = []
-        self.nodes = nodes
+#         self.nodes = nodes
+        self.nodes = []
+        self.duplicate = duplicate
+        if nodes:
+            self.add_nodes(nodes, duplicate=u, **kwargs)
         
     def visualize(self, **kwargs):
         self.visualization = pyvis.network.Network(notebook=True, **kwargs)
