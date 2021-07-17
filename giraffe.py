@@ -198,7 +198,32 @@ G.visualize(width=800, height=800)
 # Graph(rule=)
 
 
-# In[87]:
+# In[326]:
+
+
+S = 'know'
+G = Graph([S], False, False)
+# for t in range(2):
+#     B = G.nodes[t]
+f = 0
+done = []
+for B in G.nodes:
+    v = B.value
+    if ' ' not in v:
+        for i in range(len(v)):
+            R = v[:i]+v[i+1:]
+            if len(R)>0:
+                B.extend(R, '   ', metadata=num, duplicate=True)
+                f += 1
+    if f > 200:
+        break
+
+# options = {'font': {'background': 'white'}}
+options = {}
+G.visualize(node_options={'shape': 'circle'}, edge_options=options, width=1000, height=1000, directed=True)
+
+
+# In[267]:
 
 
 G.nodes.__sizeof__()
