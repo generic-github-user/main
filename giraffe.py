@@ -126,14 +126,15 @@ class Graph:
         else:
             return self
     
-    def add_nodes(self, x):
     def sample(self, n=1):
         return Graph(nodes=random.sample(self.nodes, k=n))
     
     def sample_nodes(self, n=1):
         return random.sample(self.nodes, k=n)
+    
+    def add_nodes(self, x, **kwargs):
         for xi in x:
-            self.add_node(xi)
+            self.add_node(xi, **kwargs)
         return self
     
     def __getitem__(self, i):
