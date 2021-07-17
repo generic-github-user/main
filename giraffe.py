@@ -70,7 +70,7 @@ print(len(pairs))
 G.find(random.choice(G.nodes).value)
 
 
-# In[243]:
+# In[245]:
 
 
 class Graph:
@@ -84,6 +84,11 @@ class Graph:
             self.add_nodes(nodes, duplicate=u, **kwargs)
         
 
+
+# In[246]:
+
+
+class Graph(Graph):
     def visualize(self, node_options={}, edge_options={}, **kwargs):
         self.visualization = pyvis.network.Network(notebook=True, **kwargs)
         added_nodes = []
@@ -124,14 +129,24 @@ class Graph:
                     except:
                         pass
         return self.visualization.show('./visualization.html')
-    
+
+
+# In[247]:
+
+
+class Graph(Graph):
     def find(self, **kwargs):
         defaults = dict(unique=True)
         kwargs |= defaults
 #         return list(filter(lambda n: n.value == x and n.unique, self.nodes))
         results = list(filter(lambda n: all((k in vars(n) and getattr(n, k) == v) for k, v in kwargs.items()), self.nodes))
         return Graph(nodes=results, duplicate=self.duplicate)
-    
+
+
+# In[248]:
+
+
+class Graph(Graph):
     def add_node(self, data, duplicate=False, return_node=True, metadata=None):
         new_node = None
 #         if hasattr(self, 'duplicate'):
@@ -171,6 +186,12 @@ class Graph:
         else:
             return self
     
+
+
+# In[249]:
+
+
+class Graph(Graph):
     def sample(self, n=1):
         return Graph(nodes=random.sample(self.nodes, k=n))
     
@@ -190,6 +211,12 @@ class Graph:
                 self.nodes[i].extend(x.nodes[i].value+str(i)+q, f'e{val}{i}'+q, duplicate=True)
         return self
     
+
+
+# In[251]:
+
+
+class Graph(Graph):
     def __getitem__(self, i):
         return self.nodes[i]
     
@@ -199,7 +226,7 @@ class Graph:
 # semi-toroidal graphs
 
 
-# In[227]:
+# In[250]:
 
 
 class RandomGraph(Graph):
