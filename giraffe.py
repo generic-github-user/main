@@ -228,6 +228,10 @@ L = 6
 #     start_values = [2, 12, 4, 32, 7]
 start_values = [random.randint(-10, 10) for i in range(6)]
 G = Graph(start_values, False, False, metadata=num)
+
+
+# graph lambda
+# rule class/strings?
 # Graph(rule=)
 
 
@@ -262,16 +266,22 @@ G.visualize(node_options={'shape': 'circle'}, edge_options=options, width=1000, 
 G.nodes.__sizeof__()
 
 
+# In[280]:
+
+
+len(G.nodes)
+
+
 # In[88]:
 
 
 j
 
 
-# In[199]:
+# In[282]:
 
 
-list(map(str, G.nodes))
+# list(map(str, G.nodes))
 
 
 # In[90]:
@@ -325,15 +335,16 @@ for i in range(20):
 r[0].cat
 
 
-# In[ ]:
+# In[284]:
 
 
 # G.nodes[35].grouped
 # G.nodes
-sorted(list(map(str, [list(map(str, g.grouped)) for g in G.nodes])), reverse=True)
+# sorted(list(map(str, [list(map(str, g.grouped)) for g in G.nodes])), reverse=True)
+sorted(list(map(lambda x: (str(x.value)), G.nodes)))
 
 
-# In[109]:
+# In[ ]:
 
 
 JSON(G.nodes)
