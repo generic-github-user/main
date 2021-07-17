@@ -163,7 +163,12 @@ class Node:
             self.deg = sum(self in x.grouped for x in self.graph.nodes)
 #             print(self.deg)
         return self.deg
-            
+    
+    def adjacent(self, exclude=None):
+        grouping_nodes = [x for x in self.graph.nodes if (self in x.grouped)]
+        return Graph(nodes=[n for gn in grouping_nodes for n in gn.grouped if (n is not self and (not exclude or n not in exclude.nodes))])
+        
+    
     def __str__(self):
         return str(self.value)
         
