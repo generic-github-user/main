@@ -278,7 +278,15 @@ print(random.choice(R.nodes).weight)
 pyvis.network.Network
 
 
-# In[280]:
+
+# In[383]:
+
+
+class Randomizer:
+    def __init__(self, lower=0, upper=1, distribution='uniform', form='continuous'):
+        self.lower = lower
+        self.upper = upper
+        self.distribution = distribution
 
 
 class CompleteGraph(Graph):
