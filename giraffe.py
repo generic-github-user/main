@@ -83,7 +83,7 @@ class Graph:
         if nodes:
             self.add_nodes(nodes, duplicate=u, **kwargs)
         
-    def visualize(self, **kwargs):
+    def visualize(self, node_options={}, edge_options={}, **kwargs):
         self.visualization = pyvis.network.Network(notebook=True, **kwargs)
         added_nodes = []
         for node in self.nodes:
@@ -107,9 +107,15 @@ class Graph:
         for node in self.nodes:
 #             print([list(map(str, n.grouped)) for n in self.nodes])
             if len(node.grouped) == 2:
-                d = int(10e2*1/(node.value*0.1))
-#                 print([n.grouped for n in self.nodes])
-                self.visualization.add_edge(*[x.value for x in node.grouped], length=d, label=node.value)
+                if type(node.value) in [int, float]:
+                    d = int(10e2*1/(node.value*0.1))
+                    
+                    self.visualization.add_edge(*[id(x) for x in node.grouped], length=d, label=node.value, **edge_options)
+                else:
+                    try:
+                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, smooth=True, **edge_options)
+                    except:
+                        pass
         return self.visualization.show('./visualization.html')
     
     def find(self, **kwargs):
