@@ -324,9 +324,12 @@ class Node:
         grouping_nodes = [x for x in self.graph.nodes if (self in x.grouped)]
         return Graph(nodes=[n for gn in grouping_nodes for n in gn.grouped if (n is not self and (not exclude or n not in exclude.nodes))])
     
-    def extend(self, z, w, **kwargs):
-        self.graph.add_node([w, self, z], **kwargs)
-        return self
+    def extend(self, z, w, return_new=False, return_node=False, **kwargs):
+        n = self.graph.add_node([w, self, z], return_node=return_node, **kwargs)
+        if return_new:
+            return n
+        else:
+            return self
     
     def __str__(self):
         return str(self.value)
