@@ -125,7 +125,7 @@ class Graph:
         results = list(filter(lambda n: all((k in vars(n) and getattr(n, k) == v) for k, v in kwargs.items()), self.nodes))
         return Graph(nodes=results, duplicate=self.duplicate)
     
-    def add_node(self, data, duplicate=False, return_node=True):
+    def add_node(self, data, duplicate=False, return_node=True, metadata=None):
         new_node = None
 #         if hasattr(self, 'duplicate'):
 #         print(vars(self))
@@ -133,11 +133,12 @@ class Graph:
 #             duplicate = self.duplicate
         
         if type(data) in [list, tuple]:
-            matches = self.find(data[0])
-            if (not matches) or duplicate:
-                connecting_node = Node(data[0], data[1:], graph=self)
+            matches = self.find(value=data[0])
+            if (not matches) or duplicate:# or data[0] in '+':
+                connecting_node = Node(data[0], data[1:], graph=self, metadata=metadata, duplicate=duplicate)
     #             self.nodes.append(connecting_node)
-                self.add_node(connecting_node)
+#                 self.add_node(connecting_node)
+                self.add_node(connecting_node, metadata=metadata, duplicate=duplicate)
                 new_node = connecting_node
             elif matches:
                 new_node = matches[0]
@@ -151,9 +152,10 @@ class Graph:
             elif matches:
                 new_node = matches[0]
         elif type(data) in [str, int, float, bool]:
-            if (not matches) or duplicate:
-                new_node = Node(data, graph=self)
             matches = self.find(value=data)
+            if (not matches) or (duplicate and str(data) == '   '):
+#                 print(data, matches.nodes, Node(data).value)
+                new_node = Node(data, graph=self, metadata=metadata, duplicate=duplicate)
             elif matches:
                 new_node = matches[0]
         
