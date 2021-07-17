@@ -135,7 +135,13 @@ class Graph:
         for xi in x:
             self.add_node(xi)
         return self
-            
+    
+    def __getitem__(self, i):
+        return self.nodes[i]
+    
+    def __bool__(self):
+        return bool(self.nodes)
+    
 class Node:
     def init(self, value, grouped=None, graph=None):
         self.value = value
