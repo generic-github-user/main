@@ -127,6 +127,11 @@ class Graph:
             return self
     
     def add_nodes(self, x):
+    def sample(self, n=1):
+        return Graph(nodes=random.sample(self.nodes, k=n))
+    
+    def sample_nodes(self, n=1):
+        return random.sample(self.nodes, k=n)
         for xi in x:
             self.add_node(xi)
         return self
