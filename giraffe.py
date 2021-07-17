@@ -127,6 +127,11 @@ class Graph:
     
     def add_node(self, data, duplicate=False, return_node=True):
         new_node = None
+#         if hasattr(self, 'duplicate'):
+#         print(vars(self))
+#         if duplicate is None:
+#             duplicate = self.duplicate
+        
         if type(data) in [list, tuple]:
             matches = self.find(data[0])
             if (not matches) or duplicate:
@@ -139,7 +144,7 @@ class Graph:
         elif type(data) in [Node]:
             matches = self.find(value=data.value)
 #             print(matches, data.value)
-            if (not matches) or duplicate:
+            if (not matches) or duplicate:# or data.unique:
 #             if not matches or type(data.value) is int:
                 self.nodes.append(data)
                 new_node = data
