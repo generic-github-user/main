@@ -226,7 +226,22 @@ class Graph(Graph):
 # semi-toroidal graphs
 
 
-# In[250]:
+# In[339]:
+
+
+class Graph(Graph):
+    def AdjacencyMatrix(self):
+        matrix = np.zeros([len(self.nodes)//2+2]*2)
+        for a, b in itertools.product(self.nodes, repeat=2):
+            if a in b.adjacent():
+                matrix[self.nodes.index(a), self.nodes.index(b)] = 1
+        return matrix
+
+R = RandomGraph(30, 30)
+plt.imshow(R.AdjacencyMatrix())
+
+
+# In[328]:
 
 
 class RandomGraph(Graph):
