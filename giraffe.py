@@ -287,6 +287,15 @@ class Randomizer:
         self.lower = lower
         self.upper = upper
         self.distribution = distribution
+        
+    def sample(self):
+        return getattr(random, self.distribution)(self.lower, self.upper)
+    
+    def __call__(self):
+        return self.sample()
+
+
+# In[384]:
 
 
 class CompleteGraph(Graph):
