@@ -43,6 +43,16 @@ class Plot(ClassTemplate):
         varnames = list('xyzw')
         if use_latex:
             varnames = [f'${v}$' for v in varnames]
+        
+#         for paramset in [aliases, values]:
+        for a in list(kwargs.keys()):
+            for z in values.keys():
+                if kwargs[a] == z:
+                    kwargs[a] = values[z]
+            for z in aliases.keys():
+                if a in aliases[z]:
+                    kwargs[z] = kwargs[a]
+                    kwargs.pop(a)
         params = list('xysc')+['alpha']
         ranges = [None, None, [2, 10], None, [0,1]]
         plot_params = dict(zip(
