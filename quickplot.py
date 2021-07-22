@@ -76,6 +76,17 @@ class Plot(ClassTemplate):
             params,
             [Plot.rescale(d, *ranges[i]) if (ranges[i] is not None) else d for (i, d) in enumerate(self.data)]
         ))
+        spatial = list('xyz')
+        numdims = int(projection[0])
+        print(spatial[:numdims])
+        
+        for i, a in enumerate(spatial[:numdims]):
+            label = varnames[i]
+            print(f'Setting axis label: {label}')
+            getattr(ax, f'set_{a}label')(label)
+#             if np.log10(self.data.data[i].max()-self.data.data[i].min()) > 1.5:
+            if Plot.get_scale(self.data.data[i]):
+                getattr(ax, f'set_{a}scale')('log')
         self.axis = ax.scatter(**plot_params, cmap='hsv')
         return self.axis
 
