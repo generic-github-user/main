@@ -53,6 +53,11 @@ class Plot(ClassTemplate):
                 if a in aliases[z]:
                     kwargs[z] = kwargs[a]
                     kwargs.pop(a)
+                
+        fig = plt.figure(figsize=(8, 8))
+#         plt.style.use('fivethirtyeight')
+        plt.style.use('seaborn-white')
+        ax = fig.add_subplot(**kwargs)
         params = list('xysc')+['alpha']
         ranges = [None, None, [2, 10], None, [0,1]]
         plot_params = dict(zip(
