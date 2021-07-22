@@ -31,3 +31,25 @@ class Plot(ClassTemplate):
         self.data = data
         if generate_plot:
             self.plot(**kwargs)
+        
+    def plot(self, use_density=True, use_latex=True, annotate=10, norm_annotate=True, **kwargs):
+        plt.close('all')
+        aliases = {
+            'projection': ['p']
+        }
+        values = {
+            '2d': None
+        }
+        varnames = list('xyzw')
+        if use_latex:
+            varnames = [f'${v}$' for v in varnames]
+        params = list('xysc')+['alpha']
+        ranges = [None, None, [2, 10], None, [0,1]]
+        plot_params = dict(zip(
+            params,
+            [Plot.rescale(d, *ranges[i]) if (ranges[i] is not None) else d for (i, d) in enumerate(self.data)]
+        ))
+        self.axis = ax.scatter(**plot_params, cmap='hsv')
+        return self.axis
+    def rescale(a, n, m):
+        return np.interp(a, (a.min(), a.max()), (n, m))
