@@ -12,3 +12,22 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+
+
+# In[542]:
+
+
+plt.cm
+
+
+# In[549]:
+
+
+class ClassTemplate:
+    pass
+
+class Plot(ClassTemplate):
+    def __init__(self, data, generate_plot=True, **kwargs):
+        self.data = data
+        if generate_plot:
+            self.plot(**kwargs)
