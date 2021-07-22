@@ -60,6 +60,12 @@ class Plot(ClassTemplate):
         ax = fig.add_subplot(**kwargs)
         params = list('xysc')+['alpha']
         ranges = [None, None, [2, 10], None, [0,1]]
+        projection = '2d'
+        if 'projection' in kwargs:
+            if kwargs['projection']:
+                projection = kwargs['projection']
+        else:
+            projection = '2d'
         plot_params = dict(zip(
             params,
             [Plot.rescale(d, *ranges[i]) if (ranges[i] is not None) else d for (i, d) in enumerate(self.data)]
