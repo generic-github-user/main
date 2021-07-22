@@ -88,6 +88,22 @@ class Plot(ClassTemplate):
             if Plot.get_scale(self.data.data[i]):
                 getattr(ax, f'set_{a}scale')('log')
         self.axis = ax.scatter(**plot_params, cmap='hsv')
+        
+#         for point in random.sample(self.data, k=annotate):
+
+        P = self.data.T[:,:2]
+#          np.stack([P]*P.shape[0], axis=1)
+        subsamples = np.clip(num_points//10, 0, 100)
+        weights = np.mean(
+                np.linalg.norm(np.expand_dims(P, 0) - np.stack([Plot.sample(P, subsamples)]*num_points, axis=1), axis=2),
+                axis=0
+            ) ** 3
+        weights /= weights.sum()
+        print(weights.shape)
+        points = Plot.sample(self.data.T[:,:2], annotate, weights=weights)#.copy()
+        self.place_coords(points)
+#         fig.colorbar(matplotlib.cm.hsv())
+        
         return self.axis
 
     def get_scale(A):
