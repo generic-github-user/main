@@ -51,5 +51,10 @@ class Plot(ClassTemplate):
         ))
         self.axis = ax.scatter(**plot_params, cmap='hsv')
         return self.axis
+
+    def get_scale(A):
+        gamma = np.log10(A.max()-A.min())
+        print(gamma)
+        return gamma > 1.2
     def rescale(a, n, m):
         return np.interp(a, (a.min(), a.max()), (n, m))
