@@ -66,6 +66,12 @@ class Plot(ClassTemplate):
                 projection = kwargs['projection']
         else:
             projection = '2d'
+        if use_density:
+            si = params.index('s')
+            print(self.data.shape)
+            print(num_points)
+            ranges[si] = np.array(ranges[si]) * (20 / (num_points ** (1/1.5)))
+#         print(ax.set_xtitle)
         plot_params = dict(zip(
             params,
             [Plot.rescale(d, *ranges[i]) if (ranges[i] is not None) else d for (i, d) in enumerate(self.data)]
