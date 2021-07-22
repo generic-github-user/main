@@ -83,6 +83,9 @@ class Plot(ClassTemplate):
         gamma = np.log10(A.max()-A.min())
         print(gamma)
         return gamma > 1.2
+    def sample(A, n, weights=None):
+        return A[np.random.choice(A.shape[0], n, replace=False, p=weights)]
+    
     def rescale(a, n, m):
         return np.interp(a, (a.min(), a.max()), (n, m))
 # TODO: add methods for interactive plotting (and editing, saving, etc.)
