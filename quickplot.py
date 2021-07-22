@@ -86,6 +86,13 @@ class Plot(ClassTemplate):
     def sample(A, n, weights=None):
         return A[np.random.choice(A.shape[0], n, replace=False, p=weights)]
     
+#     scatterplot density estimation?
+    def grid(shape):
+        return np.stack(np.meshgrid(*[np.arange(0, dim, 1) for dim in shape]), axis=2)
+    
+    def grid_like(A):
+        return Plot.grid(A.shape)
+    
     def rescale(a, n, m):
         return np.interp(a, (a.min(), a.max()), (n, m))
 # TODO: add methods for interactive plotting (and editing, saving, etc.)
