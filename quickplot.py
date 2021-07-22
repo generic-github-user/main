@@ -83,6 +83,14 @@ class Plot(ClassTemplate):
         gamma = np.log10(A.max()-A.min())
         print(gamma)
         return gamma > 1.2
+    
+    def place_coords(self, points):
+        for point in points:
+            coordinate = ", ".join(map(str, point[:2].round(2)))
+            text = f'$({coordinate})$'
+#             text = '.'
+            plt.text(*point[:2], text, size=12)
+    
     def sample(A, n, weights=None):
         return A[np.random.choice(A.shape[0], n, replace=False, p=weights)]
     
