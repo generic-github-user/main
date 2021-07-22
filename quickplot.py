@@ -79,3 +79,31 @@ class Plot(ClassTemplate):
         return gamma > 1.2
     def rescale(a, n, m):
         return np.interp(a, (a.min(), a.max()), (n, m))
+# TODO: add methods for interactive plotting (and editing, saving, etc.)
+# TODO: automatically choose scale(s)
+# TODO: add NetworkX functions (and handling for other classes/datatypes)
+# TODO: add automatic label overlap reduction/text spacing
+# t-sne
+# In[ ]:
+
+
+plt.scatter()
+
+
+# In[ ]:
+
+
+np.random.
+
+
+# In[23]:
+
+
+import nltk
+
+
+# In[ ]:
+
+
+colors = np.stack(np.meshgrid(*[np.arange(0, dim, 1) for dim in canvas.shape[:2]]), axis=2)
+
