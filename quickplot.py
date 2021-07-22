@@ -114,6 +114,15 @@ class Plot(ClassTemplate):
     
     def rescale(a, n, m):
         return np.interp(a, (a.min(), a.max()), (n, m))
+
+    def pickle(self, include_imports=True):
+#         source = ''
+        lines = []
+        if include_imports:
+            lines.extend(f'import {m}' for m in ['matplotlib.pyplot as plt', 'numpy as np'])
+        source = '\n'.join(lines)
+        return source
+    
 # TODO: add methods for interactive plotting (and editing, saving, etc.)
 # TODO: automatically choose scale(s)
 # TODO: add NetworkX functions (and handling for other classes/datatypes)
