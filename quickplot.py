@@ -101,6 +101,22 @@ class Plot(ClassTemplate):
         weights /= weights.sum()
         print(weights.shape)
         points = Plot.sample(self.data.T[:,:2], annotate, weights=weights)#.copy()
+        
+#         breakpoint()
+#         points += (1 / np.linalg.norm(points - np.repeat(points, ))) * ()
+        for i in range(100):
+#         axis?
+            deltas = np.expand_dims(points,0)-np.stack([points]*points.shape[0],axis=1)#.transpose([2,0,1])
+#             deltas = np.min(deltas, axis=0, keepdims=True)
+            distances = np.min(np.linalg.norm((-deltas)+0.0001, axis=2, ord=2), axis=1, keepdims=True)**1
+            forces = np.expand_dims(0.000001 / distances, 2) ** 1.05
+            forces = np.where(distances<0.02, forces, 0)
+#             print(np.mean(distances), distances.shape)
+#             distances = np.max(distances, axis=1, keepdims=True)
+            shift = distances * deltas * np.array([3, 1])
+#             print(np.mean(deltas, axis=0))
+            points = points + np.mean(shift, axis=0)
+#             -distances?
         self.place_coords(points)
 #         fig.colorbar(matplotlib.cm.hsv())
         
