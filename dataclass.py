@@ -141,6 +141,29 @@ def memoize(func):
             return result
     wrapper.__name__ = func.__name__
     return wrapper
+
+
+# In[1517]:
+
+
+repr(np.random.normal(0, 1, [5, 5]))
+
+
+# In[1487]:
+
+
+def memoize_static(func):
+    def wrapper(*inputs, **namedinputs):
+#         hash_value = hash(tuple(map(tuple,[func]+list(inputs))))
+        hash_value = hash(tuple(map(repr, [func]+list(inputs))))
+        if hash_value in dx.cache.entries:
+            return dx.cache.entries[hash_value]
+        else:
+            result = func(*inputs, **namedinputs)
+            dx.cache.entries[hash_value] = result
+            return result
+    wrapper.__name__ = func.__name__
+    return wrapper
 # In[1401]:
 
 
