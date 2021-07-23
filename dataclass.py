@@ -87,3 +87,27 @@ def dMethod(func, aliases=[]):
 #         setattr(DataObject, name, func.__get__(dx))
 #         def class_method
     return func
+# #### string
+
+# In[1416]:
+
+
+@dMethod_(aliases=['str', 'stringify'])
+@memoize
+def mstring(self, plain=False, **kwargs):
+    format_options = dict(indent=4, compact=True, width=30)
+    format_options |= kwargs
+    if plain:
+        return pprint.pformat(self.data, **format_options)
+    else:
+        info = {
+            'dtype': self.dtype,
+            'data': self.data,
+            'generator': self.generator
+        }
+    #         pprint.pformat()
+    #         pprint.pformat(b, indent=4)
+    #         json.dumps(b, indent=4)
+
+        rep = '\n'.join(f'{a}: {pprint.pformat(b, **format_options)}' for a, b in info.items())
+        return rep
