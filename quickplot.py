@@ -175,6 +175,21 @@ class Array:
     
     def __iter__(self):
         return iter(self.data)
+# cyclic animations
+# test = Array(np.random.normal([[0]*5], [[1, 2, 1, 1, 1]], size=[1, 5, 1000])).prod(axis=0)
+test = Array(np.random.normal(0, 2, size=[5, 5, 5000])).prod(axis=0)
+print(test.data.std())
+v = np.abs(test.data)
+print(np.log10(
+    v.max()-v.min()
+))
+z = np.histogram2d(*test.data[:2], bins=50)
+# print(z)
+z = [z[i]for i in[1,2,0]]
+z = [z[i][:p or len(z[i])]for i, p in enumerate([-1,-1,0])]
+# plt.contour(X=None, Y=None, Z=np.array(z))
+
+c = Plot(test, p='2d')
 # In[ ]:
 
 
