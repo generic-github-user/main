@@ -668,6 +668,23 @@ def mlength(self):
 @dMethod
 def mnumpy(self):
     return np.array(self.data)
+# In[1524]:
+
+
+@dMethod
+# make sure to add the memoize decorator...
+@memoize
+def msum(self):
+#     self.data = sum(self.data)
+#     return self
+    
+    if (type(self.data) is np.ndarray) or (self.data not in [None, []]):
+        result = sum(self.data)
+        dtype = self.dtype
+    return dx(result, dtype=dtype)
+
+# add function(s) for verifying results of heuristic-based computations
+# compare partial results mid-calculation
 # In[1465]:
 
 
