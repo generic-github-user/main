@@ -434,7 +434,23 @@ class SliceGenerator:
         pass
     def __getitem__(self, args):
         return args
+
+
+# In[1432]:
+
+
+class RangeGenerator:
+    def __init__(self):
+        pass
+    def __getitem__(self, args):
+        return dx.range(args)
+
+    
 dx.S = SliceGenerator()
+dx.R = RangeGenerator()
+dx.range(dx.S[4:16:2, 1:10]).print()
+dx.R[1:20].P()
+# combine method names
 # In[1436]:
 
 
