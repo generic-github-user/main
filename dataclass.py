@@ -370,6 +370,58 @@ def mcartesian(self, n=2, reduce=None):
         prod = list(map(reduce, prod))
     self.data = prod
     return self
+# mcartesian = classmethod(mcartesian)
+
+# dMethod_(mcartesian, aliases=['cartesian_product'])
+
+
+# In[1421]:
+
+
+mcartesian
+
+
+# In[1422]:
+
+
+g
+
+
+# In[1423]:
+
+
+mcartesian.__get__(dx)
+
+
+# In[1424]:
+
+
+g = dx([1, 2, 3, 4])
+
+
+# In[ ]:
+
+
+
+
+
+# In[1425]:
+
+
+g.cartesian().P()
+
+
+# In[1426]:
+
+
+print(g.cache.entries)
+
+
+# In[1427]:
+
+
+# DataObject([1, 2, 3, 4, 5]).cartesian(reduce=sum).print()
+# graph-based optimization?
 # In[1436]:
 
 
