@@ -454,3 +454,15 @@ def mmin(self):
     """
     self.apply(min)
     return self
+
+
+# In[1467]:
+
+
+@dMethod_(aliases='maximum')
+def mmax(self):
+    """
+    Calculate the maximum of values in the data (operates over all primitive values in the data by default)
+    """
+    self.apply(min)
+    return self
