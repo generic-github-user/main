@@ -46,6 +46,15 @@ import zlib
 import sys
 
 
+# In[12]:
+
+
+# A()+dx
+# display.display_html('<h2>Test</h2>', raw=True)
+display.Math(
+    str([f'{i}x' for i in range(0, 10)]).replace("'", ''),
+#     raw=True
+)
 
 # datatype standardization + compact representations of data structures/schemas?
 # todo: data compression by algorithmic encoding (e.g., storing the integers 1 to 1 million as the iterator that generates that set of numbers)
