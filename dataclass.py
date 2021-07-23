@@ -58,3 +58,8 @@ class DataObject:
         self.cache = Cache()
 #         function caching handler? - generate functions at init time or dynamically look up
         self.generator = generator
+        
+        if dtype:
+            self.dtype = dtype
+        else:
+            self.dtype = type(self.data).__name__
