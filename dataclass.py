@@ -422,6 +422,19 @@ print(g.cache.entries)
 
 # DataObject([1, 2, 3, 4, 5]).cartesian(reduce=sum).print()
 # graph-based optimization?
+
+
+# ### Generators
+
+# In[1432]:
+
+
+class SliceGenerator:
+    def __init__(self):
+        pass
+    def __getitem__(self, args):
+        return args
+dx.S = SliceGenerator()
 # In[1436]:
 
 
