@@ -120,3 +120,12 @@ def mstring(self, plain=False, **kwargs):
 
         rep = '\n'.join(f'{a}: {pprint.pformat(b, **format_options)}' for a, b in info.items())
         return rep
+# In[1436]:
+
+
+@dMethod
+def mmp(self, F, *args, **kwargs):
+    print(F, args)
+    tempfunc = lambda z: F(z, *args, **kwargs)
+    self.data = list(map(tempfunc, self.data))
+    return self
