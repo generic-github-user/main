@@ -35,3 +35,11 @@ import copy
 from bs4 import BeautifulSoup
 import zlib
 import sys
+
+
+# In[1393]:
+
+
+class Cache:
+    def __init__(self):
+        self.entries = {}
