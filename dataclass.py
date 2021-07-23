@@ -637,6 +637,17 @@ def mlength(self):
 #         self.data = len(self.data)
     self.apply(len)
     return self
+    
+#     def S
+    
+
+
+# In[1445]:
+
+
+@dMethod
+def mnumpy(self):
+    return np.array(self.data)
 # In[1465]:
 
 
