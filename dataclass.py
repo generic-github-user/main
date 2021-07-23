@@ -444,3 +444,13 @@ def msplit(self, sep):
     else:
         self.data = self.data.split()
     return self
+# In[1466]:
+
+
+@dMethod_(aliases='minimum')
+def mmin(self):
+    """
+    Calculate the minimum of values in the data (operates over all primitive values in the data by default)
+    """
+    self.apply(min)
+    return self
