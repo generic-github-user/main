@@ -431,3 +431,16 @@ def mmp(self, F, *args, **kwargs):
     tempfunc = lambda z: F(z, *args, **kwargs)
     self.data = list(map(tempfunc, self.data))
     return self
+    
+
+
+# In[1437]:
+
+
+@dMethod
+def msplit(self, sep):
+    if sep is None:
+        self.data = list(self.data)
+    else:
+        self.data = self.data.split()
+    return self
