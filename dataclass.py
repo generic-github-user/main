@@ -499,6 +499,33 @@ def msplit(self, sep):
     else:
         self.data = self.data.split()
     return self
+    
+
+
+# ### Find
+
+# In[1438]:
+
+
+@dMethod_(aliases=['get', 'query', 'lookup'])
+def mfind(self, k, f=None):
+    results = []
+    aliases = {
+#             'in': '__contains__'
+        'in': operator.contains
+    }
+    if f in aliases:
+        f = aliases[f]
+
+    if f:
+        for v in self.data:
+            if f(v, k):
+                results.append(v)
+    else:
+        for v in self.data:
+            if v == k:
+                results.append(v)
+    return DataObject(results)
 # In[1440]:
 
 
