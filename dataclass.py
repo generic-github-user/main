@@ -626,6 +626,17 @@ def mreverse(self):
 def mindex(self, b):
     self.mp(lambda x: b.index(x))
     return self
+    
+
+
+# In[1444]:
+
+
+@dMethod
+def mlength(self):
+#         self.data = len(self.data)
+    self.apply(len)
+    return self
 # In[1465]:
 
 
