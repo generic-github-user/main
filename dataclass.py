@@ -73,3 +73,17 @@ class DataObject:
             self.hash = hash(self.data)
         self.id = uuid.uuid4().hex
 dx = DataObject
+
+
+# In[1395]:
+
+
+range(100).stop
+def dMethod(func, aliases=[]):
+    if type(aliases) is str:
+        aliases = [aliases]
+    for name in [func.__name__[1:]] + aliases:
+        setattr(DataObject, name, func)
+#         setattr(DataObject, name, func.__get__(dx))
+#         def class_method
+    return func
