@@ -536,6 +536,18 @@ def mapply(self, F, *args, **kwargs):
     else:
         self.data = F(self.data, *args, **kwargs)
     return self
+    
+
+
+# ### Remove
+
+# In[1441]:
+
+
+@dMethod
+def mremove(self, c):
+    self.apply(lambda s: str.translate(s, str.maketrans('', '', c)))
+    return self
 # In[1466]:
 
 
