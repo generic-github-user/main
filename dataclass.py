@@ -351,6 +351,25 @@ def mcopy(self):
     Create a new DataObject with the same data as this one
     """
     return DataObject(copy.deepcopy(self.data))
+
+
+# #### Cartesian Product
+
+# In[1420]:
+
+
+# @classmethod
+@dMethod_(aliases=['cartesian_product'])
+@memoize
+def mcartesian(self, n=2, reduce=None):
+    """
+    Calculate the Cartesian product of some dataset (i.e., every possible combination of length n of its elements); this is currently only defined for 1-dimensional lists
+    """
+    prod = list(itertools.product(self.data, repeat=n))
+    if reduce:
+        prod = list(map(reduce, prod))
+    self.data = prod
+    return self
 # In[1436]:
 
 
