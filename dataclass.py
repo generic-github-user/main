@@ -112,6 +112,26 @@ def dMethod(func, aliases=[]):
 #         def class_method
     return func
 # todo: add memoize parameter to parametrized decorator
+def memoize(func):
+    print(f'Wrapping function: {func}')
+#     @functools.wraps
+    def wrapper(self, *inputs, **namedinputs):
+#         print(f'Wrapper inputs: {inputs, namedinputs}', self)
+#         hash_value = hash(tuple(map(tuple, [func]+list(inputs))))
+        dx_state = [self.data, self.generator]
+        hash_value = hash(tuple(map(repr, [func] + dx_state + list(inputs))))
+    # dynamic/granular memoization?
+        if hash_value in self.cache.entries:
+            print(f'Value cached at {hash_value}')
+            return self.cache.entries[hash_value]
+        else:
+            print('No value cached for these inputs; evaluating...')
+            result = func(self, *inputs, **namedinputs)
+            print(f'Storing computed value at {hash_value}')
+            self.cache.entries[hash_value] = result
+            return result
+    wrapper.__name__ = func.__name__
+    return wrapper
 # In[1401]:
 
 
