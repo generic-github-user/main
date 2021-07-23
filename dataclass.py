@@ -43,3 +43,18 @@ import sys
 class Cache:
     def __init__(self):
         self.entries = {}
+
+
+# In[1394]:
+
+
+class DataObject:
+    itertypes = [list, tuple]
+#     Global cache, mainly for generators
+    cache = Cache()
+    def __init__(self, data, generator=None, dtype=None):
+        self.data = data
+        self.view = data
+        self.cache = Cache()
+#         function caching handler? - generate functions at init time or dynamically look up
+        self.generator = generator
