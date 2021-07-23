@@ -256,6 +256,28 @@ id(mcast)
 
 f = dx([])
 f
+
+
+# ### Printing
+
+# #### print
+
+# In[1560]:
+
+
+@dMethod_(aliases=['P'])
+def mprint(self, after='', **kwargs):
+    print(self.string(**kwargs))
+    if after is not None:
+        print(after)
+
+
+# In[1563]:
+
+
+dx([7, 8, 9]).P()
+
+
 # #### string
 
 # In[1416]:
