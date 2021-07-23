@@ -141,6 +141,49 @@ def mcast(self, dtype):
         return dx(list(map(dtype, self.data)))
     else:
         return dx(dtype(self.data))
+
+
+# In[1405]:
+
+
+# id(f.cast)
+
+
+# In[1406]:
+
+
+id(mcast)
+
+
+# In[1408]:
+
+
+# f.hash_list
+
+
+# In[1409]:
+
+
+# dx.mcast
+
+
+# In[1411]:
+
+
+# mcast(f, int)
+
+
+# In[1413]:
+
+
+# f.cache.entries
+
+
+# In[1414]:
+
+
+f = dx([])
+f
 # #### string
 
 # In[1416]:
