@@ -605,3 +605,22 @@ def mmax(self):
     """
     self.apply(min)
     return self
+
+
+# In[1468]:
+
+
+print(dMethod(lambda q: q+5))
+
+
+# In[1469]:
+
+
+@dMethod
+def m__str__(self):
+    return self.string()
+
+@dMethod
+def m__getitem__(self, slice):
+    self.data = self.data[slice]
+    return self
