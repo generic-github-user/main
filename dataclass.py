@@ -450,6 +450,38 @@ print(g.cache.entries)
 # graph-based optimization?
 
 
+# In[1428]:
+
+
+@dMethod_(aliases=['arange'])
+@memoize_static
+def mrange(*args, log=False, evaluate=False, **kwargs):
+    if log:
+        print(args)
+#     if isinstance(args[0], [list, tuple]):
+    if not isinstance(args[0], slice) and isinstance(args[0], (int, float)):
+        args = [[slice(*args)]]
+    if isinstance(args[0], slice):
+        args = [args]
+    output = []
+#     if len(args) == 1 and type(args[0]) is slice:
+#     if type(args) in [list, tuple]:
+#         if type(args[0]) is slice:
+#                 s = args[0]
+    result = DataObject(output, generator=[])
+    num_terms = sum(abs(r.stop - r.start) + 1 for r in args[0])
+    if num_terms < 100:
+        evaluate = True
+    
+    for subslice in args[0]:
+        s = subslice
+        R = range(*list(filter(None, [s.start, s.stop, s.step])))
+        result.generator.append(R)
+        if evaluate:
+            output.extend(list(R))
+#     else:
+#         R = range(*args)
+    return result
 # ### Generators
 
 # In[1432]:
