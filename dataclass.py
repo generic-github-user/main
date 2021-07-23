@@ -482,6 +482,26 @@ def mrange(*args, log=False, evaluate=False, **kwargs):
 #     else:
 #         R = range(*args)
     return result
+
+
+# In[1429]:
+
+
+dx([5])
+
+
+# In[1430]:
+
+
+dx.range(1, 10).print()
+
+
+# In[1431]:
+
+
+slice(1, 5).start
+
+
 # ### Generators
 
 # In[1432]:
@@ -698,3 +718,26 @@ def m__str__(self):
 def m__getitem__(self, slice):
     self.data = self.data[slice]
     return self
+# In[1479]:
+
+
+s.lower
+
+
+# In[1480]:
+
+
+str
+
+
+# In[1481]:
+
+
+# {'a':5}|{'b':6}
+
+
+# In[1482]:
+
+
+deltas = ""
+
