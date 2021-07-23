@@ -473,6 +473,16 @@ def msplit(self, sep):
     else:
         self.data = self.data.split()
     return self
+# In[1440]:
+
+
+@dMethod
+def mapply(self, F, *args, **kwargs):
+    if type(self.data) in [list, tuple]:
+        self.mp(F, *args, **kwargs)
+    else:
+        self.data = F(self.data, *args, **kwargs)
+    return self
 # In[1466]:
 
 
