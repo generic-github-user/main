@@ -87,6 +87,15 @@ def dMethod(func, aliases=[]):
 #         setattr(DataObject, name, func.__get__(dx))
 #         def class_method
     return func
+# In[1401]:
+
+
+@dMethod
+@memoize
+def mhash_list(self, x):
+    h = sum(hash(y) if type(y) not in [list] else self.hash_list(y) for y in x)
+    return h
+# make sure to update dependent methods
 # #### string
 
 # In[1416]:
