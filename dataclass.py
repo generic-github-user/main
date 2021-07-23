@@ -46,6 +46,12 @@ import zlib
 import sys
 
 
+
+# datatype standardization + compact representations of data structures/schemas?
+# todo: data compression by algorithmic encoding (e.g., storing the integers 1 to 1 million as the iterator that generates that set of numbers)
+# todo: add support for "sparse" data structures that store indices and some values instead of all values 
+
+
 # In[1393]:
 
 
@@ -96,6 +102,7 @@ def dMethod(func, aliases=[]):
 #         setattr(DataObject, name, func.__get__(dx))
 #         def class_method
     return func
+# todo: add memoize parameter to parametrized decorator
 # In[1401]:
 
 
