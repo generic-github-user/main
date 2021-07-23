@@ -548,6 +548,18 @@ def mapply(self, F, *args, **kwargs):
 def mremove(self, c):
     self.apply(lambda s: str.translate(s, str.maketrans('', '', c)))
     return self
+    
+
+
+# ### Reverse
+
+# In[1442]:
+
+
+@dMethod
+def mreverse(self):
+    self.data = self.data[::-1]
+    return self
 # In[1466]:
 
 
