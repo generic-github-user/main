@@ -121,6 +121,26 @@ def mhash_list(self, x):
     h = sum(hash(y) if type(y) not in [list] else self.hash_list(y) for y in x)
     return h
 # make sure to update dependent methods
+
+
+# In[1402]:
+
+
+q = dx([])
+
+
+# In[1403]:
+
+
+# order of decorators?
+@dMethod
+# @functools.wraps
+@memoize
+def mcast(self, dtype):
+    if type(self.data) in dx.itertypes:
+        return dx(list(map(dtype, self.data)))
+    else:
+        return dx(dtype(self.data))
 # #### string
 
 # In[1416]:
