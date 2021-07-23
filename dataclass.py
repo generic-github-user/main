@@ -120,6 +120,11 @@ def dMethod(func, aliases=[]):
 #         setattr(DataObject, name, func.__get__(dx))
 #         def class_method
     return func
+
+
+# In[1486]:
+
+
 # todo: add memoize parameter to parametrized decorator
 def memoize(func):
     print(f'Wrapping function: {func}')
@@ -302,6 +307,18 @@ def mstring(self, plain=False, **kwargs):
 
         rep = '\n'.join(f'{a}: {pprint.pformat(b, **format_options)}' for a, b in info.items())
         return rep
+    
+
+
+# #### repr
+
+# In[1504]:
+
+
+@dMethod_(aliases=['rep', 'representation', 'pickle', 'repr']) #?
+def m__repr__(self, after='', **kwargs):
+#     return self.string(plain=True)
+    return repr(self.data)
 # In[1436]:
 
 
