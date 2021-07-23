@@ -144,6 +144,21 @@ class Plot(ClassTemplate):
 # TODO: add NetworkX functions (and handling for other classes/datatypes)
 # TODO: add automatic label overlap reduction/text spacing
 # t-sne
+
+class Array:
+    def __init__(self, data):
+        self.data = data
+        self.shape = self.data.shape
+        self.T = self.data.T
+        
+    def prod(self, *args, **kwargs):
+        return Array(self.data.prod(*args, **kwargs))
+    
+    def sin(self, *args, **kwargs):
+        return Array(np.sin(self.data, *args, **kwargs))
+    
+    def __iter__(self):
+        return iter(self.data)
 # In[ ]:
 
 
