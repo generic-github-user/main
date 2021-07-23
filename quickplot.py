@@ -190,6 +190,24 @@ z = [z[i][:p or len(z[i])]for i, p in enumerate([-1,-1,0])]
 # plt.contour(X=None, Y=None, Z=np.array(z))
 
 c = Plot(test, p='2d')
+
+
+# In[538]:
+
+
+plt.close('all')
+fig = plt.figure()
+ax = fig.add_subplot()
+R = 100
+a = np.random.normal(0,1,[R]*2)
+g = Plot.grid_like(a)-R//2
+q = np.linalg.norm(g, axis=2)
+k = lambda: np.random.normal(10, 2)
+a += ((np.cos(g[:,:,0] * k() + k()) * k() + np.sin(g[:,:,1] * k() + 0.1) * k()) + (q * 0.1)) * 0.1
+ax.contour(
+    a,
+    cmap='inferno', antialiased=False, nchunk=1, levels=4, linewidths=1)
+# plt.imshow(a)
 # In[ ]:
 
 
