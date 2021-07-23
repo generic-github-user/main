@@ -319,6 +319,38 @@ def mstring(self, plain=False, **kwargs):
 def m__repr__(self, after='', **kwargs):
 #     return self.string(plain=True)
     return repr(self.data)
+
+
+# In[1505]:
+
+
+g = dx([1, 2, 3, 4])
+
+
+# In[1506]:
+
+
+g.__repr__()
+
+
+# In[1418]:
+
+
+g.cast(int).P()
+print(g.cache.entries)
+
+
+# #### Copy
+
+# In[1419]:
+
+
+@dMethod
+def mcopy(self):
+    """
+    Create a new DataObject with the same data as this one
+    """
+    return DataObject(copy.deepcopy(self.data))
 # In[1436]:
 
 
