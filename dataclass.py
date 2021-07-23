@@ -27,6 +27,8 @@
 #  - Integration with Matplotlib, Seaborn, quickplot, and other visualization tools
 #  - Handling of highly complex data structures, such as ones containing circular references and nonuniform nesting
 
+# ## Imports
+
 # In[641]:
 
 
@@ -61,6 +63,10 @@ display.Math(
 # todo: add support for "sparse" data structures that store indices and some values instead of all values 
 
 
+# ## Classes
+
+# ### Cache
+
 # In[1393]:
 
 
@@ -68,6 +74,8 @@ class Cache:
     def __init__(self):
         self.entries = {}
 
+
+# ### DataObject
 
 # In[1394]:
 
@@ -105,6 +113,10 @@ dx = DataObject
 range(100).stop
 
 
+# ## Utilities
+
+# ### dMethod
+
 # In[1396]:
 
 
@@ -121,6 +133,10 @@ def dMethod(func, aliases=[]):
 #         def class_method
     return func
 
+
+# ### Memoize
+
+# #### Bound
 
 # In[1486]:
 
@@ -154,6 +170,8 @@ def memoize(func):
 repr(np.random.normal(0, 1, [5, 5]))
 
 
+# #### Static
+
 # In[1487]:
 
 
@@ -170,6 +188,8 @@ def memoize_static(func):
     wrapper.__name__ = func.__name__
     return wrapper
 
+
+# ### dMethod (parametrized)
 
 # In[1399]:
 
@@ -189,6 +209,10 @@ def dMethod_(*params, **namedparams):
 functools.wraps
 
 
+# ## Methods
+
+# ### Hash
+
 # In[1401]:
 
 
@@ -205,6 +229,8 @@ def mhash_list(self, x):
 
 q = dx([])
 
+
+# ### Cast
 
 # In[1403]:
 
