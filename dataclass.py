@@ -164,6 +164,26 @@ def memoize_static(func):
             return result
     wrapper.__name__ = func.__name__
     return wrapper
+
+
+# In[1399]:
+
+
+# Decorator "factory" that generates the actual (parametrized) decorator applied to the function; see https://stackoverflow.com/questions/10176226/how-do-i-pass-extra-arguments-to-a-python-decorator for a more detailed explanation
+def dMethod_(*params, **namedparams):
+    def method_decorator(func):
+        return dMethod(func, *params, **namedparams)
+    return method_decorator
+
+# meta-decorators
+
+
+# In[1400]:
+
+
+functools.wraps
+
+
 # In[1401]:
 
 
