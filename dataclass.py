@@ -63,3 +63,13 @@ class DataObject:
             self.dtype = dtype
         else:
             self.dtype = type(self.data).__name__
+        
+        if type(self.data) in dx.itertypes:
+            self.hash = self.hash_list(self.data)
+        elif type(self.data) is np.ndarray:
+#             self.hash = hash(self.data.tostring())
+            self.hash = hash(self.data.tobytes())
+        else:
+            self.hash = hash(self.data)
+        self.id = uuid.uuid4().hex
+dx = DataObject
