@@ -94,6 +94,15 @@ dx = DataObject
 
 
 range(100).stop
+
+
+# In[1396]:
+
+
+# This is intended to be used as a decorator on class methods of the DataObject class
+# Applying it to a given function (e.g., using the @dMethod syntax) will assign a reference to that function in the DataObject class
+
+# why does this only work when memoization is disabled?
 def dMethod(func, aliases=[]):
     if type(aliases) is str:
         aliases = [aliases]
