@@ -615,6 +615,17 @@ def mremove(self, c):
 def mreverse(self):
     self.data = self.data[::-1]
     return self
+
+
+# In[1443]:
+
+
+#     use decorators
+
+@dMethod
+def mindex(self, b):
+    self.mp(lambda x: b.index(x))
+    return self
 # In[1465]:
 
 
