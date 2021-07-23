@@ -477,6 +477,19 @@ dx.R = RangeGenerator()
 dx.range(dx.S[4:16:2, 1:10]).print()
 dx.R[1:20].P()
 # combine method names
+
+
+# In[1433]:
+
+
+for i in range(11):
+    dx.R[i:i*2+1].P(plain=True, after=None, width=100)
+
+
+# In[1434]:
+
+
+dx.S[4:16:2, 1:10]
 # In[1436]:
 
 
@@ -488,6 +501,8 @@ def mmp(self, F, *args, **kwargs):
     return self
     
 
+
+# ### Split
 
 # In[1437]:
 
@@ -526,6 +541,14 @@ def mfind(self, k, f=None):
             if v == k:
                 results.append(v)
     return DataObject(results)
+
+
+# In[1439]:
+
+
+[1, 2, 3].__repr__()
+
+
 # In[1440]:
 
 
