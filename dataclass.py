@@ -27,4 +27,11 @@ import uuid
 import requests
 import pprint
 import math
+import itertools
+import functools
+import numpy as np
+from IPython import display
+import copy
+from bs4 import BeautifulSoup
+import zlib
 import sys
