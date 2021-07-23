@@ -583,6 +583,15 @@ def mremove(self, c):
 def mreverse(self):
     self.data = self.data[::-1]
     return self
+# In[1465]:
+
+
+@dMethod
+def mproduct(self):
+    self.data = functools.reduce(operator.mul, self.data)
+    return self
+
+
 # In[1466]:
 
 
