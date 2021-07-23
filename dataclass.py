@@ -18,6 +18,15 @@
 #  - If possible, using online algorithms that only require a small subset of the entire dataset to be stored in memory at any given time during evaluation (e.g., $max(x_0 \dots x_n)$ only needs to store $x_i$ and the current largest value)
 #  - Automatically restructuring internal representations of the data to facilitate more efficient computing of results
 #  - Allowing fine-tuning of time-complexity and space-complexity tradeoff (as well as other similar high-level decisions), and handling the choice automatically when no particular direction is given
+# 
+# The main tool is the `DataObject` class, a high-level wrapper that stores, manipulates, and interfaces with data. It includes a thorough set of data structure-agnostic operations and functions. Compatibility with NumPy and similar libraries will be integrated to the maximum possible extent.
+# 
+# Some planned features include:
+# 
+#  - Interactive exploration (and manipulation) of data structures and specific datasets
+#  - Integration with Matplotlib, Seaborn, quickplot, and other visualization tools
+#  - Handling of highly complex data structures, such as ones containing circular references and nonuniform nesting
+
 # In[641]:
 
 
