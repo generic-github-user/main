@@ -60,6 +60,10 @@ class Plot(ClassTemplate):
         ax = fig.add_subplot(**kwargs)
         params = list('xysc')+['alpha']
         ranges = [None, None, [2, 10], None, [0,1]]
+        num_points = np.product(self.data.shape[1:])
+        if type(annotate) is float:
+            annotate = round(num_points * annotate)
+        
         projection = '2d'
         if 'projection' in kwargs:
             if kwargs['projection']:
