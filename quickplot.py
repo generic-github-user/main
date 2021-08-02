@@ -139,6 +139,12 @@ class Plot(ClassTemplate):
         
         return self.axis
 
+    def contour(self):
+        density, x_, y_ = self.quantize()
+        print(x_.shape)
+#         plt.contour()
+        self.ax.contour(x_[:-1], y_[:-1], density, linewidths=1, levels=10, cmap='jet', alpha=0.5)
+    
     def quantize(self, **kwargs):
         """
         Generate a 2D histogram from a set of points.
