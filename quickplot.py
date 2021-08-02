@@ -3,7 +3,7 @@
 
 # QuickPlot contains cleaner and more coherent versions of some functions I commonly use for rapid multidimensional data visualization based on Matplotlib/Pyplot. The idea is to be able to display most types of data with 1-2 lines of code by handling boilerplate and automatically inferring which strategy is preferred for plotting a specific dataset; along with providing an interface to customize the generated plots at multiple levels of abstraction. The tools are mainly NumPy-focused and I am writing this mainly for my own use, so support/stability is not guaranteed.
 
-# In[543]:
+# In[1]:
 
 
 get_ipython().run_line_magic('matplotlib', 'widget')
@@ -14,13 +14,13 @@ import numpy as np
 import random
 
 
-# In[542]:
+# In[2]:
 
 
 plt.cm
 
 
-# In[549]:
+# In[227]:
 
 
 class ClassTemplate:
@@ -32,7 +32,11 @@ class Plot(ClassTemplate):
         if generate_plot:
             self.plot(**kwargs)
         
-    def plot(self, use_density=True, use_latex=True, annotate=10, norm_annotate=True, **kwargs):
+    def plot(self, contour=True, use_density=True, use_latex=True, annotate=10, norm_annotate=True, **kwargs):
+        """
+        Generate the plot using the data and settings stored in this `Plot` object (class instance).
+        """
+        
         plt.close('all')
         aliases = {
             'projection': ['p']
@@ -136,11 +140,17 @@ class Plot(ClassTemplate):
         return self.axis
 
     def get_scale(A):
+        """
+        Determine whether to use a linear (False) or logarithmic (True) scale based on a dataset.
+        """
         gamma = np.log10(A.max()-A.min())
         print(gamma)
         return gamma > 1.2
     
     def place_coords(self, points):
+        """
+        Given a list of points, display the points' coordinates on the plot.
+        """
         for point in points:
             coordinate = ", ".join(map(str, point[:2].round(2)))
             text = f'$({coordinate})$'
