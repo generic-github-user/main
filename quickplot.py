@@ -58,13 +58,23 @@ class Plot(ClassTemplate):
                     kwargs[z] = kwargs[a]
                     kwargs.pop(a)
                 
-        fig = plt.figure(figsize=(8, 8))
-#         plt.style.use('fivethirtyeight')
-        plt.style.use('seaborn-white')
+        fig = plt.figure(figsize=(6, 6))
+        self.fig = fig
+        
+        plt.style.use('fivethirtyeight')
+        
+#         plt.style.use('seaborn-white')
+
         ax = fig.add_subplot(**kwargs)
+        self.ax = ax
+        
+        ax.set_facecolor('lightgray')
+        
         params = list('xysc')+['alpha']
         ranges = [None, None, [2, 10], None, [0,1]]
         num_points = np.product(self.data.shape[1:])
+        self.num_points = num_points
+#         todo: self alias func
         if type(annotate) is float:
             annotate = round(num_points * annotate)
         
@@ -76,9 +86,11 @@ class Plot(ClassTemplate):
             projection = '2d'
         
 #         if 'projection' in kwargs and kwargs['projection'] == '3d':
+        if projection == '3d':
             params = ['xs', 'ys', 'zs']+list('sc')+['alpha']
             ranges.insert(0, None)
             plt.axis('off')
+        
         if use_density:
             si = params.index('s')
             print(self.data.shape)
