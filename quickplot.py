@@ -139,6 +139,21 @@ class Plot(ClassTemplate):
         
         return self.axis
 
+    def quantize(self, **kwargs):
+        """
+        Generate a 2D histogram from a set of points.
+        """
+        if self.data.shape[0]>=3:
+            kwargs |= dict(weights=self.data[2])
+        
+        hist = np.histogram2d(
+            *self.data[:2],
+#             weights=self.data[2] if self.data.shape[0]>=3 else None,
+            bins=max(round(self.num_points * 0.01), 2),
+            **kwargs
+        )
+        return hist
+    
     def get_scale(A):
         """
         Determine whether to use a linear (False) or logarithmic (True) scale based on a dataset.
