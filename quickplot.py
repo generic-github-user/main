@@ -148,6 +148,19 @@ class Plot(ClassTemplate):
 #             -distances?
         self.place_coords(points)
 #         fig.colorbar(matplotlib.cm.hsv())
+
+        cbar = plt.colorbar(
+            matplotlib.cm.ScalarMappable(
+                cmap='jet',
+                norm=plot_params['norm'])
+        )#, ax=plt.gca())
+        
+#         cbar = fig.colorbar(self.axis, ax=ax)
+        cbar.set_label(varnames[params.index('c')])
+#         plt.show()
+
+        if contour:
+            self.contour()
         
         return self.axis
 
