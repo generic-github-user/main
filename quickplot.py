@@ -221,6 +221,80 @@ ax.contour(
     a,
     cmap='inferno', antialiased=False, nchunk=1, levels=4, linewidths=1)
 # plt.imshow(a)
+
+
+# In[355]:
+
+
+type(np.histogram2d(*test.data[:2], bins=20)[0])
+# hist algorithm
+
+
+# In[49]:
+
+
+# c.axis.axes.get_ylabel
+# getters and setters
+
+
+# In[ ]:
+
+
+# class Array:
+#     def __init__(self, data):
+#         self.data = data
+
+# class()
+if False:
+    for p in ['random', 'ndarray']:
+        module = getattr(np, p)
+        setattr(Array, p, type(p, (Array,), {}))
+        for obj in dir(module):
+    #         print(obj)
+            o = getattr(module, obj)
+            if callable(o) and obj not in ['__class__']:
+    #             print(obj)
+                setattr(getattr(Array, p), obj, lambda *args, **kwargs: Array(obj))
+
+
+        
+# class Array:
+#     def __init__(self, data):
+#         self.data = data
+#         print(self.data.shape)
+#         np.ndarray
+#         super().__init__(self.data.shape)
+# for m in [np.ndarray]:
+#     for obj in dir(m):
+#     for obj in ['prod']:
+#         if callable(getattr(m, obj)) and obj not in ['__class__']:
+#             o = getattr(m, obj)
+#             print(o)
+#             method = lambda s, *args, **kwargs: Array(getattr(s, obj)(*args, **kwargs))
+#             setattr(Array, obj, classmethod(method))
+# for m in ['sin']:
+#     setattr(Array, m, lambda x: getattr(np, m))
+
+
+# In[80]:
+
+
+np.ndarray
+
+
+# In[ ]:
+
+
+# classmethod
+
+
+# In[67]:
+
+
+ranges = [None, None, [0, 10], None]
+[Plot.rescale(d, *ranges[i]) if ranges[i] else d for (i, d) in enumerate(test)]
+
+
 # In[ ]:
 
 
