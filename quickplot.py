@@ -152,15 +152,25 @@ class Plot(ClassTemplate):
     
 #     scatterplot density estimation?
     def grid(shape):
+        """
+        Use NumPy's meshgrid function to generate an x by y by n array of integer coordinates (ordered tuples along the "n"/-1 axis), given the length of each axis.
+        """
         return np.stack(np.meshgrid(*[np.arange(0, dim, 1) for dim in shape]), axis=2)
     
     def grid_like(A):
         return Plot.grid(A.shape)
     
     def rescale(a, n, m):
+        """
+        Linearly scale an array to a given range (min and max).
+        """
+        
         return np.interp(a, (a.min(), a.max()), (n, m))
 
     def pickle(self, include_imports=True):
+        """
+        Generate code that builds an equivalent plot without quickplot as a dependency.
+        """
 #         source = ''
         lines = []
         if include_imports:
