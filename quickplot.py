@@ -70,6 +70,11 @@ class Plot(ClassTemplate):
                 projection = kwargs['projection']
         else:
             projection = '2d'
+        
+#         if 'projection' in kwargs and kwargs['projection'] == '3d':
+            params = ['xs', 'ys', 'zs']+list('sc')+['alpha']
+            ranges.insert(0, None)
+            plt.axis('off')
         if use_density:
             si = params.index('s')
             print(self.data.shape)
@@ -91,6 +96,10 @@ class Plot(ClassTemplate):
 #             if np.log10(self.data.data[i].max()-self.data.data[i].min()) > 1.5:
             if Plot.get_scale(self.data.data[i]):
                 getattr(ax, f'set_{a}scale')('log')
+        
+        fig.tight_layout()
+        if Plot.get_scale(self.data.data[params.index('c')]):
+            plot_params['norm'] = matplotlib.colors.LogNorm()
         self.axis = ax.scatter(**plot_params, cmap='hsv')
         
 #         for point in random.sample(self.data, k=annotate):
