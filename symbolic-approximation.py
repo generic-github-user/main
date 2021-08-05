@@ -188,6 +188,31 @@ for i in range(1):
     S = fr'${size} f(x)={L}$'
     display.display_latex(S, raw=True)
 # make graph (network)
+# In[3215]:
+
+
+expressions
+
+
+# In[2911]:
+
+
+def plot_symbolic(G, n=50, B=10, reducefunc=np.angle, plt_args={}, **kwargs):
+    # xs, ys
+    # grid = np.mgrid[-10:10,-10:10]
+    grid = np.stack(np.meshgrid(*[np.linspace(-B, B, num=n)]*2))
+    grid = grid.T
+    # vals = np.vectorize(lambda f1, f2)
+    roworder = 'A'
+    vals = np.reshape(
+        [reducefunc(evaluate(G, [x, y], **kwargs)) for x, y in grid.reshape((n**2, 2), order=roworder)],
+        (n, n),
+        order=roworder
+    )
+    plt_defaults = dict(cmap='rainbow')
+    plt.imshow(vals.T, **(plt_defaults|plt_args))
+    plt.grid(False)
+    plt.axis('off')
 # In[ ]:
 
 
