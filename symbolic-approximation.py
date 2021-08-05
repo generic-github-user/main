@@ -188,6 +188,35 @@ for i in range(1):
     S = fr'${size} f(x)={L}$'
     display.display_latex(S, raw=True)
 # make graph (network)
+
+try:
+    plot_symbolic(
+        g,
+        B=1000,
+#         use_complex=True,
+        reducefunc=np.abs
+    )
+# np.angle
+except Exception as E:
+#     pass
+    print(E)
+# function interpolations
+# simplification graph *
+# add calculus functions
+# self-referencing function?
+
+
+# In[3846]:
+
+
+# plt.get_current_fig_manager().set_size_inches((6, 6))
+plt.gcf().set_size_inches((6, 6))
+plot_symbolic(g, n=100, B=10, use_complex=True)
+# plt.savefig('./angels.png', format='png')
+# todo: add iterated functions
+# parametrizer
+
+
 # In[3215]:
 
 
