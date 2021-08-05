@@ -107,6 +107,9 @@ def generate(exp=None, level=1, iterations=10, max_levels=10, limit_complexity=T
 #     exp = [e if isinstance(e, list) else [e] for e in exp]
 #     print(exp)
     matches = None
+    if level > (0.75 * max_levels) and limit_complexity:
+#         'E Q'.split()
+        exp = ['V' if e in ['E'] else e for e in exp]
     for i in range(iterations):
         for e in expressions:
             e_ = e[0]
@@ -117,6 +120,9 @@ def generate(exp=None, level=1, iterations=10, max_levels=10, limit_complexity=T
 #                 print(len(exp), ie)
                 matches = list(filter(lambda a: a[0]==e[0], expressions))
 #                 matches = list(filter(lambda a: (a[0] in exp or a[0][0] in exp), expressions))
+                if level > (0.75 * max_levels) and limit_complexity:
+                    matches = list(filter(lambda z: not z[1] in [['F']], matches))
+#                 print(matches, e[0], exp)
                 if matches:
 #                     [print(m) for m in matches]
 #                     print(exp)
