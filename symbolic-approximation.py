@@ -47,6 +47,15 @@ expressions = [
     [['O1'], ['abs']],
     [['O1'], ['trig'], 1],
     [['O1'], ['fact']],
+    [['E'], ['V']], #C
+#     [['E'], ['F']],
+    [['V'], ['F'], 20],
+    [['V'], ['x']],
+    [['V'], ['y']],
+    [['V'], ['int']],
+#     [['O'], [lambda: random.choice(filter(lambda a: a[3]symbols['O']))[0]]],
+#     [['V'], [lambda: random.choice(symbols['V'])()]],
+    [['int'], [lambda: np.random.randint(-5, 5)], 2],
 #     identity/input
 #     [['$'], ['I']],
 ]
