@@ -242,6 +242,47 @@ def plot_symbolic(G, n=50, B=10, reducefunc=np.angle, plt_args={}, **kwargs):
     plt.imshow(vals.T, **(plt_defaults|plt_args))
     plt.grid(False)
     plt.axis('off')
+
+
+# In[2900]:
+
+
+evaluate(g, complex(5, 3))
+
+# math.cos(5+3j)
+
+
+# In[2906]:
+
+
+# plt.imsave()
+
+
+# In[2908]:
+
+
+# plt.gcf()
+plt.show()
+
+
+# In[1185]:
+
+
+# \csc{\left( {\sqrt{\left( {\left( {x} - {x} \right)} + {\sqrt{x}} \right)}} + {-3} \right)}
+# \left( {\sec{\cos{\cot{y}}}} - {\tan{\sec{\left( {y} \cdot {x} \right)}}} \right)
+# \left( {\left( {\sqrt{\left( {x} ^ {-4} \right)}} ^ {\sqrt{\sqrt{x}}} \right)} \div {\sqrt{\sqrt{\left( {x} \cdot {x} \right)}}} \right)
+# \left( {\sqrt{\sqrt{\frac{x}{x}}}} \div {\sqrt{\sqrt{\left( {3} \div {3} \right)}}} \right)
+# ?
+# \sqrt{\left( {\left( {\sqrt{x}} - {\sqrt{3}} \right)} \div {\left( {\left( {-3} - {x} \right)} ^ {\frac{2}{x}} \right)} \right)}
+# \left( {\sqrt{\left( {\sqrt{x}} \div {-2} \right)}} ^ {\left( {\left( {\left( {x} + {-4} \right)} + {\left( {x} \cdot {x} \right)} \right)} + {\left( {x} \cdot {\left( {x} + {x} \right)} \right)} \right)} \right)
+
+# \left( {\left( {3} + {x} \right)} ^ {\left( {\left( {-2} ^ {\frac{-5}{x}} \right)} ^ {\left( {\left( {4} + {1} \right)} \cdot {\sqrt{-2}} \right)} \right)} \right)
+# \left( {\left( {\frac{|x|}{|-5|}} - {\sqrt{|-2|}} \right)} ^ {x} \right)
+# \left( {\left( {\left( {\left( {x} ^ {x} \right)} ^ {|4|} \right)} \cdot {4} \right)} ^ {\sqrt{\sqrt{\left( {x} ^ {-5} \right)}}} \right)
+# \left( {\left( {\sqrt{\sqrt{y}}} \cdot {\left( {\frac{y}{x}} - {x!} \right)} \right)} ^ {\left( {|\left( {y} + {y} \right)|} - {\left( {\frac{x}{-4}} ^ {|x|} \right)} \right)} \right)
+# \left( {\left( {\left( {\left( {y} \div {-5} \right)} ^ {x} \right)} ^ {\left( {\left( {x} \div {1} \right)} + {\left( {y} ^ {-1} \right)} \right)} \right)} ^ {\frac{\left( {y} ^ {\left( {4} + {y} \right)} \right)}{x}} \right)
+
+
 # In[ ]:
 
 
