@@ -323,3 +323,38 @@ def evaluate(exp, x, use_complex=False):
     else:
         return evaluate(exp[0], x)
 evaluate(g, [5, 7], use_complex=True)
+# In[1593]:
+
+
+plt.close('all')
+plt.style.use('fivethirtyeight')
+domain = np.linspace(-100, 100, num=100)
+vals = [abs(evaluate(g, [x, 1])) for x in domain]
+fig, ax = plt.subplots(2)
+fig.set_size_inches((6, 6))
+ax[0].plot(domain, vals)
+ax[1].plot(domain, vals)
+# ax[1].set_xscale('log')
+ax[1].set_yscale('log')
+plt.show()
+
+
+# $\sqrt{5}$
+
+# In[78]:
+
+
+# []()
+
+
+# In[42]:
+
+
+generate([['B']])
+
+
+# In[ ]:
+
+
+
+
