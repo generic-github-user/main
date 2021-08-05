@@ -140,6 +140,31 @@ def generate(exp=None, level=1, iterations=10, max_levels=10, limit_complexity=T
     return exp
 # for i in range(5):
 #     print(generate())
+
+def to_latex(exp):
+#     type(exp)[0]
+    if isinstance(exp, (list, tuple)):
+#         print(exp)
+#         ['sqrt', 'frac', 'sin', 'cos', 'tan']
+        if (type(exp[0]) is str) and exp[0] in list('+-*/^')+['sqrt', 'frac', 'abs', 'fact']+trig_funcs:
+            op, ins = exp
+#             template
+            op_tex = list(filter(lambda q: q[0]==op, functions))[0][2]
+            if len(ins) == 2:
+                if exp[0] in ['frac']:
+                    result = fr'{op_tex}'+''.join(f'{{{to_latex(w)}}}' for w in ins)
+                else:
+                    result = fr'\left( {{{to_latex(ins[0])}}} {op_tex} {{{to_latex(ins[1])}}} \right)'
+            else:
+                print(ins)
+        else:
+            parts = [to_latex(e) if isinstance(e, (list, tuple)) else e for e in exp]
+            result = ''.join(map(str, parts))
+    elif isinstance(exp, (str, int)):
+        result = exp
+    else:
+        print(exp)
+    return result
 # In[ ]:
 
 
