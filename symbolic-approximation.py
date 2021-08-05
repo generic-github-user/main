@@ -81,6 +81,16 @@ trig_funcs = 'sin cos tan csc sec cot'.split()
 for t in trig_funcs:
     functions.append([t, lambda a: math.sin(a), f'\\{t}'])
     expressions.append([['trig'], [t], 1])
+values = [
+    ['constant', [lambda: np.random.randint(-5, 5)]]
+]
+symbols = {
+    'O': functions,
+    'V': values
+}
+
+expressions = [(e+[1] if len(e)==2 else e) for e in expressions]
+expressions = [[a[0], b, c] for a, b, c in expressions]
 # In[ ]:
 
 
