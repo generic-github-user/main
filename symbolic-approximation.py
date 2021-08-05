@@ -66,3 +66,14 @@ trig_funcs = 'sin cos tan csc sec cot'.split()
 for t in trig_funcs:
     functions.append([t, lambda a: math.sin(a), f'\\{t}'])
     expressions.append([['trig'], [t], 1])
+# In[ ]:
+
+
+def safe_op(k, l):
+    try:
+        val = k(*l)
+        if val > 10e30:
+            val = 10e3
+        return val
+    except:
+        return 0
