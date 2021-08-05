@@ -155,6 +155,11 @@ def to_latex(exp):
                     result = fr'{op_tex}'+''.join(f'{{{to_latex(w)}}}' for w in ins)
                 else:
                     result = fr'\left( {{{to_latex(ins[0])}}} {op_tex} {{{to_latex(ins[1])}}} \right)'
+            elif len(ins) == 1:
+                if '$' in op_tex:
+                    result = op_tex.replace('$', '{}').format(to_latex(ins[0]))
+                else:
+                    result = fr'{op_tex}{{{to_latex(ins[0])}}}'
             else:
                 print(ins)
         else:
