@@ -62,3 +62,7 @@ functions = [
     ['fact', math.factorial, '$!', 1],
 #     ['sqrt', lambda a: math.factorial(a), '', 1]
 ]
+trig_funcs = 'sin cos tan csc sec cot'.split()
+for t in trig_funcs:
+    functions.append([t, lambda a: math.sin(a), f'\\{t}'])
+    expressions.append([['trig'], [t], 1])
