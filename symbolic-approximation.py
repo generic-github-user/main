@@ -294,3 +294,32 @@ def safe_op(k, l):
         return val
     except:
         return 0
+
+
+# In[3508]:
+
+
+def evaluate(exp, x, use_complex=False):
+    if isinstance(x, (int, float, complex)):
+        x = [x]
+    default = [1] * 2
+    default[:len(x)] = x
+    x = default
+    for i, c in enumerate('xy'[:len(x)]):
+        exp = [(x[i] if e==c else e) for e in exp]
+    if use_complex:
+        assert len(x) == 2
+        x = complex(*x)
+#     print(x)
+    if isinstance(exp, (list, tuple)) and isinstance(exp[0], str):
+        op = list(filter(lambda q: q[0]==exp[0], functions))[0][1]
+        args = [evaluate(e, x) if isinstance(e, (list, tuple)) else e for e in exp[1]]
+        for i, c in enumerate('xy'[:len(x)]):
+            args = [(x[i] if e==c else e) for e in args]
+#         print(args, exp)
+#         print(op)
+#         return op(*args)
+        return safe_op(op, args)
+    else:
+        return evaluate(exp[0], x)
+evaluate(g, [5, 7], use_complex=True)
