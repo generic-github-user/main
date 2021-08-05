@@ -91,6 +91,49 @@ symbols = {
 
 expressions = [(e+[1] if len(e)==2 else e) for e in expressions]
 expressions = [[a[0], b, c] for a, b, c in expressions]
+
+
+# In[ ]:
+
+
+# for s in symbols
+# hierarchical regular expressions?
+def generate(exp=None, level=1, iterations=10, max_levels=10, limit_complexity=True):
+    if exp is None:
+        exp = ['$']
+#     elif isinstance(exp, str):
+#         exp = [exp]
+#     if level == 1:
+#     exp = [e if isinstance(e, list) else [e] for e in exp]
+#     print(exp)
+    matches = None
+    for i in range(iterations):
+        for e in expressions:
+            e_ = e[0]
+#             j, k = e
+#             print(e_, exp)
+            if e[0] in exp:
+                ie = exp.index(e_)
+#                 print(len(exp), ie)
+                matches = list(filter(lambda a: a[0]==e[0], expressions))
+#                 matches = list(filter(lambda a: (a[0] in exp or a[0][0] in exp), expressions))
+                if matches:
+#                     [print(m) for m in matches]
+#                     print(exp)
+                    
+#                     sub = random.choice(matches)[1]
+                    sub = random.choices(matches, weights=[v[2] for v in matches], k=1)[0][1]
+                    sub = [s() if callable(s) else s for s in sub]
+                    exp = exp[:ie] + sub + exp[ie+1:]
+            #     refactor?
+#     print(exp)
+                if level <= max_levels and matches:
+#                         exp = [eg for eg in generate(exp=e, level=level+1) for e in exp]
+                        exp = [generate(exp=e, level=level+1) if isinstance(e, (list, tuple)) else e for e in exp]
+#                     exp = [generate(exp=e, level=level+1) for e in exp]
+    return exp
+# for i in range(5):
+#     print(generate())
 # In[ ]:
 
 
