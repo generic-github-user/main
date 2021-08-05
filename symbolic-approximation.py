@@ -50,3 +50,15 @@ expressions = [
 #     identity/input
 #     [['$'], ['I']],
 ]
+functions = [
+    ['+', operator.add, '+', 2],
+    ['-', operator.sub, '-', 2],
+    ['*', operator.mul, '\cdot', 2],
+    ['/', operator.truediv, '\div', 2],
+    ['^', lambda a, b: (a ** b), '^', 2],
+    ['frac', operator.truediv, r'\frac', 2],
+    ['sqrt', lambda a: (a ** (1/2)), '\sqrt', 1],
+    ['abs', abs, '|$|', 1],
+    ['fact', math.factorial, '$!', 1],
+#     ['sqrt', lambda a: math.factorial(a), '', 1]
+]
