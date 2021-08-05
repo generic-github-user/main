@@ -1,7 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[989]:
+# # Symbolic Approximation
+
+# This notebook contains experiments for finding [closed-form](https://en.wikipedia.org/wiki/Closed-form_expression) functions that approximate a relationship between a set of inputs and outputs. This differs from standard curve-fitting processes in that a) we allow arbitrarily complex expressions composed from symbols, functions, etc., which may be nested; and b) we attempt to avoid including arbitrary floating-point constants and coefficients, instead aiming to algorithmically discover more "creative" functions that meet specified conditions.
+
+# Note that this project is mainly for entertainment/educational purposes (alternatively, a type of mathematical art), as the aforementioned numerical methods are almost always more efficient and more relevant to practical situations (and, generally, are capable of universally modelling functions like the ones explored here). That said, any interesting or advantageous algorithms I stumble upon could have limited applications for statistics, etc.
+
+# 
+
+# In[1]:
 
 
 import numpy as np
