@@ -170,6 +170,24 @@ def to_latex(exp):
     else:
         print(exp)
     return result
+
+
+
+for i in range(1):
+    g = generate(
+        iterations=5,
+        max_levels=100,
+        limit_complexity=True,
+    )
+#     print(g)
+    L = to_latex(g)
+    size = '\small'
+    size = '\Large'
+    print(L)
+#     Math()
+    S = fr'${size} f(x)={L}$'
+    display.display_latex(S, raw=True)
+# make graph (network)
 # In[ ]:
 
 
