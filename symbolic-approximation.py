@@ -13,13 +13,13 @@ import math
 import matplotlib.pyplot as plt
 
 
-# In[624]:
+# In[2]:
 
 
 # Math()
 
 
-# In[2]:
+# In[3]:
 
 
 X = np.arange(10)
@@ -81,6 +81,7 @@ trig_funcs = 'sin cos tan csc sec cot'.split()
 for t in trig_funcs:
     functions.append([t, lambda a: math.sin(a), f'\\{t}'])
     expressions.append([['trig'], [t], 1])
+
 values = [
     ['constant', [lambda: np.random.randint(-5, 5)]]
 ]
@@ -98,7 +99,13 @@ expressions = [[a[0], b, c] for a, b, c in expressions]
 
 # for s in symbols
 # hierarchical regular expressions?
-def generate(exp=None, level=1, iterations=10, max_levels=10, limit_complexity=True):
+def generate(
+        exp=None,
+        level=1,
+        iterations=10,
+        max_levels=10,
+        limit_complexity=True
+    ):
     if exp is None:
         exp = ['$']
 #     elif isinstance(exp, str):
