@@ -48,6 +48,12 @@ expressions = [
     [['O1'], ['trig'], 1],
     [['O1'], ['fact']],
     [['E'], ['V']], #C
+#     Grammar example; polynomial generation
+#     [['V'], ['P']],
+#     [['exp'], [['^', ['x', 'int']]]],
+#     [['P'], [['+', ['term', 'term']]]],
+#     [['term'], [['*', ['int', 'exp']]]],
+    
 #     [['E'], ['F']],
     [['V'], ['F'], 20],
     [['V'], ['x']],
