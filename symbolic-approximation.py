@@ -323,6 +323,50 @@ def evaluate(exp, x, use_complex=False):
     else:
         return evaluate(exp[0], x)
 evaluate(g, [5, 7], use_complex=True)
+
+
+# In[2117]:
+
+
+complex(2, 3) * 5
+
+
+# In[ ]:
+
+
+plt.imshow(np.stack(np.meshgrid(*[np.linspace(-B, B, num=n)]*2))[0])
+
+
+# In[1752]:
+
+
+np.stack(np.meshgrid(*[np.linspace(-B, B, num=n)]*2)).T.reshape((n**2,2))
+
+
+# In[1711]:
+
+
+plt.gcf()
+
+
+# In[1748]:
+
+
+plt.plot(grid.reshape((n**2, 2), order='A'), linewidth=2)
+
+
+# In[1618]:
+
+
+g
+
+
+# In[1479]:
+
+
+list(map(len, expressions))
+
+
 # In[1593]:
 
 
