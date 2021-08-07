@@ -90,3 +90,10 @@ for J, K in [('add', '+'), ('sub', '-'), ('mul', '*'), ('truediv', '/'), ('xor',
         magic_factory(K)
     )
     setattr(Expression, f'__r{J}__', magic_factory(K))
+
+# In[250]:
+
+
+varnames = list(string.ascii_lowercase)
+for C in varnames:
+    globals()[C] = Symbol(C)
