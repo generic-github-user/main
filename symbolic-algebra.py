@@ -91,9 +91,89 @@ for J, K in [('add', '+'), ('sub', '-'), ('mul', '*'), ('truediv', '/'), ('xor',
     )
     setattr(Expression, f'__r{J}__', magic_factory(K))
 
+
+# In[248]:
+
+
+class Session:
+    pass
+qq = Session
+
+
+# In[249]:
+
+
+Expression.__mul__==Expression.__add__
+
+
 # In[250]:
 
 
 varnames = list(string.ascii_lowercase)
 for C in varnames:
     globals()[C] = Symbol(C)
+
+
+# In[251]:
+
+
+((x+5)-10)^2
+
+
+# In[252]:
+
+
+# locals()
+
+
+# In[253]:
+
+
+# |y|
+
+
+# In[254]:
+
+
+# qq<root>
+# 3<root>x
+# xy
+
+
+# In[255]:
+
+
+class Infix:
+    def __init__(self, function):
+        self.function = function
+    def __ror__(self, other):
+        return Infix(lambda x, self=self, other=other: self.function(other, x))
+    def __or__(self, other):
+        return self.function(other)
+    def __rlshift__(self, other):
+        return Infix(lambda x, self=self, other=other: self.function(other, x))
+    def __rshift__(self, other):
+        return self.function(other)
+    def __call__(self, value1, value2):
+        return self.function(value1, value2)
+
+
+# In[256]:
+
+
+root = Infix(lambda A, B: B ^ (Symbol(1) / A))
+# handling int literals?
+# define/apply op?
+
+
+# In[257]:
+
+
+3<<root>>x
+
+
+# In[ ]:
+
+
+
+
