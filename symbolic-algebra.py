@@ -40,3 +40,13 @@ class Expression:
         return self.stringify()
     def __repr__(self):
         return str(self)
+
+
+# In[218]:
+
+
+class Operator(Expression):
+    def __init__(self, symbol, *inputs, **kwargs):
+        super().__init__(*inputs, **kwargs)
+        self.symbol = symbol
+        self.inputs = self.terms
