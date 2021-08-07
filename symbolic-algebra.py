@@ -6,6 +6,19 @@
 
 import string
 
+
+# In[53]:
+
+
+def dynamic_var(X):
+    if X in globals():
+        return globals()[X]
+    else:
+        globals()[X] = Symbol(X)
+        return globals()[X]
+# globals().__getitem__ = dynamic_var
+
+
 # In[217]:
 
 
