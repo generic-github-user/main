@@ -72,3 +72,21 @@ class Symbol(Expression):
         return str(self.name)
     def __str__(self):
         return str(self.name)
+
+
+# In[247]:
+
+
+def magic_factory(W):
+    return lambda Self, Other: Expression(Operator(W, Self, Other))
+def magic_factory_reverse(W):
+    return lambda Self, Other: Expression(Operator(W, Other, Self))
+
+for J, K in [('add', '+'), ('sub', '-'), ('mul', '*'), ('truediv', '/'), ('xor', '^')]:
+#     for F in [magic_factory, magic_factory_reverse]:
+    setattr(
+        Expression,
+        f'__{J}__',
+        magic_factory(K)
+    )
+    setattr(Expression, f'__r{J}__', magic_factory(K))
