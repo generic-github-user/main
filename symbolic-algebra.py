@@ -57,3 +57,18 @@ class Operator(Expression):
             return super().__str__(self)
     def __str__(self):
         return self.stringify()
+
+
+# In[246]:
+
+
+class Symbol(Expression):
+    def __init__(self, name):
+        super().__init__()
+        self.name = name
+#     def __add__(self, B):
+#         return Expression(Operator('+', self, B))
+    def stringify(self, *args, **kwargs):
+        return str(self.name)
+    def __str__(self):
+        return str(self.name)
