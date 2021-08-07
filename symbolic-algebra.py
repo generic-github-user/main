@@ -50,3 +50,10 @@ class Operator(Expression):
         super().__init__(*inputs, **kwargs)
         self.symbol = symbol
         self.inputs = self.terms
+    def stringify(self, level=0):
+        if len(self.terms) == 2:
+            return ' '.join([(T.stringify(level+1) if isinstance(T, Expression) else str(T)) for T in [self.terms[0], self.symbol, self.terms[1]]])
+        else:
+            return super().__str__(self)
+    def __str__(self):
+        return self.stringify()
