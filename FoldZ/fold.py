@@ -99,6 +99,21 @@ class Point:
         self.pos = self.pos.round(self.precision)
         return self
 
+    def __add__(self, B):
+        return Point(self.pos + B.pos)
+
+    def __sub__(self, B):
+        return Point(self.pos - B.pos)
+
+    def __mul__(self, B):
+        return Point(self.pos * B.pos)
+
+    def __truediv__(self, B):
+        if isinstance(B, Point):
+            return Point(self.pos / B.pos)
+        elif isinstance(B, (int, float)):
+            return Point(self.pos / B)
+
     def __call__(self):
         """
         Returns this point's position
