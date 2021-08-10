@@ -135,3 +135,13 @@ class Manifold:
     def __init__(self, dimensions=2):
         assert dimensions >= 1
         self.dimensions = dimensions
+
+# Cell
+class Foldable:
+    def __init__(self, shape, manifold, exact=True, backend='geo'):
+        if not isinstance(shape, (list, tuple)):
+            shape = [shape]
+        self.shape = shape
+        self.manifold = manifold
+        self.exact = exact
+        self.backend = backend
