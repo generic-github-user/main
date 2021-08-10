@@ -114,3 +114,9 @@ class Point:
         Generate a string representation of this point
         """
         return 'Point ' + str(self.pos)
+
+# Cell
+class Manifold:
+    def __init__(self, dimensions=2):
+        assert dimensions >= 1
+        self.dimensions = dimensions
