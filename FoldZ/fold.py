@@ -145,3 +145,29 @@ class Foldable:
         self.manifold = manifold
         self.exact = exact
         self.backend = backend
+
+    def render(self, filename='./rendered.svg', size=(400, 400), center=True, color='white', color_mapping='hue', color_by='order', style={}):
+        image = svgwrite.Drawing(filename=filename, size=size)
+        if self.backend == 'sympy':
+            offset = Point2D(size)/2-self.shape[0].midpoint
+        elif self.backend in ['geo', 'geometry']:
+            offset = Point(size)/2-self.shape[0].midpoint()
+        for i, part in enumerate(self.shape):
+            if isinstance(part, Segment):
+                p1 = self.plain(part.p1+offset)
+                p2 = self.plain(part.p2+offset)
+            elif isinstance(part, Line):
+                p1 = (part.a+offset).pos
+                p2 = (part.b+offset).pos
+            if color_by == 'order':
+                style |= {'style': f'stroke:hsl({round(i/len(self.shape)*360)}, 100%, 50%)'}
+            line = image.line(
+                start=p1,
+                end=p2,
+                stroke=color,
+                stroke_width=1,
+                **style
+            )
+            image.add(line)
+        image.save()
+        return self
