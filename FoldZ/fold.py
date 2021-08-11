@@ -137,6 +137,99 @@ class Point:
         """
         return 'Point ' + str(self.pos)
 
+
+# Cell
+
+# # 1D geometry convenience subclass
+# class Line(Geometry):
+#     def __init__(self):
+#         super().__init__(dimensions=1)
+# global geometry sessions
+class Line:
+    def __init__(self, a, b):
+        """Create a new line
+
+        Params:
+            a: The start point of the line
+            b: The end point of the line
+        """
+        self.a = a
+        self.b = b
+
+    def move(self, delta):
+        """Translate the line
+
+        Params:
+            delta: The amount (in each direction/axis) to move the line by
+        """
+        for p in [self.a, self.b]:
+            p.move(delta)
+        return self
+
+    def rotate(self, *args, **kwargs):
+        for p in [self.a, self.b]:
+            p.rotate(*args, **kwargs)
+        return self
+
+    def divide(self, n:int=1) -> list['Line']:
+        """Split the line into several smaller line segments
+
+        Params:
+            n: The number of sections to divide the line into
+        """
+#         return [Line(Point(np.average([self.a, self.b], weights=[]))) for i in range(n)]
+        sections = []
+        for i in range(n):
+            a_ = np.average([self.a(), self.b()], weights=[i, n-i], axis=0)
+            b_ = np.average([self.a(), self.b()], weights=[i+1, n-i-1], axis=0)
+            s = Line(
+                Point(b_),
+                Point(a_),
+            )
+            sections.append(s)
+        return sections[::-1]
+
+# Cell
+# should this subclass Geometry instead?
+class Polygon(Shape):
+    """General polygon class that extends the Shape class"""
+    def __init__(self):
+        """Create a new polygon"""
+        super().__init__()
+        self.sides: [line] = []
+    def regular(self, sides, radius):
+        """Define polygon's geometry as a regular polygon; one with equal sides and angles"""
+        for s in range(sides):
+            self.sides.append(Line())
+
+# Cell
+class Circle(Shape):
+    """A geometric 2D circle with a certain radius; subclass of Shape"""
+    def __init__(self, radius):
+        super().__init__()
+        self.radius: Scalar = radius
+    def get_tangents(self):
+        """Quickly calculate incline angle of tangent line for each cell rendered on circle outline; these will be used to render the outline in ASCII characters"""
+        r = self.radius()
+        # possibly move this code
+        minigrid = np.zeros([r*2+1, r*2+1])
+        # crossed_cells = minigrid
+        # TODO: mirroring for efficiency?
+        for x, y in np.ndindex(minigrid.shape):
+            # print(5)
+            # print(np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))))
+            if np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))) == r:
+                minigrid[x, y] = 1
+        num_crossed = np.sum(minigrid)
+        d_theta = 360 / num_crossed
+        c = 0
+        for x, y in np.ndindex(minigrid.shape):
+            # if
+            c += minigrid[x, y]
+            # minigrid[x, y] = Angle(d_theta * c)
+            minigrid[x, y] = d_theta * c * minigrid[x, y]
+        return np.round(minigrid)
+
 # Cell
 class Manifold:
     def __init__(self, dimensions=2):
