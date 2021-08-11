@@ -253,6 +253,16 @@ class Polygon(Shape):
         for s in range(sides):
             self.sides.append(Line())
 
+    def rotate(self, *args, **kwargs):
+        for p in self.v:
+            p.rotate(*args, **kwargs)
+        return self
+
+    def __str__(self):
+        return 'Polygon\n\t' + '\n\t'.join(str(v) for v in self.v)
+
+    def __repr__(self):
+        return str(self)
 # Cell
 class Circle(Shape):
     """A geometric 2D circle with a certain radius; subclass of Shape"""
