@@ -198,6 +198,14 @@ class Foldable:
             self.shape[p].rotate(center, rotation, rad=True)
         return self
 
+    def self_intersections(self):
+        intersections = []
+        for p in self.shape:
+            for q in self.shape:
+                if p is not q and p.intersects(q):
+                    intersections.append(p.intersection(q))
+        return intersections
+
     def intersects_self(self):
         for p in self.shape:
             for q in self.shape:
