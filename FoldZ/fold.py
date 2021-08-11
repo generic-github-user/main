@@ -189,6 +189,16 @@ class Line:
             sections.append(s)
         return sections[::-1]
 
+
+    def midpoint(self):
+        return (self.a + self.b) / 2
+
+    def slope(self):
+        return (self.a.y - self.b.y) / (self.a.x - self.b.x)
+
+    def yintercept(self):
+        return self.a - Point((self.a.x, self.a.x*self.slope()))
+
 # Cell
 # should this subclass Geometry instead?
 class Polygon(Shape):
