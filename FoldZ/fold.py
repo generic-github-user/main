@@ -137,6 +137,17 @@ class Manifold:
         self.dimensions = dimensions
 
 # Cell
+class Event:
+    def __init__(self):
+        self.time = time.time()
+
+    def __str__(self):
+        return str(self.time)
+
+    def __repr__(self):
+        return str(self)
+
+# Cell
 class Foldable:
     def __init__(self, shape, manifold, exact=True, backend='geo'):
         if not isinstance(shape, (list, tuple)):
