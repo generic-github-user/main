@@ -197,3 +197,11 @@ class Foldable:
         for p in R:
             self.shape[p].rotate(center, rotation, rad=True)
         return self
+
+    def intersects_self(self):
+        for p in self.shape:
+            for q in self.shape:
+                if p is not q and p.intersects(q):
+                    return True
+        self.events.append(Event())
+        return False
