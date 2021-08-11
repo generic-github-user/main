@@ -189,6 +189,29 @@ class Line:
             sections.append(s)
         return sections[::-1]
 
+    def intersects(self, B):
+#         return any([((Y.pos > Z.pos).all() or (Y.pos < Z.pos).all()) for Y, Z in [(self.a, B.a), (self.b, B.b)]])
+#         if not (min(self.a.x, self.b.x) > min(self.a.x, self.b.x) or max(self.a.x, self.b.x) < max(self.a.x, self.b.x)):
+#             return False
+        if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
+            return False
+        elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
+            return False
+        else:
+            solution = self.solve(B)
+            if solution:
+    #             Check that solution is within bounds of both line segments (only need to check one axis)
+                if (self.a.x <= solution.x <= self.b.x) or (self.a.x >= solution.x >= self.b.x):
+                    if (B.a.x <= solution.x <= B.b.x) or (B.a.x >= solution.x >= B.b.x):
+                        return True
+    #             else:
+    #                 print('Not in bounds')
+            else:
+                return False
+
+    def intersection(self, L2):
+        if self.intersects(L2):
+            return self.solve(L2)
 
     def midpoint(self):
         return (self.a + self.b) / 2
