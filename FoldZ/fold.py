@@ -386,4 +386,35 @@ class Foldable:
             rotation = random.choice([pi/2,-pi/2])
             for p in range(index+1, len(self.shape)):
                 self.shape[p] = self.shape[p].rotate(rotation, split)
+        elif self.backend in ['geo', 'geometry']:
+            if allow_intersection:
+                rotation = random.uniform(0, 2*math.pi*0.2)
+                sections = part.divide(2)
+                self.shape[index:index+1] = sections
+                self.rotate_section(index, part.midpoint(), rotation)
+            else:
+                success = False
+                for j in range(attempts):
+#                     why does the search often fail if these lines are not included?
+                    part = random.choice(self.shape)
+                    index = self.shape.index(part)
+
+        #             rotation = random.choice([math.pi/6,-math.pi/6])
+                    eta = 2*math.pi*1
+                    rotation = random.uniform(-eta, eta)
+                    sections = part.divide(2)
+                    self.shape[index:index+1] = sections
+                    D = random.choice(['forward', 'backward'])
+                    self.rotate_section(index, part.midpoint(), rotation, direction=D)
+    #                 add undo function
+                    if self.intersects_self():
+                        self.rotate_section(index, part.midpoint(), -rotation, direction=D)
+                        self.shape[index:index+len(sections)] = [part]
+                    else:
+                        success = True
+                        break
+                if not success:
+                    print(f'Could not find suitable configuration within {attempts} attempts')
+
+#             print(part.midpoint(), self.shape)
         return self
