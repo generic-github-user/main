@@ -418,3 +418,20 @@ class Foldable:
 
 #             print(part.midpoint(), self.shape)
         return self
+
+# F = Foldable(Segment(Point2D(0, 0), Point2D(100, 0)), Manifold())
+F = Foldable(Line(Point((0,0)), Point((200,0))), Manifold())
+for i in range(10):
+#     F.random_fold()
+#     F.render(clear=False)
+    F.random_fold(allow_intersection=False, attempts=100)
+
+# F.render(style={'style':'stroke:hsl(0, 100%, 50%)'}).show()
+F.render(clear=False).show()
+# constraint optimization
+# interactive mode
+# add M/V fold markings
+# voronoi diagram generation
+# memoize intersection detection
+# folding ring linkages
+# numpy (syntax/style) for geometry
