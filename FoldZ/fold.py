@@ -199,6 +199,17 @@ class Line:
     def yintercept(self):
         return self.a - Point((self.a.x, self.a.x*self.slope()))
 
+    def coefficients(self):
+#         - ?
+        return [-self.slope(), 1, self.yintercept().y]
+
+    def solve(self, L2):
+        try:
+            A, B = self.coefficients(), L2.coefficients()
+            solution = np.linalg.solve(np.array([A[:2], B[:2]]), np.array([A[-1], B[-1]]))
+            return Point(solution)
+        except:
+            return False
 # Cell
 # should this subclass Geometry instead?
 class Polygon(Shape):
