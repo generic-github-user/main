@@ -244,6 +244,24 @@ class Line:
         return str(self)
 
 # Cell
+# 2D geometry convenience subclass
+class Shape(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=2)
+
+# Cell
+# 3D geometry convenience subclass
+class Solid(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=3)
+
+# Cell
+# 4D geometry convenience subclass
+class Hypersolid(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=4)
+
+# Cell
 # should this subclass Geometry instead?
 class Polygon(Shape):
     """General polygon class that extends the Shape class"""
@@ -251,6 +269,8 @@ class Polygon(Shape):
         """Create a new polygon"""
         super().__init__()
         self.sides: [line] = []
+        self.vertices = self.v = []
+
     def regular(self, sides, radius):
         """Define polygon's geometry as a regular polygon; one with equal sides and angles"""
         for s in range(sides):
@@ -266,6 +286,19 @@ class Polygon(Shape):
 
     def __repr__(self):
         return str(self)
+
+# Cell
+class RegularPolygon(Polygon):
+    def __init__(self, r=1, n=4, c=None, manifold=2, axis=0):
+        super().__init__()
+        start = [0] * manifold
+        start[axis] = r
+        self.v.append(Point(start))
+        if not c:
+            c = Point([0] * manifold)
+        self.center = c
+        for i in range(n-1):
+            self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
 # Cell
 class Circle(Shape):
     """A geometric 2D circle with a certain radius; subclass of Shape"""
