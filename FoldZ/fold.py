@@ -182,3 +182,18 @@ class Foldable:
             image.add(line)
         image.save()
         return self
+
+    def rotate_section(self, index, center, rotation, direction='forward'):
+        """
+        Rotate a linkage section and all the attached sections (repeating until the end of the chain is reached)
+        """
+
+        if direction == 'random':
+            direction = random.choice(['forward', 'backward'])
+        if direction == 'forward':
+            R = range(index+1, len(self.shape))
+        elif direction == 'backward':
+            R = range(len(self.shape)-1, index, -1)
+        for p in R:
+            self.shape[p].rotate(center, rotation, rad=True)
+        return self
