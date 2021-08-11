@@ -313,3 +313,26 @@ class Foldable:
                     return True
         self.events.append(Event())
         return False
+
+    def random_fold(self, allow_intersection=False, attempts=20):
+        part = random.choice(self.shape)
+        index = self.shape.index(part)
+
+#         v = round(random.uniform(0, 1), 2)
+        if self.backend == 'sympy':
+            v = Rational(random.randint(1, 3)/4)
+            split = part.arbitrary_point(parameter=t).subs(t, v)
+#         elif self.backend == 'geo':
+
+            if not self.exact:
+                split = self.plain(split)
+    #             split = list(map(sympy.Expr, split))
+    #         self.shape.pop(self.shape.index(part))
+            p1, p2 = part.p1, part.p2
+            if not self.exact:
+                p1, p2 = map(self.plain, [p1, p2])
+            self.shape[index:index+1] = [Segment(p1, split), Segment(split, p2)]
+            rotation = random.choice([pi/2,-pi/2])
+            for p in range(index+1, len(self.shape)):
+                self.shape[p] = self.shape[p].rotate(rotation, split)
+        return self
