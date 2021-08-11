@@ -210,6 +210,13 @@ class Line:
             return Point(solution)
         except:
             return False
+
+    def __str__(self):
+        return 'Line\n\t' + '\n\t'.join(str(v) for v in [self.a, self.b])
+
+    def __repr__(self):
+        return str(self)
+
 # Cell
 # should this subclass Geometry instead?
 class Polygon(Shape):
