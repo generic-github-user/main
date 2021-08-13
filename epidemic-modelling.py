@@ -39,3 +39,13 @@ class Pathogen:
     
     def __repr__(self):
         return str(self)
+
+# In[536]:
+
+
+def clipped_normal(a, b, c, d, s=None):
+    return np.clip(np.random.normal(a, b, s), c, d)
+def display(text):
+    if isinstance(text, (float, np.float)):
+        text = round(text, 2)
+    return str(text)
