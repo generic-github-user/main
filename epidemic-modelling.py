@@ -33,3 +33,9 @@ class Pathogen:
         defaults |= kwargs
         for k, v in defaults.items():
             setattr(self, k, v)
+    
+    def __str__(self):
+        return f'Pathogen ({self.infectiousness})'
+    
+    def __repr__(self):
+        return str(self)
