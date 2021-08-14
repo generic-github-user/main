@@ -84,6 +84,19 @@ class Person:
             return False
         else:
             return bool(self.infected)
+    
+#     def infect(self):
+    
+    def step(self):
+        if self.infected:
+            self.health -= self.infected.virulence * self.age
+            if (self.population.age - self.infection_time) >= self.infected.disease_period:
+                self.infected = False
+#                 self.infection
+#         if (self.population.age - self.infection_time) >= self.pathogen.incubation_period:
+#         convalescence equation
+        self.age += self.population.step_duration
+        return self
 
 # In[551]:
 
