@@ -58,3 +58,18 @@ class History:
         self.number_infected = []
         self.number_killed = []
         self.number_ever_infected = []
+class Population:
+    def __init__(self, members=None, size=10, step_duration=1/365):
+        self.size = size
+        self.step_duration = step_duration
+        self.age = 0
+        if members is None:
+            self.members = []
+            for n in range(self.size):
+                self.add()
+        else:
+            self.members = members
+        self.history = History()
+        self.cache = {}
+#         self.memoized = {}
+        self.compute_used = 0
