@@ -76,6 +76,14 @@ class Person:
         defaults |= kwargs
         for k, v in defaults.items():
             setattr(self, k, v)
+    
+    def test(self, pos=0.05, neg=0.05):
+        if np.random.uniform() < pos:
+            return True
+        elif np.random.uniform() < neg:
+            return False
+        else:
+            return bool(self.infected)
 
 # In[551]:
 
