@@ -49,6 +49,33 @@ def display(text):
     if isinstance(text, (float, np.float)):
         text = round(text, 2)
     return str(text)
+        
+class Person:
+    def __init__(self, **kwargs):
+        defaults = dict(
+            id=None,
+            name='P'+str(len(kwargs['population'].members)+1),
+            infected=False,
+            infection_time=None,
+            previously_infected=False,
+            alive=True,
+            immune=False,
+            vaccinated=False,
+            quarantined=False,
+            age=clipped_normal(30, 10, 0, 150),
+            location=np.random.uniform(0, 100, 2),
+            neighbors=[],
+            stationary=True,
+            history=[],
+#             initializer (age-dependent)
+            health=50,
+#             only store state changes? - then reconstruct
+            population=None,
+            mating_probability=0.001
+        )
+        defaults |= kwargs
+        for k, v in defaults.items():
+            setattr(self, k, v)
 
 # In[551]:
 
