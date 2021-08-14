@@ -49,3 +49,12 @@ def display(text):
     if isinstance(text, (float, np.float)):
         text = round(text, 2)
     return str(text)
+
+# In[551]:
+
+
+class History:
+    def __init__(self):
+        self.number_infected = []
+        self.number_killed = []
+        self.number_ever_infected = []
