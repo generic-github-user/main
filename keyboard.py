@@ -125,3 +125,18 @@ fig.tight_layout()
 
 plt.xticks(rotation='vertical')
 plt.show()
+
+points = []
+methods = ['random', 'nearest']
+for i in range(500):
+    A = np.random.randint(5, 100)
+    B = random.choice(methods)
+    s = random_string(l=A)
+    score_value = score(s, positioning=B)
+    P = [A, score_value, methods.index(B)]
+    points.append(P)
+points = np.array(points)
+args = points.T[:2]
+kwargs = dict(c=points.T[2], cmap='rainbow', s=5)
+plt.scatter(*args, **kwargs)
+plt.show()
