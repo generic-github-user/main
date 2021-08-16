@@ -83,3 +83,14 @@ def sample_random(n=None, string_list=None, l=10, **kwargs):
             s = strings[i]
         values.append(score(s, **kwargs))
     return strings, values
+
+
+plt.style.use('seaborn')
+# plt.hist(scores.values(), bins=20)
+s, v = sample_random(500, l=10)
+bins = np.linspace(0, 200, 100)
+for method in ['random', 'nearest']:
+    s2, v2 = sample_random(500, string_list=s, positioning=method, stretch_penalty=0.2)
+    plt.hist(v2, bins=bins, alpha=0.5, label=method)
+plt.legend()
+plt.show()
