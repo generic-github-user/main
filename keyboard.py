@@ -67,6 +67,9 @@ for s in test_strings:
     scores[s] = val
     print(val)
 
+def random_string(l=10):
+    return ''.join(random.choices(string.ascii_lowercase+string.digits, k=l))
+
 def sample_random(n=None, string_list=None, l=10, **kwargs):
     if string_list is None:
         strings = []
@@ -77,7 +80,7 @@ def sample_random(n=None, string_list=None, l=10, **kwargs):
     values = []
     for i in range(n):
         if string_list is None:
-            s = ''.join(random.choices(string.ascii_lowercase+string.digits, k=l))
+            s = random_string(l=l)
             strings.append(s)
         else:
             s = strings[i]
