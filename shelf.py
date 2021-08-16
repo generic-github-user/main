@@ -15,3 +15,13 @@ parser.add_argument('-s', '--similarity', action='store_true', help='Find notes 
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
+class Session:
+    library = None
+class Base:
+    def __init__(self):
+        self.uuid = uuid.uuid4().hex
+        now = time.time()
+        self.created = now
+        self.modified = time.time()
+        self.accessed = time.time()
+        print(f'Created {type(self).__name__} instance at {now}')
