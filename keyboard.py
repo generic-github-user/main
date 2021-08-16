@@ -94,3 +94,31 @@ for method in ['random', 'nearest']:
     plt.hist(v2, bins=bins, alpha=0.5, label=method)
 plt.legend()
 plt.show()
+
+s, v = sample_random(string_list=test_strings, l=10)
+s2, v2 = sample_random(string_list=s, positioning='nearest')
+s, v, v2 = zip(*sorted(zip(s, v, v2), key=lambda x: x[1]))
+
+# plt.bar(s, list(zip(v, v2)))
+
+# Base code for grouped bar chart from https://matplotlib.org/stable/gallery/lines_bars_and_markers/barchart.html
+x = np.arange(len(s))
+width = 0.35
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/2, v, width, label='Random')
+rects2 = ax.bar(x + width/2, v2, width, label='Nearest')
+
+ax.set_ylabel('Scores')
+ax.set_title('Typing Cost Values by Method')
+ax.set_xticks(x)
+ax.set_xticklabels(s)
+ax.legend()
+
+ax.bar_label(rects1, padding=3)
+ax.bar_label(rects2, padding=3)
+
+fig.tight_layout()
+
+plt.xticks(rotation='vertical')
+plt.show()
