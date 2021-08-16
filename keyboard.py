@@ -60,3 +60,26 @@ def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5,
         pos = new
         # print(c, pos)
     return cost
+
+scores = {}
+for s in test_strings:
+    val = score(s, positioning='nearest')
+    scores[s] = val
+    print(val)
+
+def sample_random(n=None, string_list=None, l=10, **kwargs):
+    if string_list is None:
+        strings = []
+    else:
+        strings = string_list
+        if not n:
+            n = len(strings)
+    values = []
+    for i in range(n):
+        if string_list is None:
+            s = ''.join(random.choices(string.ascii_lowercase+string.digits, k=l))
+            strings.append(s)
+        else:
+            s = strings[i]
+        values.append(score(s, **kwargs))
+    return strings, values
