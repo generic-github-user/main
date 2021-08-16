@@ -31,6 +31,9 @@ test_strings = [
 ]
 
 def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5, log=False):
+    if log:
+        print(text)
+
     if positioning == 'random':
         pos = np.random.randint([0, 0], np.array(layout.shape), (pointers, 2))
     elif positioning == 'nearest':
@@ -38,6 +41,9 @@ def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5,
         pos[0] = np.array(np.where(layout == text[0])).reshape((2,))
     elif positioning == 'heuristic':
         pos = None
+
+    if log:
+        print(text[0], pos)
     cost = 0
     for c in text[1:]:
         new = pos.copy()
@@ -52,4 +58,5 @@ def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5,
         stretch_cost = np.linalg.norm(new[...,None] - new.T[None,...])
         cost += stretch_cost * stretch_penalty
         pos = new
+        # print(c, pos)
     return cost
