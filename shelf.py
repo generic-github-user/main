@@ -25,3 +25,22 @@ class Base:
         self.modified = time.time()
         self.accessed = time.time()
         print(f'Created {type(self).__name__} instance at {now}')
+
+# class Settings(Base):
+
+class Statistics(Base):
+    def __init__(self):
+        super().__init__()
+
+class Library(Base):
+    def __init__(self, notes=None, tags=None):
+        super().__init__()
+
+        if notes is None:
+            notes = []
+        self.notes = notes
+        if tags is None:
+            tags = []
+        self.tags = tags
+
+        self.statistics = Statistics()
