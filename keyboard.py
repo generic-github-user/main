@@ -30,9 +30,13 @@ test_strings = [
     'iuhfunwofinwguibogybnaon'
 ]
 
-def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5, log=False):
+def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5, log=False, seed=None):
     if log:
         print(text)
+    if seed is not None:
+        assert isinstance(seed, int)
+        random.seed(seed)
+        np.random.seed(seed)
 
     if positioning == 'random':
         pos = np.random.randint([0, 0], np.array(layout.shape), (pointers, 2))
@@ -88,18 +92,19 @@ def sample_random(n=None, string_list=None, l=10, **kwargs):
     return strings, values
 
 
+defaults = dict(seed=42)
 plt.style.use('seaborn')
 # plt.hist(scores.values(), bins=20)
 s, v = sample_random(500, l=10)
 bins = np.linspace(0, 200, 100)
 for method in ['random', 'nearest']:
-    s2, v2 = sample_random(500, string_list=s, positioning=method, stretch_penalty=0.2)
+    s2, v2 = sample_random(500, string_list=s, positioning=method, stretch_penalty=0.2, **defaults)
     plt.hist(v2, bins=bins, alpha=0.5, label=method)
 plt.legend()
 plt.show()
 
-s, v = sample_random(string_list=test_strings, l=10)
-s2, v2 = sample_random(string_list=s, positioning='nearest')
+s, v = sample_random(string_list=test_strings, l=10, **defaults)
+s2, v2 = sample_random(string_list=s, positioning='nearest', **defaults)
 s, v, v2 = zip(*sorted(zip(s, v, v2), key=lambda x: x[1]))
 
 # plt.bar(s, list(zip(v, v2)))
