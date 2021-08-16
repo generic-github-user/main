@@ -4,3 +4,14 @@ import argparse
 import zlib
 import base64
 import time
+import numpy as np
+import fuzzywuzzy
+from fuzzywuzzy import fuzz
+
+parser = argparse.ArgumentParser(description='Run a shelf command')
+parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
+parser.add_argument('-q', '--quit', action='store_true', help='Exit interactive mode')
+parser.add_argument('-s', '--similarity', action='store_true', help='Find notes similar to this one (based on edit distance)')
+
+args = parser.parse_args()
+print(args, parser.parse_args(['--interactive']))
