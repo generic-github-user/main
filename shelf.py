@@ -89,3 +89,9 @@ class Note(Base):
         self.content = content
         self.container = container
         self.hash = hash(self.content)
+
+    def similar(self, **kwargs):
+        return self.container.similar(self, **kwargs)
+
+    def __str__(self):
+        return self.content
