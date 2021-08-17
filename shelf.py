@@ -20,13 +20,16 @@ class Session:
 
 def interactive():
     while True:
+        # Get input from user
         text = input()
         if text[0] == '-':
             interactive_args = parser.parse_args(text.split())
+            # Exit loop (quit flag)
             if interactive_args.quit:
                 print('Exiting...')
                 break
         else:
+            # If no command flags are provided, assume the input is to be added as a note
             Session.library.add(text)
 
 def load(path='./notesfile.txt'):
@@ -74,8 +77,10 @@ class Library(Base):
         self.statistics = Statistics()
 
     def add(self, note):
+        # Convert other data types to Note instances
         if not isinstance(note, Note):
             note = Note(note, container=self)
+        # Add the note
         self.notes.append(note)
         print('Added note')
         similar = note.similar(limit=5)
@@ -87,10 +92,12 @@ class Library(Base):
 
     def similar(self, note, threshold=90, limit=None):
         results = []
+        # Loop through notes
         for note2 in self.notes:
             similarity = fuzz.token_sort_ratio(note.content, note2.content)
             if (note is not note2) and (similarity >= threshold):
                 results.append([note2, similarity])
+        # Get the first n results
         if limit:
             results = results[:limit]
         return results
