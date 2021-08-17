@@ -17,6 +17,18 @@ args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
 class Session:
     library = None
+
+def interactive():
+    while True:
+        text = input()
+        if text[0] == '-':
+            interactive_args = parser.parse_args(text.split())
+            if interactive_args.quit:
+                print('Exiting...')
+                break
+        else:
+            Session.library.add(text)
+
 def load(path='./notesfile.txt'):
     try:
         with open(path, 'r') as note_file:
