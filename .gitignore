@@ -1,5 +1,6 @@
 notesfile.txt
 notes_export.md
+shelf_backup_*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

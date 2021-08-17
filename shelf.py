@@ -143,6 +143,8 @@ if args.export:
         Session.library.to_markdown('./notes_export.md')
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
-    save(path=f'./shelf_backup_{timestamp}.txt')
+    backup_path = f'./shelf_backup_{timestamp}.txt'
+    save(path=backup_path)
+    print(f'Backed up library to {backup_path}')
 
 save()
