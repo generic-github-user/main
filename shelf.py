@@ -60,3 +60,15 @@ class Library(Base):
         self.tags = tags
 
         self.statistics = Statistics()
+
+    def add(self, note):
+        if not isinstance(note, Note):
+            note = Note(note, container=self)
+        self.notes.append(note)
+        print('Added note')
+        similar = note.similar(limit=5)
+        print(f'Found {len(similar)} similar note{"s" if len(similar)!=1 else ""}:')
+        for match, value in similar:
+            print(f'{match} ({value}%)')
+        self.changed()
+        return self
