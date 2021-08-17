@@ -95,3 +95,10 @@ class Note(Base):
 
     def __str__(self):
         return self.content
+
+class Tag(Base):
+    def __init__(self, name, container=None):
+        super().__init__()
+        self.name = name
+        self.container = container
+        self.hash = hash(self.name)
