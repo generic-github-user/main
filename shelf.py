@@ -16,6 +16,7 @@ parser.add_argument('-q', '--quit', action='store_true', help='Exit interactive 
 parser.add_argument('-s', '--similarity', action='store_true', help='Find notes similar to this one (based on edit distance)')
 parser.add_argument('-e', '--export', help='Export your notes library to another format (Markdown, JSON, etc.)')
 parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire library to another file')
+parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
@@ -78,6 +79,7 @@ class Library(Base):
         if tags is None:
             tags = []
         self.tags = tags
+        self.terms = []
 
         self.statistics = Statistics()
 
@@ -106,6 +108,30 @@ class Library(Base):
         if limit:
             results = results[:limit]
         return results
+
+    def extract_terms(self, n=20, exclude_common=True, weighted=True):
+        common = 'and of with the or if yet on in to a from as for another eg ie'.split()
+        self.terms = set()
+        frequencies = {}
+        for note in self.notes:
+            content = note.content.translate(str.maketrans('', '', string.punctuation))
+            words = content.split()
+            ngrams = []
+            for length in range(1, 3):
+                for i in range(0, len(words)-length):
+                    span = words[i:i+length]
+                    if (not exclude_common) or (not all(w in common for w in span)):
+                        ngrams.append(' '.join(span))
+            self.terms.update(ngrams)
+            for term in ngrams:
+                if term in frequencies:
+                    frequencies[term] += 1
+                else:
+                    frequencies[term] = 1
+        # self.terms = [Term(term) for term in self.terms]
+        self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] * (len(k.split()) if weighted else 1), reverse=True)[:n]]
+        return self.terms
+
 
     def to_markdown(self, path=None):
         output = ''
@@ -137,6 +163,15 @@ class Tag(Base):
         self.container = container
         self.hash = hash(self.name)
 
+class Term(Base):
+    def __init__(self, content, frequency=None):
+        super().__init__()
+        self.content = content
+        self.frequency = frequency
+
+    def __str__(self):
+        return self.content
+
 load()
 if args.export:
     if args.export in ['md', 'markdown']:
@@ -146,5 +181,10 @@ if args.backup:
     backup_path = f'./shelf_backup_{timestamp}.txt'
     save(path=backup_path)
     print(f'Backed up library to {backup_path}')
+if args.terms:
+    terms = Session.library.extract_terms()
+    for term in terms:
+        print(f'> {term} [{term.frequency}]')
+        time.sleep(0.1)
 
 save()
