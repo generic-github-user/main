@@ -14,10 +14,12 @@ parser = argparse.ArgumentParser(description='Run a shelf command')
 parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
 parser.add_argument('-q', '--quit', action='store_true', help='Exit interactive mode')
 parser.add_argument('-s', '--similarity', action='store_true', help='Find notes similar to this one (based on edit distance)')
+parser.add_argument('-e', '--export', help='Export your notes library to another format (Markdown, JSON, etc.)')
 parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire library to another file')
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
+
 class Session:
     library = None
 
@@ -105,6 +107,16 @@ class Library(Base):
             results = results[:limit]
         return results
 
+    def to_markdown(self, path=None):
+        output = ''
+        for note in self.notes:
+            output += note.content
+            output += '\n'
+        if path:
+            with open(path, 'w') as export_file:
+                export_file.write(output)
+            print(f'Saved note library export to {path}')
+        return output
 class Note(Base):
     def __init__(self, content, container=None):
         super().__init__()
@@ -126,6 +138,9 @@ class Tag(Base):
         self.hash = hash(self.name)
 
 load()
+if args.export:
+    if args.export in ['md', 'markdown']:
+        Session.library.to_markdown('./notes_export.md')
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     save(path=f'./shelf_backup_{timestamp}.txt')
