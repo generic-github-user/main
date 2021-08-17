@@ -72,3 +72,13 @@ class Library(Base):
             print(f'{match} ({value}%)')
         self.changed()
         return self
+
+    def similar(self, note, threshold=90, limit=None):
+        results = []
+        for note2 in self.notes:
+            similarity = fuzz.token_sort_ratio(note.content, note2.content)
+            if (note is not note2) and (similarity >= threshold):
+                results.append([note2, similarity])
+        if limit:
+            results = results[:limit]
+        return results
