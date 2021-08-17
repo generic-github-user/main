@@ -17,6 +17,22 @@ args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
 class Session:
     library = None
+def load(path='./notesfile.txt'):
+    try:
+        with open(path, 'r') as note_file:
+            Session.library = dill.loads(base64.b64decode(note_file.read()))
+        print(f'Loaded library from {path}')
+    except Exception as E:
+        print(E)
+        Session.library = Library()
+        print(f'No library found at specified path ({path}); created new library')
+
+
+def save(path='./notesfile.txt'):
+    with open(path, 'w') as note_file:
+        note_file.write(base64.b64encode(bytes(dill.dumps(Session.library))).decode('UTF-8'))
+    print(f'Saved database to {path}')
+
 class Base:
     def __init__(self):
         self.uuid = uuid.uuid4().hex
