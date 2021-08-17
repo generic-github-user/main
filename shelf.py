@@ -82,3 +82,10 @@ class Library(Base):
         if limit:
             results = results[:limit]
         return results
+
+class Note(Base):
+    def __init__(self, content, container=None):
+        super().__init__()
+        self.content = content
+        self.container = container
+        self.hash = hash(self.content)
