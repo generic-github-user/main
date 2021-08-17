@@ -110,25 +110,33 @@ class Library(Base):
         return results
 
     def extract_terms(self, n=20, exclude_common=True, weighted=True):
+        # A list of common words that should not be included in the results
         common = 'and of with the or if yet on in to a from as for another eg ie'.split()
         self.terms = set()
         frequencies = {}
+        # Loop through all stored notes
         for note in self.notes:
+            # Get note content (with punctuation removed)
             content = note.content.translate(str.maketrans('', '', string.punctuation))
+            # Split into words
             words = content.split()
+            # Generate n-grams of each specified length from words in note
             ngrams = []
             for length in range(1, 3):
                 for i in range(0, len(words)-length):
                     span = words[i:i+length]
+                    # Include this n-gram if at least one of its words is not in the common words list, or exclude_common is set to False
                     if (not exclude_common) or (not all(w in common for w in span)):
                         ngrams.append(' '.join(span))
             self.terms.update(ngrams)
+            # Increment or create each n-gram's corresponding counter in the frequency list
             for term in ngrams:
                 if term in frequencies:
                     frequencies[term] += 1
                 else:
                     frequencies[term] = 1
         # self.terms = [Term(term) for term in self.terms]
+        # Sort the terms by frequency (adjusted with the appropriate weighting), get the first n terms, and generate a list of Term instances
         self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] * (len(k.split()) if weighted else 1), reverse=True)[:n]]
         return self.terms
 
