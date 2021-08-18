@@ -5,9 +5,13 @@ import random
 
 
 layout = """
-1234567890
+~!@#$%^&*()_+
+`1234567890-=
+QWERTYUIOP{}|
 qwertyuiop[]\\
+ASDFGHJKL:"
 asdfghjkl;'
+ZXCVBNM<>?
 zxcvbnm,./
 ???? ?
 """
