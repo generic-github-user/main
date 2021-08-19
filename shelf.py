@@ -19,6 +19,7 @@ parser.add_argument('-e', '--export', help='Export your notes library to another
 parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire library to another file')
 parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
 parser.add_argument('-r', '--rank', help='Interactively rank notes')
+parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
@@ -266,5 +267,12 @@ if args.terms:
     for term in terms:
         print(f'> {term} [{term.frequency}]')
         time.sleep(0.1)
+if args.sort:
+    if args.sort == 'importance':
+        results = sorted(Session.library.notes, key=lambda n: n.ratings.importance, reverse=True)
+        # print(f'Found {len(similar)} similar note{"s" if len(similar)!=1 else ""}:')
+        for note in results[:20]:
+            print(f'> {note.content} ({args.sort}: {note.ratings.importance})')
+            time.sleep(0.05)
 
 save()
