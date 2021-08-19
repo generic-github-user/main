@@ -22,6 +22,8 @@ args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
 
 class Session:
+    directory = '/home/alex/Desktop/python_projects/shelf'
+    filepath = '/home/alex/Desktop/python_projects/shelf/notesfile.txt'
     library = None
 
 def interactive():
@@ -38,7 +40,9 @@ def interactive():
             # If no command flags are provided, assume the input is to be added as a note
             Session.library.add(text)
 
-def load(path='./notesfile.txt'):
+def load(path=None):
+    if path is None:
+        path = Session.filepath
     try:
         with open(path, 'r') as note_file:
             Session.library = dill.loads(base64.b64decode(note_file.read()))
@@ -49,7 +53,9 @@ def load(path='./notesfile.txt'):
         print(f'No library found at specified path ({path}); created new library')
 
 
-def save(path='./notesfile.txt'):
+def save(path=None):
+    if path is None:
+        path = Session.filepath
     with open(path, 'w') as note_file:
         note_file.write(base64.b64encode(bytes(dill.dumps(Session.library))).decode('UTF-8'))
     print(f'Saved database to {path}')
@@ -183,10 +189,10 @@ class Term(Base):
 load()
 if args.export:
     if args.export in ['md', 'markdown']:
-        Session.library.to_markdown('./notes_export.md')
+        Session.library.to_markdown(Session.directory+'/notes_export.md')
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
-    backup_path = f'./shelf_backup_{timestamp}.txt'
+    backup_path = f'{Session.directory}/shelf_backup_{timestamp}.txt'
     save(path=backup_path)
     print(f'Backed up library to {backup_path}')
 if args.terms:
