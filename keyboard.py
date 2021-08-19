@@ -19,7 +19,7 @@ layout = list(filter(None, layout.splitlines()))
 max_len = len(max(layout, key=len))
 layout = [l+('?'*(max_len-len(l))) for l in layout]
 layout = list(map(list, layout))
-layout = np.array(layout, dtype=str)
+layout = np.array(layout, dtype=str).reshape([9, max_len])
 print(layout)
 
 test_strings = [
@@ -48,7 +48,32 @@ test_strings = [
     'infinite'
 ]
 
-def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5, log=False, seed=None):
+def transition_cost(pos1, pos2, index, stretch_mode, stretch_penalty, stretch_order, groups):
+    new = pos1.copy()
+    step_cost = 0
+    new[index] = pos2
+    # Get distance between old position and new position
+    step_cost += np.sum(np.linalg.norm(pos1 - new, axis=0))
+    # Calculate the cost associated with the distance between pointers (i.e., the distance fingers would need to stretch to reach certain keys)
+    # TODO: add other stretch modes, limits
+    if stretch_mode == 'mean':
+        if groups:
+            # TODO: move this outside of loop
+            assert isinstance(groups, int)
+            chunks = np.split(new, groups, axis=0)
+
+            stretch_cost = 0
+            for c in chunks:
+                midpoint = np.mean(c, axis=0)
+                stretch_cost += np.sum(np.linalg.norm(new - midpoint, ord=2))
+        else:
+            stretch_cost = np.sum(np.linalg.norm(new - np.mean(new, axis=0), ord=2))
+    elif stretch_mode == 'all':
+        stretch_cost = np.linalg.norm(new[..., None] - new.T[None, ...])
+        # stretch_cost = np.linalg.norm(new[...,None] - new.T[None,...], axis=(0, 1), ord=2)
+        # stretch_cost = np.sum(stretch_cost)
+    step_cost += ((stretch_cost ** stretch_order) * stretch_penalty)
+    return step_cost, new
     if log:
         print(text)
     if seed is not None:
