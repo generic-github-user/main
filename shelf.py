@@ -97,6 +97,11 @@ class Library(Base):
 
         self.statistics = Statistics()
 
+    def upgrade(self):
+        super().upgrade()
+        for note in self.notes:
+            note.upgrade()
+
     def add(self, note):
         # Convert other data types to Note instances
         if not isinstance(note, Note):
@@ -179,6 +184,10 @@ class Note(Base):
         self.container = container
         self.hash = hash(self.content)
 
+    def upgrade(self):
+        super().upgrade(self.content)
+        return self
+
     def similar(self, **kwargs):
         return self.container.similar(self, **kwargs)
 
@@ -202,6 +211,7 @@ class Term(Base):
         return self.content
 
 load()
+Session.library.upgrade()
 
 if args.interactive:
     interactive()
