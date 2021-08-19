@@ -70,6 +70,13 @@ class Base:
         if log:
             print(f'Created {type(self).__name__} instance at {now}')
 
+    def upgrade(self, *args, **kwargs):
+        template = type(self)(*args, **kwargs)
+        for k, v in vars(template).items():
+            if not hasattr(self, k):
+                setattr(self, k, v)
+        return self
+
 # class Settings(Base):
 
 class Statistics(Base):
