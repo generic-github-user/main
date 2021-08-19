@@ -31,7 +31,21 @@ test_strings = [
     'aaaaaaaaaaaaa',
     '123456789',
     '7562855701275165783632875',
-    'iuhfunwofinwguibogybnaon'
+    'iuhfunwofinwguibogybnaon',
+    'effervescent',
+    'antidisestablishmentarianism',
+    'was',
+    '1010101010101010',
+    'alkaline',
+    'polonium',
+    'polonius',
+    'articulation',
+    'ancillary',
+    'auxiliary',
+    'billions',
+    'quintillions',
+    'minimum',
+    'infinite'
 ]
 
 def score(text, pointers=5, groups=1, positioning='random', stretch_penalty=0.5, log=False, seed=None):
