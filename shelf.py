@@ -61,13 +61,14 @@ def save(path=None):
     print(f'Saved database to {path}')
 
 class Base:
-    def __init__(self):
+    def __init__(self, log=False):
         self.uuid = uuid.uuid4().hex
         now = time.time()
         self.created = now
         self.modified = time.time()
         self.accessed = time.time()
-        print(f'Created {type(self).__name__} instance at {now}')
+        if log:
+            print(f'Created {type(self).__name__} instance at {now}')
 
 # class Settings(Base):
 
