@@ -96,10 +96,11 @@ class Library(Base):
         # Add the note
         self.notes.append(note)
         print('Added note')
-        similar = note.similar(limit=5)
+        similar = note.similar(min_=3, limit=5)
         print(f'Found {len(similar)} similar note{"s" if len(similar)!=1 else ""}:')
         for match, value in similar:
-            print(f'{match} ({value}%)')
+            print(f'> {match} ({value}%)')
+            time.sleep(0.1)
         self.changed()
         return self
 
@@ -193,6 +194,9 @@ class Term(Base):
         return self.content
 
 load()
+
+if args.interactive:
+    interactive()
 if args.export:
     if args.export in ['md', 'markdown']:
         Session.library.to_markdown(Session.directory+'/notes_export.md')
