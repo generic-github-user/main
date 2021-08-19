@@ -74,6 +74,9 @@ def transition_cost(pos1, pos2, index, stretch_mode, stretch_penalty, stretch_or
         # stretch_cost = np.sum(stretch_cost)
     step_cost += ((stretch_cost ** stretch_order) * stretch_penalty)
     return step_cost, new
+
+# TODO: emulate human typing patterns
+def score(text, pointers=10, groups=2, positioning='random', start='random', stretch_penalty=0.1, stretch_order=1.1, stretch_mode='mean', log=False, seed=None, length=6, return_value=np.sum):
     if log:
         print(text)
     if seed is not None:
@@ -89,12 +92,17 @@ def transition_cost(pos1, pos2, index, stretch_mode, stretch_penalty, stretch_or
     elif positioning == 'heuristic':
         pos = None
 
+    # print(pos.shape)
+    pos[:, 1] *= length
+
     if log:
         print(text[0], pos)
     cost = 0
     for c in text[1:]:
         new = pos.copy()
         key = np.array(np.where(layout == c)).reshape((2,))
+        key[1] *= length
+        # Select a random pointer to move
         if positioning == 'random':
             index = np.random.randint(0, pointers)
         elif positioning == 'nearest':
