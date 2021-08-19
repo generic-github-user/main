@@ -103,13 +103,19 @@ class Library(Base):
         self.changed()
         return self
 
-    def similar(self, note, threshold=90, limit=None):
+    def similar(self, note, threshold=90, min_=None, limit=None, sort_results=True):
         results = []
         # Loop through notes
         for note2 in self.notes:
             similarity = fuzz.token_sort_ratio(note.content, note2.content)
-            if (note is not note2) and (similarity >= threshold):
-                results.append([note2, similarity])
+            if (note is not note2):
+                if min_:
+                    results.append([note2, similarity])
+                # Compare similarity rating to threshold
+                elif (similarity >= threshold):
+                    results.append([note2, similarity])
+        if sort_results:
+            results.sort(key=lambda x: x[1], reverse=True)
         # Get the first n results
         if limit:
             results = results[:limit]
