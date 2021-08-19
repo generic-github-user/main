@@ -9,6 +9,7 @@ import numpy as np
 import fuzzywuzzy
 from fuzzywuzzy import fuzz
 import string
+import random
 
 parser = argparse.ArgumentParser(description='Run a shelf command')
 parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
@@ -17,6 +18,7 @@ parser.add_argument('-s', '--similarity', action='store_true', help='Find notes 
 parser.add_argument('-e', '--export', help='Export your notes library to another format (Markdown, JSON, etc.)')
 parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire library to another file')
 parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
+parser.add_argument('-r', '--rank', help='Interactively rank notes')
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
@@ -94,6 +96,7 @@ class Library(Base):
             tags = []
         self.tags = tags
         self.terms = []
+        self.comparisons = []
 
         self.statistics = Statistics()
 
@@ -195,12 +198,25 @@ class Library(Base):
                 export_file.write(output)
             print(f'Saved note library export to {path}')
         return output
+
+    # def update_statistics(self):
+    #     self.statistics.length_chars
+
+    def changed(self):
+        self.modified = time.time()
+        save()
+
+class Values:
+    def __init__(self):
+        self.importance = 100
+
 class Note(Base):
     def __init__(self, content, container=None):
         super().__init__()
         self.content = content
         self.container = container
         self.hash = hash(self.content)
+        self.ratings = Values()
 
     def upgrade(self):
         super().upgrade(self.content)
@@ -231,6 +247,10 @@ class Term(Base):
 load()
 Session.library.upgrade()
 
+if args.rank:
+    if args.rank == 'importance':
+        for i in range(3):
+            Session.library.rank(args.rank)
 if args.interactive:
     interactive()
 if args.export:
