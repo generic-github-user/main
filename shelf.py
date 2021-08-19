@@ -166,6 +166,24 @@ class Library(Base):
         self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] * (len(k.split()) if weighted else 1), reverse=True)[:n]]
         return self.terms
 
+    def rank(self, criteria, delta=10):
+        pool = np.arange(len(self.notes))
+        indices = np.random.choice(pool, size=2, replace=False)
+        notes = [self.notes[i] for i in indices]
+        print(f'Select one of the choices below based on {criteria} and enter the corresponding index (press enter to skip)')
+        markers = 'ab'
+        for l, note in zip(markers, notes):
+            print(f'> {l}) {note.content}')
+        response = input()
+        if response in markers:
+            index = markers.index(response)
+            comparison = [notes, index]
+            setattr(notes[0].ratings, criteria, getattr(notes[0].ratings, criteria) + delta)
+            setattr(notes[1].ratings, criteria, getattr(notes[1].ratings, criteria) - delta)
+            self.comparisons.append(comparison)
+        else:
+            pass
+
 
     def to_markdown(self, path=None):
         output = ''
