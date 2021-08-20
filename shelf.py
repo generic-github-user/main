@@ -187,14 +187,19 @@ class Library(Base):
         return self.terms
 
     def rank(self, criteria, delta=10):
+        # Generate list of possible indices
         pool = np.arange(len(self.notes))
+        # Select 2 indices without replacement
         indices = np.random.choice(pool, size=2, replace=False)
+        # Get the corresponding note objects
         notes = [self.notes[i] for i in indices]
         print(f'Select one of the choices below based on {criteria} and enter the corresponding index (press enter to skip)')
         markers = 'ab'
+        # Display list of notes to be compared
         for l, note in zip(markers, notes):
             print(f'> {l}) {note.content}')
         response = input()
+        # If the input corresponds to a marker, store the index and adjust the notes' ratings
         if response in markers:
             index = markers.index(response)
             comparison = [notes, index]
