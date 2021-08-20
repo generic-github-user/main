@@ -29,7 +29,11 @@ parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
 parser.add_argument('-n', '--number', help='Numerical parameter for another function (how many ratings to complete, how many results to display, etc.)', type=int)
 parser.add_argument('-c', '--remove', help='Clear a field')
 parser.add_argument('-u', '--recompute', help='Recalulate the specified field')
+parser.add_argument('-z', '--undo', help='Undo the last action')
+parser.add_argument('-a', '--again', help='Repeat the last action')
+parser.add_argument('-y', '--explore', help='Explore backup files', type=int)
 parser.add_argument('-f', '--find', help='Search for a note using a regular expression', type=str)
+parser.add_argument('-d', '--dry', help='Execute a simulated run of the specified command without actually modifying any data')
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
@@ -38,6 +42,8 @@ class Session:
     directory = '/home/alex/Desktop/python_projects/shelf'
     filepath = '/home/alex/Desktop/python_projects/shelf/notesfile.txt'
     library = None
+
+# TODO: include number of different notes term appears in
 
 def interactive():
     while True:
@@ -246,6 +252,7 @@ class Library(Base):
     #     self.statistics.length_chars
 
     def changed(self):
+        super().changed()
         self.modified = time.time()
         save()
 
