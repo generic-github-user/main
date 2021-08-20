@@ -1,4 +1,5 @@
 import dill
+import glob
 import uuid
 import argparse
 import zlib
@@ -326,5 +327,15 @@ if args.remove:
 if args.recompute:
     if args.recompute == 'rankings':
         Session.library.recalculate()
+if args.explore is not None:
+    assert isinstance(args.explore, int)
+    assert args.explore >= 0
+    backups = glob.glob('./shelf_backup_*')
+    backup_file = backups[args.explore]
+    print(f'Loading library from {backup_file}')
+    temp_library = load(backup_file, store=False)
+    temp_library.upgrade()
+    for note in temp_library.notes:
+        print(note)
 
 save()
