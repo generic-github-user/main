@@ -71,6 +71,7 @@ class Base:
         self.uuid = uuid.uuid4().hex
         now = time.time()
         self.created = now
+        self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
         self.modified = time.time()
         self.accessed = time.time()
         if log:
@@ -81,6 +82,7 @@ class Base:
         for k, v in vars(template).items():
             if not hasattr(self, k):
                 setattr(self, k, v)
+        self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
         return self
 
 # class Settings(Base):
@@ -205,9 +207,15 @@ class Library(Base):
 
 
     def to_markdown(self, path=None):
+        with open(Session.directory+'/md_template.md', 'r') as template_file:
+            template = template_file.read()
         output = ''
         for note in self.notes:
-            output += note.content
+            # output += note.content
+            note_template = template
+            for field in ['content', 'importance', 'timestamp']:
+                note_template = note_template.replace(f'[{field}]', str(getattr(note, field)))
+            output += note_template
             output += '\n'
         if path:
             with open(path, 'w') as export_file:
@@ -233,9 +241,11 @@ class Note(Base):
         self.container = container
         self.hash = hash(self.content)
         self.ratings = Values()
+        self.importance = self.ratings.importance
 
     def upgrade(self):
         super().upgrade(self.content)
+        self.importance = self.ratings.importance
         return self
 
     def similar(self, **kwargs):
