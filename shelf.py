@@ -43,11 +43,6 @@ parser.add_argument('-d', '--dry', help='Execute a simulated run of the specifie
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
 
-class Session:
-    directory = '/home/alex/Desktop/python_projects/shelf'
-    filepath = '/home/alex/Desktop/python_projects/shelf/notesfile.txt'
-    library = None
-
 # TODO: include number of different notes term appears in
 
 def interactive():
@@ -63,32 +58,7 @@ def interactive():
         # else:
         # If no command flags are provided, assume the input is to be added as a note
         Session.library.add(text)
-
-def load(path=None, store=True):
-    if path is None:
-        path = Session.filepath
-    try:
-        with open(path, 'r') as note_file:
-            loaded = dill.loads(base64.b64decode(note_file.read()))
-            if store:
-                Session.library = loaded
-            else:
-                return loaded
-        print(f'Loaded library from {path}')
-    except Exception as E:
-        print(E)
-        if store:
-            Session.library = Library()
-            print(f'No library found at specified path ({path}); created new library')
-
-
-def save(path=None):
-    if path is None:
-        path = Session.filepath
-    with open(path, 'w') as note_file:
-        note_file.write(base64.b64encode(bytes(dill.dumps(Session.library))).decode('UTF-8'))
-    print(f'Saved database to {path}')
-
+        save(sess=Session)
 
 
 # class Settings(Base):
@@ -113,7 +83,7 @@ class Term(Base):
     def __str__(self):
         return self.content
 
-load()
+load(sess=Session)
 Session.library.upgrade()
 
 if args.number:
@@ -133,7 +103,7 @@ if args.export:
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     backup_path = f'{Session.directory}/shelf_backup_{timestamp}.txt'
-    save(path=backup_path)
+    save(path=backup_path, sess=Session)
     print(f'Backed up library to {backup_path}')
 if args.terms:
     terms = Session.library.extract_terms()
@@ -180,4 +150,4 @@ if args.stats:
         print(f'total {attribute}: {String(sum(getattr(note, attribute) for note in Session.library.notes)).color(colors[i])}')
     print(f'total notes: {String(len(Session.library.notes)).color(colors[2])}')
 
-save()
+save(sess=Session)
