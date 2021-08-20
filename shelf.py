@@ -16,6 +16,11 @@ import string
 import random
 from colorama import Fore, Back, Style
 
+from base import Base
+from library import Library, Statistics
+from note import Note
+from stringb import String
+
 parser = argparse.ArgumentParser(description='Run a shelf command')
 parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
 parser.add_argument('-q', '--quit', action='store_true', help='Exit interactive mode')
@@ -84,237 +89,13 @@ def save(path=None):
         note_file.write(base64.b64encode(bytes(dill.dumps(Session.library))).decode('UTF-8'))
     print(f'Saved database to {path}')
 
-class Base:
-    def __init__(self, log=False):
-        self.uuid = uuid.uuid4().hex
-        now = time.time()
-        self.created = now
-        self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
-        self.timestamp = String(self.timestamp)
-        self.modified = time.time()
-        self.accessed = time.time()
-        if log:
-            print(f'Created {type(self).__name__} instance at {now}')
 
-    def upgrade(self, *args, **kwargs):
-        template = type(self)(*args, **kwargs)
-        for k, v in vars(template).items():
-            if not hasattr(self, k):
-                setattr(self, k, v)
-        self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
-        if isinstance(self.timestamp, str):
-            self.timestamp = String(self.timestamp)
-        return self
-
-    def changed(self):
-        self.modified = time.time()
-        return self
 
 # class Settings(Base):
-
-class Statistics(Base):
-    def __init__(self):
-        super().__init__()
 
 def numeric(w):
     return all(wi in string.digits+'.' for wi in w)
 
-class Library(Base):
-    def __init__(self, notes=None, tags=None):
-        super().__init__()
-
-        if notes is None:
-            notes = []
-        self.notes = notes
-        if tags is None:
-            tags = []
-        self.tags = tags
-        self.terms = []
-        self.comparisons = []
-
-        self.statistics = Statistics()
-
-    def upgrade(self):
-        super().upgrade()
-        for note in self.notes:
-            note.upgrade()
-
-    def recalculate(self, delta=10, criteria='importance'):
-        for note in self.notes:
-            note.ratings = Values()
-        for notes, index in self.comparisons:
-            for i in range(2):
-                d = delta if (index == i) else -delta
-                setattr(notes[i].ratings, criteria, getattr(notes[i].ratings, criteria) + d)
-
-    def add(self, note):
-        # Convert other data types to Note instances
-        if not isinstance(note, Note):
-            note = Note(note, container=self)
-        # Add the note
-        self.notes.append(note)
-        print('Added note')
-        similar = note.similar(min_=3, limit=5)
-        print(f'Found {len(similar)} similar note{"s" if len(similar)!=1 else ""}:')
-        for match, value in similar:
-            print(f'> {match} ({value}%)')
-            time.sleep(0.1)
-        self.changed()
-        return self
-
-    def similar(self, note, threshold=90, min_=None, limit=None, sort_results=True):
-        results = []
-        # Loop through notes
-        for note2 in self.notes:
-            similarity = fuzz.token_sort_ratio(note.content, note2.content)
-            if (note is not note2):
-                if min_:
-                    results.append([note2, similarity])
-                # Compare similarity rating to threshold
-                elif (similarity >= threshold):
-                    results.append([note2, similarity])
-        if sort_results:
-            results.sort(key=lambda x: x[1], reverse=True)
-        # Get the first n results
-        if limit:
-            results = results[:limit]
-        return results
-
-    def extract_terms(self, n=20, exclude_common=True, weighted=True, weighting='chars', size=(1, 4)):
-        # A list of common words that should not be included in the results
-        common = 'and of with the or if yet on in to a from as for another be by eg ie'.split()
-        self.terms = set()
-        frequencies = {}
-        # Loop through all stored notes
-        for note in self.notes:
-            # Get note content (with punctuation removed)
-            content = note.content.translate(str.maketrans('', '', string.punctuation))
-            # Split into words
-            words = content.split()
-            # Generate n-grams of each specified length from words in note
-            ngrams = []
-            for length in range(*size):
-                for i in range(0, len(words)-length):
-                    span = words[i:i+length]
-                    # Include this n-gram if at least one of its words is not in the common words list, or exclude_common is set to False
-                    if (not exclude_common) or (not all((w.lower() in common or numeric(w)) for w in span)):
-                        ngrams.append(' '.join(span))
-            self.terms.update(ngrams)
-            # Increment or create each n-gram's corresponding counter in the frequency list
-            for term in ngrams:
-                if term in frequencies:
-                    frequencies[term] += 1
-                else:
-                    frequencies[term] = 1
-        # self.terms = [Term(term) for term in self.terms]
-        # Sort the terms by frequency (adjusted with the appropriate weighting), get the first n terms, and generate a list of Term instances
-        self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] + 0.1*((len(k.split()) if weighting == 'tokens' else len(k)) if weighted else 1), reverse=True)[:n]]
-        return self.terms
-
-    def rank(self, criteria, delta=10):
-        # Generate list of possible indices
-        pool = np.arange(len(self.notes))
-        # Select 2 indices without replacement
-        indices = np.random.choice(pool, size=2, replace=False)
-        # Get the corresponding note objects
-        notes = [self.notes[i] for i in indices]
-        print(f'Select one of the choices below based on {criteria} and enter the corresponding index (press enter to skip)')
-        markers = 'ab'
-        # Display list of notes to be compared
-        for l, note in zip(markers, notes):
-            print(f'> {l}) {note.content}')
-        response = input()
-        # If the input corresponds to a marker, store the index and adjust the notes' ratings
-        if response in markers:
-            index = markers.index(response)
-            comparison = [notes, index]
-            for i in range(2):
-                d = delta if (index == i) else -delta
-                setattr(notes[i].ratings, criteria, getattr(notes[i].ratings, criteria) + d)
-            self.comparisons.append(comparison)
-        else:
-            pass
-
-
-    def to_markdown(self, path=None):
-        with open(Session.directory+'/md_template.md', 'r') as template_file:
-            template = template_file.read()
-        output = ''
-        for note in self.notes:
-            # output += note.content
-            note_template = template
-            for field in ['content', 'importance', 'timestamp']:
-                note_template = note_template.replace(f'[{field}]', str(getattr(note, field)))
-            output += note_template
-            output += '\n'
-        if path:
-            with open(path, 'w') as export_file:
-                export_file.write(output)
-            print(f'Saved note library export to {path}')
-        return output
-
-    # def update_statistics(self):
-    #     self.statistics.length_chars
-
-    def changed(self):
-        super().changed()
-        self.modified = time.time()
-        save()
-
-class Values:
-    def __init__(self):
-        self.importance = 100
-
-class String(str):
-    def __init__(self, text, *args, **kwargs):
-        self.text = str(text)
-        self.length = len(self.text)
-        self.tokens = len(self.text.split())
-        # self.__new__(*args, **kwargs)
-
-    # def __new__(self, text):
-        # super().__init__(text)
-        # super().__new__(self, text)
-
-    def color(self, name, style='bright'):
-        return getattr(Style, style.upper())+getattr(Fore, name.upper())+self+Style.RESET_ALL
-
-    def truncate(self, length=50):
-        if len(self.text) < length:
-            return String(self.text)
-        else:
-            return String(self.text[:length]+'...')
-
-class Note(Base):
-    def __init__(self, content, container=None):
-        super().__init__()
-        assert isinstance(content, (str, String))
-        self.content = String(content)
-        self.container = container
-        self.hash = hash(self.content)
-        self.ratings = Values()
-        self.importance = self.ratings.importance
-
-    def changed(self):
-        super().changed()
-        self.importance = self.ratings.importance
-        self.length = self.content.length
-        self.words = self.content.tokens
-        return self
-
-    def upgrade(self):
-        super().upgrade(self.content)
-        self.importance = self.ratings.importance
-        if isinstance(self.content, str):
-            self.content = String(self.content)
-        self.changed()
-        return self
-
-    def similar(self, **kwargs):
-        return self.container.similar(self, **kwargs)
-
-    def __str__(self):
-        return f'{self.content.truncate()} [{self.timestamp.color("cyan")}]'
 
 class Tag(Base):
     def __init__(self, name, container=None):
