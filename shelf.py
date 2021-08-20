@@ -7,10 +7,14 @@ import base64
 import time
 import datetime
 import numpy as np
+
 import fuzzywuzzy
 from fuzzywuzzy import fuzz
+import re
+
 import string
 import random
+from colorama import Fore, Back, Style
 
 parser = argparse.ArgumentParser(description='Run a shelf command')
 parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
@@ -24,6 +28,7 @@ parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
 parser.add_argument('-n', '--number', help='Numerical parameter for another function (how many ratings to complete, how many results to display, etc.)', type=int)
 parser.add_argument('-c', '--remove', help='Clear a field')
 parser.add_argument('-u', '--recompute', help='Recalulate the specified field')
+parser.add_argument('-f', '--find', help='Search for a note using a regular expression', type=str)
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
@@ -43,9 +48,9 @@ def interactive():
             if interactive_args.quit:
                 print('Exiting...')
                 break
-        else:
-            # If no command flags are provided, assume the input is to be added as a note
-            Session.library.add(text)
+        # else:
+        # If no command flags are provided, assume the input is to be added as a note
+        Session.library.add(text)
 
 def load(path=None):
     if path is None:
@@ -349,5 +354,13 @@ if args.explore is not None:
     temp_library.upgrade()
     for note in temp_library.notes:
         print(note)
+if args.find:
+    assert isinstance(args.find, str)
+    results = []
+    for note in Session.library.notes:
+        if re.match(args.find, note.content.text):
+            results.append(note)
+    for note in results:
+        print(f'> {note}')
 
 save()
