@@ -20,6 +20,7 @@ parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire
 parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
 parser.add_argument('-r', '--rank', help='Interactively rank notes')
 parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
+parser.add_argument('-u', '--recompute', help='Recalulate the specified field')
 
 args = parser.parse_args()
 print(args, parser.parse_args(['--interactive']))
@@ -105,6 +106,14 @@ class Library(Base):
         super().upgrade()
         for note in self.notes:
             note.upgrade()
+
+    def recalculate(self, delta=10, criteria='importance'):
+        for note in self.notes:
+            note.ratings = Values()
+        for notes, index in self.comparisons:
+            for i in range(2):
+                d = delta if (index == i) else -delta
+                setattr(notes[i].ratings, criteria, getattr(notes[i].ratings, criteria) + d)
 
     def add(self, note):
         # Convert other data types to Note instances
@@ -274,5 +283,8 @@ if args.sort:
         for note in results[:20]:
             print(f'> {note.content} ({args.sort}: {note.ratings.importance})')
             time.sleep(0.05)
+if args.recompute:
+    if args.recompute == 'rankings':
+        Session.library.recalculate()
 
 save()
