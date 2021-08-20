@@ -195,8 +195,9 @@ class Library(Base):
         if response in markers:
             index = markers.index(response)
             comparison = [notes, index]
-            setattr(notes[0].ratings, criteria, getattr(notes[0].ratings, criteria) + delta)
-            setattr(notes[1].ratings, criteria, getattr(notes[1].ratings, criteria) - delta)
+            for i in range(2):
+                d = delta if (index == i) else -delta
+                setattr(notes[i].ratings, criteria, getattr(notes[i].ratings, criteria) + d)
             self.comparisons.append(comparison)
         else:
             pass
