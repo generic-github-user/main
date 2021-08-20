@@ -254,7 +254,7 @@ class Values:
 
 class String(str):
     def __init__(self, text, *args, **kwargs):
-        self.text = text
+        self.text = str(text)
         self.length = len(self.text)
         self.tokens = len(self.text.split())
         # self.__new__(*args, **kwargs)
@@ -265,6 +265,12 @@ class String(str):
 
     def color(self, name, style='bright'):
         return getattr(Style, style.upper())+getattr(Fore, name.upper())+self+Style.RESET_ALL
+
+    def truncate(self, length=50):
+        if len(self.text) < length:
+            return String(self.text)
+        else:
+            return String(self.text[:length]+'...')
 
 class Note(Base):
     def __init__(self, content, container=None):
