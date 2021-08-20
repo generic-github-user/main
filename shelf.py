@@ -148,7 +148,7 @@ class Library(Base):
             results = results[:limit]
         return results
 
-    def extract_terms(self, n=20, exclude_common=True, weighted=True, size=(1, 4)):
+    def extract_terms(self, n=20, exclude_common=True, weighted=True, weighting='chars', size=(1, 4)):
         # A list of common words that should not be included in the results
         common = 'and of with the or if yet on in to a from as for another be by eg ie'.split()
         self.terms = set()
@@ -176,7 +176,7 @@ class Library(Base):
                     frequencies[term] = 1
         # self.terms = [Term(term) for term in self.terms]
         # Sort the terms by frequency (adjusted with the appropriate weighting), get the first n terms, and generate a list of Term instances
-        self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] * (len(k.split()) if weighted else 1), reverse=True)[:n]]
+        self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] + 0.1*((len(k.split()) if weighting == 'tokens' else len(k)) if weighted else 1), reverse=True)[:n]]
         return self.terms
 
     def rank(self, criteria, delta=10):
