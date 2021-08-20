@@ -20,6 +20,7 @@ parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire
 parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
 parser.add_argument('-r', '--rank', help='Interactively rank notes')
 parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
+parser.add_argument('-n', '--number', help='Numerical parameter for another function (how many ratings to complete, how many results to display, etc.)', type=int)
 parser.add_argument('-u', '--recompute', help='Recalulate the specified field')
 
 args = parser.parse_args()
@@ -260,9 +261,14 @@ class Term(Base):
 load()
 Session.library.upgrade()
 
+if args.number:
+    quantity = args.number
+else:
+    quantity = None
+
 if args.rank:
     if args.rank == 'importance':
-        for i in range(3):
+        for i in range(quantity or 5):
             Session.library.rank(args.rank)
 if args.interactive:
     interactive()
@@ -283,7 +289,7 @@ if args.sort:
     if args.sort == 'importance':
         results = sorted(Session.library.notes, key=lambda n: n.ratings.importance, reverse=True)
         # print(f'Found {len(similar)} similar note{"s" if len(similar)!=1 else ""}:')
-        for note in results[:20]:
+        for note in results[:quantity or 20]:
             print(f'> {note.content} ({args.sort}: {note.ratings.importance})')
             time.sleep(0.05)
 if args.recompute:
