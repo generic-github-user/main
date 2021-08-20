@@ -360,12 +360,14 @@ if args.terms:
         print(f'> {term} [{term.frequency}]')
         time.sleep(0.1)
 if args.sort:
-    if args.sort == 'importance':
-        results = sorted(Session.library.notes, key=lambda n: n.ratings.importance, reverse=True)
+    if args.sort in ['importance', 'length', 'words']:
+        results = sorted(Session.library.notes, key=lambda note: getattr(note, args.sort), reverse=True)
         # print(f'Found {len(similar)} similar note{"s" if len(similar)!=1 else ""}:')
         for note in results[:quantity or 20]:
-            print(f'> {note.content} ({args.sort}: {note.ratings.importance})')
+            print(f'> {note} ({args.sort}: {getattr(note, args.sort)})')
             time.sleep(0.05)
+    else:
+        raise ValueError
 if args.remove:
     if args.remove == 'rankings':
         Session.library.comparisons = []
