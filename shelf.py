@@ -59,17 +59,22 @@ def interactive():
         # If no command flags are provided, assume the input is to be added as a note
         Session.library.add(text)
 
-def load(path=None):
+def load(path=None, store=True):
     if path is None:
         path = Session.filepath
     try:
         with open(path, 'r') as note_file:
-            Session.library = dill.loads(base64.b64decode(note_file.read()))
+            loaded = dill.loads(base64.b64decode(note_file.read()))
+            if store:
+                Session.library = loaded
+            else:
+                return loaded
         print(f'Loaded library from {path}')
     except Exception as E:
         print(E)
-        Session.library = Library()
-        print(f'No library found at specified path ({path}); created new library')
+        if store:
+            Session.library = Library()
+            print(f'No library found at specified path ({path}); created new library')
 
 
 def save(path=None):
