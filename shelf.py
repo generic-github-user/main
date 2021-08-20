@@ -23,6 +23,7 @@ parser.add_argument('-s', '--similarity', action='store_true', help='Find notes 
 parser.add_argument('-e', '--export', help='Export your notes library to another format (Markdown, JSON, etc.)')
 parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire library to another file')
 parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
+parser.add_argument('-w', '--stats', action='store_true', help='Show general statistics about a note library')
 parser.add_argument('-r', '--rank', help='Interactively rank notes')
 parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
 parser.add_argument('-n', '--number', help='Numerical parameter for another function (how many ratings to complete, how many results to display, etc.)', type=int)
@@ -368,5 +369,10 @@ if args.find:
             results.append(note)
     for note in results:
         print(f'> {note}')
+if args.stats:
+    colors = 'red yellow green blue cyan magenta'.split()
+    for i, attribute in enumerate(['length', 'words']):
+        print(f'total {attribute}: {String(sum(getattr(note, attribute) for note in Session.library.notes)).color(colors[i])}')
+    print(f'total notes: {String(len(Session.library.notes)).color(colors[2])}')
 
 save()
