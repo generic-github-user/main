@@ -250,10 +250,15 @@ class String(str):
     # def __new__(self, text):
         # super().__init__(text)
         # super().__new__(self, text)
+
+    def color(self, name, style='bright'):
+        return getattr(Style, style.upper())+getattr(Fore, name.upper())+self+Style.RESET_ALL
+
 class Note(Base):
     def __init__(self, content, container=None):
         super().__init__()
-        self.content = content
+        assert isinstance(content, (str, String))
+        self.content = String(content)
         self.container = container
         self.hash = hash(self.content)
         self.ratings = Values()
@@ -268,7 +273,7 @@ class Note(Base):
         return self.container.similar(self, **kwargs)
 
     def __str__(self):
-        return self.content
+        return f'{self.content.truncate()} [{self.timestamp.color("cyan")}]'
 
 class Tag(Base):
     def __init__(self, name, container=None):
