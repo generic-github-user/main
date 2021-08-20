@@ -73,6 +73,7 @@ class Base:
         now = time.time()
         self.created = now
         self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
+        self.timestamp = String(self.timestamp)
         self.modified = time.time()
         self.accessed = time.time()
         if log:
@@ -84,6 +85,12 @@ class Base:
             if not hasattr(self, k):
                 setattr(self, k, v)
         self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
+        if isinstance(self.timestamp, str):
+            self.timestamp = String(self.timestamp)
+        return self
+
+    def changed(self):
+        self.modified = time.time()
         return self
 
 # class Settings(Base):
