@@ -16,10 +16,12 @@ import string
 import random
 from colorama import Fore, Back, Style
 
+from session import Session
 from base import Base
 from library import Library, Statistics
 from note import Note
 from stringb import String
+from utils import load, save
 
 parser = argparse.ArgumentParser(description='Run a shelf command')
 parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
