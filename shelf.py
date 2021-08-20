@@ -290,9 +290,19 @@ class Note(Base):
         self.ratings = Values()
         self.importance = self.ratings.importance
 
+    def changed(self):
+        super().changed()
+        self.importance = self.ratings.importance
+        self.length = self.content.length
+        self.words = self.content.tokens
+        return self
+
     def upgrade(self):
         super().upgrade(self.content)
         self.importance = self.ratings.importance
+        if isinstance(self.content, str):
+            self.content = String(self.content)
+        self.changed()
         return self
 
     def similar(self, **kwargs):
