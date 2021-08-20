@@ -239,6 +239,16 @@ class Values:
     def __init__(self):
         self.importance = 100
 
+class String(str):
+    def __init__(self, text, *args, **kwargs):
+        self.text = text
+        self.length = len(self.text)
+        self.tokens = len(self.text.split())
+        # self.__new__(*args, **kwargs)
+
+    # def __new__(self, text):
+        # super().__init__(text)
+        # super().__new__(self, text)
 class Note(Base):
     def __init__(self, content, container=None):
         super().__init__()
