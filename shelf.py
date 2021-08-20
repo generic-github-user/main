@@ -87,6 +87,9 @@ class Statistics(Base):
     def __init__(self):
         super().__init__()
 
+def numeric(w):
+    return all(wi in string.digits+'.' for wi in w)
+
 class Library(Base):
     def __init__(self, notes=None, tags=None):
         super().__init__()
@@ -165,7 +168,7 @@ class Library(Base):
                 for i in range(0, len(words)-length):
                     span = words[i:i+length]
                     # Include this n-gram if at least one of its words is not in the common words list, or exclude_common is set to False
-                    if (not exclude_common) or (not all(w.lower() in common for w in span)):
+                    if (not exclude_common) or (not all((w.lower() in common or numeric(w)) for w in span)):
                         ngrams.append(' '.join(span))
             self.terms.update(ngrams)
             # Increment or create each n-gram's corresponding counter in the frequency list
