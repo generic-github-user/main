@@ -21,6 +21,7 @@ parser.add_argument('-t', '--terms', action='store_true', help='Extract common t
 parser.add_argument('-r', '--rank', help='Interactively rank notes')
 parser.add_argument('-v', '--sort', help='Sort by an attribute of each note')
 parser.add_argument('-n', '--number', help='Numerical parameter for another function (how many ratings to complete, how many results to display, etc.)', type=int)
+parser.add_argument('-c', '--remove', help='Clear a field')
 parser.add_argument('-u', '--recompute', help='Recalulate the specified field')
 
 args = parser.parse_args()
@@ -293,6 +294,10 @@ if args.sort:
         for note in results[:quantity or 20]:
             print(f'> {note.content} ({args.sort}: {note.ratings.importance})')
             time.sleep(0.05)
+if args.remove:
+    if args.remove == 'rankings':
+        Session.library.comparisons = []
+        Session.library.recalculate()
 if args.recompute:
     if args.recompute == 'rankings':
         Session.library.recalculate()
