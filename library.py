@@ -1,5 +1,6 @@
 import time
 import numpy as np
+import string
 
 import fuzzywuzzy
 from fuzzywuzzy import fuzz
@@ -7,7 +8,11 @@ from fuzzywuzzy import fuzz
 from session import Session
 from base import Base
 from note import Note
+from term import Term
 # from utils import load, save
+
+def numeric(w):
+    return all(wi in string.digits+'.' for wi in w)
 
 class Statistics(Base):
     def __init__(self):

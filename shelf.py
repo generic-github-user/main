@@ -20,6 +20,7 @@ from session import Session
 from base import Base
 from library import Library, Statistics
 from note import Note
+from term import Term
 from stringb import String
 from utils import load, save
 
@@ -65,8 +66,7 @@ def interactive():
 
 # class Settings(Base):
 
-def numeric(w):
-    return all(wi in string.digits+'.' for wi in w)
+
 
 
 class Tag(Base):
@@ -75,15 +75,6 @@ class Tag(Base):
         self.name = name
         self.container = container
         self.hash = hash(self.name)
-
-class Term(Base):
-    def __init__(self, content, frequency=None):
-        super().__init__()
-        self.content = content
-        self.frequency = frequency
-
-    def __str__(self):
-        return self.content
 
 load(sess=Session)
 Session.library.upgrade()
