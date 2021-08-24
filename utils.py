@@ -22,12 +22,20 @@ def load(path=None, store=True, sess=None):
             Session.library = Library()
             print(f'No library found at specified path ({path}); created new library')
 
+def pickle(sess=None, compressed=False, level=6):
+    if sess is not None:
+        Session = sess
+    save_data = bytes(dill.dumps(Session.library))
+    data_string = base64.b64encode(save_data).decode('UTF-8')
+    return data_string
 
-def save(path=None, sess=None):
+def save(sess=None, path=None, **kwargs):
     if sess is not None:
         Session = sess
     if path is None:
         path = Session.filepath
     with open(path, 'w') as note_file:
-        note_file.write(base64.b64encode(bytes(dill.dumps(Session.library))).decode('UTF-8'))
+        data_string = pickle(sess=sess, **kwargs)
+        note_file.write(data_string)
     print(f'Saved database to {path}')
+    return data_string
