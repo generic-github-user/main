@@ -5,6 +5,10 @@ import zlib
 from library import Library
 
 def load(path=None, store=True, sess=None):
+    """
+    Load (unpickle) a library instance from its string representation
+    """
+
     if sess is not None:
         Session = sess
     if path is None:
@@ -24,6 +28,10 @@ def load(path=None, store=True, sess=None):
             print(f'No library found at specified path ({path}); created new library')
 
 def pickle(sess=None, compressed=False, level=6):
+    """
+    Convert a library object (class instance) to a string representation (usually for saving to a local file)
+    """
+
     if sess is not None:
         Session = sess
     save_data = bytes(dill.dumps(Session.library))
@@ -33,6 +41,12 @@ def pickle(sess=None, compressed=False, level=6):
     return data_string
 
 def save(sess=None, path=None, **kwargs):
+    """
+    Encode the current library as a string and save it to the local file specified by `path` (if not provided, the path stored in the Session object will be used).
+
+    The usual process is `pickle to string` -> `convert to bytes` -> `compress (optional)` -> `encode in base 64` -> `write to file`
+    """
+
     if sess is not None:
         Session = sess
     if path is None:
