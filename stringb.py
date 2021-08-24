@@ -11,6 +11,9 @@ class String(str):
         # super().__init__(text)
         # super().__new__(self, text)
 
+    def separate(self):
+        return String(f'{int(self.text):,}')
+
     def color(self, name, style='bright'):
         return getattr(Style, style.upper())+getattr(Fore, name.upper())+self+Style.RESET_ALL
 

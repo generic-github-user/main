@@ -141,7 +141,7 @@ if args.find:
 if args.stats:
     colors = 'red yellow green blue cyan magenta'.split()
     for i, attribute in enumerate(['length', 'words']):
-        print(f'total {attribute}: {String(sum(getattr(note, attribute) for note in Session.library.notes)).color(colors[i])}')
-    print(f'total notes: {String(len(Session.library.notes)).color(colors[2])}')
+        print(f'total {attribute}: {String(sum(getattr(note, attribute) for note in Session.library.notes)).separate().color(colors[i])}')
+    print(f'total notes: {String(len(Session.library.notes)).separate().color(colors[2])}')
 
 save(sess=Session)
