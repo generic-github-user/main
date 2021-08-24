@@ -1,5 +1,6 @@
 import base64
 import dill
+import zlib
 
 from library import Library
 
@@ -26,6 +27,8 @@ def pickle(sess=None, compressed=False, level=6):
     if sess is not None:
         Session = sess
     save_data = bytes(dill.dumps(Session.library))
+    if compressed:
+        save_data = zlib.compress(save_data, level=level)
     data_string = base64.b64encode(save_data).decode('UTF-8')
     return data_string
 

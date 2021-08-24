@@ -97,7 +97,7 @@ if args.export:
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     backup_path = f'{Session.directory}/shelf_backup_{timestamp}.txt'
-    save(path=backup_path, sess=Session)
+    save(path=backup_path, sess=Session, compressed=True)
     print(f'Backed up library to {backup_path}')
 if args.terms:
     terms = Session.library.extract_terms()
