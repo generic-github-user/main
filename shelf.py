@@ -91,8 +91,9 @@ if args.rank:
 if args.interactive:
     interactive()
 if args.export:
+    timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     if args.export in ['md', 'markdown']:
-        Session.library.to_markdown(Session.directory+'/notes_export.md')
+        Session.library.to_markdown(f'{Session.directory}/notes_export_{timestamp}.md')
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     backup_path = f'{Session.directory}/shelf_backup_{timestamp}.txt'
