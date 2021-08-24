@@ -1,1 +1,1 @@
-[content] `[importance] | [timestamp]`
+[content] `[importance] | [timestamp]` `[terms]`

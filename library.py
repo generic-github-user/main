@@ -151,6 +151,11 @@ class Library(Base):
             note_template = template
             for field in ['content', 'importance', 'timestamp']:
                 note_template = note_template.replace(f'[{field}]', str(getattr(note, field)))
+            if note.terms:
+                term_string = f'`Terms: {", ".join(term.content for term in note.terms)}`'
+            else:
+                term_string = ''
+            note_template = note_template.replace('`[terms]`', term_string)
             output += note_template
             output += '\n'
         if path:
