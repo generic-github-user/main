@@ -81,7 +81,7 @@ class Library(Base):
 
     def extract_terms(self, n=20, exclude_common=True, weighted=True, weighting='chars', size=(1, 4)):
         # A list of common words that should not be included in the results
-        common = 'and of with the or if yet on in to a from as for another be by eg ie'.split()
+        common = 'and of with the or if yet on in to a from as for another be by was that an have this it is will eg ie can are we not some'.split()
         self.terms = set()
         frequencies = {}
         # Loop through all stored notes
@@ -95,9 +95,10 @@ class Library(Base):
             for length in range(*size):
                 for i in range(0, len(words)-length):
                     span = words[i:i+length]
+                    span_text = ' '.join(span)
                     # Include this n-gram if at least one of its words is not in the common words list, or exclude_common is set to False
-                    if (not exclude_common) or (not all((w.lower() in common or numeric(w)) for w in span)):
-                        ngrams.append(' '.join(span))
+                    if (not exclude_common) or ((not all((w.lower() in common or numeric(w) or len(w)<2) for w in span)) and 'test' not in span_text.lower()):
+                        ngrams.append(span_text)
             self.terms.update(ngrams)
             # Increment or create each n-gram's corresponding counter in the frequency list
             for term in ngrams:
