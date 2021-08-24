@@ -108,6 +108,12 @@ class Library(Base):
         # self.terms = [Term(term) for term in self.terms]
         # Sort the terms by frequency (adjusted with the appropriate weighting), get the first n terms, and generate a list of Term instances
         self.terms = [Term(term, frequency=frequencies[term]) for term in sorted(frequencies.keys(), key=lambda k: frequencies[k] + 0.1*((len(k.split()) if weighting == 'tokens' else len(k)) if weighted else 1), reverse=True)[:n]]
+        for note in self.notes:
+            note.terms = []
+        for term in self.terms:
+            for note in self.notes:
+                if (term.content in note.content.text) and (term not in note.terms):
+                    note.terms.append(term)
         return self.terms
 
     def rank(self, criteria, delta=10):

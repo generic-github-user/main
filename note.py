@@ -14,6 +14,8 @@ class Note(Base):
         self.hash = hash(self.content)
         self.ratings = Values()
         self.importance = self.ratings.importance
+        self.terms = []
+        self.tags = []
 
     def changed(self):
         super().changed()
