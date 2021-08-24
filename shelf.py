@@ -30,6 +30,7 @@ parser.add_argument('-q', '--quit', action='store_true', help='Exit interactive 
 parser.add_argument('-s', '--similarity', action='store_true', help='Find notes similar to this one (based on edit distance)')
 parser.add_argument('-e', '--export', help='Export your notes library to another format (Markdown, JSON, etc.)')
 parser.add_argument('-b', '--backup', action='store_true', help='Copy the entire library to another file')
+parser.add_argument('-L', '--level', help='Set a compression level 1-9 (1 is fastest and least effective compression, 9 is slowest and most effective)')
 parser.add_argument('-t', '--terms', action='store_true', help='Extract common terms from your notes')
 parser.add_argument('-w', '--stats', action='store_true', help='Show general statistics about a note library')
 parser.add_argument('-r', '--rank', help='Interactively rank notes')
@@ -157,3 +158,7 @@ if args.stats:
     print(f'compressed length (characters): {String(len(pickle(sess=Session, compressed=True, level=9))).separate().color(colors[4])}')
 
 save(sess=Session)
+
+# TODO: truncate long notes in results
+# TODO: string shuffle distance
+# TODO: semantic distance
