@@ -84,26 +84,32 @@ if args.number:
 else:
     quantity = None
 
+# Start comparison/ranking session
 if args.rank:
     if args.rank == 'importance':
         for i in range(quantity or 5):
             Session.library.rank(args.rank)
+# Launch interactive session
 if args.interactive:
     interactive()
+# Export note library to markup file
 if args.export:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     if args.export in ['md', 'markdown']:
         Session.library.to_markdown(f'{Session.directory}/notes_export_{timestamp}.md')
+# Backup library
 if args.backup:
     timestamp = datetime.datetime.now().strftime('%d-%m-%y_%H-%M-%S')
     backup_path = f'{Session.directory}/shelf_backup_{timestamp}.txt'
     save(path=backup_path, sess=Session, compressed=True)
     print(f'Backed up library to {backup_path}')
+# Find and display common terms and phrases in note library
 if args.terms:
     terms = Session.library.extract_terms()
     for term in terms:
         print(f'> {term} [{term.frequency}]')
         time.sleep(0.1)
+# Sort notes by some attribute
 if args.sort:
     if args.sort in ['importance', 'length', 'words']:
         results = sorted(Session.library.notes, key=lambda note: getattr(note, args.sort), reverse=True)
@@ -117,9 +123,11 @@ if args.remove:
     if args.remove == 'rankings':
         Session.library.comparisons = []
         Session.library.recalculate()
+# Recalculate rankings using stored comparisons
 if args.recompute:
     if args.recompute == 'rankings':
         Session.library.recalculate()
+# Load and browse data stored in a backup file
 if args.explore is not None:
     assert isinstance(args.explore, int)
     assert args.explore >= 0
@@ -130,6 +138,7 @@ if args.explore is not None:
     temp_library.upgrade()
     for note in temp_library.notes:
         print(note)
+# Search for notes using regular expression matching
 if args.find:
     assert isinstance(args.find, str)
     results = []
@@ -138,6 +147,7 @@ if args.find:
             results.append(note)
     for note in results:
         print(f'> {note}')
+# Display statistics about note library
 if args.stats:
     colors = 'red yellow green blue cyan magenta'.split()
     for i, attribute in enumerate(['length', 'words']):
