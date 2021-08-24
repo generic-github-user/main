@@ -23,3 +23,7 @@ Features that have been implemented, are currently under development, or are pla
 - [ ] Transparent and sensible data storage - everything shelf records goes to the same place
 - [ ] Memoized search and processing utilizing dynamic programming techniques; the end result is extremely fast operations, even on massive libraries (benchmarks of various operations on libraries of different sizes are planned)
 - [ ] Execute dry runs to preview an operation's effects without modifying any data
+
+## Installation
+
+Download or clone this repository; you may wish to also install the module locally using the pip package manager if you plan to take advantage of the scripting interface (alternatively, a local/relative import statement can be used if your script is placed in the same directory as the cloned repository).
