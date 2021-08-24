@@ -22,7 +22,7 @@ from library import Library, Statistics
 from note import Note
 from term import Term
 from stringb import String
-from utils import load, save
+from utils import load, save, pickle
 
 parser = argparse.ArgumentParser(description='Run a shelf command')
 parser.add_argument('-i', '--interactive', action='store_true', help="Start shelf's interactive mode, which will use Python's input function to process command line inputs as direct inputs to the program (to eliminate the need to prefix each command with 'python shelf.py')")
@@ -143,5 +143,7 @@ if args.stats:
     for i, attribute in enumerate(['length', 'words']):
         print(f'total {attribute}: {String(sum(getattr(note, attribute) for note in Session.library.notes)).separate().color(colors[i])}')
     print(f'total notes: {String(len(Session.library.notes)).separate().color(colors[2])}')
+    print(f'pickled length (characters): {String(len(pickle(sess=Session))).separate().color(colors[3])}')
+    print(f'compressed length (characters): {String(len(pickle(sess=Session, compressed=True, level=9))).separate().color(colors[4])}')
 
 save(sess=Session)
