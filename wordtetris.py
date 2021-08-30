@@ -69,3 +69,26 @@ class Block:
 
     def __str__(self) -> str:
         return str(self.letter)
+
+letters = string.ascii_lowercase
+class Game:
+    def __init__(self, dimensions=(11, 20), selection_method='symbol_frequency') -> None:
+        self.dimensions = np.array(dimensions)
+        self.width, self.height = self.dimensions
+        self.bg = ' '
+        self.board = np.full(tuple(dimensions), self.bg, dtype=object)
+        self.timestep = 0
+        self.blocks = []
+        self.active_block = None
+        self.speed = 5
+        self.frequency = self.speed * self.height
+        # self.countdown = self.frequency
+        self.countdown = 0
+        self.score = 0
+        self.difficulty = 0.5
+        self.min_length = 3
+        self.orientations = ['horizontal', 'vertical']
+        # self.directions = ['horizontal']
+        self.selection_method = selection_method
+        self.debug = False
+        self.update()
