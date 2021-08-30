@@ -34,3 +34,11 @@ class Block:
         self.position = np.array(position)
         self.game = game
         self.fixed = False
+    
+    def can_fall(self):
+        if self.position[1] < self.game.height-1:
+            below = self.game.board[tuple(self.position+np.array([0,1]))]
+            if not isinstance(below, Block):
+                return True
+        self.fixed = True
+        return False
