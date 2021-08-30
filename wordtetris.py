@@ -103,3 +103,19 @@ class Game:
             diagonal=self.board,
         )
         return self
+
+    def calculate_score(self, word):
+        return round(10 * (len(word) ** 2))
+
+    def step(self, delay=0.5):
+        if self.countdown == 0:
+            if self.selection_method == 'random':
+                next_letter = random.choice(letters)
+            elif self.selection_method == 'symbol_frequency':
+                next_letter = random.choices(list(symbol_frequencies.keys()), weights=list(symbol_frequencies.values()), k=1)[0]
+            new_block = Block(next_letter, (self.width // 2, 0), self)
+            self.blocks.append(new_block)
+            self.active_block = new_block
+            self.countdown = self.frequency
+        for block in self.blocks:
+            block.step()
