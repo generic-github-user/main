@@ -175,14 +175,17 @@ class Game:
         return '\n'.join(''.join(map(str, row)) for row in self.board.T)
 
 
+# Class instance that stores the game state
 main_game = Game()
 print(main_game.board)
+# Main rendering function and game loop
 def main(win):
     win.nodelay(True)
     win.clear()
     # win.addstr('Detected key:')
     while True:
         key = 'NONE'
+        # If a key is pressed, store the key and key name
         try:
             key = win.getkey()
             key_name = str(key)
@@ -190,12 +193,15 @@ def main(win):
             # print(e)
             pass
         main_game.step()
+        # Move block left
         if key in [curses.KEY_LEFT, 'KEY_LEFT']:
             if main_game.active_block and 0 < main_game.active_block.position[0]:
                 main_game.active_block.position[0] -= 1
+        # Move block right
         elif key in [curses.KEY_RIGHT, 'KEY_RIGHT']:
             if main_game.active_block and main_game.active_block.position[0] < main_game.width-1:
                 main_game.active_block.position[0] += 1
+        # Drop block to lowest available space
         elif key in [curses.KEY_DOWN, 'KEY_DOWN']:
             main_game.active_block.drop()
         win.clear()
