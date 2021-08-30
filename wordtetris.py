@@ -87,7 +87,7 @@ class Game:
         self.score = 0
         self.difficulty = 0.5
         self.min_length = 3
-        self.orientations = ['horizontal', 'vertical']
+        self.orientations = ['horizontal', 'vertical', 'diagonal', 'diagonal_f']
         # self.directions = ['horizontal']
         self.selection_method = selection_method
         self.debug = False
@@ -97,10 +97,15 @@ class Game:
         self.board = np.full(tuple(self.dimensions), self.bg, dtype=object)
         for block in self.blocks:
             self.board[tuple(block.position)] = block
+        diagonals, diagonals_f = [], []
+        for diag_source, output in [(self.board, diagonals), (np.flipud(self.board), diagonals_f)]:
+            for k in range(-self.width+1, self.height):
+                diagonals.append(np.diag(self.board, k))
         self.slice_sources = dict(
             horizontal=self.board.T,
             vertical=self.board,
-            diagonal=self.board,
+            diagonal=diagonals,
+            diagonal_f=diagonals_f
         )
         return self
 
