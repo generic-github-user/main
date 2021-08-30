@@ -108,6 +108,9 @@ class Game:
         return round(10 * (len(word) ** 2))
 
     def step(self, delay=0.5):
+        # if self.timestep % self.frequency == 0:
+        if self.active_block and self.active_block.fixed:
+            self.countdown = 0
         if self.countdown == 0:
             if self.selection_method == 'random':
                 next_letter = random.choice(letters)
