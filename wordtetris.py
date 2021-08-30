@@ -5,11 +5,19 @@ import numpy as np
 import string
 import random
 import time
+import itertools
+
+import colorama
+from colorama import Fore, Style
 
 import nltk
 from nltk import FreqDist
 from nltk.corpus import brown
 nltk.download('brown')
+
+# while True:
+#     if keyboard.is_pressed('q'):
+#         print('q')
 
 word_limit = 20000
 word_frequencies = FreqDist(i.lower() for i in brown.words()).most_common()
