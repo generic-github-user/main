@@ -47,9 +47,17 @@ class Block:
         if self.can_fall():
             self.position[1] += 1
         return self
+
+    def step(self):
+        if self.game.timestep % self.game.speed == 0:
+            self.fall()
+        return self
+
     def drop(self):
         for i in range(self.game.height):
             self.fall()
         self.game.countdown = 0
         return self
 
+    def __str__(self) -> str:
+        return str(self.letter)
