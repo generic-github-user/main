@@ -153,3 +153,6 @@ class Game:
         self.countdown -= 1
         # time.sleep(delay)
         return self
+
+    def __str__(self) -> str:
+        return '\n'.join(''.join(map(str, row)) for row in self.board.T)
