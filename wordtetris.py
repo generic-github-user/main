@@ -156,3 +156,31 @@ class Game:
 
     def __str__(self) -> str:
         return '\n'.join(''.join(map(str, row)) for row in self.board.T)
+
+
+main_game = Game()
+print(main_game.board)
+def main(win):
+    win.nodelay(True)
+    win.clear()
+    # win.addstr('Detected key:')
+    while True:
+        key = 'NONE'
+        try:
+            key = win.getkey()
+            key_name = str(key)
+        except Exception as e:
+            # print(e)
+            pass
+        main_game.step()
+        win.clear()
+        try:
+            win.addstr(str(main_game))
+            # win.addstr(key)
+        except curses.error:
+            pass
+        time.sleep(0.05)
+if not main_game.debug:
+    curses.wrapper(main)
+else:
+    main_game.step()
