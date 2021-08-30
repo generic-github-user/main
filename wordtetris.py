@@ -92,3 +92,14 @@ class Game:
         self.selection_method = selection_method
         self.debug = False
         self.update()
+
+    def update(self):
+        self.board = np.full(tuple(self.dimensions), self.bg, dtype=object)
+        for block in self.blocks:
+            self.board[tuple(block.position)] = block
+        self.slice_sources = dict(
+            horizontal=self.board.T,
+            vertical=self.board,
+            diagonal=self.board,
+        )
+        return self
