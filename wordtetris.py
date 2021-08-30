@@ -173,6 +173,14 @@ def main(win):
             # print(e)
             pass
         main_game.step()
+        if key in [curses.KEY_LEFT, 'KEY_LEFT']:
+            if main_game.active_block and 0 < main_game.active_block.position[0]:
+                main_game.active_block.position[0] -= 1
+        elif key in [curses.KEY_RIGHT, 'KEY_RIGHT']:
+            if main_game.active_block and main_game.active_block.position[0] < main_game.width-1:
+                main_game.active_block.position[0] += 1
+        elif key in [curses.KEY_DOWN, 'KEY_DOWN']:
+            main_game.active_block.drop()
         win.clear()
         try:
             win.addstr(str(main_game))
