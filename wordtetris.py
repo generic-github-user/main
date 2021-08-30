@@ -119,3 +119,34 @@ class Game:
             self.countdown = self.frequency
         for block in self.blocks:
             block.step()
+        self.slices = []
+        for orient in self.orientations:
+            if orient in self.slice_sources:
+                self.slices.append(self.slice_sources[orient])
+
+        # for y, row in enumerate(np.concatenate(self.slices, axis=0)):
+        # combined = []
+        # map(combined.extend, map(list, self.slices))
+        combined = list(itertools.chain.from_iterable(self.slices))
+        if self.debug:
+            breakpoint()
+        for y, row in enumerate(combined):
+            row_str = ''.join(map(str, row))
+            matches = list(filter(lambda x: x in row_str, words))
+            if matches:
+                # match
+                longest = max(matches, key=len)
+                if len(longest) >= self.min_length:
+                    index = row_str.index(longest)
+                    # for block in self.board[index:index+len(longest), y]:
+                    for block in row[index:index+len(longest)]:
+                        # print(block, True)
+                        if block in self.blocks:
+                            self.blocks.remove(block)
+                    self.score += self.calculate_score(longest)
+
+        self.update()
+        self.timestep += 1
+        self.countdown -= 1
+        # time.sleep(delay)
+        return self
