@@ -114,17 +114,23 @@ class Game:
 
     def step(self, delay=0.5):
         # if self.timestep % self.frequency == 0:
+        # If current active block lands, reset counter and generate new block
         if self.active_block and self.active_block.fixed:
             self.countdown = 0
+        # Generate a new block
         if self.countdown == 0:
+            # Randomly choose letter (each has an equal probability of being selected)
             if self.selection_method == 'random':
                 next_letter = random.choice(letters)
+            # Choose letter according to frequency in word list
             elif self.selection_method == 'symbol_frequency':
                 next_letter = random.choices(list(symbol_frequencies.keys()), weights=list(symbol_frequencies.values()), k=1)[0]
+            # Create the new block and add it to the list
             new_block = Block(next_letter, (self.width // 2, 0), self)
             self.blocks.append(new_block)
             self.active_block = new_block
             self.countdown = self.frequency
+        # Update all blocks
         for block in self.blocks:
             block.step()
         self.slices = []
@@ -133,18 +139,24 @@ class Game:
                 self.slices.append(self.slice_sources[orient])
 
         # for y, row in enumerate(np.concatenate(self.slices, axis=0)):
+        # Create a combined list of all extracted slices
         # combined = []
         # map(combined.extend, map(list, self.slices))
         combined = list(itertools.chain.from_iterable(self.slices))
         if self.debug:
             breakpoint()
+        # Loop through slices
         for y, row in enumerate(combined):
+            # Create string from symbols in row/slice
             row_str = ''.join(map(str, row))
+            # Find words occuring as substrings of slice
             matches = list(filter(lambda x: x in row_str, words))
             if matches:
                 # match
                 longest = max(matches, key=len)
+                # If the longest available match equals or exceeds the set minimum length, remove it from the board and increase the player's score
                 if len(longest) >= self.min_length:
+                    # Get index in slice of word
                     index = row_str.index(longest)
                     # for block in self.board[index:index+len(longest), y]:
                     for block in row[index:index+len(longest)]:
