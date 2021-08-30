@@ -27,3 +27,10 @@ for word, freq in word_frequencies[:word_limit]:
                 symbol_frequencies[char] = freq
 print(symbol_frequencies)
 # breakpoint()
+
+class Block:
+    def __init__(self, letter, position, game) -> None:
+        self.letter = letter
+        self.position = np.array(position)
+        self.game = game
+        self.fixed = False
