@@ -91,6 +91,7 @@ class Game:
         # self.directions = ['horizontal']
         self.selection_method = selection_method
         self.debug = False
+        self.empty = [self.bg*i for i in range(1, self.dimensions.max())]
         self.update()
 
     def update(self):
@@ -149,21 +150,22 @@ class Game:
         for y, row in enumerate(combined):
             # Create string from symbols in row/slice
             row_str = ''.join(map(str, row))
-            # Find words occuring as substrings of slice
-            matches = list(filter(lambda x: x in row_str, words))
-            if matches:
-                # match
-                longest = max(matches, key=len)
-                # If the longest available match equals or exceeds the set minimum length, remove it from the board and increase the player's score
-                if len(longest) >= self.min_length:
-                    # Get index in slice of word
-                    index = row_str.index(longest)
-                    # for block in self.board[index:index+len(longest), y]:
-                    for block in row[index:index+len(longest)]:
-                        # print(block, True)
-                        if block in self.blocks:
-                            self.blocks.remove(block)
-                    self.score += self.calculate_score(longest)
+            if row_str not in self.empty:
+                # Find words occuring as substrings of slice
+                matches = list(filter(lambda x: x in row_str, words))
+                if matches:
+                    # match
+                    longest = max(matches, key=len)
+                    # If the longest available match equals or exceeds the set minimum length, remove it from the board and increase the player's score
+                    if len(longest) >= self.min_length:
+                        # Get index in slice of word
+                        index = row_str.index(longest)
+                        # for block in self.board[index:index+len(longest), y]:
+                        for block in row[index:index+len(longest)]:
+                            # print(block, True)
+                            if block in self.blocks:
+                                self.blocks.remove(block)
+                        self.score += self.calculate_score(longest)
 
         self.update()
         self.timestep += 1
