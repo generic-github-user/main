@@ -32,6 +32,17 @@ class Database:
         self.tests = []
         self.sessions = []
         self.created = time.time()
+
+    def upgrade(self, *args, **kwargs):
+        template = type(self)(*args, **kwargs)
+        for k, v in vars(template).items():
+            if not hasattr(self, k):
+                setattr(self, k, v)
+        self.timestamp = datetime.datetime.fromtimestamp(self.created).strftime('%b. %d, %Y')
+        if isinstance(self.timestamp, str):
+            self.timestamp = String(self.timestamp)
+        return self
+
 def load(path=None, store=True, sess=None):
     """
     Load (unpickle) a library instance from its string representation
