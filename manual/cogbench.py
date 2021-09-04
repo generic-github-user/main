@@ -62,3 +62,5 @@ def handle_command(sess=None, database=None):
             sess.end()
         print('Current session closed')
         quit()
+    else:
+        print(f'Test name {lead} not recognized; please choose from [{", ".join(test_names)}] (enter the full name of the test or an abbreviation/substring)')
