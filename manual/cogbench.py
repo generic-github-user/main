@@ -27,3 +27,16 @@ class Session:
 
     def end(self):
         self.closed = time.time()
+
+
+
+
+
+# test_hierarchy = dict(
+#     typing=dict(
+#         alternation=alternation,
+#         random=random_keys,
+#     )
+# )
+tests = [Alternation]
+test_names = [t.__name__.lower() for t in tests]
