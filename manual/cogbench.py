@@ -64,3 +64,13 @@ def handle_command(sess=None, database=None):
         quit()
     else:
         print(f'Test name {lead} not recognized; please choose from [{", ".join(test_names)}] (enter the full name of the test or an abbreviation/substring)')
+
+def launch(database=None):
+    current_session = Session()
+    if database:
+        database.upgrade()
+        database.sessions.append(current_session)
+    while True:
+        handle_command(sess=current_session, database=database)
+
+launch(database=main_database)
