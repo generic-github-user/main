@@ -4,6 +4,26 @@ import zlib
 
 import time
 import datetime
+
+from colorama import Fore, Back, Style
+
+class String(str):
+    def __init__(self, text, *args, **kwargs):
+        self.text = str(text)
+        self.length = len(self.text)
+        self.tokens = len(self.text.split())
+
+    def separate(self):
+        return String(f'{int(self.text):,}')
+
+    def color(self, name, style='bright'):
+        return getattr(Style, style.upper())+getattr(Fore, name.upper())+self+Style.RESET_ALL
+
+    def truncate(self, length=50):
+        if len(self.text) < length:
+            return String(self.text)
+        else:
+            return String(self.text[:length]+'...')
 def load(path=None, store=True, sess=None):
     """
     Load (unpickle) a library instance from its string representation
