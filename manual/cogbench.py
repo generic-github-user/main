@@ -8,6 +8,8 @@ import time
 from utils import load, pickle, save
 from test import Test
 from alternation import Alternation
+
+main_database = load()
 class Device:
     def __init__(self, name, device_type=None, screen_width=None, screen_height=None):
         self.name = name
@@ -15,3 +17,13 @@ class Device:
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.created = time.time()
+
+class Session:
+    def __init__(self, db=None):
+        if db is None:
+            db = main_database
+        self.database = db
+        self.opened = time.time()
+
+    def end(self):
+        self.closed = time.time()
