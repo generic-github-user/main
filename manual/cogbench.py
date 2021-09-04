@@ -57,3 +57,8 @@ def handle_command(sess=None, database=None):
             print('Warning: no database currently loaded; test will not be saved')
         test.run()
         save(sess=database)
+    elif lead in ['-q', 'quit']:
+        if sess:
+            sess.end()
+        print('Current session closed')
+        quit()
