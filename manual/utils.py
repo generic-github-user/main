@@ -24,6 +24,14 @@ class String(str):
             return String(self.text)
         else:
             return String(self.text[:length]+'...')
+
+class Database:
+    def __init__(self):
+        self.directory = '/home/alex/Desktop/python_projects/CogBench'
+        self.filepath = self.directory+'/cogbench_data.txt'
+        self.tests = []
+        self.sessions = []
+        self.created = time.time()
 def load(path=None, store=True, sess=None):
     """
     Load (unpickle) a library instance from its string representation
