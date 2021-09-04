@@ -14,3 +14,15 @@ class Alternation(Test):
         self.length = length
         self.target = (target*(self.length//substring_length+1))[:self.length]
         self.ignore_trailing = ignore_trailing
+
+    def run(self):
+        self.started = time.time()
+        print(self.target)
+        self.user_input = input()
+        self.ended = time.time()
+        self.elapsed = self.ended - self.started
+        input_string = self.user_input
+        if self.ignore_trailing:
+            input_string = input_string[:self.length]
+        self.accuracy = fuzz.WRatio(self.target, self.user_input)
+        return self
