@@ -4,6 +4,10 @@ import string
 import random
 from fuzzywuzzy import fuzz, process
 import time
+
+from utils import load, pickle, save
+from test import Test
+from alternation import Alternation
 class Device:
     def __init__(self, name, device_type=None, screen_width=None, screen_height=None):
         self.name = name
