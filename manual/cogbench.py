@@ -10,6 +10,7 @@ from test import Test
 from alternation import Alternation
 
 main_database = load()
+
 class Device:
     def __init__(self, name, device_type=None, screen_width=None, screen_height=None):
         self.name = name
@@ -57,6 +58,20 @@ def handle_command(sess=None, database=None):
             print('Warning: no database currently loaded; test will not be saved')
         test.run()
         save(sess=database)
+    elif lead in ['-p', 'plot']:
+        if len(command) >= 2:
+            matches = list(filter(lambda x: command[1] in x, test_names))
+            if matches:
+                test_type = tests[test_names.index(matches[0])]
+                if len(command) >= 4:
+                    plot_vars = command[2:]
+                else:
+                    plot_vars = test_type.default_plot
+                plot_data = [[getattr(test, attr) for test in database.tests] for attr in plot_vars]
+                plot_data = np.array(plot_data)
+                plt.style.use('seaborn')
+                plt.scatter(*plot_data)
+                plt.show()
     elif lead in ['-q', 'quit']:
         if sess:
             sess.end()
