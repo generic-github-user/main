@@ -70,7 +70,7 @@ def handle_command(sess=None, database=None):
                 plot_data = [[getattr(test, attr) for test in database.tests] for attr in plot_vars]
                 plot_data = np.array(plot_data)
                 plt.style.use('seaborn')
-                plt.scatter(*plot_data)
+                plt.scatter(*plot_data[:2], c=plot_data[2], cmap='rainbow')
                 plt.show()
     elif lead in ['-q', 'quit']:
         if sess:
@@ -84,6 +84,8 @@ def launch(database=None):
     current_session = Session()
     if database:
         database.upgrade()
+        for test in database.tests:
+            test.upgrade()
         database.sessions.append(current_session)
     while True:
         handle_command(sess=current_session, database=database)

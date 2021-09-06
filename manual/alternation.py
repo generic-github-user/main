@@ -18,7 +18,7 @@ zxcvbnm,./
 
 # @test
 class Alternation(Test):
-    default_plot = ['length', 'elapsed']
+    default_plot = ['length', 'elapsed', 'score']
     def __init__(self, length=None, substring_length=2, ignore_trailing=True, adjacent=False, **kwargs):
         if length is None:
             length = random.randint(10, 40)
