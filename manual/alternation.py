@@ -34,6 +34,9 @@ class Alternation(Test):
 
     # def generate_statistics
 
+    def calculate_score(self):
+        return self.accuracy * (self.length / self.elapsed)
+
     def run(self):
         self.started = time.time()
         print(self.target)
@@ -44,4 +47,10 @@ class Alternation(Test):
         if self.ignore_trailing:
             input_string = input_string[:self.length]
         self.accuracy = fuzz.WRatio(self.target, self.user_input)
+        self.score = self.calculate_score()
         return self
+
+    def upgrade(self, *args, **kwargs):
+        super().upgrade(*args, **kwargs)
+        if not hasattr(self, 'score'):
+            self.score = self.calculate_score()
