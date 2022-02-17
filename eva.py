@@ -9,13 +9,26 @@ try:
 except:
     nodes = [];
 
+def getId():
+    return len(nodes)
+
+def addNode(value, members=None):
+    newId = getId()
+    if members is None:
+        members = []
+    nodes.append([getId, value, members, time.time()])
+    return newId
+
+
+# graph compression?
 relations = ['are', 'is a', 'has', 'have'];
 for i in range(1000):
     newInput = input()
     if newInput == 'quit':
         quit()
     elif newInput == 'print':
-        print(nodes)
+        for n in nodes:
+            print(n)
     else:
         id = len(nodes)
         nodes.append([id, newInput, [], time.time()])
@@ -24,10 +37,8 @@ for i in range(1000):
             if r2 in newInput:
                 a, b = newInput.split(r2)
                 for ai in a.split(','):
-                    id_a = len(nodes)
-                    nodes.append([id_a, ai, [], time.time()])
-                    id_b = len(nodes)
-                    nodes.append([id_b, b, [], time.time()])
+                    id_a = addNode(ai)
+                    id_b = addNode(b)
                     id_c = len(nodes)
                     nodes.append([id_c, r, [id_a, id_b], time.time()])
                     nodes.append([len(nodes), 'source', [id_c, id], time.time()])
