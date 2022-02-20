@@ -19,6 +19,9 @@ def addNode(value, members=None):
     nodes.append([getId, value, members, time.time()])
     return newId
 
+def save():
+    with open(databasePath, 'wb') as fileRef:
+        pickle.dump(nodes, fileRef)
 
 # graph compression?
 relations = ['are', 'is a', 'has', 'have'];
@@ -42,5 +45,4 @@ for i in range(1000):
                     id_c = len(nodes)
                     nodes.append([id_c, r, [id_a, id_b], time.time()])
                     nodes.append([len(nodes), 'source', [id_c, id], time.time()])
-        with open(databasePath, 'wb') as fileRef:
-            pickle.dump(nodes, fileRef)
+        save()
