@@ -12,7 +12,6 @@ except:
 def getId():
     return len(nodes)
 
-def addNode(value, members=None):
 def getNodes(value):
     return list(filter(lambda n: n[1]==value, nodes))
 
@@ -28,10 +27,20 @@ def search(info):
     # results = []
     # for n in nodes:
     return list(filter(lambda n: nodeMatch(n, info), nodes))
+
+def addNode(value, members=None, duplicate=True, useSearch=False):
     newId = getId()
-    if members is None:
-        members = []
-    nodes.append([getId, value, members, time.time()])
+    if useSearch:
+        matches = search([None, value, members, None])
+    else:
+        matches = getNodes(value)
+    if (duplicate or not matches):
+            if members is None:
+                members = []
+            nodes.append([newId, value, members, time.time()])
+    else:
+            # return matches[0][1]
+            return matches[0][0]
     return newId
 
 def save():
