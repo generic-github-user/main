@@ -95,11 +95,13 @@ for i in range(1000):
         for r in relations:
             r2 = f' {r} '
             if r2 in newInput:
-                a, b = newInput.split(r2)
-                for ai in a.split(','):
-                    id_a = addNode(ai)
-                    id_b = addNode(b)
-                    id_c = len(nodes)
-                    nodes.append([id_c, r, [id_a, id_b], time.time()])
-                    nodes.append([len(nodes), 'source', [id_c, id], time.time()])
+                rel = newInput.split(r2)
+                if len(rel) == 2:
+                    a, b = rel
+                    for ai in a.split(','):
+                        id_a = addNode(ai)
+                        id_b = addNode(b)
+                        id_c = len(nodes)
+                        nodes.append([id_c, r, [id_a, id_b], time.time()])
+                        nodes.append([len(nodes), 'source', [id_c, id], time.time()])
         save()
