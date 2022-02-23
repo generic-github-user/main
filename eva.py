@@ -13,6 +13,11 @@ def getId():
     return len(nodes)
 
 def addNode(value, members=None):
+def nodeMatch(node, info):
+    for i in range(len(info)):
+        if (info[i] != None and info[i] != node[i]):
+            return False
+    return True
     newId = getId()
     if members is None:
         members = []
