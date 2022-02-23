@@ -18,6 +18,11 @@ def nodeMatch(node, info):
         if (info[i] != None and info[i] != node[i]):
             return False
     return True
+
+def search(info):
+    # results = []
+    # for n in nodes:
+    return list(filter(lambda n: nodeMatch(n, info), nodes))
     newId = getId()
     if members is None:
         members = []
