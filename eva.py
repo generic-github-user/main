@@ -65,6 +65,12 @@ for i in range(1000):
         for n in results:
             print(n)
             addNode('origin', [n[0], addNode('eva_output', [], False)])
+    elif newInput == 'remove':
+        nodes.pop()
+        save()
+    elif newInput == 'restore':
+        nodes = json.load(open('./prevdata.json'))
+        save()
     else:
         id = len(nodes)
         nodes.append([id, newInput, [], time.time()])
