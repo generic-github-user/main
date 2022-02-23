@@ -42,6 +42,13 @@ for i in range(1000):
     elif newInput == 'print':
         for n in nodes:
             print(n)
+    elif newInput.startswith('find'):
+        id = addNode(newInput, [], True)
+        addNode('origin', [id, addNode('user_input', [], False)])
+        results = list(filter(lambda x: isinstance(x[1], str) and (newInput[5:] in x[1]), nodes))
+        for n in results:
+            print(n)
+            addNode('origin', [n[0], addNode('eva_output', [], False)])
     else:
         id = len(nodes)
         nodes.append([id, newInput, [], time.time()])
