@@ -33,6 +33,16 @@ def save():
     with open(databasePath, 'wb') as fileRef:
         pickle.dump(nodes, fileRef)
 
+def nodeProperty(node, attr):
+    # n[1]
+    links = list(filter(lambda n: n[2][0]==node, getNodes(attr)))
+    if len(links) == 0:
+        return None
+    destId = links[0][2][1]
+    if isinstance(destId, str):
+        destId = getNodes(destId)[0][0]
+    return nodes[destId][1]
+
 # graph compression?
 relations = ['are', 'is a', 'has', 'have'];
 for i in range(1000):
