@@ -48,6 +48,7 @@ def nodeProperty(node, attr):
         destId = getNodes(destId)[0][0]
     return nodes[destId][1]
 
+current_question = None
 # graph compression?
 relations = ['are', 'is a', 'has', 'have'];
 for i in range(1000):
@@ -65,6 +66,12 @@ for i in range(1000):
         for n in results:
             print(n)
             addNode('origin', [n[0], addNode('eva_output', [], False)])
+    elif newInput.startswith('ask'):
+        q = 'how are you'
+        newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
+        addNode('origin', [newId, addNode('eva_ouptut', [], False)])
+        print(q)
+        current_question = newId
     elif newInput == 'remove':
         nodes.pop()
         save()
@@ -74,6 +81,8 @@ for i in range(1000):
     else:
         id = len(nodes)
         nodes.append([id, newInput, [], time.time()])
+        if current_question is not None:
+            addNode('response', [id, current_question], True)
         for r in relations:
             r2 = f' {r} '
             if r2 in newInput:
