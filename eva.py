@@ -13,6 +13,11 @@ def getId():
     return len(nodes)
 
 def addNode(value, members=None):
+def getNodes(value):
+    return list(filter(lambda n: n[1]==value, nodes))
+
+# # TODO: search by pattern
+
 def nodeMatch(node, info):
     for i in range(len(info)):
         if (info[i] != None and info[i] != node[i]):
@@ -46,6 +51,7 @@ def nodeProperty(node, attr):
 # graph compression?
 relations = ['are', 'is a', 'has', 'have'];
 for i in range(1000):
+    # breakpoint()
     newInput = input()
     if newInput == 'quit':
         quit()
