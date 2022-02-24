@@ -127,4 +127,9 @@ for i in range(1000):
             # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
             #     for t in n[1].split():
                     # addNode()
+        for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ['length', 'type', 'token'], nodes)):
+            tokens = n[1].split()
+            if len(tokens) > 1:
+                for t in tokens:
+                    addNode('token', [addNode(t, [], False), n[0]], False, True)
         save()
