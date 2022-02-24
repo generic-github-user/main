@@ -119,4 +119,12 @@ for i in range(1000):
                 m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', nodes))
                 if (len(m) == 0):
                     addNode('type', [n[0], typeId])
+            if n[1] not in ['length', 'type', 'token'] and isinstance(n[1], str):
+                lenId = addNode(len(n[1]), [], False)
+                m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='length', nodes))
+                if (len(m) == 0):
+                    addNode('length', [n[0], lenId])
+            # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
+            #     for t in n[1].split():
+                    # addNode()
         save()
