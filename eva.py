@@ -1,6 +1,7 @@
 import pickle
 import string
 import time
+import json
 
 databasePath = './eva-db';
 try:
@@ -90,8 +91,10 @@ for i in range(1000):
     else:
         id = len(nodes)
         nodes.append([id, newInput, [], time.time()])
+        addNode('origin', [id, addNode('user_input', [], False)])
         if current_question is not None:
             addNode('response', [id, current_question], True)
+            current_question = None
         for r in relations:
             r2 = f' {r} '
             if r2 in newInput:
