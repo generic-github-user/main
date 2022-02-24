@@ -104,4 +104,9 @@ for i in range(1000):
                         id_c = len(nodes)
                         nodes.append([id_c, r, [id_a, id_b], time.time()])
                         nodes.append([len(nodes), 'source', [id_c, id], time.time()])
+        for n in nodes:
+            duplicates = list(filter(lambda x: n[1]==x[1], nodes))
+            exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
+            if len(duplicates) > 1 and not exists:
+                addNode(n[1], [x[0] for x in duplicates])
         save()
