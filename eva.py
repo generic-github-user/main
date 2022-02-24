@@ -112,4 +112,11 @@ for i in range(1000):
             exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
             if len(duplicates) > 1 and not exists:
                 addNode(n[1], [x[0] for x in duplicates])
+
+            if n[1] not in ['length', 'type', 'token']:
+                typeId = addNode(type(n[1]).__name__, [], False)
+                # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
+                m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', nodes))
+                if (len(m) == 0):
+                    addNode('type', [n[0], typeId])
         save()
