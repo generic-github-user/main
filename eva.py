@@ -2,6 +2,7 @@ import pickle
 import string
 import time
 import json
+debug = True
 
 databasePath = './eva-db';
 try:
@@ -108,7 +109,10 @@ for i in range(1000):
                         id_c = len(nodes)
                         nodes.append([id_c, r, [id_a, id_b], time.time()])
                         nodes.append([len(nodes), 'source', [id_c, id], time.time()])
+        if debug:
+            print('Updating database')
         for n in nodes:
+            # print(f'Updating node {n[0]}: {n[1]}')
             duplicates = list(filter(lambda x: n[1]==x[1], nodes))
             exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
             if len(duplicates) > 1 and not exists:
@@ -134,3 +138,5 @@ for i in range(1000):
                 for t in tokens:
                     addNode('token', [addNode(t, [], False), n[0]], False, True)
         save()
+        if debug:
+            print('Done')
