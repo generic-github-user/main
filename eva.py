@@ -2,12 +2,14 @@ import pickle
 import string
 import time
 import json
+import random
+
+databasePath = './eva-db'
 debug = True
 
-databasePath = './eva-db';
 try:
     with open(databasePath, 'rb') as fileRef:
-        nodes = pickle.load(fileRef);
+        nodes = pickle.load(fileRef)
 except:
     nodes = [];
 
@@ -60,6 +62,7 @@ def nodeProperty(node, attr):
     return nodes[destId][1]
 
 current_question = None
+current_link = None
 # graph compression?
 relations = ['are', 'is a', 'has', 'have'];
 for i in range(1000):
