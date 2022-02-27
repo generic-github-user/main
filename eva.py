@@ -82,7 +82,16 @@ for i in range(1000):
             print(n)
             addNode('origin', [n[0], addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
-        q = 'how are you'
+        links = list(filter(
+            lambda n: n[1] in ['are']
+            and len(n[2]) == 2
+            and (not list(filter(lambda m: m[1] in ['subset'] and m[2][0]==n[0], nodes))),
+            nodes
+        ))
+        # q = 'how are you'
+        current_link = random.choice(links)
+        q = f'Is {nodes[current_link[2][0]][1]} a subset of {nodes[current_link[2][1]][1]}?'
+        # use closure?
         newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
         addNode('origin', [newId, addNode('eva_ouptut', [], False)])
         print(q)
@@ -99,6 +108,13 @@ for i in range(1000):
         addNode('origin', [id, addNode('user_input', [], False)])
         if current_question is not None:
             addNode('response', [id, current_question], True)
+            if current_link is not None:
+                if newInput in ['yes']:
+                    # check this
+                    if debug:
+                        print('Adding link to database')
+                    addNode('subset', [x for x in current_link[2]], False, True)
+                current_link = None
             current_question = None
         for r in relations:
             r2 = f' {r} '
