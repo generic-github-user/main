@@ -67,8 +67,9 @@ for i in range(1000):
     if newInput == 'quit':
         quit()
     elif newInput == 'print':
-        for n in nodes:
-            print(n)
+        print('100 most recent nodes:')
+        for n in nodes[-100:]:
+            print(f'{n[0]} {n[1]} {[nodes[i][1] for i in n[2]]}')
     elif newInput.startswith('find'):
         id = addNode(newInput, [], True)
         addNode('origin', [id, addNode('user_input', [], False)])
