@@ -52,6 +52,9 @@ def addNode(value, members=None, duplicate=True, useSearch=False):
             if members is None:
                 members = []
             nodes.append([newId, value, members, time.time()])
+            references.append([])
+            for m in members:
+                references[m].append(newId)
     else:
             # return matches[0][1]
             return matches[0][0]
@@ -131,18 +134,20 @@ for i in range(1000):
         links = []
         for n in nodes:
             if n[2]:
-                for rel in ['subset']:
+                for rel in ['subset', 'member']:
+                    refSources = [nodes[x] for x in references[n[2][0]]]
                     conditions = [
                         n[1] in ['are'],
                         len(n[2]) == 2,
                         # n[0]?
-                        (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+                        # (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+                        (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], refSources)))
                     ]
                     if all(conditions):
                         newLink = [n[0], rel, n[2], n[3]]
                         links.append(newLink)
-                        display(newLink)
-                        map(display, list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+                        # display(newLink)
+                        # map(display, list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
         # for L in links:
             # display(L)
         # q = 'how are you'
