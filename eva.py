@@ -94,6 +94,9 @@ def updateAll():
     if debug:
         print('Done')
 
+def display(n):
+    print(f'{n[0]} {n[1]} {[nodes[i][1] for i in n[2]]}')
+
 current_question = None
 current_link = None
 # graph compression?
@@ -106,13 +109,13 @@ for i in range(1000):
     elif newInput == 'print':
         print('100 most recent nodes:')
         for n in nodes[-100:]:
-            print(f'{n[0]} {n[1]} {[nodes[i][1] for i in n[2]]}')
+            display(n)
     elif newInput.startswith('find'):
         id = addNode(newInput, [], True)
         addNode('origin', [id, addNode('user_input', [], False)])
         results = list(filter(lambda x: isinstance(x[1], str) and (newInput[5:] in x[1]), nodes))
         for n in results:
-            print(n)
+            display(n)
             addNode('origin', [n[0], addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
         links = list(filter(
