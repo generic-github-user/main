@@ -234,7 +234,7 @@ class Graph(Graph):
 # semi-toroidal graphs
 
 
-# In[339]:
+# In[377]:
 
 
 class Graph(Graph):
@@ -277,9 +277,11 @@ print(random.choice(R.nodes).weight)
 
 pyvis.network.Network
 
+# dynamic graphs/temporal analysis
+# add advanced graph indexing syntax
 
 
-# In[383]:
+# In[386]:
 
 
 class Randomizer:
@@ -299,20 +301,63 @@ class Randomizer:
 
 
 class CompleteGraph(Graph):
-    def __init__(self, n):
+    def __init__(self, n, weighted=False, weights=1):
         super().__init__()
         self.add_nodes(list(range(1,n+1)))
+        metadata = [{}]
         for i in range(n):
             for j in range(n):
                 if i != j:
 #                     print(i, j)
                     ni = self.nodes[i]
                     nj = self.nodes[j]
-#                     why is duplicate=True necessary?
-                    self.add_node([f'E{ni.value+nj.value}', ni, nj], duplicate=True)
+                    
+                    if weighted:
+                        if type(weights) in [int, float]:
+                            metadata[0]['weight'] = weights
+                        elif type(weights) in [Randomizer]:
+                            metadata[0]['weight'] = weights.sample()
+                    self.add_node([f'E{ni.value+nj.value}', ni, nj], duplicate=True, metadata=metadata)
         
-R = CompleteGraph(7)
+R = CompleteGraph(7, weighted=True, weights=Randomizer())
 R.visualize(width=1000, height=1000, node_options={'shape': 'circle'}, edge_options={'smooth': True})
+
+
+# In[385]:
+
+
+plt.imshow(R.AdjacencyMatrix())
+
+
+# In[239]:
+
+
+class GridGraph(Graph):
+    def __init__(self, dims):
+        super().__init__([], False, False)
+        last = Graph(['x'], True, True)
+        for d in dims:
+            L = Graph(['x'], True, True)
+#             print(list(map(str,L.nodes)), list(map(str,last.nodes)))
+            for n in range(d-1):
+                L = L.join(last, str(n))
+            last.nodes = [q for q in L.nodes]
+        self.nodes = last.nodes
+
+R = GridGraph([3, 4])
+# R.visualize(width=1000, height=1000, node_options={'shape': 'circle'})
+
+
+# In[233]:
+
+
+# list(map(str,R.nodes))
+[list(map(str,x.grouped)) for x in R.nodes]
+
+
+# In[240]:
+
+
 class Node:
     def init(self, value, grouped=None, graph=None, metadata=None, **kwargs):
         self.value = value
@@ -357,7 +402,11 @@ class Node:
     
     def __str__(self):
         return str(self.value)
-        
+
+
+# In[241]:
+
+
 for cls in [Graph, Node]:
     if hasattr(cls, 'init'):
         setattr(cls, '__init__', getattr(cls, 'init'))
@@ -368,7 +417,7 @@ for cls in [Graph, Node]:
 # G.visualize(width=1000, height=1000)
 
 
-# In[330]:
+# In[244]:
 
 
 symbols = '++--'
