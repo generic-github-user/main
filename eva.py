@@ -102,16 +102,23 @@ def getInfo():
     addNode('origin', [newId, addNode('eva_ouptut', [], False)])
     print(q)
     current_question = newId
+
+def P(message):
+    if debug:
+        print(message)
+
 def updateAll():
     if debug:
         print('Updating database')
     for n in nodes:
         # print(f'Updating node {n[0]}: {n[1]}')
+        P('Consolidating identical nodes')
         duplicates = list(filter(lambda x: n[1]==x[1], nodes))
         exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
         if len(duplicates) > 1 and not exists:
             addNode(n[1], [x[0] for x in duplicates])
 
+        P('Extract node data types')
         if n[1] not in ignoredTypes:
             typeId = addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
@@ -119,6 +126,8 @@ def updateAll():
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', refSources))
             if (len(m) == 0):
                 addNode('type', [n[0], typeId])
+
+        P('Extract lengths from string nodes')
         if n[1] not in ignoredTypes and isinstance(n[1], str):
             lenId = addNode(len(n[1]), [], False)
             refSources = [nodes[z] for z in references[n[0]]]
