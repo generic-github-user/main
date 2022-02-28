@@ -118,15 +118,26 @@ for i in range(1000):
             display(n)
             addNode('origin', [n[0], addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
-        links = list(filter(
-            lambda n: n[1] in ['are']
-            and len(n[2]) == 2
-            and (not list(filter(lambda m: m[1] in ['subset'] and m[2][0]==n[0], nodes))),
-            nodes
-        ))
+        links = []
+        for n in nodes:
+            if n[2]:
+                for rel in ['subset']:
+                    conditions = [
+                        n[1] in ['are'],
+                        len(n[2]) == 2,
+                        # n[0]?
+                        (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+                    ]
+                    if all(conditions):
+                        newLink = [n[0], rel, n[2], n[3]]
+                        links.append(newLink)
+                        display(newLink)
+                        map(display, list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+        # for L in links:
+            # display(L)
         # q = 'how are you'
         current_link = random.choice(links)
-        q = f'Is {nodes[current_link[2][0]][1]} a subset of {nodes[current_link[2][1]][1]}?'
+        q = f'Is {nodes[current_link[2][0]][1]} a {current_link[1]} of {nodes[current_link[2][1]][1]}?'
         # use closure?
         newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
         addNode('origin', [newId, addNode('eva_ouptut', [], False)])
@@ -154,7 +165,13 @@ for i in range(1000):
                     # check this
                     if debug:
                         print('Adding link to database')
-                    addNode('subset', [x for x in current_link[2]], False, True)
+                    J = addNode(current_link[1], [x for x in current_link[2]], False, True)
+                    addNode('truth', [J, addNode(True, [], False)], True)
+                elif newInput in ['no']:
+                    if debug:
+                        print('Adding link to database')
+                    J = addNode(current_link[1], [x for x in current_link[2]], False, True)
+                    addNode('truth', [J, addNode(False, [], False)], True)
                 current_link = None
             current_question = None
         for r in relations:
