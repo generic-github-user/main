@@ -3,9 +3,10 @@ import string
 import time
 import json
 import random
+from customize import ratings
 
 databasePath = './eva-db'
-ignoredTypes = ['length', 'type', 'token', 'origin']
+ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating']
 debug = True
 references = []
 
@@ -137,6 +138,16 @@ def updateAll():
         # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
         #     for t in n[1].split():
                 # addNode()
+
+        P('Marking rating nodes')
+        # # TODO: move (some) input processing here
+        if n[1] not in ignoredTypes and isinstance(n[1], str) and len(n[1])==3 and n[1][1]=='.':
+            for r in ratings:
+                if r[0]==n[1][0]:
+                    addNode('rating', [n[0], addNode(r, [], False)], False, True)
+                    addNode('group', [n[0], addNode('ratings', [], False)], False, True)
+
+    P('Extracting tokens from text nodes')
     for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ignoredTypes, nodes)):
         tokens = n[1].split()
         if len(tokens) > 1:
