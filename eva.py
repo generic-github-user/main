@@ -132,6 +132,8 @@ for i in range(1000):
         addNode('origin', [newId, addNode('eva_ouptut', [], False)])
         print(q)
         current_question = newId
+    elif newInput == 'breakpoint':
+        breakpoint()
     elif newInput == 'remove':
         nodes.pop()
         save()
