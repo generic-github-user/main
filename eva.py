@@ -199,7 +199,13 @@ for i in range(1000):
     elif newInput == 'uall':
         updateAll()
         save()
-    elif newInput == 'list':
+    elif newInput.startswith('list'):
+        target = newInput.split()[1]
+        # members = list(filter(lambda x: ))
+        # could this be made more efficient by first locating the node corresponding to the keyword?
+        members = list(filter(lambda x: nodeProperty(x[0], 'member')==target, nodes))
+        for m in members:
+            display(m)
         save()
     else:
         id = addNode(newInput, [])
