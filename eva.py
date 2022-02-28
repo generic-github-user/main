@@ -155,8 +155,7 @@ for i in range(1000):
         updateAll()
         save()
     else:
-        id = len(nodes)
-        nodes.append([id, newInput, [], time.time()])
+        id = addNode(newInput, [])
         addNode('origin', [id, addNode('user_input', [], False)])
         if current_question is not None:
             addNode('response', [id, current_question], True)
@@ -183,7 +182,6 @@ for i in range(1000):
                     for ai in a.split(','):
                         id_a = addNode(ai)
                         id_b = addNode(b)
-                        id_c = len(nodes)
-                        nodes.append([id_c, r, [id_a, id_b], time.time()])
-                        nodes.append([len(nodes), 'source', [id_c, id], time.time()])
+                        id_c = addNode(r, [id_a, id_b])
+                        addNode('source', [id_c, id])
         save()
