@@ -45,26 +45,6 @@ class Randomizer:
     def __call__(self):
         return self.sample()
 
-
-# R.visualize(width=1000, height=1000, node_options={'shape': 'circle'})
-
-
-# In[233]:
-
-
-# list(map(str,R.nodes))
-[list(map(str,x.grouped)) for x in R.nodes]
-
-
-# In[240]:
-
-
-
-
-
-# In[241]:
-
-
 for cls in [Graph, Node]:
     if hasattr(cls, 'init'):
         setattr(cls, '__init__', getattr(cls, 'init'))
@@ -74,20 +54,9 @@ for cls in [Graph, Node]:
 # G.add_nodes(pairs, metadata=[dict(cat='similarity'), dict(cat='text')]).nodes[0].value
 # G.visualize(width=1000, height=1000)
 
-
-# In[244]:
-
-
-
-
-
 # graph lambda
 # rule class/strings?
 # Graph(rule=)
-
-
-# In[326]:
-
 
 S = 'know'
 G = Graph([S], False, False)
@@ -111,37 +80,11 @@ options = {}
 G.visualize(node_options={'shape': 'circle'}, edge_options=options, width=1000, height=1000, directed=True)
 
 
-# In[267]:
-
-
-
-# list(map(str, G.nodes))
-
-
-# In[90]:
-
-
-G.find(cat='num').nodes
-
-
-# In[91]:
-
-
 # [c.cat for c in G.nodes]
 for c in G.nodes:
 #     if hasattr(c, 'cat'):
 #         print(c.cat, c.value)
     print(c.value, list(map(str, c.grouped)), c.unique)
-
-
-# In[ ]:
-
-
-G.duplicate
-
-
-# In[ ]:
-
 
 # G.add_node([5], return_node=False).nodes
 list(map(str,G.nodes))
@@ -161,16 +104,6 @@ for i in range(20):
         r = neighbors[0]
     else:
         break
-
-
-# In[ ]:
-
-
-r[0].cat
-
-
-# In[284]:
-
 
 # G.nodes[35].grouped
 # G.nodes
