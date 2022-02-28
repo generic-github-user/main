@@ -74,6 +74,34 @@ def nodeProperty(node, attr):
         destId = getNodes(destId)[0][0]
     return nodes[destId][1]
 
+def getInfo():
+    links = []
+    for n in nodes:
+        if n[2]:
+            for rel in ['subset', 'member']:
+                refSources = [nodes[x] for x in references[n[2][0]]]
+                conditions = [
+                    n[1] in ['are'],
+                    len(n[2]) == 2,
+                    # n[0]?
+                    # (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+                    (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], refSources)))
+                ]
+                if all(conditions):
+                    newLink = [n[0], rel, n[2], n[3]]
+                    links.append(newLink)
+                    # display(newLink)
+                    # map(display, list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
+    # for L in links:
+        # display(L)
+    # q = 'how are you'
+    current_link = random.choice(links)
+    q = f'Is {nodes[current_link[2][0]][1]} a {current_link[1]} of {nodes[current_link[2][1]][1]}?'
+    # use closure?
+    newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
+    addNode('origin', [newId, addNode('eva_ouptut', [], False)])
+    print(q)
+    current_question = newId
 def updateAll():
     if debug:
         print('Updating database')
@@ -133,33 +161,13 @@ for i in range(1000):
             display(n)
             addNode('origin', [n[0], addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
-        links = []
-        for n in nodes:
-            if n[2]:
-                for rel in ['subset', 'member']:
-                    refSources = [nodes[x] for x in references[n[2][0]]]
-                    conditions = [
-                        n[1] in ['are'],
-                        len(n[2]) == 2,
-                        # n[0]?
-                        # (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
-                        (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], refSources)))
-                    ]
-                    if all(conditions):
-                        newLink = [n[0], rel, n[2], n[3]]
-                        links.append(newLink)
-                        # display(newLink)
-                        # map(display, list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
-        # for L in links:
-            # display(L)
-        # q = 'how are you'
-        current_link = random.choice(links)
-        q = f'Is {nodes[current_link[2][0]][1]} a {current_link[1]} of {nodes[current_link[2][1]][1]}?'
-        # use closure?
-        newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
-        addNode('origin', [newId, addNode('eva_ouptut', [], False)])
-        print(q)
-        current_question = newId
+        t = newInput.split()
+        if len(t) > 1:
+            num = int(t[1])
+        else:
+            num = 1
+        for i in range(num):
+            getInfo()
     elif newInput == 'breakpoint':
         breakpoint()
     elif newInput == 'remove':
