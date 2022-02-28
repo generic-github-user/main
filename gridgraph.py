@@ -1,3 +1,5 @@
+from graph import Graph
+
 class GridGraph(Graph):
     def __init__(self, dims):
         super().__init__([], False, False)

@@ -18,6 +18,3 @@ class CompleteGraph(Graph):
                         elif type(weights) in [Randomizer]:
                             metadata[0]['weight'] = weights.sample()
                     self.add_node([f'E{ni.value+nj.value}', ni, nj], duplicate=True, metadata=metadata)
-
-R = CompleteGraph(7, weighted=True, weights=Randomizer())
-R.visualize(width=1000, height=1000, node_options={'shape': 'circle'}, edge_options={'smooth': True})

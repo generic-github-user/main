@@ -1,3 +1,5 @@
+from node import Node
+
 class Graph:
     def __init__(self, nodes=None, duplicate=False, u=False, **kwargs):
         if nodes is None:
