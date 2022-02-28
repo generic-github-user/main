@@ -8,11 +8,6 @@ class Graph:
         if nodes:
             self.add_nodes(nodes, duplicate=u, **kwargs)
 
-
-
-# In[277]:
-
-
 class Graph(Graph):
     def visualize(self, node_options={}, edge_options={}, **kwargs):
         self.visualization = pyvis.network.Network(notebook=True, **kwargs)
@@ -59,10 +54,6 @@ class Graph(Graph):
                         pass
         return self.visualization.show('./visualization.html')
 
-
-# In[247]:
-
-
 class Graph(Graph):
     def find(self, **kwargs):
         defaults = dict(unique=True)
@@ -70,10 +61,6 @@ class Graph(Graph):
 #         return list(filter(lambda n: n.value == x and n.unique, self.nodes))
         results = list(filter(lambda n: all((k in vars(n) and getattr(n, k) == v) for k, v in kwargs.items()), self.nodes))
         return Graph(nodes=results, duplicate=self.duplicate)
-
-
-# In[248]:
-
 
 class Graph(Graph):
     def add_node(self, data, duplicate=False, return_node=True, metadata=None):
@@ -117,11 +104,6 @@ class Graph(Graph):
         else:
             return self
 
-
-
-# In[249]:
-
-
 class Graph(Graph):
     def sample(self, n=1):
         return Graph(nodes=random.sample(self.nodes, k=n))
@@ -142,11 +124,6 @@ class Graph(Graph):
                 self.nodes[i].extend(x.nodes[i].value+str(i)+q, f'e{val}{i}'+q, duplicate=True)
         return self
 
-
-
-# In[251]:
-
-
 class Graph(Graph):
     def __getitem__(self, i):
         return self.nodes[i]
@@ -155,10 +132,6 @@ class Graph(Graph):
         return bool(self.nodes)
 
 # semi-toroidal graphs
-
-
-# In[377]:
-
 
 class Graph(Graph):
     def AdjacencyMatrix(self, use_weights=True, weight_prop='weight'):
@@ -172,6 +145,3 @@ class Graph(Graph):
                     value = 1
                 matrix[self.nodes.index(a), self.nodes.index(b)] = value
         return matrix
-
-R = RandomGraph(30, 30, weighted=True)
-plt.imshow(R.AdjacencyMatrix())

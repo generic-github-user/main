@@ -18,14 +18,6 @@ from completegraph import CompleteGraph
 from gridgraph import GridGraph
 
 
-
-
-R = RandomGraph(100, 100, weighted=True)
-print(random.choice(R.nodes).weight)
-# R.visualize(width=1000, height=1000, node_options={'shape': 'circle'})
-
-
-
 # dynamic graphs/temporal analysis
 # add advanced graph indexing syntax
 

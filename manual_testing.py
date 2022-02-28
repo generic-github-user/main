@@ -61,3 +61,12 @@ for i in range(30):
         Node(symbols[l], [s[l], j], graph=G, duplicate=False)
 #     *s?
 G.visualize(width=1000, height=1000, directed=True, node_options={'shape': 'circle'})
+
+
+R = RandomGraph(100, 100, weighted=True)
+print(random.choice(R.nodes).weight)
+# R.visualize(width=1000, height=1000, node_options={'shape': 'circle'})
+
+
+R = RandomGraph(30, 30, weighted=True)
+plt.imshow(R.AdjacencyMatrix())

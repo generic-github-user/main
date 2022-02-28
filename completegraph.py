@@ -1,3 +1,5 @@
+from graph import Graph
+
 class CompleteGraph(Graph):
     def __init__(self, n, weighted=False, weights=1):
         super().__init__()

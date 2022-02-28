@@ -1,3 +1,5 @@
+from graph import Graph
+
 class RandomGraph(Graph):
     def __init__(self, n, m, weighted=False, weight_bounds=[0, 1]):
         super().__init__()
