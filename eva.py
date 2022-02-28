@@ -87,13 +87,13 @@ def updateAll():
         if n[1] not in ignoredTypes:
             typeId = addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
-            refSources = [nodes[z] for z in references[n[2][0]]]
+            refSources = [nodes[z] for z in references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', refSources))
             if (len(m) == 0):
                 addNode('type', [n[0], typeId])
         if n[1] not in ignoredTypes and isinstance(n[1], str):
             lenId = addNode(len(n[1]), [], False)
-            refSources = [nodes[z] for z in references[n[2][0]]]
+            refSources = [nodes[z] for z in references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='length', refSources))
             if (len(m) == 0):
                 addNode('length', [n[0], lenId])
