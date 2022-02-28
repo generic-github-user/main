@@ -5,6 +5,7 @@ import json
 import random
 
 databasePath = './eva-db'
+ignoredTypes = ['length', 'type', 'token', 'origin']
 debug = True
 
 try:
@@ -71,13 +72,13 @@ def updateAll():
         if len(duplicates) > 1 and not exists:
             addNode(n[1], [x[0] for x in duplicates])
 
-        if n[1] not in ['length', 'type', 'token']:
+        if n[1] not in ignoredTypes:
             typeId = addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', nodes))
             if (len(m) == 0):
                 addNode('type', [n[0], typeId])
-        if n[1] not in ['length', 'type', 'token'] and isinstance(n[1], str):
+        if n[1] not in ignoredTypes and isinstance(n[1], str):
             lenId = addNode(len(n[1]), [], False)
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='length', nodes))
             if (len(m) == 0):
@@ -85,7 +86,7 @@ def updateAll():
         # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
         #     for t in n[1].split():
                 # addNode()
-    for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ['length', 'type', 'token'], nodes)):
+    for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ignoredTypes, nodes)):
         tokens = n[1].split()
         if len(tokens) > 1:
             for t in tokens:
