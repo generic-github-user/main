@@ -61,6 +61,39 @@ def nodeProperty(node, attr):
         destId = getNodes(destId)[0][0]
     return nodes[destId][1]
 
+def updateAll():
+    if debug:
+        print('Updating database')
+    for n in nodes:
+        # print(f'Updating node {n[0]}: {n[1]}')
+        duplicates = list(filter(lambda x: n[1]==x[1], nodes))
+        exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
+        if len(duplicates) > 1 and not exists:
+            addNode(n[1], [x[0] for x in duplicates])
+
+        if n[1] not in ['length', 'type', 'token']:
+            typeId = addNode(type(n[1]).__name__, [], False)
+            # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
+            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', nodes))
+            if (len(m) == 0):
+                addNode('type', [n[0], typeId])
+        if n[1] not in ['length', 'type', 'token'] and isinstance(n[1], str):
+            lenId = addNode(len(n[1]), [], False)
+            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='length', nodes))
+            if (len(m) == 0):
+                addNode('length', [n[0], lenId])
+        # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
+        #     for t in n[1].split():
+                # addNode()
+    for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ['length', 'type', 'token'], nodes)):
+        tokens = n[1].split()
+        if len(tokens) > 1:
+            for t in tokens:
+                addNode('token', [addNode(t, [], False), n[0]], False, True)
+    save()
+    if debug:
+        print('Done')
+
 current_question = None
 current_link = None
 # graph compression?
@@ -102,6 +135,9 @@ for i in range(1000):
     elif newInput == 'restore':
         nodes = json.load(open('./prevdata.json'))
         save()
+    elif newInput == 'uall':
+        updateAll()
+        save()
     else:
         id = len(nodes)
         nodes.append([id, newInput, [], time.time()])
@@ -128,34 +164,4 @@ for i in range(1000):
                         id_c = len(nodes)
                         nodes.append([id_c, r, [id_a, id_b], time.time()])
                         nodes.append([len(nodes), 'source', [id_c, id], time.time()])
-        if debug:
-            print('Updating database')
-        for n in nodes:
-            # print(f'Updating node {n[0]}: {n[1]}')
-            duplicates = list(filter(lambda x: n[1]==x[1], nodes))
-            exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
-            if len(duplicates) > 1 and not exists:
-                addNode(n[1], [x[0] for x in duplicates])
-
-            if n[1] not in ['length', 'type', 'token']:
-                typeId = addNode(type(n[1]).__name__, [], False)
-                # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
-                m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', nodes))
-                if (len(m) == 0):
-                    addNode('type', [n[0], typeId])
-            if n[1] not in ['length', 'type', 'token'] and isinstance(n[1], str):
-                lenId = addNode(len(n[1]), [], False)
-                m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='length', nodes))
-                if (len(m) == 0):
-                    addNode('length', [n[0], lenId])
-            # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
-            #     for t in n[1].split():
-                    # addNode()
-        for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ['length', 'type', 'token'], nodes)):
-            tokens = n[1].split()
-            if len(tokens) > 1:
-                for t in tokens:
-                    addNode('token', [addNode(t, [], False), n[0]], False, True)
         save()
-        if debug:
-            print('Done')
