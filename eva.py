@@ -7,12 +7,21 @@ import random
 databasePath = './eva-db'
 ignoredTypes = ['length', 'type', 'token', 'origin']
 debug = True
+references = []
 
 try:
     with open(databasePath, 'rb') as fileRef:
         nodes = pickle.load(fileRef)
 except:
     nodes = [];
+# for i in range(len(nodes)):
+if debug:
+    print('Building reference lists')
+for n in nodes:
+    references.append([m[0] for m in nodes if (n[0] in m[2])])
+print(references[-100:])
+if debug:
+    print('Done')
 
 def getId():
     return len(nodes)
