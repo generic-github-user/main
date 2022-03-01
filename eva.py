@@ -5,6 +5,7 @@ import json
 import random
 import sys
 from customize import ratings
+from collections import namedtuple
 # from .. import giraffe
 
 sys.path.insert(0, '../giraffe')
@@ -21,6 +22,9 @@ try:
         nodes = pickle.load(fileRef)
 except:
     nodes = [];
+
+nodeTemplate = namedtuple('node', 'id value members time')
+nodes = list(map(lambda n: nodeTemplate(*n), nodes))
 
 
 try:
@@ -87,7 +91,8 @@ def addNode(value, members=None, duplicate=True, useSearch=False):
 
 def save():
     with open(databasePath, 'wb') as fileRef:
-        pickle.dump(nodes, fileRef)
+        nodeList = list(map(list, nodes))
+        pickle.dump(nodeList, fileRef)
     with open('./cache', 'wb') as cRef:
         pickle.dump(references, cRef)
 
