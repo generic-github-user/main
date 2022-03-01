@@ -119,11 +119,11 @@ def getInfo():
                     len(n[2]) == 2,
                     # n[0]?
                     # (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
-                    (not list(filter(lambda m: m[1]==rel and m.members[0]==n.members[0], refSources)))
+                    (not list(filter(lambda m: m.value == rel and m.members[0]==n.members[0], refSources)))
                 ]
                 if all(conditions):
                     newLink = [n[0], rel, n[2], n[3]]
-                    links.append(newLink)
+                    links.append(nodeTemplate(*newLink))
     # q = 'how are you'
     current_link = random.choice(links)
     q = f'Is {nodes[current_link[2][0]].value} a {current_link.value} of {nodes[current_link[2][1]].value}?'
@@ -131,7 +131,8 @@ def getInfo():
     newId = database.addNode('intent', [database.addNode(q, [], True), database.addNode('question', [], False)])
     database.addNode('origin', [newId, database.addNode('eva_ouptut', [], False)])
     print(q)
-    current_question = newId
+    # current_question = newId
+    return newId, current_link
 
 def P(message):
     if debug:
@@ -152,7 +153,7 @@ def updateAll():
     P('Extracting node data types')
     for n in nodes:
         if n.value not in ignoredTypes:
-            typeId =database. addNode(type(n[1]).__name__, [], False)
+            typeId = database. addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
             refSources = [nodes[z] for z in references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
@@ -218,7 +219,7 @@ for i in range(1000):
         else:
             num = 1
         for i in range(num):
-            getInfo()
+            current_question, current_link = getInfo()
     elif newInput == 'breakpoint':
         breakpoint()
     elif newInput == 'remove':
