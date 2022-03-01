@@ -11,6 +11,10 @@ from collections import namedtuple
 sys.path.insert(0, '../giraffe')
 from giraffe import Graph
 
+class Graph:
+    def init(self, nodes):
+        self.nodes = nodes
+
 databasePath = './eva-db'
 ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating']
 debug = True
@@ -47,18 +51,11 @@ except:
 #         dict(id=n[0], time=n[3])
 #     ))
 
-# for i in range(len(nodes)):
-
-# print(references[-100:])
-# use node hashes?
-
 def getId():
     return len(nodes)
 
 def getNodes(value):
     return list(filter(lambda n: n[1]==value, nodes))
-
-# # TODO: search by pattern
 
 def nodeMatch(node, info):
     for i in range(len(info)):
@@ -67,8 +64,6 @@ def nodeMatch(node, info):
     return True
 
 def search(info):
-    # results = []
-    # for n in nodes:
     return list(filter(lambda n: nodeMatch(n, info), nodes))
 
 def addNode(value, members=None, duplicate=True, useSearch=False):
@@ -86,7 +81,6 @@ def addNode(value, members=None, duplicate=True, useSearch=False):
             for m in members:
                 references[m].append(newId)
     else:
-            # return matches[0][1]
             return matches[0].id
     return newId
 
@@ -123,10 +117,6 @@ def getInfo():
                 if all(conditions):
                     newLink = [n[0], rel, n[2], n[3]]
                     links.append(newLink)
-                    # display(newLink)
-                    # map(display, list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
-    # for L in links:
-        # display(L)
     # q = 'how are you'
     current_link = random.choice(links)
     q = f'Is {nodes[current_link[2][0]].value} a {current_link.value} of {nodes[current_link[2][1]].value}?'
@@ -175,7 +165,7 @@ def updateAll():
                 # addNode()
 
     P('Marking rating nodes')
-    # # TODO: move (some) input processing here
+    # TODO: move (some) input processing here
     for n in nodes:
         if n.value not in ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
             for r in ratings:
@@ -198,10 +188,8 @@ def display(n):
 
 current_question = None
 current_link = None
-# graph compression?
-relations = ['are', 'is a', 'has', 'have'];
+relations = ['are', 'is a', 'has', 'have']
 for i in range(1000):
-    # breakpoint()
     newInput = input()
     if newInput == 'quit':
         quit()
@@ -277,3 +265,6 @@ for i in range(1000):
 
 
 # TODO: mark time node/neighborhood was last updated
+# TODO: search by pattern
+# TODO: graph compression
+# TODO: node hashes
