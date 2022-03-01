@@ -80,13 +80,14 @@ def addNode(value, members=None, duplicate=True, useSearch=False):
     if (duplicate or not matches):
             if members is None:
                 members = []
-            nodes.append([newId, value, members, time.time()])
+            nodeData = [newId, value, members, time.time()]
+            nodes.append(nodeTemplate(*nodeData))
             references.append([])
             for m in members:
                 references[m].append(newId)
     else:
             # return matches[0][1]
-            return matches[0][0]
+            return matches[0].id
     return newId
 
 def save():
@@ -98,26 +99,26 @@ def save():
 
 def nodeProperty(node, attr):
     # n[1]
-    links = list(filter(lambda n: n[2][0]==node, getNodes(attr)))
+    links = list(filter(lambda n: n.members[0]==node, getNodes(attr)))
     if len(links) == 0:
         return None
-    destId = links[0][2][1]
+    destId = links[0].members[1]
     if isinstance(destId, str):
-        destId = getNodes(destId)[0][0]
-    return nodes[destId][1]
+        destId = getNodes(destId)[0].id
+    return nodes[destId].value
 
 def getInfo():
     links = []
     for n in nodes:
-        if n[2]:
+        if len(n.members) > 0:
             for rel in ['subset', 'member']:
-                refSources = [nodes[x] for x in references[n[2][0]]]
+                refSources = [nodes[x] for x in references[n.members[0]]]
                 conditions = [
                     n[1] in ['are'],
                     len(n[2]) == 2,
                     # n[0]?
                     # (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], nodes)))
-                    (not list(filter(lambda m: m[1]==rel and m[2][0]==n[2][0], refSources)))
+                    (not list(filter(lambda m: m[1]==rel and m.members[0]==n.members[0], refSources)))
                 ]
                 if all(conditions):
                     newLink = [n[0], rel, n[2], n[3]]
@@ -128,7 +129,7 @@ def getInfo():
         # display(L)
     # q = 'how are you'
     current_link = random.choice(links)
-    q = f'Is {nodes[current_link[2][0]][1]} a {current_link[1]} of {nodes[current_link[2][1]][1]}?'
+    q = f'Is {nodes[current_link[2][0]].value} a {current_link.value} of {nodes[current_link[2][1]].value}?'
     # use closure?
     newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
     addNode('origin', [newId, addNode('eva_ouptut', [], False)])
@@ -153,20 +154,20 @@ def updateAll():
 
     P('Extracting node data types')
     for n in nodes:
-        if n[1] not in ignoredTypes:
+        if n.value not in ignoredTypes:
             typeId = addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
             refSources = [nodes[z] for z in references[n[0]]]
-            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='type', refSources))
+            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
             if (len(m) == 0):
                 addNode('type', [n[0], typeId])
 
     P('Extracting lengths from string nodes')
     for n in nodes:
-        if n[1] not in ignoredTypes and isinstance(n[1], str):
-            lenId = addNode(len(n[1]), [], False)
+        if n.value not in ignoredTypes and isinstance(n.value, str):
+            lenId = addNode(len(n.value), [], False)
             refSources = [nodes[z] for z in references[n[0]]]
-            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x[1]=='length', refSources))
+            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='length', refSources))
             if (len(m) == 0):
                 addNode('length', [n[0], lenId])
         # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
@@ -176,18 +177,18 @@ def updateAll():
     P('Marking rating nodes')
     # # TODO: move (some) input processing here
     for n in nodes:
-        if n[1] not in ignoredTypes and isinstance(n[1], str) and len(n[1])==3 and n[1][1]=='.':
+        if n.value not in ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
             for r in ratings:
                 if r[0]==n[1][0]:
-                    addNode('rating', [n[0], addNode(r, [], False)], False, True)
-                    addNode('group', [n[0], addNode('ratings', [], False)], False, True)
+                    addNode('rating', [n.id, addNode(r, [], False)], False, True)
+                    addNode('group', [n.id, addNode('ratings', [], False)], False, True)
 
     P('Extracting tokens from text nodes')
-    for n in list(filter(lambda n: nodeProperty(n[0], 'origin')=='user_input' and n[1] not in ignoredTypes, nodes)):
+    for n in list(filter(lambda n: nodeProperty(n.id, 'origin')=='user_input' and n.value not in ignoredTypes, nodes)):
         tokens = n[1].split()
         if len(tokens) > 1:
             for t in tokens:
-                addNode('token', [addNode(t, [], False), n[0]], False, True)
+                addNode('token', [addNode(t, [], False), n.id], False, True)
     save()
     if debug:
         print('Done')
@@ -211,10 +212,10 @@ for i in range(1000):
     elif newInput.startswith('find'):
         id = addNode(newInput, [], True)
         addNode('origin', [id, addNode('user_input', [], False)])
-        results = list(filter(lambda x: isinstance(x[1], str) and (newInput[5:] in x[1]), nodes))
+        results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), nodes))
         for n in results:
             display(n)
-            addNode('origin', [n[0], addNode('eva_output', [], False)])
+            addNode('origin', [n.id, addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
         t = newInput.split()
         if len(t) > 1:
@@ -238,7 +239,7 @@ for i in range(1000):
         target = newInput.split()[1]
         # members = list(filter(lambda x: ))
         # could this be made more efficient by first locating the node corresponding to the keyword?
-        members = list(filter(lambda x: nodeProperty(x[0], 'member')==target, nodes))
+        members = list(filter(lambda x: nodeProperty(x.id, 'member')==target, nodes))
         for m in members:
             display(m)
         save()
@@ -252,12 +253,12 @@ for i in range(1000):
                     # check this
                     if debug:
                         print('Adding link to database')
-                    J = addNode(current_link[1], [x for x in current_link[2]], False, True)
+                    J = addNode(current_link.value, [x for x in current_link.members], False, True)
                     addNode('truth', [J, addNode(True, [], False)], True)
                 elif newInput in ['no']:
                     if debug:
                         print('Adding link to database')
-                    J = addNode(current_link[1], [x for x in current_link[2]], False, True)
+                    J = addNode(current_link.value, [x for x in current_link.members], False, True)
                     addNode('truth', [J, addNode(False, [], False)], True)
                 current_link = None
             current_question = None
@@ -273,3 +274,6 @@ for i in range(1000):
                         id_c = addNode(r, [id_a, id_b])
                         addNode('source', [id_c, id])
         save()
+
+
+# TODO: mark time node/neighborhood was last updated
