@@ -87,10 +87,6 @@ def nodeMatch(node, info):
             return False
     return True
 
-
-
-
-
 def save():
     with open(databasePath, 'wb') as fileRef:
         nodeList = list(map(list, nodes))
@@ -100,7 +96,9 @@ def save():
 
 def nodeProperty(node, attr):
     # n[1]
-    links = list(filter(lambda n: n.members[0]==node, getNodes(attr)))
+    # getNodes(attr)
+    refs = list(filter(lambda n: n.value==attr, [database.nodes[x] for x in references[node]]))
+    links = list(filter(lambda n: n.members[0]==node, refs))
     if len(links) == 0:
         return None
     destId = links[0].members[1]
