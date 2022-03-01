@@ -13,21 +13,40 @@ from giraffe import Graph
 databasePath = './eva-db'
 ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating']
 debug = True
-references = []
+
 
 try:
+    print('Loading database')
     with open(databasePath, 'rb') as fileRef:
         nodes = pickle.load(fileRef)
 except:
     nodes = [];
+
+
+try:
+    print('Loading reference lists')
+    with open('./cache', 'rb') as cRef:
+        references = pickle.load(cRef)
+except:
+    references = []
+    if debug:
+        print('Building reference lists')
+    for n in nodes:
+        references.append([m[0] for m in nodes if (n[0] in m[2])])
+    if debug:
+        print('Done')
+
+# database = Graph()
+# for n in nodes:
+#     database.nodes.append(Node(
+#         n[1], [database.nodes[i] for i in n[2]], graph=database,
+#         dict(id=n[0], time=n[3])
+#     ))
+
 # for i in range(len(nodes)):
-if debug:
-    print('Building reference lists')
-for n in nodes:
-    references.append([m[0] for m in nodes if (n[0] in m[2])])
-print(references[-100:])
-if debug:
-    print('Done')
+
+# print(references[-100:])
+# use node hashes?
 
 def getId():
     return len(nodes)
@@ -69,6 +88,8 @@ def addNode(value, members=None, duplicate=True, useSearch=False):
 def save():
     with open(databasePath, 'wb') as fileRef:
         pickle.dump(nodes, fileRef)
+    with open('./cache', 'wb') as cRef:
+        pickle.dump(references, cRef)
 
 def nodeProperty(node, attr):
     # n[1]
