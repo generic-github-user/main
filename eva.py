@@ -9,11 +9,32 @@ from collections import namedtuple
 # from .. import giraffe
 
 sys.path.insert(0, '../giraffe')
-from giraffe import Graph
+# from giraffe import Graph
 
 class Graph:
-    def init(self, nodes):
+    def __init__(self, nodes):
         self.nodes = nodes
+
+    def search(self, info):
+        return list(filter(lambda n: nodeMatch(n, info), self.nodes))
+
+    def addNode(self, value, members=None, duplicate=True, useSearch=False):
+        newId = getId()
+        if useSearch:
+            matches = self.search([None, value, members, None])
+        else:
+            matches = getNodes(value)
+        if (duplicate or not matches):
+                if members is None:
+                    members = []
+                nodeData = [newId, value, members, time.time()]
+                nodes.append(nodeTemplate(*nodeData))
+                references.append([])
+                for m in members:
+                    references[m].append(newId)
+        else:
+                return matches[0].id
+        return newId
 
 databasePath = './eva-db'
 ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating']
@@ -51,6 +72,9 @@ except:
 #         dict(id=n[0], time=n[3])
 #     ))
 
+database = Graph(nodes)
+
+
 def getId():
     return len(nodes)
 
@@ -63,26 +87,9 @@ def nodeMatch(node, info):
             return False
     return True
 
-def search(info):
-    return list(filter(lambda n: nodeMatch(n, info), nodes))
 
-def addNode(value, members=None, duplicate=True, useSearch=False):
-    newId = getId()
-    if useSearch:
-        matches = search([None, value, members, None])
-    else:
-        matches = getNodes(value)
-    if (duplicate or not matches):
-            if members is None:
-                members = []
-            nodeData = [newId, value, members, time.time()]
-            nodes.append(nodeTemplate(*nodeData))
-            references.append([])
-            for m in members:
-                references[m].append(newId)
-    else:
-            return matches[0].id
-    return newId
+
+
 
 def save():
     with open(databasePath, 'wb') as fileRef:
@@ -121,8 +128,8 @@ def getInfo():
     current_link = random.choice(links)
     q = f'Is {nodes[current_link[2][0]].value} a {current_link.value} of {nodes[current_link[2][1]].value}?'
     # use closure?
-    newId = addNode('intent', [addNode(q, [], True), addNode('question', [], False)])
-    addNode('origin', [newId, addNode('eva_ouptut', [], False)])
+    newId = database.addNode('intent', [database.addNode(q, [], True), database.addNode('question', [], False)])
+    database.addNode('origin', [newId, database.addNode('eva_ouptut', [], False)])
     print(q)
     current_question = newId
 
@@ -140,26 +147,26 @@ def updateAll():
         duplicates = list(filter(lambda x: n[1]==x[1], nodes))
         exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
         if len(duplicates) > 1 and not exists:
-            addNode(n[1], [x[0] for x in duplicates])
+            database.addNode(n[1], [x[0] for x in duplicates])
 
     P('Extracting node data types')
     for n in nodes:
         if n.value not in ignoredTypes:
-            typeId = addNode(type(n[1]).__name__, [], False)
+            typeId =database. addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
             refSources = [nodes[z] for z in references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
             if (len(m) == 0):
-                addNode('type', [n[0], typeId])
+                database.addNode('type', [n[0], typeId])
 
     P('Extracting lengths from string nodes')
     for n in nodes:
         if n.value not in ignoredTypes and isinstance(n.value, str):
-            lenId = addNode(len(n.value), [], False)
+            lenId = database.addNode(len(n.value), [], False)
             refSources = [nodes[z] for z in references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='length', refSources))
             if (len(m) == 0):
-                addNode('length', [n[0], lenId])
+                database.addNode('length', [n[0], lenId])
         # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
         #     for t in n[1].split():
                 # addNode()
@@ -170,15 +177,15 @@ def updateAll():
         if n.value not in ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
             for r in ratings:
                 if r[0]==n[1][0]:
-                    addNode('rating', [n.id, addNode(r, [], False)], False, True)
-                    addNode('group', [n.id, addNode('ratings', [], False)], False, True)
+                    database.addNode('rating', [n.id, database.addNode(r, [], False)], False, True)
+                    database.addNode('group', [n.id, database.addNode('ratings', [], False)], False, True)
 
     P('Extracting tokens from text nodes')
     for n in list(filter(lambda n: nodeProperty(n.id, 'origin')=='user_input' and n.value not in ignoredTypes, nodes)):
         tokens = n[1].split()
         if len(tokens) > 1:
             for t in tokens:
-                addNode('token', [addNode(t, [], False), n.id], False, True)
+                database.addNode('token', [database.addNode(t, [], False), n.id], False, True)
     save()
     if debug:
         print('Done')
@@ -198,12 +205,12 @@ for i in range(1000):
         for n in nodes[-100:]:
             display(n)
     elif newInput.startswith('find'):
-        id = addNode(newInput, [], True)
-        addNode('origin', [id, addNode('user_input', [], False)])
+        id = database.addNode(newInput, [], True)
+        database.addNode('origin', [id, database.addNode('user_input', [], False)])
         results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), nodes))
         for n in results:
             display(n)
-            addNode('origin', [n.id, addNode('eva_output', [], False)])
+            database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
         t = newInput.split()
         if len(t) > 1:
@@ -232,22 +239,22 @@ for i in range(1000):
             display(m)
         save()
     else:
-        id = addNode(newInput, [])
-        addNode('origin', [id, addNode('user_input', [], False)])
+        id =database. addNode(newInput, [])
+        database.addNode('origin', [id, database.addNode('user_input', [], False)])
         if current_question is not None:
-            addNode('response', [id, current_question], True)
+            database.addNode('response', [id, current_question], True)
             if current_link is not None:
                 if newInput in ['yes']:
                     # check this
                     if debug:
                         print('Adding link to database')
-                    J = addNode(current_link.value, [x for x in current_link.members], False, True)
-                    addNode('truth', [J, addNode(True, [], False)], True)
+                    J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
+                    database.addNode('truth', [J, database.addNode(True, [], False)], True)
                 elif newInput in ['no']:
                     if debug:
                         print('Adding link to database')
-                    J = addNode(current_link.value, [x for x in current_link.members], False, True)
-                    addNode('truth', [J, addNode(False, [], False)], True)
+                    J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
+                    database.addNode('truth', [J, database.addNode(False, [], False)], True)
                 current_link = None
             current_question = None
         for r in relations:
@@ -257,10 +264,10 @@ for i in range(1000):
                 if len(rel) == 2:
                     a, b = rel
                     for ai in a.split(','):
-                        id_a = addNode(ai)
-                        id_b = addNode(b)
-                        id_c = addNode(r, [id_a, id_b])
-                        addNode('source', [id_c, id])
+                        id_a = database.addNode(ai)
+                        id_b = database.addNode(b)
+                        id_c = database.addNode(r, [id_a, id_b])
+                        database.addNode('source', [id_c, id])
         save()
 
 
