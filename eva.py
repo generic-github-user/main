@@ -11,12 +11,25 @@ from collections import namedtuple
 sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
+databasePath = './eva-db'
+ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag']
+debug = True
+
 class Graph:
     def __init__(self, nodes):
         self.nodes = nodes
 
     def search(self, info):
         return list(filter(lambda n: nodeMatch(n, info), self.nodes))
+
+    def updateNode(self, node):
+        if self.nodes[node][1] not in ignoredTypes:
+            self.addNode(
+                'processed_flag',
+                [node],
+                False, True
+            )
+        return node
 
     def addNode(self, value, members=None, duplicate=True, useSearch=False):
         newId = getId()
@@ -34,11 +47,10 @@ class Graph:
                     references[m].append(newId)
         else:
                 return matches[0].id
+        self.updateNode(newId)
         return newId
 
-databasePath = './eva-db'
-ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating']
-debug = True
+
 
 
 try:
@@ -135,6 +147,7 @@ def getInfo():
 def P(message):
     if debug:
         print(message)
+
 
 def updateAll():
     if debug:
