@@ -237,6 +237,30 @@ for i in range(1000):
         for m in members:
             display(m)
         save()
+    elif newInput.startswith('$'):
+        database.addNode(
+            'origin',
+            [database.addNode(newInput, []), database.addNode('user_node', [], False)]
+        )
+        symbols = {
+            '<': 'subset'
+        }
+        for s in symbols:
+            if s in newInput:
+                A, B = newInput[1:].split(s)
+                for Ai in A.split(','):
+                    for Bi in B.split(','):
+                        database.addNode(
+                            symbols[s],
+                            [
+                                database.addNode(Ai, [], False),
+                                database.addNode(Bi, [], False)
+                            ],
+                            False,
+                            True
+                        )
+            break
+        save()
     else:
         id =database. addNode(newInput, [])
         database.addNode('origin', [id, database.addNode('user_input', [], False)])
@@ -274,3 +298,4 @@ for i in range(1000):
 # TODO: search by pattern
 # TODO: graph compression
 # TODO: node hashes
+# TODO: HCI language
