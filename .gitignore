@@ -5,6 +5,11 @@ prevdata.*
 customize.py
 cache
 
+*.synctex.gz
+*.pdf
+*.aux
+*.fdb_latexmk
+*.fls
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
