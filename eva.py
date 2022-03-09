@@ -1,11 +1,16 @@
 import pickle
 import string
 import time
+from datetime import datetime
 import json
 import random
 import sys
 from customize import ratings
 from collections import namedtuple
+import os
+from itertools import chain
+import zlib
+import string
 # from .. import giraffe
 
 sys.path.insert(0, '../giraffe')
