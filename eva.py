@@ -272,6 +272,14 @@ for i in range(1000):
         for m in members:
             display(m)
         save()
+    # elif newInput == 'undo':
+    elif newInput == 'backup':
+        date_format = '%m_%d_%Y, %H_%M_%S'
+        backupPath = f'./eva_{datetime.now().strftime(date_format)}.evab'
+        with open(backupPath, 'wb') as fileRef:
+            nodeList = list(map(list, nodes))
+            B = zlib.compress(pickle.dumps(nodeList))
+            fileRef.write(B)
     elif newInput.startswith('$'):
         database.addNode(
             'origin',
