@@ -119,6 +119,8 @@ def nodeProperty(node, attr):
         destId = getNodes(destId)[0].id
     return nodes[destId].value
 
+def getReferrers(node):
+    return [nodes[x] for x in references[node]]
 def getInfo():
     links = []
     for n in nodes:
