@@ -329,6 +329,15 @@ for i in range(1000):
         with open(jsonPath) as f:
             newData = json.load(f)
         print(newData)
+    elif newInput.startswith('crawl'):
+            database.addNode(
+                'origin',
+                [database.addNode(newInput, []), database.addNode('user_input', [], False)]
+            )
+            scan = database.addNode('file_scan', [], True)
+            c = 0
+            for d in os.scandir(newInput[6:]):
+                scanDir(database, None, d, c, scan)
     elif newInput.startswith('list'):
         target = newInput.split()[1]
         # members = list(filter(lambda x: ))
