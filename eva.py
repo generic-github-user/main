@@ -13,6 +13,7 @@ sys.path.insert(0, '../giraffe')
 
 databasePath = './eva-db'
 ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag']
+importDir = '../../Downloads/'
 debug = True
 
 class Graph:
@@ -242,6 +243,16 @@ for i in range(1000):
     elif newInput == 'uall':
         updateAll()
         save()
+    elif newInput.startswith('json'):
+        database.addNode(
+            'origin',
+            [database.addNode(newInput, []), database.addNode('user_input', [], False)]
+        )
+        jsonPath = importDir+newInput[5:]
+        database.addNode(jsonPath, [], False)
+        with open(jsonPath) as f:
+            newData = json.load(f)
+        print(newData)
     elif newInput.startswith('list'):
         target = newInput.split()[1]
         # members = list(filter(lambda x: ))
