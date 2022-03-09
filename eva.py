@@ -25,17 +25,25 @@ sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
 databasePath = './eva-db'
-ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag']
 importDir = '../../Downloads/'
+ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'size', 'unit']
 debug = True
+buffer = None
+# snails.adjacent
+# todo = []
+# inferences = 0
+# graph matching
+# infinite node chains
+# construct heuristics
+
 # An OOP-style interface for working with the graph database
 # The efficient array-based implementation is still used but this wrapper allows for method chaining and more literate code
 # This class is largely functional and tightly intertwined with the Graph class (i.e., not encapsulated)
 # Instances of this class are not meant to be processed in large numbers - it is intended for convenient access to
 # functions on graphs
 class Node:
-    def __init__(self, id, graph):
-        self.id = id
+    def __init__(self, nid, graph):
+        self.id = nid
         self.graph = graph
 
 class Graph:
@@ -77,7 +85,6 @@ class Graph:
 
 # https://stackoverflow.com/a/30316760
 def getsize(obj):
-    """sum size of object & members."""
     if isinstance(obj, BLACKLIST):
         raise TypeError('getsize() does not take argument of type: '+ str(type(obj)))
     seen_ids = set()
@@ -127,8 +134,9 @@ except:
 #     ))
 
 database = Graph(nodes)
+# TODO: use tensorflow models
+# meta-inference
 
-# def parseExpression(ex):
 
 def getId():
     return len(nodes)
