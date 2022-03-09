@@ -15,6 +15,15 @@ databasePath = './eva-db'
 ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag']
 importDir = '../../Downloads/'
 debug = True
+# An OOP-style interface for working with the graph database
+# The efficient array-based implementation is still used but this wrapper allows for method chaining and more literate code
+# This class is largely functional and tightly intertwined with the Graph class (i.e., not encapsulated)
+# Instances of this class are not meant to be processed in large numbers - it is intended for convenient access to
+# functions on graphs
+class Node:
+    def __init__(self, id, graph):
+        self.id = id
+        self.graph = graph
 
 class Graph:
     def __init__(self, nodes):
