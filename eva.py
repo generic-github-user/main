@@ -60,6 +60,13 @@ class Graph:
                 [node],
                 False, True
             )
+            self.addNode(
+                'unit',
+                [
+                    self.addNode('size', [node, self.addNode(getsize(self.nodes[node]), [], False)], False, True),
+                    self.addNode('byte', [], False)
+                ]
+            )
 
         return node
 
@@ -107,7 +114,7 @@ try:
     with open(databasePath, 'rb') as fileRef:
         nodes = pickle.load(fileRef)
 except:
-    nodes = [];
+    nodes = []
 
 nodeTemplate = namedtuple('node', 'id value members time')
 nodes = list(map(lambda n: nodeTemplate(*n), nodes))
