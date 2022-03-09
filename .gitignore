@@ -1,6 +1,10 @@
 # Eva
 eva-db*
 prevdata.*
+*.evab
+customize.py
+cache
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
