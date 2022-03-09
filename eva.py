@@ -60,7 +60,8 @@ class Graph:
                 nodes.append(nodeTemplate(*nodeData))
                 references.append([])
                 for m in members:
-                    references[m].append(newId)
+                    if m is not None:
+                        references[m].append(newId)
         else:
                 return matches[0].id
         self.updateNode(newId)
@@ -154,7 +155,7 @@ def getAdjacent(node, value=None, directional=False):
 def getInfo():
     links = []
     for n in nodes:
-        if len(n.members) > 0:
+        if len(n.members) > 0 and False:
             for rel in ['subset', 'member']:
                 refSources = [nodes[x] for x in references[n.members[0]]]
                 conditions = [
@@ -167,6 +168,9 @@ def getInfo():
                 if all(conditions):
                     newLink = [n[0], rel, n[2], n[3]]
                     links.append(nodeTemplate(*newLink))
+        # if len(n.members) > 0:
+        #     for R in relations:
+        #         refs = getReferrers(n)
     # q = 'how are you'
     current_link = random.choice(links)
     q = f'Is {nodes[current_link[2][0]].value} a {current_link.value} of {nodes[current_link[2][1]].value}?'
