@@ -39,6 +39,7 @@ class Graph:
                 [node],
                 False, True
             )
+
         return node
 
     def addNode(self, value, members=None, duplicate=True, useSearch=False):
@@ -59,8 +60,6 @@ class Graph:
                 return matches[0].id
         self.updateNode(newId)
         return newId
-
-
 
 
 try:
@@ -96,6 +95,7 @@ except:
 
 database = Graph(nodes)
 
+# def parseExpression(ex):
 
 def getId():
     return len(nodes)
@@ -126,10 +126,10 @@ def nodeProperty(node, attr):
     destId = links[0].members[1]
     if isinstance(destId, str):
         destId = getNodes(destId)[0].id
-    return nodes[destId].value
+    return database.nodes[destId].value
 
 def getReferrers(node):
-    return [nodes[x] for x in references[node]]
+    return [database.nodes[x] for x in references[node]]
 def getInfo():
     links = []
     for n in nodes:
