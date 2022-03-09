@@ -135,6 +135,22 @@ def nodeProperty(node, attr):
 
 def getReferrers(node):
     return [database.nodes[x] for x in references[node]]
+
+# TODO: direct database indexing
+def getAdjacent(node, value=None, directional=False):
+    # return filter(lambda n: n!=node and any(n in m.members for m in getReferrers(node)), )
+    # return [m for n in getReferrers(node) for m in .n.members]
+
+    # adjacent = list(filter(lambda n: n != node, chain.from_iterable(m.members for m in getReferrers(node))))
+    # if value is not None:
+    #     adjacent = list(filter(lambda n: database.nodes[n].value == value, adjacent))
+
+    adjacent = []
+    for m in getReferrers(node):
+        for ref in m.members:
+            if (ref != node) and (value is None or m.value == value) and ((not directional) or m.members.index(node)==0):
+                adjacent.append(ref)
+    return adjacent
 def getInfo():
     links = []
     for n in nodes:
