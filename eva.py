@@ -242,6 +242,19 @@ def updateAll():
 def display(n):
     print(f'{n[0]} {n[1]} {[nodes[i][1] for i in n[2]]}')
 
+def scanDir(DB, parent, dir, count, scanId):
+    fId = DB.addNode(dir.path, [], False)
+    DB.addNode('source', [fId, scanId], False, True)
+    DB.addNode('name', [fId, DB.addNode(dir.name, [], False)], False, True)
+    DB.addNode('size', [fId, DB.addNode(os.stat(dir).st_size, [], False)], False, True)
+    DB.addNode('accessed', [fId, DB.addNode(os.stat(dir).st_atime, [], False)], False, True)
+    DB.addNode('modified', [fId, DB.addNode(os.stat(dir).st_mtime, [], False)], False, True)
+    DB.addNode('parent', [fId, parent], False, True)
+    if dir.is_dir() and (count < 100):
+        for item in os.scandir(dir):
+            count = scanDir(DB, fId, item, count, scanId)
+    return count+1
+
 current_question = None
 current_link = None
 relations = ['are', 'is a', 'has', 'have']
