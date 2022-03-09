@@ -294,8 +294,8 @@ for i in range(1000):
         for n in nodes[-100:]:
             display(n)
     elif newInput.startswith('find'):
-        id = database.addNode(newInput, [], True)
-        database.addNode('origin', [id, database.addNode('user_input', [], False)])
+        nodeId = database.addNode(newInput, [], True)
+        database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
         results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), nodes))
         for n in results:
             display(n)
@@ -370,10 +370,10 @@ for i in range(1000):
             break
         save()
     else:
-        id =database. addNode(newInput, [])
-        database.addNode('origin', [id, database.addNode('user_input', [], False)])
+        nodeId = database.addNode(newInput, [])
+        database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
         if current_question is not None:
-            database.addNode('response', [id, current_question], True)
+            database.addNode('response', [nodeId, current_question], True)
             if current_link is not None:
                 if newInput in ['yes']:
                     # check this
