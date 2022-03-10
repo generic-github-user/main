@@ -32,6 +32,12 @@ buffer = None
 # snails.adjacent
 # todo = []
 # inferences = 0
+
+logcal_relations = [
+    ('subset', 'subset', 'subset'),
+    ('member', 'subset', 'member'),
+    ('member', 'use', 'use'),
+]
 # graph matching
 # infinite node chains
 # construct heuristics
@@ -224,6 +230,41 @@ def say(content, source=None, intent='information'):
         database.addNode('source', [newId, source])
     print(content)
     return newId
+
+# logcal_relations / relations
+
+def think(node=None):
+    start = time.time()
+    if node is None:
+        node = random.choice(database.nodes).id
+    name = database.nodes[node].value
+    print(f'Pondering {name}')
+    inferences = []
+    for R in logcal_relations:
+        # inferences.extend(filter(lambda m: self.nodes[m], getAdjacent(node, R[0])))
+        adj = getAdjacent(node, R[0], True)
+        print(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
+        for m1 in adj:
+            for m2 in getAdjacent(m1, R[1], True):
+                inferences.append(([R[2], [node, m2]], [m1, m2]))
+    if len(inferences) > 0:
+        inf = random.choice(inferences)
+        newNode = database.addNode(*inf[0], False, True)
+        database.addNode(
+            'origin',
+            [newNode, database.addNode('eva_inference', [], False)],
+            False,
+            True
+        )
+        database.addNode('sources', [newNode]+inf[1], False, True)
+        say(
+            f'Inferred relationship {database.nodes[inf[0][1][0]].value} -- {inf[0][0]} -- {database.nodes[inf[0][1][1]].value}',
+            newNode, 'information'
+        )
+    else:
+        print('No viable inferences found')
+    save()
+
 def getInfo():
     links = []
     for n in nodes:
@@ -453,6 +494,7 @@ for i in range(1000):
                         id_b = database.addNode(b)
                         id_c = database.addNode(r, [id_a, id_b])
                         database.addNode('source', [id_c, id])
+        think()
         save()
 
 
