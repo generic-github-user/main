@@ -380,12 +380,21 @@ for i in range(1000):
         for n in nodes[-100:]:
             display(n)
     elif newInput.startswith('find'):
+        start = time.time()
         nodeId = database.addNode(newInput, [], True)
         database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
+        # TODO: clean this up
+        searchNode = database.addNode('search_cmd', [], True)
+        database.addNode('source', [searchNode, nodeId])
         results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), nodes))
         for n in results:
             display(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
+        end = time.time()
+        elapsed = end-start
+        database.addNode('start_time', [searchNode, database.addNode(start, [], False)], False, True)
+        database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
+        database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('ask'):
         t = newInput.split()
         if len(t) > 1:
