@@ -124,27 +124,15 @@ class Graph:
 
 try:
     print('Loading database')
-    with open(databasePath, 'rb') as fileRef:
-        nodes = pickle.load(fileRef)
-except:
-    nodes = []
+    with open('./eva-db', 'rb') as fileRef:
+        nodes_ = pickle.load(fileRef)
+except Exception as error:
+    print(error)
+    nodes_ = []
 
 nodeTemplate = namedtuple('node', 'id value members time')
-nodes = list(map(lambda n: nodeTemplate(*n), nodes))
+nodes_ = list(map(lambda n: nodeTemplate(*n), nodes_))
 
-
-try:
-    print('Loading reference lists')
-    with open('./cache', 'rb') as cRef:
-        references = pickle.load(cRef)
-except:
-    references = []
-    if debug:
-        print('Building reference lists')
-    for n in nodes:
-        references.append([m[0] for m in nodes if (n[0] in m[2])])
-    if debug:
-        print('Done')
 
 # database = Graph()
 # for n in nodes:
@@ -153,9 +141,23 @@ except:
 #         dict(id=n[0], time=n[3])
 #     ))
 
-database = Graph(nodes, './eva-db')
+database = Graph(nodes_, './eva-db')
 # TODO: use tensorflow models
 # meta-inference
+
+
+try:
+    print('Loading reference lists')
+    with open('./cache', 'rb') as cRef:
+        database.references = pickle.load(cRef)
+except:
+    database.references = []
+    if debug:
+        print('Building reference lists')
+    for n in database.nodes:
+        database.references.append([m.id for m in nodes if (n.id in m[2])])
+    if debug:
+        print('Done')
 
 
 def parseExpression(ex):
