@@ -111,6 +111,12 @@ class Graph:
             pickle.dump(database.references, cRef)
         return self
 
+    def random(self):
+        node = random.choice(self.nodes)
+        node = Node(node.id, self, node)
+        assert(isinstance(node, Node))
+        return node
+
     def __getitem__(self, i):
         if isinstance(i, int):
             return Node(self.nodes[i].id, self, self.nodes[i])
