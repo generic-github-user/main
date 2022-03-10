@@ -193,17 +193,17 @@ def nodeMatch(node, info):
 def nodeProperty(node, attr):
     # n[1]
     # getNodes(attr)
-    refs = list(filter(lambda n: n.value==attr, [database.nodes[x] for x in database.references[node]]))
+    refs = list(filter(lambda n: n.value==attr, [database[x] for x in database.references[node]]))
     links = list(filter(lambda n: n.members[0]==node, refs))
     if len(links) == 0:
         return None
     destId = links[0].members[1]
     if isinstance(destId, str):
         destId = database.getNodes(destId)[0].id
-    return database.nodes[destId].value
+    return database[destId].value
 
 def getReferrers(node):
-    return [database.nodes[x] for x in database.references[node]]
+    return [database[x] for x in database.references[node]]
 
 # TODO: direct database indexing
 def getAdjacent(node, value=None, directional=False):
@@ -236,7 +236,7 @@ def think(node=None):
     start = time.time()
     if node is None:
         node = random.choice(database.nodes).id
-    name = database.nodes[node].value
+    name = database[node].value
     say(f'Pondering {name}')
     inferences = []
     for R in logical_relations:
@@ -257,7 +257,7 @@ def think(node=None):
         )
         database.addNode('sources', [newNode]+inf[1], False, True)
         say(
-            f'Inferred relationship {database.nodes[inf[0][1][0]].value} -- {inf[0][0]} -- {database.nodes[inf[0][1][1]].value}',
+            f'Inferred relationship {database[inf[0][1][0]].value} -- {inf[0][0]} -- {database[inf[0][1][1]].value}',
             newNode, 'information'
         )
     else:
@@ -292,10 +292,6 @@ def getInfo():
     print(q)
     # current_question = newId
     return newId, current_link
-
-def P(message):
-    if debug:
-        print(message)
 
 
 def updateAll():
@@ -432,8 +428,10 @@ for i in range(1000):
 
     if newInput == 'print':
         print('10 most recent nodes:')
-        for n in database.nodes[-10:]:
-            display(n)
+        # for n in database[-10:]:
+        N = len(database.nodes)
+        for x in range(N-10, N):
+            display(database[x])
     elif newInput.startswith('find'):
         start = time.time()
         # TODO: clean this up
