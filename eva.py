@@ -368,11 +368,23 @@ def scanDir(DB, parent, dir, count, scanId):
             count = scanDir(DB, fId, item, count, scanId)
     return count+1
 
+# def command(func):
+
+
+commands = []
+# @command('quit')
+
 current_question = None
 current_link = None
 relations = ['are', 'is a', 'has', 'have']
 for i in range(1000):
     newInput = input()
+    inputId = database.addNode(newInput, [], True)
+    database.addNode(
+        'origin',
+        [inputId, database.addNode('user_input', [], False)]
+    )
+
     if newInput == 'quit':
         quit()
     elif newInput == 'print':
@@ -381,11 +393,9 @@ for i in range(1000):
             display(n)
     elif newInput.startswith('find'):
         start = time.time()
-        nodeId = database.addNode(newInput, [], True)
-        database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
         # TODO: clean this up
         searchNode = database.addNode('search_cmd', [], True)
-        database.addNode('source', [searchNode, nodeId])
+        database.addNode('source', [searchNode, inputId])
         results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), nodes))
         for n in results:
             display(n)
@@ -396,8 +406,6 @@ for i in range(1000):
         database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
         database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('adj'):
-        nodeId = database.addNode(newInput, [], True)
-        database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
         N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), nodes))[0]
         results = [database.nodes[i] for i in getAdjacent(N.id)]
         for n in results:
@@ -414,39 +422,24 @@ for i in range(1000):
     elif newInput == 'breakpoint':
         breakpoint()
     elif newInput.startswith('refresh'):
-        database.addNode(
-            'origin',
-            [database.addNode(newInput, []), database.addNode('user_input', [], False)]
-        )
         print(getNodes(newInput[8:]))
         think(getNodes(newInput[8:])[0].id)
     elif newInput == 'remove':
         nodes.pop()
-        save()
     elif newInput == 'restore':
         nodes = json.load(open('./prevdata.json'))
-        save()
     elif newInput == 'uall':
         updateAll()
-        save()
     elif newInput == 'clear':
         for i in range(30):
             print('')
     elif newInput.startswith('json'):
-        database.addNode(
-            'origin',
-            [database.addNode(newInput, []), database.addNode('user_input', [], False)]
-        )
         jsonPath = importDir+newInput[5:]
         database.addNode(jsonPath, [], False)
         with open(jsonPath) as f:
             newData = json.load(f)
         print(newData)
     elif newInput.startswith('crawl'):
-            database.addNode(
-                'origin',
-                [database.addNode(newInput, []), database.addNode('user_input', [], False)]
-            )
             scan = database.addNode('file_scan', [], True)
             c = 0
             for d in os.scandir(newInput[6:]):
@@ -468,10 +461,6 @@ for i in range(1000):
             B = zlib.compress(pickle.dumps(nodeList))
             fileRef.write(B)
     elif newInput.startswith('$'):
-        database.addNode(
-            'origin',
-            [database.addNode(newInput, []), database.addNode('user_input', [], False)]
-        )
         symbols = {
             '<': 'subset',
             '{': 'member',
@@ -494,10 +483,8 @@ for i in range(1000):
                 break
         save()
     else:
-        nodeId = database.addNode(newInput, [])
-        database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
         if current_question is not None:
-            database.addNode('response', [nodeId, current_question], True)
+            database.addNode('response', [inputId, current_question], True)
             if current_link is not None:
                 if newInput in ['yes']:
                     # check this
@@ -522,9 +509,9 @@ for i in range(1000):
         #                 id_a = database.addNode(ai)
         #                 id_b = database.addNode(b)
         #                 id_c = database.addNode(r, [id_a, id_b])
-        #                 database.addNode('source', [id_c, nodeId])
-        think()
-        save()
+        #                 database.addNode('source', [id_c, inputId])
+    think()
+    save()
 
 
 # TODO: mark time node/neighborhood was last updated
