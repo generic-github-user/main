@@ -455,7 +455,18 @@ for i in range(1000):
     elif newInput == 'remove':
         database.nodes.pop()
     elif newInput == 'restore':
-        nodes = json.load(open('./prevdata.json'))
+        database.nodes = json.load(open('./prevdata.json'))
+    elif newInput == 'loadbackup':
+        with open('eva_03_09_2022, 17_31_04.evab', 'rb') as fileRef:
+            database.nodes = pickle.loads(zlib.decompress(fileRef.read()))
+            database.nodes = list(map(lambda n: nodeTemplate(*n), database.nodes))
+
+            database.references = []
+            print('Building reference lists')
+            for n in database.nodes:
+                database.references.append([m.id for m in database.nodes if (n.id in m.members)])
+            print('Done')
+        database.save()
     elif newInput == 'uall':
         updateAll()
     elif newInput.startswith('json'):
