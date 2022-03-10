@@ -215,6 +215,15 @@ def getAdjacent(node, value=None, directional=False):
             if (ref != node) and (value is None or m.value == value) and ((not directional) or m.members.index(node)==0):
                 adjacent.append(ref)
     return adjacent
+
+# related_to
+def say(content, source=None, intent='information'):
+    newId = database.addNode('intent', [database.addNode(content, [], True), database.addNode(intent, [], False)])
+    database.addNode('origin', [newId, database.addNode('eva_output', [], False)])
+    if source is not None:
+        database.addNode('source', [newId, source])
+    print(content)
+    return newId
 def getInfo():
     links = []
     for n in nodes:
