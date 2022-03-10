@@ -42,10 +42,15 @@ logical_relations = [
 # Instances of this class are not meant to be processed in large numbers - it is intended for convenient access to
 # functions on graphs
 class Node:
-    def __init__(self, nid, graph):
+    def __init__(self, nid, graph, rep):
         self.id = nid
         self.graph = graph
+        self.rep = rep
         self.references = []
+
+    def __getattr__(self, attr):
+        # return getattr(self.graph.nodes[self.id], attr)
+        return getattr(self.rep, attr)
 
 # TODO: handle graphs sharing nodes
 
