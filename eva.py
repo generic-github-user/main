@@ -357,6 +357,15 @@ def scanDir(DB, parent, dir, count, scanId):
             count = scanDir(DB, fId, item, count, scanId)
     return count+1
 
+def backup():
+    date_format = '%m_%d_%Y, %H_%M_%S'
+    backupPath = f'./eva_{datetime.now().strftime(date_format)}.evab'
+    with open(backupPath, 'wb') as fileRef:
+        nodeList = list(map(list, database.nodes))
+        B = zlib.compress(pickle.dumps(nodeList))
+        fileRef.write(B)
+    return backupPath
+
 commands = {}
 def command(prefix):
     def command_decorator(func):
@@ -391,12 +400,17 @@ def crawlCommand(newInput):
     for d in os.scandir(newInput[6:]):
         scanDir(database, None, d, c, scan)
 
+@command('backup')
+def backupCommand(newInput):
+    backup()
+
 current_question = None
 current_link = None
 relations = ['are', 'is a', 'has', 'have']
 for i in range(1000):
     newInput = input()
     inputId = database.addNode(newInput, [], True)
+    # breakpoint()
     database.addNode(
         'origin',
         [inputId, database.addNode('user_input', [], False)]
