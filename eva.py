@@ -35,6 +35,7 @@ logical_relations = [
 # graph matching
 # infinite node chains
 # construct heuristics
+# define concepts analogous to adjacency using grammars?
 
 # An OOP-style interface for working with the graph database
 # The efficient array-based implementation is still used but this wrapper allows for method chaining and more literate code
@@ -47,6 +48,24 @@ class Node:
         self.graph = graph
         self.rep = rep
         self.references = []
+
+    def referrers(self):
+        return Graph([self.graph[x] for x in self.graph.references[self.id]])
+
+    def adjacent(self, value=None, directional=False):
+        # return filter(lambda n: n!=node and any(n in m.members for m in getReferrers(node)), )
+        # return [m for n in getReferrers(node) for m in .n.members]
+
+        # adjacent = list(filter(lambda n: n != node, chain.from_iterable(m.members for m in getReferrers(node))))
+        # if value is not None:
+        #     adjacent = list(filter(lambda n: database.nodes[n].value == value, adjacent))
+
+        adjacent = []
+        for m in self.referrers().nodes:
+            for ref in m.members:
+                if (ref != self.id) and (value is None or m.value == value) and ((not directional) or m.members.index(self.id)==0):
+                    adjacent.append(ref)
+        return adjacent
 
     def __getattr__(self, attr):
         # return getattr(self.graph.nodes[self.id], attr)
@@ -125,6 +144,18 @@ class Graph:
 
     def __bool__(self):
         return len(self.nodes) > 0
+
+    def __len__(self):
+        return len(self.nodes)
+
+    # TODO
+    def __iter__(self):
+        # def nodeWrapper(node):
+        #     def wrapNode(rep):
+        #         return Node(nid, graph, rep)
+        def nodeWrapper(node):
+            return Node(node.id, self, node)
+        return map(nodeWrapper, self.nodes)
 
 
 
@@ -208,24 +239,6 @@ def nodeProperty(node, attr):
         destId = database.getNodes(destId)[0].id
     return database[destId].value
 
-def getReferrers(node):
-    return [database[x] for x in database.references[node]]
-
-# TODO: direct database indexing
-def getAdjacent(node, value=None, directional=False):
-    # return filter(lambda n: n!=node and any(n in m.members for m in getReferrers(node)), )
-    # return [m for n in getReferrers(node) for m in .n.members]
-
-    # adjacent = list(filter(lambda n: n != node, chain.from_iterable(m.members for m in getReferrers(node))))
-    # if value is not None:
-    #     adjacent = list(filter(lambda n: database.nodes[n].value == value, adjacent))
-
-    adjacent = []
-    for m in getReferrers(node):
-        for ref in m.members:
-            if (ref != node) and (value is None or m.value == value) and ((not directional) or m.members.index(node)==0):
-                adjacent.append(ref)
-    return adjacent
 
 # related_to
 def say(content, source=None, intent='information'):
@@ -241,16 +254,16 @@ def say(content, source=None, intent='information'):
 def think(node=None):
     start = time.time()
     if node is None:
-        node = random.choice(database.nodes).id
-    name = database[node].value
+        node = database.random()
+    name = node.value
     say(f'Pondering {name}')
     inferences = []
     for R in logical_relations:
         # inferences.extend(filter(lambda m: self.nodes[m], getAdjacent(node, R[0])))
-        adj = getAdjacent(node, R[0], True)
+        adj = node.adjacent(R[0], True)
         say(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
         for m1 in adj:
-            for m2 in getAdjacent(m1, R[1], True):
+            for m2 in m1.adjacent(R[1], True):
                 inferences.append(([R[2], [node, m2]], [m1, m2]))
     if len(inferences) > 0:
         inf = random.choice(inferences)
@@ -458,7 +471,7 @@ for i in range(1000):
         database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('adj'):
         N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database.nodes))[0]
-        results = [database[i] for i in getAdjacent(N.id)]
+        results = [database[i] for i in N.adjacent()]
         for n in results:
             display(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
