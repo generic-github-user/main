@@ -365,6 +365,7 @@ def scanDir(DB, parent, dir, count, scanId):
     DB.addNode('modified', [fId, DB.addNode(os.stat(dir).st_mtime, [], False)], False, True)
     DB.addNode('parent', [fId, parent], False, True)
     if dir.is_dir() and (count < 100):
+        say(f'Scanning directory')
         for item in os.scandir(dir):
             count = scanDir(DB, fId, item, count, scanId)
     return count+1
@@ -407,10 +408,13 @@ def clearCommand(newInput):
 
 @command('crawl')
 def crawlCommand(newInput):
+    p = newInput[6:]
+    say(f'Scanning {p}')
     scan = database.addNode('file_scan', [], True)
     c = 0
-    for d in os.scandir(newInput[6:]):
+    for d in os.scandir(p):
         scanDir(database, None, d, c, scan)
+    say('Done')
 
 @command('backup')
 def backupCommand(newInput):
