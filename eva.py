@@ -66,7 +66,7 @@ class Graph:
         return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)))
 
     def updateNode(self, node):
-        if self.nodes[node].value not in ignoredTypes:
+        if self[node].value not in ignoredTypes:
             self.addNode(
                 'processed_flag',
                 [node],
@@ -75,7 +75,7 @@ class Graph:
             self.addNode(
                 'unit',
                 [
-                    self.addNode('size', [node, self.addNode(getsize(self.nodes[node]), [], False)], False, True),
+                    self.addNode('size', [node, self.addNode(getsize(self[node]), [], False)], False, True),
                     self.addNode('byte', [], False)
                 ]
             )
@@ -303,7 +303,7 @@ def updateAll():
     say('Consolidating identical nodes')
     for n in nodes:
         # print(f'Updating node {n[0]}: {n[1]}')
-        duplicates = list(filter(lambda x: n[1]==x[1], nodes))
+        duplicates = list(filter(lambda x: n[1]==x[1], database.nodes))
         exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
         if len(duplicates) > 1 and not exists:
             database.addNode(n[1], [x[0] for x in duplicates])
@@ -313,7 +313,7 @@ def updateAll():
         if n.value not in ignoredTypes:
             typeId = database.addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
-            refSources = [nodes[z] for z in database.references[n[0]]]
+            refSources = [database.nodes[z] for z in database.references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
             if (len(m) == 0):
                 database.addNode('type', [n[0], typeId])
@@ -322,7 +322,7 @@ def updateAll():
     for n in nodes:
         if n.value not in ignoredTypes and isinstance(n.value, str):
             lenId = database.addNode(len(n.value), [], False)
-            refSources = [nodes[z] for z in database.references[n[0]]]
+            refSources = [database.nodes[z] for z in database.references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='length', refSources))
             if (len(m) == 0):
                 database.addNode('length', [n[0], lenId])
@@ -448,7 +448,7 @@ for i in range(1000):
         database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('adj'):
         N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database.nodes))[0]
-        results = [database.nodes[i] for i in getAdjacent(N.id)]
+        results = [database[i] for i in getAdjacent(N.id)]
         for n in results:
             display(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
@@ -484,17 +484,10 @@ for i in range(1000):
         target = newInput.split()[1]
         # members = list(filter(lambda x: ))
         # could this be made more efficient by first locating the node corresponding to the keyword?
-        members = list(filter(lambda x: nodeProperty(x.id, 'member')==target, nodes))
+        members = list(filter(lambda x: nodeProperty(x.id, 'member')==target, database.nodes))
         for m in members:
             display(m)
     # elif newInput == 'undo':
-    elif newInput == 'backup':
-        date_format = '%m_%d_%Y, %H_%M_%S'
-        backupPath = f'./eva_{datetime.now().strftime(date_format)}.evab'
-        with open(backupPath, 'wb') as fileRef:
-            nodeList = list(map(list, nodes))
-            B = zlib.compress(pickle.dumps(nodeList))
-            fileRef.write(B)
     elif newInput.startswith('$'):
         symbols = {
             '<': 'subset',
@@ -556,3 +549,4 @@ for i in range(1000):
 # TODO: graph manipulation command language
 # TODO: estimate time to completion
 # TODO: create test suite
+# TODO: tripwires
