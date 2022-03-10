@@ -512,17 +512,17 @@ for i in range(1000):
                     database.addNode('truth', [J, database.addNode(False, [], False)], True)
                 current_link = None
             current_question = None
-        for r in relations:
-            r2 = f' {r} '
-            if r2 in newInput:
-                rel = newInput.split(r2)
-                if len(rel) == 2:
-                    a, b = rel
-                    for ai in a.split(','):
-                        id_a = database.addNode(ai)
-                        id_b = database.addNode(b)
-                        id_c = database.addNode(r, [id_a, id_b])
-                        database.addNode('source', [id_c, nodeId])
+        # for r in relations:
+        #     r2 = f' {r} '
+        #     if r2 in newInput:
+        #         rel = newInput.split(r2)
+        #         if len(rel) == 2:
+        #             a, b = rel
+        #             for ai in a.split(','):
+        #                 id_a = database.addNode(ai)
+        #                 id_b = database.addNode(b)
+        #                 id_c = database.addNode(r, [id_a, id_b])
+        #                 database.addNode('source', [id_c, nodeId])
         think()
         save()
 
