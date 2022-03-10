@@ -368,11 +368,39 @@ def scanDir(DB, parent, dir, count, scanId):
             count = scanDir(DB, fId, item, count, scanId)
     return count+1
 
-# def command(func):
+commands = {}
+def command(prefix):
+    def command_decorator(func):
+        # commands.append(func)
+        commands[prefix] = func
+        return func
+    return command_decorator
 
+@command('quit')
+def quitCommand(newInput):
+    quit()
 
-commands = []
-# @command('quit')
+@command('ask')
+def askCommand(newInput):
+    t = newInput.split()
+    if len(t) > 1:
+        num = int(t[1])
+    else:
+        num = 1
+    for i in range(num):
+        current_question, current_link = getInfo()
+
+@command('clear')
+def clearCommand(newInput):
+    for i in range(50):
+        print('')
+
+@command('crawl')
+def crawlCommand(newInput):
+    scan = database.addNode('file_scan', [], True)
+    c = 0
+    for d in os.scandir(newInput[6:]):
+        scanDir(database, None, d, c, scan)
 
 current_question = None
 current_link = None
@@ -385,9 +413,11 @@ for i in range(1000):
         [inputId, database.addNode('user_input', [], False)]
     )
 
-    if newInput == 'quit':
-        quit()
-    elif newInput == 'print':
+    for prefix, f in commands.items():
+        if newInput.startswith(prefix):
+            f(newInput)
+
+    if newInput == 'print':
         print('10 most recent nodes:')
         for n in nodes[-10:]:
             display(n)
@@ -411,14 +441,6 @@ for i in range(1000):
         for n in results:
             display(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
-    elif newInput.startswith('ask'):
-        t = newInput.split()
-        if len(t) > 1:
-            num = int(t[1])
-        else:
-            num = 1
-        for i in range(num):
-            current_question, current_link = getInfo()
     elif newInput == 'breakpoint':
         breakpoint()
     elif newInput.startswith('refresh'):
@@ -430,20 +452,12 @@ for i in range(1000):
         nodes = json.load(open('./prevdata.json'))
     elif newInput == 'uall':
         updateAll()
-    elif newInput == 'clear':
-        for i in range(30):
-            print('')
     elif newInput.startswith('json'):
         jsonPath = importDir+newInput[5:]
         database.addNode(jsonPath, [], False)
         with open(jsonPath) as f:
             newData = json.load(f)
         print(newData)
-    elif newInput.startswith('crawl'):
-            scan = database.addNode('file_scan', [], True)
-            c = 0
-            for d in os.scandir(newInput[6:]):
-                scanDir(database, None, d, c, scan)
     elif newInput.startswith('list'):
         target = newInput.split()[1]
         # members = list(filter(lambda x: ))
