@@ -413,6 +413,13 @@ for i in range(1000):
             current_question, current_link = getInfo()
     elif newInput == 'breakpoint':
         breakpoint()
+    elif newInput.startswith('refresh'):
+        database.addNode(
+            'origin',
+            [database.addNode(newInput, []), database.addNode('user_input', [], False)]
+        )
+        print(getNodes(newInput[8:]))
+        think(getNodes(newInput[8:])[0].id)
     elif newInput == 'remove':
         nodes.pop()
         save()
