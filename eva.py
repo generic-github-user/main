@@ -24,7 +24,6 @@ BLACKLIST = type, ModuleType, FunctionType
 sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
-databasePath = './eva-db'
 importDir = '../../Downloads/'
 ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'size', 'unit']
 debug = True
@@ -53,8 +52,9 @@ class Node:
         self.graph = graph
 
 class Graph:
-    def __init__(self, nodes):
+    def __init__(self, nodes, savePath='./saved_graph'):
         self.nodes = nodes
+        self.savePath = savePath
 
     def getNodes(self, value):
         return list(filter(lambda n: n[1]==value, self.nodes))
@@ -98,6 +98,13 @@ class Graph:
                 return matches[0].id
         self.updateNode(newId)
         return newId
+
+    def save(self):
+        with open(self.savePath, 'wb') as fileRef:
+            nodeList = list(map(list, self.nodes))
+            pickle.dump(nodeList, fileRef)
+        with open('./cache', 'wb') as cRef:
+            pickle.dump(references, cRef)
 
 # https://stackoverflow.com/a/30316760
 def getsize(obj):
@@ -149,7 +156,7 @@ except:
 #         dict(id=n[0], time=n[3])
 #     ))
 
-database = Graph(nodes)
+database = Graph(nodes, './eva-db')
 # TODO: use tensorflow models
 # meta-inference
 
@@ -185,13 +192,6 @@ def nodeMatch(node, info):
         if (info[i] != None and info[i] != node[i]):
             return False
     return True
-
-def save():
-    with open(databasePath, 'wb') as fileRef:
-        nodeList = list(map(list, nodes))
-        pickle.dump(nodeList, fileRef)
-    with open('./cache', 'wb') as cRef:
-        pickle.dump(references, cRef)
 
 def nodeProperty(node, attr):
     # n[1]
@@ -265,7 +265,7 @@ def think(node=None):
         )
     else:
         say('No viable inferences found')
-    save()
+    database.save()
 
 def getInfo():
     links = []
@@ -350,7 +350,7 @@ def updateAll():
         if len(tokens) > 1:
             for t in tokens:
                 database.addNode('token', [database.addNode(t, [], False), n.id], False, True)
-    save()
+    database.save()
     if debug:
         print('Done')
 
@@ -467,7 +467,6 @@ for i in range(1000):
         members = list(filter(lambda x: nodeProperty(x.id, 'member')==target, nodes))
         for m in members:
             display(m)
-        save()
     # elif newInput == 'undo':
     elif newInput == 'backup':
         date_format = '%m_%d_%Y, %H_%M_%S'
@@ -497,7 +496,6 @@ for i in range(1000):
                             True
                         )
                 break
-        save()
     else:
         if current_question is not None:
             database.addNode('response', [inputId, current_question], True)
@@ -527,7 +525,7 @@ for i in range(1000):
         #                 id_c = database.addNode(r, [id_a, id_b])
         #                 database.addNode('source', [id_c, inputId])
     think()
-    save()
+    database.save()
 
 
 # TODO: mark time node/neighborhood was last updated
