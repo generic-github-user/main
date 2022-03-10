@@ -314,7 +314,7 @@ def updateAll():
     P('Extracting node data types')
     for n in nodes:
         if n.value not in ignoredTypes:
-            typeId = database. addNode(type(n[1]).__name__, [], False)
+            typeId = database.addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
             refSources = [nodes[z] for z in references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
@@ -376,8 +376,8 @@ for i in range(1000):
     if newInput == 'quit':
         quit()
     elif newInput == 'print':
-        print('100 most recent nodes:')
-        for n in nodes[-100:]:
+        print('10 most recent nodes:')
+        for n in nodes[-10:]:
             display(n)
     elif newInput.startswith('find'):
         start = time.time()
@@ -414,6 +414,9 @@ for i in range(1000):
     elif newInput == 'uall':
         updateAll()
         save()
+    elif newInput == 'clear':
+        for i in range(30):
+            print('')
     elif newInput.startswith('json'):
         database.addNode(
             'origin',
@@ -452,10 +455,12 @@ for i in range(1000):
     elif newInput.startswith('$'):
         database.addNode(
             'origin',
-            [database.addNode(newInput, []), database.addNode('user_node', [], False)]
+            [database.addNode(newInput, []), database.addNode('user_input', [], False)]
         )
         symbols = {
-            '<': 'subset'
+            '<': 'subset',
+            '{': 'member',
+            '[use]': 'use',
         }
         for s in symbols:
             if s in newInput:
@@ -471,7 +476,7 @@ for i in range(1000):
                             False,
                             True
                         )
-            break
+                break
         save()
     else:
         nodeId = database.addNode(newInput, [])
@@ -502,7 +507,7 @@ for i in range(1000):
                         id_a = database.addNode(ai)
                         id_b = database.addNode(b)
                         id_c = database.addNode(r, [id_a, id_b])
-                        database.addNode('source', [id_c, id])
+                        database.addNode('source', [id_c, nodeId])
         think()
         save()
 
@@ -512,3 +517,6 @@ for i in range(1000):
 # TODO: graph compression
 # TODO: node hashes
 # TODO: HCI language
+# TODO: graph manipulation command language
+# TODO: estimate time to completion
+# TODO: create test suite
