@@ -101,6 +101,10 @@ class Graph:
                     self.addNode('byte', [], False)
                 ]
             )
+            # self.addNode('neighborhood_size', [node, self.addNode(len())])
+            numAdj = len(self[node].adjacent())
+            say(f'Found {numAdj} adjacent nodes')
+            self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True)
 
         return node
 
