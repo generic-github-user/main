@@ -395,6 +395,14 @@ for i in range(1000):
         database.addNode('start_time', [searchNode, database.addNode(start, [], False)], False, True)
         database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
         database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
+    elif newInput.startswith('adj'):
+        nodeId = database.addNode(newInput, [], True)
+        database.addNode('origin', [nodeId, database.addNode('user_input', [], False)])
+        N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), nodes))[0]
+        results = [database.nodes[i] for i in getAdjacent(N.id)]
+        for n in results:
+            display(n)
+            database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
     elif newInput.startswith('ask'):
         t = newInput.split()
         if len(t) > 1:
