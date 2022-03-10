@@ -25,7 +25,7 @@ sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
 importDir = '../../Downloads/'
-ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'size', 'unit']
+ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte']
 debug = True
 buffer = None
 # snails.adjacent
@@ -50,6 +50,9 @@ class Node:
     def __init__(self, nid, graph):
         self.id = nid
         self.graph = graph
+        self.references = []
+
+# TODO: handle graphs sharing nodes
 
 class Graph:
     def __init__(self, nodes, savePath='./saved_graph'):
@@ -63,7 +66,7 @@ class Graph:
         return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)))
 
     def updateNode(self, node):
-        if self.nodes[node][1] not in ignoredTypes:
+        if self.nodes[node].value not in ignoredTypes:
             self.addNode(
                 'processed_flag',
                 [node],
@@ -79,24 +82,25 @@ class Graph:
 
         return node
 
-    def addNode(self, value, members=None, duplicate=True, useSearch=False):
+    def addNode(self, value, members=None, duplicate=True, useSearch=False, update=False):
         newId = getId()
         if useSearch:
             matches = self.search([None, value, members, None])
         else:
-            matches = database.getNodes(value)
+            matches = self.getNodes(value)
         if (duplicate or not matches):
                 if members is None:
                     members = []
                 nodeData = [newId, value, members, time.time()]
-                nodes.append(nodeTemplate(*nodeData))
-                references.append([])
+                self.nodes.append(nodeTemplate(*nodeData))
+                database.references.append([])
                 for m in members:
                     if m is not None:
-                        references[m].append(newId)
+                        database.references[m].append(newId)
         else:
                 return matches[0].id
-        self.updateNode(newId)
+        if update:
+            self.updateNode(newId)
         return newId
 
     def save(self):
@@ -104,7 +108,8 @@ class Graph:
             nodeList = list(map(list, self.nodes))
             pickle.dump(nodeList, fileRef)
         with open('./cache', 'wb') as cRef:
-            pickle.dump(references, cRef)
+            pickle.dump(database.references, cRef)
+        return self
 
     def __getitem__(self, i):
         return self.nodes[i]
