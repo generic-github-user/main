@@ -189,9 +189,7 @@ def parseExpression(ex):
                 valueType = 'op'
 
 def getId():
-    return len(nodes)
-
-
+    return len(database.nodes)
 
 def nodeMatch(node, info):
     for i in range(len(info)):
@@ -202,7 +200,7 @@ def nodeMatch(node, info):
 def nodeProperty(node, attr):
     # n[1]
     # getNodes(attr)
-    refs = list(filter(lambda n: n.value==attr, [database.nodes[x] for x in references[node]]))
+    refs = list(filter(lambda n: n.value==attr, [database.nodes[x] for x in database.references[node]]))
     links = list(filter(lambda n: n.members[0]==node, refs))
     if len(links) == 0:
         return None
@@ -212,7 +210,7 @@ def nodeProperty(node, attr):
     return database.nodes[destId].value
 
 def getReferrers(node):
-    return [database.nodes[x] for x in references[node]]
+    return [database.nodes[x] for x in database.references[node]]
 
 # TODO: direct database indexing
 def getAdjacent(node, value=None, directional=False):
@@ -278,7 +276,7 @@ def getInfo():
     for n in nodes:
         if len(n.members) > 0 and False:
             for rel in ['subset', 'member']:
-                refSources = [nodes[x] for x in references[n.members[0]]]
+                refSources = [nodes[x] for x in database.references[n.members[0]]]
                 conditions = [
                     n[1] in ['are'],
                     len(n[2]) == 2,
@@ -324,7 +322,7 @@ def updateAll():
         if n.value not in ignoredTypes:
             typeId = database.addNode(type(n[1]).__name__, [], False)
             # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
-            refSources = [nodes[z] for z in references[n[0]]]
+            refSources = [nodes[z] for z in database.references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
             if (len(m) == 0):
                 database.addNode('type', [n[0], typeId])
@@ -333,7 +331,7 @@ def updateAll():
     for n in nodes:
         if n.value not in ignoredTypes and isinstance(n.value, str):
             lenId = database.addNode(len(n.value), [], False)
-            refSources = [nodes[z] for z in references[n[0]]]
+            refSources = [nodes[z] for z in database.references[n[0]]]
             m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='length', refSources))
             if (len(m) == 0):
                 database.addNode('length', [n[0], lenId])
@@ -361,7 +359,7 @@ def updateAll():
         print('Done')
 
 def display(n):
-    print(f'{n[0]} {n[1]} {[nodes[i][1] for i in n[2]]}')
+    print(f'{n.id} {n.value} {[database[i].value for i in n.members]}')
 
 def scanDir(DB, parent, dir, count, scanId):
     fId = DB.addNode(dir.path, [], False)
@@ -427,14 +425,14 @@ for i in range(1000):
 
     if newInput == 'print':
         print('10 most recent nodes:')
-        for n in nodes[-10:]:
+        for n in database.nodes[-10:]:
             display(n)
     elif newInput.startswith('find'):
         start = time.time()
         # TODO: clean this up
         searchNode = database.addNode('search_cmd', [], True)
         database.addNode('source', [searchNode, inputId])
-        results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), nodes))
+        results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), database.nodes))
         for n in results:
             display(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
@@ -444,7 +442,7 @@ for i in range(1000):
         database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
         database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('adj'):
-        N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), nodes))[0]
+        N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database.nodes))[0]
         results = [database.nodes[i] for i in getAdjacent(N.id)]
         for n in results:
             display(n)
@@ -455,7 +453,7 @@ for i in range(1000):
         print(database.getNodes(newInput[8:]))
         think(database.getNodes(newInput[8:])[0].id)
     elif newInput == 'remove':
-        nodes.pop()
+        database.nodes.pop()
     elif newInput == 'restore':
         nodes = json.load(open('./prevdata.json'))
     elif newInput == 'uall':
