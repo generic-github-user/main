@@ -106,6 +106,12 @@ class Graph:
         with open('./cache', 'wb') as cRef:
             pickle.dump(references, cRef)
 
+    def __getitem__(self, i):
+        return self.nodes[i]
+
+    def __bool__(self):
+        return len(self.nodes) > 0
+
 # https://stackoverflow.com/a/30316760
 def getsize(obj):
     if isinstance(obj, BLACKLIST):
