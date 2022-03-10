@@ -57,10 +57,10 @@ class Graph:
         self.savePath = savePath
 
     def getNodes(self, value):
-        return list(filter(lambda n: n[1]==value, self.nodes))
+        return Graph(list(filter(lambda n: n[1]==value, self.nodes)))
 
     def search(self, info):
-        return list(filter(lambda n: nodeMatch(n, info), self.nodes))
+        return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)))
 
     def updateNode(self, node):
         if self.nodes[node][1] not in ignoredTypes:
