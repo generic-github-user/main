@@ -27,6 +27,9 @@ buffer = None
 # todo = []
 # inferences = 0
 
+timeLimit = 5
+opLimit = 10
+
 logical_relations = [
     ('subset', 'subset', 'subset'),
     ('member', 'subset', 'member'),
@@ -560,7 +563,11 @@ for i in range(1000):
         #                 id_b = database.addNode(b)
         #                 id_c = database.addNode(r, [id_a, id_b])
         #                 database.addNode('source', [id_c, inputId])
-    think()
+    before = time.time()
+    for j in range(opLimit):
+        think()
+        if time.time()-before>timeLimit:
+            break
     database.save()
 
 
