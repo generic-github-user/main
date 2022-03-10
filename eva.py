@@ -238,12 +238,12 @@ def think(node=None):
     if node is None:
         node = random.choice(database.nodes).id
     name = database.nodes[node].value
-    print(f'Pondering {name}')
+    say(f'Pondering {name}')
     inferences = []
     for R in logcal_relations:
         # inferences.extend(filter(lambda m: self.nodes[m], getAdjacent(node, R[0])))
         adj = getAdjacent(node, R[0], True)
-        print(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
+        say(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
         for m1 in adj:
             for m2 in getAdjacent(m1, R[1], True):
                 inferences.append(([R[2], [node, m2]], [m1, m2]))
@@ -262,7 +262,7 @@ def think(node=None):
             newNode, 'information'
         )
     else:
-        print('No viable inferences found')
+        say('No viable inferences found')
     save()
 
 def getInfo():
@@ -303,7 +303,7 @@ def updateAll():
     if debug:
         print('Updating database')
 
-    P('Consolidating identical nodes')
+    say('Consolidating identical nodes')
     for n in nodes:
         # print(f'Updating node {n[0]}: {n[1]}')
         duplicates = list(filter(lambda x: n[1]==x[1], nodes))
@@ -311,7 +311,7 @@ def updateAll():
         if len(duplicates) > 1 and not exists:
             database.addNode(n[1], [x[0] for x in duplicates])
 
-    P('Extracting node data types')
+    say('Extracting node data types')
     for n in nodes:
         if n.value not in ignoredTypes:
             typeId = database.addNode(type(n[1]).__name__, [], False)
@@ -321,7 +321,7 @@ def updateAll():
             if (len(m) == 0):
                 database.addNode('type', [n[0], typeId])
 
-    P('Extracting lengths from string nodes')
+    say('Extracting lengths from string nodes')
     for n in nodes:
         if n.value not in ignoredTypes and isinstance(n.value, str):
             lenId = database.addNode(len(n.value), [], False)
@@ -333,7 +333,7 @@ def updateAll():
         #     for t in n[1].split():
                 # addNode()
 
-    P('Marking rating nodes')
+    say('Marking rating nodes')
     # TODO: move (some) input processing here
     for n in nodes:
         if n.value not in ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
@@ -342,7 +342,7 @@ def updateAll():
                     database.addNode('rating', [n.id, database.addNode(r, [], False)], False, True)
                     database.addNode('group', [n.id, database.addNode('ratings', [], False)], False, True)
 
-    P('Extracting tokens from text nodes')
+    say('Extracting tokens from text nodes')
     for n in list(filter(lambda n: nodeProperty(n.id, 'origin')=='user_input' and n.value not in ignoredTypes, nodes)):
         tokens = n[1].split()
         if len(tokens) > 1:
