@@ -107,7 +107,10 @@ class Graph:
         return self
 
     def __getitem__(self, i):
-        return self.nodes[i]
+        if isinstance(i, int):
+            return Node(self.nodes[i].id, self, self.nodes[i])
+        elif isinstance(i, slice):
+            return Graph(self.nodes[i], self.savePath)
 
     def __bool__(self):
         return len(self.nodes) > 0
