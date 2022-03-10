@@ -32,7 +32,7 @@ buffer = None
 # todo = []
 # inferences = 0
 
-logcal_relations = [
+logical_relations = [
     ('subset', 'subset', 'subset'),
     ('member', 'subset', 'member'),
     ('member', 'use', 'use'),
@@ -233,7 +233,7 @@ def say(content, source=None, intent='information'):
     print(content)
     return newId
 
-# logcal_relations / relations
+# logical_relations / relations
 
 def think(node=None):
     start = time.time()
@@ -242,7 +242,7 @@ def think(node=None):
     name = database.nodes[node].value
     say(f'Pondering {name}')
     inferences = []
-    for R in logcal_relations:
+    for R in logical_relations:
         # inferences.extend(filter(lambda m: self.nodes[m], getAdjacent(node, R[0])))
         adj = getAdjacent(node, R[0], True)
         say(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
