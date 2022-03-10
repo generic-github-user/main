@@ -56,6 +56,9 @@ class Graph:
     def __init__(self, nodes):
         self.nodes = nodes
 
+    def getNodes(self, value):
+        return list(filter(lambda n: n[1]==value, self.nodes))
+
     def search(self, info):
         return list(filter(lambda n: nodeMatch(n, info), self.nodes))
 
@@ -81,7 +84,7 @@ class Graph:
         if useSearch:
             matches = self.search([None, value, members, None])
         else:
-            matches = getNodes(value)
+            matches = database.getNodes(value)
         if (duplicate or not matches):
                 if members is None:
                     members = []
@@ -175,8 +178,7 @@ def parseExpression(ex):
 def getId():
     return len(nodes)
 
-def getNodes(value):
-    return list(filter(lambda n: n[1]==value, nodes))
+
 
 def nodeMatch(node, info):
     for i in range(len(info)):
@@ -200,7 +202,7 @@ def nodeProperty(node, attr):
         return None
     destId = links[0].members[1]
     if isinstance(destId, str):
-        destId = getNodes(destId)[0].id
+        destId = database.getNodes(destId)[0].id
     return database.nodes[destId].value
 
 def getReferrers(node):
@@ -444,8 +446,8 @@ for i in range(1000):
     elif newInput == 'breakpoint':
         breakpoint()
     elif newInput.startswith('refresh'):
-        print(getNodes(newInput[8:]))
-        think(getNodes(newInput[8:])[0].id)
+        print(database.getNodes(newInput[8:]))
+        think(database.getNodes(newInput[8:])[0].id)
     elif newInput == 'remove':
         nodes.pop()
     elif newInput == 'restore':
