@@ -11,10 +11,12 @@ import os
 from itertools import chain
 import zlib
 import string
-import getsize
+from getsize import *
+from hash_file import *
 # from .. import giraffe
 
 
+# def stringEntropy
 
 sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
@@ -278,6 +280,8 @@ def say(content, source=None, intent='information'):
     return newId
 
 # logical_relations / relations
+# why was getsize working before?
+# expected_usefulness
 
 def think(node=None):
     start = time.time()
