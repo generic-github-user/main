@@ -1,22 +1,30 @@
 print('Importing libraries')
+
 import pickle
-import string
-import time
-from datetime import datetime
 import json
-import random
-import sys
-from customize import ratings
-from collections import namedtuple
-import os
-from itertools import chain
 import zlib
+
 import string
-from PIL import Image
-import pytesseract
+from customize import ratings
+
+from datetime import datetime
+import time
+
+import numpy as np
+import random
+
+from collections import namedtuple
+from itertools import chain
+
 from getsize import *
 from hash_file import *
-# from .. import giraffe
+
+import sys
+import os
+
+from PIL import Image
+import pytesseract
+
 print('Done')
 
 
