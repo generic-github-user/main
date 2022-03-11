@@ -355,7 +355,7 @@ def getInfo():
 
 def updateAll():
     if debug:
-        print('Updating database')
+        say('Updating database')
 
     say('Consolidating identical nodes')
     for n in nodes:
@@ -410,6 +410,7 @@ def display(n):
     print(f'{n.id} {n.value} {[database[i].value for i in n.members]}')
 
 def scanDir(DB, parent, dir, count, scanId):
+    say(f'Scanning {dir.path}')
     fId = DB.addNode(dir.path, [], False)
     DB.addNode('source', [fId, scanId], False, True)
     DB.addNode('name', [fId, DB.addNode(dir.name, [], False)], False, True)
@@ -480,10 +481,12 @@ for i in range(1000):
     newInput = input()
     inputId = database.addNode(newInput, [], True)
     # breakpoint()
+    # why isn't quit command recorded?
     database.addNode(
         'origin',
         [inputId, database.addNode('user_input', [], False)]
     )
+    database.save()
 
     for prefix, f in commands.items():
         if newInput.startswith(prefix):
