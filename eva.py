@@ -57,6 +57,8 @@ logical_relations = [
 # functions on graphs
 class Node:
     def __init__(self, nid, graph, rep):
+        assert(isinstance(nid, int))
+        assert(isinstance(graph, Graph))
         self.id = nid
         self.graph = graph
         self.rep = rep
@@ -66,6 +68,8 @@ class Node:
         return Graph([self.graph.get(x, update) for x in self.graph.references[self.id]])
 
     def adjacent(self, value=None, directional=False, return_ids=True):
+        assert(isinstance(directional, bool))
+        assert(isinstance(return_ids, bool))
 
         adjacent = []
         for m in self.referrers().nodes:
@@ -108,6 +112,8 @@ class Graph:
         return Graph(result)
 
     def updateNode(self, node):
+        assert(isinstance(node, int))
+
         if self[node].value not in ignoredTypes:
             self.addNode(
                 'processed_flag',
@@ -129,6 +135,11 @@ class Graph:
         return node
 
     def addNode(self, value, members=None, duplicate=True, useSearch=False, update=False):
+        assert(isinstance(members, list) or members is None)
+        assert(isinstance(duplicate, bool))
+        assert(isinstance(useSearch, bool))
+        assert(isinstance(update, bool))
+
         newId = getId()
         if useSearch:
             matches = self.search([None, value, members, None])
@@ -164,6 +175,9 @@ class Graph:
         return node
 
     def get(self, i, update=True):
+        assert(isinstance(i, int))
+        assert(isinstance(update, bool))
+
         if isinstance(i, int):
             if update:
                 self.addNode('accessed', [i, self.addNode(time.time(), [], False)])
@@ -358,6 +372,7 @@ def getInfo():
 
 
 def markType(node):
+    assert(isinstance(node, Node))
     if node.value not in ignoredTypes:
         typeId = database.addNode(type(node.value).__name__, [], False)
         # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
@@ -367,6 +382,7 @@ def markType(node):
     return node
 
 def markLength(node):
+    assert(isinstance(node, Node))
     if node.value not in ignoredTypes and isinstance(node.value, str):
         lenId = database.addNode(len(node.value), [], False)
         m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='length', node.referrers()))
