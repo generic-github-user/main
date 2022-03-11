@@ -143,11 +143,19 @@ class Graph:
         assert(isinstance(node, Node))
         return node
 
-    def __getitem__(self, i):
+    def get(self, i, update=True):
         if isinstance(i, int):
+            if update:
+                self.addNode('accessed', [i, self.addNode(time.time(), [], False)])
             return Node(self.nodes[i].id, self, self.nodes[i])
         elif isinstance(i, slice):
             return Graph(self.nodes[i], self.savePath)
+        else:
+            print(i)
+            raise Exception
+
+    def __getitem__(self, i):
+        return self.get(i)
 
     def __bool__(self):
         return len(self.nodes) > 0
