@@ -68,13 +68,17 @@ class Node:
         # adjacent = list(filter(lambda n: n != node, chain.from_iterable(m.members for m in getReferrers(node))))
         # if value is not None:
         #     adjacent = list(filter(lambda n: database.nodes[n].value == value, adjacent))
+    def adjacent(self, value=None, directional=False, return_ids=True):
 
         adjacent = []
         for m in self.referrers().nodes:
             for ref in m.members:
                 if (ref != self.id) and (value is None or m.value == value) and ((not directional) or m.members.index(self.id)==0):
                     adjacent.append(ref)
-        return adjacent
+        if return_ids:
+            return adjacent
+        else:
+            return Graph([self.graph[x] for x in adjacent])
 
     def __getattr__(self, attr):
         # return getattr(self.graph.nodes[self.id], attr)
