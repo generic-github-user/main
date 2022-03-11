@@ -26,7 +26,7 @@ sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
 importDir = '../../Downloads/'
-ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte']
+ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent']
 debug = True
 buffer = None
 # snails.adjacent
@@ -40,6 +40,10 @@ logical_relations = [
     ('subset', 'subset', 'subset'),
     ('member', 'subset', 'member'),
     ('member', 'use', 'use'),
+    ('member', 'can', 'can'),
+    ('member', 'melt', 'melt'),
+    ('member', 'contain', 'contain'),
+    ('contain', 'contain', 'contain'),
 ]
 # graph matching
 # infinite node chains
@@ -108,7 +112,7 @@ class Graph:
                 result.append(node)
             if (x % 10000 == 0):
                 say(f'Checked {x}/{len(self)} nodes')
-        return Graph(result, self.savePath)
+        return Graph(result)
 
     def updateNode(self, node):
         if self[node].value not in ignoredTypes:
@@ -435,6 +439,7 @@ def backup():
         nodeList = list(map(list, database.nodes))
         B = zlib.compress(pickle.dumps(nodeList))
         fileRef.write(B)
+        say(f'Backup saved to {backupPath} [{getsize(B)} bytes]')
     return backupPath
 
 commands = {}
@@ -575,6 +580,9 @@ for i in range(1000):
             '<': 'subset',
             '{': 'member',
             '[use]': 'use',
+            '[melt]': 'melt',
+            '[can]': 'can',
+            '[contain]': 'contain',
         }
         for s in symbols:
             if s in newInput:
@@ -631,3 +639,9 @@ for i in range(1000):
 # TODO: estimate time to completion
 # TODO: create test suite
 # TODO: tripwires
+# TODO: support wolfram alpha-style queries, e.g., "seconds since bill gates was born"
+# TODO: support encoding of algorithms in graph
+# TODO: proper error handling
+# TODO: track compute usage
+# TODO: coincidence finding
+# TODO: function definitions
