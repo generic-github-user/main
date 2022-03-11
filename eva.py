@@ -96,9 +96,27 @@ class Node:
 # TODO: handle graphs sharing nodes
 
 class Graph:
-    def __init__(self, nodes, savePath='./saved_graph'):
-        self.nodes = nodes
+    def __init__(self, nodes=None, savePath='./saved_graph', fields='id value members time'):
         self.savePath = savePath
+        self.nodes = nodes
+        self.fields = fields
+        self.nodeTemplate = namedtuple('node', fields)
+        if self.nodes is None:
+            nodes = []
+            self.load()
+        self.load()
+
+    def load(self):
+        try:
+            print('Loading database')
+            with open(self.savePath, 'rb') as fileRef:
+                self.nodes = pickle.load(fileRef)
+        except Exception as error:
+            print(error)
+            self.nodes = []
+
+        self.nodes = list(map(lambda n: self.nodeTemplate(*n), self.nodes))
+        return self
 
     def getNodes(self, value):
         return Graph(list(filter(lambda n: n[1]==value, self.nodes)))
@@ -218,17 +236,6 @@ class Graph:
 
 
 
-try:
-    print('Loading database')
-    with open('./eva-db', 'rb') as fileRef:
-        nodes_ = pickle.load(fileRef)
-except Exception as error:
-    print(error)
-    nodes_ = []
-
-nodeTemplate = namedtuple('node', 'id value members time')
-nodes_ = list(map(lambda n: nodeTemplate(*n), nodes_))
-
 
 # database = Graph()
 # for n in nodes:
@@ -237,7 +244,7 @@ nodes_ = list(map(lambda n: nodeTemplate(*n), nodes_))
 #         dict(id=n[0], time=n[3])
 #     ))
 
-database = Graph(nodes_, './eva-db')
+database = Graph(savePath='./eva-db')
 # TODO: use tensorflow models
 # meta-inference
 
