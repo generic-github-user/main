@@ -365,6 +365,14 @@ def markType(node):
         if (len(m) == 0):
             database.addNode('type', [node.id, typeId])
     return node
+
+def markLength(node):
+    if node.value not in ignoredTypes and isinstance(node.value, str):
+        lenId = database.addNode(len(node.value), [], False)
+        m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='length', node.referrers()))
+        if (len(m) == 0):
+            database.addNode('length', [node.id, lenId])
+
 def updateAll():
     if debug:
         say('Updating database')
@@ -383,12 +391,7 @@ def updateAll():
 
     say('Extracting lengths from string nodes')
     for n in nodes:
-        if n.value not in ignoredTypes and isinstance(n.value, str):
-            lenId = database.addNode(len(n.value), [], False)
-            refSources = [database.nodes[z] for z in database.references[n[0]]]
-            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='length', refSources))
-            if (len(m) == 0):
-                database.addNode('length', [n[0], lenId])
+        markLength(n)
         # if len(list(filter(lambda x: x[1]=='origin' and x[2]==[n[0], getNodes('user_input')[0][0]], nodes))) > 0:
         #     for t in n[1].split():
                 # addNode()
