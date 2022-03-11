@@ -52,8 +52,8 @@ class Node:
         self.rep = rep
         self.references = []
 
-    def referrers(self):
-        return Graph([self.graph[x] for x in self.graph.references[self.id]])
+    def referrers(self, update=True):
+        return Graph([self.graph.get(x, update) for x in self.graph.references[self.id]])
 
     def adjacent(self, value=None, directional=False):
         # return filter(lambda n: n!=node and any(n in m.members for m in getReferrers(node)), )
@@ -255,17 +255,17 @@ def nodeMatch(node, info):
             return False
     return True
 
-def nodeProperty(node, attr):
+def nodeProperty(node, attr, update=True):
     # n[1]
     # getNodes(attr)
-    refs = list(filter(lambda n: n.value==attr, [database[x] for x in database.references[node]]))
+    refs = list(filter(lambda n: n.value==attr, database.get(node, update).referrers(update=update)))
     links = list(filter(lambda n: n.members[0]==node, refs))
     if len(links) == 0:
         return None
     destId = links[0].members[1]
     if isinstance(destId, str):
         destId = database.getNodes(destId)[0].id
-    return database[destId].value
+    return database.get(destId, update).value
 
 
 # related_to
