@@ -87,6 +87,19 @@ class Graph:
     def search(self, info):
         return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)))
 
+    def filter(self, condition):
+        # return Graph(list(filter(condition, self.nodes)))
+        say(f'Searching {len(self)} nodes')
+        result = []
+        for x in range(len(self)):
+            # node = self.get(x, False)
+            node = self.nodes[x]
+            if condition(node):
+                result.append(node)
+            if (x % 10000 == 0):
+                say(f'Checked {x}/{len(self)} nodes')
+        return Graph(result, self.savePath)
+
     def updateNode(self, node):
         if self[node].value not in ignoredTypes:
             self.addNode(
