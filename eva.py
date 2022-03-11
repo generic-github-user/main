@@ -131,6 +131,8 @@ class Graph:
             numAdj = len(self[node].adjacent())
             say(f'Found {numAdj} adjacent nodes')
             self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True)
+            markType(self[node])
+            markLength(self[node])
 
         return node
 
@@ -315,14 +317,17 @@ def think(node=None):
         node = database[node]
     name = node.value
     say(f'Pondering {name}')
+
+    database.updateNode(node.id)
+
     inferences = []
     for R in logical_relations:
         # inferences.extend(filter(lambda m: self.nodes[m], getAdjacent(node, R[0])))
         adj = node.adjacent(R[0], True)
         say(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
         for m1 in adj:
-            for m2 in m1.adjacent(R[1], True):
-                inferences.append(([R[2], [node, m2]], [m1, m2]))
+            for m2 in database[m1].adjacent(R[1], True):
+                inferences.append(([R[2], [node.id, m2]], [m1, m2]))
     if len(inferences) > 0:
         inf = random.choice(inferences)
         newNode = database.addNode(*inf[0], False, True)

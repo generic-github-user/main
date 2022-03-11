@@ -1,5 +1,6 @@
 from types import ModuleType, FunctionType
 from gc import get_referents
+import sys
 
 # Custom objects know their class.
 # Function objects seem to know way too much, including modules.
