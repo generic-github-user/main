@@ -65,13 +65,6 @@ class Node:
     def referrers(self, update=True):
         return Graph([self.graph.get(x, update) for x in self.graph.references[self.id]])
 
-    def adjacent(self, value=None, directional=False):
-        # return filter(lambda n: n!=node and any(n in m.members for m in getReferrers(node)), )
-        # return [m for n in getReferrers(node) for m in .n.members]
-
-        # adjacent = list(filter(lambda n: n != node, chain.from_iterable(m.members for m in getReferrers(node))))
-        # if value is not None:
-        #     adjacent = list(filter(lambda n: database.nodes[n].value == value, adjacent))
     def adjacent(self, value=None, directional=False, return_ids=True):
 
         adjacent = []
@@ -298,11 +291,14 @@ def say(content, source=None, intent='information', record=False):
 # logical_relations / relations
 # why was getsize working before?
 # expected_usefulness
+# "hanging" nodes (with intermediary inferences deleted)
 
 def think(node=None):
     start = time.time()
     if node is None:
         node = database.random()
+    else:
+        node = database[node]
     name = node.value
     say(f'Pondering {name}')
     inferences = []
@@ -430,6 +426,8 @@ def scanDir(DB, parent, dir, count, scanId):
         say(f'Scanning directory')
         for item in os.scandir(dir):
             count = scanDir(DB, fId, item, count, scanId)
+    if dir.is_file():
+        DB.addNode('md5_hash', [fId, DB.addNode(hash_file(dir.path), [], False)])
     return count+1
 
 def backup():
@@ -556,7 +554,7 @@ for i in range(1000):
     elif newInput == 'restore':
         database.nodes = json.load(open('./prevdata.json'))
     elif newInput == 'loadbackup':
-        with open('eva_03_09_2022, 17_31_04.evab', 'rb') as fileRef:
+        with open('eva_03_10_2022, 15_22_15.evab', 'rb') as fileRef:
             database.nodes = pickle.loads(zlib.decompress(fileRef.read()))
             database.nodes = list(map(lambda n: nodeTemplate(*n), database.nodes))
 
