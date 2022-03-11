@@ -275,11 +275,15 @@ def nodeProperty(node, attr, update=True):
 
 
 # related_to
-def say(content, source=None, intent='information'):
-    newId = database.addNode('intent', [database.addNode(content, [], True), database.addNode(intent, [], False)])
-    database.addNode('origin', [newId, database.addNode('eva_output', [], False)])
-    if source is not None:
-        database.addNode('source', [newId, source])
+def say(content, source=None, intent='information', record=False):
+    assert(isinstance(content, str))
+    assert(isinstance(source, int) or source is None)
+
+    if record:
+        newId = database.addNode('intent', [database.addNode(content, [], True), database.addNode(intent, [], False)])
+        database.addNode('origin', [newId, database.addNode('eva_output', [], False)])
+        if source is not None:
+            database.addNode('source', [newId, source])
     print(content)
     return newId
 
