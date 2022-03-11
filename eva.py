@@ -474,6 +474,13 @@ def crawlCommand(newInput):
 def backupCommand(newInput):
     backup()
 
+@command('think')
+def thinkCommand(newInput):
+    before = time.time()
+    for j in range(opLimit):
+        think()
+        if time.time()-before>timeLimit:
+            break
 current_question = None
 current_link = None
 relations = ['are', 'is a', 'has', 'have']
@@ -603,11 +610,6 @@ for i in range(1000):
         #                 id_b = database.addNode(b)
         #                 id_c = database.addNode(r, [id_a, id_b])
         #                 database.addNode('source', [id_c, inputId])
-    before = time.time()
-    for j in range(opLimit):
-        think()
-        if time.time()-before>timeLimit:
-            break
     database.save()
 
 
