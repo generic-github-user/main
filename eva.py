@@ -481,6 +481,18 @@ def thinkCommand(newInput):
         think()
         if time.time()-before>timeLimit:
             break
+
+@command('list')
+def listCommand(newInput):
+    target = newInput.split()[1]
+    # members = list(filter(lambda x: ))
+    # could this be made more efficient by first locating the node corresponding to the keyword?
+    members = database.filter(lambda x: nodeProperty(x.id, 'member', False)==target)
+    for m in members:
+        display(m)
+
+# def mapCommand
+
 current_question = None
 current_link = None
 relations = ['are', 'is a', 'has', 'have']
@@ -553,13 +565,6 @@ for i in range(1000):
         with open(jsonPath) as f:
             newData = json.load(f)
         print(newData)
-    elif newInput.startswith('list'):
-        target = newInput.split()[1]
-        # members = list(filter(lambda x: ))
-        # could this be made more efficient by first locating the node corresponding to the keyword?
-        members = list(filter(lambda x: nodeProperty(x.id, 'member')==target, database.nodes))
-        for m in members:
-            display(m)
     # elif newInput == 'undo':
     elif newInput.startswith('$'):
         symbols = {
