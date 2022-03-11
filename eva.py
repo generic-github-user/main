@@ -357,6 +357,14 @@ def getInfo():
     return newId, current_link
 
 
+def markType(node):
+    if node.value not in ignoredTypes:
+        typeId = database.addNode(type(node.value).__name__, [], False)
+        # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
+        m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
+        if (len(m) == 0):
+            database.addNode('type', [node.id, typeId])
+    return node
 def updateAll():
     if debug:
         say('Updating database')
@@ -371,13 +379,7 @@ def updateAll():
 
     say('Extracting node data types')
     for n in nodes:
-        if n.value not in ignoredTypes:
-            typeId = database.addNode(type(n[1]).__name__, [], False)
-            # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
-            refSources = [database.nodes[z] for z in database.references[n[0]]]
-            m = list(filter(lambda x: x[2] and n[0]==x[2][0] and x.value=='type', refSources))
-            if (len(m) == 0):
-                database.addNode('type', [n[0], typeId])
+        markType(n)
 
     say('Extracting lengths from string nodes')
     for n in nodes:
