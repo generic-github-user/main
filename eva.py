@@ -1,3 +1,4 @@
+print('Importing libraries')
 import pickle
 import string
 import time
@@ -11,9 +12,12 @@ import os
 from itertools import chain
 import zlib
 import string
+from PIL import Image
+import pytesseract
 from getsize import *
 from hash_file import *
 # from .. import giraffe
+print('Done')
 
 
 # def stringEntropy
