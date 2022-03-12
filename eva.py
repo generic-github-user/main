@@ -159,6 +159,17 @@ class Graph:
             self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True)
             markType(self[node])
             markLength(self[node])
+            current = self[node]
+            if current.value not in ignoredTypes and isinstance(current.value, str):
+                if isinstance(current.value, str):
+                    est = estimateEntropy(bytes(current.value, 'UTF-8'))
+                else:
+                    est = estimateEntropy(bytes(current.value))
+                say(f'Estimated entropy of {current.value} is {est}')
+                entId = self.addNode(est, [], False)
+                m = list(filter(lambda x: x.members and current.id == x.members[0] and x.value=='entropy_estimate', current.referrers()))
+                if (len(m) == 0):
+                    self.addNode('entropy_estimate', [current.id, entId])
 
         return node
 
@@ -286,6 +297,9 @@ def parseExpression(ex):
 
 def getId():
     return len(database.nodes)
+
+def estimateEntropy(value):
+    return getsize(zlib.compress(value))/getsize(value)
 
 def nodeMatch(node, info):
     for i in range(len(info)):
