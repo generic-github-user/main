@@ -34,7 +34,7 @@ sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
 importDir = '../../Downloads/'
-ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent']
+ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
 debug = True
 buffer = None
 # snails.adjacent
@@ -102,9 +102,8 @@ class Graph:
         self.fields = fields
         self.nodeTemplate = namedtuple('node', fields)
         if self.nodes is None:
-            nodes = []
+            self.nodes = []
             self.load()
-        self.load()
 
     def load(self):
         try:
@@ -188,7 +187,7 @@ class Graph:
                 if members is None:
                     members = []
                 nodeData = [newId, value, members, time.time()]
-                self.nodes.append(nodeTemplate(*nodeData))
+                self.nodes.append(self.nodeTemplate(*nodeData))
                 database.references.append([])
                 for m in members:
                     if m is not None:
@@ -331,7 +330,7 @@ def say(content, source=None, intent='information', record=False):
         if source is not None:
             database.addNode('source', [newId, source])
     print(content)
-    return newId
+    # return newId
 
 # logical_relations / relations
 # why was getsize working before?
@@ -390,7 +389,7 @@ def getInfo():
                 ]
                 if all(conditions):
                     newLink = [n[0], rel, n[2], n[3]]
-                    links.append(nodeTemplate(*newLink))
+                    links.append(database.nodeTemplate(*newLink))
         # if len(n.members) > 0:
         #     for R in relations:
         #         refs = getReferrers(n)
@@ -611,7 +610,7 @@ for i in range(1000):
     elif newInput == 'loadbackup':
         with open('eva_03_10_2022, 15_22_15.evab', 'rb') as fileRef:
             database.nodes = pickle.loads(zlib.decompress(fileRef.read()))
-            database.nodes = list(map(lambda n: nodeTemplate(*n), database.nodes))
+            database.nodes = list(map(lambda n: database.nodeTemplate(*n), database.nodes))
 
             database.references = []
             print('Building reference lists')
@@ -698,3 +697,5 @@ for i in range(1000):
 # TODO: track compute usage
 # TODO: coincidence finding
 # TODO: function definitions
+# TODO: count appearances of character
+# TODO: extract lines from text files
