@@ -22,6 +22,8 @@ from hash_file import *
 import sys
 import os
 
+import pyparsing
+
 from PIL import Image
 import pytesseract
 
@@ -552,6 +554,35 @@ def listCommand(newInput):
     for m in members:
         display(m)
 
+ppc = pyparsing.pyparsing_common
+pyparsing.ParserElement.enablePackrat()
+# sys.setrecursionlimit(3000)
+
+integer = ppc.integer
+variable = pyparsing.Word(pyparsing.alphas)
+operand = pyparsing.Literal('*') | variable | integer
+
+adjOp = pyparsing.Literal(".")
+# signop = pyparsing.oneOf("+ -")
+# multop = pyparsing.oneOf("* /")
+# plusop = pyparsing.oneOf("+ -")
+# factop = pyparsing.Literal("!")
+
+expr = pyparsing.infixNotation(
+    operand,
+    [
+        # ("^", 2, pyparsing.opAssoc.RIGHT),
+        (".", 2, pyparsing.opAssoc.LEFT),
+        (";", 2, pyparsing.opAssoc.LEFT),
+        ("/", 2, pyparsing.opAssoc.LEFT),
+        (">", 2, pyparsing.opAssoc.LEFT),
+        ("^", 2, pyparsing.opAssoc.LEFT),
+        ("?", 2, pyparsing.opAssoc.LEFT),
+        # (signop, 1, pyparsing.opAssoc.RIGHT),
+        # (multop, 2, pyparsing.opAssoc.LEFT),
+        # (plusop, 2, pyparsing.opAssoc.LEFT),
+    ],
+)
 # def mapCommand
 
 current_question = None
