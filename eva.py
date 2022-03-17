@@ -95,6 +95,9 @@ class Node:
         # return getattr(self.graph.nodes[self.id], attr)
         return getattr(self.rep, attr)
 
+    def __str__(self):
+        return f'{self.id}: {self.value} ~ {"; ".join([str(self.graph[i].value) if i else "[null]" for i in self.members])}'
+
 # TODO: handle graphs sharing nodes
 
 class Graph:
