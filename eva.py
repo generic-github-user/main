@@ -208,9 +208,14 @@ class Graph:
             pickle.dump(database.references, cRef)
         return self
 
-    def random(self):
-        node = random.choice(self.nodes)
-        node = Node(node.id, self, node)
+    def random(self, weighted=True):
+        # W = [0.9 if nodeProperty(n.id, 'origin')=='user_input' else 0.1 for n in self]
+        W = [0.9 if (n.value not in ignoredTypes and isinstance(n.value, str)) else 0.1 for n in self.nodes]
+        if weighted:
+            node = random.choices(self.nodes, weights=W, k=1)[0]
+        else:
+            node = random.choice(self.nodes)
+        node = Node(node.id, self.parent, node)
         assert(isinstance(node, Node))
         return node
 
