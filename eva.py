@@ -201,11 +201,14 @@ class Graph:
         return newId
 
     def save(self):
-        with open(self.savePath, 'wb') as fileRef:
-            nodeList = list(map(list, self.nodes))
-            pickle.dump(nodeList, fileRef)
-        with open('./cache', 'wb') as cRef:
-            pickle.dump(database.references, cRef)
+        if len(self) > 80000:
+            with open(self.savePath, 'wb') as fileRef:
+                nodeList = list(map(list, self.nodes))
+                pickle.dump(nodeList, fileRef)
+            with open('./cache', 'wb') as cRef:
+                pickle.dump(database.references, cRef)
+        else:
+            say('Database integrity check failed; terminating save')
         return self
 
     def random(self, weighted=True):
