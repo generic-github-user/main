@@ -729,22 +729,3 @@ for i in range(1000):
         #                 id_c = database.addNode(r, [id_a, id_b])
         #                 database.addNode('source', [id_c, inputId])
     database.save()
-
-
-# TODO: mark time node/neighborhood was last updated
-# TODO: search by pattern
-# TODO: graph compression
-# TODO: node hashes
-# TODO: HCI language
-# TODO: graph manipulation command language
-# TODO: estimate time to completion
-# TODO: create test suite
-# TODO: tripwires
-# TODO: support wolfram alpha-style queries, e.g., "seconds since bill gates was born"
-# TODO: support encoding of algorithms in graph
-# TODO: proper error handling
-# TODO: track compute usage
-# TODO: coincidence finding
-# TODO: function definitions
-# TODO: count appearances of character
-# TODO: extract lines from text files
