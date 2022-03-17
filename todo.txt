@@ -16,3 +16,10 @@
 # TODO: count appearances of character
 # TODO: extract lines from text files
 # TODO: rigid English parser
+# TODO: graph matching
+# TODO: infinite node chains
+# TODO: construct heuristics
+# TODO: move logical relations into database
+# TODO: graph visualization
+# TODO: define concepts analogous to adjacency using grammars?
+# TODO: exhaustive(ish) list of logical relations and meta-relations

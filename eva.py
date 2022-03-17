@@ -55,10 +55,6 @@ logical_relations = [
     ('member', 'contain', 'contain'),
     ('contain', 'contain', 'contain'),
 ]
-# graph matching
-# infinite node chains
-# construct heuristics
-# define concepts analogous to adjacency using grammars?
 
 # An OOP-style interface for working with the graph database
 # The efficient array-based implementation is still used but this wrapper allows for method chaining and more literate code
