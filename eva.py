@@ -159,6 +159,8 @@ class Graph:
             self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True)
             markType(self[node])
             markLength(self[node])
+            tokenize(self[node], level=level+1)
+
             current = self[node]
             if current.value not in ignoredTypes and isinstance(current.value, str):
                 if isinstance(current.value, str):
@@ -449,6 +451,15 @@ def markLength(node):
         m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='length', node.referrers()))
         if (len(m) == 0):
             database.addNode('length', [node.id, lenId])
+def tokenize(node, **kwargs):
+    assert(isinstance(node, Node))
+    say(f'Tokenizing {node}')
+    if nodeProperty(node.id, 'origin')=='user_input' and (node.value not in ignoredTypes):
+        tokens = node.value.split()
+        if len(tokens) > 1:
+            for t in tokens:
+                database.addNode('token', [database.addNode(t, [], False, **kwargs), node.id], False, True, **kwargs)
+    return node
 
 def updateAll():
     if debug:
@@ -483,11 +494,8 @@ def updateAll():
                     database.addNode('group', [n.id, database.addNode('ratings', [], False)], False, True)
 
     say('Extracting tokens from text nodes')
-    for n in list(filter(lambda n: nodeProperty(n.id, 'origin')=='user_input' and n.value not in ignoredTypes, nodes)):
-        tokens = n[1].split()
-        if len(tokens) > 1:
-            for t in tokens:
-                database.addNode('token', [database.addNode(t, [], False), n.id], False, True)
+    for n in nodes:
+        tokenize(n)
     database.save()
     if debug:
         print('Done')
