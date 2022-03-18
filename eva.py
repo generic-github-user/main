@@ -37,7 +37,7 @@ sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
 importDir = '../../Downloads/'
-ignoredTypes = ['length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
+ignoredTypes = ['intent', 'length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
 debug = True
 buffer = None
 # snails.adjacent
@@ -52,6 +52,9 @@ logical_relations = [
     ('member', 'subset', 'member'),
     ('member', 'use', 'use'),
     ('member', 'can', 'can'),
+    ('subset', 'can', 'can'),
+    ('member', 'must', 'must'),
+    ('member', 'need', 'need'),
     ('member', 'melt', 'melt'),
     ('member', 'contain', 'contain'),
     ('contain', 'contain', 'contain'),
@@ -692,7 +695,7 @@ for i in range(1000):
     elif newInput == 'restore':
         database.nodes = json.load(open('./prevdata.json'))
     elif newInput == 'loadbackup':
-        with open('eva_03_10_2022, 15_22_15.evab', 'rb') as fileRef:
+        with open('eva_03_17_2022, 11_41_04.evab', 'rb') as fileRef:
             database.nodes = pickle.loads(zlib.decompress(fileRef.read()))
             database.nodes = list(map(lambda n: database.nodeTemplate(*n), database.nodes))
 
@@ -719,6 +722,8 @@ for i in range(1000):
             '[melt]': 'melt',
             '[can]': 'can',
             '[contain]': 'contain',
+            '[must]': 'must',
+            '[need]': 'need',
         }
         for s in symbols:
             if s in newInput:

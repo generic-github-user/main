@@ -23,3 +23,7 @@
 # TODO: graph visualization
 # TODO: define concepts analogous to adjacency using grammars?
 # TODO: exhaustive(ish) list of logical relations and meta-relations
+# TODO: implement staging system for simultaneously using and developing Eva
+# TODO: confidence in ______
+# TODO: demo command
+# TODO: wikidata integration
