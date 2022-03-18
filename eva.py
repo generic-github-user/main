@@ -526,6 +526,16 @@ def scanDir(DB, parent, dir, count, scanId):
                 DB.addNode('tesseract_parse', [fId, DB.addNode(tesseractParse, [], False)], False, True)
             except Exception as ex:
                 print(ex)
+        if hasExt(dir.path, 'py js txt java'):
+            try:
+                say(f'Reading lines from text file {dir.path}')
+                with open(dir.path, 'r') as txtFile:
+                    lines = txtFile.readlines()
+                    if len(lines) <= 1000:
+                        for line in lines:
+                            DB.addNode('line_from', [DB.addNode(line, [], False), fId], False, True)
+            except Exception as ex:
+                print(ex)
     return count+1
 
 def backup():
