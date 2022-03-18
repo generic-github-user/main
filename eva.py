@@ -23,6 +23,7 @@ import sys
 import os
 
 import pyparsing
+import spacy
 
 from PIL import Image
 import pytesseract
@@ -734,6 +735,17 @@ for i in range(1000):
                             True
                         )
                 break
+    elif newInput.startswith('#'):
+        doc = Eva.nlp(newInput[1:])
+        parseNode = database.addNode('spacy_parse', [], True)
+        database.addNode('source', [parseNode, inputId])
+        for token in doc:
+            tokenNode = database.addNode(token.text, [], False)
+            database.addNode('token', [tokenNode, parseNode], True)
+            database.addNode('dep', [tokenNode, database.addNode(token.dep_, [], False)], True)
+            database.addNode('pos', [tokenNode, database.addNode(token.pos_, [], False)], True)
+            database.addNode('head', [tokenNode, database.addNode(token.head.text, [], False)], True)
+
     else:
         if current_question is not None:
             database.addNode('response', [inputId, current_question], True)
