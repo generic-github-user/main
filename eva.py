@@ -518,6 +518,14 @@ def scanDir(DB, parent, dir, count, scanId):
             count = scanDir(DB, fId, item, count, scanId)
     if dir.is_file():
         DB.addNode('md5_hash', [fId, DB.addNode(hash_file(dir.path), [], False)])
+        # if any(dir.path.endswith('.'+ext) for ext in ['png', 'jpg']):
+        if hasExt(dir.path, 'png jpg'):
+            try:
+                say(f'Running Tesseract OCR on {dir.path}')
+                tesseractParse = pytesseract.image_to_string(Image.open(dir.path))
+                DB.addNode('tesseract_parse', [fId, DB.addNode(tesseractParse, [], False)], False, True)
+            except Exception as ex:
+                print(ex)
     return count+1
 
 def backup():
