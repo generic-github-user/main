@@ -46,12 +46,23 @@ importDir = '../../Downloads/'
 ignoredTypes = ['intent', 'length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
 debug = True
 buffer = None
+class Eva:
+    selection = None
+    timeLimit = 10
+    opLimit = 10
+    debugInfo = False
+    genericFunctions = dict(
+        sum=sum,
+        mul=lambda a, b: a*b
+    )
+    modelName = 'en_core_web_sm'
+    nlp = spacy.load(modelName)
+    gbParser = create_parser(lang='en')
+
 # snails.adjacent
 # todo = []
 # inferences = 0
 
-timeLimit = 5
-opLimit = 10
 
 logical_relations = [
     ('subset', 'subset', 'subset'),
