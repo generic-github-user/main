@@ -23,10 +23,16 @@ import sys
 import os
 
 import pyparsing
+from arithmetic_parser import arith
 import spacy
+import graphbrain
+from graphbrain.parsers import create_parser
 
 from PIL import Image
 import pytesseract
+
+import requests
+from bs4 import BeautifulSoup
 
 print('Done')
 
