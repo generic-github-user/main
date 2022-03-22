@@ -181,6 +181,7 @@ class Graph:
             markType(self[node])
             markLength(self[node])
             tokenize(self[node], level=level+1)
+            markSubstrings(self[node], level=level+1)
 
             current = self[node]
             if current.value not in ignoredTypes and isinstance(current.value, str):
@@ -456,6 +457,22 @@ def getInfo():
 
 
 def markType(node):
+def markSubstrings(node, **kwargs):
+    say(f'Searching for nodes of which {node} is a substring')
+    if node.value not in ignoredTypes:
+        for node2 in database:
+            conditions = [
+                lambda: node.id != node2.id,
+                lambda: node.value != node2.value,
+                lambda: all(isinstance(n.value, str) for n in [node, node2]),
+                lambda: node.value in node2.value,
+            ]
+            if  all(c() for c in conditions):
+                if Eva.debugInfo:
+                    say(f'{node} is a substring of {node2}')
+                database.addNode('substring', [node.id, node2.id], False, True)
+    return node
+
     assert(isinstance(node, Node))
     if node.value not in ignoredTypes:
         typeId = database.addNode(type(node.value).__name__, [], False)
