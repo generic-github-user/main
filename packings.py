@@ -27,3 +27,6 @@ class Polyomino:
         for i, ind in enumerate(self.indices):
             self.indices[i] = tuple(np.array(ind)+lower)
         return self
+
+    def __str__(self):
+        return '\n'.join(''.join('██' if cell else '  ' for cell in row) for row in self.data)
