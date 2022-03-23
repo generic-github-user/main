@@ -17,6 +17,14 @@ class Polyomino:
         for i in range(size-1):
             self.grow()
 
+    def erode(self, n=1):
+        for x in range(n):
+            i = np.random.randint(self.size)
+            self.data[self.indices[i]] = 0
+            self.size -= 1
+            self.indices.pop(i)
+        return self
+
     def grow(self):
         # indices = np.transpose(self.data.nonzero())
         edges = []
@@ -53,3 +61,6 @@ class Polyomino:
 
     def __str__(self):
         return '\n'.join(''.join('██' if cell else '  ' for cell in row) for row in self.data)
+
+
+print(Polyomino().erode(5))
