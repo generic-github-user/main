@@ -13,6 +13,29 @@ class Polyomino:
         self.neighbors = [0]
         self.size = 1
 
+        self.pad()
+        for i in range(size-1):
+            self.grow()
+
+    def grow(self):
+        # indices = np.transpose(self.data.nonzero())
+        edges = []
+        offsets = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+        for x in self.indices:
+            for o in np.array(offsets):
+                c = tuple(np.array(x)+o)
+                if self.data[c] != 1 and c not in edges:
+                    edges.append(c)
+        z = edges[np.random.randint(len(edges))]
+        self.data[z] = 1
+        self.size += 1
+        self.indices.append(z)
+        # self.neighbors.
+
+        self.pad()
+        return self
+
+
     def pad(self):
         # indices = np.transpose(self.data.nonzero())
         padding = np.stack([
