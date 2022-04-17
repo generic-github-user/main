@@ -591,7 +591,7 @@ def queryCommand(newInput):
             return output
         return newQuery
 
-    Q = queryGenerator(parsed)]
+    Q = queryGenerator(parsed)
     results = Q()
     say(f'Found {len(results)} matching nodes')
     say('Updating selection')
@@ -613,6 +613,66 @@ def adjCommand(newInput):
 def breakpointCommand(newInput):
     breakpoint()
 
+@command('$')
+def relationCommand(newInput):
+    symbols = {
+        '<': 'subset',
+        '{': 'member',
+        '[use]': 'use',
+        '[melt]': 'melt',
+        '[can]': 'can',
+        '[contain]': 'contain',
+        '[must]': 'must',
+        '[need]': 'need',
+    }
+    for s in symbols:
+        if s in newInput:
+            A, B = newInput[1:].split(s)
+            for Ai in A.split(','):
+                for Bi in B.split(','):
+                    database.addNode(
+                        symbols[s],
+                        [
+                            database.addNode(Ai, [], False),
+                            database.addNode(Bi, [], False)
+                        ],
+                        False,
+                        True
+                    )
+            break
+
+@command('json')
+def jsonCommand(newInput):
+    jsonPath = Settings.importDir + newInput[5:]
+    database.addNode(jsonPath, [], False)
+    with open(jsonPath) as f:
+        newData = json.load(f)
+    print(newData)
+
+@command('remove')
+def removeCommand(newInput):
+    database.nodes.pop()
+
+@command('restore')
+def restoreCommand(newInput):
+    database.nodes = json.load(open('./prevdata.json'))
+
+@command('print')
+def printCommand(newInput):
+    print('10 most recent nodes:')
+    N = len(database)
+    for x in range(N-10, N):
+        say(str(database[x]))
+
+@command('refresh')
+def refreshCommand(newInput):
+    print(database.getNodes(newInput[8:]))
+    think(database.getNodes(newInput[8:])[0].id)
+
+@command('uall')
+def updateCommand(newInput):
+    updateAll()
+
 # def mapCommand
 
 current_question = None
@@ -631,69 +691,20 @@ for i in range(1000):
         if newInput.startswith(prefix):
             f(newInput)
 
-    if newInput == 'print':
-        print('10 most recent nodes:')
-        N = len(database)
-        for x in range(N-10, N):
-            say(str(database[x]))
-    elif newInput.startswith('refresh'):
-        print(database.getNodes(newInput[8:]))
-        think(database.getNodes(newInput[8:])[0].id)
-    elif newInput == 'remove':
-        database.nodes.pop()
-    elif newInput == 'restore':
-        database.nodes = json.load(open('./prevdata.json'))
-    elif newInput == 'uall':
-        updateAll()
-    elif newInput.startswith('json'):
-        jsonPath = Settings.importDir + newInput[5:]
-        database.addNode(jsonPath, [], False)
-        with open(jsonPath) as f:
-            newData = json.load(f)
-        print(newData)
-    # elif newInput == 'undo':
-    elif newInput.startswith('$'):
-        symbols = {
-            '<': 'subset',
-            '{': 'member',
-            '[use]': 'use',
-            '[melt]': 'melt',
-            '[can]': 'can',
-            '[contain]': 'contain',
-            '[must]': 'must',
-            '[need]': 'need',
-        }
-        for s in symbols:
-            if s in newInput:
-                A, B = newInput[1:].split(s)
-                for Ai in A.split(','):
-                    for Bi in B.split(','):
-                        database.addNode(
-                            symbols[s],
-                            [
-                                database.addNode(Ai, [], False),
-                                database.addNode(Bi, [], False)
-                            ],
-                            False,
-                            True
-                        )
-                break
-
-    else:
-        if current_question is not None:
-            database.addNode('response', [inputId, current_question], True)
-            if current_link is not None:
-                if newInput in ['yes']:
-                    # check this
-                    if debug:
-                        print('Adding link to database')
-                    J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
-                    database.addNode('truth', [J, database.addNode(True, [], False)], True)
-                elif newInput in ['no']:
-                    if debug:
-                        print('Adding link to database')
-                    J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
-                    database.addNode('truth', [J, database.addNode(False, [], False)], True)
-                current_link = None
-            current_question = None
+    if current_question is not None:
+        database.addNode('response', [inputId, current_question], True)
+        if current_link is not None:
+            if newInput in ['yes']:
+                # check this
+                if debug:
+                    print('Adding link to database')
+                J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
+                database.addNode('truth', [J, database.addNode(True, [], False)], True)
+            elif newInput in ['no']:
+                if debug:
+                    print('Adding link to database')
+                J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
+                database.addNode('truth', [J, database.addNode(False, [], False)], True)
+            current_link = None
+        current_question = None
     database.save()
