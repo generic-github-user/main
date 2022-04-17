@@ -36,6 +36,7 @@ from bs4 import BeautifulSoup
 
 from node import Node
 from graph import Graph
+from settings import Settings
 
 print('Done')
 
@@ -50,10 +51,6 @@ ignoredTypes = ['parent', 'line_from', 'intent', 'length', 'type', 'token', 'ori
 debug = True
 buffer = None
 class Eva:
-    selection = None
-    timeLimit = 10
-    opLimit = 10
-    debugInfo = False
     genericFunctions = dict(
         sum=sum,
         mul=lambda a, b: a*b
@@ -164,7 +161,7 @@ def timeFunc(F, level=0):
     def timed(*args, **kwargs):
         start = time.time()
 
-        if Eva.debugInfo:
+        if Settings.debugInfo:
             say('Executing function', level=level+1)
 
         fOut = F(*args, **kwargs)
@@ -177,7 +174,7 @@ def timeFunc(F, level=0):
         database.addNode('end_time', src + [database.addNode(end, [], False)], False, True, level=level+1)
         database.addNode('duration', src + [database.addNode(elapsed, [], False)], False, True, level=level+1)
 
-        if Eva.debugInfo:
+        if Settings.debugInfo:
             say(f'Finished execution in {elapsed} seconds', level=level)
 
         return fOut
@@ -280,7 +277,7 @@ def markSubstrings(node, **kwargs):
                 lambda: node.value in node2.value,
             ]
             if  all(c() for c in conditions):
-                if Eva.debugInfo:
+                if Settings.debugInfo:
                     say(f'{node} is a substring of {node2}')
                 database.addNode('substring', [node.id, node2.id], False, True)
     return node
@@ -489,14 +486,14 @@ def thinkCommand(newInput):
     before = time.time()
     say(f'Current selection: {Eva.selection}')
     if Eva.selection is None:
-        for j in range(Eva.opLimit):
+        for j in range(Settings.opLimit):
             timeFunc(think)()
-            if time.time()-before>Eva.timeLimit:
+            if time.time()-before>Settings.timeLimit:
                 break
     else:
         for n in Eva.selection:
             timeFunc(think)(n.id)
-            if time.time()-before>Eva.timeLimit:
+            if time.time()-before>Settings.timeLimit:
                 break
 
 @command('list')

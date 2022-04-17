@@ -1,6 +1,8 @@
 from collections import namedtuple
 import pickle
 
+from settings import Settings
+
 class Graph:
     def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None):
         self.savePath = savePath
@@ -125,7 +127,7 @@ class Graph:
             matches = self.search([None, value, members, None])
         else:
             matches = self.getNodes(value)
-        if Eva.debugInfo:
+        if Settings.debugInfo:
             say(f'Search results: {matches}', level=level+1)
         if (duplicate or not matches):
                 say(f'Creating node {value} with members [{"; ".join(str(m) for m in members)}]', level=level+1)
@@ -139,7 +141,7 @@ class Graph:
                         database.references[m].append(newId)
         else:
                 return matches[0].id
-        if Eva.debugInfo:
+        if Settings.debugInfo:
             say('Updating node', level=level+1)
         if update:
             self.updateNode(newId)
