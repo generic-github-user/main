@@ -39,6 +39,7 @@ from node import Node
 from graph import Graph
 from settings import Settings
 from timefunc import timeFunc
+from entropy import estimateEntropy
 
 print('Done')
 
@@ -117,9 +118,6 @@ except:
         database.references.append([m.id for m in nodes if (n.id in m[2])])
     if debug:
         print('Done')
-
-def estimateEntropy(value):
-    return getsize(zlib.compress(value))/getsize(value)
 
 def nodeProperty(node, attr, update=False):
     # n[1]
