@@ -3,7 +3,8 @@ eva-db*
 prevdata.*
 *.evab
 customize.py
-cache
+cache*
+ignore_*
 
 *.synctex.gz
 *.pdf
