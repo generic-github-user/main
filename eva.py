@@ -44,8 +44,6 @@ from entropy import estimateEntropy
 print('Done')
 
 
-# def stringEntropy
-
 sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
@@ -79,11 +77,6 @@ logical_relations = [
     ('contain', 'contain', 'contain'),
 ]
 
-# TODO: handle graphs sharing nodes
-
-# def joinGraphs(G):
-#     output = Graph([])
-
 def importList(data):
     for i, item in enumerate(data):
         if isinstance(item, data):
@@ -92,18 +85,12 @@ def importList(data):
             database.addNode(item, [], True)
     return data
 
-# database = Graph()
-# for n in nodes:
-#     database.nodes.append(Node(
-#         n[1], [database.nodes[i] for i in n[2]], graph=database,
-#         dict(id=n[0], time=n[3])
-#     ))
-
 database = Graph(savePath='./eva-db', logger=None)
 timeFunc = partial(timeFunc, database)
 
+# TODO: handle graphs sharing nodes
 # TODO: use tensorflow models
-# meta-inference
+# TODO: meta-inference
 
 
 try:
@@ -340,6 +327,7 @@ def hasExt(path, E):
 
 def scanDir(DB, parent, dir, count, scanId):
     say(f'Scanning {dir.path}')
+
     fId = DB.addNode(dir.path, [], False)
     DB.addNode('source', [fId, scanId], False, True)
     DB.addNode('name', [fId, DB.addNode(dir.name, [], False)], False, True)
@@ -347,10 +335,12 @@ def scanDir(DB, parent, dir, count, scanId):
     DB.addNode('accessed', [fId, DB.addNode(os.stat(dir).st_atime, [], False)], False, True)
     DB.addNode('modified', [fId, DB.addNode(os.stat(dir).st_mtime, [], False)], False, True)
     DB.addNode('parent', [fId, parent], False, True)
+
     if dir.is_dir() and (count < 100):
         say(f'Scanning directory')
         for item in os.scandir(dir):
             count = scanDir(DB, fId, item, count, scanId)
+
     if dir.is_file():
         DB.addNode('md5_hash', [fId, DB.addNode(hash_file(dir.path), [], False)])
         # if any(dir.path.endswith('.'+ext) for ext in ['png', 'jpg']):
