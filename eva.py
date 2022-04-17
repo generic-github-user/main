@@ -175,6 +175,12 @@ def timeFunc(F, level=0):
 
 # == length of *
 
+def updater(node, level):
+    markType(node, level=level+1)
+    markLength(node, level=level+1)
+    tokenize(node, level=level+1)
+    markSubstrings(node, level=level+1)
+
 def think(node=None):
     infNode = None
     start = time.time()
@@ -186,7 +192,7 @@ def think(node=None):
     name = node.value
     say(f'Pondering {name}', level=0)
 
-    database.updateNode(node.id, level=1)
+    database.updateNode(node.id, level=1, callback=updater)
     callNode = database.addNode('func_call', [database.addNode('think', [], False)], True, level=1)
 
     inferences = []

@@ -3,6 +3,8 @@ import pickle
 import time
 import random
 
+from getsize import getsize
+
 from node import Node
 # import node
 # Node = node.Node
@@ -40,7 +42,7 @@ class Graph:
             logger = L
         self.logger = logger
 
-    def nodeMatch(node, info):
+    def nodeMatch(self, node, info):
         for i in range(len(info)):
             if (info[i] != None and info[i] != node[i]):
                 return False
@@ -95,7 +97,7 @@ class Graph:
     def nodeFilter(self, condition):
         return self.filter(lambda n: condition(Node(n.id, self.parent, n)))
 
-    def updateNode(self, node, level=0):
+    def updateNode(self, node, level=0, callback=None):
         assert(isinstance(node, int))
 
         if self[node].value not in Settings.ignoredTypes:
@@ -115,10 +117,8 @@ class Graph:
             numAdj = len(self[node].adjacent())
             self.logger(f'Found {numAdj} adjacent nodes', level=level+1)
             self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True, level=level+1)
-            markType(self[node], level=level+1)
-            markLength(self[node], level=level+1)
-            tokenize(self[node], level=level+1)
-            markSubstrings(self[node], level=level+1)
+            if callback is not None:
+                callback(self[node], level+1)
 
             current = self[node]
             if current.value not in Settings.ignoredTypes and isinstance(current.value, str):
@@ -162,6 +162,7 @@ class Graph:
         if Settings.debugInfo:
             self.logger('Updating node', level=level+1)
         if update:
+            # TODO: pass callback
             self.updateNode(newId)
         return newId
 
