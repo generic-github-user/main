@@ -43,7 +43,7 @@ sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
 importDir = '../../Downloads/'
-ignoredTypes = ['intent', 'length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
+ignoredTypes = ['parent', 'line_from', 'intent', 'length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
 debug = True
 buffer = None
 class Eva:
@@ -91,7 +91,7 @@ class Node:
         self.rep = rep
         self.references = []
 
-    def referrers(self, update=True):
+    def referrers(self, update=False):
         return Graph([self.graph.get(x, update) for x in self.graph.references[self.id]])
 
     def adjacent(self, value=None, directional=False, return_ids=True):
@@ -99,7 +99,8 @@ class Node:
         assert(isinstance(return_ids, bool))
 
         adjacent = []
-        for m in self.referrers().nodes:
+        # for i, m in self.referrers().hashmap.items():
+        for m in self.referrers():
             for ref in m.members:
                 if (ref != self.id) and (value is None or m.value == value) and ((not directional) or m.members.index(self.id)==0):
                     adjacent.append(ref)
@@ -113,19 +114,39 @@ class Node:
         return getattr(self.rep, attr)
 
     def __str__(self):
-        return f'{self.id}: {self.value} ~ {"; ".join([str(self.graph[i].value) if i else "[null]" for i in self.members])}'
+        return f'[{self.id}: {str(self.value)[:30]} ~ [{"; ".join([str(self.graph[i].value)[:30] if i else "[null]" for i in self.members])}]]'
 
 # TODO: handle graphs sharing nodes
 
+# def joinGraphs(G):
+#     output = Graph([])
+
+
 class Graph:
-    def __init__(self, nodes=None, savePath='./saved_graph', fields='id value members time'):
+    def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None):
         self.savePath = savePath
         self.nodes = nodes
         self.fields = fields
         self.nodeTemplate = namedtuple('node', fields)
+        if references is None:
+            references = []
+        self.references = references
+
+        if parent is None:
+            parent = self
+        self.parent = parent
+
+        if hashmap is None:
+            hashmap = {}
+        self.hashmap = hashmap
+
         if self.nodes is None:
             self.nodes = []
             self.load()
+        else:
+            for n in self.nodes:
+                self.hashmap[n.id] = n
+
 
     def load(self):
         try:
@@ -135,51 +156,66 @@ class Graph:
         except Exception as error:
             print(error)
             self.nodes = []
+            self.hashmap = {}
 
         self.nodes = list(map(lambda n: self.nodeTemplate(*n), self.nodes))
+        for n in self.nodes:
+            self.hashmap[n.id] = n
+        for n in self.nodes:
+            self.hashmap[n.id] = n
         return self
 
     def getNodes(self, value):
-        return Graph(list(filter(lambda n: n[1]==value, self.nodes)))
+        return Graph(list(filter(lambda n: n[1]==value, self.nodes)), parent=self.parent)
+        # return Graph(hashmap={k: v for k, v in self.hashmap.items() if v.value==value})
 
     def search(self, info):
-        return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)))
+        return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)), parent=self.parent)
+        # return Graph(hashmap={k: v for k, v in self.hashmap.items() if nodeMatch(v, info)})
 
     def filter(self, condition):
         # return Graph(list(filter(condition, self.nodes)))
         say(f'Searching {len(self)} nodes')
         result = []
+        newrefs = []
+        # outGraph = Graph()
         for x in range(len(self)):
             # node = self.get(x, False)
             node = self.nodes[x]
             if condition(node):
                 result.append(node)
+                # outGraph.addNode()
+                newrefs.append(self.references[x])
             if (x % 10000 == 0):
                 say(f'Checked {x}/{len(self)} nodes')
-        return Graph(result)
+        return Graph(result, references=newrefs, parent=self.parent)
+        # return outGraph
 
-    def updateNode(self, node):
+    def nodeFilter(self, condition):
+        return self.filter(lambda n: condition(Node(n.id, self.parent, n)))
+
+    def updateNode(self, node, level=0):
         assert(isinstance(node, int))
 
         if self[node].value not in ignoredTypes:
             self.addNode(
                 'processed_flag',
                 [node],
-                False, True
+                False, True, level=level+1
             )
             self.addNode(
                 'unit',
                 [
-                    self.addNode('size', [node, self.addNode(getsize(self[node]), [], False)], False, True),
-                    self.addNode('byte', [], False)
-                ]
+                    self.addNode('size', [node, self.addNode(getsize(self[node]), [], False)], False, True, level=level+1),
+                    self.addNode('byte', [], False, level=level+1)
+                ], level=level+1
             )
             # self.addNode('neighborhood_size', [node, self.addNode(len())])
             numAdj = len(self[node].adjacent())
-            say(f'Found {numAdj} adjacent nodes')
-            self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True)
-            markType(self[node])
-            markLength(self[node])
+            say(f'Found {numAdj} adjacent nodes', level=level+1)
+            self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True, level=level+1)
+            markType(self[node], level=level+1)
+            markLength(self[node], level=level+1)
             tokenize(self[node], level=level+1)
             markSubstrings(self[node], level=level+1)
 
@@ -189,15 +225,15 @@ class Graph:
                     est = estimateEntropy(bytes(current.value, 'UTF-8'))
                 else:
                     est = estimateEntropy(bytes(current.value))
-                say(f'Estimated entropy of {current.value} is {est}')
-                entId = self.addNode(est, [], False)
+                say(f'Estimated entropy of {current.value} is {est}', level=level+1)
+                entId = self.addNode(est, [], False, level=level+1)
                 m = list(filter(lambda x: x.members and current.id == x.members[0] and x.value=='entropy_estimate', current.referrers()))
                 if (len(m) == 0):
-                    self.addNode('entropy_estimate', [current.id, entId])
+                    self.addNode('entropy_estimate', [current.id, entId], level=level+1)
 
         return node
 
-    def addNode(self, value, members=None, duplicate=True, useSearch=False, update=False):
+    def addNode(self, value, members=None, duplicate=True, useSearch=False, update=False, level=0):
         assert(isinstance(members, list) or members is None)
         assert(isinstance(duplicate, bool))
         assert(isinstance(useSearch, bool))
@@ -208,7 +244,10 @@ class Graph:
             matches = self.search([None, value, members, None])
         else:
             matches = self.getNodes(value)
+        if Eva.debugInfo:
+            say(f'Search results: {matches}', level=level+1)
         if (duplicate or not matches):
+                say(f'Creating node {value} with members [{"; ".join(str(m) for m in members)}]', level=level+1)
                 if members is None:
                     members = []
                 nodeData = [newId, value, members, time.time()]
@@ -219,6 +258,8 @@ class Graph:
                         database.references[m].append(newId)
         else:
                 return matches[0].id
+        if Eva.debugInfo:
+            say('Updating node', level=level+1)
         if update:
             self.updateNode(newId)
         return newId
@@ -245,16 +286,19 @@ class Graph:
         assert(isinstance(node, Node))
         return node
 
-    def get(self, i, update=True):
-        assert(isinstance(i, int))
+    def get(self, i, update=False):
+        # assert(isinstance(i, (int, slice)))
         assert(isinstance(update, bool))
 
         if isinstance(i, int):
+            # todo: call updateNode?
             if update:
                 self.addNode('accessed', [i, self.addNode(time.time(), [], False)])
-            return Node(self.nodes[i].id, self, self.nodes[i])
+            return Node(self.nodes[i].id, self.parent, self.nodes[i])
         elif isinstance(i, slice):
-            return Graph(self.nodes[i], self.savePath)
+            return Graph(self.nodes[i], self.savePath, parent=self.parent)
+        elif (i is None):
+            return None
         else:
             print(i)
             raise Exception
@@ -274,11 +318,17 @@ class Graph:
         #     def wrapNode(rep):
         #         return Node(nid, graph, rep)
         def nodeWrapper(node):
-            return Node(node.id, self, node)
+            return Node(node.id, self.parent, node)
         return map(nodeWrapper, self.nodes)
 
 
-
+def importList(data):
+    for i, item in enumerate(data):
+        if isinstance(item, data):
+            importList(data)
+        else:
+            database.addNode(item, [], True)
+    return data
 
 # database = Graph()
 # for n in nodes:
@@ -339,7 +389,7 @@ def nodeMatch(node, info):
             return False
     return True
 
-def nodeProperty(node, attr, update=True):
+def nodeProperty(node, attr, update=False):
     # n[1]
     # getNodes(attr)
     refs = list(filter(lambda n: n.value==attr, database.get(node, update).referrers(update=update)))
@@ -370,61 +420,75 @@ def say(content, source=None, intent='information', record=False, level=0):
 # why was getsize working before?
 # expected_usefulness
 # "hanging" nodes (with intermediary inferences deleted)
+# time_limit wrapper function
 
 def timeFunc(F, level=0):
     def timed(*args, **kwargs):
         start = time.time()
-        say('Executing function', level=level+1)
+
+        if Eva.debugInfo:
+            say('Executing function', level=level+1)
+
         fOut = F(*args, **kwargs)
         end = time.time()
         elapsed = end - start
 
+        assert(fOut is not None)
         src = [fOut] if (fOut is not None) else []
         database.addNode('start_time', src + [database.addNode(start, [], False)], False, True, level=level+1)
         database.addNode('end_time', src + [database.addNode(end, [], False)], False, True, level=level+1)
         database.addNode('duration', src + [database.addNode(elapsed, [], False)], False, True, level=level+1)
 
-        say(f'Finished execution in {elapsed} seconds', level=level)
+        if Eva.debugInfo:
+            say(f'Finished execution in {elapsed} seconds', level=level)
 
         return fOut
     return timed
 
+# == length of *
+
 def think(node=None):
+    infNode = None
     start = time.time()
     if node is None:
+        # weights=
         node = database.random()
     else:
         node = database[node]
     name = node.value
-    say(f'Pondering {name}')
+    say(f'Pondering {name}', level=0)
 
-    database.updateNode(node.id)
+    database.updateNode(node.id, level=1)
+    callNode = database.addNode('func_call', [database.addNode('think', [], False)], True, level=1)
 
     inferences = []
+    random.shuffle(logical_relations)
     for R in logical_relations:
         # inferences.extend(filter(lambda m: self.nodes[m], getAdjacent(node, R[0])))
         adj = node.adjacent(R[0], True)
-        say(f'{len(adj)} nodes adjacent to {name} via {R[0]}')
+        # say(f'{len(adj)} nodes adjacent to {name} via {R[0]}: {adj}', level=2)
         for m1 in adj:
             for m2 in database[m1].adjacent(R[1], True):
                 inferences.append(([R[2], [node.id, m2]], [m1, m2]))
     if len(inferences) > 0:
         inf = random.choice(inferences)
-        newNode = database.addNode(*inf[0], False, True)
-        database.addNode(
+        newNode = database.addNode(*inf[0], False, True, level=1)
+        infNode = database.addNode(
             'origin',
             [newNode, database.addNode('eva_inference', [], False)],
             False,
-            True
+            True,
+            level=1
         )
-        database.addNode('sources', [newNode]+inf[1], False, True)
+        database.addNode('sources', [newNode]+inf[1], False, True, level=1)
         say(
             f'Inferred relationship {database[inf[0][1][0]].value} -- {inf[0][0]} -- {database[inf[0][1][1]].value}',
-            newNode, 'information'
+            newNode, 'information', level=1
         )
     else:
-        say('No viable inferences found')
+        say('No viable inferences found', level=1)
     database.save()
+    return callNode
 
 def getInfo():
     links = []
@@ -456,7 +520,17 @@ def getInfo():
     return newId, current_link
 
 
-def markType(node):
+def makePropertyBuilder():
+    def builder(node, **kwargs):
+        assert(isinstance(node, Node))
+        if node.value not in ignoredTypes:
+            typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
+            m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
+            if (len(m) == 0):
+                database.addNode('type', [node.id, typeId], **kwargs)
+        return node
+    return builder
+
 def markSubstrings(node, **kwargs):
     say(f'Searching for nodes of which {node} is a substring')
     if node.value not in ignoredTypes:
@@ -473,22 +547,27 @@ def markSubstrings(node, **kwargs):
                 database.addNode('substring', [node.id, node2.id], False, True)
     return node
 
+
+
+def markType(node, **kwargs):
     assert(isinstance(node, Node))
     if node.value not in ignoredTypes:
-        typeId = database.addNode(type(node.value).__name__, [], False)
+        typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
         # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
         m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
         if (len(m) == 0):
-            database.addNode('type', [node.id, typeId])
+            database.addNode('type', [node.id, typeId], **kwargs)
     return node
 
-def markLength(node):
+def markLength(node, **kwargs):
     assert(isinstance(node, Node))
     if node.value not in ignoredTypes and isinstance(node.value, str):
-        lenId = database.addNode(len(node.value), [], False)
+        lenId = database.addNode(len(node.value), [], False, **kwargs)
         m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='length', node.referrers()))
         if (len(m) == 0):
-            database.addNode('length', [node.id, lenId])
+            database.addNode('length', [node.id, lenId], **kwargs)
+    return node
+
 def tokenize(node, **kwargs):
     assert(isinstance(node, Node))
     say(f'Tokenizing {node}')
@@ -541,6 +620,9 @@ def updateAll():
 def display(n):
     print(f'{n.id} {n.value} {[database[i].value for i in n.members]}')
 
+def hasExt(path, E):
+    return any(path.endswith(ext) for ext in E.split())
+
 def scanDir(DB, parent, dir, count, scanId):
     say(f'Scanning {dir.path}')
     fId = DB.addNode(dir.path, [], False)
@@ -557,14 +639,14 @@ def scanDir(DB, parent, dir, count, scanId):
     if dir.is_file():
         DB.addNode('md5_hash', [fId, DB.addNode(hash_file(dir.path), [], False)])
         # if any(dir.path.endswith('.'+ext) for ext in ['png', 'jpg']):
-        if hasExt(dir.path, 'png jpg'):
+        if hasExt(dir.path, 'png jpg PNG JPG JPEG'):
             try:
                 say(f'Running Tesseract OCR on {dir.path}')
                 tesseractParse = pytesseract.image_to_string(Image.open(dir.path))
                 DB.addNode('tesseract_parse', [fId, DB.addNode(tesseractParse, [], False)], False, True)
             except Exception as ex:
                 print(ex)
-        if hasExt(dir.path, 'py js txt java'):
+        if hasExt(dir.path, 'py js txt java md ipynb tex'):
             try:
                 say(f'Reading lines from text file {dir.path}')
                 with open(dir.path, 'r') as txtFile:
@@ -576,6 +658,23 @@ def scanDir(DB, parent, dir, count, scanId):
                 print(ex)
     return count+1
 
+# start = 'https://en.wikipedia.org/wiki/Branching_random_walk'
+def html_archive(start, node):
+    requested = time.time()
+    text = requests.get(start).text
+    parsed = BeautifulSoup(text)
+    links = parsed.find_all('a')
+    links = [L.get('href') for L in links]
+    startNode = DB.addNode(start, [], True)
+    # page_name = start.split('/')[-1]
+
+    DB.addNode('text', [startNode, DB.addNode(text, [], True)], False, True)
+
+    for link in links:
+        # link_name = link.split('/')[-1]
+        DB.addNode('links_to', [startNode, DB.addNode(link, [], True)])
+    time.sleep(0.1)
+
 def backup():
     date_format = '%m_%d_%Y, %H_%M_%S'
     backupPath = f'./eva_{datetime.now().strftime(date_format)}.evab'
@@ -584,7 +683,10 @@ def backup():
         B = zlib.compress(pickle.dumps(nodeList))
         fileRef.write(B)
         say(f'Backup saved to {backupPath} [{getsize(B)} bytes]')
-    return backupPath
+    # return backupPath
+
+    callNode = database.addNode('backup', [], True)
+    return callNode
 
 commands = {}
 def command(prefix):
@@ -596,6 +698,7 @@ def command(prefix):
 
 @command('quit')
 def quitCommand(newInput):
+    say('Goodbye')
     quit()
 
 @command('ask')
@@ -613,27 +716,50 @@ def clearCommand(newInput):
     for i in range(50):
         print('')
 
+@command('webcrawl')
+def webcrawlCommand(newInput):
+    def webcrawlWrapper():
+        p = newInput[9:]
+        say(f'Scanning URL {p}')
+        scanNode = database.addNode('web_scan', [], True)
+        html_archive(p, scanNode)
+        say('Done')
+        return scanNode
+    timeFunc(webcrawlWrapper)()
+
+
 @command('crawl')
 def crawlCommand(newInput):
-    p = newInput[6:]
-    say(f'Scanning {p}')
-    scan = database.addNode('file_scan', [], True)
-    c = 0
-    for d in os.scandir(p):
-        scanDir(database, None, d, c, scan)
-    say('Done')
+    def crawlWrapper():
+        p = newInput[6:]
+        say(f'Scanning {p}')
+        scan = database.addNode('file_scan', [], True)
+        c = 0
+        for d in os.scandir(p):
+            scanDir(database, None, d, c, scan)
+        say('Done')
+        # !
+        return scan
+    timeFunc(crawlWrapper)()
 
 @command('backup')
 def backupCommand(newInput):
-    backup()
+    timeFunc(backup)()
 
 @command('think')
 def thinkCommand(newInput):
     before = time.time()
-    for j in range(opLimit):
-        think()
-        if time.time()-before>timeLimit:
-            break
+    say(f'Current selection: {Eva.selection}')
+    if Eva.selection is None:
+        for j in range(Eva.opLimit):
+            timeFunc(think)()
+            if time.time()-before>Eva.timeLimit:
+                break
+    else:
+        for n in Eva.selection:
+            timeFunc(think)(n.id)
+            if time.time()-before>Eva.timeLimit:
+                break
 
 @command('list')
 def listCommand(newInput):
@@ -642,7 +768,20 @@ def listCommand(newInput):
     # could this be made more efficient by first locating the node corresponding to the keyword?
     members = database.filter(lambda x: nodeProperty(x.id, 'member', False)==target)
     for m in members:
-        display(m)
+        print(m)
+
+@command('label')
+def labelCommand(newInput):
+    z = random.randint(1000, 1000000)
+    database.addNode(
+        database.addNode('{:x}'.format(int(z)))
+    )
+
+
+# @command('#')
+# def nlpCommand(newInput):
+
+
 
 ppc = pyparsing.pyparsing_common
 pyparsing.ParserElement.enablePackrat()
@@ -708,7 +847,7 @@ def queryCommand(newInput):
     Eva.selection = results
     print(results)
     for r in results:
-        display(r)
+        print(r)
     return results
 
 # def mapCommand
@@ -734,9 +873,11 @@ for i in range(1000):
     if newInput == 'print':
         print('10 most recent nodes:')
         # for n in database[-10:]:
-        N = len(database.nodes)
+        N = len(database)
         for x in range(N-10, N):
-            display(database[x])
+            say(str(database[x]))
+            # display(database[x])
+            # display(x)
     elif newInput.startswith('find'):
         start = time.time()
         # TODO: clean this up
@@ -744,7 +885,7 @@ for i in range(1000):
         database.addNode('source', [searchNode, inputId])
         results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), database.nodes))
         for n in results:
-            display(n)
+            print(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
         end = time.time()
         elapsed = end-start
@@ -752,10 +893,10 @@ for i in range(1000):
         database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
         database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('adj'):
-        N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database.nodes))[0]
+        N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database))[0]
         results = [database[i] for i in N.adjacent()]
         for n in results:
-            display(n)
+            print(n)
             database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
     elif newInput == 'breakpoint':
         breakpoint()
@@ -772,9 +913,14 @@ for i in range(1000):
             database.nodes = list(map(lambda n: database.nodeTemplate(*n), database.nodes))
 
             database.references = []
-            print('Building reference lists')
-            for n in database.nodes:
-                database.references.append([m.id for m in database.nodes if (n.id in m.members)])
+            print(f'Building reference lists for {len(database.nodes)} nodes')
+            for i, n in enumerate(database.nodes):
+                if (i % 1000 == 0):
+                    say(f'Processed {i} nodes')
+                if n.value not in ['origin', 'accessed', 'source', 'type']:
+                    database.references.append([m.id for m in database.nodes if (n.id in m.members)])
+                else:
+                    database.references.append([])
             print('Done')
         database.save()
     elif newInput == 'uall':
@@ -817,7 +963,7 @@ for i in range(1000):
         parseNode = database.addNode('spacy_parse', [], True)
         database.addNode('source', [parseNode, inputId])
         for token in doc:
-            tokenNode = database.addNode(token.text, [], False)
+            tokenNode = database.addNode(token.text, [], True)
             database.addNode('token', [tokenNode, parseNode], True)
             database.addNode('dep', [tokenNode, database.addNode(token.dep_, [], False)], True)
             database.addNode('pos', [tokenNode, database.addNode(token.pos_, [], False)], True)
