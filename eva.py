@@ -46,8 +46,6 @@ print('Done')
 sys.path.insert(0, '../giraffe')
 # from giraffe import Graph
 
-importDir = '../../Downloads/'
-ignoredTypes = ['parent', 'line_from', 'intent', 'length', 'type', 'token', 'origin', 'label', 'group', 'rating', 'processed_flag', 'source', 'name', 'size', 'accessed', 'modified', 'unit', 'byte', 'importance_heuristic', 'num_adjacent', 'entropy_estimate']
 debug = True
 buffer = None
 class Eva:
@@ -58,6 +56,7 @@ class Eva:
     modelName = 'en_core_web_sm'
     nlp = spacy.load(modelName)
     gbParser = create_parser(lang='en')
+    selection = None
 
 # snails.adjacent
 # todo = []
@@ -97,7 +96,7 @@ def importList(data):
 #         dict(id=n[0], time=n[3])
 #     ))
 
-database = Graph(savePath='./eva-db')
+database = Graph(savePath='./eva-db', logger=None)
 # TODO: use tensorflow models
 # meta-inference
 
@@ -117,12 +116,6 @@ except:
 
 def estimateEntropy(value):
     return getsize(zlib.compress(value))/getsize(value)
-
-def nodeMatch(node, info):
-    for i in range(len(info)):
-        if (info[i] != None and info[i] != node[i]):
-            return False
-    return True
 
 def nodeProperty(node, attr, update=False):
     # n[1]
@@ -258,7 +251,7 @@ def getInfo():
 def makePropertyBuilder():
     def builder(node, **kwargs):
         assert(isinstance(node, Node))
-        if node.value not in ignoredTypes:
+        if node.value not in Settings.ignoredTypes:
             typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
             m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
             if (len(m) == 0):
@@ -268,7 +261,7 @@ def makePropertyBuilder():
 
 def markSubstrings(node, **kwargs):
     say(f'Searching for nodes of which {node} is a substring')
-    if node.value not in ignoredTypes:
+    if node.value not in Settings.ignoredTypes:
         for node2 in database:
             conditions = [
                 lambda: node.id != node2.id,
@@ -286,7 +279,7 @@ def markSubstrings(node, **kwargs):
 
 def markType(node, **kwargs):
     assert(isinstance(node, Node))
-    if node.value not in ignoredTypes:
+    if node.value not in Settings.ignoredTypes:
         typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
         # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
         m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
@@ -296,7 +289,7 @@ def markType(node, **kwargs):
 
 def markLength(node, **kwargs):
     assert(isinstance(node, Node))
-    if node.value not in ignoredTypes and isinstance(node.value, str):
+    if node.value not in Settings.ignoredTypes and isinstance(node.value, str):
         lenId = database.addNode(len(node.value), [], False, **kwargs)
         m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='length', node.referrers()))
         if (len(m) == 0):
@@ -306,7 +299,7 @@ def markLength(node, **kwargs):
 def tokenize(node, **kwargs):
     assert(isinstance(node, Node))
     say(f'Tokenizing {node}')
-    if nodeProperty(node.id, 'origin')=='user_input' and (node.value not in ignoredTypes):
+    if nodeProperty(node.id, 'origin')=='user_input' and (node.value not in Settings.ignoredTypes):
         tokens = node.value.split()
         if len(tokens) > 1:
             for t in tokens:
@@ -339,7 +332,7 @@ def updateAll():
     say('Marking rating nodes')
     # TODO: move (some) input processing here
     for n in nodes:
-        if n.value not in ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
+        if n.value not in Settings.ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
             for r in ratings:
                 if r[0]==n[1][0]:
                     database.addNode('rating', [n.id, database.addNode(r, [], False)], False, True)
@@ -656,7 +649,7 @@ for i in range(1000):
     elif newInput == 'uall':
         updateAll()
     elif newInput.startswith('json'):
-        jsonPath = importDir+newInput[5:]
+        jsonPath = Settings.importDir + newInput[5:]
         database.addNode(jsonPath, [], False)
         with open(jsonPath) as f:
             newData = json.load(f)

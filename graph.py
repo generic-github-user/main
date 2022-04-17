@@ -1,10 +1,16 @@
 from collections import namedtuple
 import pickle
+import time
+import random
+
+from node import Node
+# import node
+# Node = node.Node
 
 from settings import Settings
 
 class Graph:
-    def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None):
+    def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None, logger=None):
         self.savePath = savePath
         self.nodes = nodes
         self.fields = fields
@@ -27,6 +33,18 @@ class Graph:
         else:
             for n in self.nodes:
                 self.hashmap[n.id] = n
+
+        if logger is None:
+            def L(*args, **kwargs):
+                print(*args)
+            logger = L
+        self.logger = logger
+
+    def nodeMatch(node, info):
+        for i in range(len(info)):
+            if (info[i] != None and info[i] != node[i]):
+                return False
+        return True
 
     def getId(self):
         return len(self.nodes)
@@ -53,12 +71,12 @@ class Graph:
         # return Graph(hashmap={k: v for k, v in self.hashmap.items() if v.value==value})
 
     def search(self, info):
-        return Graph(list(filter(lambda n: nodeMatch(n, info), self.nodes)), parent=self.parent)
+        return Graph(list(filter(lambda n: self.nodeMatch(n, info), self.nodes)), parent=self.parent)
         # return Graph(hashmap={k: v for k, v in self.hashmap.items() if nodeMatch(v, info)})
 
     def filter(self, condition):
         # return Graph(list(filter(condition, self.nodes)))
-        say(f'Searching {len(self)} nodes')
+        self.logger(f'Searching {len(self)} nodes')
         result = []
         newrefs = []
         # outGraph = Graph()
@@ -70,7 +88,7 @@ class Graph:
                 # outGraph.addNode()
                 newrefs.append(self.references[x])
             if (x % 10000 == 0):
-                say(f'Checked {x}/{len(self)} nodes')
+                self.logger(f'Checked {x}/{len(self)} nodes')
         return Graph(result, references=newrefs, parent=self.parent)
         # return outGraph
 
@@ -80,7 +98,7 @@ class Graph:
     def updateNode(self, node, level=0):
         assert(isinstance(node, int))
 
-        if self[node].value not in ignoredTypes:
+        if self[node].value not in Settings.ignoredTypes:
             self.addNode(
                 'processed_flag',
                 [node],
@@ -95,7 +113,7 @@ class Graph:
             )
             # self.addNode('neighborhood_size', [node, self.addNode(len())])
             numAdj = len(self[node].adjacent())
-            say(f'Found {numAdj} adjacent nodes', level=level+1)
+            self.logger(f'Found {numAdj} adjacent nodes', level=level+1)
             self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True, level=level+1)
             markType(self[node], level=level+1)
             markLength(self[node], level=level+1)
@@ -103,12 +121,12 @@ class Graph:
             markSubstrings(self[node], level=level+1)
 
             current = self[node]
-            if current.value not in ignoredTypes and isinstance(current.value, str):
+            if current.value not in Settings.ignoredTypes and isinstance(current.value, str):
                 if isinstance(current.value, str):
                     est = estimateEntropy(bytes(current.value, 'UTF-8'))
                 else:
                     est = estimateEntropy(bytes(current.value))
-                say(f'Estimated entropy of {current.value} is {est}', level=level+1)
+                self.logger(f'Estimated entropy of {current.value} is {est}', level=level+1)
                 entId = self.addNode(est, [], False, level=level+1)
                 m = list(filter(lambda x: x.members and current.id == x.members[0] and x.value=='entropy_estimate', current.referrers()))
                 if (len(m) == 0):
@@ -128,21 +146,21 @@ class Graph:
         else:
             matches = self.getNodes(value)
         if Settings.debugInfo:
-            say(f'Search results: {matches}', level=level+1)
+            self.logger(f'Search results: {matches}', level=level+1)
         if (duplicate or not matches):
-                say(f'Creating node {value} with members [{"; ".join(str(m) for m in members)}]', level=level+1)
+                self.logger(f'Creating node {value} with members [{"; ".join(str(m) for m in members)}]', level=level+1)
                 if members is None:
                     members = []
                 nodeData = [newId, value, members, time.time()]
                 self.nodes.append(self.nodeTemplate(*nodeData))
-                database.references.append([])
+                self.references.append([])
                 for m in members:
                     if m is not None:
-                        database.references[m].append(newId)
+                        self.references[m].append(newId)
         else:
                 return matches[0].id
         if Settings.debugInfo:
-            say('Updating node', level=level+1)
+            self.logger('Updating node', level=level+1)
         if update:
             self.updateNode(newId)
         return newId
@@ -153,14 +171,14 @@ class Graph:
                 nodeList = list(map(list, self.nodes))
                 pickle.dump(nodeList, fileRef)
             with open('./cache', 'wb') as cRef:
-                pickle.dump(database.references, cRef)
+                pickle.dump(self.references, cRef)
         else:
             say('Database integrity check failed; terminating save')
         return self
 
     def random(self, weighted=True):
         # W = [0.9 if nodeProperty(n.id, 'origin')=='user_input' else 0.1 for n in self]
-        W = [0.9 if (n.value not in ignoredTypes and isinstance(n.value, str)) else 0.1 for n in self.nodes]
+        W = [0.9 if (n.value not in Settings.ignoredTypes and isinstance(n.value, str)) else 0.1 for n in self.nodes]
         if weighted:
             node = random.choices(self.nodes, weights=W, k=1)[0]
         else:
