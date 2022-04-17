@@ -531,6 +531,24 @@ def findCommand(newInput):
     database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
     database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
 
+@command('loadbackup')
+def loadbackupCommand(newInput):
+    with open('eva_03_17_2022, 11_41_04.evab', 'rb') as fileRef:
+        database.nodes = pickle.loads(zlib.decompress(fileRef.read()))
+        database.nodes = list(map(lambda n: database.nodeTemplate(*n), database.nodes))
+
+        database.references = []
+        print(f'Building reference lists for {len(database.nodes)} nodes')
+        for i, n in enumerate(database.nodes):
+            if (i % 1000 == 0):
+                say(f'Processed {i} nodes')
+            if n.value not in ['origin', 'accessed', 'source', 'type']:
+                database.references.append([m.id for m in database.nodes if (n.id in m.members)])
+            else:
+                database.references.append([])
+        print('Done')
+    database.save()
+
 ppc = pyparsing.pyparsing_common
 pyparsing.ParserElement.enablePackrat()
 # sys.setrecursionlimit(3000)
@@ -593,6 +611,18 @@ def queryCommand(newInput):
         print(r)
     return results
 
+@command('adj')
+def adjCommand(newInput):
+    N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database))[0]
+    results = [database[i] for i in N.adjacent()]
+    for n in results:
+        print(n)
+        database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
+
+@command('breakpoint')
+def breakpointCommand(newInput):
+    breakpoint()
+
 # def mapCommand
 
 current_question = None
@@ -616,14 +646,6 @@ for i in range(1000):
         N = len(database)
         for x in range(N-10, N):
             say(str(database[x]))
-    elif newInput.startswith('adj'):
-        N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database))[0]
-        results = [database[i] for i in N.adjacent()]
-        for n in results:
-            print(n)
-            database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
-    elif newInput == 'breakpoint':
-        breakpoint()
     elif newInput.startswith('refresh'):
         print(database.getNodes(newInput[8:]))
         think(database.getNodes(newInput[8:])[0].id)
@@ -631,22 +653,6 @@ for i in range(1000):
         database.nodes.pop()
     elif newInput == 'restore':
         database.nodes = json.load(open('./prevdata.json'))
-    elif newInput == 'loadbackup':
-        with open('eva_03_17_2022, 11_41_04.evab', 'rb') as fileRef:
-            database.nodes = pickle.loads(zlib.decompress(fileRef.read()))
-            database.nodes = list(map(lambda n: database.nodeTemplate(*n), database.nodes))
-
-            database.references = []
-            print(f'Building reference lists for {len(database.nodes)} nodes')
-            for i, n in enumerate(database.nodes):
-                if (i % 1000 == 0):
-                    say(f'Processed {i} nodes')
-                if n.value not in ['origin', 'accessed', 'source', 'type']:
-                    database.references.append([m.id for m in database.nodes if (n.id in m.members)])
-                else:
-                    database.references.append([])
-            print('Done')
-        database.save()
     elif newInput == 'uall':
         updateAll()
     elif newInput.startswith('json'):
