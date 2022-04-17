@@ -118,28 +118,6 @@ except:
     if debug:
         print('Done')
 
-
-def parseExpression(ex):
-    frame = []
-    valueType = None
-    value = None
-    for c in ex:
-        if c in string.digits:
-            if valueType == 'num':
-                value += c
-            else:
-                # last = frame
-                frame.append(value)
-                value = c
-                valueType = 'num'
-        elif (c in '+-*/^'):
-            if valueType == 'op':
-                value += c
-            else:
-                frame.append(value)
-                value = c
-                valueType = 'op'
-
 def getId():
     return len(database.nodes)
 
@@ -570,9 +548,6 @@ expr = pyparsing.infixNotation(
         (">", 2, pyparsing.opAssoc.LEFT),
         ("^", 2, pyparsing.opAssoc.LEFT),
         ("?", 2, pyparsing.opAssoc.LEFT),
-        # (signop, 1, pyparsing.opAssoc.RIGHT),
-        # (multop, 2, pyparsing.opAssoc.LEFT),
-        # (plusop, 2, pyparsing.opAssoc.LEFT),
     ],
 )
 
@@ -639,8 +614,6 @@ for i in range(1000):
         N = len(database)
         for x in range(N-10, N):
             say(str(database[x]))
-            # display(database[x])
-            # display(x)
     elif newInput.startswith('find'):
         start = time.time()
         # TODO: clean this up
@@ -749,15 +722,4 @@ for i in range(1000):
                     database.addNode('truth', [J, database.addNode(False, [], False)], True)
                 current_link = None
             current_question = None
-        # for r in relations:
-        #     r2 = f' {r} '
-        #     if r2 in newInput:
-        #         rel = newInput.split(r2)
-        #         if len(rel) == 2:
-        #             a, b = rel
-        #             for ai in a.split(','):
-        #                 id_a = database.addNode(ai)
-        #                 id_b = database.addNode(b)
-        #                 id_c = database.addNode(r, [id_a, id_b])
-        #                 database.addNode('source', [id_c, inputId])
     database.save()
