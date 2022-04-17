@@ -10,13 +10,16 @@ class Node:
     def __init__(self, nid, graph, rep):
         assert(isinstance(nid, int))
         # assert(isinstance(graph, Graph))
-        
+
         self.id = nid
         self.graph = graph
         self.rep = rep
         self.references = []
 
     def referrers(self, update=False):
+        if not isinstance(update, boolean):
+            raise TypeError
+        
         # Delayed import to avoid circular import issue - is there a cleaner way to do this?
         from graph import Graph
         return Graph([self.graph.get(x, update) for x in self.graph.references[self.id]])

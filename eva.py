@@ -424,6 +424,9 @@ def backup():
 
 commands = {}
 def command(prefix):
+    if not isinstance(prefix, str):
+        raise TypeError
+
     def command_decorator(func):
         # commands.append(func)
         commands[prefix] = func
@@ -432,11 +435,15 @@ def command(prefix):
 
 @command('quit')
 def quitCommand(newInput):
+    if not isinstance(newInput, str):
+        raise TypeError
     say('Goodbye')
     quit()
 
 @command('ask')
 def askCommand(newInput):
+    if not isinstance(newInput, str):
+        raise TypeError
     t = newInput.split()
     if len(t) > 1:
         num = int(t[1])
@@ -447,11 +454,15 @@ def askCommand(newInput):
 
 @command('clear')
 def clearCommand(newInput):
+    if not isinstance(newInput, str):
+        raise TypeError
     for i in range(50):
         print('')
 
 @command('webcrawl')
 def webcrawlCommand(newInput):
+    if not isinstance(newInput, str):
+        raise TypeError
     def webcrawlWrapper():
         p = newInput[9:]
         say(f'Scanning URL {p}')

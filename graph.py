@@ -13,6 +13,9 @@ from settings import Settings
 
 class Graph:
     def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None, logger=None):
+        if not isinstance(parent, (Graph, NoneType)):
+            raise TypeError
+
         self.savePath = savePath
         self.nodes = nodes
         self.fields = fields
@@ -174,10 +177,13 @@ class Graph:
             with open('./cache', 'wb') as cRef:
                 pickle.dump(self.references, cRef)
         else:
-            say('Database integrity check failed; terminating save')
+            self.logger('Database integrity check failed; terminating save')
         return self
 
     def random(self, weighted=True):
+        if not isinstance(weighted, boolean):
+            raise TypeError
+
         # W = [0.9 if nodeProperty(n.id, 'origin')=='user_input' else 0.1 for n in self]
         W = [0.9 if (n.value not in Settings.ignoredTypes and isinstance(n.value, str)) else 0.1 for n in self.nodes]
         if weighted:
