@@ -17,8 +17,8 @@ from collections import namedtuple
 from functools import partial
 from itertools import chain
 
-from getsize import *
-from hash_file import *
+from getsize import getsize
+from hash_file import hash_file
 
 import sys
 import os
@@ -548,7 +548,6 @@ adjOp = pyparsing.Literal(".")
 expr = pyparsing.infixNotation(
     operand,
     [
-        # ("^", 2, pyparsing.opAssoc.RIGHT),
         (".", 2, pyparsing.opAssoc.LEFT),
         (";", 2, pyparsing.opAssoc.LEFT),
         ("/", 2, pyparsing.opAssoc.LEFT),
@@ -584,8 +583,7 @@ def queryCommand(newInput):
             return output
         return newQuery
 
-    Q = queryGenerator(parsed)
-    # results = database.filter(Q)
+    Q = queryGenerator(parsed)]
     results = Q()
     say(f'Found {len(results)} matching nodes')
     say('Updating selection')
@@ -603,8 +601,6 @@ relations = ['are', 'is a', 'has', 'have']
 for i in range(1000):
     newInput = input()
     inputId = database.addNode(newInput, [], True)
-    # breakpoint()
-    # why isn't quit command recorded?
     database.addNode(
         'origin',
         [inputId, database.addNode('user_input', [], False)]
@@ -617,7 +613,6 @@ for i in range(1000):
 
     if newInput == 'print':
         print('10 most recent nodes:')
-        # for n in database[-10:]:
         N = len(database)
         for x in range(N-10, N):
             say(str(database[x]))
