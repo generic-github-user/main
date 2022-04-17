@@ -522,11 +522,33 @@ def labelCommand(newInput):
         database.addNode('{:x}'.format(int(z)))
     )
 
+@command('#')
+def nlpCommand(newInput):
+    doc = Eva.nlp(newInput[1:])
+    parseNode = database.addNode('spacy_parse', [], True)
+    database.addNode('source', [parseNode, inputId])
+    for token in doc:
+        tokenNode = database.addNode(token.text, [], True)
+        database.addNode('token', [tokenNode, parseNode], True)
+        database.addNode('dep', [tokenNode, database.addNode(token.dep_, [], False)], True)
+        database.addNode('pos', [tokenNode, database.addNode(token.pos_, [], False)], True)
+        database.addNode('head', [tokenNode, database.addNode(token.head.text, [], False)], True)
 
-# @command('#')
-# def nlpCommand(newInput):
-
-
+@command('find')
+def findCommand(newInput):
+    start = time.time()
+    # TODO: clean this up
+    searchNode = database.addNode('search_cmd', [], True)
+    database.addNode('source', [searchNode, inputId])
+    results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), database.nodes))
+    for n in results:
+        print(n)
+        database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
+    end = time.time()
+    elapsed = end-start
+    database.addNode('start_time', [searchNode, database.addNode(start, [], False)], False, True)
+    database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
+    database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
 
 ppc = pyparsing.pyparsing_common
 pyparsing.ParserElement.enablePackrat()
@@ -618,20 +640,6 @@ for i in range(1000):
         N = len(database)
         for x in range(N-10, N):
             say(str(database[x]))
-    elif newInput.startswith('find'):
-        start = time.time()
-        # TODO: clean this up
-        searchNode = database.addNode('search_cmd', [], True)
-        database.addNode('source', [searchNode, inputId])
-        results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), database.nodes))
-        for n in results:
-            print(n)
-            database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
-        end = time.time()
-        elapsed = end-start
-        database.addNode('start_time', [searchNode, database.addNode(start, [], False)], False, True)
-        database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
-        database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
     elif newInput.startswith('adj'):
         N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database))[0]
         results = [database[i] for i in N.adjacent()]
@@ -698,16 +706,6 @@ for i in range(1000):
                             True
                         )
                 break
-    elif newInput.startswith('#'):
-        doc = Eva.nlp(newInput[1:])
-        parseNode = database.addNode('spacy_parse', [], True)
-        database.addNode('source', [parseNode, inputId])
-        for token in doc:
-            tokenNode = database.addNode(token.text, [], True)
-            database.addNode('token', [tokenNode, parseNode], True)
-            database.addNode('dep', [tokenNode, database.addNode(token.dep_, [], False)], True)
-            database.addNode('pos', [tokenNode, database.addNode(token.pos_, [], False)], True)
-            database.addNode('head', [tokenNode, database.addNode(token.head.text, [], False)], True)
 
     else:
         if current_question is not None:
