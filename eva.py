@@ -118,9 +118,6 @@ except:
     if debug:
         print('Done')
 
-def getId():
-    return len(database.nodes)
-
 def estimateEntropy(value):
     return getsize(zlib.compress(value))/getsize(value)
 

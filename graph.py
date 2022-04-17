@@ -26,6 +26,8 @@ class Graph:
             for n in self.nodes:
                 self.hashmap[n.id] = n
 
+    def getId(self):
+        return len(self.nodes)
 
     def load(self):
         try:
@@ -118,7 +120,7 @@ class Graph:
         assert(isinstance(useSearch, bool))
         assert(isinstance(update, bool))
 
-        newId = getId()
+        newId = self.getId()
         if useSearch:
             matches = self.search([None, value, members, None])
         else:
