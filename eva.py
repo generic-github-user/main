@@ -14,6 +14,7 @@ import numpy as np
 import random
 
 from collections import namedtuple
+from functools import partial
 from itertools import chain
 
 from getsize import *
@@ -37,6 +38,7 @@ from bs4 import BeautifulSoup
 from node import Node
 from graph import Graph
 from settings import Settings
+from timefunc import timeFunc
 
 print('Done')
 
@@ -97,6 +99,8 @@ def importList(data):
 #     ))
 
 database = Graph(savePath='./eva-db', logger=None)
+timeFunc = partial(timeFunc, database)
+
 # TODO: use tensorflow models
 # meta-inference
 
@@ -150,28 +154,7 @@ def say(content, source=None, intent='information', record=False, level=0):
 # "hanging" nodes (with intermediary inferences deleted)
 # time_limit wrapper function
 
-def timeFunc(F, level=0):
-    def timed(*args, **kwargs):
-        start = time.time()
 
-        if Settings.debugInfo:
-            say('Executing function', level=level+1)
-
-        fOut = F(*args, **kwargs)
-        end = time.time()
-        elapsed = end - start
-
-        assert(fOut is not None)
-        src = [fOut] if (fOut is not None) else []
-        database.addNode('start_time', src + [database.addNode(start, [], False)], False, True, level=level+1)
-        database.addNode('end_time', src + [database.addNode(end, [], False)], False, True, level=level+1)
-        database.addNode('duration', src + [database.addNode(elapsed, [], False)], False, True, level=level+1)
-
-        if Settings.debugInfo:
-            say(f'Finished execution in {elapsed} seconds', level=level)
-
-        return fOut
-    return timed
 
 # == length of *
 
