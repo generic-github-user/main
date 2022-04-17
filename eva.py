@@ -38,8 +38,10 @@ from bs4 import BeautifulSoup
 from node import Node
 from graph import Graph
 from settings import Settings
-from timefunc import timeFunc
 from entropy import estimateEntropy
+
+from timefunc import timeFunc
+from say import say
 
 print('Done')
 
@@ -87,6 +89,7 @@ def importList(data):
 
 database = Graph(savePath='./eva-db', logger=None)
 timeFunc = partial(timeFunc, database)
+say = partial(say, database)
 
 # TODO: handle graphs sharing nodes
 # TODO: use tensorflow models
@@ -120,18 +123,6 @@ def nodeProperty(node, attr, update=False):
 
 
 # related_to
-def say(content, source=None, intent='information', record=False, level=0):
-    assert(isinstance(content, str))
-    assert(isinstance(source, int) or source is None)
-    indents = ' ->*~'
-
-    if record:
-        newId = database.addNode('intent', [database.addNode(content, [], True), database.addNode(intent, [], False)])
-        database.addNode('origin', [newId, database.addNode('eva_output', [], False)])
-        if source is not None:
-            database.addNode('source', [newId, source])
-    print(('  ' * level)+indents[level]+' '+content)
-    # return newId
 
 # logical_relations / relations
 # why was getsize working before?
