@@ -47,9 +47,7 @@ from backup import backup
 
 print('Done')
 
-
 sys.path.insert(0, '../giraffe')
-# from giraffe import Graph
 
 debug = True
 buffer = None
@@ -63,10 +61,18 @@ class Eva:
     gbParser = create_parser(lang='en')
     selection = None
 
+# TODO: handle graphs sharing nodes
+# TODO: use tensorflow models
+# TODO: meta-inference
+# related_to
+# why was getsize working before?
+# expected_usefulness
+# "hanging" nodes (with intermediary inferences deleted)
+# time_limit wrapper function
+# == length of *
 # snails.adjacent
 # todo = []
 # inferences = 0
-
 
 logical_relations = [
     ('subset', 'subset', 'subset'),
@@ -94,10 +100,6 @@ timeFunc = partial(timeFunc, database)
 say = partial(say, database)
 backup = partial(backup, database)
 
-# TODO: handle graphs sharing nodes
-# TODO: use tensorflow models
-# TODO: meta-inference
-
 
 try:
     print('Loading reference lists')
@@ -113,8 +115,6 @@ except:
         print('Done')
 
 def nodeProperty(node, attr, update=False):
-    # n[1]
-    # getNodes(attr)
     refs = list(filter(lambda n: n.value==attr, database.get(node, update).referrers(update=update)))
     links = list(filter(lambda n: n.members[0]==node, refs))
     if len(links) == 0:
@@ -123,19 +123,6 @@ def nodeProperty(node, attr, update=False):
     if isinstance(destId, str):
         destId = database.getNodes(destId)[0].id
     return database.get(destId, update).value
-
-
-# related_to
-
-# logical_relations / relations
-# why was getsize working before?
-# expected_usefulness
-# "hanging" nodes (with intermediary inferences deleted)
-# time_limit wrapper function
-
-
-
-# == length of *
 
 def updater(node, level):
     markType(node, level=level+1)
@@ -214,7 +201,6 @@ def getInfo():
     print(q)
     # current_question = newId
     return newId, current_link
-
 
 def makePropertyBuilder():
     def builder(node, **kwargs):
@@ -676,7 +662,7 @@ for i in range(1000):
         database.addNode('response', [inputId, current_question], True)
         if current_link is not None:
             if newInput in ['yes']:
-                # check this
+                # TODO: check this
                 if debug:
                     print('Adding link to database')
                 J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
