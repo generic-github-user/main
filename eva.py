@@ -43,6 +43,7 @@ from entropy import estimateEntropy
 
 from timefunc import timeFunc
 from say import say
+from backup import backup
 
 print('Done')
 
@@ -91,6 +92,7 @@ def importList(data):
 database = Graph(savePath='./eva-db', logger=None)
 timeFunc = partial(timeFunc, database)
 say = partial(say, database)
+backup = partial(backup, database)
 
 # TODO: handle graphs sharing nodes
 # TODO: use tensorflow models
@@ -374,19 +376,6 @@ def html_archive(start, node):
         # link_name = link.split('/')[-1]
         DB.addNode('links_to', [startNode, DB.addNode(link, [], True)])
     time.sleep(0.1)
-
-def backup():
-    date_format = '%m_%d_%Y, %H_%M_%S'
-    backupPath = f'./eva_{datetime.now().strftime(date_format)}.evab'
-    with open(backupPath, 'wb') as fileRef:
-        nodeList = list(map(list, database.nodes))
-        B = zlib.compress(pickle.dumps(nodeList))
-        fileRef.write(B)
-        say(f'Backup saved to {backupPath} [{getsize(B)} bytes]')
-    # return backupPath
-
-    callNode = database.addNode('backup', [], True)
-    return callNode
 
 commands = {}
 def command(prefix):
