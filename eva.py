@@ -29,6 +29,7 @@ import spacy
 import graphbrain
 from graphbrain.parsers import create_parser
 
+import matplotlib.pyplot as plt
 from PIL import Image
 import pytesseract
 
@@ -271,6 +272,9 @@ def tokenize(node, **kwargs):
                 database.addNode('token', [database.addNode(t, [], False, **kwargs), node.id], False, True, **kwargs)
     return node
 
+# def ftime(f):
+#     return timeFunc(database, f)
+
 def updateAll():
     if debug:
         say('Updating database')
@@ -497,8 +501,9 @@ def nlpCommand(newInput):
         database.addNode('head', [tokenNode, database.addNode(token.head.text, [], False)], True)
 
 @command('find')
+@timeFunc
 def findCommand(newInput):
-    start = time.time()
+    # def findInner():
     # TODO: clean this up
     searchNode = database.addNode('search_cmd', [], True)
     database.addNode('source', [searchNode, inputId])
@@ -506,11 +511,7 @@ def findCommand(newInput):
     for n in results:
         print(n)
         database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
-    end = time.time()
-    elapsed = end-start
-    database.addNode('start_time', [searchNode, database.addNode(start, [], False)], False, True)
-    database.addNode('end_time', [searchNode, database.addNode(end, [], False)], False, True)
-    database.addNode('duration', [searchNode, database.addNode(elapsed, [], False)], False, True)
+    return searchNode
 
 @command('loadbackup')
 def loadbackupCommand(newInput):
