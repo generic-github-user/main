@@ -1,1 +1,1 @@
-__all__ = ['quit']
+__all__ = ['quit', 'query']
