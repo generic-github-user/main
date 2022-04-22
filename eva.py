@@ -22,6 +22,7 @@ from hash_file import hash_file
 
 import sys
 import os
+import psutil
 
 import pyparsing
 from arithmetic_parser import arith
@@ -142,7 +143,14 @@ def think(node=None):
     say(f'Pondering {name}', level=0)
 
     database.updateNode(node.id, level=1, callback=updater)
+    # TODO: fluent node interface
     callNode = database.addNode('func_call', [database.addNode('think', [], False)], True, level=1)
+
+    # 'cpu_times_percent'
+    for info in ['cpu_percent', ]:
+        value = getattr(psutil, info)()
+        say(f'Recording {info} ({value})')
+        database.addNode('value', [database.addNode(value, [], False), database.addNode(info, [], False)], True)
 
     inferences = []
     random.shuffle(logical_relations)
