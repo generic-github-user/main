@@ -210,15 +210,19 @@ def getInfo():
     # current_question = newId
     return newId, current_link
 
-def makePropertyBuilder():
+def makePropertyBuilder(name, property, conditions, logger=None):
     def builder(node, **kwargs):
         assert(isinstance(node, Node))
-        if node.value not in Settings.ignoredTypes:
-            typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
-            m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
-            if (len(m) == 0):
-                database.addNode('type', [node.id, typeId], **kwargs)
-        return node
+        if logger is not None:
+            logger(node)
+        # if node.value not in Settings.ignoredTypes:
+        #     typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
+        #     m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
+        #     if (len(m) == 0):
+        #         database.addNode('type', [node.id, typeId], **kwargs)
+        # return node
+        if (node.value not in Settings.ignoredTypes) and all(c(node) for c in conditions):
+            database.addNode(name, [node.id, database.addNode(property(node), [], False, **kwargs)], False, True, **kwargs)
     return builder
 
 def markSubstrings(node, **kwargs):
@@ -231,13 +235,11 @@ def markSubstrings(node, **kwargs):
                 lambda: all(isinstance(n.value, str) for n in [node, node2]),
                 lambda: node.value in node2.value,
             ]
-            if  all(c() for c in conditions):
+            if all(c() for c in conditions):
                 if Settings.debugInfo:
                     say(f'{node} is a substring of {node2}')
                 database.addNode('substring', [node.id, node2.id], False, True)
     return node
-
-
 
 def markType(node, **kwargs):
     assert(isinstance(node, Node))
