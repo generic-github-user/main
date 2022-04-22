@@ -27,7 +27,9 @@ import psutil
 import pyparsing
 from arithmetic_parser import arith
 import spacy
+
 import graphbrain
+from graphbrain import hgraph
 from graphbrain.parsers import create_parser
 
 import matplotlib.pyplot as plt
@@ -423,6 +425,14 @@ def webcrawlCommand(newInput):
         return scanNode
     timeFunc(webcrawlWrapper)()
 
+@command('gb')
+def gbCommand(newInput):
+    db = hgraph('gb_database.db')
+    parse = Eva.gbParser.parse(newInput[3:])
+    for x in parse['parses']:
+        edge = x['main_edge']
+        db.add(edge)
+    # for edge in db.all():
 
 @command('crawl')
 def crawlCommand(newInput):
