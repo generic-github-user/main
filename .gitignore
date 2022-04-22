@@ -6,11 +6,18 @@ customize.py
 cache*
 ignore_*
 
+# LaTeX
 *.synctex.gz
 *.pdf
 *.aux
 *.fdb_latexmk
 *.fls
+
+# venv
+bin/*
+lib64
+*.cfg
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
