@@ -363,20 +363,6 @@ def gbCommand(newInput):
         db.add(edge)
     # for edge in db.all():
 
-@command('crawl')
-def crawlCommand(newInput):
-    def crawlWrapper():
-        p = newInput[6:]
-        say(f'Scanning {p}')
-        scan = database.addNode('file_scan', [], True)
-        c = 0
-        for d in os.scandir(p):
-            scanDir(database, None, d, c, scan)
-        say('Done')
-        # !
-        return scan
-    timeFunc(crawlWrapper)()
-
 @command('backup')
 def backupCommand(newInput):
     timeFunc(backup)()
@@ -423,19 +409,6 @@ def nlpCommand(newInput):
         database.addNode('dep', [tokenNode, database.addNode(token.dep_, [], False)], True)
         database.addNode('pos', [tokenNode, database.addNode(token.pos_, [], False)], True)
         database.addNode('head', [tokenNode, database.addNode(token.head.text, [], False)], True)
-
-@command('find')
-@timeFunc
-def findCommand(newInput):
-    # def findInner():
-    # TODO: clean this up
-    searchNode = database.addNode('search_cmd', [], True)
-    database.addNode('source', [searchNode, inputId])
-    results = list(filter(lambda x: isinstance(x.value, str) and (newInput[5:] in x.value), database.nodes))
-    for n in results:
-        print(n)
-        database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
-    return searchNode
 
 ppc = pyparsing.pyparsing_common
 pyparsing.ParserElement.enablePackrat()

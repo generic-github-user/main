@@ -1,1 +1,1 @@
-__all__ = ['quit', 'query']
+__all__ = ['quit', 'query', 'find', 'loadbackup', 'crawl']
