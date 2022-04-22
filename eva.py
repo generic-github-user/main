@@ -54,7 +54,7 @@ from backup import backup
 from commandhandler import *
 from commands import *
 
-from global import Eva
+from globals import Eva
 
 print('Done')
 

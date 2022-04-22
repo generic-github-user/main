@@ -1,5 +1,5 @@
 from commandhandler import command
-from global import Eva
+from globals import Eva
 database = Eva.database
 
 import pickle

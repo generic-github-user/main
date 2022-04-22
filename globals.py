@@ -2,7 +2,7 @@ import spacy
 
 import graphbrain
 from graphbrain import hgraph
-from graphbrain.parsers import create_parse
+from graphbrain.parsers import create_parser
 
 class Eva:
     genericFunctions = dict(
@@ -13,3 +13,5 @@ class Eva:
     nlp = spacy.load(modelName)
     gbParser = create_parser(lang='en')
     selection = None
+    
+    database = None
