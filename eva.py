@@ -17,8 +17,8 @@ from collections import namedtuple
 from functools import partial
 from itertools import chain
 
-from getsize import getsize
-from hash_file import hash_file
+from helpers.getsize import getsize
+from helpers.hash_file import hash_file
 
 import sys
 import os
@@ -42,9 +42,9 @@ from bs4 import BeautifulSoup
 from node import Node
 from graph import Graph
 from settings import Settings
-from entropy import estimateEntropy
+from helpers.entropy import estimateEntropy
 
-from timefunc import timeFunc
+from helpers.timefunc import timeFunc
 from say import say
 from backup import backup
 

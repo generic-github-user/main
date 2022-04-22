@@ -3,8 +3,8 @@ import pickle
 import time
 import random
 
-from getsize import getsize
-from entropy import estimateEntropy
+from helpers.getsize import getsize
+from helpers.entropy import estimateEntropy
 
 from node import Node
 # import node

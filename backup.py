@@ -1,5 +1,5 @@
 from datetime import datetime
-from getsize import getsize
+from helpers.getsize import getsize
 
 import zlib
 import pickle
