@@ -49,9 +49,14 @@ from helpers.timefunc import timeFunc
 from say import say
 from backup import backup
 
+# from command import command
+# import command
+from commandhandler import *
+from commands import *
+
 print('Done')
 
-sys.path.insert(0, '../giraffe')
+# sys.path.insert(0, '../giraffe')
 
 debug = True
 buffer = None
@@ -319,23 +324,7 @@ def html_archive(start, node):
         DB.addNode('links_to', [startNode, DB.addNode(link, [], True)])
     time.sleep(0.1)
 
-commands = {}
-def command(prefix):
-    if not isinstance(prefix, str):
-        raise TypeError
 
-    def command_decorator(func):
-        # commands.append(func)
-        commands[prefix] = func
-        return func
-    return command_decorator
-
-@command('quit')
-def quitCommand(newInput):
-    if not isinstance(newInput, str):
-        raise TypeError
-    say('Goodbye')
-    quit()
 
 @command('ask')
 def askCommand(newInput):
@@ -618,7 +607,7 @@ for i in range(1000):
     )
     database.save()
 
-    for prefix, f in commands.items():
+    for prefix, f in command_list.items():
         if newInput.startswith(prefix):
             f(newInput)
 
