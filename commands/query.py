@@ -3,6 +3,10 @@ from globals import Eva
 database = Eva.database
 
 import pyparsing
+
+variable = pyparsing.Word(pyparsing.alphas)
+operand = pyparsing.Literal('*') | variable
+
 expr = pyparsing.infixNotation(
     operand,
     [

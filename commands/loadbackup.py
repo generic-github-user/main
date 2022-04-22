@@ -2,6 +2,8 @@ from commandhandler import command
 from globals import Eva
 database = Eva.database
 
+from say import say
+
 import pickle
 import zlib
 
@@ -16,7 +18,7 @@ def loadbackupCommand(newInput):
         print(f'Building reference lists for {len(database.nodes)} nodes')
         for i, n in enumerate(database.nodes):
             if (i % 1000 == 0):
-                say(f'Processed {i} nodes')
+                say(database, f'Processed {i} nodes')
             if n.value not in ['origin', 'accessed', 'source', 'type']:
                 database.references.append([m.id for m in database.nodes if (n.id in m.members)])
             else:
