@@ -54,21 +54,14 @@ from backup import backup
 from commandhandler import *
 from commands import *
 
+from global import Eva
+
 print('Done')
 
 # sys.path.insert(0, '../giraffe')
 
 debug = True
 buffer = None
-class Eva:
-    genericFunctions = dict(
-        sum=sum,
-        mul=lambda a, b: a*b
-    )
-    modelName = 'en_core_web_sm'
-    nlp = spacy.load(modelName)
-    gbParser = create_parser(lang='en')
-    selection = None
 
 # TODO: handle graphs sharing nodes
 # TODO: use tensorflow models
