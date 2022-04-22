@@ -243,24 +243,8 @@ def markSubstrings(node, **kwargs):
                 database.addNode('substring', [node.id, node2.id], False, True)
     return node
 
-def markType(node, **kwargs):
-    assert(isinstance(node, Node))
-    if node.value not in Settings.ignoredTypes:
-        typeId = database.addNode(type(node.value).__name__, [], False, **kwargs)
-        # m = list(filter(lambda x: n[1]==x[1] and n[2]==x[2], nodes))
-        m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='type', node.referrers()))
-        if (len(m) == 0):
-            database.addNode('type', [node.id, typeId], **kwargs)
-    return node
-
-def markLength(node, **kwargs):
-    assert(isinstance(node, Node))
-    if node.value not in Settings.ignoredTypes and isinstance(node.value, str):
-        lenId = database.addNode(len(node.value), [], False, **kwargs)
-        m = list(filter(lambda x: x.members and node.id == x.members[0] and x.value=='length', node.referrers()))
-        if (len(m) == 0):
-            database.addNode('length', [node.id, lenId], **kwargs)
-    return node
+markType = makePropertyBuilder('type', lambda node: type(node.value).__name__, [])
+markLength = makePropertyBuilder('length', lambda node: len(node.value), [lambda node: isinstance(node.value, str)])
 
 def tokenize(node, **kwargs):
     assert(isinstance(node, Node))
