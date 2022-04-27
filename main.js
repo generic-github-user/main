@@ -99,4 +99,14 @@ class ndarray {
             }
             return this;
       }
+
+      // choose
+
+      convolveFunc(f, r, q) {
+            return this.imap((...i) => {
+                  let x = this.get(...i);
+                  let y = f(this.index(i.map(j => `${j-r}:${j+r+1}`).join(' ')));
+                  return (x * (1 - q)) + (y * q);
+            })
+      }
 }
