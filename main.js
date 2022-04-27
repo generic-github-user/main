@@ -11,4 +11,12 @@ class ndarray {
                   this.data = this.data.map(x => new ndarray(dimensions.slice(1)));
             }
       }
+      map(f) {
+            if (this.rank === 1) {
+                  this.data = this.data.map(f);
+            } else {
+                  this.data = this.data.map(x => x.map(f));
+            }
+            return this;
+      }
 }
