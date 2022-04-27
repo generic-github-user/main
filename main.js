@@ -128,3 +128,20 @@ class ndarray {
             })
       }
 }
+
+// Class.method?
+
+let ctx = canvas.getContext("2d");
+let grid = new ndarray([50, 50]).map(x => Math.random());
+let objects = [];
+let w = 10;
+function update() {
+        ctx.canvas.width  = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+      grid.forEach((x, y) => {
+            ctx.fillStyle = `hsl(0, 100%, ${(1-grid.get(x, y)) * 100}%)`;
+            ctx.fillRect(x*w, y*w, w, w);
+      });
+      grid = grid.convolveFunc(x => x.mean(), 1, 0.05);
+}
+setInterval(update, 100)
