@@ -88,6 +88,24 @@ class ndarray {
             return this;
       }
 
+      imap(f) {
+            // could also use while loop with increments, etc.
+            // function imapR(g, i)
+            // if (this.rank === 1) {
+            //       return this.data.map(f);
+            // }
+
+            let result = new Array(this.data.length);
+            for (let i=0; i<this.data.length; ++i) {
+                  if (this.rank === 1) {
+                        result[i] = f(i);
+                  } else {
+                        result[i] = this.data[i].imap((...b) => f(i, ...b));
+                  }
+            }
+            return new ndarray(this.dimensions).setData(result);
+      }
+
       forEach(f) {
             // function forEachR()
             for (let i=0; i<this.data.length; ++i) {
