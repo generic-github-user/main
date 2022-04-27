@@ -11,6 +11,20 @@ class ndarray {
                   this.data = this.data.map(x => new ndarray(dimensions.slice(1)));
             }
       }
+
+      setData(data) {
+            // console.log(data);
+            this.data = data;
+            // this.dimensions = [this.data.length, ...this.data[0].dimensions];
+            this.update();
+            return this;
+      }
+
+      update() {
+            this.rank = this.dimensions.length;
+            this.size = this.dimensions.reduce((x, y) => x * y, 1);
+            return this;
+      }
       map(f) {
             if (this.rank === 1) {
                   this.data = this.data.map(f);
