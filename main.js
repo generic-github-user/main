@@ -1,3 +1,7 @@
+function clip (x, min, max) {
+  return Math.min(Math.max(x, min), max);
+};
+
 class ndarray {
       constructor(dimensions) {
             this.dimensions = dimensions;
