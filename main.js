@@ -25,6 +25,20 @@ class ndarray {
             this.size = this.dimensions.reduce((x, y) => x * y, 1);
             return this;
       }
+
+      get(...w) {
+            // let result = (w[0] === -1) ? this.data : this.data[w[0]];
+            let result = (w[0] === -1) ? this.data : this.data[w[0]];
+            if (w.length > 1) {
+                  // result = result.map(x => x.get(w.slice(1)));
+                  result = result.get(w.slice(1));
+            }
+            return result;
+      }
+
+      slice(a, b) {
+
+      }
       map(f) {
             if (this.rank === 1) {
                   this.data = this.data.map(f);
