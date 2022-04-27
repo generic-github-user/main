@@ -58,6 +58,17 @@ class ndarray {
             let m = k => (k === undefined) ? [] : k;
             return new ndarray([b-a, ...m(result[0].dimensions)]).setData(result);
       }
+
+      reduce(f, init) {
+            let result = init;
+            // if ()
+            this.forEach((...x) => {
+                  // result = f(result, x);
+                  result = f(result, this.get(...x));
+            });
+            return result;
+      }
+      // reduce axis-by-axis?
       map(f) {
             if (this.rank === 1) {
                   this.data = this.data.map(f);
