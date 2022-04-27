@@ -33,4 +33,16 @@ class ndarray {
             }
             return this;
       }
+
+      forEach(f) {
+            // function forEachR()
+            for (let i=0; i<this.data.length; ++i) {
+                  if (this.rank === 1) {
+                        f(i);
+                  } else {
+                        this.data[i].forEach((...b) => f(i, ...b));
+                  }
+            }
+            return this;
+      }
 }
