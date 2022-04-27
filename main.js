@@ -69,6 +69,16 @@ class ndarray {
             return result;
       }
       // reduce axis-by-axis?
+
+      sum() {
+            return this.reduce((x, y) => x + y, 0);
+      }
+
+      mean() {
+            return this.sum() / this.size;
+      }
+      max() { return this.reduce(Math.max, -Infinity) }
+
       map(f) {
             if (this.rank === 1) {
                   this.data = this.data.map(f);
