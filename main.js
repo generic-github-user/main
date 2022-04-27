@@ -39,6 +39,25 @@ class ndarray {
       slice(a, b) {
 
       }
+
+      index(s) {
+            // null element?
+            // console.log(s);
+            let axes = s.split(' ');
+            let x = axes[0].split(':');
+            let a, b;
+            [a, b] = x.map(n => parseInt(n)).map(y => clip(y, 0, this.data.length-1));
+            let result = [];
+            for (let i=a; i<b; ++i) {
+                  result.push(this.data[i]);
+            }
+            if (axes.length > 1) { result = result.map(y => y.index(axes.slice(1).join(' '))); }
+            // console.log(result, a, b, this.data.length, x);
+            // console.log(x, x.map(parseInt));
+            // console.log(result[0]);
+            let m = k => (k === undefined) ? [] : k;
+            return new ndarray([b-a, ...m(result[0].dimensions)]).setData(result);
+      }
       map(f) {
             if (this.rank === 1) {
                   this.data = this.data.map(f);
