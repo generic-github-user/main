@@ -36,6 +36,15 @@ class ndarray {
             return result;
       }
 
+      set(v, ...w) {
+            if (w.length > 1) {
+                  this.data[w[0]].set(v, ...w.slice(1));
+            } else {
+                  this.data[w[0]] = v;
+            }
+            return this;
+      }
+
       slice(a, b) {
 
       }
