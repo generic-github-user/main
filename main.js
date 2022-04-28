@@ -12,7 +12,7 @@ function getPos(canvas, event) {
 canvas.addEventListener("mousemove", e => {
       getPos(canvas, e);
       if (mDown) {
-            grid.set(1, ...[mx, my].map(z => Math.floor(z / w)));
+            grid.temp.set(1, ...[mx, my].map(z => Math.floor(z / w)));
       }
 });
   canvas.addEventListener("mousedown", function(e)
@@ -159,16 +159,28 @@ class ndarray {
 // Class.method?
 
 let ctx = canvas.getContext("2d");
-let grid = new ndarray([50, 50]).map(x => Math.random());
+let grid = {
+      temp: new ndarray([50, 50]).map(x => Math.random()),
+      density: new ndarray([50, 50]).map(x => Math.random()),
+      velocity: {
+            x: new ndarray([50, 50]).map(x => Math.random()),
+            y: new ndarray([50, 50]).map(x => Math.random()),
+      },
+      force: {
+            x: new ndarray([50, 50]).map(x => 0),
+            y: new ndarray([50, 50]).map(x => -0.1)
+      },
+      light: new ndarray([50, 50]).map(x => 1)
+};
 let objects = [];
 let w = 10;
 function update() {
         ctx.canvas.width  = window.innerWidth;
         ctx.canvas.height = window.innerHeight;
-      grid.forEach((x, y) => {
-            ctx.fillStyle = `hsl(0, 100%, ${(1-grid.get(x, y)) * 100}%)`;
+      grid.temp.forEach((x, y) => {
+            ctx.fillStyle = `hsl(0, 100%, ${(1-grid.temp.get(x, y)) * 100}%)`;
             ctx.fillRect(x*w, y*w, w, w);
       });
-      grid = grid.convolveFunc(x => x.mean(), 1, 0.05);
+      grid.temp = grid.temp.convolveFunc(x => x.mean(), 1, 0.05);
 }
 setInterval(update, 100)
