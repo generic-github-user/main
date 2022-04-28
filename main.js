@@ -78,7 +78,6 @@ class ndarray {
 
       index(s) {
             // null element?
-            // console.log(s);
             let axes = s.split(' ');
             let x = axes[0].split(':');
             let a, b;
@@ -88,9 +87,6 @@ class ndarray {
                   result.push(this.data[i]);
             }
             if (axes.length > 1) { result = result.map(y => y.index(axes.slice(1).join(' '))); }
-            // console.log(result, a, b, this.data.length, x);
-            // console.log(x, x.map(parseInt));
-            // console.log(result[0]);
             let m = k => (k === undefined) ? [] : k;
             return new ndarray([b-a, ...m(result[0].dimensions)]).setData(result);
       }
@@ -106,13 +102,8 @@ class ndarray {
       }
       // reduce axis-by-axis?
 
-      sum() {
-            return this.reduce((x, y) => x + y, 0);
-      }
-
-      mean() {
-            return this.sum() / this.size;
-      }
+      sum() { return this.reduce((x, y) => x + y, 0); }
+      mean() { return this.sum() / this.size; }
       max() { return this.reduce(Math.max, -Infinity) }
 
       map(f) {
