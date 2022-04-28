@@ -1,3 +1,30 @@
+let mDown = false;
+let mx, my;
+function getPos(canvas, event) {
+      let rect = canvas.getBoundingClientRect();
+      let x = event.clientX - rect.left;
+      let y = event.clientY - rect.top;
+      [mx, my] = [x, y];
+  }
+
+  let canvas = document.querySelector("canvas");
+
+canvas.addEventListener("mousemove", e => {
+      getPos(canvas, e);
+      if (mDown) {
+            grid.set(1, ...[mx, my].map(z => Math.floor(z / w)));
+      }
+});
+  canvas.addEventListener("mousedown", function(e)
+  {
+      getPos(canvas, e);
+      mDown = true;
+  });
+  canvas.addEventListener("mouseup", e => {
+        getPos(canvas, e);
+        mDown = false;
+ });
+
 function clip (x, min, max) {
   return Math.min(Math.max(x, min), max);
 };
