@@ -54,6 +54,28 @@ function clip (x, min, max) {
   return Math.min(Math.max(x, min), max);
 };
 
+function particle() {
+      return {
+            mass: random(0, 1),
+            position: {
+                  x: random(0, canvas.width),
+                  y: random(0, canvas.height)
+            },
+            velocity: {
+                  x: random(-0.1, 0.1),
+                  y: random(-0.1, 0.1)
+            },
+            acceleration: {
+                  x: 0,
+                  y: -0.000
+            },
+            momentum: {
+                  
+            }
+            // type
+      };
+}
+
 class ndarray {
       constructor(dimensions) {
             this.dimensions = dimensions;
