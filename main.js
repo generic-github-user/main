@@ -25,6 +25,31 @@ canvas.addEventListener("mousemove", e => {
         mDown = false;
  });
 
+ // Randomization
+ // Functions used for fuzz testing, statistical tests, etc.
+
+ // Random numbers
+
+ // Returns a random floating-point value in [a, b)
+ // assumes b >= a, though this is not technically necessary
+ // random(a: number, b: number): number
+ function random(a, b) {
+ 	return Math.random() * (b - a) + a;
+ }
+
+ // Returns a random integer in [a, b) (equivalently, [a, b-1])
+ // randomInt(a: number, b: number): number
+ function randomInt(a, b) {
+ 	return Math.floor(random(a, b));
+ }
+
+ // Returns an array of length n with values chosen from a uniform distribution over [a, b)
+ // randomArray(a: number, b: number, n: number): number[]
+ function randomArray(a, b, n) {
+ 	return Array.create(n, 0).map(v => random(a, b));
+ }
+
+
 function clip (x, min, max) {
   return Math.min(Math.max(x, min), max);
 };
