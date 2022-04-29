@@ -5,6 +5,7 @@ function getPos(canvas, event) {
       let x = event.clientX - rect.left;
       let y = event.clientY - rect.top;
       [mx, my] = [x, y];
+      console.log(`Mouse position: (${mx}, ${my})`);
   }
 
   let canvas = document.querySelector("canvas");
@@ -213,12 +214,16 @@ let grid = {
             x: new ndarray([50, 50]).map(x => Math.random()),
             y: new ndarray([50, 50]).map(x => Math.random()),
       },
-      force: {
+      acceleration: {
             x: new ndarray([50, 50]).map(x => 0),
             y: new ndarray([50, 50]).map(x => -0.1)
       },
       light: new ndarray([50, 50]).map(x => 1)
 };
+// distance-based advection?
+// push or pull?
+// use convolutions?
+// diagonal distance handling?
 let objects = [];
 let w = 10;
 function update() {
