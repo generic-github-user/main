@@ -226,6 +226,18 @@ let grid = {
 // diagonal distance handling?
 let objects = [];
 let w = 10;
+// This formula is based on the one given at https://en.wikipedia.org/wiki/Elastic_collision#Two-dimensional_collision_with_two_moving_objects
+function computeCollision(m1, m2, v1, v2, t1, t2, phi, f) {
+      return (
+                  (
+                        v1 * Math.cos(t1 - phi) * (m1 - m2) +
+                        2 * m2 * v2 * Math.cos(t2 - phi)
+                  ) / (m1 + m2)
+            )
+            * f(phi)
+            + (v1 * Math.sin(t1 - phi) * f(phi + (Math.PI / 2)))
+}
+
 function update() {
         ctx.canvas.width  = window.innerWidth;
         ctx.canvas.height = window.innerHeight;
