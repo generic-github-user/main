@@ -24,6 +24,10 @@ int MAX_BLOCKS = 100;
 // TODO: bounding box sizes
 // TODO: perimeter/edge shapes of polyominoes (convext)
 // TODO: polyomino sets
+// TODO: add equivalence pre-checks
+// TODO: quicker ways of counting than enumerating all polyominoes?
+// TODO: database indices
+// TODO: polyomino grammars
 
 struct vector {
 	int x, y, z;
@@ -70,18 +74,18 @@ struct polyomino {
 	struct array matrix;
 };
 
-struct polyomino new_polyomino(int n) {
+struct polyomino new_polyomino(int n, int x, int y) {
 	// use array of pointers?
 	//int idx[MAX_BLOCKS * 2] = {0};
 	//int idx[MAX_BLOCKS * 2];
-	
+
 	// do we need to typecast this?
 	int* idx = calloc(MAX_BLOCKS * 2, sizeof(int));
 	//int shape[2] = { MAX_WIDTH, MAX_WIDTH };
 	int* shape = calloc(2, sizeof(int));
 	//shape = { MAX_WIDTH, MAX_WIDTH };
-	shape[0] = MAX_WIDTH;
-	shape[1] = MAX_WIDTH;
+	shape[0] = x;
+	shape[1] = y;
 
 	printf("Creating polyomino (max width: %i, max height: %i) \n", shape[0], shape[1]);
 	// malloc?
@@ -109,7 +113,7 @@ void pprint(struct polyomino p, char color[]) {
 		for (int y=0; y<p.matrix.shape[1]; y++) {
 			if (color == "n") {
 				//char C[] = COLOR_ORDER[(int) 
-				printf((*get_cell(p, (struct vector) { x, y })) == 1 ? ("*") : " ");
+				printf((*get_cell(p, (struct vector) { x, y })) == 1 ? ("**") : "  ");
 				compute ++;
 			}
 		}
