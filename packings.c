@@ -108,6 +108,15 @@ int* get_cell(struct polyomino p, struct vector w) {
 	return &p.matrix.data[w.x * p.matrix.shape[1] + w.y];
 }
 
+int get_cell_value(struct polyomino p, struct vector w) {
+	int* cell_ptr = get_cell(p, w);
+	return cell_ptr == NULL ? 0 : *cell_ptr;
+}
+
+void pinfo(struct polyomino p) {
+	printf("n: %i, shape: %i by %i \n", p.n, p.matrix.shape[0], p.matrix.shape[1]);
+}
+
 void pprint(struct polyomino p, char color[]) {
 	for (int x=0; x<p.matrix.shape[0]; x++) {
 		for (int y=0; y<p.matrix.shape[1]; y++) {
