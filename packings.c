@@ -16,6 +16,14 @@ int MAX_BLOCKS = 100;
 #define RESET   "\x1b[0m"
 
 // char COLOR_ORDER = { RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA };
+// TODO: implement arrayview
+// TODO: object representing all combinations/configurations of some objects?
+// TODO: add memoization
+// TODO: define mappings from one polyomino to another (and transformations, etc.)
+// TODO: Polyomino naming
+// TODO: bounding box sizes
+// TODO: perimeter/edge shapes of polyominoes (convext)
+// TODO: polyomino sets
 
 struct vector {
 	int x, y, z;
