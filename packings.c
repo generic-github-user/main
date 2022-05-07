@@ -103,3 +103,16 @@ int* get_cell(struct polyomino p, struct vector w) {
 	if (w.y < 0 || w.y > p.matrix.shape[1]-1) { return NULL; }
 	return &p.matrix.data[w.x * p.matrix.shape[1] + w.y];
 }
+
+void pprint(struct polyomino p, char color[]) {
+	for (int x=0; x<p.matrix.shape[0]; x++) {
+		for (int y=0; y<p.matrix.shape[1]; y++) {
+			if (color == "n") {
+				//char C[] = COLOR_ORDER[(int) 
+				printf((*get_cell(p, (struct vector) { x, y })) == 1 ? ("*") : " ");
+				compute ++;
+			}
+		}
+		printf("\n");
+	}
+}
