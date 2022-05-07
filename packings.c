@@ -28,3 +28,10 @@ struct array {
 	int* data;
 };
 
+
+struct array fill_array(struct array a, int value) {
+	for (int i=0; i<a.size; i++) {
+		a.data[i] = value;
+	}
+	return a;
+}
