@@ -89,3 +89,17 @@ struct polyomino new_polyomino(int n) {
 	struct polyomino p = { n, idx, matrix };
 	return p;
 }
+// TODO: use bit arrays
+
+int bound(int* x, int a, int b) {
+	if (*x < a) { *x = a; }
+	if (*x > b) { *x = b; }
+}
+
+int* get_cell(struct polyomino p, struct vector w) {
+	//bound(&w.x, 0, p.matrix.shape[0]);
+	//bound(&w.y, 0, p.matrix.shape[1]);
+	if (w.x < 0 || w.x > p.matrix.shape[0]-1) { return NULL; }
+	if (w.y < 0 || w.y > p.matrix.shape[1]-1) { return NULL; }
+	return &p.matrix.data[w.x * p.matrix.shape[1] + w.y];
+}
