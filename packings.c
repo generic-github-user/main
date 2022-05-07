@@ -193,3 +193,29 @@ struct edges get_edges(struct polyomino p) {
 	return e;
 
 }
+
+int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
+//	printf("Enumerating extensions on p of size %i (running total is %i, limit %i) \n", n, i, limit);
+	struct edges e = get_edges(p);
+	for (int j=0; j<e.num_edges; j++) {
+		if (i > limit) {
+			printf("Limit (%i) reached; halting execution \n", limit);
+			break;
+		}
+		if (n == 1) {
+			return 1;
+			//i = 1;
+			//break;
+		}
+		//if (prev != NULL) {
+		//	*prev = 0;
+		//}
+
+		*(e.edges[j]) = 1;
+//		pprint(p, "n");
+		compute ++;
+		i += enumerate(p, n-1, 0, limit, e.edges[j]);
+		*(e.edges[j]) = 0;
+	}
+	return i;
+}
