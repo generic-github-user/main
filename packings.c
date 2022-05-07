@@ -5,6 +5,7 @@
 
 int MAX_WIDTH = 10;
 int MAX_BLOCKS = 100;
+int compute = 0;
 
 // Based on code from https://stackoverflow.com/a/3219471
 #define RED     "\x1b[31m"
@@ -153,4 +154,42 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 		}
 	}
 	return 0;
+}
+
+struct edges {
+	int** edges;
+	int num_edges;
+};
+
+struct edges get_edges(struct polyomino p) {
+	int** edges = calloc(p.matrix.size, sizeof(int));
+	int num_edges = 0;
+	// more elegant way to do this?
+	for (int x=0; x<p.matrix.shape[0]; x++) {
+		for (int y=0; y<p.matrix.shape[1]; y++) {
+			struct vector v = { x, y };
+			int* cell_ptr = get_cell(p, v);
+			//int adj = (
+			//	*get_cell(p, (struct vector) { x-1, y })+
+			//	*get_cell(p, (struct vector) { x+1, y })+
+			//	*get_cell(p, (struct vector) { x, y-1 })+
+			//	*get_cell(p, (struct vector) { x, y+1 })
+			//);
+			int adj = (
+				get_cell_value(p, (struct vector) { x-1, y })+
+				get_cell_value(p, (struct vector) { x+1, y })+
+				get_cell_value(p, (struct vector) { x, y-1 })+
+				get_cell_value(p, (struct vector) { x, y+1 })
+			);
+			// printf("%i adj; ", adj);
+			compute ++;
+			if (*cell_ptr == 0 && adj > 0) {
+				edges[num_edges] = cell_ptr;
+				num_edges ++;
+			}
+		}
+	}
+	struct edges e = { edges, num_edges };
+	return e;
+
 }
