@@ -219,3 +219,15 @@ int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
 	}
 	return i;
 }
+// Other methods of comparison (more efficient)?
+int translation_equivalent(struct polyomino p1, struct polyomino p2) {
+	for (int x=-p1.matrix.shape[0]; x<p1.matrix.shape[0]*2; x++) {
+		for (int y=-p1.matrix.shape[1]; y<p1.matrix.shape[1]*2; y++) {
+			compute ++;
+			if (!equivalent(p1, p2, x, y)) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
