@@ -139,3 +139,18 @@ void pfree(struct polyomino p) {
 	afree(p.matrix);
 	free(p.indices);
 }
+
+int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
+	// TODO: revise bounds
+	for (int x=0; x<p1.matrix.shape[0]; x++) {
+		for (int y=0; y<p1.matrix.shape[1]; y++) {
+			if (
+				get_cell_value(p1, (struct vector) { x, y }) &&
+				get_cell_value(p2, (struct vector) { x+dx, y+dy })
+			) {
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
