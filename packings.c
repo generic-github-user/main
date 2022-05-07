@@ -43,3 +43,19 @@ struct array fill_array(struct array a, int value) {
 	}
 	return a;
 }
+
+struct array new_array(int rank, int* shape) {
+	// int rank = sizeof(shape);
+	// int* size = malloc(sizeof(int));
+	int size = 1;
+	for(int i=0; i<rank; i++) {
+		size *= shape[i];
+	}
+	printf("Initalizing array with size %i \n", size);
+	//int data[size] = {0};
+	//int data[size];
+	int* data = calloc(size, sizeof(int));
+	struct array a = { rank, shape, size, data };
+	fill_array(a, 0);
+	return a;
+};
