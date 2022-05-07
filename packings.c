@@ -120,3 +120,13 @@ void pprint(struct polyomino p, char color[]) {
 		printf("\n");
 	}
 }
+
+void afree(struct array a) {
+	free(a.shape);
+	free(a.data);
+}
+
+void pfree(struct polyomino p) {
+	afree(p.matrix);
+	free(p.indices);
+}
