@@ -59,3 +59,33 @@ struct array new_array(int rank, int* shape) {
 	fill_array(a, 0);
 	return a;
 };
+
+//struct array array_and(struct array a1, struct array a2) {
+
+// struct array map_array(struct array a
+
+struct polyomino {
+	int n;
+	int* indices;
+	struct array matrix;
+};
+
+struct polyomino new_polyomino(int n) {
+	// use array of pointers?
+	//int idx[MAX_BLOCKS * 2] = {0};
+	//int idx[MAX_BLOCKS * 2];
+	
+	// do we need to typecast this?
+	int* idx = calloc(MAX_BLOCKS * 2, sizeof(int));
+	//int shape[2] = { MAX_WIDTH, MAX_WIDTH };
+	int* shape = calloc(2, sizeof(int));
+	//shape = { MAX_WIDTH, MAX_WIDTH };
+	shape[0] = MAX_WIDTH;
+	shape[1] = MAX_WIDTH;
+
+	printf("Creating polyomino (max width: %i, max height: %i) \n", shape[0], shape[1]);
+	// malloc?
+	struct array matrix = new_array(2, shape);
+	struct polyomino p = { n, idx, matrix };
+	return p;
+}
