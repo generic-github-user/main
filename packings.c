@@ -42,6 +42,8 @@ int compute = 0;
 // TODO: possible naming schemes?
 // TODO: polyomino signatures for memoization of testing translational/rotational equivalence? (maybe break down into sub-polyominoes)
 // TODO: more robust coordinate system (what is a polyomino?)
+//
+// TODO: use preprocessor
 
 struct vector {
 //	int x, y, z;
@@ -92,9 +94,10 @@ struct polyomino {
 	// int* indices;
 	struct vector** indices;
 	struct array matrix;
+	char* name;
 };
 
-struct polyomino new_polyomino(int x, int y) {
+struct polyomino new_polyomino(char* name, int x, int y) {
 	// use array of pointers?
 	//int idx[MAX_BLOCKS * 2] = {0};
 	//int idx[MAX_BLOCKS * 2];
@@ -112,7 +115,7 @@ struct polyomino new_polyomino(int x, int y) {
 	printf("Creating polyomino (max width: %i, max height: %i) \n", shape[0], shape[1]);
 	// malloc?
 	struct array matrix = new_array(2, shape);
-	struct polyomino p = { 0, idx, matrix };
+	struct polyomino p = { 0, idx, matrix, name };
 	return p;
 }
 
@@ -176,13 +179,16 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	return 0;
 }
 
-double adjacent(struct polyomino p) {
-	for (int x=0; x<p.matrix.shape[0]; x++) {
-		for (int y=0; y<p.matrix.shape[1]; y++) {
-		
-		}
-	}
-}
+// double adjacent(struct polyomino p) {
+// 	for (int x=0; x<p.matrix.shape[0]; x++) {
+// 		for (int y=0; y<p.matrix.shape[1]; y++) {
+// 		
+// 		}
+// 	}
+// }
+//
+
+
 
 void* find_space(struct vector** source, int n) {
 	for (int i=0; i<n; i++) {
@@ -280,7 +286,13 @@ struct edges get_edges(struct polyomino p) {
 
 }
 
-int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
+// TODO: add "base polyominoes" and choice indices for combinatorial descriptions
+char* global_name(struct polyomino p) {
+}
+
+char namechars[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+int enumerate(struct polyomino p, int n, int i, int limit, int* prev, int filter) {
 //	printf("Enumerating extensions on p of size %i (running total is %i, limit %i) \n", n, i, limit);
 	struct edges e = get_edges(p);
 	for (int j=0; j<e.num_edges; j++) {
@@ -299,8 +311,9 @@ int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
 
 		*(e.edges[j]) = 1;
 //		pprint(p, "n");
+//		TODO: check if polyomino already exists before making recursive calls
 		compute ++;
-		i += enumerate(p, n-1, 0, limit, e.edges[j]);
+		i += enumerate(p, n-1, 0, limit, e.edges[j], 1);
 		*(e.edges[j]) = 0;
 	}
 	return i;
@@ -357,8 +370,22 @@ int connected(struct polyomino p) {
 
 }
 
-void optimize(struct polyomino p, int iterations) {
-
+void optimize(struct polyomino p, int iterations, char* goal) {
+	printf("Maximizing %s... \n", goal);
+	double l1, l2;
+	for (int i=0; i<iterations; i++) {
+		struct edges e = get_edges(p);	
+		if (e.num_edges > 0) {
+			int z = rand() % e.num_edges;
+			*(e.edges[z]) = 1;
+			l2 = perimeter(p);
+			printf("Loss value is %f \n", l2);
+			if (l2 <= l1) {
+				*(e.edges[z]) = 0;
+			}
+		}
+		free(e.edges);
+	}
 }
 
 // Other methods of comparison (more efficient)?
@@ -394,11 +421,11 @@ int main() {
 
 	for (int i=1; i<=7; i++) {
 		printf("Enumerating polyominos of size %i... \n", i);
-		struct polyomino p = new_polyomino(10, 10);
+		struct polyomino p = new_polyomino(NULL, 10, 10);
 		p.matrix.data
 			[((int) (p.matrix.shape[0]/2)
 			* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
-		int n = enumerate(p, i, 0, 100000, NULL) / i;
+		int n = enumerate(p, i, 0, 100000, NULL, 1) / i;
 		//pprint(p, "n");
 		printf(" found %i \n", n);
 		printf("Total compute used: %i \n", compute);
@@ -409,7 +436,7 @@ int main() {
 	for (int i=0; i<10; i++) {
 		printf("Creating new polyomino\n");
 		int q = (int) (sqrt(i+1))*10;
-		struct polyomino p = new_polyomino(q, q);
+		struct polyomino p = new_polyomino(NULL, q, q);
 		p.matrix.data
 			[((int) (p.matrix.shape[0]/2)
 			* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
@@ -424,4 +451,13 @@ int main() {
 		printf("Total compute used: %i \n", compute);
 		printf("\n");
 	}
+	printf("\n");
+	
+	struct polyomino p = new_polyomino(NULL, 20, 20);
+	p.matrix.data
+		[((int) (p.matrix.shape[0]/2)
+		* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
+	optimize(p, 20, "perimeter");
+	pprint(p, "n");
+	printf("\n");
 }
