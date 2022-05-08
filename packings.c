@@ -333,3 +333,21 @@ int translation_equivalent(struct polyomino p1, struct polyomino p2) {
 	}
 	return 1;
 }
+int main() {
+	srand(time(NULL));
+	printf("packings.c loaded successfully\n");
+
+	for (int i=1; i<=7; i++) {
+		printf("Enumerating polyominos of size %i... \n", i);
+		struct polyomino p = new_polyomino(10, 10);
+		p.matrix.data
+			[((int) (p.matrix.shape[0]/2)
+			* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
+		int n = enumerate(p, i, 0, 100000, NULL) / i;
+		//pprint(p, "n");
+		printf(" found %i \n", n);
+		printf("Total compute used: %i \n", compute);
+		printf("\n");
+	}
+	printf("\n");
+}
