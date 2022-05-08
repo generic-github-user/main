@@ -48,6 +48,7 @@ int np = 0;
 // TODO: more robust coordinate system (what is a polyomino?)
 //
 // TODO: use preprocessor
+// TODO: add mechanism for describing and testing invariants
 
 struct vector {
 //	int x, y, z;
@@ -128,6 +129,12 @@ struct polyomino new_polyomino(char* name, int x, int y) {
 	np ++;
 
 	return p;
+}
+
+void add_center(struct polyomino p) {
+	p.matrix.data
+		[((int) (p.matrix.shape[0]/2)
+		* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
 }
 
 int bound(int* x, int a, int b) {
@@ -459,9 +466,7 @@ int main() {
 	for (int i=1; i<=7; i++) {
 		printf("Enumerating polyominos of size %i... \n", i);
 		struct polyomino p = new_polyomino(NULL, 10, 10);
-		p.matrix.data
-			[((int) (p.matrix.shape[0]/2)
-			* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
+		add_center(p);
 		int n = enumerate(p, i, 0, 100000, NULL, 1) / i;
 		//pprint(p, "n");
 		printf(" found %i \n", n);
@@ -474,9 +479,7 @@ int main() {
 		printf("Creating new polyomino\n");
 		int q = (int) (sqrt(i+1))*10;
 		struct polyomino p = new_polyomino(NULL, q, q);
-		p.matrix.data
-			[((int) (p.matrix.shape[0]/2)
-			* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
+		add_center(p);
 		pinfo(p);
 		printf("Adding blocks to polyomino\n");
 		for (int j=0; j<(i+1)*10; j++) {
@@ -491,9 +494,7 @@ int main() {
 	printf("\n");
 	
 	struct polyomino p = new_polyomino(NULL, 20, 20);
-	p.matrix.data
-		[((int) (p.matrix.shape[0]/2)
-		* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
+	add_center(p);
 	optimize(p, 20, "perimeter");
 	pprint(p, "n");
 	printf("\n");
