@@ -167,6 +167,16 @@ void* find_space(struct vector** source, int n) {
 	}
 	return NULL;
 }
+
+void add_block(struct polyomino p, struct vector w) {
+	int* cell_ptr = get_cell(p, w);
+	*cell_ptr = 1;
+//	p.idx[p.n] = w;
+	// TODO***
+	struct vector* w_ptr = find_space(p.indices, p.n);
+	*w_ptr = w;
+	p.n ++;
+}
 struct edges {
 	int** edges;
 	int num_edges;
