@@ -173,6 +173,21 @@ int count_adj(struct polyomino p, int x, int y) {
 	);
 	return adj;
 }
+
+int perimeter(struct polyomino p) {
+	int P = 0;
+//	for (int i=0; i<p.n; i++) {
+	for (int x=0; x<p.matrix.shape[0]; x++) {
+		for (int y=0; y<p.matrix.shape[1]; y++) {
+			int v = get_cell_value(p, (struct vector) { x, y });
+			if (v) {
+				P += 4 - count_adj(p, x, y);
+			}
+		}
+	}
+	return P;
+}
+
 struct edges get_edges(struct polyomino p) {
 	int** edges = calloc(p.matrix.size, sizeof(int));
 	int num_edges = 0;
