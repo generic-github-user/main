@@ -159,6 +159,14 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	return 0;
 }
 
+void* find_space(struct vector** source, int n) {
+	for (int i=0; i<n; i++) {
+		if (source[n] == NULL) {
+			return &source[n];
+		}
+	}
+	return NULL;
+}
 struct edges {
 	int** edges;
 	int num_edges;
