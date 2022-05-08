@@ -20,6 +20,8 @@ int np = 0;
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
+#define fori(n, f) for (int i=0; i<n, i++) { f }
+
 // char COLOR_ORDER = { RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA };
 // TODO: implement arrayview
 // TODO: object representing all combinations/configurations of some objects?
@@ -68,6 +70,10 @@ struct array {
 
 
 struct array fill_array(struct array a, int value) {
+	//fori(a.size,
+	//	a.data[i] = value;
+	//	compute ++;
+	//)
 	for (int i=0; i<a.size; i++) {
 		a.data[i] = value;
 		compute ++;
@@ -102,6 +108,7 @@ struct polyomino {
 	struct vector** indices;
 	struct array matrix;
 	char* name;
+//	struct vector* bounds;
 };
 
 
@@ -351,7 +358,7 @@ int enumerate(struct polyomino p, int n, int i, int limit, int* prev, int filter
 
 
 // Modifies polyomino in place
-struct polyomino grow_polyomino(struct polyomino p) {
+void grow_polyomino(struct polyomino p) {
 	//int* edges[p.matrix.size] = {0};
 	//int* edges[p.matrix.size];
 	
@@ -364,10 +371,9 @@ struct polyomino grow_polyomino(struct polyomino p) {
 		*(e.edges[z]) = 1;
 	}
 	free(e.edges);
-	return p;
 }
 
-struct polyomino shrink_polyomino(struct polyomino p) {
+void shrink_polyomino(struct polyomino p) {
 	compute ++;
 	if (p.n) {
 		int z = rand() % p.n;
@@ -375,7 +381,6 @@ struct polyomino shrink_polyomino(struct polyomino p) {
 //		TODO: allow passing pointer to vector in remove_block
 		remove_block(p, *p.indices[z]);
 	}
-	return p;
 }
 
 int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
@@ -497,6 +502,7 @@ int main() {
 	add_center(p);
 	optimize(p, 20, "perimeter");
 	pprint(p, "n");
+	printf("Total compute used: %i \n", compute);
 	printf("\n");
 
 	// endpoint();
