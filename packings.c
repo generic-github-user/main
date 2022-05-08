@@ -39,8 +39,13 @@ int compute = 0;
 // TODO: use linked lists
 
 struct vector {
-	int x, y, z;
+//	int x, y, z;
+	int x, y;
 };
+
+struct vector new_vector(int x, int y) {
+	return (struct vector) { x, y };
+}
 
 struct array {
 	int rank;
@@ -165,6 +170,14 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 		}
 	}
 	return 0;
+}
+
+double adjacent(struct polyomino p) {
+	for (int x=0; x<p.matrix.shape[0]; x++) {
+		for (int y=0; y<p.matrix.shape[1]; y++) {
+		
+		}
+	}
 }
 
 void* find_space(struct vector** source, int n) {
@@ -345,6 +358,10 @@ int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	return 1;
 }
 
+int connected(struct polyomino p) {
+
+}
+
 // Other methods of comparison (more efficient)?
 int translation_equivalent(struct polyomino p1, struct polyomino p2) {
 	for (int x=-p1.matrix.shape[0]; x<p1.matrix.shape[0]*2; x++) {
@@ -357,6 +374,11 @@ int translation_equivalent(struct polyomino p1, struct polyomino p2) {
 	}
 	return 1;
 }
+
+int rotation_equivalent(struct polyomino p1, struct polyomino p2) {
+
+}
+
 // struct table {
 // 	char headers[][];
 // 	int data[][];
