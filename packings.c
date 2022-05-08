@@ -246,6 +246,22 @@ int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
 	}
 	return i;
 }
+// Modifies polyomino in place
+struct polyomino grow_polyomino(struct polyomino p) {
+	//int* edges[p.matrix.size] = {0};
+	//int* edges[p.matrix.size];
+	
+	// ???
+
+	struct edges e = get_edges(p);	
+	if (e.num_edges > 0) {
+	// if (edges != NULL) {
+		int z = rand() % e.num_edges;
+		*(e.edges[z]) = 1;
+	}
+	free(e.edges);
+	return p;
+}
 // Other methods of comparison (more efficient)?
 int translation_equivalent(struct polyomino p1, struct polyomino p2) {
 	for (int x=-p1.matrix.shape[0]; x<p1.matrix.shape[0]*2; x++) {
