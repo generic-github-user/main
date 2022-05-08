@@ -79,18 +79,21 @@ struct array new_array(int rank, int* shape) {
 
 struct polyomino {
 	int n;
-	int* indices;
+	// int* indices;
+	struct vector** indices;
 	struct array matrix;
 };
 
-struct polyomino new_polyomino(int n, int x, int y) {
+struct polyomino new_polyomino(int x, int y) {
 	// use array of pointers?
 	//int idx[MAX_BLOCKS * 2] = {0};
 	//int idx[MAX_BLOCKS * 2];
 
 	// do we need to typecast this?
-	int* idx = calloc(MAX_BLOCKS * 2, sizeof(int));
+	// int* idx = calloc(MAX_BLOCKS * 2, sizeof(int));
 	//int shape[2] = { MAX_WIDTH, MAX_WIDTH };
+	
+	struct vector** idx = calloc(MAX_BLOCKS, sizeof(struct vector));
 	int* shape = calloc(2, sizeof(int));
 	//shape = { MAX_WIDTH, MAX_WIDTH };
 	shape[0] = x;
@@ -99,7 +102,7 @@ struct polyomino new_polyomino(int n, int x, int y) {
 	printf("Creating polyomino (max width: %i, max height: %i) \n", shape[0], shape[1]);
 	// malloc?
 	struct array matrix = new_array(2, shape);
-	struct polyomino p = { n, idx, matrix };
+	struct polyomino p = { 0, idx, matrix };
 	return p;
 }
 // TODO: use bit arrays
