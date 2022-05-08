@@ -43,7 +43,7 @@ struct vector {
 	int x, y;
 };
 
-struct vector new_vector(int x, int y) {
+struct vector vec(int x, int y) {
 	return (struct vector) { x, y };
 }
 
@@ -162,8 +162,8 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	for (int x=0; x<p1.matrix.shape[0]; x++) {
 		for (int y=0; y<p1.matrix.shape[1]; y++) {
 			if (
-				get_cell_value(p1, (struct vector) { x, y }) &&
-				get_cell_value(p2, (struct vector) { x+dx, y+dy })
+				get_cell_value(p1, vec(x, y)) &&
+				get_cell_value(p2, vec(x+dx, y+dy))
 			) {
 				return 1;
 			}
@@ -227,10 +227,10 @@ struct edges {
 
 int count_adj(struct polyomino p, int x, int y) {
 	int adj = (
-		get_cell_value(p, (struct vector) { x-1, y })+
-		get_cell_value(p, (struct vector) { x+1, y })+
-		get_cell_value(p, (struct vector) { x, y-1 })+
-		get_cell_value(p, (struct vector) { x, y+1 })
+		get_cell_value(p, vec(x-1, y))+
+		get_cell_value(p, vec(x+1, y))+
+		get_cell_value(p, vec(x, y-1))+
+		get_cell_value(p, vec(x, y+1))
 	);
 	return adj;
 }
@@ -240,7 +240,7 @@ int perimeter(struct polyomino p) {
 //	for (int i=0; i<p.n; i++) {
 	for (int x=0; x<p.matrix.shape[0]; x++) {
 		for (int y=0; y<p.matrix.shape[1]; y++) {
-			int v = get_cell_value(p, (struct vector) { x, y });
+			int v = get_cell_value(p, vec(x, y));
 			if (v) {
 				P += 4 - count_adj(p, x, y);
 			}
@@ -264,10 +264,10 @@ struct edges get_edges(struct polyomino p) {
 			//	*get_cell(p, (struct vector) { x, y+1 })
 			//);
 			int adj = (
-				get_cell_value(p, (struct vector) { x-1, y })+
-				get_cell_value(p, (struct vector) { x+1, y })+
-				get_cell_value(p, (struct vector) { x, y-1 })+
-				get_cell_value(p, (struct vector) { x, y+1 })
+				get_cell_value(p, vec(x-1, y))+
+				get_cell_value(p, vec(x+1, y))+
+				get_cell_value(p, vec(x, y-1))+
+				get_cell_value(p, vec(x, y+1))
 			);
 			// printf("%i adj; ", adj);
 			compute ++;
@@ -348,8 +348,8 @@ int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 		for (int y=0; y<p1.matrix.shape[1]; y++) {
 			compute ++;
 			if (
-				get_cell_value(p1, (struct vector) { x, y }) !=
-				get_cell_value(p2, (struct vector) { x, y })
+				get_cell_value(p1, vec(x, y)) !=
+				get_cell_value(p2, vec(x, y))
 			) {
 				return 0;
 			}
@@ -359,6 +359,10 @@ int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 }
 
 int connected(struct polyomino p) {
+
+}
+
+void optimize(struct polyomino p, int iterations) {
 
 }
 
