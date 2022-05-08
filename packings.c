@@ -262,6 +262,23 @@ struct polyomino grow_polyomino(struct polyomino p) {
 	free(e.edges);
 	return p;
 }
+
+// TODO: more robust coordinate system (what is a polyomino?)
+int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
+	for (int x=0; x<p1.matrix.shape[0]; x++) {
+		for (int y=0; y<p1.matrix.shape[1]; y++) {
+			compute ++;
+			if (
+				get_cell_value(p1, (struct vector) { x, y }) !=
+				get_cell_value(p2, (struct vector) { x, y })
+			) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
 // Other methods of comparison (more efficient)?
 int translation_equivalent(struct polyomino p1, struct polyomino p2) {
 	for (int x=-p1.matrix.shape[0]; x<p1.matrix.shape[0]*2; x++) {
