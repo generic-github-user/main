@@ -29,6 +29,9 @@ int compute = 0;
 // TODO: quicker ways of counting than enumerating all polyominoes?
 // TODO: database indices
 // TODO: polyomino grammars
+//
+// TODO: polyomino perimeter
+// TODO: optimization
 
 struct vector {
 	int x, y, z;
