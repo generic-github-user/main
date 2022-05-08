@@ -177,6 +177,20 @@ void add_block(struct polyomino p, struct vector w) {
 	*w_ptr = w;
 	p.n ++;
 }
+
+void remove_block(struct polyomino p, struct vector w) {
+	int* cell_ptr = get_cell(p, w);
+	*cell_ptr = 0;
+	for (int i=0; i<p.n; i++) {
+		if (p.indices[i] -> x == w.x && p.indices[i] -> y == w.y) {
+			p.indices[i] = NULL;
+		}
+		p.n --;
+		break;
+	}
+}
+
+
 struct edges {
 	int** edges;
 	int num_edges;
