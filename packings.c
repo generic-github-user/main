@@ -295,6 +295,16 @@ struct polyomino grow_polyomino(struct polyomino p) {
 	return p;
 }
 
+struct polyomino shrink_polyomino(struct polyomino p) {
+	if (p.n) {
+		int z = rand() % p.n;
+//		remove_block(p, (struct vector) {
+//		TODO: allow passing pointer to vector in remove_block
+		remove_block(p, *p.indices[z]);
+	}
+	return p;
+}
+
 // TODO: more robust coordinate system (what is a polyomino?)
 int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	for (int x=0; x<p1.matrix.shape[0]; x++) {
