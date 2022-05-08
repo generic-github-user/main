@@ -164,6 +164,15 @@ struct edges {
 	int num_edges;
 };
 
+int count_adj(struct polyomino p, int x, int y) {
+	int adj = (
+		get_cell_value(p, (struct vector) { x-1, y })+
+		get_cell_value(p, (struct vector) { x+1, y })+
+		get_cell_value(p, (struct vector) { x, y-1 })+
+		get_cell_value(p, (struct vector) { x, y+1 })
+	);
+	return adj;
+}
 struct edges get_edges(struct polyomino p) {
 	int** edges = calloc(p.matrix.size, sizeof(int));
 	int num_edges = 0;
