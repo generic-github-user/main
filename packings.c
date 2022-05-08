@@ -376,4 +376,23 @@ int main() {
 		printf("\n");
 	}
 	printf("\n");
+
+	for (int i=0; i<10; i++) {
+		printf("Creating new polyomino\n");
+		int q = (int) (sqrt(i+1))*10;
+		struct polyomino p = new_polyomino(q, q);
+		p.matrix.data
+			[((int) (p.matrix.shape[0]/2)
+			* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
+		pinfo(p);
+		printf("Adding blocks to polyomino\n");
+		for (int j=0; j<(i+1)*10; j++) {
+			grow_polyomino(p);
+		}
+		pprint(p, "n");
+		printf("Perimeter: %i \n", perimeter(p));
+		pfree(p);
+		printf("Total compute used: %i \n", compute);
+		printf("\n");
+	}
 }
