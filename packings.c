@@ -69,6 +69,7 @@ struct array {
 struct array fill_array(struct array a, int value) {
 	for (int i=0; i<a.size; i++) {
 		a.data[i] = value;
+		compute ++;
 	}
 	return a;
 }
@@ -79,6 +80,7 @@ struct array new_array(int rank, int* shape) {
 	int size = 1;
 	for(int i=0; i<rank; i++) {
 		size *= shape[i];
+		compute ++;
 	}
 	printf("Initalizing array with size %i \n", size);
 	//int data[size] = {0};
@@ -138,10 +140,12 @@ int* get_cell(struct polyomino p, struct vector w) {
 	//bound(&w.y, 0, p.matrix.shape[1]);
 	if (w.x < 0 || w.x > p.matrix.shape[0]-1) { return NULL; }
 	if (w.y < 0 || w.y > p.matrix.shape[1]-1) { return NULL; }
+	compute ++;
 	return &p.matrix.data[w.x * p.matrix.shape[1] + w.y];
 }
 
 int get_cell_value(struct polyomino p, struct vector w) {
+	compute ++;
 	int* cell_ptr = get_cell(p, w);
 	return cell_ptr == NULL ? 0 : *cell_ptr;
 }
@@ -177,6 +181,7 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	// TODO: revise bounds
 	for (int x=0; x<p1.matrix.shape[0]; x++) {
 		for (int y=0; y<p1.matrix.shape[1]; y++) {
+			compute ++;
 			if (
 				get_cell_value(p1, vec(x, y)) &&
 				get_cell_value(p2, vec(x+dx, y+dy))
@@ -201,6 +206,7 @@ int intersect(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 
 void* find_space(struct vector** source, int n) {
 	for (int i=0; i<n; i++) {
+		compute ++;
 		if (source[n] == NULL) {
 			return &source[n];
 		}
@@ -209,6 +215,7 @@ void* find_space(struct vector** source, int n) {
 }
 
 void add_block(struct polyomino p, struct vector w) {
+	compute ++;
 	int* cell_ptr = get_cell(p, w);
 	*cell_ptr = 1;
 //	p.idx[p.n] = w;
@@ -222,6 +229,7 @@ void remove_block(struct polyomino p, struct vector w) {
 	int* cell_ptr = get_cell(p, w);
 	*cell_ptr = 0;
 	for (int i=0; i<p.n; i++) {
+		compute ++;
 		if (p.indices[i] -> x == w.x && p.indices[i] -> y == w.y) {
 			p.indices[i] = NULL;
 		}
@@ -251,6 +259,7 @@ int count_adj(struct polyomino p, int x, int y) {
 		get_cell_value(p, vec(x, y-1))+
 		get_cell_value(p, vec(x, y+1))
 	);
+	compute ++;
 	return adj;
 }
 
@@ -259,6 +268,7 @@ int perimeter(struct polyomino p) {
 //	for (int i=0; i<p.n; i++) {
 	for (int x=0; x<p.matrix.shape[0]; x++) {
 		for (int y=0; y<p.matrix.shape[1]; y++) {
+			compute ++;
 			int v = get_cell_value(p, vec(x, y));
 			if (v) {
 				P += 4 - count_adj(p, x, y);
@@ -339,7 +349,7 @@ struct polyomino grow_polyomino(struct polyomino p) {
 	//int* edges[p.matrix.size];
 	
 	// ???
-
+	compute ++;
 	struct edges e = get_edges(p);	
 	if (e.num_edges > 0) {
 	// if (edges != NULL) {
@@ -351,6 +361,7 @@ struct polyomino grow_polyomino(struct polyomino p) {
 }
 
 struct polyomino shrink_polyomino(struct polyomino p) {
+	compute ++;
 	if (p.n) {
 		int z = rand() % p.n;
 //		remove_block(p, (struct vector) {
@@ -383,7 +394,8 @@ void optimize(struct polyomino p, int iterations, char* goal) {
 	printf("Maximizing %s... \n", goal);
 	double l1, l2;
 	for (int i=0; i<iterations; i++) {
-		struct edges e = get_edges(p);	
+		struct edges e = get_edges(p);
+		compute ++;
 		if (e.num_edges > 0) {
 			int z = rand() % e.num_edges;
 			*(e.edges[z]) = 1;
