@@ -7,6 +7,10 @@ int MAX_WIDTH = 10;
 int MAX_BLOCKS = 100;
 int compute = 0;
 
+struct polyomino** plist;
+int np = 0;
+
+
 // Based on code from https://stackoverflow.com/a/3219471
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -97,6 +101,7 @@ struct polyomino {
 	char* name;
 };
 
+
 struct polyomino new_polyomino(char* name, int x, int y) {
 	// use array of pointers?
 	//int idx[MAX_BLOCKS * 2] = {0};
@@ -116,6 +121,10 @@ struct polyomino new_polyomino(char* name, int x, int y) {
 	// malloc?
 	struct array matrix = new_array(2, shape);
 	struct polyomino p = { 0, idx, matrix, name };
+
+	plist[np] = &p;
+	np ++;
+
 	return p;
 }
 
@@ -415,9 +424,25 @@ struct attempt {
 	char message[];
 };
 
+
+void endpoint() {
+	for (int i=0; i<np; i++) {
+		if (plist[i] != NULL) {
+			printf(RED "Warning: " RESET "object was not cleared from memory after use");
+		}
+	}
+}
+
+void init() {
+	plist = calloc(100, sizeof(struct polyomino));
+	np = 0;
+}
+
 int main() {
 	srand(time(NULL));
 	printf("packings.c loaded successfully\n");
+
+	init();
 
 	for (int i=1; i<=7; i++) {
 		printf("Enumerating polyominos of size %i... \n", i);
@@ -460,4 +485,6 @@ int main() {
 	optimize(p, 20, "perimeter");
 	pprint(p, "n");
 	printf("\n");
+
+	// endpoint();
 }
