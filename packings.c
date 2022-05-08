@@ -198,6 +198,14 @@ void remove_block(struct polyomino p, struct vector w) {
 	}
 }
 
+struct node {
+	void* value;
+	struct node** adjacent;
+};
+
+struct graph {
+	struct node** nodes;
+};
 
 struct edges {
 	int** edges;
