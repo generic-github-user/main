@@ -38,6 +38,11 @@ int compute = 0;
 // TODO: count holes
 // TODO: use linked lists
 
+// TODO: use bit arrays
+// TODO: possible naming schemes?
+// TODO: polyomino signatures for memoization of testing translational/rotational equivalence? (maybe break down into sub-polyominoes)
+// TODO: more robust coordinate system (what is a polyomino?)
+
 struct vector {
 //	int x, y, z;
 	int x, y;
@@ -110,7 +115,6 @@ struct polyomino new_polyomino(int x, int y) {
 	struct polyomino p = { 0, idx, matrix };
 	return p;
 }
-// TODO: use bit arrays
 
 int bound(int* x, int a, int b) {
 	if (*x < a) { *x = a; }
@@ -139,7 +143,7 @@ void pprint(struct polyomino p, char color[]) {
 		for (int y=0; y<p.matrix.shape[1]; y++) {
 			if (color == "n") {
 				//char C[] = COLOR_ORDER[(int) 
-				printf((*get_cell(p, (struct vector) { x, y })) == 1 ? ("**") : "  ");
+				printf((*get_cell(p, vec(x, y))) == 1 ? ("**") : "  ");
 				compute ++;
 			}
 		}
@@ -257,12 +261,6 @@ struct edges get_edges(struct polyomino p) {
 		for (int y=0; y<p.matrix.shape[1]; y++) {
 			struct vector v = { x, y };
 			int* cell_ptr = get_cell(p, v);
-			//int adj = (
-			//	*get_cell(p, (struct vector) { x-1, y })+
-			//	*get_cell(p, (struct vector) { x+1, y })+
-			//	*get_cell(p, (struct vector) { x, y-1 })+
-			//	*get_cell(p, (struct vector) { x, y+1 })
-			//);
 			int adj = (
 				get_cell_value(p, vec(x-1, y))+
 				get_cell_value(p, vec(x+1, y))+
@@ -308,8 +306,6 @@ int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
 	return i;
 }
 
-// TODO: possible naming schemes?
-// TODO: polyomino signatures for memoization of testing translational/rotational equivalence? (maybe break down into sub-polyominoes)
 
 //void build(struct polyomino p) {
 //	struct edges = get_edges(p);
@@ -342,7 +338,6 @@ struct polyomino shrink_polyomino(struct polyomino p) {
 	return p;
 }
 
-// TODO: more robust coordinate system (what is a polyomino?)
 int equivalent(struct polyomino p1, struct polyomino p2, int dx, int dy) {
 	for (int x=0; x<p1.matrix.shape[0]; x++) {
 		for (int y=0; y<p1.matrix.shape[1]; y++) {
