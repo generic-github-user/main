@@ -32,6 +32,11 @@ int compute = 0;
 //
 // TODO: polyomino perimeter
 // TODO: optimization
+// TODO: track updates/cache propagated information
+// TODO: add semi-mutable polyomino data structures
+// TODO: use pointers to make my life easier
+// TODO: count holes
+// TODO: use linked lists
 
 struct vector {
 	int x, y, z;
@@ -278,6 +283,14 @@ int enumerate(struct polyomino p, int n, int i, int limit, int* prev) {
 	}
 	return i;
 }
+
+// TODO: possible naming schemes?
+// TODO: polyomino signatures for memoization of testing translational/rotational equivalence? (maybe break down into sub-polyominoes)
+
+//void build(struct polyomino p) {
+//	struct edges = get_edges(p);
+
+
 // Modifies polyomino in place
 struct polyomino grow_polyomino(struct polyomino p) {
 	//int* edges[p.matrix.size] = {0};
@@ -333,6 +346,16 @@ int translation_equivalent(struct polyomino p1, struct polyomino p2) {
 	}
 	return 1;
 }
+// struct table {
+// 	char headers[][];
+// 	int data[][];
+// };
+
+struct attempt {
+	int success, level;
+	char message[];
+};
+
 int main() {
 	srand(time(NULL));
 	printf("packings.c loaded successfully\n");
