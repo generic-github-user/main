@@ -10,7 +10,6 @@ int compute = 0;
 struct polyomino** plist;
 int np = 0;
 
-
 // Based on code from https://stackoverflow.com/a/3219471
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -121,7 +120,7 @@ struct polyomino new_polyomino(char* name, int x, int y) {
 	// int* idx = calloc(MAX_BLOCKS * 2, sizeof(int));
 	//int shape[2] = { MAX_WIDTH, MAX_WIDTH };
 	
-	struct vector** idx = calloc(MAX_BLOCKS, sizeof(struct vector));
+	struct vector** indices = calloc(MAX_BLOCKS, sizeof(struct vector));
 	int* shape = calloc(2, sizeof(int));
 	//shape = { MAX_WIDTH, MAX_WIDTH };
 	shape[0] = x;
@@ -130,7 +129,7 @@ struct polyomino new_polyomino(char* name, int x, int y) {
 	printf("Creating polyomino (max width: %i, max height: %i) \n", shape[0], shape[1]);
 	// malloc?
 	struct array matrix = new_array(2, shape);
-	struct polyomino p = { 0, idx, matrix, name };
+	struct polyomino p = { 0, indices, matrix, name };
 
 	plist[np] = &p;
 	np ++;
@@ -138,11 +137,6 @@ struct polyomino new_polyomino(char* name, int x, int y) {
 	return p;
 }
 
-void add_center(struct polyomino p) {
-	p.matrix.data
-		[((int) (p.matrix.shape[0]/2)
-		* p.matrix.shape[1]) + (int) (p.matrix.shape[1]/2)] = 1;
-}
 
 int bound(int* x, int a, int b) {
 	if (*x < a) { *x = a; }
@@ -225,6 +219,7 @@ void* find_space(struct vector** source, int n) {
 			return &source[n];
 		}
 	}
+	printf("No sections available (%i checked) \n", n);
 	return NULL;
 }
 
@@ -234,7 +229,11 @@ void add_block(struct polyomino p, struct vector w) {
 	*cell_ptr = 1;
 //	p.idx[p.n] = w;
 	// TODO***
-	struct vector* w_ptr = find_space(p.indices, p.n);
+	struct vector* w_ptr = (struct vector*) find_space(p.indices, MAX_BLOCKS);
+	if (w_ptr == NULL) {
+		printf("Memory limit reached \n");
+		exit(1);
+	}
 	*w_ptr = w;
 	p.n ++;
 }
@@ -250,6 +249,16 @@ void remove_block(struct polyomino p, struct vector w) {
 		p.n --;
 		break;
 	}
+}
+
+void add_center(struct polyomino p) {
+	add_block(
+		p,
+		vec(
+			(int) (p.matrix.shape[0]/2),
+			(int) (p.matrix.shape[1]/2)
+		)
+	);
 }
 
 struct node {
