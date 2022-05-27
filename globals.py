@@ -13,5 +13,5 @@ class Eva:
     nlp = spacy.load(modelName)
     gbParser = create_parser(lang='en')
     selection = None
-    
+    loglevel = 0    
     database = None

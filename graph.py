@@ -2,6 +2,7 @@ from collections import namedtuple
 import pickle
 import time
 import random
+from functools import partial
 
 from helpers.getsize import getsize
 from helpers.entropy import estimateEntropy
@@ -11,6 +12,9 @@ from node import Node
 # Node = node.Node
 
 from settings import Settings
+from globals import Eva
+
+# say = partial(say, Eva.database)
 
 # A generic graph data structure (more specifically, a metagraph, which does not distinguish between nodes and edges)
 class Graph:
@@ -106,6 +110,8 @@ class Graph:
     # A callback used when a graph update needs to be propagated to a node; updates information such as adjacency lists
     def updateNode(self, node, level=0, callback=None):
         assert(isinstance(node, int))
+        self.logger(f'Updating node {node}')
+        Eva.loglevel += 1
 
         if self[node].value not in Settings.ignoredTypes:
             self.addNode(
@@ -139,6 +145,7 @@ class Graph:
                 if (len(m) == 0):
                     self.addNode('entropy_estimate', [current.id, entId], level=level+1)
 
+        Eva.loglevel -= 1
         return node
 
     # Add a node to the graph

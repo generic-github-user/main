@@ -104,7 +104,7 @@ Eva.db = database
 timeFunc = partial(timeFunc, database)
 say = partial(say, database)
 backup = partial(backup, database)
-
+database.logger = say
 
 try:
     print('Loading reference lists')
@@ -143,8 +143,10 @@ def think(node=None):
         node = database.random()
     else:
         node = database[node]
+    nnode = Node(node.id, database, node)
     name = node.value
-    say(f'Pondering {name}', level=0)
+    say(f'Pondering {nnode}')
+    Eva.loglevel += 1
 
     database.updateNode(node.id, level=1, callback=updater)
     # TODO: fluent node interface
@@ -154,7 +156,10 @@ def think(node=None):
     for info in ['cpu_percent', ]:
         value = getattr(psutil, info)()
         say(f'Recording {info} ({value})')
-        database.addNode('value', [database.addNode(value, [], False), database.addNode(info, [], False)], True)
+        database.addNode('value', [
+            database.addNode(value, [], False),
+            database.addNode(info, [], False)
+        ], True)
 
     inferences = []
     random.shuffle(logical_relations)
@@ -183,6 +188,7 @@ def think(node=None):
     else:
         say('No viable inferences found', level=1)
     database.save()
+    Eva.loglevel -= 1
     return callNode
 
 def getInfo():

@@ -1,9 +1,11 @@
 import time
 
 from settings import Settings
+from globals import Eva
 
 def timeFunc(database, F, level=0):
     def timed(*args, **kwargs):
+        Eva.loglevel += 1
         start = time.time()
 
         if Settings.debugInfo:
@@ -22,5 +24,6 @@ def timeFunc(database, F, level=0):
         if Settings.debugInfo:
             say(f'Finished execution in {elapsed} seconds', level=level)
 
+        Eva.loglevel -= 1
         return fOut
     return timed
