@@ -19,7 +19,7 @@ from itertools import chain
 
 from helpers.getsize import getsize
 from helpers.hash_file import hash_file
-from helpers.filehandling import scanDir
+from helpers.filehandling import scanDir, hasExt
 
 import sys
 import os
@@ -89,6 +89,10 @@ logical_relations = [
     ('contain', 'contain', 'contain'),
 ]
 
+filetypes = {
+    'image': 'png jpg PNG JPG JPEG',
+}
+
 def importList(data):
     for i, item in enumerate(data):
         if isinstance(item, data):
@@ -134,6 +138,9 @@ def updater(node, level):
     markLength(node, level=level+1)
     tokenize(node, level=level+1)
     markSubstrings(node, level=level+1)
+    for k, v in filetypes.items():
+        if isinstance(node.value, str) and hasExt(node.value, v):
+            database.addNode('filetype', [node.id, database.addNode(k, [], False)])
 
 def think(node=None):
     infNode = None
