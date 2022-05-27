@@ -1,6 +1,5 @@
 from commandhandler import command
 from globals import Eva
-database = Eva.database
 
 import os
 from helpers.filehandling import scanDir
@@ -10,6 +9,7 @@ from say import say
 
 @command('crawl')
 def crawlCommand(newInput):
+    database = Eva.database
     def crawlWrapper():
         p = newInput[6:]
         say(database, f'Scanning {p}')
@@ -21,3 +21,6 @@ def crawlCommand(newInput):
         # !
         return scan
     timeFunc(database, crawlWrapper)()
+
+# TODO: assess database characteristics using statistical tests on sampls of nodes
+# TODO: line numbering

@@ -12,6 +12,7 @@ from node import Node
 
 from settings import Settings
 
+# A generic graph data structure (more specifically, a metagraph, which does not distinguish between nodes and edges)
 class Graph:
     def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None, logger=None):
         if not (parent is None or isinstance(parent, Graph)):
@@ -80,6 +81,7 @@ class Graph:
         return Graph(list(filter(lambda n: self.nodeMatch(n, info), self.nodes)), parent=self.parent)
         # return Graph(hashmap={k: v for k, v in self.hashmap.items() if nodeMatch(v, info)})
 
+    # Returns a new graph containing only the nodes for which condition evaluates to true
     def filter(self, condition):
         # return Graph(list(filter(condition, self.nodes)))
         self.logger(f'Searching {len(self)} nodes')
@@ -101,6 +103,7 @@ class Graph:
     def nodeFilter(self, condition):
         return self.filter(lambda n: condition(Node(n.id, self.parent, n)))
 
+    # A callback used when a graph update needs to be propagated to a node; updates information such as adjacency lists
     def updateNode(self, node, level=0, callback=None):
         assert(isinstance(node, int))
 
@@ -138,6 +141,7 @@ class Graph:
 
         return node
 
+    # Add a node to the graph
     def addNode(self, value, members=None, duplicate=True, useSearch=False, update=False, level=0):
         assert(isinstance(members, list) or members is None)
         assert(isinstance(duplicate, bool))
@@ -170,6 +174,7 @@ class Graph:
             self.updateNode(newId)
         return newId
 
+    # Write the graph to a local file to be reused later
     def save(self):
         if len(self) > 80000:
             with open(self.savePath, 'wb') as fileRef:
@@ -181,6 +186,7 @@ class Graph:
             self.logger('Database integrity check failed; terminating save')
         return self
 
+    # Select a random node from this graph
     def random(self, weighted=True):
         if not isinstance(weighted, bool):
             raise TypeError
