@@ -111,27 +111,24 @@ backup = partial(backup, database)
 database.logger = say
 
 try:
-    print('Loading reference lists')
+    say('Loading reference lists')
     with open('./cache', 'rb') as cRef:
         database.references = pickle.load(cRef)
 except:
     database.references = []
     if debug:
-        print('Building reference lists')
+        say('Building reference lists')
     for n in database.nodes:
         database.references.append([m.id for m in nodes if (n.id in m[2])])
     if debug:
-        print('Done')
+        say('Done')
+
+# say(database.filter(lambda n: nodeProperty(n, 'member').includes('greetings')))
 
 def nodeProperty(node, attr, update=False):
-    refs = list(filter(lambda n: n.value==attr, database.get(node, update).referrers(update=update)))
-    links = list(filter(lambda n: n.members[0]==node, refs))
-    if len(links) == 0:
-        return None
-    destId = links[0].members[1]
-    if isinstance(destId, str):
-        destId = database.getNodes(destId)[0].id
-    return database.get(destId, update).value
+    refs = database.get(node, update).referrers(update=update).search(value=attr)
+    links = refs.filter(lambda n: n.members[0] == node)
+    return refs.map(lambda n: database.get(n.members[1], update))
 
 def updater(node, level):
     markType(node, level=level+1)
@@ -333,6 +330,8 @@ def html_archive(start, node):
         DB.addNode('links_to', [startNode, DB.addNode(link, [], True)])
     time.sleep(0.1)
 
+#@command('count')
+#def countCommand(newInput)
 
 
 @command('ask')

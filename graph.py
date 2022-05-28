@@ -51,12 +51,6 @@ class Graph:
             logger = L
         self.logger = logger
 
-    def nodeMatch(self, node, info):
-        for i in range(len(info)):
-            if (info[i] != None and info[i] != node[i]):
-                return False
-        return True
-
     def getId(self):
         return len(self.nodes)
 
@@ -73,22 +67,13 @@ class Graph:
         self.nodes = list(map(lambda n: self.nodeTemplate(*n), self.nodes))
         for n in self.nodes:
             self.hashmap[n.id] = n
-        for n in self.nodes:
-            self.hashmap[n.id] = n
         return self
 
-    def getNodes(self, value):
-        return Graph(list(filter(lambda n: n[1]==value, self.nodes)), parent=self.parent)
-        # return Graph(hashmap={k: v for k, v in self.hashmap.items() if v.value==value})
-
-    def search(self, info):
-        return Graph(list(filter(lambda n: self.nodeMatch(n, info), self.nodes)), parent=self.parent)
-        # return Graph(hashmap={k: v for k, v in self.hashmap.items() if nodeMatch(v, info)})
-
     # Returns a new graph containing only the nodes for which condition evaluates to true
-    def filter(self, condition):
-        # return Graph(list(filter(condition, self.nodes)))
-        self.logger(f'Searching {len(self)} nodes')
+    def filter(self, condition, log=False):
+        if log:
+            self.logger(f'Searching {len(self)} nodes')
+        Eva.loglevel += 1
         result = []
         newrefs = []
         # outGraph = Graph()
@@ -99,13 +84,21 @@ class Graph:
                 result.append(node)
                 # outGraph.addNode()
                 newrefs.append(self.references[x])
-            if (x % 10000 == 0):
+            if (x % 10000 == 0) and log:
                 self.logger(f'Checked {x}/{len(self)} nodes')
+        Eva.loglevel -= 1
         return Graph(result, references=newrefs, parent=self.parent)
         # return outGraph
 
     def nodeFilter(self, condition):
         return self.filter(lambda n: condition(Node(n.id, self.parent, n)))
+
+    def search(self, **kwargs):
+#        return self.filter(lambda n: n.value == value)
+        return self.filter(lambda n: all(getattr(n, k) == v for k, v in kwargs.items()))
+
+    def map(self, f):
+        return Graph(map(f, self.nodes), parent=self.parent)
 
     # A callback used when a graph update needs to be propagated to a node; updates information such as adjacency lists
     def updateNode(self, node, level=0, callback=None):
@@ -149,19 +142,21 @@ class Graph:
         return node
 
     # Add a node to the graph
-    def addNode(self, value, members=None, duplicate=True, useSearch=False, update=False, level=0):
+    def addNode(self, value, members=None, duplicate=True, useMembers=False, update=False, level=0):
         assert(isinstance(members, list) or members is None)
         assert(isinstance(duplicate, bool))
-        assert(isinstance(useSearch, bool))
+        assert(isinstance(useMembers, bool))
         assert(isinstance(update, bool))
 
         newId = self.getId()
-        if useSearch:
-            matches = self.search([None, value, members, None])
-        else:
-            matches = self.getNodes(value)
-        if Settings.debugInfo:
-            self.logger(f'Search results: {matches}', level=level+1)
+        if not duplicate:
+            if useMembers:
+                matches = self.search(value=value, members=members)
+            else:
+                matches = self.search(value=value)
+            if Settings.debugInfo:
+                self.logger(f'Search results: {matches}', level=level+1)
+
         if (duplicate or not matches):
                 self.logger(f'Creating node {value} with members [{"; ".join(str(m) for m in members)}]', level=level+1)
                 if members is None:
