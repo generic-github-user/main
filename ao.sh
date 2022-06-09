@@ -3,7 +3,7 @@
 # A simple script for organizing my desktop and other folders that tend to get cluttered
 shopt -s nocaseglob
 shopt -s globstar
-#shopt -s nullglob
+shopt -s nullglob
 shopt -s extglob
 shopt -s dotglob
 
@@ -41,13 +41,51 @@ paths=($restrict/**/*.$imt)
 IFS=
 
 limit=20
+dry=0
+verbose=0
 result=
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	--dry )
 		dry=1
 	;;
-	--verbose | v )
+	--verbose | -v )
 		verbose=1
+	;;
+	--process )
+		echo $verbose
+		#paths=$(grep -F -x -v -f $indexname $paths)
+		echo "Found ${#paths[@]} files; filtering"
+#		p=$(printf "%s\n" ${paths[@]})
+#		paths=$(echo $p | grep -F -x -v -f $indexname)
+#		paths=$(echo $p | grep -F -v -f $indexname)
+		echo "Getting checksums for ${#paths[@]} files"
+#		p=${paths[@]:0:$limit}
+#		echo $dry
+		if [[ $dry != 1 ]]
+		then
+			echo "fname${S}sha1${S}content" | tee -a ${indexname}
+			for img in ${paths[@]:0:limit}; do
+				checksum=$(sha1sum $img)
+				if [[ $verbose == 1 ]]; then
+					echo $img
+					echo $checksum
+				fi
+				if ! $(grep -qF $checksum $indexname); then
+					echo "$img$S\
+						$checksum$S\
+						$(tesseract $img stdout | tr -d '\n')" >> $indexname
+																#| tee -a "$indexname"
+																#echo $info | tee -a $indexname
+					# TODO
+					# echo $info | cut -c1-50 | echo
+					#$info >> $indexname
+				elif [[ $verbose == 1 ]]; then
+					echo "Already processed"
+				fi
+				if [[ $verbose == 1 ]]; then echo $'\n'; fi
+			done
+		fi
+		exit
 	;;
 	--open | -o )
 		shift
