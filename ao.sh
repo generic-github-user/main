@@ -87,6 +87,16 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		fi
 		exit
 	;;
+	--limit | -l )
+		shift; limit=$1
+	;;
+	--imfind )
+		shift; target=$1
+#		echo "Searching for $target"
+		# Based on https://unix.stackexchange.com/a/527499
+		result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
+		echo $result
+	;;
 	--open | -o )
 		shift
 		echo "Displaying results"
