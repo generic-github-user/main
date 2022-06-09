@@ -21,3 +21,15 @@ S="::"
 #sources="@(~/Desktop|~/Downloads|~/Desktop/January)"
 sources='@(.|../Downloads|January)'
 echo $sources
+
+#IFS=$'\n'
+# why do these need to be quoted?
+for img in "$sources"/*."$imt"; do
+	mv -nv $img ./img_archive | tee -a ./aolog
+done
+
+mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
+mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
+mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
+
+cp ~/Desktop/ao.sh ~/Desktop/ao
