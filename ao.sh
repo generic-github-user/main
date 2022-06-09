@@ -33,3 +33,25 @@ mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
 mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
 
 cp ~/Desktop/ao.sh ~/Desktop/ao
+
+tst={private,dht}
+#echo **/*.${tst}
+#for img in $(eval echo "**/*.$imgtypes"); do
+paths=($restrict/**/*.$imt)
+IFS=
+
+limit=20
+result=
+while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+	--dry )
+		dry=1
+	;;
+	--verbose | v )
+		verbose=1
+	;;
+esac; shift; done
+if [[ "$1" == '--' ]]; then shift; fi
+
+#for img in **/*.$(eval echo $imgtypes); do
+#	echo "${img},$(sha1sum $img)" | tee -a $indexname
+
