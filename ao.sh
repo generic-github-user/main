@@ -16,13 +16,24 @@ indexname=./imgindex.csv
 imgtypes={png,jpg,jpeg,webp,gif}
 imt='@(png|jpg|jpeg|webp|gif)'
 vidtypes='@(mov|mp4)'
+IFS=$'\n'
 
 S="::"
 #sources="@(~/Desktop|~/Downloads|~/Desktop/January)"
-sources='@(.|../Downloads|January)'
+#sources='@(.|/home/alex/Downloads|January)'
+
+main=$HOME/Desktop
+sources="$HOME/@(Downloads|Desktop)"
 echo $sources
 
-#IFS=$'\n'
+group_ftype() {
+	for arg in "$@"; do
+		mkdir -p ${arg}s
+		#echo $sources/*.$1
+		[[ $sources/*.$arg ]] && mv -nv $sources/*.$arg ${arg}s | tee -a aolog
+	done
+}
+
 # why do these need to be quoted?
 for img in "$sources"/*."$imt"; do
 	mv -nv $img ./img_archive | tee -a ./aolog
@@ -31,6 +42,7 @@ done
 mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
 mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
 mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
+group_ftype pdf pgn dht
 
 cp ~/Desktop/ao.sh ~/Desktop/ao
 
