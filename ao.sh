@@ -49,6 +49,21 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	--verbose | v )
 		verbose=1
 	;;
+	--open | -o )
+		shift
+		echo "Displaying results"
+		d="./aosearch ($(date))"
+		#mkdir $d; ln -s $result $d/$
+		mkdir $d
+		#cat $result | while read line; do
+		#while LANG=C IFS= read line; do
+		echo $result | while read line; do
+			echo "linking ${line}"
+			ln -s $(realpath $line) $d/$(basename $line)_link
+		#done < $result
+		done
+		dolphin $d
+	;;
 esac; shift; done
 if [[ "$1" == '--' ]]; then shift; fi
 
