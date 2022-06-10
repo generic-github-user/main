@@ -51,12 +51,22 @@ dry=0
 verbose=0
 result=
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+	# Execute a "dry run"; don't modify any files
 	--dry )
 		dry=1
 	;;
+
+	# Print additional information about what the program is doing
 	--verbose | -v )
 		verbose=1
 	;;
+
+	# Compress saved files into .tar.gz archives
+	-z )
+		compress=1
+	;;
+
+	# Apply organization rules to restructure local files
 	--cleanup )
 		log Organizing
 		printf "%s\n" $sources
@@ -71,6 +81,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
 		group_ftype pdf pgn dht docx ipynb pptx
 	;;
+
+	# Extract data from files to build databases
 	--process )
 		echo "Processing"
 		paths=()
@@ -112,9 +124,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		fi
 		exit
 	;;
+
+	# Limit the number of results an action returns
 	--limit | -l )
 		shift; limit=$1
 	;;
+
+	# Find images containing the specified text
 	--imfind )
 		shift; target=$1
 		echo "Searching for $target"
@@ -122,6 +138,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
 		echo $result
 	;;
+
+	# Open the selection by creating a temporary directory with symlinks to its files
 	--open | -o )
 		shift
 		echo "Displaying results"
@@ -137,6 +155,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		done
 		dolphin $d
 	;;
+
+	# Gather information about a directory and its contents
 	--manifest | -m )
 		shift
 		cd $1
@@ -144,6 +164,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		python3.9 -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
 		cd $main
 	;;
+
+	# Fetch a URL and archive the returned data
 	--download | -d )
 		keys=("starred", "repos", "followers", "following")
 
@@ -153,8 +175,14 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 			if [[ $compress == 1 ]]; then
 				tar -czf $basepath.tar.gz $basepath.json --remove-files
 			fi
-			done
+		done
 	;;
+
+	# Count inputs or current selection
+	--count | -c )
+		echo $result | wc -l
+	;;
+
 esac; shift; done
 if [[ "$1" == '--' ]]; then shift; fi
 
