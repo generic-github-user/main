@@ -144,6 +144,17 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		python3.9 -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
 		cd $main
 	;;
+	--download | -d )
+		keys=("starred", "repos", "followers", "following")
+
+		for key in ${keys[@]}; do
+			basepath="github/ao_request_$key $(date)"
+			curl https://api.github.com/users/$github_user/$key > $basepath.json
+			if [[ $compress == 1 ]]; then
+				tar -czf $basepath.tar.gz $basepath.json --remove-files
+			fi
+			done
+	;;
 esac; shift; done
 if [[ "$1" == '--' ]]; then shift; fi
 
