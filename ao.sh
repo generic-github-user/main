@@ -7,7 +7,10 @@ shopt -s nullglob
 shopt -s extglob
 shopt -s dotglob
 
-restrict='@(img_archive)'
+main=$HOME/Desktop
+cd $main
+restrict=("$HOME/Desktop/img_archive" "$HOME/Pictures")
+echo $restrict
 
 #ls -al > ao_ls.txt
 ls -al >> ./aolog
@@ -22,7 +25,6 @@ S="::"
 #sources="@(~/Desktop|~/Downloads|~/Desktop/January)"
 #sources='@(.|/home/alex/Downloads|January)'
 
-main=$HOME/Desktop
 sources="$HOME/@(Downloads|Desktop)"
 echo $sources
 
@@ -56,7 +58,6 @@ cp ~/Desktop/ao.sh ~/Desktop/ao
 tst={private,dht}
 #echo **/*.${tst}
 #for img in $(eval echo "**/*.$imgtypes"); do
-paths=($restrict/**/*.$imt)
 IFS=
 
 limit=20
@@ -71,6 +72,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		verbose=1
 	;;
 	--process )
+		echo "Processing"
+		paths=()
+		for p in ${restrict[@]}; do
+			echo $p
+			paths+=($p/**/*.$imt)
+		done
+
 		echo $verbose
 		echo "Found ${#paths[@]} files; filtering"
 #		p=$(printf "%s\n" ${paths[@]})
@@ -107,7 +115,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 	--imfind )
 		shift; target=$1
-#		echo "Searching for $target"
+		echo "Searching for $target"
 		# Based on https://unix.stackexchange.com/a/527499
 		result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
 		echo $result
