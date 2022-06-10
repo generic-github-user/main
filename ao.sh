@@ -135,6 +135,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		done
 		dolphin $d
 	;;
+	--manifest | -m )
+		shift
+		cd $1
+		echo "Generating directory listing of $(pwd)"
+		python3.9 -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
+		cd $main
+	;;
 esac; shift; done
 if [[ "$1" == '--' ]]; then shift; fi
 
