@@ -39,20 +39,6 @@ group_ftype() {
 		[[ $sources/*.$arg ]] && mv -nv $sources/*.$arg ${arg}s | tee -a aolog
 	done
 }
-
-log Organizing
-printf "%s\n" $sources
-
-# why do these need to be quoted?
-for img in $sources/*.$imt; do
-	mv -nv $img ./img_archive | tee -a ./aolog
-done
-
-mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
-mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
-mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
-group_ftype pdf pgn dht docx ipynb pptx
-
 cp ~/Desktop/ao.sh ~/Desktop/ao
 
 tst={private,dht}
@@ -70,6 +56,20 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 	--verbose | -v )
 		verbose=1
+	;;
+	--cleanup )
+		log Organizing
+		printf "%s\n" $sources
+
+		# why do these need to be quoted?
+		for img in $sources/*.$imt; do
+			mv -nv $img ./img_archive | tee -a ./aolog
+		done
+
+		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
+		mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
+		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
+		group_ftype pdf pgn dht docx ipynb pptx
 	;;
 	--process )
 		echo "Processing"
