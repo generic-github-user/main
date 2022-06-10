@@ -88,14 +88,16 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		then
 			echo "fname${S}sha1${S}content" | tee -a ${indexname}
 			for img in ${paths[@]:0:limit}; do
-				checksum=$(sha1sum $img)
+#				checksum=($(sha1sum ${img}))
+				checksum=$(sha1sum $img | awk '{ print $1 }')
 				if [[ $verbose == 1 ]]; then
 					echo $img
-					echo $checksum
+					echo ${checksum}
+					#echo $'\n'
 				fi
-				if ! $(grep -qF $checksum $indexname); then
+				if ! $(grep -qF ${checksum} $indexname); then
 					echo "$img$S\
-						$checksum$S\
+						${checksum}$S\
 						$(tesseract $img stdout | tr -d '\n')" >> $indexname
 				#| tee -a "$indexname"
 				#echo $info | tee -a $indexname
