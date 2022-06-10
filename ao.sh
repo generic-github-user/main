@@ -42,14 +42,14 @@ log Organizing
 printf "%s\n" $sources
 
 # why do these need to be quoted?
-for img in "$sources"/*."$imt"; do
+for img in $sources/*.$imt; do
 	mv -nv $img ./img_archive | tee -a ./aolog
 done
 
 mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
 mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
 mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
-group_ftype pdf pgn dht
+group_ftype pdf pgn dht docx ipynb pptx
 
 cp ~/Desktop/ao.sh ~/Desktop/ao
 
@@ -72,14 +72,10 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 	--process )
 		echo $verbose
-		#paths=$(grep -F -x -v -f $indexname $paths)
 		echo "Found ${#paths[@]} files; filtering"
 #		p=$(printf "%s\n" ${paths[@]})
-#		paths=$(echo $p | grep -F -x -v -f $indexname)
 #		paths=$(echo $p | grep -F -v -f $indexname)
 		echo "Getting checksums for ${#paths[@]} files"
-#		p=${paths[@]:0:$limit}
-#		echo $dry
 		if [[ $dry != 1 ]]
 		then
 			echo "fname${S}sha1${S}content" | tee -a ${indexname}
@@ -93,8 +89,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 					echo "$img$S\
 						$checksum$S\
 						$(tesseract $img stdout | tr -d '\n')" >> $indexname
-																#| tee -a "$indexname"
-																#echo $info | tee -a $indexname
+				#| tee -a "$indexname"
+				#echo $info | tee -a $indexname
 					# TODO
 					# echo $info | cut -c1-50 | echo
 					#$info >> $indexname
@@ -137,3 +133,5 @@ if [[ "$1" == '--' ]]; then shift; fi
 #for img in **/*.$(eval echo $imgtypes); do
 #	echo "${img},$(sha1sum $img)" | tee -a $indexname
 
+
+# TODO: store triggers that run command/function on event
