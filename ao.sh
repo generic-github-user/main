@@ -26,13 +26,20 @@ main=$HOME/Desktop
 sources="$HOME/@(Downloads|Desktop)"
 echo $sources
 
+log() {
+	echo $1 | tee -a aolog
+}
+
 group_ftype() {
 	for arg in "$@"; do
+		log "Grouping $sources/*.$1"
 		mkdir -p ${arg}s
-		#echo $sources/*.$1
 		[[ $sources/*.$arg ]] && mv -nv $sources/*.$arg ${arg}s | tee -a aolog
 	done
 }
+
+log Organizing
+printf "%s\n" $sources
 
 # why do these need to be quoted?
 for img in "$sources"/*."$imt"; do
