@@ -121,6 +121,15 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 				fi
 				if [[ $verbose == 1 ]]; then echo $'\n'; fi
 			done
+		elif [[ $1 == text ]]; then
+			# is there a nicer way to do this (implicit looping)?
+			for t in ./*.$text_types; do
+#				hash=($(sha1sum $t))
+#				TODO: backup ao database
+				hash=$(sha1sum $t | awk '{ print $1 }')
+				log "Getting stats for $t"
+				cat $dbfile | jq --arg name $t --arg path $(realpath $t) --arg h $hash --arg category text --arg lines $(wc -l < $t) --arg chars $(wc -m < $t) --arg words $(wc -w < $t) '.files += [{"name": $name, "path": $path, "sha1": $h, "category": $category, "lines": $lines|tonumber, "chars": $chars|tonumber, "words": $words|tonumber}]' > $dbfile
+			done
 		fi
 		exit
 	;;
