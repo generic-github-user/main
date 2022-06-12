@@ -230,8 +230,34 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	--manifest | -m )
 		shift
 		cd $1
-		echo "Generating directory listing of $(pwd)"
-		python3.9 -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
+		log "Generating directory listing of $(pwd)"
+		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
+		backup_db
+
+#		cp ao_db.json ao_db.temp.json
+		if [[ recursive == 1 ]]; then paths="**/*.*"
+		else paths="*.*"; fi
+
+		batch='[]'
+		echo "batch $batch"
+#		echo "[]"
+		for f in $paths; do
+			log "Tracking $f"
+			hash=$(sha1sum $f | awk '{ print $1 }')
+			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash)
+#			info=$(echo $info | jq '.stats |= . | fromjson')
+#			info=$(echo $info | jq '.stats |= fromjson')
+#			echo $(file_stats $f)
+
+#			echo $info
+#			echo "$batch"
+#			cat $dbfile | jq '.files += [{s:5}]'
+			batch=$(echo "$batch" | jq --argjson finfo "$info" '. += [$finfo]')
+			#batch=$tmpbatch
+		done
+		cat $dbfile | jq --argjson b "$batch" '.files += [$b]' > $dbfile.temp
+		cp $dbfile.temp $dbfile
+
 		cd $main
 	;;
 
