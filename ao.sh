@@ -66,6 +66,24 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		compress=1
 	;;
 
+	--rose )
+		IFS=$'\n'
+		r=()
+		shift
+		n=${1-4}
+		chars="#@"
+		for x in $(seq 1 $n); do
+			t=""; for y in $(seq 1 $n); do
+			z=$(( ($RANDOM%100) * (x + y) ))
+			if [ $z -gt 500 ]; then t+=$([ $z -gt 900 ] && echo -en "@@" || echo -n "##"); else t+="  "; fi
+			done; r+=($(echo -n $t))
+		done
+#		echo $r
+		half=$(for i in ${r[@]}; do echo -n $i; echo $i | rev; done)
+		echo "$half"; echo "$half" | tac
+#		!! | tac
+	;;
+
 	# Apply organization rules to restructure local files
 	--cleanup )
 		log Organizing
