@@ -1,13 +1,15 @@
 #!/bin/bash
 
 # A simple script for organizing my desktop and other folders that tend to get cluttered
+# I decided to name it ao(.sh) ("autoorganize"), but its functionality quickly expanded beyond organization
+
 shopt -s nocaseglob
 shopt -s globstar
 shopt -s nullglob
 shopt -s extglob
 shopt -s dotglob
 
-main=$HOME/Desktop
+source ao_config.sh
 cd $main
 restrict=("$HOME/Desktop/img_archive" "$HOME/Pictures")
 echo $restrict
@@ -39,12 +41,27 @@ group_ftype() {
 		[[ $sources/*.$arg ]] && mv -nv $sources/*.$arg ${arg}s | tee -a aolog
 	done
 }
+
+file_stats() {
+	stat $1 -c "{\"owner\": \"%U\", \"size\": %s, \"birth_time\": %W, \"accessed\": %X, \"modified\": %Y, \"changed\": %Z}"
+#	stat $1 -c "{ owner: \"%U\", size: %s, birth_time: %W, accessed: %X, modified: %Y, changed: %Z }"
+}
+
+backup_db() {
+	p="ao_db_$(date +%s).tar.gz"
+	log "Backing up $dbfile to $p"
+	tar -czf $p $dbfile
+}
+
 cp ~/Desktop/ao.sh ~/Desktop/ao
 
 tst={private,dht}
 #echo **/*.${tst}
 #for img in $(eval echo "**/*.$imgtypes"); do
 IFS=
+
+RED='\033[0;31m'
+NC='\033[0m'
 
 limit=20
 dry=0
