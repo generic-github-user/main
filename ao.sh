@@ -76,6 +76,10 @@ dry=0
 verbose=0
 result=
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+	--status )
+		log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
+	;;
+
 	# Execute a "dry run"; don't modify any files
 	--dry )
 		dry=1
@@ -91,27 +95,38 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		compress=1
 	;;
 
+	--recursive | -r )
+		recursive=1
+	;;
+
 	--rose )
 		IFS=$'\n'
 		r=()
 		shift
 		n=${1-4}
-		chars="#@"
+		chars=".*#@"
 		for x in $(seq 1 $n); do
 			t=""; for y in $(seq 1 $n); do
 			z=$(( ($RANDOM%100) * (x + y) ))
-			if [ $z -gt 500 ]; then t+=$([ $z -gt 900 ] && echo -en "@@" || echo -n "##"); else t+="  "; fi
-			done; r+=($(echo -n $t))
+			#w=$(( $(echo "${r[@]}" | sort -nr | head -n1 ) * 2 / 3 ))
+			if [ $z -gt $(( 50 * n * 2 )) ];
+				then t+=$([ $z -gt 900 ] && echo -en "@@" || echo -n "##"); else t+="  "; fi
+				index=$(( z * ${#chars} / (100 * n * 2) ))
+
+#				echo -en "${chars:$index:1} ";
+#				t+=${chars:$index:1}; else t+="  "; fi
+#				then t+="${chars:$index:1}"; else t+="  "; fi
+			done; r+=($(echo -en "$t"))
 		done
 #		echo $r
-		half=$(for i in ${r[@]}; do echo -n $i; echo $i | rev; done)
-		echo "$half"; echo "$half" | tac
+		half=$(for i in ${r[@]}; do echo -en "$i"; echo -e "$i" | rev; done)
+		echo -e "$half"; echo -e "$half" | tac
 #		!! | tac
 	;;
 
 	# Apply organization rules to restructure local files
 	--cleanup )
-		log Organizing
+		log 'Organizing'
 		printf "%s\n" $sources
 
 		# why do these need to be quoted?
@@ -127,7 +142,10 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 	# Extract data from files to build databases
 	--process )
-		echo "Processing"
+		shift
+
+		log "Processing $1"
+		
 		paths=()
 		for p in ${restrict[@]}; do
 			echo $p
@@ -237,6 +255,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 esac; shift; done
 if [[ "$1" == '--' ]]; then shift; fi
+
+notify-send -u low "ao.sh" "ao.sh has finished executing"
 
 #for img in **/*.$(eval echo $imgtypes); do
 #	echo "${img},$(sha1sum $img)" | tee -a $indexname
