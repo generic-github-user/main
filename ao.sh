@@ -48,9 +48,11 @@ file_stats() {
 }
 
 backup_db() {
-	p="ao_db_$(date +%s).tar.gz"
+	d="./ao_db_backups"
+	mkdir -p $d
+	p="$d/ao_db_$(date +%s).tar.gz"
 	log "Backing up $dbfile to $p"
-	tar -czf $p $dbfile
+	tar cvzf $p $dbfile
 }
 
 cp ~/Desktop/ao.sh ~/Desktop/ao
@@ -62,6 +64,12 @@ IFS=
 
 RED='\033[0;31m'
 NC='\033[0m'
+
+rinfo=$(jo -p time=$(date +%s) args=$(echo "$@"))
+echo $rinfo
+#cat $dbfile | jq --argjson rinfo $rinfo 'if has("runs") then .runs += [$rinfo] else .runs = []' > $dbfile.temp
+cat $dbfile | jq --argjson rinfo $rinfo '.runs += [$rinfo]' > $dbfile.temp
+cp $dbfile.temp $dbfile
 
 limit=20
 dry=0
