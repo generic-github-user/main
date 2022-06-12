@@ -9,6 +9,8 @@ shopt -s nullglob
 shopt -s extglob
 shopt -s dotglob
 
+set -e
+
 source ao_config.sh
 cd $main
 restrict=("$HOME/Desktop/img_archive" "$HOME/Pictures")
@@ -48,7 +50,7 @@ file_stats() {
 }
 
 backup_db() {
-	d="./ao_db_backups"
+	d="$main/ao_db_backups"
 	mkdir -p $d
 	p="$d/ao_db_$(date +%s).tar.gz"
 	log "Backing up $dbfile to $p"
@@ -96,6 +98,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	--recursive | -r )
+		log "Setting option recursive"
 		recursive=1
 	;;
 
@@ -157,7 +160,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 #		p=$(printf "%s\n" ${paths[@]})
 #		paths=$(echo $p | grep -F -v -f $indexname)
 		echo "Getting checksums for ${#paths[@]} files"
-		if [[ $dry != 1 ]]
+		if [[ $dry != 1 && $1 == images ]]
 		then
 			echo "fname${S}sha1${S}content" | tee -a ${indexname}
 			for img in ${paths[@]:0:limit}; do
@@ -228,6 +231,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 	# Gather information about a directory and its contents
 	--manifest | -m )
+		IFS=$'\n'
 		shift
 		cd $1
 		log "Generating directory listing of $(pwd)"
@@ -235,16 +239,19 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		backup_db
 
 #		cp ao_db.json ao_db.temp.json
-		if [[ recursive == 1 ]]; then paths="**/*.*"
-		else paths="*.*"; fi
+		if [[ $recursive == 1 ]]; then paths=(**/*.*)
+		else paths=(*.*); fi
 
 		batch='[]'
-		echo "batch $batch"
+#		echo "batch $batch"
 #		echo "[]"
-		for f in $paths; do
-			log "Tracking $f"
+		log "Found ${#paths[@]} files"
+		for f in ${paths[@]}; do
+			#log "Tracking $f"
+			echo "Tracking $f" > /dev/tty
 			hash=$(sha1sum $f | awk '{ print $1 }')
 			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash)
+#			echo "$info" > /dev/tty
 #			info=$(echo $info | jq '.stats |= . | fromjson')
 #			info=$(echo $info | jq '.stats |= fromjson')
 #			echo $(file_stats $f)
@@ -253,12 +260,21 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 #			echo "$batch"
 #			cat $dbfile | jq '.files += [{s:5}]'
 			batch=$(echo "$batch" | jq --argjson finfo "$info" '. += [$finfo]')
+#			jq --argjson finfo "$info" '. += [$finfo]'
 			#batch=$tmpbatch
 		done
-		cat $dbfile | jq --argjson b "$batch" '.files += [$b]' > $dbfile.temp
+		echo $batch > ao_batch.json.temp
+		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += [$b]' > $dbfile.temp
+		log "Propagating values to local database"
 		cp $dbfile.temp $dbfile
+#		rm ao_batch.json.temp
+		log "Done"
 
 		cd $main
+	;;
+
+	--convert )
+
 	;;
 
 	# Fetch a URL and archive the returned data
@@ -267,10 +283,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 		for key in ${keys[@]}; do
 			basepath="github/ao_request_$key $(date)"
-			curl https://api.github.com/users/$github_user/$key > $basepath.json
+			query=https://api.github.com/users/$github_user/$key
+			if [[ $verbose == 1 ]]; then log "Querying $query"; fi
+			curl $query > $basepath.json
 			if [[ $compress == 1 ]]; then
 				tar -czf $basepath.tar.gz $basepath.json --remove-files
 			fi
+			sleep $delay
 		done
 	;;
 
