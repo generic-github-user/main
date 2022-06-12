@@ -30,7 +30,6 @@ S="::"
 #sources='@(.|/home/alex/Downloads|January)'
 
 sources="$HOME/@(Downloads|Desktop)"
-echo $sources
 
 log() {
 	echo $1 | tee -a aolog
@@ -59,16 +58,12 @@ backup_db() {
 
 cp ~/Desktop/ao.sh ~/Desktop/ao
 
-tst={private,dht}
-#echo **/*.${tst}
-#for img in $(eval echo "**/*.$imgtypes"); do
 IFS=
 
 RED='\033[0;31m'
 NC='\033[0m'
 
 rinfo=$(jo -p time=$(date +%s) args=$(echo "$@"))
-echo $rinfo
 #cat $dbfile | jq --argjson rinfo $rinfo 'if has("runs") then .runs += [$rinfo] else .runs = []' > $dbfile.temp
 cat $dbfile | jq --argjson rinfo $rinfo '.runs += [$rinfo]' > $dbfile.temp
 cp $dbfile.temp $dbfile
@@ -117,7 +112,6 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 				index=$(( z * ${#chars} / (100 * n * 2) ))
 
 #				echo -en "${chars:$index:1} ";
-#				t+=${chars:$index:1}; else t+="  "; fi
 #				then t+="${chars:$index:1}"; else t+="  "; fi
 			done; r+=($(echo -en "$t"))
 		done
@@ -157,14 +151,12 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 		echo $verbose
 		echo "Found ${#paths[@]} files; filtering"
-#		p=$(printf "%s\n" ${paths[@]})
 #		paths=$(echo $p | grep -F -v -f $indexname)
 		echo "Getting checksums for ${#paths[@]} files"
 		if [[ $dry != 1 && $1 == images ]]
 		then
 			echo "fname${S}sha1${S}content" | tee -a ${indexname}
 			for img in ${paths[@]:0:limit}; do
-#				checksum=($(sha1sum ${img}))
 				checksum=$(sha1sum $img | awk '{ print $1 }')
 				if [[ $verbose == 1 ]]; then
 					echo $img
@@ -217,14 +209,10 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		shift
 		echo "Displaying results"
 		d="./aosearch ($(date))"
-		#mkdir $d; ln -s $result $d/$
 		mkdir $d
-		#cat $result | while read line; do
-		#while LANG=C IFS= read line; do
 		echo $result | while read line; do
 			echo "linking ${line}"
 			ln -s $(realpath $line) $d/$(basename $line)_link
-		#done < $result
 		done
 		dolphin $d
 	;;
@@ -243,25 +231,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		else paths=(*.*); fi
 
 		batch='[]'
-#		echo "batch $batch"
-#		echo "[]"
 		log "Found ${#paths[@]} files"
 		for f in ${paths[@]}; do
 			#log "Tracking $f"
 			echo "Tracking $f" > /dev/tty
 			hash=$(sha1sum $f | awk '{ print $1 }')
 			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash)
-#			echo "$info" > /dev/tty
-#			info=$(echo $info | jq '.stats |= . | fromjson')
-#			info=$(echo $info | jq '.stats |= fromjson')
-#			echo $(file_stats $f)
-
-#			echo $info
-#			echo "$batch"
-#			cat $dbfile | jq '.files += [{s:5}]'
 			batch=$(echo "$batch" | jq --argjson finfo "$info" '. += [$finfo]')
-#			jq --argjson finfo "$info" '. += [$finfo]'
-			#batch=$tmpbatch
 		done
 		echo $batch > ao_batch.json.temp
 		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += [$b]' > $dbfile.temp
