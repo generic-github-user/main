@@ -236,7 +236,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 			#log "Tracking $f"
 			echo "Tracking $f" > /dev/tty
 			hash=$(sha1sum $f | awk '{ print $1 }')
-			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash)
+			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s))
 			batch=$(echo "$batch" | jq --argjson finfo "$info" '. += [$finfo]')
 		done
 		echo $batch | jq '.' > ao_batch.json.temp
@@ -247,6 +247,17 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		log "Done"
 
 		cd $main
+	;;
+
+	--update-filenodes )
+		backup_db
+		shift
+		log "Updating snapshot $1"
+#		cat $dbfile | jq --argjson i $1 'if any(.filenodes; .path == .files[$i].path) ' > $dbfile.temp
+#		cat $dbfile | jq --argjson i $1 --arg t $(date +%s) '(if has(".filenodes") == false then .filenodes = [] else . end) | select(.filenodes[].path == .files[$i].path) as $nodes | (.files[$i] + {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then $nodes[0] += $fnode else .filenodes += [$fnode] end' > $dbfile.temp
+		cat $dbfile | jq --argjson i $1 --arg t $(date +%s) 'if .filenodes then . else (.filenodes = []) end | .files[$i].path as $p | (.files | map(.path == $p) | index(true)) as $nodes | (.files[$i] + {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then .filenodes[$nodes] += $fnode else .filenodes += [$fnode] end' > $dbfile.temp
+		log "Propagating values to local database ($dbfile)"
+#		cp $dbfile.temp $dbfile
 	;;
 
 	--convert )
