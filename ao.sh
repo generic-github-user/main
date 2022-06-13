@@ -56,7 +56,7 @@ backup_db() {
 	tar cvzf $p $dbfile
 }
 
-cp ~/Desktop/ao.sh ~/Desktop/ao
+#cp ~/Desktop/ao.sh ~/Desktop/ao
 
 IFS=
 
@@ -239,8 +239,8 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash)
 			batch=$(echo "$batch" | jq --argjson finfo "$info" '. += [$finfo]')
 		done
-		echo $batch > ao_batch.json.temp
-		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += [$b]' > $dbfile.temp
+		echo $batch | jq '.' > ao_batch.json.temp
+		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b[]' > $dbfile.temp
 		log "Propagating values to local database"
 		cp $dbfile.temp $dbfile
 #		rm ao_batch.json.temp
