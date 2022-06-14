@@ -249,6 +249,16 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		cd $main
 	;;
 
+	--summarize )
+#		cat $dbfile | jq --arg path $1 
+		shift
+		backup_db
+		cat $dbfile | jq "if .summaries then . else .summaries = {} end | .summaries[\"$1\"] = ($1 | {sum: add, mean: (add/length), min: min, max: max})" > $dbfile.temp
+		#| tee $dbfile.temp
+		cp $dbfile.temp $dbfile
+		cat $dbfile | jq ".summaries[\"$1\"]"
+	;;
+
 	--update-filenodes )
 		backup_db
 		shift
