@@ -35,6 +35,7 @@ log() {
 	echo $1 | tee -a aolog
 }
 
+# Group files by their extension(s)
 group_ftype() {
 	for arg in "$@"; do
 		log "Grouping $sources/*.$1"
@@ -43,11 +44,13 @@ group_ftype() {
 	done
 }
 
+# Generate a JSON object with information about the specified file or directory
 file_stats() {
 	stat $1 -c "{\"owner\": \"%U\", \"size\": %s, \"birth_time\": %W, \"accessed\": %X, \"modified\": %Y, \"changed\": %Z}"
 #	stat $1 -c "{ owner: \"%U\", size: %s, birth_time: %W, accessed: %X, modified: %Y, changed: %Z }"
 }
 
+# A stopgap to mitigate any severe mistakes I make before the more comprehensive backup system is ready
 backup_db() {
 	d="$main/ao_db_backups"
 	mkdir -p $d
@@ -73,6 +76,7 @@ dry=0
 verbose=0
 result=
 while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+	# Display information about the main ao database
 	--status )
 		log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
 	;;
@@ -92,6 +96,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		compress=1
 	;;
 
+	# Recursively match subdirectories and files (as ** would)
 	--recursive | -r )
 		log "Setting option recursive"
 		recursive=1
@@ -249,6 +254,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		cd $main
 	;;
 
+	# Compute a summary of a specified property/path over the database
 	--summarize )
 #		cat $dbfile | jq --arg path $1 
 		shift
@@ -259,6 +265,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		cat $dbfile | jq ".summaries[\"$1\"]"
 	;;
 
+	# Merge file snapshots into filenodes
 	--update-filenodes )
 		backup_db
 		shift
