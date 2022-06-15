@@ -262,12 +262,16 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	--update-filenodes )
 		backup_db
 		shift
-		log "Updating snapshot $1"
-#		cat $dbfile | jq --argjson i $1 'if any(.filenodes; .path == .files[$i].path) ' > $dbfile.temp
-#		cat $dbfile | jq --argjson i $1 --arg t $(date +%s) '(if has(".filenodes") == false then .filenodes = [] else . end) | select(.filenodes[].path == .files[$i].path) as $nodes | (.files[$i] + {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then $nodes[0] += $fnode else .filenodes += [$fnode] end' > $dbfile.temp
-		cat $dbfile | jq --argjson i $1 --arg t $(date +%s) 'if .filenodes then . else (.filenodes = []) end | .files[$i].path as $p | (.files | map(.path == $p) | index(true)) as $nodes | (.files[$i] + {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then .filenodes[$nodes] += $fnode else .filenodes += [$fnode] end' > $dbfile.temp
-		log "Propagating values to local database ($dbfile)"
-#		cp $dbfile.temp $dbfile
+		IFS=$'\n'
+		for i in $(seq 0 $limit); do
+			log "Updating snapshot $i"
+	#		cat $dbfile | jq --argjson i $1 'if any(.filenodes; .path == .files[$i].path) ' > $dbfile.temp
+	#		cat $dbfile | jq --argjson i $1 --arg t $(date +%s) '(if has(".filenodes") == false then .filenodes = [] else . end) | select(.filenodes[].path == .files[$i].path) as $nodes | (.files[$i] + {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then $nodes[0] += $fnode else .filenodes += [$fnode] end' > $dbfile.temp
+			cat $dbfile | jq --argjson i $i --arg t $(date +%s) 'if .files[$i].processed then . else (if .filenodes then . else (.filenodes = []) end | .files[$i].path as $p | (.files | map(.path == $p) | index(true)) as $nodes | (.files[$i] * {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then .filenodes[$nodes] += $fnode else .filenodes += [$fnode] end | .files[$i].processed = true) end' > $dbfile.temp
+
+			log "Propagating values to local database ($dbfile)"
+			cp $dbfile.temp $dbfile
+		done
 	;;
 
 	--convert )
