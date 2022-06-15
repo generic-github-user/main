@@ -235,17 +235,14 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		if [[ $recursive == 1 ]]; then paths=(**/*.*)
 		else paths=(*.*); fi
 
-		batch='[]'
 		log "Found ${#paths[@]} files"
 		for f in ${paths[@]}; do
 			#log "Tracking $f"
 			echo "Tracking $f" > /dev/tty
 			hash=$(sha1sum $f | awk '{ print $1 }')
-			info=$(jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s))
-			batch=$(echo "$batch" | jq --argjson finfo "$info" '. += [$finfo]')
+			jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s) >> ao_batch.json.temp
 		done
-		echo $batch | jq '.' > ao_batch.json.temp
-		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b[]' > $dbfile.temp
+		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b' > $dbfile.temp
 		log "Propagating values to local database"
 		cp $dbfile.temp $dbfile
 #		rm ao_batch.json.temp
