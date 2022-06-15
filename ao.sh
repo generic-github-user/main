@@ -75,9 +75,9 @@ limit=20
 dry=0
 verbose=0
 result=
-while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+while [[ $1 ]]; do case $1 in
 	# Display information about the main ao database
-	--status )
+	status )
 		log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
 	;;
 
@@ -102,7 +102,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		recursive=1
 	;;
 
-	--rose )
+	rose )
 		IFS=$'\n'
 		r=()
 		shift
@@ -127,7 +127,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Apply organization rules to restructure local files
-	--cleanup )
+	cleanup )
 		log 'Organizing'
 		printf "%s\n" $sources
 
@@ -143,7 +143,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Extract data from files to build databases
-	--process )
+	process )
 		shift
 
 		log "Processing $1"
@@ -201,7 +201,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Find images containing the specified text
-	--imfind )
+	imfind )
 		shift; target=$1
 		echo "Searching for $target"
 		# Based on https://unix.stackexchange.com/a/527499
@@ -210,7 +210,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Open the selection by creating a temporary directory with symlinks to its files
-	--open | -o )
+	open )
 		shift
 		echo "Displaying results"
 		d="./aosearch ($(date))"
@@ -223,7 +223,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Gather information about a directory and its contents
-	--manifest | -m )
+	manifest | m )
 		IFS=$'\n'
 		shift
 		cd $1
@@ -252,7 +252,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Compute a summary of a specified property/path over the database
-	--summarize )
+	summarize )
 #		cat $dbfile | jq --arg path $1 
 		shift
 		backup_db
@@ -263,7 +263,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Merge file snapshots into filenodes
-	--update-filenodes )
+	update-filenodes )
 		backup_db
 		shift
 		IFS=$'\n'
@@ -278,12 +278,12 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		done
 	;;
 
-	--convert )
+	convert )
 
 	;;
 
 	# Fetch a URL and archive the returned data
-	--download | -d )
+	download | d )
 		keys=("starred", "repos", "followers", "following")
 
 		for key in ${keys[@]}; do
@@ -299,7 +299,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	# Count inputs or current selection
-	--count | -c )
+	count | c )
 		echo $result | wc -l
 	;;
 
