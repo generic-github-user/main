@@ -262,6 +262,17 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 	--convert )
 
+	# Record system information and other external data
+	--record )
+		shift
+		case "$1" in
+			sensors )
+				sdata=$(sensors -j)
+				cat $dbfile | jq --argjson v $sdata --argjson t $(date +%s) '.sensors += [{data: $v, time: $t, type: "sensor_data"}]' > $dbfile.temp
+				cp $dbfile.temp $dbfile
+				echo $sdata | jq '.'
+			;;
+		esac
 	;;
 
 	# Fetch a URL and archive the returned data
