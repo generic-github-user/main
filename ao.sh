@@ -223,7 +223,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 		shift
 		cd $1
 		log "Generating directory listing of $(pwd)"
-		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
+#		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
 		backup_db
 
 #		cp ao_db.json ao_db.temp.json
@@ -232,7 +232,7 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 
 		batch='[]'
 		log "Found ${#paths[@]} files"
-		for f in ${paths[@]}; do
+		for f in ${paths[@]:0:limit}; do
 			#log "Tracking $f"
 			echo "Tracking $f" > /dev/tty
 			hash=$(sha1sum $f | awk '{ print $1 }')
@@ -261,6 +261,13 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 	;;
 
 	--convert )
+		shift
+	;;
+
+	--generate-plain )
+		shift
+#		cat $dbfile | jq -r "
+	;;
 
 	# Record system information and other external data
 	--record )
