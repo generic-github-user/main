@@ -185,11 +185,12 @@ while [[ $1 ]]; do case $1 in
 		elif [[ $1 == text ]]; then
 			# is there a nicer way to do this (implicit looping)?
 			for t in ./*.$text_types; do
-#				hash=($(sha1sum $t))
 #				TODO: backup ao database
 				hash=$(sha1sum $t | awk '{ print $1 }')
 				log "Getting stats for $t"
-				cat $dbfile | jq --arg name $t --arg path $(realpath $t) --arg h $hash --arg category text --arg lines $(wc -l < $t) --arg chars $(wc -m < $t) --arg words $(wc -w < $t) '.files += [{"name": $name, "path": $path, "sha1": $h, "category": $category, "lines": $lines|tonumber, "chars": $chars|tonumber, "words": $words|tonumber}]' > $dbfile
+				cat $dbfile | \
+					jq --arg name $t --arg path $(realpath $t) --arg h $hash --arg category text --arg lines $(wc -l < $t) --arg chars $(wc -m < $t) --arg words $(wc -w < $t) \
+					'.files += [{"name": $name, "path": $path, "sha1": $h, "category": $category, "lines": $lines|tonumber, "chars": $chars|tonumber, "words": $words|tonumber}]' > $dbfile
 			done
 		fi
 		exit
@@ -231,21 +232,20 @@ while [[ $1 ]]; do case $1 in
 		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
 		backup_db
 
-#		cp ao_db.json ao_db.temp.json
 		if [[ $recursive == 1 ]]; then paths=(**/*.*)
 		else paths=(*.*); fi
 
 		log "Found ${#paths[@]} files"
+		echo '' > ao_batch.json.temp
 		for f in ${paths[@]}; do
-			#log "Tracking $f"
-			echo "Tracking $f" > /dev/tty
+			log "Tracking $f"
 			hash=$(sha1sum $f | awk '{ print $1 }')
 			jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s) >> ao_batch.json.temp
 		done
 		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b' > $dbfile.temp
 		log "Propagating values to local database"
 		cp $dbfile.temp $dbfile
-#		rm ao_batch.json.temp
+		rm ao_batch.json.temp
 		log "Done"
 
 		cd $main
@@ -253,10 +253,12 @@ while [[ $1 ]]; do case $1 in
 
 	# Compute a summary of a specified property/path over the database
 	summarize )
-#		cat $dbfile | jq --arg path $1 
 		shift
 		backup_db
-		cat $dbfile | jq "if .summaries then . else .summaries = {} end | .summaries[\"$1\"] = ($1 | {sum: add, mean: (add/length), min: min, max: max})" > $dbfile.temp
+		cat $dbfile | jq "
+			if .summaries then . else .summaries = {} end | 
+			.summaries[\"$1\"] = ($1 | {sum: add, mean: (add/length), min: min, max: max})
+		" > $dbfile.temp
 		#| tee $dbfile.temp
 		cp $dbfile.temp $dbfile
 		cat $dbfile | jq ".summaries[\"$1\"]"
@@ -269,9 +271,17 @@ while [[ $1 ]]; do case $1 in
 		IFS=$'\n'
 		for i in $(seq 0 $limit); do
 			log "Updating snapshot $i"
-	#		cat $dbfile | jq --argjson i $1 'if any(.filenodes; .path == .files[$i].path) ' > $dbfile.temp
-	#		cat $dbfile | jq --argjson i $1 --arg t $(date +%s) '(if has(".filenodes") == false then .filenodes = [] else . end) | select(.filenodes[].path == .files[$i].path) as $nodes | (.files[$i] + {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then $nodes[0] += $fnode else .filenodes += [$fnode] end' > $dbfile.temp
-			cat $dbfile | jq --argjson i $i --arg t $(date +%s) 'if .files[$i].processed then . else (if .filenodes then . else (.filenodes = []) end | .files[$i].path as $p | (.files | map(.path == $p) | index(true)) as $nodes | (.files[$i] * {snapshots: [$i], time: $t}) as $fnode | if ($nodes | length) != 0 then .filenodes[$nodes] += $fnode else .filenodes += [$fnode] end | .files[$i].processed = true) end' > $dbfile.temp
+			cat $dbfile | jq --argjson i $i --arg t $(date +%s) '
+				if .files[$i].processed then . else (
+					if .filenodes then . else (.filenodes = []) end | 
+					.files[$i].path as $p | 
+					(.files | map(.path == $p) | index(true)) as $nodes | 
+					(.files[$i] * {snapshots: [$i], time: $t}) as $fnode | 
+					if ($nodes | length) != 0
+						then .filenodes[$nodes] += $fnode
+						else .filenodes += [$fnode] 
+					end | .files[$i].processed = true
+				) end' > $dbfile.temp
 
 			log "Propagating values to local database ($dbfile)"
 			cp $dbfile.temp $dbfile
