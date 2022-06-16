@@ -142,6 +142,14 @@ while [[ $1 ]]; do case $1 in
 		group_ftype pdf pgn dht docx ipynb pptx
 	;;
 
+	ffind )
+		shift
+		cat $dbfile | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
+		cat ao_output.json.temp | jq '.'
+		cat $dbfile | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' > $dbfile.temp
+		cp $dbfile.temp $dbfile
+	;;
+
 	# Extract data from files to build databases
 	process )
 		shift
@@ -229,7 +237,7 @@ while [[ $1 ]]; do case $1 in
 		shift
 		cd $1
 		log "Generating directory listing of $(pwd)"
-		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
+#		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
 		backup_db
 
 		if [[ $recursive == 1 ]]; then paths=(**/*.*)
@@ -245,7 +253,7 @@ while [[ $1 ]]; do case $1 in
 		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b' > $dbfile.temp
 		log "Propagating values to local database"
 		cp $dbfile.temp $dbfile
-		rm ao_batch.json.temp
+#		rm ao_batch.json.temp
 		log "Done"
 
 		cd $main
