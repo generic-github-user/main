@@ -137,7 +137,7 @@ while [[ $1 ]]; do case $1 in
 		done
 
 		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
-		mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
+		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
 		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
 		group_ftype pdf pgn dht docx ipynb pptx
 	;;
@@ -148,6 +148,13 @@ while [[ $1 ]]; do case $1 in
 		cat ao_output.json.temp | jq '.'
 		cat $dbfile | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' > $dbfile.temp
 		cp $dbfile.temp $dbfile
+	;;
+
+	note )
+		shift
+#		backup_db
+		echo $1 >> notes.txt
+		cat $dbfile | jq --arg c $1 --argjson t $(date +%s) 'if .notes then . else .notes=[] end | .notes += [{content: $c, time: $t}]' > $dbfile.temp
 	;;
 
 	# Extract data from files to build databases
