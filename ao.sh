@@ -64,8 +64,10 @@ read_db() {
 }
 
 write_db() {
+	log "Propagating values to local database ($1)"
 	cat - > $1.temp
 	cp $1.temp $1
+	log "Done"
 }
 
 #cp ~/Desktop/ao.sh ~/Desktop/ao
@@ -162,9 +164,8 @@ while [[ $1 ]]; do case $1 in
 	extract-property )
 		shift
 		block="db_block_$1.json"
-		cat $dbfile | jq --arg path $1 '.[$path]' > $block
-		cat $dbfile | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' > $dbfile.temp
-		cp $dbfile.temp $dbfile
+		read_db | jq --arg path $1 '.[$path]' > $block
+		read_db | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' | write_db $dbfile
 	;;
 
 	note )
@@ -287,11 +288,8 @@ while [[ $1 ]]; do case $1 in
 			hash=$(sha1sum $f | awk '{ print $1 }')
 			jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s) >> ao_batch.json.temp
 		done
-		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b' > $dbfile.temp
-		log "Propagating values to local database"
-		cp $dbfile.temp $dbfile
+		read_db | jq --slurpfile b ao_batch.json.temp '.files += $b' | write_db $dbfile
 #		rm ao_batch.json.temp
-		log "Done"
 
 		cd $main
 	;;
@@ -300,12 +298,11 @@ while [[ $1 ]]; do case $1 in
 	summarize )
 		shift
 		backup_db
-		cat $dbfile | jq "
+		read_db | jq "
 			if .summaries then . else .summaries = {} end | 
 			.summaries[\"$1\"] = ($1 | {sum: add, mean: (add/length), min: min, max: max})
-		" > $dbfile.temp
+		" | write_db $dbfile
 		#| tee $dbfile.temp
-		cp $dbfile.temp $dbfile
 		cat $dbfile | jq ".summaries[\"$1\"]"
 	;;
 
@@ -316,7 +313,7 @@ while [[ $1 ]]; do case $1 in
 		IFS=$'\n'
 		for i in $(seq 0 $limit); do
 			log "Updating snapshot $i"
-			cat $dbfile | jq --argjson i $i --arg t $(date +%s) '
+			read_db | jq --argjson i $i --arg t $(date +%s) '
 				if .files[$i].processed then . else (
 					if .filenodes then . else (.filenodes = []) end | 
 					.files[$i].path as $p | 
@@ -326,10 +323,7 @@ while [[ $1 ]]; do case $1 in
 						then .filenodes[$nodes] += $fnode
 						else .filenodes += [$fnode] 
 					end | .files[$i].processed = true
-				) end' > $dbfile.temp
-
-			log "Propagating values to local database ($dbfile)"
-			cp $dbfile.temp $dbfile
+				) end' | write_db $dbfile
 		done
 	;;
 
