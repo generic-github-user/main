@@ -66,10 +66,11 @@ IFS=
 RED='\033[0;31m'
 NC='\033[0m'
 
-rinfo=$(jo -p time=$(date +%s) args=$(echo "$@"))
 #cat $dbfile | jq --argjson rinfo $rinfo 'if has("runs") then .runs += [$rinfo] else .runs = []' > $dbfile.temp
-cat $dbfile | jq --argjson rinfo $rinfo '.runs += [$rinfo]' > $dbfile.temp
-cp $dbfile.temp $dbfile
+
+#rinfo=$(jo -p time=$(date +%s) args=$(echo "$@"))
+#cat $dbfile | jq --argjson rinfo $rinfo '.runs += [$rinfo]' > $dbfile.temp
+#cp $dbfile.temp $dbfile
 
 limit=20
 dry=0
@@ -150,6 +151,14 @@ while [[ $1 ]]; do case $1 in
 		cp $dbfile.temp $dbfile
 	;;
 
+	extract-property )
+		shift
+		block="db_block_$1.json"
+		cat $dbfile | jq --arg path $1 '.[$path]' > $block
+		cat $dbfile | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' > $dbfile.temp
+		cp $dbfile.temp $dbfile
+	;;
+
 	note )
 		shift
 #		backup_db
@@ -157,13 +166,13 @@ while [[ $1 ]]; do case $1 in
 			add )
 				shift
 				echo $1 >> notes.txt
-				cat $dbfile | jq --arg c $1 --argjson t $(date +%s) 'if .notes then . else .notes=[] end | .notes += [{content: $c, time: $t}]' > $dbfile.temp
-				cp $dbfile.temp $dbfile
+				cat db_block_notes.json | jq --arg c $1 --argjson t $(date +%s) '. += [{content: $c, time: $t}]' > db_block_notes.json.temp
+				cp db_block_notes.json.temp db_block_notes.json
 			;;
 
 			find )
 				shift
-				cat $dbfile | jq --arg target $1 '[.notes[] | select(.content | contains($target)) | .content]' > ao_output.json.temp
+				cat db_block_notes.json | jq --arg target $1 '[.[] | select(.content | contains($target)) | .content]' > ao_output.json.temp
 				cat ao_output.json.temp | jq '.'
 #				cat $dbfile | jq --slurpfile x ao_output.json.temp 'if .outputs then . else outputs=[] end | .outputs += [$x]' > $dbfile.temp
 			;;
