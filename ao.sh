@@ -153,8 +153,21 @@ while [[ $1 ]]; do case $1 in
 	note )
 		shift
 #		backup_db
-		echo $1 >> notes.txt
-		cat $dbfile | jq --arg c $1 --argjson t $(date +%s) 'if .notes then . else .notes=[] end | .notes += [{content: $c, time: $t}]' > $dbfile.temp
+		case $1 in
+			add )
+				shift
+				echo $1 >> notes.txt
+				cat $dbfile | jq --arg c $1 --argjson t $(date +%s) 'if .notes then . else .notes=[] end | .notes += [{content: $c, time: $t}]' > $dbfile.temp
+				cp $dbfile.temp $dbfile
+			;;
+
+			find )
+				shift
+				cat $dbfile | jq --arg target $1 '[.notes[] | select(.content | contains($target)) | .content]' > ao_output.json.temp
+				cat ao_output.json.temp | jq '.'
+#				cat $dbfile | jq --slurpfile x ao_output.json.temp 'if .outputs then . else outputs=[] end | .outputs += [$x]' > $dbfile.temp
+			;;
+		esac
 	;;
 
 	# Extract data from files to build databases
