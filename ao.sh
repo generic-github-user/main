@@ -113,6 +113,11 @@ while [[ $1 ]]; do case $1 in
 		recursive=1
 	;;
 
+	# Plain output; strips away the outermost layer of JSON formatting for compatibility between bash and jq
+	--plain | -p )
+		plain=1
+	;;
+
 	rose )
 		IFS=$'\n'
 		r=()
@@ -252,7 +257,7 @@ while [[ $1 ]]; do case $1 in
 		if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
 		# Based on https://unix.stackexchange.com/a/527499
 		# result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
-		cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]'
+		cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' | if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi
 		#echo $result
 	;;
 
