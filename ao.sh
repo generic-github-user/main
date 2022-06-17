@@ -59,6 +59,17 @@ backup_db() {
 	tar cvzf $p $dbfile
 }
 
+read_db() {
+	cat $dbfile
+}
+
+write_db() {
+	log "Propagating values to local database ($1)"
+	cat - > $1.temp
+	cp $1.temp $1
+	log "Done"
+}
+
 #cp ~/Desktop/ao.sh ~/Desktop/ao
 
 IFS=
@@ -66,10 +77,11 @@ IFS=
 RED='\033[0;31m'
 NC='\033[0m'
 
-rinfo=$(jo -p time=$(date +%s) args=$(echo "$@"))
 #cat $dbfile | jq --argjson rinfo $rinfo 'if has("runs") then .runs += [$rinfo] else .runs = []' > $dbfile.temp
-cat $dbfile | jq --argjson rinfo $rinfo '.runs += [$rinfo]' > $dbfile.temp
-cp $dbfile.temp $dbfile
+
+#rinfo=$(jo -p time=$(date +%s) args=$(echo "$@"))
+#cat $dbfile | jq --argjson rinfo $rinfo '.runs += [$rinfo]' > $dbfile.temp
+#cp $dbfile.temp $dbfile
 
 limit=20
 dry=0
@@ -137,17 +149,43 @@ while [[ $1 ]]; do case $1 in
 		done
 
 		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
-		mkdir -p textlike; [ ./*.txt ] && mv -nv ./*.txt textlike
+		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
 		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
 		group_ftype pdf pgn dht docx ipynb pptx
 	;;
 
 	ffind )
 		shift
-		cat $dbfile | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
+		read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
 		cat ao_output.json.temp | jq '.'
-		cat $dbfile | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' > $dbfile.temp
-		cp $dbfile.temp $dbfile
+		read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
+	;;
+
+	extract-property )
+		shift
+		block="db_block_$1.json"
+		read_db | jq --arg path $1 '.[$path]' > $block
+		read_db | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' | write_db $dbfile
+	;;
+
+	note )
+		shift
+#		backup_db
+		case $1 in
+			add )
+				shift
+				echo $1 >> notes.txt
+				cat db_block_notes.json | jq --arg c $1 --argjson t $(date +%s) '. += [{content: $c, time: $t}]' > db_block_notes.json.temp
+				cp db_block_notes.json.temp db_block_notes.json
+			;;
+
+			find )
+				shift
+				cat db_block_notes.json | jq --arg target $1 '[.[] | select(.content | contains($target)) | .content]' > ao_output.json.temp
+				cat ao_output.json.temp | jq '.'
+#				cat $dbfile | jq --slurpfile x ao_output.json.temp 'if .outputs then . else outputs=[] end | .outputs += [$x]' > $dbfile.temp
+			;;
+		esac
 	;;
 
 	# Extract data from files to build databases
@@ -250,11 +288,8 @@ while [[ $1 ]]; do case $1 in
 			hash=$(sha1sum $f | awk '{ print $1 }')
 			jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s) >> ao_batch.json.temp
 		done
-		cat $dbfile | jq --slurpfile b ao_batch.json.temp '.files += $b' > $dbfile.temp
-		log "Propagating values to local database"
-		cp $dbfile.temp $dbfile
+		read_db | jq --slurpfile b ao_batch.json.temp '.files += $b' | write_db $dbfile
 #		rm ao_batch.json.temp
-		log "Done"
 
 		cd $main
 	;;
@@ -263,12 +298,11 @@ while [[ $1 ]]; do case $1 in
 	summarize )
 		shift
 		backup_db
-		cat $dbfile | jq "
+		read_db | jq "
 			if .summaries then . else .summaries = {} end | 
 			.summaries[\"$1\"] = ($1 | {sum: add, mean: (add/length), min: min, max: max})
-		" > $dbfile.temp
+		" | write_db $dbfile
 		#| tee $dbfile.temp
-		cp $dbfile.temp $dbfile
 		cat $dbfile | jq ".summaries[\"$1\"]"
 	;;
 
@@ -279,7 +313,7 @@ while [[ $1 ]]; do case $1 in
 		IFS=$'\n'
 		for i in $(seq 0 $limit); do
 			log "Updating snapshot $i"
-			cat $dbfile | jq --argjson i $i --arg t $(date +%s) '
+			read_db | jq --argjson i $i --arg t $(date +%s) '
 				if .files[$i].processed then . else (
 					if .filenodes then . else (.filenodes = []) end | 
 					.files[$i].path as $p | 
@@ -289,10 +323,7 @@ while [[ $1 ]]; do case $1 in
 						then .filenodes[$nodes] += $fnode
 						else .filenodes += [$fnode] 
 					end | .files[$i].processed = true
-				) end' > $dbfile.temp
-
-			log "Propagating values to local database ($dbfile)"
-			cp $dbfile.temp $dbfile
+				) end' | write_db $dbfile
 		done
 	;;
 
