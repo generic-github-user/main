@@ -59,6 +59,15 @@ backup_db() {
 	tar cvzf $p $dbfile
 }
 
+read_db() {
+	cat $dbfile
+}
+
+write_db() {
+	cat - > $1.temp
+	cp $1.temp $1
+}
+
 #cp ~/Desktop/ao.sh ~/Desktop/ao
 
 IFS=
@@ -145,10 +154,9 @@ while [[ $1 ]]; do case $1 in
 
 	ffind )
 		shift
-		cat $dbfile | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
+		read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
 		cat ao_output.json.temp | jq '.'
-		cat $dbfile | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' > $dbfile.temp
-		cp $dbfile.temp $dbfile
+		read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
 	;;
 
 	extract-property )
