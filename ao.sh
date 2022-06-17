@@ -18,7 +18,6 @@ echo $restrict
 
 #ls -al > ao_ls.txt
 ls -al >> ./aolog
-indexname=./imgindex.csv
 
 imgtypes={png,jpg,jpeg,webp,gif}
 imt='@(png|jpg|jpeg|webp|gif)'
@@ -39,7 +38,7 @@ log() {
 group_ftype() {
 	for arg in "$@"; do
 		log "Grouping $sources/*.$1"
-		mkdir -p ${arg}s
+		mkdir -p group/${arg}s
 		[[ $sources/*.$arg ]] && mv -nv $sources/*.$arg ${arg}s | tee -a aolog
 	done
 }
@@ -211,7 +210,7 @@ while [[ $1 ]]; do case $1 in
 				checksum=$(sha1sum $img | awk '{ print $1 }')
 				if [[ $verbose == 1 ]]; then
 					echo $img
-					echo ${checksum}
+					echo $checksum
 					#echo $'\n'
 				fi
 				if ! $(grep -qF ${checksum} $indexname); then
@@ -250,10 +249,11 @@ while [[ $1 ]]; do case $1 in
 	# Find images containing the specified text
 	imfind )
 		shift; target=$1
-		echo "Searching for $target"
+		if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
 		# Based on https://unix.stackexchange.com/a/527499
-		result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
-		echo $result
+		# result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
+		cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]'
+		#echo $result
 	;;
 
 	# Open the selection by creating a temporary directory with symlinks to its files
