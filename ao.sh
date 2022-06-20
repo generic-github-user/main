@@ -131,6 +131,7 @@ while [[ $1 ]]; do case $1 in
 		plain=1
 	;;
 
+	# Display a randomly generated mosaic, for fun
 	rose )
 		IFS=$'\n'
 		r=()
@@ -172,6 +173,7 @@ while [[ $1 ]]; do case $1 in
 		group_ftype "pdf" pgn dht docx ipynb pptx
 	;;
 
+	# Find a file in the database (based on its name)
 	ffind )
 		shift
 		read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
@@ -179,6 +181,7 @@ while [[ $1 ]]; do case $1 in
 		read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
 	;;
 
+	# Move a database path to a separate "block" and store a reference in the original database
 	extract-property )
 		shift
 		block="db_block_$1.json"
@@ -186,6 +189,7 @@ while [[ $1 ]]; do case $1 in
 		read_db | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' | write_db $dbfile
 	;;
 
+	# Subcommands associated with notetaking functionality
 	note )
 		shift
 #		backup_db
@@ -222,6 +226,8 @@ while [[ $1 ]]; do case $1 in
 		echo "Found ${#paths[@]} files; filtering"
 #		paths=$(echo $p | grep -F -v -f $indexname)
 		echo "Getting checksums for ${#paths[@]} files"
+
+		# Process image files
 		if [[ $dry != 1 && $1 == images ]]
 		then
 			echo "fname${S}sha1${S}content" | tee -a ${indexname}
@@ -246,6 +252,7 @@ while [[ $1 ]]; do case $1 in
 				fi
 				if [[ $verbose == 1 ]]; then echo $'\n'; fi
 			done
+		# Process text files
 		elif [[ $1 == text ]]; then
 			# is there a nicer way to do this (implicit looping)?
 			for t in ./*.$text_types; do
