@@ -179,7 +179,7 @@ while [[ $1 ]]; do case $1 in
 			add )
 				shift
 				echo $1 >> notes.txt
-				cat db_block_notes.json | jq --arg c $1 --argjson t $(date +%s) '. += [{content: $c, time: $t}]' > db_block_notes.json.temp
+				cat db_block_notes.json | jq --arg c "$1" --argjson t $(date +%s) '. += [{content: $c, time: $t}]' > db_block_notes.json.temp
 				cp db_block_notes.json.temp db_block_notes.json
 			;;
 
@@ -257,7 +257,7 @@ while [[ $1 ]]; do case $1 in
 		if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
 		# Based on https://unix.stackexchange.com/a/527499
 		# result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
-		cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' | if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi
+		cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' | if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi | tee ao_result.json
 		#echo $result
 	;;
 
@@ -267,6 +267,7 @@ while [[ $1 ]]; do case $1 in
 		echo "Displaying results"
 		d="./aosearch ($(date))"
 		mkdir $d
+		result=$(cat ao_result.json | jq -r '.[]')
 		echo $result | while read line; do
 			echo "linking ${line}"
 			ln -s $(realpath $line) $d/$(basename $line)_link
