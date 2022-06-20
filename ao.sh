@@ -31,15 +31,19 @@ S="::"
 sources="$HOME/@(Downloads|Desktop)"
 
 log() {
-	echo $1 | tee -a aolog
+	echo "$1" | tee -a aolog
 }
 
 # Group files by their extension(s)
 group_ftype() {
+	echo "$@"
+	IFS=$' \t\n'
 	for arg in "$@"; do
-		log "Grouping $sources/*.$1"
+		#log "Grouping $sources/*.$arg"
+		log "Grouping *.$arg"
 		mkdir -p group/${arg}s
-		[[ $sources/*.$arg ]] && mv -nv $sources/*.$arg ${arg}s | tee -a aolog
+		#[ "$sources/*.$arg" ] && mv -nv $sources/*.$arg group/${arg}s | tee -a aolog
+		[[ $(echo $sources/*.$arg) ]] && mv -nv $sources/*.$arg group/${arg}s | tee -a ./aolog
 	done
 }
 
@@ -67,6 +71,15 @@ write_db() {
 	cat - > $1.temp
 	cp $1.temp $1
 	log "Done"
+}
+
+move() {
+	t=$2
+	if [[ -e $t ]]; then
+		t="${2%.*}_$(date +%s%3N).${2##*.}"
+		log "$2 already exists, renaming to $t"
+	fi
+	mv -nv "$1" "$t" | tee -a ./aolog
 }
 
 #cp ~/Desktop/ao.sh ~/Desktop/ao
@@ -149,13 +162,14 @@ while [[ $1 ]]; do case $1 in
 
 		# why do these need to be quoted?
 		for img in $sources/*.$imt; do
-			mv -nv $img ./img_archive | tee -a ./aolog
+			move $img "./img_archive/$(basename $img)"
 		done
 
 		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
 		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
 		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
-		group_ftype pdf pgn dht docx ipynb pptx
+		IFS=$' \t\n'
+		group_ftype "pdf" pgn dht docx ipynb pptx
 	;;
 
 	ffind )
