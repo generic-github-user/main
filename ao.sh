@@ -154,7 +154,8 @@ plain_() {
 	plain=1
 }
 
-doc rose "Display a randomly generated mosaic, for fun"
+doc rose "Display a randomly generated mosaic, for fun"\
+	-p size int "The size of the output"
 rose_() {
 	IFS=$'\n'
 	r=()
@@ -196,7 +197,8 @@ cleanup_() {
 	group_ftype "pdf" pgn dht docx ipynb pptx
 }
 
-doc ffind "Find a file in the database (based on its name)"
+doc ffind "Find a file in the database (based on its name)"\
+	-p name string "The file name"
 ffind_() {
 	shift
 	read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
@@ -204,7 +206,8 @@ ffind_() {
 	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
 }
 
-doc extract "Move a database path to a separate "block" and store a reference in the original database"
+doc extract "Move a database path to a separate \"block\" and store a reference in the original database"\
+	-p path string "The section of the database to transfer"
 extract-property_() {
 	shift
 	block="db_block_$1.json"
@@ -233,7 +236,8 @@ note_() {
 	esac
 }
 
-doc process "Extract data from files to build databases"
+doc process "Extract data from files to build databases"\
+	-p target "string: one of [images, text]"
 process_() {
 	shift
 
@@ -290,12 +294,14 @@ process_() {
 	exit
 }
 
-doc limit "Limit the number of results an action returns"
+doc limit "Limit the number of results an action returns"\
+	-p n int
 limit_() {
 	shift; limit=$1
 }
 
-doc imfind "Find images containing the specified text"
+doc imfind "Find images containing the specified text"\
+	-p query string "The text you want to search for"
 imfind_() {
 	shift; target=$1
 	if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
@@ -319,7 +325,8 @@ open_() {
 	dolphin $d
 }
 
-doc manifest "Gather information about a directory and its contents"
+doc manifest "Gather information about a directory and its contents"\
+	-p path "string (filepath)"
 manifest_() {
 	IFS=$'\n'
 	shift
@@ -344,7 +351,8 @@ manifest_() {
 	cd $main
 }
 
-doc summarize "Compute a summary of a specified property/path over the database"
+doc summarize "Compute a summary of a specified property/path over the database"\
+	-p key "string (JSON path)" "The database path to aggregate"
 summarize_() {
 	shift
 	backup_db
