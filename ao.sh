@@ -80,6 +80,13 @@ move() {
 		log "$2 already exists, renaming to $t"
 	fi
 	mv -nv "$1" "$t" | tee -a ./aolog
+} 
+
+pdocs() {
+	tput setaf1
+	jq -n --argjson d $1 '.name' | echo -e
+	tput sgr0
+	jq -n --argjson d $1 '.info' | echo -e
 }
 
 #cp ~/Desktop/ao.sh ~/Desktop/ao
@@ -106,6 +113,14 @@ doc() {
 	jo name=$1 info=$2 >> "$P.temp"
 	cat "$P.temp" | jq -s '.' > $P
 	if [[ $verbose == 1 ]]; then log "Done"; fi
+}
+
+help_() {
+	for i in seq 0 $(( cat "ao/docinfo.json" | jq 'length' - 1 )); do
+		tput setaf1
+		cat "ao/docinfo.json" | jq --argjson x $i '.[$x].name' | pdocs
+		tput sgr0
+	done
 }
 
 doc status "Display information about the main ao database"
