@@ -117,11 +117,12 @@ echo '' > "$P.temp"
 doc() {
 	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
 	jo name=$1 info=$2 >> "$P.temp"
-	cat "$P.temp" | jq -s '.' > $P
+	cat "$P.temp" | jq -s '. | sort_by(.name)' > $P
 	if [[ $verbose == 1 ]]; then log "Done"; fi
 }
 
-doc help "Display help information; lists subcommands if no argument is given"
+doc help "Display help information; lists subcommands if no argument is given"\
+	-r string
 help_() {
 	L=$(cat "ao/docinfo.json" | jq 'length')
 	IFS=$'\n'
@@ -132,39 +133,46 @@ help_() {
 	echo '----------'
 }
 
-doc status "Display information about the main ao database"
+doc status "Display information about the main ao database"\
+	-r string
 status_() {
 	log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
 }
 
-doc dry "Execute a \"dry run\"; don't modify any files"
+doc dry "Execute a \"dry run\"; don't modify any files"\
+	-r null
 dry_() {
 	dry=1
 }
 
-doc verbose "Print additional information about what the program is doing"
+doc verbose "Print additional information about what the program is doing"\
+	-r null
 verbose_() {
 	verbose=1
 }
 
-doc compress "Compress saved files into .tar.gz archives"
+doc compress "Compress saved files into .tar.gz archives"\
+	-r null
 compress_() {
 	compress=1
 }
 
-doc recursive "Recursively match subdirectories and files (as ** would)"
+doc recursive "Recursively match subdirectories and files (as ** would)"\
+	-r null
 recursive_() {
 	log "Setting option recursive"
 	recursive=1
 }
 
-doc plain "Plain output; strips away the outermost layer of JSON formatting for compatibility between bash and jq"
+doc plain "Plain output; strips away the outermost layer of JSON formatting for compatibility between bash and jq"\
+	-r null
 plain_() {
 	plain=1
 }
 
 doc rose "Display a randomly generated mosaic, for fun"\
-	-p size int "The size of the output"
+	-p size int "The size of the output"\
+	-r string
 rose_() {
 	IFS=$'\n'
 	r=()
@@ -189,7 +197,8 @@ rose_() {
 #		!! | tac
 }
 
-doc cleanup "Apply organization rules to restructure local files"
+doc cleanup "Apply organization rules to restructure local files"\
+	-r null
 cleanup_() {
 	log 'Organizing'
 	printf "%s\n" $sources
@@ -246,7 +255,8 @@ note_() {
 }
 
 doc process "Extract data from files to build databases"\
-	-p target "string: one of [images, text]"
+	-p target "string: one of [images, text]"\
+	-r null
 process_() {
 	shift
 
@@ -304,13 +314,15 @@ process_() {
 }
 
 doc limit "Limit the number of results an action returns"\
-	-p n int
+	-p n int\
+	-r null
 limit_() {
 	shift; limit=$1
 }
 
 doc imfind "Find images containing the specified text"\
-	-p query string "The text you want to search for"
+	-p query string "The text you want to search for"\
+	-r "[filepath]"
 imfind_() {
 	shift; target=$1
 	if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
@@ -320,7 +332,8 @@ imfind_() {
 	#echo $result
 }
 
-doc open "Open the selection by creating a temporary directory with symlinks to its files"
+doc open "Open the selection by creating a temporary directory with symlinks to its files"\
+	-r null
 open_() {
 	shift
 	echo "Displaying results"
@@ -335,7 +348,8 @@ open_() {
 }
 
 doc manifest "Gather information about a directory and its contents"\
-	-p path "string (filepath)"
+	-p path "string (filepath)"\
+	-r null
 manifest_() {
 	IFS=$'\n'
 	shift
@@ -361,7 +375,8 @@ manifest_() {
 }
 
 doc summarize "Compute a summary of a specified property/path over the database"\
-	-p key "string (JSON path)" "The database path to aggregate"
+	-p key "string (JSON path)" "The database path to aggregate"\
+	-r json
 summarize_() {
 	shift
 	backup_db
@@ -373,7 +388,8 @@ summarize_() {
 	cat $dbfile | jq ".summaries[\"$1\"]"
 }
 
-doc update "Merge file snapshots into filenodes"
+doc update "Merge file snapshots into filenodes"\
+	-r null
 update-filenodes_() {
 	backup_db
 	shift
@@ -394,7 +410,8 @@ update-filenodes_() {
 	done
 }
 
-doc download "Fetch a URL and archive the returned data"
+doc download "Fetch a URL and archive the returned data"\
+	-r null
 download_() {
 	keys=("starred", "repos", "followers", "following")
 
@@ -410,7 +427,8 @@ download_() {
 	done
 }
 
-doc count "Count inputs or current selection"
+doc count "Count inputs or current selection"\
+	-r int
 count_() {
 	echo $result | wc -l
 }
