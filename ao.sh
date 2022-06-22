@@ -83,10 +83,14 @@ move() {
 } 
 
 pdocs() {
-	tput setaf1
-	jq -n --argjson d $1 '.name' | echo -e
+	#read v
+	v=$(</dev/stdin)
+	tput setaf 1
+	#echo -n "$v" | jq -rj '.name'
+	printf '%10s   ' $(echo -n "$v" | jq -rj '.name')
 	tput sgr0
-	jq -n --argjson d $1 '.info' | echo -e
+	#echo -n "$v" | jq -r '.info'
+	printf '%s\n' $(echo -n "$v" | jq -r '.info')
 }
 
 #cp ~/Desktop/ao.sh ~/Desktop/ao
@@ -107,20 +111,25 @@ dry=0
 verbose=0
 result=
 
+P="ao/docinfo.json"
+echo '' > "$P.temp"
+
 doc() {
 	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
-	P="ao/docinfo.json"
 	jo name=$1 info=$2 >> "$P.temp"
 	cat "$P.temp" | jq -s '.' > $P
 	if [[ $verbose == 1 ]]; then log "Done"; fi
 }
 
+doc help "Display help information; lists subcommands if no argument is given"
 help_() {
-	for i in seq 0 $(( cat "ao/docinfo.json" | jq 'length' - 1 )); do
-		tput setaf1
-		cat "ao/docinfo.json" | jq --argjson x $i '.[$x].name' | pdocs
-		tput sgr0
+	L=$(cat "ao/docinfo.json" | jq 'length')
+	IFS=$'\n'
+	tput bold; echo "ao"; tput sgr0
+	for i in $(seq 0 $(( $L - 1 ))); do
+		jq -r --argjson z $i '.[$z]' $P | pdocs #| less -r
 	done
+	echo '----------'
 }
 
 doc status "Display information about the main ao database"
