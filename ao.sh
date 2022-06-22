@@ -100,13 +100,20 @@ dry=0
 verbose=0
 result=
 
+doc() {
+	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
+	P="ao/docinfo.json"
+	jo name=$1 info=$2 >> "$P.temp"
+	cat "$P.temp" | jq -s '.' > $P
+	if [[ $verbose == 1 ]]; then log "Done"; fi
+}
 
 doc status "Display information about the main ao database"
 status_() {
 	log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
 }
 
-doc dry "Execute a "dry run"; don't modify any files"
+doc dry "Execute a \"dry run\"; don't modify any files"
 dry_() {
 	dry=1
 }
@@ -116,7 +123,7 @@ verbose_() {
 	verbose=1
 }
 
-doc compress - "Compress saved files into .tar.gz archives"
+doc compress "Compress saved files into .tar.gz archives"
 compress_() {
 	compress=1
 }
