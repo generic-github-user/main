@@ -115,6 +115,7 @@ limit=20
 dry=0
 verbose=0
 result=
+gshift=0 # Global variable to track subcommand argument offset
 
 P="ao/docinfo.json"
 echo '' > "$P.temp"
@@ -132,11 +133,16 @@ doc help "Display help information; lists subcommands if no argument is given"\
 help_() {
 	L=$(cat "ao/docinfo.json" | jq 'length')
 	IFS=$'\n'
-	tput bold; echo "ao"; tput sgr0
-	for i in $(seq 0 $(( $L - 1 ))); do
-		jq -r --argjson z $i '.[$z]' $P | pdocs #| less -r
-	done
-	echo '----------'
+	if [[ $1 ]]; then
+		gshift=$((gshift+1))
+		jq -r --arg n $1 '.[] | select(.name == $n)' $P | pdocs
+	else
+		tput bold; echo "ao"; tput sgr0
+		for i in $(seq 0 $(( $L - 1 ))); do
+			jq -r --argjson z $i '.[$z]' $P | pdocs #| less -r
+		done
+		echo '----------'
+	fi
 }
 
 doc status "Display information about the main ao database"\
@@ -442,7 +448,9 @@ count_() {
 
 while [[ $1 ]]; do
 	if [[ "$(cat "ao/docinfo.json" | jq -r '.[].name')" =~ "$1" ]]; then
-		$1_
+		$1_ "${@:2}"
+		shift $gshift
+		gshift=0
 	fi
 	shift
 done
