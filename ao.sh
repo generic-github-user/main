@@ -406,9 +406,12 @@ count_() {
 	echo $result | wc -l
 }
 
-while [[ $1 ]]; do case $1 in
-
-esac; shift; done
+while [[ $1 ]]; do
+	if [[ "$(cat "ao/docinfo.json" | jq -r '.[].name')" =~ "$1" ]]; then
+		$1_
+	fi
+	shift
+done
 if [[ "$1" == '--' ]]; then shift; fi
 
 notify-send -u low "ao.sh" "ao.sh has finished executing"
