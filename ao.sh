@@ -30,6 +30,7 @@ S="::"
 
 sources="$HOME/@(Downloads|Desktop)"
 
+# Output a message to stdout and the log file
 log() {
 	echo "$1" | tee -a aolog
 }
@@ -62,10 +63,12 @@ backup_db() {
 	tar cvzf $p $dbfile
 }
 
+# Send a database to standard input
 read_db() {
 	cat $dbfile
 }
 
+# Store standard input in the specified database
 write_db() {
 	log "Propagating values to local database ($1)"
 	cat - > $1.temp
@@ -73,6 +76,7 @@ write_db() {
 	log "Done"
 }
 
+# Safely rename/move file, appending a number if the name conflicts with an existing file
 move() {
 	t=$2
 	if [[ -e $t ]]; then
@@ -80,8 +84,9 @@ move() {
 		log "$2 already exists, renaming to $t"
 	fi
 	mv -nv "$1" "$t" | tee -a ./aolog
-} 
+}
 
+# Display documentation from a JSON object specifying information about a function or command
 pdocs() {
 	#read v
 	v=$(</dev/stdin)
@@ -114,6 +119,7 @@ result=
 P="ao/docinfo.json"
 echo '' > "$P.temp"
 
+# Generate documentation using a command name and string with usage information about that command
 doc() {
 	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
 	jo name=$1 info=$2 >> "$P.temp"
@@ -166,6 +172,7 @@ recursive_() {
 
 doc plain "Plain output; strips away the outermost layer of JSON formatting for compatibility between bash and jq"\
 	-r null
+
 plain_() {
 	plain=1
 }
