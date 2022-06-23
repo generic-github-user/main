@@ -123,7 +123,16 @@ echo '' > "$P.temp"
 # Generate documentation using a command name and string with usage information about that command
 doc() {
 	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
-	jo name=$1 info=$2 >> "$P.temp"
+	dn=$1; di=$2
+	shift 2
+	while [[ $1 ]]; do case $1 in
+		-r )
+			shift
+			dr="$1"
+		;;
+	esac; shift; done
+	jo name=$dn info=$di returntype=$dr >> "$P.temp"
+	# TODO: move this
 	cat "$P.temp" | jq -s '. | sort_by(.name)' > $P
 	if [[ $verbose == 1 ]]; then log "Done"; fi
 }
@@ -463,3 +472,4 @@ notify-send -u low "ao.sh" "ao.sh has finished executing"
 
 
 # TODO: store triggers that run command/function on event
+# TODO: add command for generating static documentation
