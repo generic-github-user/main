@@ -138,15 +138,22 @@ echo '' > "$P.temp"
 # information about that command
 doc() {
 	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
-	dn=$1; di=$2
+	dn=$1; di=$2; dp=''
 	shift 2
 	while [[ $1 ]]; do case $1 in
 		-r )
 			shift
 			dr="$1"
 		;;
+		-p )
+			#log "Received parameter"
+			shift
+			i=$3; if [[ $i == -r ]]; then i=''; fi
+			dp+="$(jo name=$1 type=$2 info=$i)"
+		;;
 	esac; shift; done
-	jo name=$dn info=$di returntype=$dr >> "$P.temp"
+	#echo $dp | jq -s '.'
+	jo name=$dn info=$di returntype=$dr params="$(echo $dp | jq -s '.')" >> "$P.temp"
 	# TODO: move this
 	cat "$P.temp" | jq -s '. | sort_by(.name)' > $P
 	if [[ $verbose == 1 ]]; then log "Done"; fi
