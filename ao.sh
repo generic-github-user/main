@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# A simple script for organizing my desktop and other folders that tend to get cluttered
-# I decided to name it ao(.sh) ("autoorganize"), but its functionality quickly expanded beyond organization
+# A simple script for organizing my desktop and other folders that
+# tend to get cluttered
+
+# I decided to name it ao(.sh) ("autoorganize"), but its
+# functionality quickly expanded beyond organization
 
 shopt -s nocaseglob
 shopt -s globstar
@@ -48,13 +51,15 @@ group_ftype() {
 	done
 }
 
-# Generate a JSON object with information about the specified file or directory
+# Generate a JSON object with information about the specified file
+# or directory
 file_stats() {
 	stat $1 -c "{\"owner\": \"%U\", \"size\": %s, \"birth_time\": %W, \"accessed\": %X, \"modified\": %Y, \"changed\": %Z}"
 #	stat $1 -c "{ owner: \"%U\", size: %s, birth_time: %W, accessed: %X, modified: %Y, changed: %Z }"
 }
 
-# A stopgap to mitigate any severe mistakes I make before the more comprehensive backup system is ready
+# A stopgap to mitigate any severe mistakes I make before the more
+# comprehensive backup system is ready
 backup_db() {
 	d="$main/ao_db_backups"
 	mkdir -p $d
@@ -76,7 +81,8 @@ write_db() {
 	log "Done"
 }
 
-# Safely rename/move file, appending a number if the name conflicts with an existing file
+# Safely rename/move file, appending a number if the name conflicts
+# with an existing file
 move() {
 	t=$2
 	if [[ -e $t ]]; then
@@ -86,7 +92,8 @@ move() {
 	mv -nv "$1" "$t" | tee -a ./aolog
 }
 
-# Display documentation from a JSON object specifying information about a function or command
+# Display documentation from a JSON object specifying information
+# about a function or command
 pdocs() {
 	#read v
 	v=$(</dev/stdin)
@@ -115,12 +122,20 @@ limit=20
 dry=0
 verbose=0
 result=
-gshift=0 # Global variable to track subcommand argument offset
+
+# Global variable to track subcommand argument offset; rather
+# than parsing all the subcommands and their arguments ahead of
+# time using some kind of grammar (as you might in a language
+# like Python), the code is written to "consume" the arguments
+# left to right and discard all prior inputs (except those passed
+# using pipes or stored as intermediary results).
+gshift=0
 
 P="ao/docinfo.json"
 echo '' > "$P.temp"
 
-# Generate documentation using a command name and string with usage information about that command
+# Generate documentation using a command name and string with usage
+# information about that command
 doc() {
 	if [[ $verbose == 1 ]]; then log "Building documentation for $1"; fi
 	dn=$1; di=$2
@@ -455,6 +470,7 @@ count_() {
 	echo $result | wc -l
 }
 
+# Execute subcommands
 while [[ $1 ]]; do
 	if [[ "$(cat "ao/docinfo.json" | jq -r '.[].name')" =~ "$1" ]]; then
 		$1_ "${@:2}"
