@@ -100,9 +100,23 @@ pdocs() {
 	tput setaf 1
 	#echo -n "$v" | jq -rj '.name'
 	printf '%10s   ' $(echo -n "$v" | jq -rj '.name')
+	tput setaf 2
+	printf '%10s   ' $(echo -n "$v" | jq -rj '.returntype')
 	tput sgr0
 	#echo -n "$v" | jq -r '.info'
 	printf '%s\n' $(echo -n "$v" | jq -r '.info')
+	params=$(echo -n "$v" | jq -c '.params[]')
+	if [[ ! "$params" ]]; then
+		repeat ' ' 12;
+		echo -n 'No parameters'
+	fi
+	echo $params | while read p; do
+		tput setaf 3; repeat ' ' 12; printf '%10s    ' $(echo -n $p | jq -rj '.name'); tput sgr0
+		tput setaf 2; printf '%-20s    ' $(echo -n $p | jq -rj '.type'); tput sgr0
+		printf '%s\n' $(echo -n $p | jq -r '.info')
+	done
+	#echo "Usage"
+	echo
 }
 
 #cp ~/Desktop/ao.sh ~/Desktop/ao
