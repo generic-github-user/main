@@ -10,10 +10,10 @@ grep -va -e '--' -e ' -archive' -e ' -cc' -- $main | sponge $main
 
 # Clone recurring tasks to main todo list
 IFS=$'\n'
-filter='s/ -archive| -cc| -daily| -[fd] \S+//'
+filter='s/ -archive| -cc| -daily| -[fd] \S+| #\w+//g;s/\s*$//'
 sed -E -e "$filter" complete.txt > complete.temp.txt
 sed -E -e "$filter" todo.txt > todo.temp.txt
-grep -e "-f d" -e "-daily" recurring.txt | sed -E -e "$filter" | sed -e "s/$/ $(date +'%a, %b %d')/" | grep -xvf "todo.temp.txt" -f "complete.temp.txt" >> $main
+grep -e "-f d" -e "-daily" recurring.txt | sed -E -e "$filter" | sed -e "s/$/ $(date +'%a, %b %d')/" | grep -xvf "todo.temp.txt" -f "complete.temp.txt" | tee -a $main
 rm -v todo.temp.txt complete.temp.txt
 
 # Make a quick and dirty backup of the todo list(s)
