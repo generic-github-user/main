@@ -11,3 +11,12 @@ highlight todoStar ctermfg=darkblue cterm=bold
 
 syn match todoComp '--'
 highlight todoComp ctermfg=green cterm=bold
+
+syn match todoDur '-d \S\+'
+hi todoDur ctermfg=lightcyan cterm=bold
+
+syn match todoTime '-t \S\+'
+hi todoTime ctermfg=darkred cterm=bold
+
+syn match todoFreq '-f \w\|-daily'
+hi todoFreq ctermfg=lightred
