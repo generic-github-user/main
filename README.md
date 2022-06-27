@@ -52,6 +52,13 @@ Some other symbols provide a more readable shorthand interface to these options:
 - `*`, `**`, ...: Indicate task priority/importance or urgency (or another
   property the user finds useful)
 
+I was originally going to implement a more sophisticated [stateful] system
+using a JSON database, but found that a tidier text-based approach suited my
+needs fine (particularly because of the power of vim and the shell, which
+doesn't play as nicely with more complex structured data). Syncing between a
+database and concrete text representations of tasks is also a difficult task
+that introduces a great deal of room for error.
+
 ### Syntax Highlighting
 
 For classic vim, copy (or symlink, e.g. using `ln -s ...`) `todo.vim` to
@@ -77,3 +84,27 @@ guidance on automatically reloading the file can be found
 [here](https://superuser.com/questions/181377/auto-reloading-a-file-in-vim-as-soon-as-it-changes-on-disk)
 and
 [here](https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044).
+
+vim can read `stdout` from shell commands; so if you wanted to (e.g.) add tasks
+corresponding to two chapters of a textbook with 4 sections each, you can run:
+
+```
+:r! printf "Read chapter \%s\n" {5,7}.{1..4}
+```
+
+This will insert the following at your cursor position:
+
+```
+Read chapter 5.1
+Read chapter 5.2
+Read chapter 5.3
+Read chapter 5.4
+Read chapter 7.1
+Read chapter 7.2
+Read chapter 7.3
+Read chapter 7.4
+```
+
+I often use `vip` then `:sort i` to sort a todo list in-place.
+
+grep is very useful for searching for tasks or groups of tasks. You can use pipes to include and exclude certain search criteria; the following will find all tasks containing
