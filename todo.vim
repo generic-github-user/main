@@ -9,7 +9,7 @@ highlight todoLink ctermfg=cyan guifg=#00ffff
 syntax match todoStar '\*'
 highlight todoStar ctermfg=darkblue cterm=bold
 
-syn match todoComp '--'
+syn match todoComp '--\|-cc\|-archive'
 highlight todoComp ctermfg=green cterm=bold
 
 syn match todoDur '-d \S\+'
@@ -20,3 +20,8 @@ hi todoTime ctermfg=darkred cterm=bold
 
 syn match todoFreq '-f \w\|-daily'
 hi todoFreq ctermfg=lightred
+
+syn match todoTag ' #\w\+'
+hi todoTag ctermfg=darkmagenta
+
+"let b:current_syntax = 'todo'
