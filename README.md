@@ -35,3 +35,19 @@ organize desktop files -f d -d 5m
 This item, if placed in `recurring.txt`, will be appended (with a date
 inserted) to the main todo list once a day; if already present in that list or
 `complete.txt`
+
+The possible arguments are as follows, though it is simple enough to add more.
+
+- `archive`: The task is treated as being "completed" and removed from the main
+  list, but this flag indicates that it was not actually done for some reason.
+  `cc` (cancelled) is an alias.
+- `frequency` or `f`: How often a task should be repeated
+- `daily`: An alias for `-f d`
+- `duration` or `d`: Approximately how long this task will take to complete
+  once; its argument is a nonnegative integer followed by `m` for "minutes" or
+  `h` for "hours"
+
+Some other symbols provide a more readable shorthand interface to these options:
+
+- `*`, `**`, ...: Indicate task priority/importance or urgency (or another
+  property the user finds useful)
