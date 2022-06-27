@@ -59,3 +59,21 @@ For classic vim, copy (or symlink, e.g. using `ln -s ...`) `todo.vim` to
 `~/.vim` with `~/.config/nvim`. The new highlighting should be automatically
 applied to all `.todo` files. By default, all URLs and flags/arguments are
 highlighted.
+
+### Workflow
+
+I personally find it helpful to keep `todo.txt` open as a vim tab (I use
+neovim, either is fine) and periodically refer to/update it (though any text
+editor should work fine). This makes it very ergonomic to mark a task as
+complete using `A--`, then repeat it on other tasks using `.`.
+`<CTRL+V><movement>0I|$A<text><esc>` are quite useful for prepending or
+appending to a set of lines (similarly, you can use `sed` or `awk` commands for
+more advanced manipulations).
+
+`bash (ao/)utodo.sh` can be run from a terminal or directly in vim using the
+`!` command prefix; the latter method is preferable since it will immediately
+reload the buffer. If updated externally, use `:e` to update the buffer. Some
+guidance on automatically reloading the file can be found
+[here](https://superuser.com/questions/181377/auto-reloading-a-file-in-vim-as-soon-as-it-changes-on-disk)
+and
+[here](https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044).
