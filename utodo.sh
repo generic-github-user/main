@@ -6,16 +6,19 @@ main=.todo
 cd ~/Desktop
 
 # Move completed tasks to archive
-grep -e '--' -e ' -archive' -e ' -cc' -- $main | sed -e 's/--//g' | tee >(cat - >> "complete.txt") >(echo "$(wc -l) completed tasks moved")
+grep -e '--' -e ' -archive' -e ' -cc' -- $main | sed -e 's/--//g' | tee >(cat - >> "complete.todo") >(echo "$(wc -l) completed tasks moved")
 grep -va -e '--' -e ' -archive' -e ' -cc' -- $main | sponge $main
+echo -e ""
 
 # Clone recurring tasks to main todo list
+echo "Importing recurring tasks"
 IFS=$'\n'
 filter='s/ -archive| -cc| -daily| -[fd] \S+| #\w+//g;s/\s*$//'
 sed -E -e "$filter" complete.todo > complete.temp.todo
 sed -E -e "$filter" $main > todo.temp.todo
 grep -e "-f d" -e "-daily" recurring.todo | sed -E -e "$filter" | sed -e "s/$/ $(date +'%a, %b %d')/" | grep -xvf "todo.temp.todo" -f "complete.temp.todo" | tee -a $main
 rm -v todo.temp.todo complete.temp.todo
+echo -e ""
 
 # Make a quick and dirty backup of the todo list(s)
 if [[ $1 == '-b' ]]; then
