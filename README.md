@@ -51,3 +51,11 @@ Some other symbols provide a more readable shorthand interface to these options:
 
 - `*`, `**`, ...: Indicate task priority/importance or urgency (or another
   property the user finds useful)
+
+### Syntax Highlighting
+
+For classic vim, copy (or symlink, e.g. using `ln -s ...`) `todo.vim` to
+`~/.vim/syntax` and `todo_ft.vim` to `~/.vim/ftdetect`. For neovim, replace
+`~/.vim` with `~/.config/nvim`. The new highlighting should be automatically
+applied to all `.todo` files. By default, all URLs and flags/arguments are
+highlighted.
