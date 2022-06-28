@@ -281,8 +281,10 @@ cleanup_() {
 	if [[ $dry != 1 ]]; then
 		# TODO: use fd instead of glob
 		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
-		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
-		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
+		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv\
+			./!(notes|todo).txt textlike
+		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv\
+			"$sources"/*."$vidtypes" vid_archive
 		IFS=$' \t\n'
 		group_ftype "pdf" pgn dht docx ipynb pptx
 	fi
@@ -291,9 +293,11 @@ cleanup_() {
 doc ffind "Find a file in the database (based on its name)"\
 	-p name string "The file name"
 ffind_() {
-	read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
+	read_db | jq --arg target $1 '[.filenodes[] | select(.name |
+		contains($target)) | .path]' > ao_output.json.temp
 	cat ao_output.json.temp | jq '.'
-	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
+	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then
+		. else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
 }
 
 doc extract "Move a database path to a separate \"block\" and store a reference in the original database"\
@@ -309,17 +313,24 @@ note_() {
 #		backup_db
 	case $1 in
 		add )
-			shift
+			shift; gshift=$((gshift+1))
 			echo $1 >> notes.txt
-			cat db_block_notes.json | jq --arg c "$1" --argjson t $(date +%s) '. += [{content: $c, time: $t}]' > db_block_notes.json.temp
+			cat db_block_notes.json | jq --arg c "$1" --argjson t\
+				$(date +%s) '. += [{content: $c, time: $t}]' >\
+				db_block_notes.json.temp
 			cp db_block_notes.json.temp db_block_notes.json
 		;;
 
 		find )
-			shift
-			cat db_block_notes.json | jq --arg target $1 '[.[] | select(.content | contains($target)) | .content]' > ao_output.json.temp
+			shift; gshift=$((gshift+1)) 
+			cat db_block_notes.json | jq --arg target $1 '[.[] |
+				select(.content | contains($target)) |
+				.content]' > ao_output.json.temp
 			cat ao_output.json.temp | jq '.'
-#				cat $dbfile | jq --slurpfile x ao_output.json.temp 'if .outputs then . else outputs=[] end | .outputs += [$x]' > $dbfile.temp
+#				cat $dbfile | jq --slurpfile x
+#				ao_output.json.temp 'if .outputs then . else
+#				outputs=[] end | .outputs += [$x]' >
+#				$dbfile.temp
 		;;
 	esac
 }
@@ -374,7 +385,13 @@ process_() {
 			hash=$(sha1sum $t | awk '{ print $1 }')
 			log "Getting stats for $t"
 			cat $dbfile | \
-				jq --arg name $t --arg path $(realpath $t) --arg h $hash --arg category text --arg lines $(wc -l < $t) --arg chars $(wc -m < $t) --arg words $(wc -w < $t) \
+				jq --arg name $t \
+				--arg path $(realpath $t) \
+				--arg h $hash \
+				--arg category text \
+				--arg lines $(wc -l < $t) \
+				--arg chars $(wc -m < $t) \
+				--arg words $(wc -w < $t) \
 				'.files += [{"name": $name, "path": $path, "sha1": $h, "category": $category, "lines": $lines|tonumber, "chars": $chars|tonumber, "words": $words|tonumber}]' > $dbfile
 		done
 	fi
@@ -396,7 +413,8 @@ imfind_() {
 	if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
 	# Based on https://unix.stackexchange.com/a/527499
 	# result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
-	cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' | if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi | tee ao_result.json
+	cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' |\
+		if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi | tee ao_result.json
 	#echo $result
 }
 
@@ -432,7 +450,8 @@ manifest_() {
 	for f in ${paths[@]}; do
 		log "Tracking $f"
 		hash=$(sha1sum $f | awk '{ print $1 }')
-		jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s) >> ao_batch.json.temp
+		jo -p stats=$(file_stats $f) name=$f path=$(realpath $f)\
+			sha1=$hash time=$(date +%s) >> ao_batch.json.temp
 	done
 	read_db | jq --slurpfile b ao_batch.json.temp '.files += $b' | write_db $dbfile
 #		rm ao_batch.json.temp
