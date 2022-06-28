@@ -11,6 +11,7 @@ shopt -s globstar
 shopt -s nullglob
 shopt -s extglob
 shopt -s dotglob
+shopt -s expand_aliases
 
 set -e
 
@@ -32,6 +33,10 @@ S="::"
 #sources='@(.|/home/alex/Downloads|January)'
 
 sources="$HOME/@(Downloads|Desktop)"
+
+#source ~/.bashrc
+alias python='python3.10'
+python -V
 
 # Output a message to stdout and the log file
 log() {
@@ -94,6 +99,10 @@ move() {
 	fi
 }
 
+repeat() {
+	python -c "print('$1' * $2, end='')"
+}
+
 # Display documentation from a JSON object specifying information
 # about a function or command
 pdocs() {
@@ -109,8 +118,8 @@ pdocs() {
 	printf '%s\n' $(echo -n "$v" | jq -r '.info')
 	params=$(echo -n "$v" | jq -c '.params[]')
 	if [[ ! "$params" ]]; then
-		repeat ' ' 12;
-		echo -n 'No parameters'
+		repeat ' ' 12
+		tput setaf 3; echo -n 'No parameters'; tput sgr0
 	fi
 	echo $params | while read p; do
 		tput setaf 3; repeat ' ' 12; printf '%10s    ' $(echo -n $p | jq -rj '.name'); tput sgr0
@@ -188,7 +197,8 @@ help_() {
 		for i in $(seq 0 $(( $L - 1 ))); do
 			jq -r --argjson z $i '.[$z]' $P | pdocs #| less -r
 		done
-		echo '----------'
+		#repeat - 30 | log
+		#repeat - 30
 	fi
 }
 
@@ -236,7 +246,6 @@ doc rose "Display a randomly generated mosaic, for fun"\
 rose_() {
 	IFS=$'\n'
 	r=()
-	shift
 	n=${1-4}
 	chars=".*#@"
 	for x in $(seq 1 $n); do
@@ -282,7 +291,6 @@ cleanup_() {
 doc ffind "Find a file in the database (based on its name)"\
 	-p name string "The file name"
 ffind_() {
-	shift
 	read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
 	cat ao_output.json.temp | jq '.'
 	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
@@ -291,7 +299,6 @@ ffind_() {
 doc extract "Move a database path to a separate \"block\" and store a reference in the original database"\
 	-p path string "The section of the database to transfer"
 extract-property_() {
-	shift
 	block="db_block_$1.json"
 	read_db | jq --arg path $1 '.[$path]' > $block
 	read_db | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' | write_db $dbfile
@@ -299,7 +306,6 @@ extract-property_() {
 
 doc note "Subcommands associated with notetaking functionality"
 note_() {
-	shift
 #		backup_db
 	case $1 in
 		add )
@@ -322,8 +328,6 @@ doc process "Extract data from files to build databases"\
 	-p target "string: one of [images, text]"\
 	-r null
 process_() {
-	shift
-
 	log "Processing $1"
 	
 	paths=()
@@ -381,14 +385,14 @@ doc limit "Limit the number of results an action returns"\
 	-p n int\
 	-r null
 limit_() {
-	shift; limit=$1
+	limit=$1
 }
 
 doc imfind "Find images containing the specified text"\
 	-p query string "The text you want to search for"\
 	-r "[filepath]"
 imfind_() {
-	shift; target=$1
+	target=$1
 	if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
 	# Based on https://unix.stackexchange.com/a/527499
 	# result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
@@ -399,7 +403,6 @@ imfind_() {
 doc open "Open the selection by creating a temporary directory with symlinks to its files"\
 	-r null
 open_() {
-	shift
 	echo "Displaying results"
 	d="./aosearch ($(date))"
 	mkdir $d
@@ -416,7 +419,6 @@ doc manifest "Gather information about a directory and its contents"\
 	-r null
 manifest_() {
 	IFS=$'\n'
-	shift
 	cd $1
 	log "Generating directory listing of $(pwd)"
 #		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
@@ -442,7 +444,6 @@ doc summarize "Compute a summary of a specified property/path over the database"
 	-p key "string (JSON path)" "The database path to aggregate"\
 	-r json
 summarize_() {
-	shift
 	backup_db
 	read_db | jq "
 		if .summaries then . else .summaries = {} end | 
@@ -456,7 +457,6 @@ doc update "Merge file snapshots into filenodes"\
 	-r null
 update-filenodes_() {
 	backup_db
-	shift
 	IFS=$'\n'
 	for i in $(seq 0 $limit); do
 		log "Updating snapshot $i"
