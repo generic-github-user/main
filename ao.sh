@@ -202,13 +202,31 @@ help_() {
 	fi
 }
 
+doc build "Process command and option database to generate static documentation files"\
+	-r null
+build_() {
+	log "Building documentation"
+	echo '## Commands\n' > ao/command_docs.md
+	#jq -cr '.[]' "ao/docinfo.json"
+	#pwd
+	#jq -c '.[]' "ao/docinfo.json" | while read i; do
+		#name=$(echo "$i" | jq -r '.name')
+		#info=$(echo "$i" | jq -r '.info')
+		#echo "### $(jq '.name' <<< "$i")"\
+		#echo "### $name\n$info"\
+		#	>> command_docs.md
+	#done
+	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
+**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' ao/docinfo.json | tee -a ao/command_docs.md
+}
+
 doc status "Display information about the main ao database"\
 	-r string
 status_() {
 	log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
 }
 
-doc dry "Execute a \"dry run\"; don't modify any files"\
+doc dry "Execute a 'dry run'; don't modify any files"\
 	-r null
 dry_() {
 	dry=1
@@ -300,7 +318,7 @@ ffind_() {
 		. else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
 }
 
-doc extract "Move a database path to a separate \"block\" and store a reference in the original database"\
+doc extract "Move a database path to a separate 'block' and store a reference in the original database"\
 	-p path string "The section of the database to transfer"
 extract-property_() {
 	block="db_block_$1.json"
