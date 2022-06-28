@@ -216,7 +216,8 @@ build_() {
 		#echo "### $name\n$info"\
 		#	>> command_docs.md
 	#done
-	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n"' ao/docinfo.json >> ao/command_docs.md
+	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
+**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' ao/docinfo.json | tee -a ao/command_docs.md
 }
 
 doc status "Display information about the main ao database"\
