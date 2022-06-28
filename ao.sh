@@ -89,7 +89,9 @@ move() {
 		t="${2%.*}_$(date +%s%3N).${2##*.}"
 		log "$2 already exists, renaming to $t"
 	fi
-	mv -nv "$1" "$t" | tee -a ./aolog
+	if [[ $dry != 0 ]]; then
+		mv -nv "$1" "$t" | tee -a ./aolog
+	fi
 }
 
 # Display documentation from a JSON object specifying information
@@ -259,6 +261,7 @@ doc cleanup "Apply organization rules to restructure local files"\
 	-r null
 cleanup_() {
 	log 'Organizing'
+	if [[ $dry == 1 ]]; then log "(Dry run)"; fi
 	printf "%s\n" $sources
 
 	# why do these need to be quoted?
@@ -266,11 +269,14 @@ cleanup_() {
 		move $img "./img_archive/$(basename $img)"
 	done
 
-	mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
-	mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
-	mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
-	IFS=$' \t\n'
-	group_ftype "pdf" pgn dht docx ipynb pptx
+	if [[ $dry != 1 ]]; then
+		# TODO: use fd instead of glob
+		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
+		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
+		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
+		IFS=$' \t\n'
+		group_ftype "pdf" pgn dht docx ipynb pptx
+	fi
 }
 
 doc ffind "Find a file in the database (based on its name)"\
