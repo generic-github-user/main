@@ -218,6 +218,7 @@ build_() {
 	#done
 	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
 **Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' ao/docinfo.json | tee -a ao/command_docs.md
+	markdown-toc -i ao/README.md
 }
 
 doc status "Display information about the main ao database"\

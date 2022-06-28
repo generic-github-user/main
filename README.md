@@ -2,6 +2,21 @@
 
 "You can't use bash for everything!" -- people who let fear cloud their mind and stifle their potential
 
+## Contents
+
+<!-- toc -->
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Todo Management](#todo-management)
+  * [Syntax Highlighting](#syntax-highlighting)
+  * [Workflow](#workflow)
+- [File Tracking](#file-tracking)
+- [Usage](#usage)
+- [Features](#features)
+
+<!-- tocstop -->
+
 ## Requirements
 
 - tesseract
