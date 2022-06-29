@@ -207,6 +207,7 @@ doc build "Process command and option database to generate static documentation 
 build_() {
 	log "Building documentation"
 	echo '## Commands\n' > ao/command_docs.md
+	cp ao/README.src.md ao/README.md
 	#jq -cr '.[]' "ao/docinfo.json"
 	#pwd
 	#jq -c '.[]' "ao/docinfo.json" | while read i; do
@@ -219,6 +220,7 @@ build_() {
 	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
 **Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' ao/docinfo.json | tee -a ao/command_docs.md
 	markdown-toc -i ao/README.md
+	cloc ao/* --md >> ao/README.md
 }
 
 doc status "Display information about the main ao database"\

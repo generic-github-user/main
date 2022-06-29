@@ -171,16 +171,3 @@ And some quality of life things:
 
 ## Statistics
 
-
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (1274.9 files/s, 112460.1 lines/s)
---- | ---
-
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-Bourne Shell|13|138|273|719
-JSON|1|0|0|179
-Markdown|2|58|0|172
-Perl|1|19|26|64
-vim script|2|8|5|15
---------|--------|--------|--------|--------
-SUM:|19|223|304|1149
