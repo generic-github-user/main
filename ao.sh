@@ -279,6 +279,12 @@ while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
 				cp $dbfile.temp $dbfile
 				echo $sdata | jq '.'
 			;;
+			memory )
+				sdata="$(python3.9 -m jc.cli free)"
+				cat $dbfile | jq --argjson v "$sdata" --argjson t $(date +%s) 'if .memory then . else .memory = [] end | .memory += [{data: $v, time: $t, type: "memory_data"}]' > $dbfile.temp
+				cp $dbfile.temp $dbfile
+				echo $sdata | jq '.'
+			;;
 		esac
 	;;
 
