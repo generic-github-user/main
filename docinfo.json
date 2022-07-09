@@ -1,0 +1,179 @@
+[
+  {
+    "name": "build",
+    "info": "Process command and option database to generate static documentation files",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "cleanup",
+    "info": "Apply organization rules to restructure local files",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "compress",
+    "info": "Compress saved files into .tar.gz archives",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "count",
+    "info": "Count inputs or current selection",
+    "returntype": "int",
+    "params": []
+  },
+  {
+    "name": "download",
+    "info": "Fetch a URL and archive the returned data",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "dry",
+    "info": "Execute a 'dry run'; don't modify any files",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "extract",
+    "info": "Move a database path to a separate 'block' and store a reference in the original database",
+    "returntype": null,
+    "params": [
+      {
+        "name": "path",
+        "type": "string",
+        "info": "The section of the database to transfer"
+      }
+    ]
+  },
+  {
+    "name": "ffind",
+    "info": "Find a file in the database (based on its name)",
+    "returntype": null,
+    "params": [
+      {
+        "name": "name",
+        "type": "string",
+        "info": "The file name"
+      }
+    ]
+  },
+  {
+    "name": "help",
+    "info": "Display help information; lists subcommands if no argument is given",
+    "returntype": "string",
+    "params": []
+  },
+  {
+    "name": "imfind",
+    "info": "Find images containing the specified text",
+    "params": [
+      {
+        "name": "query",
+        "type": "string",
+        "info": "The text you want to search for"
+      }
+    ]
+  },
+  {
+    "name": "limit",
+    "info": "Limit the number of results an action returns",
+    "returntype": null,
+    "params": [
+      {
+        "name": "n",
+        "type": "int",
+        "info": null
+      }
+    ]
+  },
+  {
+    "name": "manifest",
+    "info": "Gather information about a directory and its contents",
+    "returntype": null,
+    "params": [
+      {
+        "name": "path",
+        "type": "string (filepath)",
+        "info": null
+      }
+    ]
+  },
+  {
+    "name": "note",
+    "info": "Subcommands associated with notetaking functionality",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "open",
+    "info": "Open the selection by creating a temporary directory with symlinks to its files",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "plain",
+    "info": "Plain output; strips away the outermost layer of JSON formatting for compatibility between bash and jq",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "process",
+    "info": "Extract data from files to build databases",
+    "returntype": null,
+    "params": [
+      {
+        "name": "target",
+        "info": null
+      }
+    ]
+  },
+  {
+    "name": "recursive",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "rose",
+    "info": "Display a randomly generated mosaic, for fun",
+    "returntype": "string",
+    "params": [
+      {
+        "name": "size",
+        "type": "int",
+        "info": "The size of the output"
+      }
+    ]
+  },
+  {
+    "name": "status",
+    "info": "Display information about the main ao database",
+    "returntype": "string",
+    "params": []
+  },
+  {
+    "name": "summarize",
+    "info": "Compute a summary of a specified property/path over the database",
+    "returntype": "json",
+    "params": [
+      {
+        "name": "key",
+        "type": "string (JSON path)",
+        "info": "The database path to aggregate"
+      }
+    ]
+  },
+  {
+    "name": "update",
+    "info": "Merge file snapshots into filenodes",
+    "returntype": null,
+    "params": []
+  },
+  {
+    "name": "verbose",
+    "info": "Print additional information about what the program is doing",
+    "returntype": null,
+    "params": []
+  }
+]

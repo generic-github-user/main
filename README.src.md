@@ -13,15 +13,6 @@
   * [Workflow](#workflow)
 - [File Tracking](#file-tracking)
 - [Usage](#usage)
-- [Commands](#commands)
-  * [extract](#extract)
-  * [ffind](#ffind)
-  * [imfind](#imfind)
-  * [limit](#limit)
-  * [manifest](#manifest)
-  * [process](#process)
-  * [rose](#rose)
-  * [summarize](#summarize)
 - [Features](#features)
 - [Statistics](#statistics)
 
@@ -171,65 +162,7 @@ bash ao <subcommand> -<flag> -<option> <value> --<option> <value> ...
 If an alias like the one shown in the installation instructions is used, we can
 simplify the command: `ao <subcommand> ...`
 
-
-## Commands
-
-### extract
-Returns `null`
-Move a database path to a separate 'block' and store a reference in the original database
-
-**Parameters**
-- path: `string` -- The section of the database to transfer
-
-### ffind
-Returns `null`
-Find a file in the database (based on its name)
-
-**Parameters**
-- name: `string` -- The file name
-
-### imfind
-Returns `null`
-Find images containing the specified text
-
-**Parameters**
-- query: `string` -- The text you want to search for
-
-### limit
-Returns `null`
-Limit the number of results an action returns
-
-**Parameters**
-- n: `int` -- null
-
-### manifest
-Returns `null`
-Gather information about a directory and its contents
-
-**Parameters**
-- path: `string (filepath)` -- null
-
-### process
-Returns `null`
-Extract data from files to build databases
-
-**Parameters**
-- target: `null` -- null
-
-### rose
-Returns `string`
-Display a randomly generated mosaic, for fun
-
-**Parameters**
-- size: `int` -- The size of the output
-
-### summarize
-Returns `json`
-Compute a summary of a specified property/path over the database
-
-**Parameters**
-- key: `string (JSON path)` -- The database path to aggregate
-
+@command-docs@
 
 ## Features
 
@@ -268,15 +201,3 @@ And some quality of life things:
 
 ## Statistics
 
-
-cloc|github.com/AlDanial/cloc v 1.82  T=0.04 s (183.4 files/s, 31101.9 lines/s)
---- | ---
-
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-Bourne Shell|2|75|97|437
-Markdown|3|127|0|404
-JSON|1|0|0|179
-vim script|2|10|13|15
---------|--------|--------|--------|--------
-SUM:|8|212|110|1035
