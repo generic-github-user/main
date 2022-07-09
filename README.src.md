@@ -133,7 +133,15 @@ A high-level overview of the file tracking scheme follows. "Snapshots" of files 
 
 ## Usage
 
-TODO
+ao is a shell script; and being written in bash, it can (hopefully) run almost anywhere. The command pattern is similar to what you might see in a tool like git:
+
+```
+bash ao <subcommand> -<flag> -<option> <value> --<option> <value> ...
+```
+
+If an alias like the one shown in the installation instructions is used, we can simplify the command: `ao <subcommand> ...`
+
+@command-docs@
 
 ## Features
 

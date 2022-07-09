@@ -13,6 +13,15 @@
   * [Workflow](#workflow)
 - [File Tracking](#file-tracking)
 - [Usage](#usage)
+- [Commands](#commands)
+  * [extract](#extract)
+  * [ffind](#ffind)
+  * [imfind](#imfind)
+  * [limit](#limit)
+  * [manifest](#manifest)
+  * [process](#process)
+  * [rose](#rose)
+  * [summarize](#summarize)
 - [Features](#features)
 - [Statistics](#statistics)
 
@@ -133,7 +142,73 @@ A high-level overview of the file tracking scheme follows. "Snapshots" of files 
 
 ## Usage
 
-TODO
+ao is a shell script; and being written in bash, it can (hopefully) run almost anywhere. The command pattern is similar to what you might see in a tool like git:
+
+```
+bash ao <subcommand> -<flag> -<option> <value> --<option> <value> ...
+```
+
+If an alias like the one shown in the installation instructions is used, we can simplify the command: `ao <subcommand> ...`
+
+
+## Commands
+
+### extract
+Returns `null`
+Move a database path to a separate 'block' and store a reference in the original database
+
+**Parameters**
+- path: `string` -- The section of the database to transfer
+
+### ffind
+Returns `null`
+Find a file in the database (based on its name)
+
+**Parameters**
+- name: `string` -- The file name
+
+### imfind
+Returns `null`
+Find images containing the specified text
+
+**Parameters**
+- query: `string` -- The text you want to search for
+
+### limit
+Returns `null`
+Limit the number of results an action returns
+
+**Parameters**
+- n: `int` -- null
+
+### manifest
+Returns `null`
+Gather information about a directory and its contents
+
+**Parameters**
+- path: `string (filepath)` -- null
+
+### process
+Returns `null`
+Extract data from files to build databases
+
+**Parameters**
+- target: `null` -- null
+
+### rose
+Returns `string`
+Display a randomly generated mosaic, for fun
+
+**Parameters**
+- size: `int` -- The size of the output
+
+### summarize
+Returns `json`
+Compute a summary of a specified property/path over the database
+
+**Parameters**
+- key: `string (JSON path)` -- The database path to aggregate
+
 
 ## Features
 
@@ -172,15 +247,14 @@ And some quality of life things:
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (1274.9 files/s, 112460.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.04 s (176.6 files/s, 31661.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Bourne Shell|13|138|273|719
+Bourne Shell|2|75|97|437
+Markdown|2|108|0|321
 JSON|1|0|0|179
-Markdown|2|58|0|172
-Perl|1|19|26|64
-vim script|2|8|5|15
+vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|19|223|304|1149
+SUM:|7|193|110|952

@@ -208,8 +208,7 @@ build_() {
 	log "Building documentation"
 
 	cd $aopath
-	echo '## Commands\n' > command_docs.md
-	cp README.src.md README.md
+	echo -e '## Commands\n' > command_docs.md
 	#jq -cr '.[]' "ao/docinfo.json"
 	#pwd
 	#jq -c '.[]' "ao/docinfo.json" | while read i; do
@@ -220,9 +219,12 @@ build_() {
 		#	>> command_docs.md
 	#done
 	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
-**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' docinfo.json | tee -a command_docs.md
+**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' docinfo.json >> command_docs.md
+	# sed -e '/[[command-docs]]/ {' -e 'r command_docs.md' -e 'd' -e '}/' README.src.md > README.md
+	sed -e '/@command-docs@/ r command_docs.md' -e 's/@command-docs@//' README.src.md > README.md
+	# cp README.src.md README.md
 	markdown-toc -i README.md
-	cloc * --md >> README.md
+	cloc * --md --vcs=git >> README.md
 	cd $main
 }
 
