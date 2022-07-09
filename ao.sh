@@ -206,8 +206,10 @@ doc build "Process command and option database to generate static documentation 
 	-r null
 build_() {
 	log "Building documentation"
-	echo '## Commands\n' > ao/command_docs.md
-	cp ao/README.src.md ao/README.md
+
+	cd $aopath
+	echo '## Commands\n' > command_docs.md
+	cp README.src.md README.md
 	#jq -cr '.[]' "ao/docinfo.json"
 	#pwd
 	#jq -c '.[]' "ao/docinfo.json" | while read i; do
@@ -218,9 +220,10 @@ build_() {
 		#	>> command_docs.md
 	#done
 	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
-**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' ao/docinfo.json | tee -a ao/command_docs.md
-	markdown-toc -i ao/README.md
-	cloc ao/* --md >> ao/README.md
+**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' docinfo.json | tee -a command_docs.md
+	markdown-toc -i README.md
+	cloc * --md >> README.md
+	cd $main
 }
 
 doc status "Display information about the main ao database"\
@@ -291,6 +294,8 @@ doc cleanup "Apply organization rules to restructure local files"\
 	-r null
 cleanup_() {
 	log 'Organizing'
+
+	cd $main
 	if [[ $dry == 1 ]]; then log "(Dry run)"; fi
 	printf "%s\n" $sources
 
@@ -306,6 +311,7 @@ cleanup_() {
 			./!(notes|todo).txt textlike
 		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv\
 			"$sources"/*."$vidtypes" vid_archive
+
 		IFS=$' \t\n'
 		group_ftype "pdf" pgn dht docx ipynb pptx
 	fi
@@ -314,11 +320,14 @@ cleanup_() {
 doc ffind "Find a file in the database (based on its name)"\
 	-p name string "The file name"
 ffind_() {
+	cd $aopath
 	read_db | jq --arg target $1 '[.filenodes[] | select(.name |
 		contains($target)) | .path]' > ao_output.json.temp
 	cat ao_output.json.temp | jq '.'
 	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then
 		. else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
+	rm -v ao_output.json.temp
+	cd $main
 }
 
 doc extract "Move a database path to a separate 'block' and store a reference in the original database"\
@@ -332,6 +341,7 @@ extract-property_() {
 doc note "Subcommands associated with notetaking functionality"
 note_() {
 #		backup_db
+	cd $aopath
 	case $1 in
 		add )
 			shift; gshift=$((gshift+1))
@@ -340,6 +350,7 @@ note_() {
 				$(date +%s) '. += [{content: $c, time: $t}]' >\
 				db_block_notes.json.temp
 			cp db_block_notes.json.temp db_block_notes.json
+			rm -v db_block_notes.json.temp
 		;;
 
 		find )
@@ -348,12 +359,14 @@ note_() {
 				select(.content | contains($target)) |
 				.content]' > ao_output.json.temp
 			cat ao_output.json.temp | jq '.'
+			rm -v ao_output.json.temp
 #				cat $dbfile | jq --slurpfile x
 #				ao_output.json.temp 'if .outputs then . else
 #				outputs=[] end | .outputs += [$x]' >
 #				$dbfile.temp
 		;;
 	esac
+	cd $main
 }
 
 doc process "Extract data from files to build databases"\
