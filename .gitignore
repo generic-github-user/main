@@ -3,5 +3,6 @@ ao_misc
 todo/todo_backups/*
 todo/complete.*
 ao_config.sh
-ao_db.json
+ao_db.*
+ao_result.json
 aolog
