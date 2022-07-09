@@ -21,7 +21,7 @@ restrict=("$HOME/Desktop/img_archive" "$HOME/Pictures")
 echo $restrict
 
 #ls -al > ao_ls.txt
-ls -al >> ./aolog
+ls -al >> $aopath/aolog
 
 imgtypes={png,jpg,jpeg,webp,gif}
 imt='@(png|jpg|jpeg|webp|gif)'
@@ -66,7 +66,7 @@ file_stats() {
 # A stopgap to mitigate any severe mistakes I make before the more
 # comprehensive backup system is ready
 backup_db() {
-	d="$main/ao_db_backups"
+	d="$aopath/ao_db_backups"
 	mkdir -p $d
 	p="$d/ao_db_$(date +%s).tar.gz"
 	log "Backing up $dbfile to $p"
@@ -156,7 +156,7 @@ result=
 # using pipes or stored as intermediary results).
 gshift=0
 
-P="ao/docinfo.json"
+P="$aopath/docinfo.json"
 echo '' > "$P.temp"
 
 # Generate documentation using a command name and string with usage
@@ -294,12 +294,12 @@ cleanup_() {
 	if [[ $dry == 1 ]]; then log "(Dry run)"; fi
 	printf "%s\n" $sources
 
-	# why do these need to be quoted?
-	for img in $sources/*.$imt; do
-		move $img "./img_archive/$(basename $img)"
-	done
-
 	if [[ $dry != 1 ]]; then
+		# why do these need to be quoted?
+		for img in $sources/*.$imt; do
+			move $img "./img_archive/$(basename $img)"
+		done
+
 		# TODO: use fd instead of glob
 		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
 		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv\
@@ -467,15 +467,17 @@ manifest_() {
 	else paths=(*.*); fi
 
 	log "Found ${#paths[@]} files"
-	echo '' > ao_batch.json.temp
+	echo '' > $aopath/ao_batch.json.temp
 	for f in ${paths[@]}; do
 		log "Tracking $f"
 		hash=$(sha1sum $f | awk '{ print $1 }')
 		jo -p stats=$(file_stats $f) name=$f path=$(realpath $f)\
-			sha1=$hash time=$(date +%s) >> ao_batch.json.temp
+			sha1=$hash time=$(date +%s) >> $aopath/ao_batch.json.temp
 	done
+
+	cd $aopath
 	read_db | jq --slurpfile b ao_batch.json.temp '.files += $b' | write_db $dbfile
-#		rm ao_batch.json.temp
+	rm ao_batch.json.temp
 
 	cd $main
 }
