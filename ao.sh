@@ -491,6 +491,12 @@ count_() {
 	echo $result | wc -l
 }
 
+doc utodo "Executes utodo.sh, updating any todo lists specified in your ao_config.sh"\
+	-r null
+utodo_() {
+	bash $aopath/utodo.sh -b
+}
+
 # Execute subcommands
 while [[ $1 ]]; do
 	if [[ "$(cat "ao/docinfo.json" | jq -r '.[].name')" =~ "$1" ]]; then
