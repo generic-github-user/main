@@ -171,6 +171,12 @@
     "params": []
   },
   {
+    "name": "utodo",
+    "info": "Executes utodo.sh, updating any todo lists specified in your ao_config.sh",
+    "returntype": null,
+    "params": []
+  },
+  {
     "name": "verbose",
     "info": "Print additional information about what the program is doing",
     "returntype": null,

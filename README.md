@@ -14,6 +14,7 @@
 - [File Tracking](#file-tracking)
 - [Usage](#usage)
 - [Commands](#commands)
+- [Commands](#commands-1)
   * [extract](#extract)
   * [ffind](#ffind)
   * [imfind](#imfind)
@@ -143,6 +144,12 @@ exclude certain search criteria; the following will find all tasks containing
 grep -i 'read' .todo | grep -v '#school'
 ```
 
+For all tasks containing both "install" and "https":
+
+```
+grep install ../.todo | grep https
+```
+
 ## File Tracking
 
 A high-level overview of the file tracking scheme follows. "Snapshots" of files
@@ -170,6 +177,9 @@ bash ao <subcommand> -<flag> -<option> <value> --<option> <value> ...
 
 If an alias like the one shown in the installation instructions is used, we can
 simplify the command: `ao <subcommand> ...`
+
+
+## Commands
 
 
 ## Commands
@@ -269,14 +279,14 @@ And some quality of life things:
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.04 s (183.4 files/s, 31101.9 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (362.0 files/s, 57794.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Bourne Shell|2|75|97|437
-Markdown|3|127|0|404
-JSON|1|0|0|179
-vim script|2|10|13|15
+Bourne Shell|2|77|102|449
+Markdown|3|135|0|424
+JSON|1|0|0|185
+vim script|3|18|18|29
 --------|--------|--------|--------|--------
-SUM:|8|212|110|1035
+SUM:|9|230|120|1087

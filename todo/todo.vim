@@ -27,7 +27,7 @@ syn match todoTime '-t \S\+'
 "hi todoTime ctermfg=darkred cterm=bold
 hi def link todoTime Special
 
-syn match todoFreq '-f \w\|-daily'
+syn match todoFreq '-f \w\|-daily\|-weekly\|-monthly'
 "hi todoFreq ctermfg=lightred
 
 syn match todoTag ' #\S\+'

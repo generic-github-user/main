@@ -13,6 +13,15 @@
   * [Workflow](#workflow)
 - [File Tracking](#file-tracking)
 - [Usage](#usage)
+- [Commands](#commands)
+  * [extract](#extract)
+  * [ffind](#ffind)
+  * [imfind](#imfind)
+  * [limit](#limit)
+  * [manifest](#manifest)
+  * [process](#process)
+  * [rose](#rose)
+  * [summarize](#summarize)
 - [Features](#features)
 - [Statistics](#statistics)
 
@@ -134,6 +143,12 @@ exclude certain search criteria; the following will find all tasks containing
 grep -i 'read' .todo | grep -v '#school'
 ```
 
+For all tasks containing both "install" and "https":
+
+```
+grep install ../.todo | grep https
+```
+
 ## File Tracking
 
 A high-level overview of the file tracking scheme follows. "Snapshots" of files
@@ -161,6 +176,9 @@ bash ao <subcommand> -<flag> -<option> <value> --<option> <value> ...
 
 If an alias like the one shown in the installation instructions is used, we can
 simplify the command: `ao <subcommand> ...`
+
+
+## Commands
 
 @command-docs@
 
