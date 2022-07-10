@@ -30,10 +30,21 @@
 
 ## Requirements
 
-- tesseract
-- Python
-- curl
+- awk
 - bash (recent)
+- cloc
+- curl
+- grep
+- jc
+- jo
+- jq
+- markdown-toc
+- notify-send
+- Python (3.10 preferred)
+- sed
+- sponge (from moreutils)
+- tar
+- tesseract
 
 ## Installation
 
@@ -279,14 +290,14 @@ And some quality of life things:
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (362.0 files/s, 57794.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (338.8 files/s, 60644.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 Bourne Shell|2|77|102|449
-Markdown|3|135|0|424
+Markdown|3|135|0|446
 JSON|1|0|0|185
-vim script|3|18|18|29
+vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|9|230|120|1087
+SUM:|8|222|115|1095

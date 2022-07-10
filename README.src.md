@@ -29,10 +29,21 @@
 
 ## Requirements
 
-- tesseract
-- Python
-- curl
+- awk
 - bash (recent)
+- cloc
+- curl
+- grep
+- jc
+- jo
+- jq
+- markdown-toc
+- notify-send
+- Python (3.10 preferred)
+- sed
+- sponge (from moreutils)
+- tar
+- tesseract
 
 ## Installation
 
