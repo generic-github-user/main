@@ -14,7 +14,6 @@
 - [File Tracking](#file-tracking)
 - [Usage](#usage)
 - [Commands](#commands)
-- [Commands](#commands-1)
   * [extract](#extract)
   * [ffind](#ffind)
   * [imfind](#imfind)
@@ -181,65 +180,7 @@ simplify the command: `ao <subcommand> ...`
 
 ## Commands
 
-
-## Commands
-
-### extract
-Returns `null`
-Move a database path to a separate 'block' and store a reference in the original database
-
-**Parameters**
-- path: `string` -- The section of the database to transfer
-
-### ffind
-Returns `null`
-Find a file in the database (based on its name)
-
-**Parameters**
-- name: `string` -- The file name
-
-### imfind
-Returns `null`
-Find images containing the specified text
-
-**Parameters**
-- query: `string` -- The text you want to search for
-
-### limit
-Returns `null`
-Limit the number of results an action returns
-
-**Parameters**
-- n: `int` -- null
-
-### manifest
-Returns `null`
-Gather information about a directory and its contents
-
-**Parameters**
-- path: `string (filepath)` -- null
-
-### process
-Returns `null`
-Extract data from files to build databases
-
-**Parameters**
-- target: `null` -- null
-
-### rose
-Returns `string`
-Display a randomly generated mosaic, for fun
-
-**Parameters**
-- size: `int` -- The size of the output
-
-### summarize
-Returns `json`
-Compute a summary of a specified property/path over the database
-
-**Parameters**
-- key: `string (JSON path)` -- The database path to aggregate
-
+@command-docs@
 
 ## Features
 
@@ -278,15 +219,3 @@ And some quality of life things:
 
 ## Statistics
 
-
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (362.0 files/s, 57794.5 lines/s)
---- | ---
-
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-Bourne Shell|2|77|102|449
-Markdown|3|135|0|424
-JSON|1|0|0|185
-vim script|3|18|18|29
---------|--------|--------|--------|--------
-SUM:|9|230|120|1087

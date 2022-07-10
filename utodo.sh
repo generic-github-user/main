@@ -10,7 +10,7 @@ grep -f cflags -- $tmain | sed -e 's/--//g' | tee >(cat - >> $todopath/complete.
 grep -va -f cflags -- $tmain | sort -n | sponge $tmain
 echo -e ""
 
-# Clone recurring tasks to main todo list
+# Clone recurring tasks to tmain todo list
 echo "Importing recurring tasks"
 IFS=$'\n'
 # Remove any lingering completion flags; strip trailing whitespace

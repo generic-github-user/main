@@ -11,6 +11,7 @@ shopt -s globstar
 shopt -s nullglob
 shopt -s extglob
 shopt -s dotglob
+shopt -s expand_aliases
 
 set -e
 
@@ -20,7 +21,7 @@ restrict=("$HOME/Desktop/img_archive" "$HOME/Pictures")
 echo $restrict
 
 #ls -al > ao_ls.txt
-ls -al >> ./aolog
+ls -al >> $aopath/aolog
 
 imgtypes={png,jpg,jpeg,webp,gif}
 imt='@(png|jpg|jpeg|webp|gif)'
@@ -32,6 +33,10 @@ S="::"
 #sources='@(.|/home/alex/Downloads|January)'
 
 sources="$HOME/@(Downloads|Desktop)"
+
+#source ~/.bashrc
+alias python='python3.10'
+python -V
 
 # Output a message to stdout and the log file
 log() {
@@ -61,7 +66,7 @@ file_stats() {
 # A stopgap to mitigate any severe mistakes I make before the more
 # comprehensive backup system is ready
 backup_db() {
-	d="$main/ao_db_backups"
+	d="$aopath/ao_db_backups"
 	mkdir -p $d
 	p="$d/ao_db_$(date +%s).tar.gz"
 	log "Backing up $dbfile to $p"
@@ -89,7 +94,13 @@ move() {
 		t="${2%.*}_$(date +%s%3N).${2##*.}"
 		log "$2 already exists, renaming to $t"
 	fi
-	mv -nv "$1" "$t" | tee -a ./aolog
+	if [[ $dry != 0 ]]; then
+		mv -nv "$1" "$t" | tee -a ./aolog
+	fi
+}
+
+repeat() {
+	python -c "print('$1' * $2, end='')"
 }
 
 # Display documentation from a JSON object specifying information
@@ -107,8 +118,8 @@ pdocs() {
 	printf '%s\n' $(echo -n "$v" | jq -r '.info')
 	params=$(echo -n "$v" | jq -c '.params[]')
 	if [[ ! "$params" ]]; then
-		repeat ' ' 12;
-		echo -n 'No parameters'
+		repeat ' ' 12
+		tput setaf 3; echo -n 'No parameters'; tput sgr0
 	fi
 	echo $params | while read p; do
 		tput setaf 3; repeat ' ' 12; printf '%10s    ' $(echo -n $p | jq -rj '.name'); tput sgr0
@@ -145,7 +156,7 @@ result=
 # using pipes or stored as intermediary results).
 gshift=0
 
-P="ao/docinfo.json"
+P="$aopath/docinfo.json"
 echo '' > "$P.temp"
 
 # Generate documentation using a command name and string with usage
@@ -186,8 +197,35 @@ help_() {
 		for i in $(seq 0 $(( $L - 1 ))); do
 			jq -r --argjson z $i '.[$z]' $P | pdocs #| less -r
 		done
-		echo '----------'
+		#repeat - 30 | log
+		#repeat - 30
 	fi
+}
+
+doc build "Process command and option database to generate static documentation files"\
+	-r null
+build_() {
+	log "Building documentation"
+
+	cd $aopath
+	echo -e '## Commands\n' > command_docs.md
+	#jq -cr '.[]' "ao/docinfo.json"
+	#pwd
+	#jq -c '.[]' "ao/docinfo.json" | while read i; do
+		#name=$(echo "$i" | jq -r '.name')
+		#info=$(echo "$i" | jq -r '.info')
+		#echo "### $(jq '.name' <<< "$i")"\
+		#echo "### $name\n$info"\
+		#	>> command_docs.md
+	#done
+	jq -r '.[] | "### \(.name)\nReturns `\(.returntype)`\n\(.info)\n
+**Parameters**\n\(.params[] | "- \(.name): `\(.type)` -- \(.info)")\n"' docinfo.json >> command_docs.md
+	# sed -e '/[[command-docs]]/ {' -e 'r command_docs.md' -e 'd' -e '}/' README.src.md > README.md
+	sed -e '/@command-docs@/ r command_docs.md' -e 's/@command-docs@//' README.src.md > README.md
+	# cp README.src.md README.md
+	markdown-toc -i README.md
+	cloc * --md --vcs=git >> README.md
+	cd $main
 }
 
 doc status "Display information about the main ao database"\
@@ -196,7 +234,7 @@ status_() {
 	log "Database size: $(stat -c %s $dbfile) bytes, $(wc -l < $dbfile) lines"
 }
 
-doc dry "Execute a \"dry run\"; don't modify any files"\
+doc dry "Execute a 'dry run'; don't modify any files"\
 	-r null
 dry_() {
 	dry=1
@@ -234,7 +272,6 @@ doc rose "Display a randomly generated mosaic, for fun"\
 rose_() {
 	IFS=$'\n'
 	r=()
-	shift
 	n=${1-4}
 	chars=".*#@"
 	for x in $(seq 1 $n); do
@@ -259,33 +296,45 @@ doc cleanup "Apply organization rules to restructure local files"\
 	-r null
 cleanup_() {
 	log 'Organizing'
+
+	cd $main
+	if [[ $dry == 1 ]]; then log "(Dry run)"; fi
 	printf "%s\n" $sources
 
-	# why do these need to be quoted?
-	for img in $sources/*.$imt; do
-		move $img "./img_archive/$(basename $img)"
-	done
+	if [[ $dry != 1 ]]; then
+		# why do these need to be quoted?
+		for img in $sources/*.$imt; do
+			move $img "./img_archive/$(basename $img)"
+		done
 
-	mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
-	mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv ./!(notes|todo).txt textlike
-	mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv "$sources"/*."$vidtypes" vid_archive
-	IFS=$' \t\n'
-	group_ftype "pdf" pgn dht docx ipynb pptx
+		# TODO: use fd instead of glob
+		mkdir -p aoarchive; [ aosearch* ] && mv -nv aosearch* ./aoarchive
+		mkdir -p textlike; [ ./!(notes|todo).txt ] && mv -nv\
+			./!(notes|todo).txt textlike
+		mkdir -p vid_archive; [ "$sources"/*."$vidtypes" ] && mv -nv\
+			"$sources"/*."$vidtypes" vid_archive
+
+		IFS=$' \t\n'
+		group_ftype "pdf" pgn dht docx ipynb pptx
+	fi
 }
 
 doc ffind "Find a file in the database (based on its name)"\
 	-p name string "The file name"
 ffind_() {
-	shift
-	read_db | jq --arg target $1 '[.filenodes[] | select(.name | contains($target)) | .path]' > ao_output.json.temp
+	cd $aopath
+	read_db | jq --arg target $1 '[.filenodes[] | select(.name |
+		contains($target)) | .path]' > ao_output.json.temp
 	cat ao_output.json.temp | jq '.'
-	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then . else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
+	read_db | jq --argjson x "$(cat ao_output.json.temp)" 'if .outputs then
+		. else .outputs=[] end | .outputs += [$x]' | write_db $dbfile
+	rm -v ao_output.json.temp
+	cd $main
 }
 
-doc extract "Move a database path to a separate \"block\" and store a reference in the original database"\
+doc extract "Move a database path to a separate 'block' and store a reference in the original database"\
 	-p path string "The section of the database to transfer"
 extract-property_() {
-	shift
 	block="db_block_$1.json"
 	read_db | jq --arg path $1 '.[$path]' > $block
 	read_db | jq --arg path $1 --arg b $block '.[$path] = {type: "block", path: $b}' | write_db $dbfile
@@ -293,31 +342,39 @@ extract-property_() {
 
 doc note "Subcommands associated with notetaking functionality"
 note_() {
-	shift
 #		backup_db
+	cd $aopath
 	case $1 in
 		add )
-			shift
+			shift; gshift=$((gshift+1))
 			echo $1 >> notes.txt
-			cat db_block_notes.json | jq --arg c "$1" --argjson t $(date +%s) '. += [{content: $c, time: $t}]' > db_block_notes.json.temp
+			cat db_block_notes.json | jq --arg c "$1" --argjson t\
+				$(date +%s) '. += [{content: $c, time: $t}]' >\
+				db_block_notes.json.temp
 			cp db_block_notes.json.temp db_block_notes.json
+			rm -v db_block_notes.json.temp
 		;;
 
 		find )
-			shift
-			cat db_block_notes.json | jq --arg target $1 '[.[] | select(.content | contains($target)) | .content]' > ao_output.json.temp
+			shift; gshift=$((gshift+1)) 
+			cat db_block_notes.json | jq --arg target $1 '[.[] |
+				select(.content | contains($target)) |
+				.content]' > ao_output.json.temp
 			cat ao_output.json.temp | jq '.'
-#				cat $dbfile | jq --slurpfile x ao_output.json.temp 'if .outputs then . else outputs=[] end | .outputs += [$x]' > $dbfile.temp
+			rm -v ao_output.json.temp
+#				cat $dbfile | jq --slurpfile x
+#				ao_output.json.temp 'if .outputs then . else
+#				outputs=[] end | .outputs += [$x]' >
+#				$dbfile.temp
 		;;
 	esac
+	cd $main
 }
 
 doc process "Extract data from files to build databases"\
 	-p target "string: one of [images, text]"\
 	-r null
 process_() {
-	shift
-
 	log "Processing $1"
 	
 	paths=()
@@ -364,7 +421,13 @@ process_() {
 			hash=$(sha1sum $t | awk '{ print $1 }')
 			log "Getting stats for $t"
 			cat $dbfile | \
-				jq --arg name $t --arg path $(realpath $t) --arg h $hash --arg category text --arg lines $(wc -l < $t) --arg chars $(wc -m < $t) --arg words $(wc -w < $t) \
+				jq --arg name $t \
+				--arg path $(realpath $t) \
+				--arg h $hash \
+				--arg category text \
+				--arg lines $(wc -l < $t) \
+				--arg chars $(wc -m < $t) \
+				--arg words $(wc -w < $t) \
 				'.files += [{"name": $name, "path": $path, "sha1": $h, "category": $category, "lines": $lines|tonumber, "chars": $chars|tonumber, "words": $words|tonumber}]' > $dbfile
 		done
 	fi
@@ -375,25 +438,25 @@ doc limit "Limit the number of results an action returns"\
 	-p n int\
 	-r null
 limit_() {
-	shift; limit=$1
+	limit=$1
 }
 
 doc imfind "Find images containing the specified text"\
 	-p query string "The text you want to search for"\
 	-r "[filepath]"
 imfind_() {
-	shift; target=$1
+	target=$1
 	if [[ $verbose == 1 ]]; then echo "Searching for $target"; fi
 	# Based on https://unix.stackexchange.com/a/527499
 	# result=$(awk -v T="$target" -F $S '{ if ($3 ~ T) { print $1 } }' $indexname)
-	cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' | if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi | tee ao_result.json
+	cat $indexname | jq --arg t $target '[.[] | select(.content | contains($t)) | .fname]' |\
+		if [[ $plain == 1 ]]; then jq -r '.[]'; else jq; fi | tee ao_result.json
 	#echo $result
 }
 
 doc open "Open the selection by creating a temporary directory with symlinks to its files"\
 	-r null
 open_() {
-	shift
 	echo "Displaying results"
 	d="./aosearch ($(date))"
 	mkdir $d
@@ -410,7 +473,6 @@ doc manifest "Gather information about a directory and its contents"\
 	-r null
 manifest_() {
 	IFS=$'\n'
-	shift
 	cd $1
 	log "Generating directory listing of $(pwd)"
 #		"python3.9" -c 'import os, json; print(json.dumps(os.listdir(".")))' > "ao_listing $(date).json"
@@ -420,14 +482,17 @@ manifest_() {
 	else paths=(*.*); fi
 
 	log "Found ${#paths[@]} files"
-	echo '' > ao_batch.json.temp
+	echo '' > $aopath/ao_batch.json.temp
 	for f in ${paths[@]}; do
 		log "Tracking $f"
 		hash=$(sha1sum $f | awk '{ print $1 }')
-		jo -p stats=$(file_stats $f) name=$f path=$(realpath $f) sha1=$hash time=$(date +%s) >> ao_batch.json.temp
+		jo -p stats=$(file_stats $f) name=$f path=$(realpath $f)\
+			sha1=$hash time=$(date +%s) >> $aopath/ao_batch.json.temp
 	done
+
+	cd $aopath
 	read_db | jq --slurpfile b ao_batch.json.temp '.files += $b' | write_db $dbfile
-#		rm ao_batch.json.temp
+	rm ao_batch.json.temp
 
 	cd $main
 }
@@ -436,7 +501,6 @@ doc summarize "Compute a summary of a specified property/path over the database"
 	-p key "string (JSON path)" "The database path to aggregate"\
 	-r json
 summarize_() {
-	shift
 	backup_db
 	read_db | jq "
 		if .summaries then . else .summaries = {} end | 
@@ -450,7 +514,6 @@ doc update "Merge file snapshots into filenodes"\
 	-r null
 update-filenodes_() {
 	backup_db
-	shift
 	IFS=$'\n'
 	for i in $(seq 0 $limit); do
 		log "Updating snapshot $i"
