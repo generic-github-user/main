@@ -18,7 +18,7 @@ hi todoDur ctermfg=lightcyan cterm=bold
 syn match todoTime '-t \S\+'
 hi todoTime ctermfg=darkred cterm=bold
 
-syn match todoFreq '-f \w\|-daily'
+syn match todoFreq '-f \w\|-daily\|-weekly\|-monthly'
 hi todoFreq ctermfg=lightred
 
 syn match todoTag ' #\w\+'

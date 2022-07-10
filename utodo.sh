@@ -16,8 +16,13 @@ IFS=$'\n'
 filter='s/ -cc//g;s/\s*$//'
 sed -E -e "$filter" complete.todo > complete.temp.todo
 sed -E -e "$filter" $tmain > todo.temp.todo
-grep -e "-f d" -e "-daily" $main/recurring.todo | sed -e "s/$/ -t $(date +'%m-%d')/" | grep -Fxv -f todo.temp.todo -f complete.temp.todo | tee -a $tmain
-#rm -v todo.temp.todo complete.temp.todo
+inst () {
+	grep -e $1 -e $2 $main/recurring.todo | sed -e "s/$/ -t $(date +$3)/" | grep -Fxv -f todo.temp.todo -f complete.temp.todo | tee -a $tmain
+}
+inst "-f d" "-daily" '%m-%d'
+inst "-f w" "-weekly" '%Y~%W'
+inst "-f m" "-monthly" '%Y-%m'
+rm -v todo.temp.todo complete.temp.todo
 echo -e ""
 
 #echo $(pwd)
