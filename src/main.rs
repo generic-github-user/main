@@ -27,3 +27,35 @@ impl<T> fmt::Display for Symbol<T> where T: fmt::Display {
         write!(f, "{}", self.value)
     }
 }
+
+/// A concrete string formed from any number of symbols
+#[derive(PartialEq, Eq, Clone)]
+struct String<T> {
+    letters: Vec<Symbol<T>>
+}
+
+impl<T> String<T> where T: fmt::Display {
+    /// Convert a string literal into a String
+    fn from(string: &str) -> String<char> {
+        String { letters: string.chars().map(|c| Symbol { value: c }).collect() }
+    }
+
+    fn new() -> String<T> {
+        String { letters: Vec::new() }
+    }
+
+    fn print(&self) -> () {
+        println!("{}", self);
+    }
+}
+
+/// Display a String based on the enclosed Symbols' fmt::Display implementation
+impl<T> fmt::Display for String<T> where T: fmt::Display {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        //write!(f, "{}", self.letters.join(""))
+        for L in &self.letters {
+            write!(f, "{}", L)?;
+        }
+        Ok(())
+    }
+}
