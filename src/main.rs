@@ -88,3 +88,23 @@ impl<'a, T> Rule<T> {
     //    Rule { input: A, output: B }
     //}
 }
+
+/// A generic Set struct to act as a customized wrapper for collection types
+struct Set<T> {
+    values: Vec<T>
+}
+
+impl<T> Set<T> where T: fmt::Display + Clone {
+    fn print(&self) -> () {
+        println!("{}", self);
+    }
+}
+
+impl<T> fmt::Display for Set<T> where T: fmt::Display + Clone {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for item in self.values.clone() {
+            writeln!(f, "{}", item)?;
+        }
+        Ok(())
+    }
+}
