@@ -59,3 +59,32 @@ impl<T> fmt::Display for String<T> where T: fmt::Display {
         Ok(())
     }
 }
+
+#[derive(Clone)]
+struct Rule<T> {
+    input: String<T>,
+    output: String<T>
+}
+
+impl<'a, T> Rule<T> {
+    /// Initialize a new rule using `String`s corresponding to that rule's input and output
+    fn new(input: String<T>, output: String<T>) -> Rule<T> {
+        Rule { input, output }
+    }
+
+    /// Create a rule using individual symbols
+    fn sym(input: Symbol<T>, output: Symbol<T>) -> Rule<T> where T: Copy{
+        Rule { input: input.to_string(), output: output.to_string() }
+    }
+
+    /// Create a rule from raw strings (string literals)
+    fn raw(input: &str, output: &str) -> Rule<char> {
+        Rule { input: String::<char>::from(input), output: String::<char>::from(output) }
+    }
+
+    //fn sym(input: Symbol<T>, output: Symbol<T>) -> Rule<'a, T> where T: Copy {
+    //    let A = &input.to_string();
+    //    let B = &output.to_string();
+    //    Rule { input: A, output: B }
+    //}
+}
