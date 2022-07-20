@@ -6,3 +6,7 @@ ao_config.sh
 ao_db.*
 ao_result.json
 aolog
+ao_db_backups
+aoarchive
+db_block_*.json
+*.pickle
