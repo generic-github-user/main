@@ -23,3 +23,22 @@ DRY for the sake of maintainability and consistency as the codebase grows).
 At this point, the Python branch is my preferred tool and I'm unsure to what
 extent (if any) I will continue developing and/or maintaining the shell
 version.
+
+## Features
+
+Essentially the same as ao/master; they generally fall into one of these
+categories:
+
+- File tracking and automated backups (and searching, archiving, alerts, etc.)
+- Ergonomic text-based todo lists
+- Bookmark and history management, web crawling/archival, information management, etc.
+
+One key difference is that this version is designed to allow productive
+interaction with the internal data via a REPL loop, a feature which is unwieldy
+in most other languages (or even in Python with more rigid data structures;
+graphs are great for generality and symbolic inference, but often very irksome
+to access by hand).
+
+## Usage
+
+TODO
