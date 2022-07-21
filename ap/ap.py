@@ -1,6 +1,7 @@
 import os
 import sys
 import shutil
+from pathlib import Path
 
 import pickle
 import time
@@ -213,3 +214,22 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
             break
         time.sleep(delay)
     return i
+
+def tagfiles(n=0):
+    log('Tagging files')
+    for anode in itertools.islice(data['files'], n):
+        anode.validate()
+
+        if (hasattr(anode, 'ext') and
+            anode.ext.lower()[1:] in 'gif png jpg jpeg tiff webm'.split() and
+            'image' not in anode.tags):
+                anode.tags.append('image')
+
+        if (hasattr(anode, 'ext') and
+            anode.ext.lower()[1:] in 'txt js py sh java css html todo'.split() and
+            'textlike' not in anode.tags):
+                anode.tags.append('textlike')
+
+        if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
+        anode.print()
+    save()
