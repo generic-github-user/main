@@ -26,7 +26,8 @@ from gc import get_referents
 # Exclude modules as well.
 BLACKLIST = type, ModuleType, FunctionType
 
-# https://stackoverflow.com/a/30316760
+# Estimate the "true" size of an object, which may be nested and/or contain
+# references to other objects (from https://stackoverflow.com/a/30316760)
 def getsize(obj):
     """sum size of object & members."""
     if isinstance(obj, BLACKLIST):
@@ -44,7 +45,8 @@ def getsize(obj):
         objects = get_referents(*need_referents)
     return size
 
-# Based on https://stackoverflow.com/a/44873382
+# Hash a file given a path and return hex digests for the md5 and sha1 hashes
+# of the file's content (based on https://stackoverflow.com/a/44873382)
 def hashfile(path):
     # 256kb
     BUF_SIZE = 2 ** 18
@@ -75,10 +77,14 @@ if len(sys.argv) > 1 and sys.argv[1] == 'CLEAR':
         'files': []
     }
 
+# Store the current database at `path` (serialized using pickle; not very
+# efficient, but extremely expressive)
 def save(path=dbpath):
     with open(path, 'wb') as f:
         pickle.dump(data, f)
 
+# Logging helper function; displays the string `content`, indented and
+# line-wrapped
 def log(content, level=0):
     n=60
     lines = [content[i:i+n] for i in range(0, len(content), n)]
