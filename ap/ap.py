@@ -119,3 +119,47 @@ class filenode:
 
     def print(self):
         print(self)
+
+# Information about a file at a specific point in time (see above), similar to
+# those used by Git; this approach enables highly accurate monitoring and
+# versioning without having to continuously listen for file system events
+class snapshot:
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    # Integrate a file snapshot into The File Database
+    def process(self):
+        log('')
+        print(f'Integrating snapshot: {self}')
+        #print(len(data['files']))
+        current = list(filter(lambda x: x.path == self.path, data['files']))
+        if len(current) > 1:
+            #raise BaseException('')
+            warnings.warn('File database has more than one live file with the\
+                          same path; this should not happen')
+        #node = current.next()
+        #hasn'tattr
+        if not hasattr(self, 'ext'):
+            _, self.ext = os.path.splitext(self.path)
+
+        if current:
+            log(f'Found corresponding node ({self.path})', 1)
+            current[0].snapshots.append(self)
+            #current[0].ext = self.ext
+            current[0].ext = self.ext
+            current[0].print()
+        else:
+            log(f'Adding file node for {self.path} ({len(data["files"])} total)', 1)
+            newnode = filenode(
+                id=len(data['files']),
+                name=self.name, path=self.path, ext=self.ext,
+                size=self.data.st_size,
+                snapshots=[self],
+                tags=[],
+                processed=False,
+                textproc=False
+            )
+            data['files'].append(newnode)
+            newnode.print()
+        self.processed=True
