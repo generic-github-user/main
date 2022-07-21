@@ -2,11 +2,17 @@ import os
 import sys
 import shutil
 from pathlib import Path
+import argparse
+
+import graphviz
 
 import pickle
+import copy
 import time
-import re
 import itertools
+
+import re
+import string
 
 import warnings
 import textwrap
@@ -21,6 +27,13 @@ dbpath = '/home/alex/Desktop/ap.pickle'
 timelimit = 20
 
 loglevel = 0
+parser = argparse.ArgumentParser()
+#parser.add_argument('subcommand', type=str)
+subparsers = parser.add_subparsers()
+
+imf_parser = subparsers.add_parser('imf')
+imf_parser.add_argument('text', type=str)
+imf_parser.set_defaults(func=lambda argvals: openfiles(list(filter(lambda x: hasattr(x, 'text') and argvals.text.lower() in x.text.lower(), data['files']))))
 
 from types import ModuleType, FunctionType
 from gc import get_referents
@@ -264,3 +277,18 @@ def extracttext(n=0):
             print(exception)
         anode.processed = True
     save()
+
+
+args = parser.parse_args()
+#match args.subcommand:
+#    'imf'
+
+if hasattr(args, 'func'):
+    args.func(args)
+
+# TODO: generate folder from tags/types
+# TODO: generate human-readable file manifest
+# TODO: add command/function for general searches
+# TODO: fuzzy string matching
+# TODO: auto-generate appropriate file names ?
+# TODO: store file relations in snapshots/nodes
