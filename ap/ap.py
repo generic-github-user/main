@@ -163,3 +163,53 @@ class snapshot:
             data['files'].append(newnode)
             newnode.print()
         self.processed=True
+
+# TODO: refactor using https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir
+
+# Collect information about every file and subdirectory in `path` (optionally
+# recursive); these are referred to as file "snapshots" that can be processed
+# into internal representations of actual files ("nodes"). These snapshots are
+# considered to be immutable (excepting boolean flags) and are stored
+# persistently to regenerate file nodes if/when necessary.
+def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> int:
+    for subpath in os.listdir(path):
+        log(f'Getting stats for {subpath} ({i}/?)', level)
+        fullpath = os.path.join(path, subpath)
+        #S = snapshot()
+        #S.data = os.stat(fullpath)
+        # Why don't old nodes (without name/path) cause issues?
+        log(f'Adding snapshot; {len(data["snapshots"])} total', level+1)
+        fname, ext = os.path.splitext(fullpath)
+        stats = os.stat(fullpath)
+        # should we move the hashing elsewhere?
+        # TODO: store references to files contained in directory (and possibly the inverse)
+        snapshot_info = dict(
+            id=len(data['files']),
+            name=subpath,
+            path=fullpath,
+            ext=ext,
+            data=stats,
+            time=time.time(),
+            isdir=os.path.isdir(fullpath),
+            processed=False,
+            #md5=md5,
+            #sha1=sha1
+        )
+        if os.path.isdir(fullpath) or stats.st_size > 10e7:
+            snapshot_info |= dict(md5=None, sha1=None, hashed=False)
+        else:
+            md5, sha1 = hashfile(fullpath)
+            snapshot_info |= dict(md5=md5, sha1=sha1, hashed=True)
+        newsnapshot = snapshot(**snapshot_info)
+        data['snapshots'].append(newsnapshot)
+        newsnapshot.process()
+        i += 1
+
+        #if os.path.isdir(subpath) and recursive:
+        if os.path.isdir(fullpath) and recursive:
+            i = catalog(fullpath, limit, i, True, level=level+1)
+        if i >= limit:
+            print(f'Reached limit: {limit}')
+            break
+        time.sleep(delay)
+    return i
