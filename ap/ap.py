@@ -13,6 +13,9 @@ import textwrap
 
 import psutil
 import hashlib
+from PIL import Image
+from PIL import UnidentifiedImageError
+import pytesseract
 
 dbpath = '/home/alex/Desktop/ap.pickle'
 timelimit = 20
@@ -232,4 +235,32 @@ def tagfiles(n=0):
 
         if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
         anode.print()
+    save()
+def mayhave(obj, attr):
+    if hasattr(obj, attr):
+        return getattr(obj, attr)
+    else:
+        return None
+
+def extracttext(n=0):
+    log('Running OCR (Tesseract)')
+    for anode in itertools.islice(filter(
+            lambda x:
+                (hasattr(x, 'tags') and
+                'image' in x.tags and
+                not mayhave(x, 'processed')),
+            data['files']), n):
+        #anode.print()
+        try:
+            log('', 1)
+            log(anode.path, 1)
+            imgcontent = pytesseract.image_to_string(Image.open(anode.path))
+            setattr(anode, 'text', imgcontent)
+
+            text = imgcontent.replace('\n', '')
+            text = re.sub('[\n ]+', ' ', text, re.M)
+            log(f"Result (condensed): {text}", 1)
+        except UnidentifiedImageError as exception:
+            print(exception)
+        anode.processed = True
     save()
