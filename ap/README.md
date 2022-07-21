@@ -42,3 +42,15 @@ to access by hand).
 ## Usage
 
 TODO
+
+## Branches
+
+- `docs`: documentation, comments, etc.
+- `python`: the Python-based version of ao (i.e., ap); also used as a parent branch for more specialized features
+- `ap-docs`: documentation specific to ap
+- `todo-handling`: scripts that manage todo lists
+- `images`: sub-branch of `python`; extracting data from images using OCR and other methods
+- `system-monitoring`: recording historical information about processor usage, core temperature, available memory, etc.
+- `master`: original (shell-based) version of ao
+- `plotting`: helpful functions for visualizations, graphs, etc.
+- `files`: file tracking code (obsolete-ish)
