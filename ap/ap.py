@@ -15,11 +15,7 @@ import hashlib
 
 from utils import getsize, hashfile
 from files import filenode, snapshot, catalog
-
-dbpath = '/home/alex/Desktop/ap.pickle'
-timelimit = 20
-
-loglevel = 0
+from config import *
 
 #try:
 #    with open(dbpath, 'rb') as f:

@@ -14,5 +14,7 @@ ao_result.json
 aolog
 ao_db_backups
 db_block_*.json
-*.pickle
 imgindex.json
+
+*.pickle
+config.py
