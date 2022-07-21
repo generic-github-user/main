@@ -1,6 +1,7 @@
 import os
 import sys
 import shutil
+from pathlib import Path
 
 import pickle
 import time
@@ -213,3 +214,22 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
             break
         time.sleep(delay)
     return i
+
+log('Getting system information')
+
+# append, create if not present
+def acinp(attr, value):
+    if not hasattr(data, attr):
+        data[attr] = []
+    data[attr].append(value)
+
+acinp('system_info', node(data=psutil.cpu_times()))
+acinp('system_info', node(data=psutil.cpu_stats()))
+acinp('system_info', node(data=psutil.cpu_freq()))
+acinp('system_info', node(data=psutil.getloadavg()))
+
+acinp('system_info', node(data=psutil.sensors_temperatures()))
+acinp('system_info', node(data=psutil.sensors_fans()))
+acinp('system_info', node(data=psutil.sensors_battery()))
+
+save()
