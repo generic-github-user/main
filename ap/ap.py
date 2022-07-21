@@ -247,20 +247,19 @@ def openfiles(files):
     for f in fcopy:
         Path(os.path.join(dirname, f.name)).symlink_to(f.path)
     os.system(f'xdg-open {dirname}')
+
+def tagfile(fnode, types, tag):
+    if (hasattr(fnode, 'ext') and
+        fnode.ext.lower()[1:] in types.split() and
+        'image' not in fnode.tags):
+        fnode.tags.append('image')
+
 def tagfiles(n=0):
     log('Tagging files')
     for anode in itertools.islice(data['files'], n):
         anode.validate()
-
-        if (hasattr(anode, 'ext') and
-            anode.ext.lower()[1:] in 'gif png jpg jpeg tiff webm'.split() and
-            'image' not in anode.tags):
-                anode.tags.append('image')
-
-        if (hasattr(anode, 'ext') and
-            anode.ext.lower()[1:] in 'txt js py sh java css html todo'.split() and
-            'textlike' not in anode.tags):
-                anode.tags.append('textlike')
+        tagfile(anode, 'gif png jpg jpeg tiff webm', 'image')
+        tagfile(anode, 'txt js py sh java css html todo', 'textlike')
 
         if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
         anode.print()
