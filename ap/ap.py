@@ -4,9 +4,12 @@ import shutil
 from pathlib import Path
 
 import pickle
+import copy
 import time
-import re
 import itertools
+
+import re
+import string
 
 import warnings
 import textwrap
@@ -215,6 +218,24 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
         time.sleep(delay)
     return i
 
+# Generates a folder containing symlinks to each of the given files and opens
+# it using the associated program
+def openfiles(files):
+    dirname = f'/home/alex/Desktop/ap-temp-{time.time()}'
+    # be careful
+    fcopy = copy.deepcopy(files)
+    for f in fcopy:
+        if sum(f.name == g.name for g in fcopy) > 1:
+            for i, h in enumerate(list(filter(lambda x: f.name == x.name, fcopy))):
+                suffix = f'-{i+1}'
+                #a, b = 
+                h.name = str(Path(h.name).stem+suffix+h.ext)
+                # h.path += suffix
+
+    Path(dirname).mkdir()
+    for f in fcopy:
+        Path(os.path.join(dirname, f.name)).symlink_to(f.path)
+    os.system(f'xdg-open {dirname}')
 def tagfiles(n=0):
     log('Tagging files')
     for anode in itertools.islice(data['files'], n):
