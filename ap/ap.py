@@ -100,8 +100,14 @@ def log(content, level=0):
 # point in time
 class filenode:
 
-    attrs = {'id': int, 'path': str, 'name': str, 'tags': list, 'size': int,
-             'snapshots': list, 'ext': str}
+    attrs = {'id': int, # Numeric ID 
+             'path': str, # Filepath
+             'name': str, # File name
+             'tags': list, # Internal file tags (different than those assigned to metadata by a file manager)
+             'size': int, # File size in bytes
+             'snapshots': list, # A chronologically ordered (?) list of file snapshots
+             'ext': str # File extension
+             }
     def __init__(self, **kwargs):
         self.id = 0
         self.path = ''
@@ -112,6 +118,9 @@ class filenode:
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+    # Check that the expected attributes are present within this filenode and
+    # have the correct types (this is Python, so we only emit a warning if
+    # something is askew)
     def validate(self):
         for k, v in filenode.attrs.items():
             if hasattr(self, k):
@@ -120,6 +129,7 @@ class filenode:
             else:
                 warnings.warn(f'filenode missing expected attribute: `{k}`')
 
+    # Generate a string representing this filenode
     def __str__(self):
         return '\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'path ext tags'.split())
 
