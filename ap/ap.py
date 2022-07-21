@@ -88,3 +88,34 @@ def log(content, level=0):
 
     p='  ' * level # prefix
     print(p + f'\n{p}~ '.join(textwrap.wrap(content, n)))
+
+# Very minimalist class for representing a file; aggregated from file
+# snapshots, which represent a (possibly nonexistent) file at a particular
+# point in time
+class filenode:
+
+    attrs = {'id': int, 'path': str, 'name': str, 'tags': list, 'size': int,
+             'snapshots': list, 'ext': str}
+    def __init__(self, **kwargs):
+        self.id = 0
+        self.path = ''
+        self.ext = ''
+        self.size = 0
+        self.tags = []
+        self.snapshots = []
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    def validate(self):
+        for k, v in filenode.attrs.items():
+            if hasattr(self, k):
+                if not isinstance(getattr(self, k), v):
+                    warnings.warn(f'Attribute `{k}` should have type {v}')
+            else:
+                warnings.warn(f'filenode missing expected attribute: `{k}`')
+
+    def __str__(self):
+        return '\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'path ext tags'.split())
+
+    def print(self):
+        print(self)
