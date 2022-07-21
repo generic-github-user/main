@@ -93,6 +93,17 @@ def log(content, level=0):
     p='  ' * level # prefix
     print(p + f'\n{p}~ '.join(textwrap.wrap(content, n)))
 
+
+# Helper class to make my life easier;
+# - supports arbitrary keyword arguments (which are stored as attributes)
+# - tracks access and modification
+# - enables method chaining for common iterable operations
+class node:
+    def __init__(self, *args, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        created = time.time()
+
 # Very minimalist class for representing a file; aggregated from file
 # snapshots, which represent a (possibly nonexistent) file at a particular
 # point in time
@@ -119,7 +130,7 @@ class filenode:
                 warnings.warn(f'filenode missing expected attribute: `{k}`')
 
     def __str__(self):
-        return '\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'path ext tags'.split())
+        return 'filenode { '+'\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'name path ext tags snapshots'.split())+' }'
 
     def print(self):
         print(self)
@@ -152,7 +163,7 @@ class snapshot:
             current[0].snapshots.append(self)
             #current[0].ext = self.ext
             current[0].ext = self.ext
-            current[0].print()
+            #current[0].print()
         else:
             log(f'Adding file node for {self.path} ({len(data["files"])} total)', 1)
             newnode = filenode(
@@ -165,7 +176,7 @@ class snapshot:
                 textproc=False
             )
             data['files'].append(newnode)
-            newnode.print()
+            #newnode.print()
         self.processed=True
 
 # TODO: refactor using https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir
