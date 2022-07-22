@@ -2,6 +2,11 @@
 
 "You can't use bash for everything!" -- people who let fear cloud their mind and stifle their potential
 
+Note that the actively developed version of ao is on the [`python`
+branch](https://github.com/generic-github-user/ao/tree/python); if you are
+planning on using this tool, I would recommend starting with that version as it
+is better maintained, has more features, is more thoroughly documented, etc.
+
 ## Contents
 
 <!-- toc -->
