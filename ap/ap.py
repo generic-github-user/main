@@ -140,6 +140,7 @@ class filenode:
 # those used by Git; this approach enables highly accurate monitoring and
 # versioning without having to continuously listen for file system events
 class snapshot:
+    # Initialize a new file snapshot
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
@@ -155,16 +156,20 @@ class snapshot:
             warnings.warn('File database has more than one live file with the\
                           same path; this should not happen')
         #node = current.next()
+
+        # "temporary" - generate ext if not present
         #hasn'tattr
         if not hasattr(self, 'ext'):
             _, self.ext = os.path.splitext(self.path)
 
+        # If a matching filenode is found, integrate this snapshot into it
         if current:
             log(f'Found corresponding node ({self.path})', 1)
             current[0].snapshots.append(self)
             #current[0].ext = self.ext
             current[0].ext = self.ext
             current[0].print()
+        # Otherwise, add a new node with a reference to this snapshot
         else:
             log(f'Adding file node for {self.path} ({len(data["files"])} total)', 1)
             newnode = filenode(
@@ -178,6 +183,7 @@ class snapshot:
             )
             data['files'].append(newnode)
             newnode.print()
+        # Mark the snapshot as having been incorporated into the main database
         self.processed=True
 
 # TODO: refactor using https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir
