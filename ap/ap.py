@@ -1,22 +1,39 @@
 import os
 import sys
 import shutil
+from pathlib import Path
+import argparse
+
+import graphviz
 
 import pickle
+import copy
 import time
-import re
 import itertools
+
+import re
+import string
 
 import warnings
 import textwrap
 
 import psutil
 import hashlib
+from PIL import Image
+from PIL import UnidentifiedImageError
+import pytesseract
 
 dbpath = '/home/alex/Desktop/ap.pickle'
 timelimit = 20
 
 loglevel = 0
+parser = argparse.ArgumentParser()
+#parser.add_argument('subcommand', type=str)
+subparsers = parser.add_subparsers()
+
+imf_parser = subparsers.add_parser('imf')
+imf_parser.add_argument('text', type=str)
+imf_parser.set_defaults(func=lambda argvals: openfiles(list(filter(lambda x: hasattr(x, 'text') and argvals.text.lower() in x.text.lower(), data['files']))))
 
 from types import ModuleType, FunctionType
 from gc import get_referents
@@ -95,6 +112,17 @@ def log(content, level=0):
     p='  ' * level # prefix
     print(p + f'\n{p}~ '.join(textwrap.wrap(content, n)))
 
+
+# Helper class to make my life easier;
+# - supports arbitrary keyword arguments (which are stored as attributes)
+# - tracks access and modification
+# - enables method chaining for common iterable operations
+class node:
+    def __init__(self, *args, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        created = time.time()
+
 # Very minimalist class for representing a file; aggregated from file
 # snapshots, which represent a (possibly nonexistent) file at a particular
 # point in time
@@ -131,7 +159,7 @@ class filenode:
 
     # Generate a string representing this filenode
     def __str__(self):
-        return '\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'path ext tags'.split())
+        return 'filenode { '+'\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'name path ext tags snapshots'.split())+' }'
 
     def print(self):
         print(self)
@@ -168,7 +196,7 @@ class snapshot:
             current[0].snapshots.append(self)
             #current[0].ext = self.ext
             current[0].ext = self.ext
-            current[0].print()
+            #current[0].print()
         # Otherwise, add a new node with a reference to this snapshot
         else:
             log(f'Adding file node for {self.path} ({len(data["files"])} total)', 1)
@@ -182,7 +210,7 @@ class snapshot:
                 textproc=False
             )
             data['files'].append(newnode)
-            newnode.print()
+            #newnode.print()
         # Mark the snapshot as having been incorporated into the main database
         self.processed=True
 
@@ -241,3 +269,85 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
             break
         time.sleep(delay)
     return i
+
+# Generates a folder containing symlinks to each of the given files and opens
+# it using the associated program
+def openfiles(files):
+    dirname = f'/home/alex/Desktop/ap-temp-{time.time()}'
+    # be careful
+    fcopy = copy.deepcopy(files)
+    for f in fcopy:
+        if sum(f.name == g.name for g in fcopy) > 1:
+            for i, h in enumerate(list(filter(lambda x: f.name == x.name, fcopy))):
+                suffix = f'-{i+1}'
+                #a, b = 
+                h.name = str(Path(h.name).stem+suffix+h.ext)
+                # h.path += suffix
+
+    Path(dirname).mkdir()
+    for f in fcopy:
+        Path(os.path.join(dirname, f.name)).symlink_to(f.path)
+    os.system(f'xdg-open {dirname}')
+
+def tagfile(fnode, types, tag):
+    if (hasattr(fnode, 'ext') and
+        fnode.ext.lower()[1:] in types.split() and
+        'image' not in fnode.tags):
+        fnode.tags.append('image')
+
+def tagfiles(n=0):
+    log('Tagging files')
+    for anode in itertools.islice(data['files'], n):
+        anode.validate()
+        tagfile(anode, 'gif png jpg jpeg tiff webm', 'image')
+        tagfile(anode, 'txt js py sh java css html todo', 'textlike')
+
+        if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
+        anode.print()
+    save()
+
+def mayhave(obj, attr):
+    if hasattr(obj, attr):
+        return getattr(obj, attr)
+    else:
+        return None
+
+def extracttext(n=0):
+    log('Running OCR (Tesseract)')
+    for anode in itertools.islice(filter(
+            lambda x:
+                (hasattr(x, 'tags') and
+                'image' in x.tags and
+                not mayhave(x, 'processed')),
+            data['files']), n):
+        #anode.print()
+        try:
+            log('', 1)
+            log(anode.path, 1)
+            imgcontent = pytesseract.image_to_string(Image.open(anode.path))
+            setattr(anode, 'text', imgcontent)
+
+            text = imgcontent.replace('\n', '')
+            text = re.sub('[\n ]+', ' ', text, re.M)
+            log(f"Result (condensed): {text}", 1)
+        except UnidentifiedImageError as exception:
+            print(exception)
+        anode.processed = True
+    save()
+
+with open(dbpath, 'rb') as f:
+    data = pickle.load(f)
+
+args = parser.parse_args()
+#match args.subcommand:
+#    'imf'
+
+if hasattr(args, 'func'):
+    args.func(args)
+
+# TODO: generate folder from tags/types
+# TODO: generate human-readable file manifest
+# TODO: add command/function for general searches
+# TODO: fuzzy string matching
+# TODO: auto-generate appropriate file names ?
+# TODO: store file relations in snapshots/nodes
