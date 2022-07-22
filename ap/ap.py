@@ -277,6 +277,7 @@ def tagfiles(n=0):
         if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
         anode.print()
     save()
+
 def mayhave(obj, attr):
     if hasattr(obj, attr):
         return getattr(obj, attr)
@@ -306,6 +307,8 @@ def extracttext(n=0):
         anode.processed = True
     save()
 
+with open(dbpath, 'rb') as f:
+    data = pickle.load(f)
 
 args = parser.parse_args()
 #match args.subcommand:
