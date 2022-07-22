@@ -54,3 +54,10 @@ TODO
 - `master`: original (shell-based) version of ao
 - `plotting`: helpful functions for visualizations, graphs, etc.
 - `files`: file tracking code (obsolete-ish)
+- `web`: web crawling/indexing tools, bookmark management, etc.
+- `comments`: more thoroughly documenting the `python` branch and its associated branches (see also: `ap-docs`)
+- `file-processing`: alternate version of `files` corresponding to `python`; parent to `images` and other related branches
+- `ap-restructuring`: reorganizing the codebase for the Python version into distinct modules
+- `ap-todo`: updated todo list handling with fewer edge cases
+- `command-line`: CLI for `python`
+- `notes`: note-taking and search functionality
