@@ -196,6 +196,7 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
         # Why don't old nodes (without name/path) cause issues?
         log(f'Adding snapshot; {len(data["snapshots"])} total', level+1)
         fname, ext = os.path.splitext(fullpath)
+        # Get information about a file or directory
         stats = os.stat(fullpath)
         # should we move the hashing elsewhere?
         # TODO: store references to files contained in directory (and possibly the inverse)
@@ -211,19 +212,24 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
             #md5=md5,
             #sha1=sha1
         )
+        # Only hash small files (exclude dirs)
         if os.path.isdir(fullpath) or stats.st_size > 10e7:
             snapshot_info |= dict(md5=None, sha1=None, hashed=False)
         else:
             md5, sha1 = hashfile(fullpath)
             snapshot_info |= dict(md5=md5, sha1=sha1, hashed=True)
+        # Store snapshot in main database
         newsnapshot = snapshot(**snapshot_info)
         data['snapshots'].append(newsnapshot)
+        # Integrate the snapshot into the file database
         newsnapshot.process()
         i += 1
 
+        # Recurse into subdirectories (if enabled)
         #if os.path.isdir(subpath) and recursive:
         if os.path.isdir(fullpath) and recursive:
             i = catalog(fullpath, limit, i, True, level=level+1)
+        # Limit total number of files visited
         if i >= limit:
             print(f'Reached limit: {limit}')
             break
