@@ -292,6 +292,25 @@ And some quality of life things:
 - Always triple-checks before clobbering your files or performing any irreversible actions
 - Reasonably clean shell (bash) code intended to be easily extensible
 
+## Branches
+
+- `docs`: documentation, comments, etc.
+- `python`: the Python-based version of ao (i.e., ap); also used as a parent branch for more specialized features
+- `ap-docs`: documentation specific to ap
+- `todo-handling`: scripts that manage todo lists
+- `images`: sub-branch of `python`; extracting data from images using OCR and other methods
+- `system-monitoring`: recording historical information about processor usage, core temperature, available memory, etc.
+- `master`: original (shell-based) version of ao
+- `plotting`: helpful functions for visualizations, graphs, etc.
+- `files`: file tracking code (obsolete-ish)
+- `web`: web crawling/indexing tools, bookmark management, etc.
+- `comments`: more thoroughly documenting the `python` branch and its associated branches (see also: `ap-docs`)
+- `file-processing`: alternate version of `files` corresponding to `python`; parent to `images` and other related branches
+- `ap-restructuring`: reorganizing the codebase for the Python version into distinct modules
+- `ap-todo`: updated todo list handling with fewer edge cases
+- `command-line`: CLI for `python`
+- `notes`: note-taking and search functionality
+
 ## Statistics
 
 
