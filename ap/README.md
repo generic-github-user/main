@@ -22,7 +22,10 @@ DRY for the sake of maintainability and consistency as the codebase grows).
 
 At this point, the Python branch is my preferred tool and I'm unsure to what
 extent (if any) I will continue developing and/or maintaining the shell
-version.
+version. It should go without saying that this toolkit is tailored to my needs
+and some of the design choices may seem unconventional; regardless, I think the
+code is reasonably clean and comprehensible so you shouldn't run into many
+issues modifying or extending it.
 
 ## Features
 
@@ -45,19 +48,19 @@ TODO
 
 ## Branches
 
-- `docs`: documentation, comments, etc.
-- `python`: the Python-based version of ao (i.e., ap); also used as a parent branch for more specialized features
 - `ap-docs`: documentation specific to ap
-- `todo-handling`: scripts that manage todo lists
-- `images`: sub-branch of `python`; extracting data from images using OCR and other methods
-- `system-monitoring`: recording historical information about processor usage, core temperature, available memory, etc.
-- `master`: original (shell-based) version of ao
-- `plotting`: helpful functions for visualizations, graphs, etc.
-- `files`: file tracking code (obsolete-ish)
-- `web`: web crawling/indexing tools, bookmark management, etc.
-- `comments`: more thoroughly documenting the `python` branch and its associated branches (see also: `ap-docs`)
-- `file-processing`: alternate version of `files` corresponding to `python`; parent to `images` and other related branches
 - `ap-restructuring`: reorganizing the codebase for the Python version into distinct modules
 - `ap-todo`: updated todo list handling with fewer edge cases
 - `command-line`: CLI for `python`
+- `comments`: more thoroughly documenting the `python` branch and its associated branches (see also: `ap-docs`)
+- `docs`: documentation, comments, etc.
+- `file-processing`: alternate version of `files` corresponding to `python`; parent to `images` and other related branches
+- `files`: file tracking code (obsolete-ish)
+- `images`: sub-branch of `python`; extracting data from images using OCR and other methods
+- `master`: original (shell-based) version of ao
 - `notes`: note-taking and search functionality
+- `plotting`: helpful functions for visualizations, graphs, etc.
+- `python`: the Python-based version of ao (i.e., ap); also used as a parent branch for more specialized features
+- `system-monitoring`: recording historical information about processor usage, core temperature, available memory, etc.
+- `todo-handling`: scripts that manage todo lists
+- `web`: web crawling/indexing tools, bookmark management, etc.
