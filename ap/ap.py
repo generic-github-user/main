@@ -316,6 +316,8 @@ def mayhave(obj, attr):
     else:
         return None
 
+# Apply OCR to (up to `n`) files tagged with "image" and store the resulting
+# text in the filenode
 def extracttext(n=0):
     log('Running OCR (Tesseract)')
     for anode in itertools.islice(filter(
@@ -331,12 +333,15 @@ def extracttext(n=0):
             imgcontent = pytesseract.image_to_string(Image.open(anode.path))
             setattr(anode, 'text', imgcontent)
 
+            # Display a slightly more readable version of the extracted content
             text = imgcontent.replace('\n', '')
             text = re.sub('[\n ]+', ' ', text, re.M)
             log(f"Result (condensed): {text}", 1)
+        # Catch occasional invalid images
         except UnidentifiedImageError as exception:
             print(exception)
         anode.processed = True
+    # Update database file
     save()
 
 with open(dbpath, 'rb') as f:
