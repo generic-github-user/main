@@ -1,22 +1,39 @@
 import os
 import sys
 import shutil
+from pathlib import Path
+import argparse
+
+import graphviz
 
 import pickle
+import copy
 import time
-import re
 import itertools
+
+import re
+import string
 
 import warnings
 import textwrap
 
 import psutil
 import hashlib
+from PIL import Image
+from PIL import UnidentifiedImageError
+import pytesseract
 
 dbpath = '/home/alex/Desktop/ap.pickle'
 timelimit = 20
 
 loglevel = 0
+parser = argparse.ArgumentParser()
+#parser.add_argument('subcommand', type=str)
+subparsers = parser.add_subparsers()
+
+imf_parser = subparsers.add_parser('imf')
+imf_parser.add_argument('text', type=str)
+imf_parser.set_defaults(func=lambda argvals: openfiles(list(filter(lambda x: hasattr(x, 'text') and argvals.text.lower() in x.text.lower(), data['files']))))
 
 from types import ModuleType, FunctionType
 from gc import get_referents
@@ -26,7 +43,8 @@ from gc import get_referents
 # Exclude modules as well.
 BLACKLIST = type, ModuleType, FunctionType
 
-# https://stackoverflow.com/a/30316760
+# Estimate the "true" size of an object, which may be nested and/or contain
+# references to other objects (from https://stackoverflow.com/a/30316760)
 def getsize(obj):
     """sum size of object & members."""
     if isinstance(obj, BLACKLIST):
@@ -44,7 +62,8 @@ def getsize(obj):
         objects = get_referents(*need_referents)
     return size
 
-# Based on https://stackoverflow.com/a/44873382
+# Hash a file given a path and return hex digests for the md5 and sha1 hashes
+# of the file's content (based on https://stackoverflow.com/a/44873382)
 def hashfile(path):
     # 256kb
     BUF_SIZE = 2 ** 18
@@ -75,10 +94,14 @@ if len(sys.argv) > 1 and sys.argv[1] == 'CLEAR':
         'files': []
     }
 
+# Store the current database at `path` (serialized using pickle; not very
+# efficient, but extremely expressive)
 def save(path=dbpath):
     with open(path, 'wb') as f:
         pickle.dump(data, f)
 
+# Logging helper function; displays the string `content`, indented and
+# line-wrapped
 def log(content, level=0):
     n=60
     lines = [content[i:i+n] for i in range(0, len(content), n)]
@@ -89,13 +112,30 @@ def log(content, level=0):
     p='  ' * level # prefix
     print(p + f'\n{p}~ '.join(textwrap.wrap(content, n)))
 
+
+# Helper class to make my life easier;
+# - supports arbitrary keyword arguments (which are stored as attributes)
+# - tracks access and modification
+# - enables method chaining for common iterable operations
+class node:
+    def __init__(self, *args, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        created = time.time()
+
 # Very minimalist class for representing a file; aggregated from file
 # snapshots, which represent a (possibly nonexistent) file at a particular
 # point in time
 class filenode:
 
-    attrs = {'id': int, 'path': str, 'name': str, 'tags': list, 'size': int,
-             'snapshots': list, 'ext': str}
+    attrs = {'id': int, # Numeric ID 
+             'path': str, # Filepath
+             'name': str, # File name
+             'tags': list, # Internal file tags (different than those assigned to metadata by a file manager)
+             'size': int, # File size in bytes
+             'snapshots': list, # A chronologically ordered (?) list of file snapshots
+             'ext': str # File extension
+             }
     def __init__(self, **kwargs):
         self.id = 0
         self.path = ''
@@ -106,6 +146,9 @@ class filenode:
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+    # Check that the expected attributes are present within this filenode and
+    # have the correct types (this is Python, so we only emit a warning if
+    # something is askew)
     def validate(self):
         for k, v in filenode.attrs.items():
             if hasattr(self, k):
@@ -114,8 +157,9 @@ class filenode:
             else:
                 warnings.warn(f'filenode missing expected attribute: `{k}`')
 
+    # Generate a string representing this filenode
     def __str__(self):
-        return '\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'path ext tags'.split())
+        return 'filenode { '+'\n'.join(f'{a}: {getattr(self, a) if hasattr(self, a) else None}' for a in 'name path ext tags snapshots'.split())+' }'
 
     def print(self):
         print(self)
@@ -124,6 +168,7 @@ class filenode:
 # those used by Git; this approach enables highly accurate monitoring and
 # versioning without having to continuously listen for file system events
 class snapshot:
+    # Initialize a new file snapshot
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
@@ -139,16 +184,20 @@ class snapshot:
             warnings.warn('File database has more than one live file with the\
                           same path; this should not happen')
         #node = current.next()
+
+        # "temporary" - generate ext if not present
         #hasn'tattr
         if not hasattr(self, 'ext'):
             _, self.ext = os.path.splitext(self.path)
 
+        # If a matching filenode is found, integrate this snapshot into it
         if current:
             log(f'Found corresponding node ({self.path})', 1)
             current[0].snapshots.append(self)
             #current[0].ext = self.ext
             current[0].ext = self.ext
-            current[0].print()
+            #current[0].print()
+        # Otherwise, add a new node with a reference to this snapshot
         else:
             log(f'Adding file node for {self.path} ({len(data["files"])} total)', 1)
             newnode = filenode(
@@ -161,7 +210,8 @@ class snapshot:
                 textproc=False
             )
             data['files'].append(newnode)
-            newnode.print()
+            #newnode.print()
+        # Mark the snapshot as having been incorporated into the main database
         self.processed=True
 
 # TODO: refactor using https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir
@@ -180,6 +230,7 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
         # Why don't old nodes (without name/path) cause issues?
         log(f'Adding snapshot; {len(data["snapshots"])} total', level+1)
         fname, ext = os.path.splitext(fullpath)
+        # Get information about a file or directory
         stats = os.stat(fullpath)
         # should we move the hashing elsewhere?
         # TODO: store references to files contained in directory (and possibly the inverse)
@@ -195,21 +246,122 @@ def catalog(path='.', limit=1000, i=0, recursive=True, level=0, delay=0.01) -> i
             #md5=md5,
             #sha1=sha1
         )
+        # Only hash small files (exclude dirs)
         if os.path.isdir(fullpath) or stats.st_size > 10e7:
             snapshot_info |= dict(md5=None, sha1=None, hashed=False)
         else:
             md5, sha1 = hashfile(fullpath)
             snapshot_info |= dict(md5=md5, sha1=sha1, hashed=True)
+        # Store snapshot in main database
         newsnapshot = snapshot(**snapshot_info)
         data['snapshots'].append(newsnapshot)
+        # Integrate the snapshot into the file database
         newsnapshot.process()
         i += 1
 
+        # Recurse into subdirectories (if enabled)
         #if os.path.isdir(subpath) and recursive:
         if os.path.isdir(fullpath) and recursive:
             i = catalog(fullpath, limit, i, True, level=level+1)
+        # Limit total number of files visited
         if i >= limit:
             print(f'Reached limit: {limit}')
             break
         time.sleep(delay)
     return i
+
+# Generates a folder containing symlinks to each of the given files and opens
+# it using the associated program
+def openfiles(files):
+    dirname = f'/home/alex/Desktop/ap-temp-{time.time()}'
+    # be careful
+    fcopy = copy.deepcopy(files)
+    # If two or more files have the same name, rename (copies of) them with a
+    # numeric suffix
+    for f in fcopy:
+        if sum(f.name == g.name for g in fcopy) > 1:
+            # we're operating over references so we can modify the cloned nodes
+            # directly
+            for i, h in enumerate(list(filter(lambda x: f.name == x.name, fcopy))):
+                suffix = f'-{i+1}'
+                #a, b = 
+                h.name = str(Path(h.name).stem+suffix+h.ext)
+                # h.path += suffix
+
+    Path(dirname).mkdir()
+    # Generate the symlinks and open the folder
+    for f in fcopy:
+        Path(os.path.join(dirname, f.name)).symlink_to(f.path)
+    os.system(f'xdg-open {dirname}')
+
+# Add `tag` to `fnode` if its extension matches any of the types in `types`
+def tagfile(fnode, types, tag):
+    if (hasattr(fnode, 'ext') and
+        fnode.ext.lower()[1:] in types.split() and
+        'image' not in fnode.tags): # TODO
+        fnode.tags.append('image')
+
+# Apply some simple tagging rules to file nodes
+def tagfiles(n=0):
+    log('Tagging files')
+    for anode in itertools.islice(data['files'], n):
+        anode.validate()
+        # Rules (i.e., types -> tag)
+        tagfile(anode, 'gif png jpg jpeg tiff webm', 'image')
+        tagfile(anode, 'txt js py sh java css html todo', 'textlike')
+
+        # temporary-ish code to upgrade old file node instances
+        if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
+        anode.print()
+    save()
+
+def mayhave(obj, attr):
+    if hasattr(obj, attr):
+        return getattr(obj, attr)
+    else:
+        return None
+
+# Apply OCR to (up to `n`) files tagged with "image" and store the resulting
+# text in the filenode
+def extracttext(n=0):
+    log('Running OCR (Tesseract)')
+    for anode in itertools.islice(filter(
+            lambda x:
+                (hasattr(x, 'tags') and
+                'image' in x.tags and
+                not mayhave(x, 'processed')),
+            data['files']), n):
+        #anode.print()
+        try:
+            log('', 1)
+            log(anode.path, 1)
+            imgcontent = pytesseract.image_to_string(Image.open(anode.path))
+            setattr(anode, 'text', imgcontent)
+
+            # Display a slightly more readable version of the extracted content
+            text = imgcontent.replace('\n', '')
+            text = re.sub('[\n ]+', ' ', text, re.M)
+            log(f"Result (condensed): {text}", 1)
+        # Catch occasional invalid images
+        except UnidentifiedImageError as exception:
+            print(exception)
+        anode.processed = True
+    # Update database file
+    save()
+
+with open(dbpath, 'rb') as f:
+    data = pickle.load(f)
+
+args = parser.parse_args()
+#match args.subcommand:
+#    'imf'
+
+if hasattr(args, 'func'):
+    args.func(args)
+
+# TODO: generate folder from tags/types
+# TODO: generate human-readable file manifest
+# TODO: add command/function for general searches
+# TODO: fuzzy string matching
+# TODO: auto-generate appropriate file names ?
+# TODO: store file relations in snapshots/nodes
