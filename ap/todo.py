@@ -34,3 +34,37 @@ class todo:
         inner = [self.content, f'<{self.tags}>']
         inner = "\n\t".join(inner)
         return f'todo {{ {inner} }}'
+
+def update():
+    with open(todopath, 'r') as tfile:
+        lines = tfile.readlines()
+        for ln, l in enumerate(lines):
+            snapshot = todo(l)
+            snapshot.importance = l.count('*')
+            l = l.replace('*', '')
+
+            if '--' in l:
+                snapshot.done = True
+                l = l.replace('--', '')
+            w = l.split()
+            #for i, tag in (i, tag for i, tag in enumerate(w) if tag.startswith('#')):
+            for i, tag in enumerate(w):
+                if tag is None: continue
+
+                if tag.startswith('#'):
+                    snapshot.tags.append(tag[1:])
+                    #del w[i]
+                    w[i] = None
+                    continue
+                if tag.startswith(('-t', '-time')):
+                    snapshot.time = dateparser.parse(w[i+1])
+                    w[i:i+2] = [None] * 2
+            snapshot.content = ' '.join(filter(None, w))
+            snapshot.location = todopath
+            snapshot.line = ln
+            print(snapshot)
+
+    with open(dbpath, 'wb') as f:
+        pickle.dump(data, f)
+
+update()
