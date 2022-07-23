@@ -276,8 +276,12 @@ def openfiles(files):
     dirname = f'/home/alex/Desktop/ap-temp-{time.time()}'
     # be careful
     fcopy = copy.deepcopy(files)
+    # If two or more files have the same name, rename (copies of) them with a
+    # numeric suffix
     for f in fcopy:
         if sum(f.name == g.name for g in fcopy) > 1:
+            # we're operating over references so we can modify the cloned nodes
+            # directly
             for i, h in enumerate(list(filter(lambda x: f.name == x.name, fcopy))):
                 suffix = f'-{i+1}'
                 #a, b = 
@@ -285,6 +289,7 @@ def openfiles(files):
                 # h.path += suffix
 
     Path(dirname).mkdir()
+    # Generate the symlinks and open the folder
     for f in fcopy:
         Path(os.path.join(dirname, f.name)).symlink_to(f.path)
     os.system(f'xdg-open {dirname}')
