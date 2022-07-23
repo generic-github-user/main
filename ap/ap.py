@@ -289,19 +289,23 @@ def openfiles(files):
         Path(os.path.join(dirname, f.name)).symlink_to(f.path)
     os.system(f'xdg-open {dirname}')
 
+# Add `tag` to `fnode` if its extension matches any of the types in `types`
 def tagfile(fnode, types, tag):
     if (hasattr(fnode, 'ext') and
         fnode.ext.lower()[1:] in types.split() and
-        'image' not in fnode.tags):
+        'image' not in fnode.tags): # TODO
         fnode.tags.append('image')
 
+# Apply some simple tagging rules to file nodes
 def tagfiles(n=0):
     log('Tagging files')
     for anode in itertools.islice(data['files'], n):
         anode.validate()
+        # Rules (i.e., types -> tag)
         tagfile(anode, 'gif png jpg jpeg tiff webm', 'image')
         tagfile(anode, 'txt js py sh java css html todo', 'textlike')
 
+        # temporary-ish code to upgrade old file node instances
         if not hasattr(anode, 'tags'): setattr(anode, 'tags', [])
         anode.print()
     save()
