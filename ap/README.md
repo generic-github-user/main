@@ -24,7 +24,7 @@ At this point, the Python branch is my preferred tool and I'm unsure to what
 extent (if any) I will continue developing and/or maintaining the shell
 version. It should go without saying that this toolkit is tailored to my needs
 and some of the design choices may seem unconventional; regardless, I think the
-code is reasonably clean and comprehensible so you shouldn't run into many
+code is reasonably clean and comprehensible so you shouldn't run into very many
 issues modifying or extending it.
 
 ## Features
@@ -41,6 +41,19 @@ interaction with the internal data via a REPL loop, a feature which is unwieldy
 in most other languages (or even in Python with more rigid data structures;
 graphs are great for generality and symbolic inference, but often very irksome
 to access by hand).
+
+## Installation
+
+Clone this repository, then execute the main script using Python (version 3.10
+recommended). The `-i` flag can be used to open a REPL for interactive use. If
+you plan on using the script frequently (via the shell), I'd recommend adding
+something like the following to your `.bashrc`/`.zshrc`/etc (the path will of
+course need to be adjusted).
+
+```
+alias ap='python ~/Desktop/ao/ap/ap.py'
+alias api='python -i ~/Desktop/ao/ap/ap.py'
+```
 
 ## Usage
 
