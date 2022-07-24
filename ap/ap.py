@@ -176,10 +176,3 @@ args = parser.parse_args()
 
 if hasattr(args, 'func'):
     args.func(args)
-
-# TODO: generate folder from tags/types
-# TODO: generate human-readable file manifest
-# TODO: add command/function for general searches
-# TODO: fuzzy string matching
-# TODO: auto-generate appropriate file names ?
-# TODO: store file relations in snapshots/nodes
