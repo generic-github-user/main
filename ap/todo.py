@@ -67,8 +67,6 @@ def updatelist(tlist, path):
     newstate = []
     for ln, l in enumerate(lines):
         snapshot = todo(l)
-        snapshot.importance = l.count('*')
-        l = l.replace('*', '')
 
         if '--' in l:
             snapshot.done = True
@@ -85,6 +83,11 @@ def updatelist(tlist, path):
             if tag.startswith(('-t', '-time')):
                 snapshot.time = dateparser.parse(w[i+1])
                 w[i:i+2] = [None] * 2
+
+        if 'raw' not in snapshot.tags:
+            snapshot.importance = l.count('*')
+            l = l.replace('*', '')
+
         snapshot.content = ' '.join(filter(None, w))
         snapshot.location = path
         snapshot.line = ln
@@ -102,7 +105,8 @@ def updatelist(tlist, path):
     for s in newstate:
         matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
         if matches:
-            assert len(matches) == 1, f'Duplicates for: {s}'
+            if path == lists['main']:
+                assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
             matches[0].location = s.location
@@ -128,7 +132,14 @@ def update():
     for tlist, path in lists.items():
         print(f'Writing output to list {tlist} at {path}')
         with open(path, 'w') as tfile:
-            tfile.write(''.join(z.raw for z in sorted(filter(lambda x: x.location == path, data), key=lambda y: y.content.casefold())))
+            tfile.write(''.join(z.raw for z in sorted(
+                filter(lambda x: x.location == path, data),
+                key=lambda y: (
+                    #(0 if 'raw' in y.tags else -y.content.count('*')),
+                    -y.importance,
+                    datetime.timedelta.max if y.time is None else datetime.datetime.now()-y.time,
+                    y.content.casefold()
+                ))))
 
     with open(dbpath, 'wb') as f:
         pickle.dump(data, f)
