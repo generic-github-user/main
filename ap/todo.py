@@ -9,11 +9,6 @@ import tarfile
 dbpath = os.path.expanduser('~/Desktop/todo.pickle')
 todopath = os.path.expanduser('~/Desktop/.todo')
 
-try:
-    with open(dbpath, 'rb') as f:
-        data = pickle.load(f)
-except FileNotFoundError:
-    data = []
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
 class todo:
@@ -35,11 +30,24 @@ class todo:
         self.sub = []
         self.parent = None
 
+    # Convert this item to a string representation of the form used in the todo
+    # files (i.e., `content [*] #tag1 #tag2 -t [date] [--]`)
+    def toraw(self):
+        # don't blame me, blame whoever decided that overloading the
+        # multiplication operator was okay
+        return self.content + ' ' + ' '.join('#'+t for t in self.tags) +  ' --' * self.done
+
     # Generate a string summarizing this instance
     def __str__(self):
-        inner = [self.content, f'<{self.tags}>']
+        inner = [f'"{self.content}"', f'<{self.tags}>']
         inner = "\n\t".join(inner)
         return f'todo {{ {inner} }}'
+
+try:
+    with open(dbpath, 'rb') as f:
+        data = pickle.load(f)
+except FileNotFoundError:
+    data = []
 
 # Update the todo list(s) by parsing their members and comparing to the stored
 # state (in a similar manner to file tracking, we can infer when entries are
@@ -49,11 +57,14 @@ def update():
     print(f'Backing up todo list and database to {backuppath}')
     with tarfile.open(backuppath, 'w:gz') as tarball:
         for path in [dbpath, todopath]:
-            tarball.add(path)
+            try:
+                tarball.add(path)
+            except FileNotFoundError as ex:
+                print(ex)
 
     with open(todopath, 'r') as tfile:
         newstate = []
-        lines = tfile.readlines()
+        lines = [l for l in tfile.readlines() if l not in ['', '\n']]
         for ln, l in enumerate(lines):
             snapshot = todo(l)
             snapshot.importance = l.count('*')
@@ -80,17 +91,26 @@ def update():
             snapshot.location = todopath
             snapshot.line = ln
             #print(snapshot)
+            if snapshot.content == '':
+                print(snapshot.toraw())
+                print(l)
 
             newstate.append(snapshot)
-    pool = filter(lambda x: x.location == todopath, data)
+    print(f'Reconciling {len(data)} items')
+    #pool = filter(lambda x: x.location == todopath, data)
+    #breakpoint()
+    pool = list(filter(lambda x: x.location == todopath, data))
     # for now we assume no duplicates (up to content and date equivalence)
     for s in newstate:
         matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
+        #print(f'{s.toraw()} ... {len(matches)} matches')
+        #print(s)
         if matches:
-            assert(len(matches) == 1)
+            assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
         else:
+            # why were entries duplicated (in the database) originally?
             data.append(s)
 
     with open(dbpath, 'wb') as f:
