@@ -14,8 +14,9 @@ try:
 except FileNotFoundError:
     data = []
 
-
+# Represents a task or entry in a todo list, possibly with several sub-tasks
 class todo:
+    # Initialize a new todo item
     def __init__(self, raw, content=''):
         self.raw = raw
         self.content = content
@@ -25,16 +26,20 @@ class todo:
         self.tags = []
         self.created = time.time()
         self.importance = 0
-        self.line = None
+        self.line = None # This might be used in the future but for now is just somewhat redundant metadata; if we incorporate positional context when analyzing lists we may as well be writing an entire version control system
         self.location = ''
         self.sub = []
         self.parent = None
 
+    # Generate a string summarizing this instance
     def __str__(self):
         inner = [self.content, f'<{self.tags}>']
         inner = "\n\t".join(inner)
         return f'todo {{ {inner} }}'
 
+# Update the todo list(s) by parsing their members and comparing to the stored
+# state (in a similar manner to file tracking, we can infer when entries are
+# added, removed, or modified)
 def update():
     with open(todopath, 'r') as tfile:
         lines = tfile.readlines()
