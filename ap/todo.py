@@ -113,6 +113,10 @@ def update():
             # why were entries duplicated (in the database) originally?
             data.append(s)
 
+    print(f'Writing output to {todopath}')
+    with open(todopath, 'w') as tfile:
+        tfile.write(''.join(z.raw for z in sorted(filter(lambda x: x.location == todopath, data), key=lambda y: y.content.casefold())))
+
     with open(dbpath, 'wb') as f:
         pickle.dump(data, f)
 
