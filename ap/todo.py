@@ -11,7 +11,8 @@ todopath = os.path.expanduser('~/Desktop/.todo')
 lists = {
     'main': todopath,
     'complete': '~/Desktop/todos/complete.todo',
-    'recur': '~/Desktop/todos/recurring.todo'
+    'recur': '~/Desktop/todos/recurring.todo',
+    'hold': '~/Desktop/todos/waiting.todo'
 }
 for k, v in lists.items():
     lists[k] = os.path.expanduser(v)
@@ -57,34 +58,43 @@ except FileNotFoundError:
 
 def updatelist(tlist, path):
     print(f'Parsing todo list {tlist} at {path}')
-    with open(path, 'r') as tfile:
-        newstate = []
-        lines = [l for l in tfile.readlines() if l not in ['', '\n']]
-        for ln, l in enumerate(lines):
-            snapshot = todo(l)
-            snapshot.importance = l.count('*')
-            l = l.replace('*', '')
+    try:
+        with open(path, 'r') as tfile:
+            lines = [l for l in tfile.readlines() if l not in ['', '\n']]
+    except FileNotFoundError:
+        lines = []
 
-            if '--' in l:
-                snapshot.done = True
-                snapshot.donetime = time.time()
-                l = l.replace('--', '')
-            w = l.split()
-            for i, tag in enumerate(w):
-                if tag is None: continue
+    newstate = []
+    for ln, l in enumerate(lines):
+        snapshot = todo(l)
+        snapshot.importance = l.count('*')
+        l = l.replace('*', '')
 
-                if tag.startswith('#'):
-                    snapshot.tags.append(tag[1:])
-                    w[i] = None
-                    continue
-                if tag.startswith(('-t', '-time')):
-                    snapshot.time = dateparser.parse(w[i+1])
-                    w[i:i+2] = [None] * 2
-            snapshot.content = ' '.join(filter(None, w))
-            snapshot.location = path
-            snapshot.line = ln
+        if '--' in l:
+            snapshot.done = True
+            snapshot.donetime = time.time()
+            l = l.replace('--', '')
+        w = l.split()
+        for i, tag in enumerate(w):
+            if tag is None: continue
 
-            newstate.append(snapshot)
+            if tag.startswith('#'):
+                snapshot.tags.append(tag[1:])
+                w[i] = None
+                continue
+            if tag.startswith(('-t', '-time')):
+                snapshot.time = dateparser.parse(w[i+1])
+                w[i:i+2] = [None] * 2
+        snapshot.content = ' '.join(filter(None, w))
+        snapshot.location = path
+        snapshot.line = ln
+
+        newstate.append(snapshot)
+
+    print(f'Updating todo item metadata')
+    for s in newstate:
+        if 'onhold' in s.tags: s.location = lists['hold']
+        if s.done: s.location = lists['complete']
 
     print(f'Reconciling {len(data)} items')
     pool = list(filter(lambda x: x.location == path, data))
@@ -95,6 +105,7 @@ def updatelist(tlist, path):
             assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
+            matches[0].location = s.location
         else:
             data.append(s)
 
