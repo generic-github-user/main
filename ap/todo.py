@@ -16,7 +16,6 @@ lists = {
 for k, v in lists.items():
     lists[k] = os.path.expanduser(v)
 
-
 # Represents a task or entry in a todo list, possibly with several sub-tasks
 class todo:
     # Initialize a new todo item
@@ -71,13 +70,11 @@ def updatelist(tlist, path):
                 snapshot.donetime = time.time()
                 l = l.replace('--', '')
             w = l.split()
-            #for i, tag in (i, tag for i, tag in enumerate(w) if tag.startswith('#')):
             for i, tag in enumerate(w):
                 if tag is None: continue
 
                 if tag.startswith('#'):
                     snapshot.tags.append(tag[1:])
-                    #del w[i]
                     w[i] = None
                     continue
                 if tag.startswith(('-t', '-time')):
@@ -86,28 +83,19 @@ def updatelist(tlist, path):
             snapshot.content = ' '.join(filter(None, w))
             snapshot.location = path
             snapshot.line = ln
-            #print(snapshot)
-            if snapshot.content == '':
-                print(snapshot.toraw())
-                print(l)
 
             newstate.append(snapshot)
 
     print(f'Reconciling {len(data)} items')
-    #pool = filter(lambda x: x.location == path, data)
-    #breakpoint()
     pool = list(filter(lambda x: x.location == path, data))
     # for now we assume no duplicates (up to content and date equivalence)
     for s in newstate:
         matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
-        #print(f'{s.toraw()} ... {len(matches)} matches')
-        #print(s)
         if matches:
             assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
         else:
-            # why were entries duplicated (in the database) originally?
             data.append(s)
 
 # Update the todo list(s) by parsing their members and comparing to the stored
