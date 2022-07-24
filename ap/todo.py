@@ -4,6 +4,7 @@ import re
 import time
 import os
 import dateparser
+import tarfile
 
 dbpath = os.path.expanduser('~/Desktop/todo.pickle')
 todopath = os.path.expanduser('~/Desktop/.todo')
@@ -44,6 +45,12 @@ class todo:
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
+    backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/archive-{time.time_ns()}.tar.gz')
+    print(f'Backing up todo list and database to {backuppath}')
+    with tarfile.open(backuppath, 'w:gz') as tarball:
+        for path in [dbpath, todopath]:
+            tarball.add(path)
+
     with open(todopath, 'r') as tfile:
         newstate = []
         lines = tfile.readlines()
@@ -72,10 +79,10 @@ def update():
             snapshot.content = ' '.join(filter(None, w))
             snapshot.location = todopath
             snapshot.line = ln
-            print(snapshot)
+            #print(snapshot)
 
             newstate.append(snapshot)
-    pool = filter(lambda x: x.location == todopath)
+    pool = filter(lambda x: x.location == todopath, data)
     # for now we assume no duplicates (up to content and date equivalence)
     for s in newstate:
         matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
