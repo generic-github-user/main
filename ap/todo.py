@@ -24,10 +24,13 @@ class todo:
         self.donetime = None
         self.snapshots = []
         self.tags = []
+        self.source = None
         self.created = time.time()
         self.importance = 0
         self.line = None # This might be used in the future but for now is just somewhat redundant metadata; if we incorporate positional context when analyzing lists we may as well be writing an entire version control system
         self.location = ''
+        self.time = None
+        self.duration = None
         self.sub = []
         self.parent = None
 
@@ -42,6 +45,7 @@ class todo:
 # added, removed, or modified)
 def update():
     with open(todopath, 'r') as tfile:
+        newstate = []
         lines = tfile.readlines()
         for ln, l in enumerate(lines):
             snapshot = todo(l)
@@ -50,6 +54,7 @@ def update():
 
             if '--' in l:
                 snapshot.done = True
+                snapshot.donetime = time.time()
                 l = l.replace('--', '')
             w = l.split()
             #for i, tag in (i, tag for i, tag in enumerate(w) if tag.startswith('#')):
@@ -68,6 +73,18 @@ def update():
             snapshot.location = todopath
             snapshot.line = ln
             print(snapshot)
+
+            newstate.append(snapshot)
+    pool = filter(lambda x: x.location == todopath)
+    # for now we assume no duplicates (up to content and date equivalence)
+    for s in newstate:
+        matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
+        if matches:
+            assert(len(matches) == 1)
+            matches[0].snapshots.append(s)
+            matches[0].raw = s.raw
+        else:
+            data.append(s)
 
     with open(dbpath, 'wb') as f:
         pickle.dump(data, f)
