@@ -1,21 +1,27 @@
+# OS/system utilities and file interaction
 import os
 import sys
 import shutil
 from pathlib import Path
 
+# Serialization and other miscellaneous tools
 import pickle
 import time
 import re
 import itertools
 
+# Logging
 import warnings
 import textwrap
 
+# Monitoring
 import psutil
 import hashlib
 
+# Utilities and internal modules
 from utils import getsize, hashfile
 from files import filenode, snapshot, catalog
+# Configuration data
 from config import *
 
 #try:
