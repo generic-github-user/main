@@ -56,20 +56,9 @@ try:
 except FileNotFoundError:
     data = []
 
-# Update the todo list(s) by parsing their members and comparing to the stored
-# state (in a similar manner to file tracking, we can infer when entries are
-# added, removed, or modified)
-def update():
-    backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/archive-{time.time_ns()}.tar.gz')
-    print(f'Backing up todo list and database to {backuppath}')
-    with tarfile.open(backuppath, 'w:gz') as tarball:
-        for path in set([dbpath, todopath] + list(lists.values())):
-            try:
-                tarball.add(path)
-            except FileNotFoundError as ex:
-                print(ex)
-
-    with open(todopath, 'r') as tfile:
+def updatelist(tlist, path):
+    print(f'Parsing todo list {tlist} at {path}')
+    with open(path, 'r') as tfile:
         newstate = []
         lines = [l for l in tfile.readlines() if l not in ['', '\n']]
         for ln, l in enumerate(lines):
@@ -95,7 +84,7 @@ def update():
                     snapshot.time = dateparser.parse(w[i+1])
                     w[i:i+2] = [None] * 2
             snapshot.content = ' '.join(filter(None, w))
-            snapshot.location = todopath
+            snapshot.location = path
             snapshot.line = ln
             #print(snapshot)
             if snapshot.content == '':
@@ -103,10 +92,11 @@ def update():
                 print(l)
 
             newstate.append(snapshot)
+
     print(f'Reconciling {len(data)} items')
-    #pool = filter(lambda x: x.location == todopath, data)
+    #pool = filter(lambda x: x.location == path, data)
     #breakpoint()
-    pool = list(filter(lambda x: x.location == todopath, data))
+    pool = list(filter(lambda x: x.location == path, data))
     # for now we assume no duplicates (up to content and date equivalence)
     for s in newstate:
         matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
@@ -119,6 +109,22 @@ def update():
         else:
             # why were entries duplicated (in the database) originally?
             data.append(s)
+
+# Update the todo list(s) by parsing their members and comparing to the stored
+# state (in a similar manner to file tracking, we can infer when entries are
+# added, removed, or modified)
+def update():
+    backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/archive-{time.time_ns()}.tar.gz')
+    print(f'Backing up todo list and database to {backuppath}')
+    with tarfile.open(backuppath, 'w:gz') as tarball:
+        for path in set([dbpath, todopath] + list(lists.values())):
+            try:
+                tarball.add(path)
+            except FileNotFoundError as ex:
+                print(ex)
+
+    for tlist, path in lists.items():
+        updatelist(tlist, path)
 
     for tlist, path in lists.items():
         print(f'Writing output to list {tlist} at {path}')
