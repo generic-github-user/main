@@ -8,6 +8,13 @@ import tarfile
 
 dbpath = os.path.expanduser('~/Desktop/todo.pickle')
 todopath = os.path.expanduser('~/Desktop/.todo')
+lists = {
+    'main': todopath,
+    'complete': '~/Desktop/todos/complete.todo',
+    'recur': '~/Desktop/todos/recurring.todo'
+}
+for k, v in lists.items():
+    lists[k] = os.path.expanduser(v)
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -56,7 +63,7 @@ def update():
     backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/archive-{time.time_ns()}.tar.gz')
     print(f'Backing up todo list and database to {backuppath}')
     with tarfile.open(backuppath, 'w:gz') as tarball:
-        for path in [dbpath, todopath]:
+        for path in set([dbpath, todopath] + list(lists.values())):
             try:
                 tarball.add(path)
             except FileNotFoundError as ex:
@@ -113,9 +120,10 @@ def update():
             # why were entries duplicated (in the database) originally?
             data.append(s)
 
-    print(f'Writing output to {todopath}')
-    with open(todopath, 'w') as tfile:
-        tfile.write(''.join(z.raw for z in sorted(filter(lambda x: x.location == todopath, data), key=lambda y: y.content.casefold())))
+    for tlist, path in lists.items():
+        print(f'Writing output to list {tlist} at {path}')
+        with open(path, 'w') as tfile:
+            tfile.write(''.join(z.raw for z in sorted(filter(lambda x: x.location == path, data), key=lambda y: y.content.casefold())))
 
     with open(dbpath, 'wb') as f:
         pickle.dump(data, f)
