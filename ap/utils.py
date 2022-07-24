@@ -6,7 +6,8 @@ from gc import get_referents
 # Exclude modules as well.
 BLACKLIST = type, ModuleType, FunctionType
 
-# https://stackoverflow.com/a/30316760
+# Estimate the "true" size of an object, which may be nested and/or contain
+# references to other objects (from https://stackoverflow.com/a/30316760)
 def getsize(obj):
     """sum size of object & members."""
     if isinstance(obj, BLACKLIST):
@@ -24,7 +25,8 @@ def getsize(obj):
         objects = get_referents(*need_referents)
     return size
 
-# Based on https://stackoverflow.com/a/44873382
+# Hash a file given a path and return hex digests for the md5 and sha1 hashes
+# of the file's content (based on https://stackoverflow.com/a/44873382)
 def hashfile(path):
     # 256kb
     BUF_SIZE = 2 ** 18
@@ -38,4 +40,3 @@ def hashfile(path):
             md5.update(data)
             sha1.update(data)
     return (md5.hexdigest(), sha1.hexdigest())
-
