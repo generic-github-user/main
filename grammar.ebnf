@@ -1,0 +1,5 @@
+(* This is a very tentative grammar for Finch, intended to specify its main
+syntactic constructs, keywords, etc.; it will be somewhat limited compared to
+Finch's actual usage due to features such as metaprogramming support, but
+should nevertheless provide a helpful starting point for writing a reference
+parser implementation and other basic tooling. *)
