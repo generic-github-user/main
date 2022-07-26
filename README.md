@@ -32,3 +32,10 @@ That said, there are certainly many areas where it *doesn't* aim to act as a
 replacement for any existing standards; for example, the current Finch design
 plan includes a fairly substantial runtime, so a compact and fully compiled
 language like Rust might be a better choice for embedded applications.
+
+## Branches
+
+- `master`: The main branch, where stable versions of Finch will be tagged and released from (though most likely not until several months from now)
+- `parser`: The reference implementation of the Finch parser, which is meant to conform (more or less) to the grammar outlined on the `specification` branch
+- `specification`: Grammars, diagrams, natural language descriptions, and other materials outlining my vision for Finch that will (ideally) guide development of the parser and runtime
+- `stdlib`: The Finch standard library, modeled loosely after those of Python and Rust (as well as some *de facto* standards like NumPy that are consistent and stable enough to be considered part of the language for most purposes)
