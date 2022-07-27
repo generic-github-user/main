@@ -20,3 +20,12 @@ punctuation = "!" | "(" | ")" | "-" | "_" | ";" | ":"
 symbol = "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+";
 
 character = letter | digit | punctuation | symbol
+
+natural = nonzero, { digit };
+integer = "0" | [ "-" ], natural;
+float = [ "-" ], [ natural ], ".", { digit };
+number = integer | float;
+
+string = "'", { character }, "'";
+
+literal = number | string;
