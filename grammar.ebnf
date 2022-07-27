@@ -11,3 +11,12 @@ uppercase = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
 		| "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S"
 		| "T" | "U" | "V" | "W" | "X" | "Y" | "Z" ;
 letter = lowercase | uppercase;
+
+nonzero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+digit = nonzero | "0";
+
+punctuation = "!" | "(" | ")" | "-" | "_" | ";" | ":"
+		| "'" | '"' | "`" | "," | "." | "/" | "?";
+symbol = "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+";
+
+character = letter | digit | punctuation | symbol
