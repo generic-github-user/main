@@ -29,3 +29,26 @@ number = integer | float;
 string = "'", { character }, "'";
 
 literal = number | string;
+
+binary_operator = "+" | "-" | "*" | "/" | "**" | "." | ".." | "@" | "#"
+		| "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="
+		| "|" | "&" | "^" | "<<" | ">>"
+unary_operator = "!"
+operator = unary_operator | binary_operator
+
+expression = (unary_operator, expression)
+		| (expression, binary_operator, expression)
+		| call
+		| index
+		| identifier
+		| tuple
+		| array
+		| (number, expression)
+identifier = letter, { letter | digit | "_" }
+		| "(", { identifier [ " ", identifier ] }, ")";
+
+tuple = "(", { expression [ " ", expression ] }, ")"
+array = "[", { expression [ " ", expression ] }, "]"
+
+call = identifier, tuple;
+index = expression, array;
