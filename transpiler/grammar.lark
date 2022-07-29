@@ -4,31 +4,34 @@
 // should nevertheless provide a helpful starting point for writing a reference
 // parser implementation and other basic tooling.
 
-lowercase: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
+LOWERCASE: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
 		| "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s"
 		| "t" | "u" | "v" | "w" | "x" | "y" | "z" 
-uppercase: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
+UPPERCASE: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
 		| "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S"
 		| "T" | "U" | "V" | "W" | "X" | "Y" | "Z" 
-letter: lowercase | uppercase
+LETTER: LOWERCASE | UPPERCASE
 
-nonzero: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-digit: nonzero | "0"
+NONZERO: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+DIGIT: NONZERO | "0"
 
-punctuation: "!" | "(" | ")" | "-" | "_" | ";" | ":"
-		| "'" | "\"" | "`" | "," | "." | "/" | "?"
-symbol: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
+BRACKET: "[" | "]"
+PUNCTUATION: "!" | "(" | ")" | BRACKET | "-" | "_" | ";" | ":"
+		| "`" | "," | "." | "/" | "\\" | "?"
+SYMBOL: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
 
-character: letter | digit | punctuation | symbol
+QUOTEMARK: "'" | "\""
+CHARACTER: LETTER | DIGIT | PUNCTUATION | SYMBOL | " " | QUOTEMARK
 
-natural: nonzero ( digit )
-integer: "0" | [ "-" ] natural
-float: [ "-" ] [ natural ] "." ( digit )
-number: integer | float
+NATURAL: NONZERO DIGIT*
+INTEGER: "0" | [ "-" ] NATURAL
+FLOAT: [ "-" ] NATURAL? "." DIGIT+
+NUMBER: INTEGER | FLOAT
 
-string: "'" ( character ) "'"
+STRING: "'" (LETTER | DIGIT | PUNCTUATION | SYMBOL | " ")* "'"
+		| "\"" (LETTER | DIGIT | PUNCTUATION | SYMBOL | " ")* "\""
 
-literal: number | string
+literal: NUMBER | STRING
 
 binary_operator: "+" | "-" | "*" | "/" | "**" | "." | ".." | "@" | "#"
 		| "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="
