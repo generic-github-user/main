@@ -4,39 +4,39 @@
 // should nevertheless provide a helpful starting point for writing a reference
 // parser implementation and other basic tooling.
 
-lowercase = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
+lowercase: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
 		| "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s"
 		| "t" | "u" | "v" | "w" | "x" | "y" | "z" 
-uppercase = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
+uppercase: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
 		| "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S"
 		| "T" | "U" | "V" | "W" | "X" | "Y" | "Z" 
-letter = lowercase | uppercase
+letter: lowercase | uppercase
 
-nonzero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-digit = nonzero | "0"
+nonzero: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+digit: nonzero | "0"
 
-punctuation = "!" | "(" | ")" | "-" | "_" | ";" | ":"
-		| "'" | '"' | "`" | "," | "." | "/" | "?"
-symbol = "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
+punctuation: "!" | "(" | ")" | "-" | "_" | ";" | ":"
+		| "'" | "\"" | "`" | "," | "." | "/" | "?"
+symbol: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
 
-character = letter | digit | punctuation | symbol
+character: letter | digit | punctuation | symbol
 
-natural = nonzero ( digit )
-integer = "0" | [ "-" ] natural
-float = [ "-" ] [ natural ] "." ( digit )
-number = integer | float
+natural: nonzero ( digit )
+integer: "0" | [ "-" ] natural
+float: [ "-" ] [ natural ] "." ( digit )
+number: integer | float
 
-string = "'" ( character ) "'"
+string: "'" ( character ) "'"
 
-literal = number | string
+literal: number | string
 
-binary_operator = "+" | "-" | "*" | "/" | "**" | "." | ".." | "@" | "#"
+binary_operator: "+" | "-" | "*" | "/" | "**" | "." | ".." | "@" | "#"
 		| "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="
 		| "|" | "&" | "^" | "<<" | ">>"
-unary_operator = "!"
-operator = unary_operator | binary_operator
+unary_operator: "!"
+operator: unary_operator | binary_operator
 
-expression = (unary_operator expression)
+expression: (unary_operator expression)
 		| (expression binary_operator expression)
 		| call
 		| index
@@ -44,11 +44,11 @@ expression = (unary_operator expression)
 		| tuple
 		| array
 		| (number expression)
-identifier = letter ( letter | digit | "_" )
+identifier: letter ( letter | digit | "_" )
 		| "(" ( identifier [ " " identifier ] ) ")"
 
-tuple = "(" ( expression [ " " expression ] ) ")"
-array = "[" ( expression [ " " expression ] ) "]"
+tuple: "(" ( expression [ " " expression ] ) ")"
+array: "[" ( expression [ " " expression ] ) "]"
 
-call = identifier tuple
-index = expression array
+call: identifier tuple
+index: expression array
