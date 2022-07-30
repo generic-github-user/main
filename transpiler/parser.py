@@ -27,6 +27,26 @@ class Token:
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
 
 
+    def pythonize(self, type_annotations=False) -> str:
+        #match self.type:
+        #    case 'binary_operator':
+        match self.value:
+            case "+" | "-" | "*" | "/" | "**" | "." | ".." | "#"\
+            | "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="\
+            | "^" | "<<" | ">>" | "%" : return self.value
+            case '&': return 'and'
+            case '|': return 'or'
+            case '@': return '@'
+            #case '->':
+            #case '+-': return f'set({
+        match self.type:
+            case 'NUMBER' | 'IDENTIFIER' | 'STRING': return self.value
+            case 'COMMENT': return '#'+self.value[2:]
+            case _: raise NotImplementedError(self.type, self.value)
+
+
+
+
 class Node:
     def __init__(self, source, parent=None, depth=0, root=None):
         self.parent = parent
