@@ -17,7 +17,7 @@ DIGIT: NONZERO | "0"
 
 BRACKET: "[" | "]"
 PUNCTUATION: "!" | "(" | ")" | BRACKET | "-" | "_" | ";" | ":"
-		| "`" | "," | "." | "/" | "\\" | "?"
+		| "`" | "," | "." | "/" | "\\" | "?" | "<" | ">"
 SYMBOL: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
 
 QUOTEMARK: "'" | "\""
@@ -33,25 +33,39 @@ STRING: "'" (LETTER | DIGIT | PUNCTUATION | SYMBOL | " ")* "'"
 
 literal: NUMBER | STRING
 
-binary_operator: "+" | "-" | "*" | "/" | "**" | "." | ".." | "@" | "#"
+!binary_operator: "+" | "-" | "*" | "/" | "**" | ".." | "." | "@" | "#"
 		| "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="
-		| "|" | "&" | "^" | "<<" | ">>"
-unary_operator: "!"
+		| "|" | "&" | "^" | "<<" | ">>" | "%" | "+-" | "->" | ".="
+// TODO: assignment/func application operator (combined)
+
+!unary_operator: "!"
 operator: unary_operator | binary_operator
 
+// value: literal
+
+range: expression? ".." expression?
+dot: expression? "." IDENTIFIER
+
 expression: (unary_operator expression)
-		| (expression binary_operator expression)
+		| (expression " "? binary_operator " "? expression) -> binary_operation
 		| call
 		| index
-		| identifier
+		| IDENTIFIER
 		| tuple
 		| array
-		| (number expression)
-identifier: letter ( letter | digit | "_" )
-		| "(" ( identifier [ " " identifier ] ) ")"
+		//| (NUMBER expression) -> juxtaposition
+		| NUMBER | STRING
+		//| range | dot
 
-tuple: "(" ( expression [ " " expression ] ) ")"
-array: "[" ( expression [ " " expression ] ) "]"
+IDENTIFIER: LETTER ( LETTER | DIGIT | "_" )*
+		//| "(" ( identifier [ " " identifier ] )+ ")"
+		//| operator
 
-call: identifier tuple
+		//range
+
+//tuple: "(" ( expression [ " " expression ] )+ ")"
+tuple: "(" expression? (" " expression)* ")"
+array: "[" ( expression [ " " expression ] )+ "]"
+
+call: IDENTIFIER tuple | expression tuple
 index: expression array
