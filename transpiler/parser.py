@@ -25,6 +25,26 @@ class Token:
 
     def __str__(self):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
+
+
+class Node:
+    def __init__(self, source, parent=None, depth=0, root=None):
+        self.parent = parent
+        self.root = root if root else self
+        self.children = []
+        self.source = source
+
+        self.meta = self.source.meta
+        self.type = self.source.data
+        self.depth = depth
+        for c in self.source.children:
+            #print(c)
+            if isinstance(c, lark.Tree): self.children.append(
+                    Node(c, self, self.depth+1, root=self.root if self.root else self))
+            elif c is None: self.children.append(c)
+            else:
+                assert isinstance(c, lark.Token), c
+                self.children.append(Token(c))
 with open('example.fn', 'r') as f:
     parsed = parser.parse(f.read())
 print(parsed.pretty()[:2000])
