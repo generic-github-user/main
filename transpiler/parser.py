@@ -45,6 +45,12 @@ class Node:
             else:
                 assert isinstance(c, lark.Token), c
                 self.children.append(Token(c))
+
+    def text(self):
+        return ''.join(c.text() for c in self.children)
+
+    def __str__(self):
+        return f'Node <{self.type}> ({self.depth})' + '\n' + '\n'.join('  '*self.depth + str(n) for n in self.children)
 with open('example.fn', 'r') as f:
     parsed = parser.parse(f.read())
 print(parsed.pretty()[:2000])
