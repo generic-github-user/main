@@ -26,6 +26,8 @@ class Token:
     def __str__(self):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
 
+    def rustify(self):
+        pass
 
     def pythonize(self, type_annotations=False) -> str:
         #match self.type:
@@ -71,6 +73,29 @@ class Node:
 
     def __str__(self):
         return f'Node <{self.type}> ({self.depth})' + '\n' + '\n'.join('  '*self.depth + str(n) for n in self.children)
+
+    def pythonize(self, type_annotations=False, priority='perf', dependencies=None) -> str:
+        result = None
 with open('example.fn', 'r') as f:
     parsed = parser.parse(f.read())
 print(parsed.pretty()[:2000])
+#print(parsed)
+ast = Node(parsed)
+print(ast)
+
+tr_python = ast.pythonize()
+print(tr_python)
+exec(tr_python)
+
+def parse():
+
+    result = ''
+    #for tree in parsed.iter_subtrees():
+        #print(tree.pretty()[:100])
+    #breakpoint()
+    print(result)
+
+parse()
+
+#TODO: internally convert parts of AST to lists (repeated operations, method chaining, etc.)
+#TODO: ML-based AST optimization
