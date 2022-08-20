@@ -54,3 +54,16 @@ public type error
 
 				type
 						"Expected object {} to have type {}; it is of type {}"
+
+
+		fileSystem
+				fileExists
+						"A file already exists at the path {} and therefore cannot be created;
+						if you want to create it anyway, look for an `overwrite` or `force`
+						option in the documentation for the library you are using."
+
+				fileNotFound
+						"Requested path {} does not correspond to a file."
+
+				permission
+						"Process lacks the necessary permission to run {}"
