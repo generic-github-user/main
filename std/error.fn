@@ -44,3 +44,13 @@ public type error
 
 				import
 						"Could not find module {}"
+
+		value
+				range
+						"Expected {} to be in range {}"
+
+				attribute
+						"Object {} of type {} does not have attribute {}; valid attributes are {}"
+
+				type
+						"Expected object {} to have type {}; it is of type {}"
