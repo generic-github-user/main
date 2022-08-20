@@ -7,3 +7,7 @@ practices when passing arguments to functions/methods or macros.
 ""
 
 public type warning
+		"Depreciation warning"
+		public type depreciation
+				"{} is set to be removed in a future version and should no longer be
+				used (see library documentation for alternatives)."
