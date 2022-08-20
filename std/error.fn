@@ -32,3 +32,15 @@ public type error
 				Finch standard library, please open an issue at
 				https://github.com/generic-github-user/finch/issues/new.
 				""
+
+		access
+				reference
+						"Attempt to access a reference that does not exist (undefined
+						reference exception): {}"
+
+				index
+						"Index {} is out of bounds for a collection with size {}; the valid
+						range is {}"
+
+				import
+						"Could not find module {}"
