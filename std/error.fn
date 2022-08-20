@@ -1,0 +1,11 @@
+docstring
+""
+Generic error/exception type; should generally be used anywhere we want to
+terminate program execution and display an error message to the user. Runtime
+introspection allows errors to report information about where in the code they
+were raised and what values/types the problematic object(s) had, in certain
+circumstances. Some of the included exceptions are based on those from
+https://docs.python.org/3/library/exceptions.html.
+""
+
+public type error
