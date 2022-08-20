@@ -1,0 +1,9 @@
+docstring ""
+A "less aggressive" error-like message, typically to the developer(s),
+signaling that some function or API component is being used improperly (but not
+in a way that causes the program to crash). Examples include using depreciated
+APIs (or ones that are set to become depreciated) and not following best
+practices when passing arguments to functions/methods or macros.
+""
+
+public type warning
