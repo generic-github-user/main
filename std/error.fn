@@ -9,3 +9,26 @@ https://docs.python.org/3/library/exceptions.html.
 ""
 
 public type error
+
+		""
+				A mostly self-explanatory error type that can be useful for testing.
+
+				[example]
+				assert(2 + 2 = 5, "optional custom message")
+		""
+		assertion
+				""
+				An assertion (invariant) that was expected to always be true during
+				correct execution of this program evaluated to a false-like value; this
+				indicates an issue with the original code and not its usage (if used
+				correctly; that is, this error should never be used in place of an
+				`ArgumentError`, for example).
+
+				Assertion {} evaluted to {}
+
+				If you are using an API developed by someone else, you should report
+				this error to them (including a code sample, system information,
+				versions of the relevant libraries, etc.); if the issue is with the
+				Finch standard library, please open an issue at
+				https://github.com/generic-github-user/finch/issues/new.
+				""
