@@ -96,12 +96,15 @@ class Node {
 		}
 };
 
+// Process a single character, assumed to be immediately after the char that
+// was most recently integrated into the parse tree (ignoring newlines)
 void parsechar (vector<Node>* context, char c) {
 		string cs = std::string(1, c);
 		Node* nn;
 		nodetype current_type = unmatched;
 		Node* current = &(*context).back();
 
+		// determine primary category of current character
 		if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
 		else if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
 		else if (std::string("\t ").find(c)) { current_type = whitespace; }
@@ -123,9 +126,11 @@ void parsechar (vector<Node>* context, char c) {
 				current = &(context -> back());
 		}
 
+		// if in a comment, absorb the character
 		if (current_type == comment) {
 				current -> text += c;
 		}
+		// if in a string, we're either extending the string or terminating it
 		else if (current_type == string_) {
 				if (c == '"') {
 						context -> pop_back();
@@ -134,6 +139,7 @@ void parsechar (vector<Node>* context, char c) {
 				else current -> text += c;
 		}
 		else {
+				// opening a new tuple form adds another context layer...
 				if (c == '(') {
 						cout << "Opened tuple\n";
 						nn = new Node(tuple_, cs, current);
@@ -141,21 +147,27 @@ void parsechar (vector<Node>* context, char c) {
 						(current -> subnodes).push_back(*nn);
 						current = &(context -> back());
 				}
+				// ...and closing it removes one
 				if (c == ')') {
 						cout << "Closed tuple\n";
 						context -> pop_back();
 						current = current -> parent;
 				}
 
+				// if the immediate context is a numeric type, subsequent digits are
+				// assumed to be part of it
 				if (current_type == digit &&
 								(current -> type == integer || current -> type == float_)) {
 						current -> text += c;
 				}
 
+				// a similar rule is observed for chunks of whitespace
 				if (current_type == whitespace && current -> type == whitespace) {
 						current -> text += c;
 				}
 
+				// identifiers need to start with a non-digit to differentiate them
+				// from numbers or coefficient notation
 				if ((current_type == letter ||
 						current_type == digit) &&
 						current -> type == identifier) {
