@@ -43,7 +43,18 @@ class Node {
 		vector<Node> subnodes;
 		Node* parent;
 
-		Node (nodetype t, char v) : type(t), value(v) { }
+		Node (nodetype t, string v) : type(t), value(v) { }
+		Node (nodetype t) : type(t) { }
+
+		bool is_expression () {
+				return (type == integer || type == float_ ||
+								type == string_ || type == operation);
+		}
+
+		void print () {
+				cout << text;
+				for (Node n : subnodes) n.print();
+		}
 };
 
 int main() {
