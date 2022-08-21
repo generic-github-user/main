@@ -63,7 +63,7 @@ class Node {
 		vector<Node> subnodes;
 		Node* parent;
 
-		Node (nodetype t, string v) : type(t), value(v) { }
+		Node (nodetype t, string v, Node* p) : type(t), value(v), parent(p) { }
 		Node (nodetype t) : type(t) { }
 
 		bool is_expression () {
@@ -92,8 +92,8 @@ void parsechar (vector<Node>* context, char c) {
 
 		if (current -> type == root && (
 				current_type == digit)) {
-				cout << "Adding node";
-				nn = new Node(current_type, cs);
+				cout << "Adding node\n";
+				nn = new Node(current_type, cs, current);
 
 				// TODO: check that we're using pointers to nodes where
 				// appropriate rather than passing by value (particularly
@@ -101,7 +101,7 @@ void parsechar (vector<Node>* context, char c) {
 
 				context -> push_back(*nn);
 				(current -> subnodes).push_back(*nn);
-				current = &context -> back();
+				current = &(context -> back());
 		}
 
 		if (current_type == comment) {
@@ -115,13 +115,27 @@ void parsechar (vector<Node>* context, char c) {
 				else current -> text += c;
 		}
 		else {
+				if (c == '(') {
+						cout << "Opened tuple\n";
+						nn = new Node(tuple_, cs, current);
+						context -> push_back(*nn);
+						(current -> subnodes).push_back(*nn);
+						current = &(context -> back());
+				}
+				if (c == ')') {
+						cout << "Closed tuple\n";
+						context -> pop_back();
+						current = current -> parent;
+				}
+
 				if (current_type == digit &&
 								(current -> type == integer || current -> type == float_)) {
 						current -> text += c;
 				}
 
-				if (current_type == whitespace && current -> type == whitespace)
+				if (current_type == whitespace && current -> type == whitespace) {
 						current -> text += c;
+				}
 
 				if ((current_type == letter ||
 						current_type == digit) &&
