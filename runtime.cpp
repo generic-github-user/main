@@ -45,3 +45,24 @@ class Node {
 
 		Node (nodetype t, char v) : type(t), value(v) { }
 };
+
+int main() {
+		vector<Node> context;
+		Node* current;
+
+		string line;
+		ifstream src;
+		src.open("example.fn");
+		if (src.is_open()) {
+				while (getline(src, line)) {
+						std::cout << line;
+						for (char c : line) {
+								nodetype current_type;
+								if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
+								if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
+						}
+				}
+		}
+		else cout << "could not open file";
+		return 0;
+}
