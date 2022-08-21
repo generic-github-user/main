@@ -35,10 +35,7 @@ language like Rust might be a better choice for embedded applications.
 
 ## Contents
 
-- [finch](#finch)
-  * [Contents](#contents)
-  * [Branches](#branches)
-  * [Statistics](#statistics)
+[[toc]]
 
 ## Branches
 
@@ -60,12 +57,4 @@ language like Rust might be a better choice for embedded applications.
 
 ## Statistics
 
-
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (52.5 files/s, 2731.4 lines/s)
---- | ---
-
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-Markdown|1|8|0|44
---------|--------|--------|--------|--------
-
+[[stats]]
