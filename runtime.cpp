@@ -31,3 +31,17 @@ enum nodetype {
 		block
 };
 
+//template <class T>
+class Node {
+		public:
+
+		string typestring;
+		nodetype type;
+		//T value;
+		char value;
+
+		vector<Node> subnodes;
+		Node* parent;
+
+		Node (nodetype t, char v) : type(t), value(v) { }
+};
