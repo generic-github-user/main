@@ -99,7 +99,7 @@ class Node {
 		}
 };
 
-void lexchar(Node* base, Node* token, char c) {
+void lexchar(Node* base, Node* prev, char c) {
 		// overview of lexing rules:
 		// - if in a comment, absorb the character
 		// - if the immediate context is a numeric type, subsequent digits are
@@ -118,8 +118,8 @@ void lexchar(Node* base, Node* token, char c) {
 		else if (std::string("\t ").find(c)) { current_type = whitespace; }
 		else if (symbols.find(c)) { current_type = symbol; }
 
-		if (token -> type == current_type) {
-				token -> text += c;
+		if (prev -> type == current_type) {
+				prev -> text += c;
 		} else {
 				nn = new Node(current_type, cs, base);
 				base -> subnodes.push_back(*nn);
@@ -128,7 +128,7 @@ void lexchar(Node* base, Node* token, char c) {
 
 // Process a single character, assumed to be immediately after the char that
 // was most recently integrated into the parse tree (ignoring newlines)
-void parsetoken (vector<Node>* context, Node* prev) {
+void parsetoken (vector<Node>* context, Node* t) {
 		Node* nn;
 		Node* current = &(*context).back();
 
@@ -137,7 +137,7 @@ void parsetoken (vector<Node>* context, Node* prev) {
 		// when modifying them...)
 
 		// opening a new tuple form adds another context layer...
-		if (prev->value == "(") {
+		if (t->value == "(") {
 				cout << "Opened tuple\n";
 				cout << "Adding node\n";
 				nn = new Node(tuple_, "", current);
@@ -146,7 +146,7 @@ void parsetoken (vector<Node>* context, Node* prev) {
 				current = &(context -> back());
 		}
 		// ...and closing it removes one
-		if (prev->value == ")") {
+		if (t->value == ")") {
 				cout << "Closed tuple\n";
 				context -> pop_back();
 				current = current -> parent;
