@@ -116,7 +116,7 @@ void lexchar(Node* base, Node* token, char c) {
 		if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
 		else if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
 		else if (std::string("\t ").find(c)) { current_type = whitespace; }
-		else if (std::string(symbols).find(c)) { current_type = symbol; }
+		else if (symbols.find(c)) { current_type = symbol; }
 
 		if (token -> type == current_type) {
 				token -> text += c;
@@ -128,9 +128,8 @@ void lexchar(Node* base, Node* token, char c) {
 
 // Process a single character, assumed to be immediately after the char that
 // was most recently integrated into the parse tree (ignoring newlines)
-void parsetoken (vector<Node>* context, Node* token) {
+void parsetoken (vector<Node>* context, Node* prev) {
 		Node* nn;
-		nodetype current_type = unmatched;
 		Node* current = &(*context).back();
 
 		// TODO: check that we're using pointers to nodes where
@@ -138,16 +137,16 @@ void parsetoken (vector<Node>* context, Node* token) {
 		// when modifying them...)
 
 		// opening a new tuple form adds another context layer...
-		if (token->value == "(") {
+		if (prev->value == "(") {
 				cout << "Opened tuple\n";
 				cout << "Adding node\n";
-				nn = new Node(tuple_, 0, current);
+				nn = new Node(tuple_, "", current);
 				context -> push_back(*nn);
 				(current -> subnodes).push_back(*nn);
 				current = &(context -> back());
 		}
 		// ...and closing it removes one
-		if (token->value == ")") {
+		if (prev->value == ")") {
 				cout << "Closed tuple\n";
 				context -> pop_back();
 				current = current -> parent;
@@ -157,6 +156,7 @@ void parsetoken (vector<Node>* context, Node* token) {
 
 int main() {
 		Node astroot = Node(root);
+		astroot.subnodes.push_back(Node(token, "", &astroot));
 		vector<Node> context = { astroot };
 		// TODO: create a secondary tree marking "spans" of text (e.g., lines) that
 		// may contain parts of different nodes
@@ -168,7 +168,8 @@ int main() {
 		if (src.is_open()) {
 				while (getline(src, line)) {
 						std::cout << line << '\n';
-						for (char& c : line) lexchar(&context[0], &context[0].subnodes.back(), c);
+						for (char& c : line) if (c)
+								lexchar(&context[0], &context[0].subnodes.back(), c);
 				}
 				for (Node& n : context[0].subnodes) parsetoken(&context, &n);
 		}
