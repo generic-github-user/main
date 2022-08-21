@@ -39,3 +39,7 @@ language like Rust might be a better choice for embedded applications.
 - `parser`: The reference implementation of the Finch parser, which is meant to conform (more or less) to the grammar outlined on the `specification` branch
 - `specification`: Grammars, diagrams, natural language descriptions, and other materials outlining my vision for Finch that will (ideally) guide development of the parser and runtime
 - `stdlib`: The Finch standard library, modeled loosely after those of Python and Rust (as well as some *de facto* standards like NumPy that are consistent and stable enough to be considered part of the language for most purposes)
+- `cpp-runtime`: A dynamic C++-based reference implementation of Finch, the development of which is helping establish reasonable goals for metaprogramming support, optimization, etc.
+- `meta`: Information about this Git/GitHub repository, particularly that which is not applicable to the language itself
+- `dev`: A multipurpose development/staging branch where nearly complete features will be merged prior to integration into the main codebase (on `master`; i.e., the stable line)
+- `grammar`: A draft grammar for Finch written in [extended Backus–Naur form](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) (newer iterations of the language necessitate a context-sensitive language, but most of the constructs can still be represented in EBNF)
