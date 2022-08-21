@@ -1,8 +1,13 @@
+#define FMT_HEADER_ONLY
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
+
+#include "include/fmt/core.h"
+#include "include/fmt/format.h"
 
 using namespace std;
 
@@ -62,6 +67,30 @@ enum nodetype {
 		unmatched
 };
 
+const vector<string> nodetype_strings = {
+		"letter",
+		"digit",
+		"token",
+		"whitespace",
+		"comment",
+		"integer",
+		"float",
+		"number",
+		"string",
+		"identifier",
+		"symbol",
+		"tuple",
+		"operator",
+		"operation",
+		"call",
+		"expression",
+		"assignment",
+		"statement",
+		"block",
+		"root",
+		"unmatched"
+};
+
 
 //template <class T>
 
@@ -98,9 +127,14 @@ class Node {
 								type == string_ || type == operation);
 		}
 
-		void print () {
-				cout << text;
-				for (Node n : subnodes) n.print();
+		void print (int depth=0) {
+				//cout << typestring;
+				fmt::print("[{}] {} \n", typestring, text);
+				for (Node n : subnodes) {
+						fmt::print("{: >{}}", "", depth*2);
+						n.print(depth + 1);
+				}
+				//cout << '\n';
 		}
 };
 
