@@ -71,22 +71,57 @@ class Node {
 };
 
 int main() {
-		vector<Node> context;
-		Node* current;
+		vector<Node> context = { Node(root) };
+		Node* current = &context[0];
+		Node* nn;
+		// TODO: create a secondary tree marking "spans" of text (e.g., lines) that
+		// may contain parts of different nodes
+		
+		const vector<string> operators = {
+				"+", "-", "*", "/", "%", "**",
+				"==", "!+", "<", "<=", ">", ">=",
+				"&", "|", "<<", ">>",
+				"..", "+-"
+		};
 
 		string line;
 		ifstream src;
+		string cs;
+
 		src.open("example.fn");
 		if (src.is_open()) {
 				while (getline(src, line)) {
-						std::cout << line;
-						for (char c : line) {
-								nodetype current_type;
+						std::cout << line << '\n';
+						for (char& c : line) {
+								cs = std::string(1, c);
+								nodetype current_type = unmatched;
+
 								if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
-								if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
+								else if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
+								else if (std::string("\t ").find(c)) { current_type = whitespace; }
+								else if (std::find(operators.begin(), operators.end(), cs) != operators.end())
+								//else if (std::any_of(operators.begin(), operators.end(), [=](string s){return s==cs;}))
+										{ current_type = operator_; }
+
+								if (current -> type == root && (
+										current_type == digit)) {
+										cout << "Adding node";
+										nn = new Node(current_type, cs);
+
+										// TODO: check that we're using pointers to nodes where
+										// appropriate rather than passing by value (particularly
+										// when modifying them...)
+
+										context.push_back(*nn);
+										(current -> subnodes).push_back(*nn);
+										current = &context.back();
+								}
 						}
 				}
 		}
 		else cout << "could not open file";
+
+		context[0].print();
+
 		return 0;
 }
