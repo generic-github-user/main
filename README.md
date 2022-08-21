@@ -50,3 +50,4 @@ language like Rust might be a better choice for embedded applications.
 		- `std-testing`: Utilities for unit testing and integration testing, fuzzing, static analysis, and potentially other related tasks
 		- `std-warning`: Base types for generating alerts about potentially undesirable usage/side-effects in your code
 		- `std-meta`: Tools for reflection and metaprogramming (parsers, AST manipulations, etc.) implemented in Finch itself; not to be confused with `meta`
+		- `std-web`: Types and functions for basic web templating
