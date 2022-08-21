@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,6 +13,8 @@ bool inrange(int x, int a, int b) {
 enum nodetype {
 		letter,
 		digit,
+		whitespace,
+		comment,
 
 		integer,
 		float_,
@@ -19,8 +22,9 @@ enum nodetype {
 		string_,
 
 		identifier,
-		tuple_,
 		symbol,
+
+		tuple_,
 		operator_,
 		operation,
 		call,
@@ -28,8 +32,11 @@ enum nodetype {
 
 		assignment,
 		statement,
-		block
+		block,
+		root,
+		unmatched
 };
+
 
 //template <class T>
 class Node {
@@ -38,7 +45,13 @@ class Node {
 		string typestring;
 		nodetype type;
 		//T value;
-		char value;
+		//char value;
+		string value;
+		string text;
+
+		string file;
+		int line;
+		int column;
 
 		vector<Node> subnodes;
 		Node* parent;
