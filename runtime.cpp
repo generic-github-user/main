@@ -100,7 +100,7 @@ void parsechar (vector<Node>* context, char c) {
 		string cs = std::string(1, c);
 		Node* nn;
 		nodetype current_type = unmatched;
-		Node* current = &(*context)[0];
+		Node* current = &(*context).back();
 
 		if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
 		else if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
