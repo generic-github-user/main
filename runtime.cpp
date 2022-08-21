@@ -88,6 +88,11 @@ class Node {
 		Node (nodetype t, string v, Node* p) : type(t), value(v), parent(p) { }
 		Node (nodetype t) : type(t) { }
 
+		Node* add(nodetype t, string v) {
+				subnodes.push_back(Node(t, v, this));
+				return this;
+		}
+
 		bool is_expression () {
 				return (type == integer || type == float_ ||
 								type == string_ || type == operation);
@@ -128,9 +133,8 @@ void lexchar(Node* base, Node* prev, char c) {
 
 // Process a single character, assumed to be immediately after the char that
 // was most recently integrated into the parse tree (ignoring newlines)
-void parsetoken (vector<Node>* context, Node* t) {
-		Node* nn;
-		Node* current = &(*context).back();
+void parsetoken (vector<Node*>* context, Node* t) {
+		Node* current = context -> back();
 
 		// TODO: check that we're using pointers to nodes where
 		// appropriate rather than passing by value (particularly
@@ -140,10 +144,7 @@ void parsetoken (vector<Node>* context, Node* t) {
 		if (t->value == "(") {
 				cout << "Opened tuple\n";
 				cout << "Adding node\n";
-				nn = new Node(tuple_, "", current);
-				context -> push_back(*nn);
-				(current -> subnodes).push_back(*nn);
-				current = &(context -> back());
+				context -> push_back(current -> add(tuple_, ""));
 		}
 		// ...and closing it removes one
 		if (t->value == ")") {
@@ -157,7 +158,7 @@ void parsetoken (vector<Node>* context, Node* t) {
 int main() {
 		Node astroot = Node(root);
 		astroot.subnodes.push_back(Node(token, "", &astroot));
-		vector<Node> context = { astroot };
+		vector<Node*> context = { &astroot };
 		// TODO: create a secondary tree marking "spans" of text (e.g., lines) that
 		// may contain parts of different nodes
 
@@ -169,13 +170,13 @@ int main() {
 				while (getline(src, line)) {
 						std::cout << line << '\n';
 						for (char& c : line) if (c)
-								lexchar(&context[0], &context[0].subnodes.back(), c);
+								lexchar(&astroot, &astroot.subnodes.back(), c);
 				}
-				for (Node& n : context[0].subnodes) parsetoken(&context, &n);
+				for (Node& n : astroot.subnodes) parsetoken(&context, &n);
 		}
 		else cout << "could not open file";
 
-		context[0].print();
+		astroot.print();
 
 		return 0;
 }
