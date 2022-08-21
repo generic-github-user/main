@@ -12,6 +12,7 @@ const vector<string> operators = {
 		"&", "|", "<<", ">>",
 		"..", "+-"
 };
+const string symbols = "()[]<>{}!@#$%^&*`~,.;:-_=+";
 
 // Returns true if a <= x <= b and false otherwise (used for concisely
 // categorizing ASCII character ranges)
@@ -28,6 +29,8 @@ enum nodetype {
 		// Single-character types for the lexer
 		letter,
 		digit,
+
+		token,
 		whitespace,
 		comment,
 
@@ -96,88 +99,65 @@ class Node {
 		}
 };
 
-// Process a single character, assumed to be immediately after the char that
-// was most recently integrated into the parse tree (ignoring newlines)
-void parsechar (vector<Node>* context, char c) {
+void lexchar(Node* base, Node* token, char c) {
+		// overview of lexing rules:
+		// - if in a comment, absorb the character
+		// - if the immediate context is a numeric type, subsequent digits are
+		// assumed to be part of it
+		// - a similar rule is observed for chunks of whitespace
+		// - identifiers need to start with a non-digit to differentiate them
+		// from numbers or coefficient notation
+
 		string cs = std::string(1, c);
 		Node* nn;
 		nodetype current_type = unmatched;
-		Node* current = &(*context).back();
 
 		// determine primary category of current character
 		if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
 		else if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
 		else if (std::string("\t ").find(c)) { current_type = whitespace; }
-		else if (std::find(operators.begin(), operators.end(), cs) != operators.end())
-		//else if (std::any_of(operators.begin(), operators.end(), [=](string s){return s==cs;}))
-				{ current_type = operator_; }
+		else if (std::string(symbols).find(c)) { current_type = symbol; }
 
-		if (current -> type == root && (
-				current_type == digit)) {
+		if (token -> type == current_type) {
+				token -> text += c;
+		} else {
+				nn = new Node(current_type, cs, base);
+				base -> subnodes.push_back(*nn);
+		}
+}
+
+// Process a single character, assumed to be immediately after the char that
+// was most recently integrated into the parse tree (ignoring newlines)
+void parsetoken (vector<Node>* context, Node* token) {
+		Node* nn;
+		nodetype current_type = unmatched;
+		Node* current = &(*context).back();
+
+		// TODO: check that we're using pointers to nodes where
+		// appropriate rather than passing by value (particularly
+		// when modifying them...)
+
+		// opening a new tuple form adds another context layer...
+		if (token->value == "(") {
+				cout << "Opened tuple\n";
 				cout << "Adding node\n";
-				nn = new Node(current_type, cs, current);
-
-				// TODO: check that we're using pointers to nodes where
-				// appropriate rather than passing by value (particularly
-				// when modifying them...)
-
+				nn = new Node(tuple_, 0, current);
 				context -> push_back(*nn);
 				(current -> subnodes).push_back(*nn);
 				current = &(context -> back());
 		}
-
-		// if in a comment, absorb the character
-		if (current_type == comment) {
-				current -> text += c;
+		// ...and closing it removes one
+		if (token->value == ")") {
+				cout << "Closed tuple\n";
+				context -> pop_back();
+				current = current -> parent;
 		}
-		// if in a string, we're either extending the string or terminating it
-		else if (current_type == string_) {
-				if (c == '"') {
-						context -> pop_back();
-						current = current -> parent;
-				}
-				else current -> text += c;
-		}
-		else {
-				// opening a new tuple form adds another context layer...
-				if (c == '(') {
-						cout << "Opened tuple\n";
-						nn = new Node(tuple_, cs, current);
-						context -> push_back(*nn);
-						(current -> subnodes).push_back(*nn);
-						current = &(context -> back());
-				}
-				// ...and closing it removes one
-				if (c == ')') {
-						cout << "Closed tuple\n";
-						context -> pop_back();
-						current = current -> parent;
-				}
 
-				// if the immediate context is a numeric type, subsequent digits are
-				// assumed to be part of it
-				if (current_type == digit &&
-								(current -> type == integer || current -> type == float_)) {
-						current -> text += c;
-				}
-
-				// a similar rule is observed for chunks of whitespace
-				if (current_type == whitespace && current -> type == whitespace) {
-						current -> text += c;
-				}
-
-				// identifiers need to start with a non-digit to differentiate them
-				// from numbers or coefficient notation
-				if ((current_type == letter ||
-						current_type == digit) &&
-						current -> type == identifier) {
-						current -> text += c;
-				}
-		}
 }
 
 int main() {
-		vector<Node> context = { Node(root) };
+		Node astroot = Node(root);
+		vector<Node> context = { astroot };
 		// TODO: create a secondary tree marking "spans" of text (e.g., lines) that
 		// may contain parts of different nodes
 
@@ -188,8 +168,9 @@ int main() {
 		if (src.is_open()) {
 				while (getline(src, line)) {
 						std::cout << line << '\n';
-						for (char& c : line) parsechar(&context, c);
+						for (char& c : line) lexchar(&context[0], &context[0].subnodes.back(), c);
 				}
+				for (Node& n : context[0].subnodes) parsetoken(&context, &n);
 		}
 		else cout << "could not open file";
 
