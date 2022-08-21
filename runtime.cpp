@@ -116,6 +116,32 @@ int main() {
 										(current -> subnodes).push_back(*nn);
 										current = &context.back();
 								}
+
+								if (current_type == comment) {
+										current -> text += c;
+								}
+								else if (current_type == string_) {
+										if (c == '"') {
+												context.pop_back();
+												current = current -> parent;
+										}
+										else current -> text += c;
+								}
+								else {
+										if (current_type == digit &&
+														(current -> type == integer || current -> type == float_)) {
+												current -> text += c;
+										}
+
+										if (current_type == whitespace && current -> type == whitespace)
+												current -> text += c;
+
+										if ((current_type == letter ||
+												current_type == digit) &&
+												current -> type == identifier) {
+												current -> text += c;
+										}
+								}
 						}
 				}
 		}
