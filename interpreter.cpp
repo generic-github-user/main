@@ -68,6 +68,18 @@ class Object {
 
 		Object (int v) : cvalue(v) { }
 };
+
+typedef std::unordered_map<string, Object*> ns;
+
+Object* lookup(vector<ns*>* scopes, string name) {
+		//for ( ns* s : scopes ) { }
+		ns* s;
+		for (int i=scopes->size()-1; i>=0; i++) {
+				s = (*scopes)[i];
+				if (s->count(name)) return s->at(name);
+		}
+		return NULL;
+}
 		switch (ast -> type) {
 		}
 }
