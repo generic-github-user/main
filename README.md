@@ -9,19 +9,68 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (3072.4 files/s, 230306.4 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (3173.4 files/s, 241556.8 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|14|213|0|700
+Markdown|14|219|0|722
 Bourne Shell|2|77|102|449
 JSON|1|0|0|185
-Python|3|16|13|52
+Python|3|16|13|53
 vim script|2|10|13|15
 Rust|1|2|2|13
 TOML|1|2|1|8
 YAML|1|0|0|1
 --------|--------|--------|--------|--------
-SUM:|25|320|131|1423
+SUM:|25|326|131|1446
+
+
+## Tree
+
+```
+.
+├── ao
+│   ├── ao.sh
+│   ├── command_docs.md
+│   ├── docinfo.json
+│   ├── README.md
+│   ├── README.src.md
+│   ├── todo
+│   │   ├── cflags
+│   │   ├── todo_ft.vim
+│   │   └── todo.vim
+│   └── utodo.sh
+├── board
+│   └── README.md
+├── build.py
+├── c2s
+│   └── README.md
+├── clover
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+├── finch
+│   └── README.md
+├── generic-github-user
+│   ├── docs
+│   │   ├── _config.yml
+│   │   └── index.md
+│   └── README.md
+├── README.md
+├── README.src.md
+├── tetris-variants
+│   └── README.md
+├── utils
+│   ├── build.py
+│   ├── mv.py
+│   ├── README.md
+│   └── README.src.md
+└── zeal
+    └── README.md
+
+12 directories, 27 files
+
+```
 
