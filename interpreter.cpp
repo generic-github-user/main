@@ -56,6 +56,18 @@ class Node {
 };
 
 void interpret(Node* ast, std::unordered_map<string, Object*> names) {
+
+//class vNode { };
+//template <class T>
+class Object {
+		int cvalue;
+		Object* type;
+		int size;
+
+		public:
+
+		Object (int v) : cvalue(v) { }
+};
 		switch (ast -> type) {
 		}
 }
