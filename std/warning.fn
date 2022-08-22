@@ -1,0 +1,50 @@
+docstring ""
+A "less aggressive" error-like message, typically to the developer(s),
+signaling that some function or API component is being used improperly (but not
+in a way that causes the program to crash). Examples include using depreciated
+APIs (or ones that are set to become depreciated) and not following best
+practices when passing arguments to functions/methods or macros.
+""
+
+public type warning
+		"Depreciation warning"
+		public type depreciation
+				"{} is set to be removed in a future version and should no longer be
+				used (see library documentation for alternatives)."
+
+		"Warnings about code that appears unlikely to ever terminate on its own"
+		public type infinite
+
+				public type loop
+						"Infinite looping in {} will most likely lead this program not to
+						terminate without external intervention; if this is intentional, it
+						is strongly recommended to redesign your code so that this does not
+						occur. Otherwise, check for a termination condition that should be
+						satisfied but never is."
+
+				public type recursion
+						"Infinitely recursive calls to {} will most likely lead this
+						program not to terminate without external intervention; if this is
+						intentional, it is strongly recommended to redesign your code so
+						that this does not occur. Otherwise, check for a termination
+						condition that should be satisfied but never is."
+
+		"Warnings for use by style checkers and linters that suggest best practices
+		for writing readable code"
+		public type style
+
+				public type length
+
+						public type comment
+
+						public type code
+
+				public type spacesnottabs
+						"Use spaces instead of tabs for indentation; inserting either 2, 4,
+						or 6 spaces for each indent level is recommended."
+
+				public type nesting
+
+				public type missing
+						public type comment
+								"Every type and function should have a comment or docstring"
