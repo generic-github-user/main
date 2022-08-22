@@ -1,4 +1,6 @@
 #include <map>
+#include <unordered_map>
+
 #include <string>
 #include <vector>
 
@@ -16,7 +18,8 @@ enum nodetype {
 		integer, float_, number, string_,
 		identifier, symbol,
 		tuple_, operator_, operation, call, expression,
-		assignment, statement, block, root, unmatched
+		assignment, statement, block, root, declaration,
+		unmatched
 };
 
 class Node {
@@ -40,6 +43,16 @@ class Node {
 		Node* add(nodetype t, string v);
 		bool is_expression ();
 		void print (int depth=0);
+
+		// if there is a better way to do this, I am not aware of it
+		virtual Node op();
+
+		virtual string name();
+
+		virtual vector<Node*> args();
+		virtual vector<Node*> body();
+
+		virtual vector<Node*> params();
 };
 
 void interpret(Node* ast, std::unordered_map<string, Object*> names) {
