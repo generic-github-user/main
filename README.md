@@ -34,3 +34,5 @@ plan includes a fairly substantial runtime, so a compact and fully compiled
 language like Rust might be a better choice for embedded applications.
 
 **Note**: the master/main branch is pretty boring at the moment since the language is in a very early development phase, where core features are being designed, implemented, tested, and documented; I encourage anyone whose interest was piqued by the above description to take a look at some of the other [branches](https://github.com/generic-github-user/finch/branches).
+
+*Credit to [@RaineDelay](https://github.com/RaineDelay) for the language name suggestion*
