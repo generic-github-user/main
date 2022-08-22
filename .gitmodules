@@ -4,3 +4,24 @@
 [submodule "zeal"]
 	path = zeal
 	url = https://github.com/generic-github-user/zeal
+[submodule "generic-github-user"]
+	path = generic-github-user
+	url = https://github.com/generic-github-user/generic-github-user
+[submodule "clover"]
+	path = clover
+	url = https://github.com/generic-github-user/clover
+[submodule "utils"]
+	path = utils
+	url = https://github.com/generic-github-user/utils
+[submodule "c2s"]
+	path = c2s
+	url = https://github.com/generic-github-user/c2s
+[submodule "board"]
+	path = board
+	url = https://github.com/generic-github-user/board
+[submodule "finch"]
+	path = finch
+	url = https://github.com/generic-github-user/finch
+[submodule "tetris-variants"]
+	path = tetris-variants
+	url = https://github.com/generic-github-user/tetris-variants
