@@ -1,0 +1,6 @@
+[submodule "ao"]
+	path = ao
+	url = https://github.com/generic-github-user/ao
+[submodule "zeal"]
+	path = zeal
+	url = https://github.com/generic-github-user/zeal
