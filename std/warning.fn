@@ -28,3 +28,23 @@ public type warning
 						intentional, it is strongly recommended to redesign your code so
 						that this does not occur. Otherwise, check for a termination
 						condition that should be satisfied but never is."
+
+		"Warnings for use by style checkers and linters that suggest best practices
+		for writing readable code"
+		public type style
+
+				public type length
+
+						public type comment
+
+						public type code
+
+				public type spacesnottabs
+						"Use spaces instead of tabs for indentation; inserting either 2, 4,
+						or 6 spaces for each indent level is recommended."
+
+				public type nesting
+
+				public type missing
+						public type comment
+								"Every type and function should have a comment or docstring"
