@@ -37,3 +37,15 @@ class RefinementType(Type):
                 else self.this.validate(x)),
             self.p(x, other)
         )
+
+class OperationType(Type):
+    def __init__(self, a, b, op):
+        super().__init__()
+        self.a, self.b, self.op = a, b, op
+
+    #def validate(self, x):
+        #return all(
+            #self.a.validate(x),
+
+    def evaluate(self, x):
+        return self.op(x, self.b)
