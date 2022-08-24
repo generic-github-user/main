@@ -38,6 +38,17 @@ class RefinementType(Type):
             self.p(x, other)
         )
 
+
+def predicate_factory(y):
+    def np(self, other):
+        return RefinementType(self, getattr(operator, y), other)
+    return np
+
+for op in ['eq', 'ne', 'gt', 'ge', 'lt', 'le']:
+    setattr(Type, f'__{op}__', predicate_factory(op))
+    #setattr(Type, f'__{op}__', staticmethod(predicate_factory(op)))
+
+
 class OperationType(Type):
     def __init__(self, a, b, op):
         super().__init__()
@@ -49,3 +60,13 @@ class OperationType(Type):
 
     def evaluate(self, x):
         return self.op(x, self.b)
+
+def expr_factory(y):
+    def np(self, other):
+        return OperationType(self, other, getattr(operator, y))
+    return np
+
+for op in ['getitem']:
+    setattr(Type, f'__{op}__', expr_factory(op))
+    #setattr(Type, f'__{op}__', staticmethod(expr_factory(op)))
+
