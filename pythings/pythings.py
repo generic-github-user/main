@@ -70,3 +70,32 @@ for op in ['getitem']:
     setattr(Type, f'__{op}__', expr_factory(op))
     #setattr(Type, f'__{op}__', staticmethod(expr_factory(op)))
 
+
+
+class StringType(Type):
+    def __init__(self):
+        super().__init__()
+
+    def validate(self, x): return isinstance(x, str)
+String = StringType()
+
+#setattr(String, f'__getitem__', staticmethod(expr_factory('getitem')))
+
+class FloatType(Type):
+    def __init__(self):
+        super().__init__()
+
+    def validate(self, x): return isinstance(x, float)
+Float = FloatType()
+
+class IntType(Type):
+    def __init__(self):
+        super().__init__()
+
+    def validate(self, x): return isinstance(x, int)
+Int = IntType()
+
+#Tuple = Type('Tuple')
+class Tuple(Type):
+    def __init__(self, *args, **kwargs):
+        super().__init__()
