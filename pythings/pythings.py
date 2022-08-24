@@ -24,3 +24,16 @@ class UnionType(Type):
 
     def validate(self, x):
         return any(m.validate(x) for m in self.members)
+
+# TODO: is another class necessary?
+class RefinementType(Type):
+    def __init__(self, this, p, other):
+        super().__init__()
+        self.this, self.p, self.other = this, p, other
+
+    def validate(self, x):
+        return all(
+            (self.this.evaluate(x) if isinstance(self.this, OperationType)
+                else self.this.validate(x)),
+            self.p(x, other)
+        )
