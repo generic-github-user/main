@@ -129,3 +129,15 @@ class Class:
                             but received ({", ".join(map(str, args))})
                         """).replace('\n', ' '))
         self.cls = Z
+
+    def validate(self, x): pass
+
+    def new(self, *args, **kwargs):
+        return self.cls(*args, **kwargs)
+
+    def __call__(self, *args, **kwargs):
+        self.new(*args, **kwargs)
+
+    def __str__(self):
+        nl = '\n'
+        return f'[class] {self.name} ({nl.join(map(str, self.attrs))})'
