@@ -16,3 +16,13 @@ possible function outputs (return values), etc. In practice, I often find
 myself creating partial class templates or makeshift components that check
 input types and generate documentation from type signatures and other
 annotations.
+
+Thus, the goal here is to create a generic helper class that others can extend
+and which integrates (potentially sophisticated) type information to
+automatically perform runtime type checking for arguments and other values when
+appropriate, generate relevant unit tests, and build formatted documentation.
+In Python, there are a few reasonable options for achieving something like this:
+
+- Create a base class, subclass it, and instantiate the subclass: this raises the potential for namespace conflicts between the base class and subclass, and special attributes need to be manually bound to the class since there's no conceptual separation between the type in question and *its* type reflected in the class structure
+- Use a function to dynamically generate a closure containing the target class and any tests/type checks/auxiliary information constructed by the module: this works fine if we don't intend to introspect the class itself later (and the information could indeed be abstracted out to the constructor level if one preferred), but seemed like the wrong choice for this module since I wanted to include features like documentation/API reference generation tied directly into generated classes
+- Create an outer class to represent the type of types that stores metadata about valid argument types, how object fields are produced from arguments, invariants/assertions that should be tested during execution, etc., then use this class to dynamically declare the actual target class that will be instantiated by the user (and provide an interface to it via the wrapper): this appeared to be the most flexible option and is the one I elected for this tool
