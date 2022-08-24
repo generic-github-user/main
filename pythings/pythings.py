@@ -141,3 +141,12 @@ class Class:
     def __str__(self):
         nl = '\n'
         return f'[class] {self.name} ({nl.join(map(str, self.attrs))})'
+
+Animal = Class(
+    "Animal", "A simple animal class.",
+    #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
+    ('name', String != ''),
+    ('species', String != ''),
+    ('weight?', (Float | Int) > 0)
+)
+x = Animal('Jerry', 'wolf', 50.0)
