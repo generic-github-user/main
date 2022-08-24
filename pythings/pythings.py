@@ -99,3 +99,33 @@ Int = IntType()
 class Tuple(Type):
     def __init__(self, *args, **kwargs):
         super().__init__()
+
+class ArgumentError(ValueError):
+    pass
+
+# A generic metaclass
+class Class:
+    def __init__(self, *attrs):
+        attrs = list(attrs)
+        for i in range(len(attrs)):
+            match attrs[i]:
+                case name, T:
+                    attrs[i] = Box({'name': name, 'type': T})
+                    print(f'Warning: Field "{attrs[i].name}" does not have an associated info parameter; it is recommended that all fields in a class include a short description of how they are used and/or created')
+                case name, info, T: attrs[i] = Box({'name': name, 'info': info, 'type': T})
+
+        if isinstance(attrs[0], str):
+            self.name = attrs[0]
+            self.info = textwrap.dedent(attrs[1])
+            self.attrs = attrs[2:]
+        else: self.attrs = attrs
+
+        class Z:
+            def __init__(inner, *args, **kwargs):
+                if len(args) != len(self.attrs):
+                    raise ArgumentError(textwrap.dedent(f"""
+                            Incorrect number of arguments;
+                            expected ({", ".join(map(str, (a.type for a in self.attrs)))})
+                            but received ({", ".join(map(str, args))})
+                        """).replace('\n', ' '))
+        self.cls = Z
