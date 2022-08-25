@@ -20,7 +20,361 @@ class Type:
 
 class UnionType(Type):
     def __init__(self, *members):
+        super().__init__()
         self.members = members
 
     def validate(self, x):
         return any(m.validate(x) for m in self.members)
+
+class RangeType(Type):
+    def __init__(self, a=None, b=None):
+        super().__init__()
+        self.a = a
+        self.b = b
+
+    def canonical(self):
+        return
+
+# TODO: is another class necessary?
+class RefinementType(Type):
+    def __init__(self, this, p, other):
+        super().__init__()
+        self.this, self.p, self.other = this, p, other
+
+    def validate(self, x):
+        return all(
+            (self.this.evaluate(x) if isinstance(self.this, OperationType)
+                else self.this.validate(x)),
+            self.p(x, other)
+        )
+
+    def __str__(self):
+        sym = None
+        match self.p:
+            case operator.eq: sym = '=='
+            case operator.ne: sym = '!='
+            case operator.gt: sym = '>'
+            case operator.ge: sym = '>='
+            case operator.lt: sym = '<'
+            case operator.le: sym = '<='
+
+        other = self.other
+        if isinstance(other, str): other = f'"{other}"'
+        return f'{self.this} {sym} {other}'
+
+    def eng(self): pass
+
+
+def predicate_factory(y):
+    def np(self, other):
+        return RefinementType(self, getattr(operator, y), other)
+    return np
+
+# bind predicate-generating operators (for refinement types); if n is an int, T
+# > n is essentially shorthand for x: T, x > n
+for op in ['eq', 'ne', 'gt', 'ge', 'lt', 'le']:
+    setattr(Type, f'__{op}__', predicate_factory(op))
+    #setattr(Type, f'__{op}__', staticmethod(predicate_factory(op)))
+
+
+# an expression formed with a type and a value combined using an operator, e.g.
+# when we access an object property or index (the exact semantics of this class
+# might need some work)
+class OperationType(Type):
+    def __init__(self, a, b, op):
+        super().__init__()
+        self.a, self.b, self.op = a, b, op
+
+    #def validate(self, x):
+        #return all(
+            #self.a.validate(x),
+
+    def evaluate(self, x):
+        return self.op(x, self.b)
+
+def expr_factory(y):
+    def np(self, other):
+        return OperationType(self, other, getattr(operator, y))
+    return np
+
+for op in ['getitem']:
+    setattr(Type, f'__{op}__', expr_factory(op))
+    #setattr(Type, f'__{op}__', staticmethod(expr_factory(op)))
+
+
+# simple types that correspond roughly to Python datatypes
+
+class StringType(Type):
+    def __init__(self):
+        super().__init__()
+
+    def validate(self, x): return isinstance(x, str)
+String = StringType()
+
+#setattr(String, f'__getitem__', staticmethod(expr_factory('getitem')))
+
+class FloatType(Type):
+    def __init__(self):
+        super().__init__()
+
+    def validate(self, x): return isinstance(x, float)
+Float = FloatType()
+
+class IntType(Type):
+    def __init__(self):
+        super().__init__()
+
+    def validate(self, x): return isinstance(x, int)
+Int = IntType()
+
+#Tuple = Type('Tuple')
+class Tuple(Type):
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+
+class ArgumentError(ValueError):
+    pass
+
+class Attribute:
+    def __init__(self, name, T, info=None, aliases=None):
+        self.name = name
+        self.T = T
+        self.info = info
+        self.aliases = aliases
+
+    def __str__(self):
+        return f'{self.name}: {self.T}'
+
+    def doc(self, fmt):
+        match fmt:
+            case 'markdown':
+                return f'**{self.name}**: *{self.T}* - {self.info or "attribute is not yet documented"}'
+
+# A generic metaclass
+class Class:
+    def __init__(self, *attrs, **kwargs):
+        attrs = list(attrs)
+        for i in range(len(attrs)):
+            match attrs[i]:
+                case [name, *alias], info, T: attrs[i] = Attribute(name, T, info, alias)
+                case name, T:
+                    attrs[i] = Attribute(name, T)
+                    print(f'Warning: Field "{attrs[i].name}" does not have an associated info parameter; it is recommended that all fields in a class include a short description of how they are used and/or created')
+                case name, info, T: attrs[i] = Attribute(name, T, info)
+
+        if isinstance(attrs[0], str):
+            self.name = attrs[0]
+            self.info = textwrap.dedent(attrs[1])
+            self.attrs = attrs[2:]
+        else: self.attrs = attrs
+        self.methods = []
+
+        # this is the actual class that is instantiated when we want to
+        # construct a member of this abstract (outer) class; it is not strictly
+        # necessary to define an actual class but it makes it more clear what
+        # is going on
+        class Z:
+            def __init__(inner, *args, **kwargs):
+                # if we wanted, we could perform these checks in the outer
+                # class' __call__/new method; as far as I can tell, there's no
+                # significant functional difference
+                if len(args) != len(self.attrs):
+                    raise ArgumentError(textwrap.dedent(f"""
+                            Incorrect number of arguments;
+                            expected ({", ".join(map(str, (a.type for a in self.attrs)))})
+                            but received ({", ".join(map(str, args))})
+                        """).replace('\n', ' '))
+        self.cls = Z
+
+    def validate(self, x): pass
+    def derive(self, *args, **kwargs): return self
+    def insert(self, *args, **kwargs): return self
+
+    def new(self, *args, **kwargs):
+        return self.cls(*args, **kwargs)
+
+    def __call__(self, *args, **kwargs):
+        self.new(*args, **kwargs)
+
+    def __str__(self):
+        nl = '\n'
+        return f'[class] {self.name} {nl}{textwrap.indent(nl.join(map(str, self.attrs)), " "*4)}'
+
+    def doc(self,
+            doc_format,
+            depth=3,
+            python_types=True,
+            generate_examples=True):
+        output = None
+        nl = '\n'
+        match doc_format:
+            case 'markdown':
+                z = '#' * depth
+                output = f"""
+                    {z} class `{self.name}`
+
+                    {self.info}
+
+                    {z}# Fields
+
+                    {nl.join(f'- {x.doc("markdown")}' for x in self.attrs)}
+
+                    {z}# Methods
+
+                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods) or "This class has no methods."}
+                """
+            case 'text':
+                return str(self)
+
+            case _:
+                raise ValueError
+        #print(output, textwrap.dedent(output))
+        #return textwrap.dedent(output)
+        return '\n'.join(map(str.lstrip, output.splitlines()))
+Animal = Class(
+    "Animal", "A simple animal class.",
+    #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
+    ('name', String != ''),
+    ('species', String != ''),
+    ('weight?', (Float | Int) > 0),
+    suppress_warnings=True
+)
+x = Animal('Jerry', 'wolf', 50.0)
+
+
+
+File = Class(
+    "File", """\
+        A class for representing an entry in a filesystem; includes some basic
+        metadata.""",
+
+    ('name', "The file's name, including its extension(s)", String != ''),
+    ('base', "A file name, excluding any file extensions", String != ''),
+    ('path', "A relative or absolute path to a file", String != ''),
+    (('extension', 'ext'), "The file extension, not including the leading period", String),
+    ('size', "The size of the file in bytes", Int >= 0),
+    ('time', "Time metadata, normalized to a Python datetime object", Tuple(
+            ('created', datetime),
+            ('modified', datetime),
+            ('accessed', datetime)
+        )),
+
+    #(File.name in File.path)
+)
+#f = File()
+
+def demo():
+    print(File.doc('markdown'))
+    print(File.doc('text'))
+
+demo()
+
+
+#class Point
+
+Number = Int | Float
+Point = Class('Point',
+        'A simple point in two-dimensional Euclidean space; \
+            can also be used to represent a vector.',
+
+        x=Number,
+        y=Number,
+
+        _attrfmt="The point's {} coordinate",
+        _fmt='({}, {})',
+        _examples="""
+            # initialize a new point (these are all equivalent)
+            a = Point(3, 4)
+            a = Point(x=3, y=4)
+            a = Point([3, 4])
+            a = Point({x: 3, y: 4})
+            a = Point.set_x(3).set_y(4)
+
+
+            #print(a.norm())
+            a.norm()
+            b = Point(2, 1)
+
+            # use basic arithmetic operators on points
+            a - b
+            a + b
+
+            # compare points
+            a == b
+            a != b
+
+            (a + b).norm()
+            a >= 4
+
+            a.to(tuple)
+            xa, ya = a
+            a.x == a['x'] == a[0] == a.get('x')
+
+            # scale points via broadcasting
+            b * 3
+            a / 2
+            b ** 4
+            a / 0
+            a *= 2
+
+            # the other operand is type-checked before the error gets to the
+            # interpreter level so you can intercept it however you see fit
+            a -= 'eclectic'
+            a.z
+
+            # find the distance between two points
+            Point.dist(a, b)
+            a.dist(b)
+            # rshift is overloaded to compute distance
+            a >> b
+
+            c = Point(7, -4)
+            Point.min([a, b, c])
+            Point.max([a, b, c])
+            Point.mean([a, b, c])
+
+            # a binary mean operation is aliased as the midpoint method
+            Point.midpoint(a, c)
+
+            Point.min([a, b, c], key='norm')
+            Point.max([a, b, c], key='norm')
+
+            Point.reduce([a, b, c], Point.dist)
+            Point.sum([a, b, c])
+
+            a.x = 8
+            a.y += 3
+            a
+
+            # convert Point instances to various formats
+            b.to_dict()
+            b.to_json()
+            b.to_yaml()
+            b.to_string()
+            b.to_namedtuple()
+
+            # create a new point by converting the datatype that Point wraps
+            # (in this case, we start with `Number`s so existing `float`s
+            # remain the same while `int`s are typecasted)
+            a.cast(Float)
+            Point.cast(a, Float)
+
+            b2 = b.clone()
+            b.y += 8
+            print(b, b2)
+
+            Point.doc('markdown')
+            Point.doc('text')
+            Point.doc('html')
+        """,
+        _tests="""
+            Point(3, 4).norm() == 5
+            Point(4, 5) + Point(6, 7) == Point(10, 12)
+        """
+    )\
+    .derive('__add__', '__sub__', '__eq__', '__ne__', '__neg__', 'max', 'min')\
+    .insert(
+        norm=lambda x, y: math.sqrt(x**2 + y**2),
+        dist=lambda a, b: (a - b).norm(),
+        transpose=lambda x, y: Point(y, x)
+    )
