@@ -117,16 +117,26 @@ class Tuple(Type):
 class ArgumentError(ValueError):
     pass
 
+class Attribute:
+    def __init__(self, name, T, info=None, aliases=None):
+        self.name = name
+        self.T = T
+        self.info = info
+        self.aliases = aliases
+
+    def __str__(self):
+        return f'{self.name}: {self.T}'
 # A generic metaclass
 class Class:
-    def __init__(self, *attrs):
+    def __init__(self, *attrs, **kwargs):
         attrs = list(attrs)
         for i in range(len(attrs)):
             match attrs[i]:
+                case [name, *alias], info, T: attrs[i] = Attribute(name, T, info, alias)
                 case name, T:
-                    attrs[i] = Box({'name': name, 'type': T})
+                    attrs[i] = Attribute(name, T)
                     print(f'Warning: Field "{attrs[i].name}" does not have an associated info parameter; it is recommended that all fields in a class include a short description of how they are used and/or created')
-                case name, info, T: attrs[i] = Box({'name': name, 'info': info, 'type': T})
+                case name, info, T: attrs[i] = Attribute(name, T, info)
 
         if isinstance(attrs[0], str):
             self.name = attrs[0]
