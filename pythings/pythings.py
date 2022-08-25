@@ -254,6 +254,30 @@ Point = Class('Point',
 
         _attrfmt="The point's {} coordinate",
         _fmt='({}, {})',
+        _examples="""
+            # initialize a new point (these are all equivalent)
+            a = Point(3, 4)
+            a = Point(x=3, y=4)
+            a = Point([3, 4])
+            a = Point({x: 3, y: 4})
+            a = Point.set_x(3).set_y(4)
+
+
+            #print(a.norm())
+            a.norm()
+            b = Point(2, 1)
+
+            # use basic arithmetic operators on points
+            a - b
+            a + b
+
+            # compare points
+            a == b
+            a != b
+
+            (a + b).norm()
+            a >= 4
+        """,
         _tests="""
             Point(3, 4).norm() == 5
             Point(4, 5) + Point(6, 7) == Point(10, 12)
