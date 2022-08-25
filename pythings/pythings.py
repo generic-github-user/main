@@ -38,6 +38,20 @@ class RefinementType(Type):
             self.p(x, other)
         )
 
+    def __str__(self):
+        sym = None
+        match self.p:
+            case operator.eq: sym = '=='
+            case operator.ne: sym = '!='
+            case operator.gt: sym = '>'
+            case operator.ge: sym = '>='
+            case operator.lt: sym = '<'
+            case operator.le: sym = '<='
+
+        other = self.other
+        if isinstance(other, str): other = f'"{other}"'
+        return f'{self.this} {sym} {other}'
+
 
 def predicate_factory(y):
     def np(self, other):
