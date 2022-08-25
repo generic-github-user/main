@@ -156,6 +156,35 @@ class Class:
         nl = '\n'
         return f'[class] {self.name} ({nl.join(map(str, self.attrs))})'
 
+    def doc(self,
+            doc_format,
+            depth=3,
+            python_types=True,
+            generate_examples=True):
+        output = None
+        nl = '\n'
+        match doc_format:
+            case 'markdown':
+                z = '#' * depth
+                output = f"""
+                    {z} class `{self.name}`
+
+                    {self.info}
+
+                    {z}# Fields
+
+                    {nl.join(f'- {x.doc("markdown")}' for x in self.attrs)}
+
+                    {z}# Methods
+
+                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods)}
+                """
+            case 'text':
+                return str(self)
+
+            case _:
+                raise ValueError
+        return textwrap.dedent(output)
 Animal = Class(
     "Animal", "A simple animal class.",
     #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
