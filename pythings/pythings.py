@@ -20,10 +20,20 @@ class Type:
 
 class UnionType(Type):
     def __init__(self, *members):
+        super().__init__()
         self.members = members
 
     def validate(self, x):
         return any(m.validate(x) for m in self.members)
+
+class RangeType(Type):
+    def __init__(self, a=None, b=None):
+        super().__init__()
+        self.a = a
+        self.b = b
+
+    def canonical(self):
+        return
 
 # TODO: is another class necessary?
 class RefinementType(Type):
@@ -51,6 +61,8 @@ class RefinementType(Type):
         other = self.other
         if isinstance(other, str): other = f'"{other}"'
         return f'{self.this} {sym} {other}'
+
+    def eng(self): pass
 
 
 def predicate_factory(y):
@@ -175,6 +187,8 @@ class Class:
         self.cls = Z
 
     def validate(self, x): pass
+    def derive(self, *args, **kwargs): return self
+    def insert(self, *args, **kwargs): return self
 
     def new(self, *args, **kwargs):
         return self.cls(*args, **kwargs)
@@ -222,7 +236,8 @@ Animal = Class(
     #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
     ('name', String != ''),
     ('species', String != ''),
-    ('weight?', (Float | Int) > 0)
+    ('weight?', (Float | Int) > 0),
+    suppress_warnings=True
 )
 x = Animal('Jerry', 'wolf', 50.0)
 
@@ -237,8 +252,8 @@ File = Class(
     ('base', "A file name, excluding any file extensions", String != ''),
     ('path', "A relative or absolute path to a file", String != ''),
     (('extension', 'ext'), "The file extension, not including the leading period", String),
-    ('size', 'The size of the file in bytes', Int >= 0),
-    ('time', Tuple(
+    ('size', "The size of the file in bytes", Int >= 0),
+    ('time', "Time metadata, normalized to a Python datetime object", Tuple(
             ('created', datetime),
             ('modified', datetime),
             ('accessed', datetime)
@@ -360,5 +375,6 @@ Point = Class('Point',
     .derive('__add__', '__sub__', '__eq__', '__ne__', '__neg__', 'max', 'min')\
     .insert(
         norm=lambda x, y: math.sqrt(x**2 + y**2),
-        dist=lambda a, b: (a - b).norm()
+        dist=lambda a, b: (a - b).norm(),
+        transpose=lambda x, y: Point(y, x)
     )
