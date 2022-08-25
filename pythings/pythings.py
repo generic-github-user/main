@@ -126,6 +126,12 @@ class Attribute:
 
     def __str__(self):
         return f'{self.name}: {self.T}'
+
+    def doc(self, fmt):
+        match fmt:
+            case 'markdown':
+                return f'**{self.name}**: *{self.T}* - {self.info or "attribute is not yet documented"}'
+
 # A generic metaclass
 class Class:
     def __init__(self, *attrs, **kwargs):
@@ -143,6 +149,7 @@ class Class:
             self.info = textwrap.dedent(attrs[1])
             self.attrs = attrs[2:]
         else: self.attrs = attrs
+        self.methods = []
 
         class Z:
             def __init__(inner, *args, **kwargs):
@@ -164,7 +171,7 @@ class Class:
 
     def __str__(self):
         nl = '\n'
-        return f'[class] {self.name} ({nl.join(map(str, self.attrs))})'
+        return f'[class] {self.name} {nl}{textwrap.indent(nl.join(map(str, self.attrs)), " "*4)}'
 
     def doc(self,
             doc_format,
@@ -187,14 +194,16 @@ class Class:
 
                     {z}# Methods
 
-                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods)}
+                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods) or "This class has no methods."}
                 """
             case 'text':
                 return str(self)
 
             case _:
                 raise ValueError
-        return textwrap.dedent(output)
+        #print(output, textwrap.dedent(output))
+        #return textwrap.dedent(output)
+        return '\n'.join(map(str.lstrip, output.splitlines()))
 Animal = Class(
     "Animal", "A simple animal class.",
     #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
@@ -207,8 +216,9 @@ x = Animal('Jerry', 'wolf', 50.0)
 
 
 File = Class(
-    "File", "A class for representing an entry in a filesystem; includes some basic\
-    metadata.",
+    "File", """\
+        A class for representing an entry in a filesystem; includes some basic
+        metadata.""",
 
     ('name', "The file's name, including its extension(s)", String != ''),
     ('base', "A file name, excluding any file extensions", String != ''),
@@ -226,7 +236,7 @@ File = Class(
 #f = File()
 
 def demo():
-    #print(File.doc('markdown'))
+    print(File.doc('markdown'))
     print(File.doc('text'))
 
 demo()
