@@ -142,6 +142,12 @@ class Class:
                             but received ({", ".join(map(str, args))})
                         """).replace('\n', ' '))
 
+            f"""
+            Convert an instance of `{self.name}` to various formats; useful for
+            serialization. `fmt` should be 'json' or 'dict'. If `fmt` is
+            `json`, the given `**kwargs` will also be passed to `json.dumps`
+            and a string will be returned.
+            """
             def to(inner, fmt, **kwargs):
                 match fmt:
                     case 'dict':
@@ -152,6 +158,7 @@ class Class:
 
                     case _: raise ArgumentError("Invalid format parameter")
 
+        #Z.to.__doc__
         self.cls = Z
 
     def validate(self, x): pass
