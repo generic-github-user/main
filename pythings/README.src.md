@@ -10,12 +10,7 @@ parsing tool.
 
 ## Contents
 
-- [pythings](#pythings)
-  * [Contents](#contents)
-  * [Purpose](#purpose)
-  * [Technical Details](#technical-details)
-  * [Stats](#stats)
-  * [Tree](#tree)
+[[toc]]
 
 ## Purpose
 
@@ -42,27 +37,10 @@ In Python, there are a few reasonable options for achieving something like this:
 
 ## Stats
 
-
-cloc|github.com/AlDanial/cloc v 1.82  T=0.00 s (1064.4 files/s, 40713.6 lines/s)
---- | ---
-
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-Markdown|2|29|0|83
-Python|2|11|2|28
---------|--------|--------|--------|--------
-SUM:|4|40|2|111
-
+[[stats]]
 
 ## Tree
 
 ```
-.
-├── build.py
-├── pythings.py
-├── README.md
-└── README.src.md
-
-0 directories, 4 files
-
+[[tree]]
 ```
