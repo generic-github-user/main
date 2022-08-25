@@ -141,6 +141,17 @@ class Class:
                             expected ({", ".join(map(str, (a.type for a in self.attrs)))})
                             but received ({", ".join(map(str, args))})
                         """).replace('\n', ' '))
+
+            def to(inner, fmt, **kwargs):
+                match fmt:
+                    case 'dict':
+                        return {a.name: inner.get(a.name).to('dict') for a in self.attrs}
+                    case 'json':
+                        import json
+                        return json.dumps(inner.to('dict'), **kwargs)
+
+                    case _: raise ArgumentError("Invalid format parameter")
+
         self.cls = Z
 
     def validate(self, x): pass
