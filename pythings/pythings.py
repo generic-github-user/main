@@ -277,6 +277,33 @@ Point = Class('Point',
 
             (a + b).norm()
             a >= 4
+
+            a.to(tuple)
+            xa, ya = a
+            a.x == a['x'] == a[0] == a.get('x')
+
+            # scale points via broadcasting
+            b * 3
+            a / 2
+            b ** 4
+            a / 0
+            a *= 2
+
+            # the other operand is type-checked before the error gets to the
+            # interpreter level so you can intercept it however you see fit
+            a -= 'eclectic'
+            a.z
+
+            # find the distance between two points
+            Point.dist(a, b)
+            a.dist(b)
+            # rshift is overloaded to compute distance
+            a >> b
+
+            c = Point(7, -4)
+            Point.min([a, b, c])
+            Point.max([a, b, c])
+            Point.mean([a, b, c])
         """,
         _tests="""
             Point(3, 4).norm() == 5
