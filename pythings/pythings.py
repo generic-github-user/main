@@ -161,11 +161,21 @@ attributes and methods. Supports serialization, documentation generation,
 logging, runtime type checking, and more. This class wraps a dynamically
 generated internal class which is the one actually instantiated. In this sense
 this is a "metaclass" that describes how to build a concrete class that can be
-manipulated in the usual ways. This extra abstraction might seem superfluous,
-but provides some nice benefits like a more consistent mental model of typed
-objects, elimination of namespace conflicts introduced by subclassing, etc.
+manipulated in the usual ways. This extra abstraction (e.g., instead of simply
+using a subclass) might seem superfluous, but provides some nice benefits like
+a more consistent mental model of typed objects, elimination of namespace
+conflicts introduced by subclassing, etc.
 """
 class Class:
+    """
+    Construct a metaclass from a high-level description. The variable-length
+    `*attrs` is used to designate the class' attributes. If the first item is a
+    string, it will be used as the class name; and if the second is also a
+    string, it will be used as the description of the class that appears in
+    generated documentation (both are optional), and subsequent items will be
+    interpreted as attribute descriptors. Alternatively, you can use the `name`
+    and `info` kwargs.
+    """
     def __init__(self, *attrs, **kwargs):
         attrs = list(attrs)
         for i in range(len(attrs)):
@@ -214,6 +224,17 @@ class Class:
         nl = '\n'
         return f'[class] {self.name} {nl}{textwrap.indent(nl.join(map(str, self.attrs)), " "*4)}'
 
+    """
+    Generate documentation for a constructed class (i.e., metaclass instance);
+    currently only supports Markdown. By default, this method lists
+    fields/attributes, methods, and examples of usage, which are each
+    represented by another class with its own `doc` method.
+
+    Some possibly useful information:
+
+    - `depth` is the initial nesting level for Markdown-like languages, in which case it is used to create headers of the proper level
+    - if `python_types` is `True`, the output will use basic Python types like `str` and `int` wherever possible, instead of the wrappers `String` and `Int`
+    """
     def doc(self,
             doc_format,
             depth=3,
