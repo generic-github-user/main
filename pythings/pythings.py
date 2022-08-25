@@ -304,6 +304,40 @@ Point = Class('Point',
             Point.min([a, b, c])
             Point.max([a, b, c])
             Point.mean([a, b, c])
+
+            # a binary mean operation is aliased as the midpoint method
+            Point.midpoint(a, c)
+
+            Point.min([a, b, c], key='norm')
+            Point.max([a, b, c], key='norm')
+
+            Point.reduce([a, b, c], Point.dist)
+            Point.sum([a, b, c])
+
+            a.x = 8
+            a.y += 3
+            a
+
+            # convert Point instances to various formats
+            b.to_dict()
+            b.to_json()
+            b.to_yaml()
+            b.to_string()
+            b.to_namedtuple()
+
+            # create a new point by converting the datatype that Point wraps
+            # (in this case, we start with `Number`s so existing `float`s
+            # remain the same while `int`s are typecasted)
+            a.cast(Float)
+            Point.cast(a, Float)
+
+            b2 = b.clone()
+            b.y += 8
+            print(b, b2)
+
+            Point.doc('markdown')
+            Point.doc('text')
+            Point.doc('html')
         """,
         _tests="""
             Point(3, 4).norm() == 5
