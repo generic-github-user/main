@@ -240,3 +240,27 @@ def demo():
     print(File.doc('text'))
 
 demo()
+
+
+#class Point
+
+Number = Int | Float
+Point = Class('Point',
+        'A simple point in two-dimensional Euclidean space; \
+            can also be used to represent a vector.',
+
+        x=Number,
+        y=Number,
+
+        _attrfmt="The point's {} coordinate",
+        _fmt='({}, {})',
+        _tests="""
+            Point(3, 4).norm() == 5
+            Point(4, 5) + Point(6, 7) == Point(10, 12)
+        """
+    )\
+    .derive('__add__', '__sub__', '__eq__', '__ne__', '__neg__', 'max', 'min')\
+    .insert(
+        norm=lambda x, y: math.sqrt(x**2 + y**2),
+        dist=lambda a, b: (a - b).norm()
+    )
