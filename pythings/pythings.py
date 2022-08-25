@@ -135,6 +135,9 @@ class Tuple(Type):
 class ArgumentError(ValueError):
     pass
 
+""" An (abstract) class attribute, wrapping a name and a type (and possibly
+documentation). This is essentially a data class with a couple methods for
+generating documentation artifacts. """
 class Attribute:
     def __init__(self, name, T, info=None, aliases=None):
         self.name = name
@@ -151,6 +154,17 @@ class Attribute:
                 return f'**{self.name}**: *{self.T}* - {self.info or "attribute is not yet documented"}'
 
 # A generic metaclass
+
+"""
+An enhanced Python class that stores complex type information about its
+attributes and methods. Supports serialization, documentation generation,
+logging, runtime type checking, and more. This class wraps a dynamically
+generated internal class which is the one actually instantiated. In this sense
+this is a "metaclass" that describes how to build a concrete class that can be
+manipulated in the usual ways. This extra abstraction might seem superfluous,
+but provides some nice benefits like a more consistent mental model of typed
+objects, elimination of namespace conflicts introduced by subclassing, etc.
+"""
 class Class:
     def __init__(self, *attrs, **kwargs):
         attrs = list(attrs)
