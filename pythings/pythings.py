@@ -38,6 +38,20 @@ class RefinementType(Type):
             self.p(x, other)
         )
 
+    def __str__(self):
+        sym = None
+        match self.p:
+            case operator.eq: sym = '=='
+            case operator.ne: sym = '!='
+            case operator.gt: sym = '>'
+            case operator.ge: sym = '>='
+            case operator.lt: sym = '<'
+            case operator.le: sym = '<='
+
+        other = self.other
+        if isinstance(other, str): other = f'"{other}"'
+        return f'{self.this} {sym} {other}'
+
 
 def predicate_factory(y):
     def np(self, other):
@@ -109,22 +123,39 @@ class Tuple(Type):
 class ArgumentError(ValueError):
     pass
 
+class Attribute:
+    def __init__(self, name, T, info=None, aliases=None):
+        self.name = name
+        self.T = T
+        self.info = info
+        self.aliases = aliases
+
+    def __str__(self):
+        return f'{self.name}: {self.T}'
+
+    def doc(self, fmt):
+        match fmt:
+            case 'markdown':
+                return f'**{self.name}**: *{self.T}* - {self.info or "attribute is not yet documented"}'
+
 # A generic metaclass
 class Class:
-    def __init__(self, *attrs):
+    def __init__(self, *attrs, **kwargs):
         attrs = list(attrs)
         for i in range(len(attrs)):
             match attrs[i]:
+                case [name, *alias], info, T: attrs[i] = Attribute(name, T, info, alias)
                 case name, T:
-                    attrs[i] = Box({'name': name, 'type': T})
+                    attrs[i] = Attribute(name, T)
                     print(f'Warning: Field "{attrs[i].name}" does not have an associated info parameter; it is recommended that all fields in a class include a short description of how they are used and/or created')
-                case name, info, T: attrs[i] = Box({'name': name, 'info': info, 'type': T})
+                case name, info, T: attrs[i] = Attribute(name, T, info)
 
         if isinstance(attrs[0], str):
             self.name = attrs[0]
             self.info = textwrap.dedent(attrs[1])
             self.attrs = attrs[2:]
         else: self.attrs = attrs
+        self.methods = []
 
         # this is the actual class that is instantiated when we want to
         # construct a member of this abstract (outer) class; it is not strictly
@@ -153,8 +184,39 @@ class Class:
 
     def __str__(self):
         nl = '\n'
-        return f'[class] {self.name} ({nl.join(map(str, self.attrs))})'
+        return f'[class] {self.name} {nl}{textwrap.indent(nl.join(map(str, self.attrs)), " "*4)}'
 
+    def doc(self,
+            doc_format,
+            depth=3,
+            python_types=True,
+            generate_examples=True):
+        output = None
+        nl = '\n'
+        match doc_format:
+            case 'markdown':
+                z = '#' * depth
+                output = f"""
+                    {z} class `{self.name}`
+
+                    {self.info}
+
+                    {z}# Fields
+
+                    {nl.join(f'- {x.doc("markdown")}' for x in self.attrs)}
+
+                    {z}# Methods
+
+                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods) or "This class has no methods."}
+                """
+            case 'text':
+                return str(self)
+
+            case _:
+                raise ValueError
+        #print(output, textwrap.dedent(output))
+        #return textwrap.dedent(output)
+        return '\n'.join(map(str.lstrip, output.splitlines()))
 Animal = Class(
     "Animal", "A simple animal class.",
     #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
@@ -167,8 +229,9 @@ x = Animal('Jerry', 'wolf', 50.0)
 
 
 File = Class(
-    "File", "A class for representing an entry in a filesystem; includes some basic\
-    metadata.",
+    "File", """\
+        A class for representing an entry in a filesystem; includes some basic
+        metadata.""",
 
     ('name', "The file's name, including its extension(s)", String != ''),
     ('base', "A file name, excluding any file extensions", String != ''),
@@ -186,7 +249,116 @@ File = Class(
 #f = File()
 
 def demo():
-    #print(File.doc('markdown'))
+    print(File.doc('markdown'))
     print(File.doc('text'))
 
 demo()
+
+
+#class Point
+
+Number = Int | Float
+Point = Class('Point',
+        'A simple point in two-dimensional Euclidean space; \
+            can also be used to represent a vector.',
+
+        x=Number,
+        y=Number,
+
+        _attrfmt="The point's {} coordinate",
+        _fmt='({}, {})',
+        _examples="""
+            # initialize a new point (these are all equivalent)
+            a = Point(3, 4)
+            a = Point(x=3, y=4)
+            a = Point([3, 4])
+            a = Point({x: 3, y: 4})
+            a = Point.set_x(3).set_y(4)
+
+
+            #print(a.norm())
+            a.norm()
+            b = Point(2, 1)
+
+            # use basic arithmetic operators on points
+            a - b
+            a + b
+
+            # compare points
+            a == b
+            a != b
+
+            (a + b).norm()
+            a >= 4
+
+            a.to(tuple)
+            xa, ya = a
+            a.x == a['x'] == a[0] == a.get('x')
+
+            # scale points via broadcasting
+            b * 3
+            a / 2
+            b ** 4
+            a / 0
+            a *= 2
+
+            # the other operand is type-checked before the error gets to the
+            # interpreter level so you can intercept it however you see fit
+            a -= 'eclectic'
+            a.z
+
+            # find the distance between two points
+            Point.dist(a, b)
+            a.dist(b)
+            # rshift is overloaded to compute distance
+            a >> b
+
+            c = Point(7, -4)
+            Point.min([a, b, c])
+            Point.max([a, b, c])
+            Point.mean([a, b, c])
+
+            # a binary mean operation is aliased as the midpoint method
+            Point.midpoint(a, c)
+
+            Point.min([a, b, c], key='norm')
+            Point.max([a, b, c], key='norm')
+
+            Point.reduce([a, b, c], Point.dist)
+            Point.sum([a, b, c])
+
+            a.x = 8
+            a.y += 3
+            a
+
+            # convert Point instances to various formats
+            b.to_dict()
+            b.to_json()
+            b.to_yaml()
+            b.to_string()
+            b.to_namedtuple()
+
+            # create a new point by converting the datatype that Point wraps
+            # (in this case, we start with `Number`s so existing `float`s
+            # remain the same while `int`s are typecasted)
+            a.cast(Float)
+            Point.cast(a, Float)
+
+            b2 = b.clone()
+            b.y += 8
+            print(b, b2)
+
+            Point.doc('markdown')
+            Point.doc('text')
+            Point.doc('html')
+        """,
+        _tests="""
+            Point(3, 4).norm() == 5
+            Point(4, 5) + Point(6, 7) == Point(10, 12)
+        """
+    )\
+    .derive('__add__', '__sub__', '__eq__', '__ne__', '__neg__', 'max', 'min')\
+    .insert(
+        norm=lambda x, y: math.sqrt(x**2 + y**2),
+        dist=lambda a, b: (a - b).norm()
+    )
