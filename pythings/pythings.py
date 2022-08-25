@@ -44,11 +44,16 @@ def predicate_factory(y):
         return RefinementType(self, getattr(operator, y), other)
     return np
 
+# bind predicate-generating operators (for refinement types); if n is an int, T
+# > n is essentially shorthand for x: T, x > n
 for op in ['eq', 'ne', 'gt', 'ge', 'lt', 'le']:
     setattr(Type, f'__{op}__', predicate_factory(op))
     #setattr(Type, f'__{op}__', staticmethod(predicate_factory(op)))
 
 
+# an expression formed with a type and a value combined using an operator, e.g.
+# when we access an object property or index (the exact semantics of this class
+# might need some work)
 class OperationType(Type):
     def __init__(self, a, b, op):
         super().__init__()
@@ -71,6 +76,7 @@ for op in ['getitem']:
     #setattr(Type, f'__{op}__', staticmethod(expr_factory(op)))
 
 
+# simple types that correspond roughly to Python datatypes
 
 class StringType(Type):
     def __init__(self):
@@ -120,8 +126,15 @@ class Class:
             self.attrs = attrs[2:]
         else: self.attrs = attrs
 
+        # this is the actual class that is instantiated when we want to
+        # construct a member of this abstract (outer) class; it is not strictly
+        # necessary to define an actual class but it makes it more clear what
+        # is going on
         class Z:
             def __init__(inner, *args, **kwargs):
+                # if we wanted, we could perform these checks in the outer
+                # class' __call__/new method; as far as I can tell, there's no
+                # significant functional difference
                 if len(args) != len(self.attrs):
                     raise ArgumentError(textwrap.dedent(f"""
                             Incorrect number of arguments;
