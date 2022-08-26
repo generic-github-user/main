@@ -8,18 +8,49 @@ import typing
 import inspect
 
 class Type:
+    """
+    A class representing an abstract type (rather than the typical sense in
+    which classes correspond roughly to types); instances of this class are
+    themselves types, though these semantics can be occasionally abused for
+    convenience or out of necessity. This (and its subclasses) is (are)
+    intended to be an alternative to those in Python's `typing` module that
+    suit the needs of this project. Accordingly, they are suitable for type
+    signatures, documentation, type checking, interactive debugging etc.
+    """
+
     def __init__(self, name=None, **kwargs):
+        """
+        Initialize a new type with name given by `name`.
+        """
+
         if name is not None:
             self.name = name
 
     def __str__(self):
+        """
+        Create a short string representing this type.
+        """
+
         if hasattr(self, 'name'): return self.name
         else: return type(self).__name__
 
     __repr__ = __str__
-    def doc(self, fmt, **kwargs): return str(self)
+    def doc(self, fmt, **kwargs):
+        """
+        Generates documentation for this type in the specified `fmt` (see
+        `Class.doc` for more detailed information on this method). Note also
+        that this is an internal method that will generally not need to be used
+        outside of the module.
+        """
+
+        return str(self)
 
     def __or__(self, b):
+        """
+        Create a union type joining this type and type `b`. The new type
+        references this object.
+        """
+
         return UnionType(self, b)
 
 class UnionType(Type):
