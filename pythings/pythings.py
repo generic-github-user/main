@@ -531,6 +531,8 @@ class Contact:
     phone: Option[String] = Attr("The contact's phone number; may be `None`-like")
     address: Option[String] = Attr("The contact's physical address; may be `None`-like")
 
-print(Contact.doc('markdown', link_src=True))
+dtest = Contact.doc('markdown', link_src=True)
+print(dtest)
+with open('contact.md', 'w+') as f: f.write(dtest)
 #print(Contact.doc('text'))
 
