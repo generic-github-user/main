@@ -17,6 +17,7 @@ class Type:
         else: return type(self).__name__
 
     __repr__ = __str__
+    def doc(self, fmt, **kwargs): return str(self)
 
     def __or__(self, b):
         return UnionType(self, b)
@@ -50,6 +51,8 @@ class RefinementType(Type):
                 else self.this.validate(x)),
             self.p(x, other)
         )
+
+    #def doc(self, fmt): return str(self)
 
     def __str__(self):
         sym = None
@@ -167,7 +170,7 @@ class Attribute:
     def doc(self, fmt):
         match fmt:
             case 'markdown':
-                return f'**{self.name}**: *{self.T}* - {self.info or "attribute is not yet documented"}'
+                return f'**{self.name}**: *{self.T.doc("markdown", astype=True)}* - {self.info or "attribute is not yet documented"}'
 
 """
 An alternate class for `Attribute` meant to be used in decorator-style `Class`
@@ -186,6 +189,21 @@ class Function(Type):
         self.output_type = output_type
         self.name = name
         self.info = info
+
+    def doc(self, fmt, depth=0):
+        match fmt:
+            case 'markdown':
+                lead = '#'*depth
+                output = f"""
+                    {lead} fn `{self.name}` ({', '.join(self.input_types)}) -> {self.output_type}
+
+                    {self.info}
+
+                    {lead}# Arguments
+                """
+            case _: raise ValueError
+
+        return output
 
     def __str__(self): raise NotImplementedError
 
@@ -305,8 +323,11 @@ class Class:
     def doc(self,
             doc_format,
             depth=3,
+            astype=False,
             python_types=True,
             generate_examples=True):
+        if astype: return self.name
+
         output = None
         nl = '\n'
         match doc_format:
@@ -315,7 +336,7 @@ class Class:
                 output = f"""
                     {z} class `{self.name}`
 
-                    {self.info}
+                    {self.info.strip()}
 
                     {z}# Fields
 
@@ -323,7 +344,7 @@ class Class:
 
                     {z}# Methods
 
-                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods) or "This class has no methods."}
+                    {(nl*2).join(f'{m.doc("markdown", depth=depth+1)}' for m in self.methods) or "This class has no methods."}
                 """
             case 'text':
                 return str(self)
