@@ -413,3 +413,14 @@ Point = Class('Point',
         dist=lambda a, b: (a - b).norm(),
         transpose=lambda x, y: Point(y, x)
     )
+
+"""
+A simple rectangle class, implemented using the `Point` class.
+"""
+class Rect:
+    pos: Point
+    delta: Point
+
+    def area(self): return self.delta.x * self.delta.y
+    def perimeter(self): return (2 * self.delta.x) + (2 * self.delta.y)
+    def scale(self, x): return Rect(pos, delta * x)
