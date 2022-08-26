@@ -7,6 +7,9 @@ from box import Box
 import typing
 import inspect
 
+import os
+from pathlib import Path
+
 class Type:
     def __init__(self, name=None, **kwargs):
         if name is not None:
@@ -215,6 +218,8 @@ class Class:
     def __init__(self, *attrs, **kwargs):
         if len(attrs) == 1 and inspect.isclass(attrs[0]):
             src = attrs[0]
+            #print(inspect.getsourcelines(src))
+
             src_attrs = filter(
                 lambda x: not x[0].startswith('__'),
                 inspect.getmembers(src, lambda a: not inspect.isroutine(a))
@@ -243,6 +248,9 @@ class Class:
                 for k, v in typing.get_type_hints(m).items():
                     T_out = v if k == 'return' else T_in.append(v)
                 self.methods.append(Function(mname, T_in, T_out, m.__doc__))
+
+            lines, start = inspect.getsourcelines(src)
+            self.source = Box(file=inspect.getfile(src), lines=(start, start+len(lines)))
         else:
             attrs = list(attrs)
             for i in range(len(attrs)):
@@ -306,14 +314,18 @@ class Class:
             doc_format,
             depth=3,
             python_types=True,
-            generate_examples=True):
+            generate_examples=True,
+            link_src=None
+        ):
         output = None
         nl = '\n'
         match doc_format:
             case 'markdown':
                 z = '#' * depth
+                #rpath = os.path.commonpath([self.source.file, Path().resolve()])
                 output = f"""
                     {z} class `{self.name}`
+                    {f"[`source`](./{Path(self.source.file).resolve().relative_to(Path('.').resolve())}#L{self.source.lines[0]}-L{self.source.lines[1]})" if link_src else ""}
 
                     {self.info}
 
@@ -369,7 +381,7 @@ def demo():
     print(File.doc('markdown'))
     print(File.doc('text'))
 
-demo()
+#demo()
 
 
 #class Point
@@ -505,8 +517,8 @@ class Rect:
         `Rect`"""
         return Rect(pos, delta * x)
     
-print(Rect.doc('markdown'))
-print(Rect.doc('text'))
+#print(Rect.doc('markdown'))
+#print(Rect.doc('text'))
 
 @Class
 class Contact:
@@ -519,5 +531,6 @@ class Contact:
     phone: Option[String] = Attr("The contact's phone number; may be `None`-like")
     address: Option[String] = Attr("The contact's physical address; may be `None`-like")
 
-#print(Contact.doc('markdown'))
+print(Contact.doc('markdown', link_src=True))
 #print(Contact.doc('text'))
+
