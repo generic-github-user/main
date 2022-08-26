@@ -358,9 +358,9 @@ class Class:
             depth=3,
             astype=False,
             python_types=True,
-            generate_examples=True):
+            generate_examples=True,
+            include_diagram=False):
         if astype: return self.name
-
         output = None
         nl = '\n'
         match doc_format:
@@ -379,6 +379,12 @@ class Class:
 
                     {(nl*2).join(f'{m.doc("markdown", depth=depth+1)}' for m in self.methods) or "This class has no methods."}
                 """
+                output = '\n'.join(map(str.lstrip, output.splitlines()))
+                if include_diagram:
+                    output += textwrap.dedent(f"""
+                        {z}# Details
+                        {self.diagram('mermaid')}
+                    """.strip())
             case 'text':
                 return str(self)
 
@@ -386,8 +392,20 @@ class Class:
                 raise ValueError
         #print(output, textwrap.dedent(output))
         #return textwrap.dedent(output)
-        return '\n'.join(map(str.lstrip, output.splitlines()))
+        
+        return output
 
+    def diagram(self, fmt: str) -> str:
+        nl = '\n'
+        match fmt:
+            case 'mermaid':
+                output = f"""
+                ```mermaid
+                    flowchart TD
+                        {(nl+' '*24).join(self.name + ' --> ' + a.name for a in self.attrs)}
+                ```
+                """
+        return textwrap.dedent(output)
 
 Animal = Class(
     "Animal", "A simple animal class.",
@@ -554,7 +572,7 @@ class Rect:
     def perimeter(self) -> Number: return (2 * self.delta.x) + (2 * self.delta.y)
     def scale(self, x) -> Number: return Rect(pos, delta * x)
     
-print(Rect.doc('markdown'))
+print(Rect.doc('markdown', include_diagram=True))
 print(Rect.doc('text'))
 
 @Class
