@@ -481,16 +481,23 @@ Point = Class('Point',
         transpose=lambda x, y: Point(y, x)
     )
 
-"""
-A simple rectangle class, implemented using the `Point` class.
-"""
+@Class
 class Rect:
-    pos: Point
-    delta: Point
+    """
+    A simple rectangle class, implemented using the `Point` class.
+    """
 
-    def area(self): return self.delta.x * self.delta.y
-    def perimeter(self): return (2 * self.delta.x) + (2 * self.delta.y)
-    def scale(self, x): return Rect(pos, delta * x)
+    pos: Point = Attr('Location of the lower-left corner of the rectangle (assume 2D Euclidean space)')
+    delta: Point = Attr('Positive (Q1) point representing the difference between opposite corners of the rectangle (including `pos`)')
+
+    def area(self) -> Number: return self.delta.x * self.delta.y
+    area.__doc__ = """Returns the rectangle's area"""
+
+    def perimeter(self) -> Number: return (2 * self.delta.x) + (2 * self.delta.y)
+    def scale(self, x) -> Number: return Rect(pos, delta * x)
+    
+print(Rect.doc('markdown'))
+print(Rect.doc('text'))
 
 @Class
 class Contact:
@@ -503,5 +510,5 @@ class Contact:
     phone: Option[String] = Attr("The contact's phone number; may be `None`-like")
     address: Option[String] = Attr("The contact's physical address; may be `None`-like")
 
-print(Contact.doc('markdown'))
-print(Contact.doc('text'))
+#print(Contact.doc('markdown'))
+#print(Contact.doc('text'))
