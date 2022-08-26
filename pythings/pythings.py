@@ -203,21 +203,43 @@ class Class:
     and `info` kwargs.
     """
     def __init__(self, *attrs, **kwargs):
-        attrs = list(attrs)
-        for i in range(len(attrs)):
-            match attrs[i]:
-                case [name, *alias], info, T: attrs[i] = Attribute(name, T, info, alias)
-                case name, T:
-                    attrs[i] = Attribute(name, T)
-                    print(f'Warning: Field "{attrs[i].name}" does not have an associated info parameter; it is recommended that all fields in a class include a short description of how they are used and/or created')
-                case name, info, T: attrs[i] = Attribute(name, T, info)
+        if len(attrs) == 1 and inspect.isclass(attrs[0]):
+            src = attrs[0]
+            src_attrs = filter(
+                lambda x: not x[0].startswith('__'),
+                inspect.getmembers(src, lambda a: not inspect.isroutine(a))
+            )
+            type_hints = typing.get_type_hints(src)
+            self.attrs = []
+            #print(list(src_attrs))
+            for k, v in src_attrs:
+                #if v: self.attrs.append(
+                #T = getattr(type_hints, k, None)
+                T = type_hints[k]
+                if T is None:
+                    print(type_hints)
+                    raise TypeError
+                self.attrs.append(Attribute(k, T, v.info))
 
-        if isinstance(attrs[0], str):
-            self.name = attrs[0]
-            self.info = textwrap.dedent(attrs[1])
-            self.attrs = attrs[2:]
-        else: self.attrs = attrs
-        self.methods = []
+            self.name = src.__name__
+            self.info = src.__doc__ or f"No description of class `{self.name}` available yet; come back soon"
+            self.methods = []
+        else:
+            attrs = list(attrs)
+            for i in range(len(attrs)):
+                match attrs[i]:
+                    case [name, *alias], info, T: attrs[i] = Attribute(name, T, info, alias)
+                    case name, T:
+                        attrs[i] = Attribute(name, T)
+                        print(f'Warning: Field "{attrs[i].name}" does not have an associated info parameter; it is recommended that all fields in a class include a short description of how they are used and/or created')
+                    case name, info, T: attrs[i] = Attribute(name, T, info)
+
+            if isinstance(attrs[0], str):
+                self.name = attrs[0]
+                self.info = textwrap.dedent(attrs[1])
+                self.attrs = attrs[2:]
+            else: self.attrs = attrs
+            self.methods = []
 
         # this is the actual class that is instantiated when we want to
         # construct a member of this abstract (outer) class; it is not strictly
@@ -451,9 +473,16 @@ class Rect:
     def perimeter(self): return (2 * self.delta.x) + (2 * self.delta.y)
     def scale(self, x): return Rect(pos, delta * x)
 
-
+@Class
 class Contact:
+    """
+    A class representing a simple list of contact information for a person.
+    """
+
     name: String != '' = Attr("The contact's name, most likely in [First] [Last] format")
     email: Option[String] = Attr("The contact's email address; may be `None`-like")
     phone: Option[String] = Attr("The contact's phone number; may be `None`-like")
     address: Option[String] = Attr("The contact's physical address; may be `None`-like")
+
+print(Contact.doc('markdown'))
+print(Contact.doc('text'))
