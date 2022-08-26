@@ -4,6 +4,9 @@ from datetime import datetime
 import textwrap
 from box import Box
 
+import typing
+import inspect
+
 class Type:
     def __init__(self, name=None, **kwargs):
         if name is not None:
@@ -131,6 +134,19 @@ Int = IntType()
 class Tuple(Type):
     def __init__(self, *args, **kwargs):
         super().__init__()
+
+class OptionType(Type):
+    def __init__(self, *args, T=None, **kwargs):
+        super().__init__()
+        self.T = T
+
+    def __getitem__(self, i):
+        if not isinstance(i, Type): raise TypeError
+        return OptionType(T=i)
+
+    def __str__(self):
+        return f'Option<{self.T}>'
+Option = OptionType()
 
 class ArgumentError(ValueError):
     pass
