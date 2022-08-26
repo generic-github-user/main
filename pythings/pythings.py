@@ -119,6 +119,11 @@ for op in ['eq', 'ne', 'gt', 'ge', 'lt', 'le']:
 # might need some work)
 class OperationType(Type):
     def __init__(self, a, b, op):
+        """
+        Generates a new expression type by applying `op` to `a` (left) and `b`
+        (right).
+        """
+
         super().__init__()
         self.a, self.b, self.op = a, b, op
 
@@ -199,6 +204,13 @@ class Attribute:
         return f'{self.name}: {self.T}'
 
     def doc(self, fmt):
+        """
+        Generates documentation for this attribute in the specified `fmt` (see
+        `Class.doc` for more detailed information on this method). Note also
+        that this is an internal method that will generally not need to be used
+        outside of the module.
+        """
+
         match fmt:
             case 'markdown':
                 return f'**{self.name}**: *{self.T.doc("markdown", astype=True)}* - {self.info or "attribute is not yet documented"}'
@@ -222,6 +234,13 @@ class Function(Type):
         self.info = info
 
     def doc(self, fmt, depth=0):
+        """
+        Generates documentation for this function in the specified `fmt` (see
+        `Class.doc` for more detailed information on this method). Note also
+        that this is an internal method that will generally not need to be used
+        outside of the module.
+        """
+
         match fmt:
             case 'markdown':
                 lead = '#'*depth
@@ -383,6 +402,9 @@ class Class:
     - if `python_types` is `True`, the output will use basic Python types like
       `str` and `int` wherever possible, instead of the wrappers `String` and
       `Int`
+    - if `astype` is `True`, a short representation (usually the class' name)
+      will be returned instead of the class' full documentation; useful for
+      type hinting
     """
     def doc(self,
             doc_format,
