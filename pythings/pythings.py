@@ -424,3 +424,10 @@ class Rect:
     def area(self): return self.delta.x * self.delta.y
     def perimeter(self): return (2 * self.delta.x) + (2 * self.delta.y)
     def scale(self, x): return Rect(pos, delta * x)
+
+
+class Contact:
+    name: String != ''
+    email: Option[String] = Attr("The contact's email address; may be `None`-like")
+    phone: Option[String] = Attr("The contact's phone number; may be `None`-like")
+    address: Option[String] = Attr("The contact's physical address; may be `None`-like")
