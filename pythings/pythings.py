@@ -215,13 +215,18 @@ attributes and methods. Supports serialization, documentation generation,
 logging, runtime type checking, and more. This class wraps a dynamically
 generated internal class which is the one actually instantiated. In this sense
 this is a "metaclass" that describes how to build a concrete class that can be
-manipulated in the usual ways. This extra abstraction (e.g., instead of simply
-using a subclass) might seem superfluous, but provides some nice benefits like
-a more consistent mental model of typed objects, elimination of namespace
-conflicts introduced by subclassing, etc.
+manipulated in the usual ways.
+
+This extra abstraction (e.g., instead of simply using a subclass) might seem
+superfluous, but provides some nice benefits like a more consistent mental
+model of typed objects, elimination of namespace conflicts introduced by
+subclassing, etc. There is a more detailed discussion of practical applications
+of metaclasses
+[here](https://stackoverflow.com/questions/392160/what-are-some-concrete-use-cases-for-metaclasses).
 """
 class Class:
-    """
+    tq = '"""'
+    f"""
     Construct a metaclass from a high-level description. The variable-length
     `*attrs` is used to designate the class' attributes. If the first item is a
     string, it will be used as the class name; and if the second is also a
@@ -229,6 +234,25 @@ class Class:
     generated documentation (both are optional), and subsequent items will be
     interpreted as attribute descriptors. Alternatively, you can use the `name`
     and `info` kwargs.
+
+    `Class` can also be used as a
+    [decorator](https://book.pythontips.com/en/latest/decorators.html), in
+    which case the `inspect` and `typing` modules are used to extract
+    information about the class' attributes and methods. This is a fairly
+    natural way to declare a class while integrating `pythings`; as shown in
+    the example below, the main difference is that attributes are declared with
+    the `Attr` class since Python does not natively support attribute-level
+    docstrings.
+
+    ```py
+    @Class
+    class Point:
+        {tq}A simple point in two-dimensional Euclidean space; can also be used to
+        represent a vector.{tq}
+
+        x: Number = Attr("x-coordinate of point")
+        y: Number = Attr("y-coordinate of point")
+    ```
     """
     def __init__(self, *attrs, **kwargs):
         if len(attrs) == 1 and inspect.isclass(attrs[0]):
@@ -306,6 +330,12 @@ class Class:
         self.new(*args, **kwargs)
 
     def __str__(self):
+        """
+        Constructs a simple string representation of the class itself with
+        attributes and methods each listed on one (indented) line. Potentially
+        useful for debugging.
+        """
+
         nl = '\n'
         return f'[class] {self.name} {nl}{textwrap.indent(nl.join(map(str, self.attrs)), " "*4)}'
 
@@ -317,8 +347,11 @@ class Class:
 
     Some possibly useful information:
 
-    - `depth` is the initial nesting level for Markdown-like languages, in which case it is used to create headers of the proper level
-    - if `python_types` is `True`, the output will use basic Python types like `str` and `int` wherever possible, instead of the wrappers `String` and `Int`
+    - `depth` is the initial nesting level for Markdown-like languages, in
+      which case it is used to create headers of the proper level
+    - if `python_types` is `True`, the output will use basic Python types like
+      `str` and `int` wherever possible, instead of the wrappers `String` and
+      `Int`
     """
     def doc(self,
             doc_format,
@@ -354,6 +387,8 @@ class Class:
         #print(output, textwrap.dedent(output))
         #return textwrap.dedent(output)
         return '\n'.join(map(str.lstrip, output.splitlines()))
+
+
 Animal = Class(
     "Animal", "A simple animal class.",
     #('name', String != '', (String[0] in string.ascii_uppercase).rec()),
@@ -394,6 +429,8 @@ demo()
 
 
 #class Point
+
+
 
 Number = Int | Float
 Point = Class('Point',
