@@ -179,6 +179,16 @@ class Attr(Attribute):
     def __init__(self, info):
         super().__init__(None, None, info)
 
+class Function(Type):
+    def __init__(self, name, input_types, output_type, info=None):
+        super().__init__()
+        self.input_types = input_types
+        self.output_type = output_type
+        self.name = name
+        self.info = info
+
+    def __str__(self): raise NotImplementedError
+
 # A generic metaclass
 
 """
