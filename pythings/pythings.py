@@ -47,8 +47,10 @@ class RefinementType(Type):
 
     def validate(self, x):
         return all(
+            # check compliance with the inner type ...
             (self.this.evaluate(x) if isinstance(self.this, OperationType)
                 else self.this.validate(x)),
+            # ... and with the predicate
             self.p(x, other)
         )
 
@@ -231,8 +233,13 @@ class Class:
     and `info` kwargs.
     """
     def __init__(self, *attrs, **kwargs):
+        # This branch is followed when `Class` is used as a decorator (via
+        # "@Class...")
         if len(attrs) == 1 and inspect.isclass(attrs[0]):
             src = attrs[0]
+
+            # Find class attributes and store information about them in the
+            # metaclass
             src_attrs = filter(
                 lambda x: not x[0].startswith('__'),
                 inspect.getmembers(src, lambda a: not inspect.isroutine(a))
@@ -244,24 +251,34 @@ class Class:
                 #if v: self.attrs.append(
                 #T = getattr(type_hints, k, None)
                 T = type_hints[k]
+                # TODO: allow eliding type hints
+                # TODO: permit type inference?
                 if T is None:
                     print(type_hints)
                     raise TypeError
                 self.attrs.append(Attribute(k, T, v.info))
 
+            # Get class metadata from actual definition
             self.name = src.__name__
             self.info = src.__doc__ or f"No description of class `{self.name}` available yet; come back soon"
+
+            # Extract methods from source class (`src`)
             # TODO: make this a dictionary
             self.methods = []
 
+            # Get user-defined methods
             src_methods = filter(lambda x: not x[0].startswith('__'),
                 inspect.getmembers(src, lambda a: inspect.isroutine(a)))
             for mname, m in src_methods:
+                # Split type annotations into the return type and input types
+                # (i.e., all others)
                 T_in = []; T_out = None;
                 for k, v in typing.get_type_hints(m).items():
                     T_out = v if k == 'return' else T_in.append(v)
+
                 self.methods.append(Function(mname, T_in, T_out, m.__doc__))
         else:
+            # needed because `attrs` is initially a tuple (immutable)
             attrs = list(attrs)
             for i in range(len(attrs)):
                 match attrs[i]:
@@ -283,6 +300,9 @@ class Class:
         # necessary to define an actual class but it makes it more clear what
         # is going on
         class Z:
+            # TODO: add conversion to/from list
+
+            # naturally, this initializer is eventually called
             def __init__(inner, *args, **kwargs):
                 # if we wanted, we could perform these checks in the outer
                 # class' __call__/new method; as far as I can tell, there's no
