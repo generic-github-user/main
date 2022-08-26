@@ -402,7 +402,8 @@ class Class:
                 output = f"""
                 ```mermaid
                     flowchart TD
-                        {(nl+' '*24).join(self.name + ' --> ' + a.name for a in self.attrs)}
+                        {(nl+' '*24).join(self.name + ' --> |attr| ' + a.name for a in self.attrs)}
+                        {(nl+' '*24).join(self.name + ' --> |method| ' + a.name for a in self.methods)}
                 ```
                 """
         return textwrap.dedent(output)
