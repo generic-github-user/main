@@ -169,6 +169,16 @@ class Attribute:
             case 'markdown':
                 return f'**{self.name}**: *{self.T}* - {self.info or "attribute is not yet documented"}'
 
+"""
+An alternate class for `Attribute` meant to be used in decorator-style `Class`
+initializations, where we specify attribute names and types Pythonically and
+bind additional metadata by setting the value of a class attribute to an
+instance of this class.
+"""
+class Attr(Attribute):
+    def __init__(self, info):
+        super().__init__(None, None, info)
+
 # A generic metaclass
 
 """
@@ -443,7 +453,7 @@ class Rect:
 
 
 class Contact:
-    name: String != ''
+    name: String != '' = Attr("The contact's name, most likely in [First] [Last] format")
     email: Option[String] = Attr("The contact's email address; may be `None`-like")
     phone: Option[String] = Attr("The contact's phone number; may be `None`-like")
     address: Option[String] = Attr("The contact's physical address; may be `None`-like")
