@@ -233,7 +233,16 @@ class Class:
 
             self.name = src.__name__
             self.info = src.__doc__ or f"No description of class `{self.name}` available yet; come back soon"
+            # TODO: make this a dictionary
             self.methods = []
+
+            src_methods = filter(lambda x: not x[0].startswith('__'),
+                inspect.getmembers(src, lambda a: inspect.isroutine(a)))
+            for mname, m in src_methods:
+                T_in = []; T_out = None;
+                for k, v in typing.get_type_hints(m).items():
+                    T_out = v if k == 'return' else T_in.append(v)
+                self.methods.append(Function(mname, T_in, T_out, m.__doc__))
         else:
             attrs = list(attrs)
             for i in range(len(attrs)):
