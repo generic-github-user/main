@@ -4,6 +4,7 @@ from datetime import datetime
 import textwrap
 from box import Box
 
+
 class Type:
     def __init__(self, name=None, **kwargs):
         if name is not None:
@@ -142,6 +143,9 @@ class Class:
                             but received ({", ".join(map(str, args))})
                         """).replace('\n', ' '))
 
+                for k, v in zip(self.attrs, args):
+                    setattr(inner, k.name, v)
+
             f"""
             Convert an instance of `{self.name}` to various formats; useful for
             serialization. `fmt` should be 'json' or 'dict'. If `fmt` is
@@ -151,10 +155,28 @@ class Class:
             def to(inner, fmt, **kwargs):
                 match fmt:
                     case 'dict':
-                        return {a.name: inner.get(a.name).to('dict') for a in self.attrs}
+                        #return {a.name: ((getattr(inner, a.name, None)).to('dict'))
+                        #        for a in self.attrs}
+                        output = {}
+                        for a in self.attrs:
+                            # TODO: use implicit iteration in Python dict
+                            # generation
+                            value = getattr(inner, a.name)
+                            try:
+                                output[a.name] = value.to('dict')
+                            except AttributeError:
+                                output[a.name] = value
+                        return output
+
                     case 'json':
                         import json
                         return json.dumps(inner.to('dict'), **kwargs)
+
+                    case 'yaml':
+                        import yaml
+                        return yaml.dump(inner.to('dict'))
+
+                    case 'html': raise NotImplementedError
 
                     case _: raise ArgumentError("Invalid format parameter")
 
@@ -167,7 +189,7 @@ class Class:
         return self.cls(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        self.new(*args, **kwargs)
+        return self.new(*args, **kwargs)
 
     def __str__(self):
         nl = '\n'
@@ -181,6 +203,7 @@ Animal = Class(
     ('weight?', (Float | Int) > 0)
 )
 x = Animal('Jerry', 'wolf', 50.0)
+print(x.to('yaml'))
 
 
 
@@ -207,4 +230,4 @@ def demo():
     #print(File.doc('markdown'))
     print(File.doc('text'))
 
-demo()
+#demo()
