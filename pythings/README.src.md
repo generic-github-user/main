@@ -23,6 +23,58 @@ parsing tool.
 - Boilerplate code generation/replacement
 - Command-line interface construction
 
+## Installation
+
+Clone this repository (or the parts you need) and follow the instructions in
+`#usage`.
+
+## Usage
+
+Import the components you need, add the appropriate decorators, and annotate
+the types of the attributes and methods you want `pythings` to process. A
+(relatively) simple example follows.
+
+```py
+from pythings import Class, Attr, Number
+
+@Class
+class Point:
+    """A simple point in two-dimensional Euclidean space; can also be used to
+    represent a vector."""
+
+    x: Number = Attr("x-coordinate of point")
+    y: Number = Attr("y-coordinate of point")
+```
+
+Generating documentation is then quite simple:
+
+```py
+Point.doc('markdown')
+```
+
+Or:
+
+```py
+Point.doc('html')
+```
+
+We can initialize `Point` instances like we would for any other class:
+
+```
+p = Point(7, 10)
+print(p)
+```
+
+... and serialize to various formats:
+
+```
+p.to_json()
+```
+
+```
+p.to_yaml()
+```
+
 ## Purpose
 
 The core feature this tool was designed around is the idea of a refinement

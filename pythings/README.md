@@ -13,6 +13,8 @@ parsing tool.
 - [pythings](#pythings)
   * [Contents](#contents)
   * [Features](#features)
+  * [Installation](#installation)
+  * [Usage](#usage)
   * [Purpose](#purpose)
   * [Technical Details](#technical-details)
   * [Stats](#stats)
@@ -28,6 +30,58 @@ parsing tool.
 - Logging and error handling
 - Boilerplate code generation/replacement
 - Command-line interface construction
+
+## Installation
+
+Clone this repository (or the parts you need) and follow the instructions in
+`#usage`.
+
+## Usage
+
+Import the components you need, add the appropriate decorators, and annotate
+the types of the attributes and methods you want `pythings` to process. A
+(relatively) simple example follows.
+
+```py
+from pythings import Class, Attr, Number
+
+@Class
+class Point:
+    """A simple point in two-dimensional Euclidean space; can also be used to
+    represent a vector."""
+
+    x: Number = Attr("x-coordinate of point")
+    y: Number = Attr("y-coordinate of point")
+```
+
+Generating documentation is then quite simple:
+
+```py
+Point.doc('markdown')
+```
+
+Or:
+
+```py
+Point.doc('html')
+```
+
+We can initialize `Point` instances like we would for any other class:
+
+```
+p = Point(7, 10)
+print(p)
+```
+
+... and serialize to various formats:
+
+```
+p.to_json()
+```
+
+```
+p.to_yaml()
+```
 
 ## Purpose
 
@@ -70,15 +124,15 @@ In Python, there are a few reasonable options for achieving something like this:
 ## Stats
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (656.9 files/s, 131385.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (664.5 files/s, 146367.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 Python|2|132|273|255
-Markdown|2|33|0|107
+Markdown|2|53|0|168
 --------|--------|--------|--------|--------
-SUM:|4|165|273|362
+SUM:|4|185|273|423
 
 
 ## Tree
