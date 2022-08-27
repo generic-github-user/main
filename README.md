@@ -9,21 +9,21 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (2314.8 files/s, 214117.4 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2015.5 files/s, 215787.7 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|16|254|0|860
+Markdown|17|272|0|911
+Python|5|188|344|716
 Bourne Shell|2|77|102|449
-Python|4|116|173|307
 JSON|1|0|0|185
 vim script|2|10|13|15
+TOML|2|4|1|14
 Rust|1|2|2|13
-TOML|1|2|1|8
 YAML|1|0|0|1
 --------|--------|--------|--------|--------
-SUM:|28|461|291|1838
+SUM:|31|553|462|2304
 
 
 ## Tree
@@ -59,6 +59,9 @@ SUM:|28|461|291|1838
 │   │   ├── _config.yml
 │   │   └── index.md
 │   └── README.md
+├── obfuscation
+│   ├── caterpillar.py
+│   └── LICENSE.md
 ├── pythings
 │   ├── build.py
 │   ├── Pipfile
@@ -80,7 +83,7 @@ SUM:|28|461|291|1838
 └── zeal
     └── README.md
 
-16 directories, 33 files
+17 directories, 35 files
 
 ```
 
