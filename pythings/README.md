@@ -180,38 +180,38 @@ flowchart TD
 
 ## Branches
 
-- pythings: main pythings branch; stable-ish features should be merged here
+- `pythings-comments`: comments, when I'm in the mood; most of the time, how my
+code works is between me and God
+- `pythings-decorator`: allows use of pythings' `Class` as a decorator for
+normal Python classes
+- `pythings-diagrams`: generating diagrams that summarize class/method/type
+structures and relationships
+- `pythings-docgen`: creating documentation formatted with Markdown, AsciiDoc,
+HTML, etc. from source code and lightweight type annotations
+- `pythings-docs`: documentation for the pythings module itself (not code for
+its documentation generation capabilities)
+- `pythings-examples`: generation of useful documentation examples from class
+and function metadata (type annotations and such)
+- `pythings-restructuring`: for large refactors and moving sections of code
+between files, adding/moving/removing files, etc.
+- `pythings-srclinks`: automagically linking to source code in documentation
+- `pythings-testing`: unit testing utilities
+- `pythings`: main pythings branch; stable-ish features should be merged here
 periodically (can also be used as a single source of truth for updating stale
 branches before working on them)
-- pythings-docs: documentation for the pythings module itself (not code for its
-documentation generation capabilities)
-- pythings-examples: generation of useful documentation examples from class and
-function metadata (type annotations and such)
-- pythings-restructuring: for large refactors and moving sections of code
-between files, adding/moving/removing files, etc.
-- pythings-srclinks: automagically linking to source code in documentation
-- pythings-docgen: creating documentation formatted with Markdown, AsciiDoc,
-HTML, etc. from source code and lightweight type annotations
-- pythings-comments: comments, when I'm in the mood; most of the time, how my
-code works is between me and God
-- pythings-testing: unit testing utilities
-- pythings-decorator: allows use of pythings' `Class` as a decorator for normal
-Python classes
-- pythings-diagrams: generating diagrams that summarize class/method/type
-structures and relationships
 
 ## Stats
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (699.3 files/s, 186708.8 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (668.7 files/s, 179373.8 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|2|85|0|314
+Markdown|2|85|0|319
 Python|2|133|273|263
 --------|--------|--------|--------|--------
-SUM:|4|218|273|577
+SUM:|4|218|273|582
 
 
 ## Tree
