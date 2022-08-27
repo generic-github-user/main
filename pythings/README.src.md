@@ -159,6 +159,9 @@ flowchart TD
 - pythings-srclinks: automagically linking to source code in documentation
 - pythings-docgen: creating documentation formatted with Markdown, AsciiDoc, HTML, etc. from source code and lightweight type annotations
 - pythings-comments: comments, when I'm in the mood; most of the time, how my code works is between me and God
+- pythings-testing: unit testing utilities
+- pythings-decorator: allows use of pythings' `Class` as a decorator for normal Python classes
+- pythings-diagrams: generating diagrams that summarize class/method/type structures and relationships
 
 ## Stats
 

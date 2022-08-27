@@ -194,19 +194,24 @@ between files, adding/moving/removing files, etc.
 HTML, etc. from source code and lightweight type annotations
 - pythings-comments: comments, when I'm in the mood; most of the time, how my
 code works is between me and God
+- pythings-testing: unit testing utilities
+- pythings-decorator: allows use of pythings' `Class` as a decorator for normal
+Python classes
+- pythings-diagrams: generating diagrams that summarize class/method/type
+structures and relationships
 
 ## Stats
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (650.8 files/s, 180281.2 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (699.3 files/s, 186708.8 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|2|85|0|354
+Markdown|2|85|0|314
 Python|2|133|273|263
 --------|--------|--------|--------|--------
-SUM:|4|218|273|617
+SUM:|4|218|273|577
 
 
 ## Tree
