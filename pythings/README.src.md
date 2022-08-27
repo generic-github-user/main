@@ -12,6 +12,17 @@ parsing tool.
 
 [[toc]]
 
+## Features
+
+- Documentation generation
+- Test generation
+- Example generation
+- Type checking
+- Serialization and deserialization
+- Logging and error handling
+- Boilerplate code generation/replacement
+- Command-line interface construction
+
 ## Purpose
 
 The core feature this tool was designed around is the idea of a refinement

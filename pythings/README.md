@@ -12,10 +12,22 @@ parsing tool.
 
 - [pythings](#pythings)
   * [Contents](#contents)
+  * [Features](#features)
   * [Purpose](#purpose)
   * [Technical Details](#technical-details)
   * [Stats](#stats)
   * [Tree](#tree)
+
+## Features
+
+- Documentation generation
+- Test generation
+- Example generation
+- Type checking
+- Serialization and deserialization
+- Logging and error handling
+- Boilerplate code generation/replacement
+- Command-line interface construction
 
 ## Purpose
 
@@ -27,6 +39,21 @@ possible function outputs (return values), etc. In practice, I often find
 myself creating partial class templates or makeshift components that check
 input types and generate documentation from type signatures and other
 annotations.
+
+To justify the cost of integrating a new system, most (if not all) of the tools
+and features that would otherwise be provided by specialized components must be
+usable. For me (and likely many others as well), this includes at least the
+following:
+
+- Logging and errors
+- Unit test generation and randomized testing/fuzzing
+- Automated generation of (some) examples for documentation
+- Automatic construction of diagrams and other auxiliary material
+- Documentation generation (multiple formats, high flexibility)
+- Serialization/deserialization
+- Templating or fully automated generation of boilerplate code and derivable methods/properties
+- Code generation (module should be able to disappear WRT production code where possible, i.e. less dynamic attributes that can be determined prior to the "actual" runtime)
+- Semi-automated implementation of intuitive command-line interfaces
 
 ## Technical Details
 
@@ -43,15 +70,15 @@ In Python, there are a few reasonable options for achieving something like this:
 ## Stats
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.00 s (1064.4 files/s, 40713.6 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (656.9 files/s, 131385.1 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|2|29|0|83
-Python|2|11|2|28
+Python|2|132|273|255
+Markdown|2|33|0|107
 --------|--------|--------|--------|--------
-SUM:|4|40|2|111
+SUM:|4|165|273|362
 
 
 ## Tree
@@ -59,10 +86,12 @@ SUM:|4|40|2|111
 ```
 .
 ├── build.py
+├── Pipfile
+├── Pipfile.lock
 ├── pythings.py
 ├── README.md
 └── README.src.md
 
-0 directories, 4 files
+0 directories, 6 files
 
 ```
