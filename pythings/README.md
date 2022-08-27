@@ -18,6 +18,7 @@ parsing tool.
   * [Purpose](#purpose)
   * [Technical Details](#technical-details)
   * [Project Structure](#project-structure)
+  * [Branches](#branches)
   * [Stats](#stats)
   * [Tree](#tree)
 
@@ -159,18 +160,28 @@ flowchart TD
     s --> protobuf --> ds --> |objects| au
 ```
 
+## Branches
+
+- pythings: main pythings branch; stable-ish features should be merged here periodically (can also be used as a single source of truth for updating stale branches before working on them)
+- pythings-docs: documentation for the pythings module itself (not code for its documentation generation capabilities)
+- pythings-examples: generation of useful documentation examples from class and function metadata (type annotations and such)
+- pythings-restructuring: for large refactors and moving sections of code between files, adding/moving/removing files, etc.
+- pythings-srclinks: automagically linking to source code in documentation
+- pythings-docgen: creating documentation formatted with Markdown, AsciiDoc, HTML, etc. from source code and lightweight type annotations
+- pythings-comments: comments, when I'm in the mood; most of the time, how my code works is between me and God
+
 ## Stats
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (674.9 files/s, 163999.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.01 s (629.5 files/s, 160532.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
+Markdown|2|83|0|277
 Python|2|132|273|255
-Markdown|2|75|0|237
 --------|--------|--------|--------|--------
-SUM:|4|207|273|492
+SUM:|4|215|273|532
 
 
 ## Tree
