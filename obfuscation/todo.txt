@@ -19,4 +19,10 @@
 # TODO: use iterable manipulations (slices, reversals, etc.) to encode data
 # TODO: add decoy instructions (nops)
 # TODO: add list of keywords
+# TODO: add base64 and other string and/or integer conversions
+# TODO: add string encryption
+# TODO: use bit-shifting
+# TODO: add eval() based rewrites
+# TODO: use detected patterns for replacements
+# TODO: fix issue with empty strings vanishing
 

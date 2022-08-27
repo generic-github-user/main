@@ -10,30 +10,9 @@ import itertools
 import re
 import math
 from pyvis.network import Network
+
 normal_chars = string.ascii_letters + string.digits
-
-for i in range(2, 50):
-    for j in range(2, i):
-        if i % j == 0:
-            break
-    else:
-        print(i)
-
-# TODO: add base64 and other string and/or integer conversions
-# TODO: add string encryption
-# TODO: use bit-shifting
-
-test1 = 'appleb6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>b6>pear'
-test2 = 'g5g5g5g5g5g5g5g5g5testing'
-test3 = 'helloworld121212121212121212'
-
-a = 'This is a test string'
-print(a)
 q = True, False
-t = True
-# r = list(range(0, 30, 4))
-r = [5, 7, 9, 2, 3, 5, 7, 5, 2, 6, 4]
-v = '1m0r4ghp3qosjl5ifcd2n76eat98kbl9pm36n8fe05s14d2iq7thkjbrcago'
 
 # https://stackoverflow.com/a/29920015/10940584
 def camel_case_split(identifier):
@@ -257,8 +236,7 @@ def repetitions(s):
    r = re.compile(r"(.+?)\1+")
    for match in r.finditer(s):
        yield (match.group(1), len(match.group(0))/len(match.group(1)))
-print(list(repetitions('0.6666666666666666')))
-print(list(repetitions('762e380mkf94dljrip1catnbsqohg5')))
+
 s = '__name__'
 print(s, list(repetitions(s)))
 
@@ -282,6 +260,7 @@ def segment(sequence, num=None):
     indices.sort(reverse=False)
     # print(indices)
     # print([(indices[i-1], j) for i, j in enumerate(indices[1:])])
+
     parts = [sequence[indices[i]:j] for (i, j) in enumerate(indices[1:])]
     # print(parts)
     return parts
@@ -306,17 +285,12 @@ def condense(text):
         return h
     else:
         return None
-s = '0.6666666666666666'
-print(s, condense(s))
-s = '__name__'
-print(s, condense(s))
-s = '777777abacus77777778888'
-print(s, condense(s))
 
 def modify_node(node):
     if type(node) is ast.Constant:
         if type(node.value) is int:
             m = random.choice([1, 2, 3, 4])
+
             # Generate a mathematical expression that produces the number
             if m == 1:
                 equ_expr = random.randint(-50, 50)
@@ -352,10 +326,12 @@ def modify_node(node):
                 # originally stored an integer
                 if (inv in [ops.mul, ops.truediv] or type(inverted_val) is float) and node_int:
                     node = ast.Call(ast.Name('round'), [node], [])
+
             # Generate a random string with len == value and encode the integer
             # as the length of the string
             elif m == 2 and node.value <= 10:
                 node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
+
             # Generate a shuffled list of characters and use an index method
             # call to encode the integer
             elif m == 3:
@@ -377,6 +353,7 @@ def modify_node(node):
             # Apply no transform
             if m == 1:
                 pass
+
             # Split the string into random segments and represent it as the
             # concatenation of these segments
             elif m == 2:
@@ -391,6 +368,7 @@ def modify_node(node):
                         [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
                         []
                     )
+
             # Rewrite the string as the (equivalent) result of replacing a
             # sequence of characters
             elif m == 3:
@@ -399,6 +377,7 @@ def modify_node(node):
                     c = random.choice(node.value)
                     node.value = node.value.replace(c, g)
                     node = make_tree('{}.replace({}, {})', node, g, c)
+
             # "Compress" the string by finding a repeated pattern/substring and
             # encoding this part of the string as a repeated string literal
             # (e.g., "0.6666666" might become something like "0." + "6" * 7)
@@ -408,7 +387,6 @@ def modify_node(node):
                     # node = make_tree('{} + {} + {}', a, b, c)
                     node = make_tree(' + '.join(['{}']*len(sections)), *sections)
 
-            # TODO: use detected patterns for replacements
 
         # Encode booleans
         elif type(node.value) is bool:
@@ -429,6 +407,7 @@ def modify_node(node):
                     z = x - y
                     node = ast.Compare(ac(x), [ast.Lt()], [ac(z)])
                 # node = ast.Expr(node)
+
             # Rewrite the boolean as a logical operation on other boolean
             # values e.g., True might become (True or False) or False might
             # become (False and True)
@@ -438,10 +417,12 @@ def modify_node(node):
                     node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
                 elif type(parts) is str:
                     node = make_tree(parts)
+
             # Encode the boolean as a casting from a numerical value to a bool;
             # 0 will become False and anything else will evaluate as True
             elif m == 3:
                 node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
+
             # Rewrite as boolean inverse ("not" operator)
             elif m == 4:
                 node = ast.UnaryOp(ast.Not(), ac(not node.value))
@@ -454,9 +435,6 @@ def modify_node(node):
         node = ast.Call(ast.Lambda([], body=node), [], [])
 
     return node
-
-# TODO: add eval() based rewrites
-# TODO: fix issue with empty strings vanishing
 
 with open(__file__, 'r') as file:
     content = file.read()
