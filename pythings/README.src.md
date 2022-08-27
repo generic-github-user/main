@@ -23,6 +23,21 @@ myself creating partial class templates or makeshift components that check
 input types and generate documentation from type signatures and other
 annotations.
 
+To justify the cost of integrating a new system, most (if not all) of the tools
+and features that would otherwise be provided by specialized components must be
+usable. For me (and likely many others as well), this includes at least the
+following:
+
+- Logging and errors
+- Unit test generation and randomized testing/fuzzing
+- Automated generation of (some) examples for documentation
+- Automatic construction of diagrams and other auxiliary material
+- Documentation generation (multiple formats, high flexibility)
+- Serialization/deserialization
+- Templating or fully automated generation of boilerplate code and derivable methods/properties
+- Code generation (module should be able to disappear WRT production code where possible, i.e. less dynamic attributes that can be determined prior to the "actual" runtime)
+- Semi-automated implementation of intuitive command-line interfaces
+
 ## Technical Details
 
 Thus, the goal here is to create a generic helper class that others can extend
