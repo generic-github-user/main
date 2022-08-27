@@ -8,11 +8,11 @@ and other maintenance headaches I've run into recently.
 
 ## Branches
 
-- leetcode: some of my solutions to programming problems from [leetcode.com](https://leetcode.com/)
-- geometry: helper classes for geometry in Python that I've been copy-pasting around periodically for the last 18 months or so (and actually one of the main reasons for creating this monorepo)
-- meta: information about this repository itself (code statistics, file listings, issue metadata, etc.)
-- pythings: useful tools and scripts for the boring parts of Python (mainly writing tests, documentation, etc.)
-- obfuscation: code obfuscation tools repurposed from an old repository of mine
+- `geometry`: helper classes for geometry in Python that I've been copy-pasting around periodically for the last 18 months or so (and actually one of the main reasons for creating this monorepo)
+- `leetcode`: some of my solutions to programming problems from [leetcode.com](https://leetcode.com/)
+- `meta`: information about this repository itself (code statistics, file listings, issue metadata, etc.)
+- `obfuscation`: code obfuscation tools repurposed from an old repository of mine
+- `pythings`: useful tools and scripts for the boring parts of Python (mainly writing tests, documentation, etc.)
 
 ## Statistics
 
