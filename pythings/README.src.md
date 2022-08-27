@@ -113,6 +113,43 @@ In Python, there are a few reasonable options for achieving something like this:
 - Use a function to dynamically generate a closure containing the target class and any tests/type checks/auxiliary information constructed by the module: this works fine if we don't intend to introspect the class itself later (and the information could indeed be abstracted out to the constructor level if one preferred), but seemed like the wrong choice for this module since I wanted to include features like documentation/API reference generation tied directly into generated classes
 - Create an outer class to represent the type of types that stores metadata about valid argument types, how object fields are produced from arguments, invariants/assertions that should be tested during execution, etc., then use this class to dynamically declare the actual target class that will be instantiated by the user (and provide an interface to it via the wrapper): this appeared to be the most flexible option and is the one I elected for this tool
 
+## Project Structure
+
+```mermaid
+flowchart TD
+    subgraph p[pythings]
+        tc[type checker]
+        cg[code generator] --> dfc
+        cf[class factory]
+        cf --> ic[inner class]
+        tc --> w[warnings] & e[errors] --> stdout & lf[log file]
+
+        subgraph type
+            st[simple type] --> rt[refinement type]
+            P[predicate] --> rt
+        end
+    end
+
+    subgraph API
+        direction TB
+        cd[class definitions] --> cf
+        md[method definitions] --> cf
+        T[type annotations] --> cf
+        dstr[docstrings] --> cf
+        c[comments] --> cf
+    end
+    %% API --> p
+
+    dfc[dependency-free code]
+    p --> d[documentation] & cli[command-line interface]
+
+    au[API user] --> |parameters| m[methods] --> tc --> m --> |results| au
+    au --> |objects| s[serializer]
+    s --> json --> ds[deserializer] --> |objects| au
+    s --> yaml --> ds --> |objects| au
+    s --> protobuf --> ds --> |objects| au
+```
+
 ## Stats
 
 [[stats]]
