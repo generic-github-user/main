@@ -306,12 +306,20 @@ class Class:
             doc_format,
             depth=3,
             python_types=True,
+            hide_empty=True,
             generate_examples=True):
         output = None
         nl = '\n'
         match doc_format:
             case 'markdown':
                 z = '#' * depth
+                methods = f"""
+                    {z}# Methods
+
+                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods) or "This class has no methods."}
+                """
+                if hide_empty and not self.methods: methods = ''
+
                 output = f"""
                     {z} class `{self.name}`
 
@@ -321,9 +329,7 @@ class Class:
 
                     {nl.join(f'- {x.doc("markdown")}' for x in self.attrs)}
 
-                    {z}# Methods
-
-                    {(nl*2).join(f'- {m.doc("markdown")}' for m in self.methods) or "This class has no methods."}
+                    {methods}
                 """
             case 'text':
                 return str(self)
