@@ -10,6 +10,10 @@ import itertools
 import re
 import math
 from pyvis.network import Network
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('file', type=str, help='Input file to obfuscate')
 
 normal_chars = string.ascii_letters + string.digits
 q = True, False
@@ -76,15 +80,6 @@ for k in keyword_sources:
 for i, k in enumerate(keywords):
     keywords[i] = remove_punctuation(k)
 
-with open(__file__, 'r') as file:
-    ownsource = file.read()
-    keywords.extend(filter(
-        lambda m: not has_nums(m) and len(m) > 2,
-        remove_punctuation(ownsource, ' ').split()
-    ))
-keywords = list(set(keywords))
-keywords = [k.lower() for k in keywords]
-print(keywords)
 
 def rand_format(text):
     if type(text) is str:
@@ -181,8 +176,8 @@ def trig_funcs(pre):
         transforms.append([func, buildfunc(f, func, domain)] + [1] + [domain])
 
 p = ['', 'a']
-trig_funcs(p)
-trig_funcs(p[::-1])
+#trig_funcs(p)
+#trig_funcs(p[::-1])
 # print(transforms[4][1](5).body[0].func.id, transforms[6][1](5).body[0].func.id)
 
 iterable = [list, tuple]
@@ -228,8 +223,6 @@ def remove_duplicates(x):
 def principal_period(s):
     i = (s+s).find(s, 1, -1)
     return None if i == -1 else s[:i]
-
-print(principal_period('0.6666666666666666'))
 
 # https://stackoverflow.com/a/9079897/10940584
 def repetitions(s):
@@ -436,13 +429,6 @@ def modify_node(node):
 
     return node
 
-with open(__file__, 'r') as file:
-    content = file.read()
-
-parse = ast.parse(content)
-# print(content, parse)
-# for n in ast.walk(parse):
-#     n = modify_node(n)
 
 names = {}
 
@@ -608,10 +594,27 @@ def get_label(node):
         return id_, label, g
     else:
         return ['None'] * 3
+
+args = parser.parse_args()
+with open(args.file, 'r') as file:
+    source = file.read()
+    keywords.extend(filter(
+        lambda m: not has_nums(m) and len(m) > 2,
+        remove_punctuation(source, ' ').split()
+    ))
+keywords = list(set(keywords))
+keywords = [k.lower() for k in keywords]
+
+# print(content, parse)
+# for n in ast.walk(parse):
+#     n = modify_node(n)
+
+parse = ast.parse(source)
 parse = obfuscate(parse, 1)
 
-result = ast.unparse(parse)
 # terms = list('=+-*/(,[') + ['if', ' :']
+
+result = ast.unparse(parse)
 terms = []
 fix = []
 for t in terms:
@@ -626,5 +629,5 @@ for c in fix:
 # result = ast.dump(parse)
 # print(result)
 
-with open('./butterfly.py', 'w') as file:
+with open('./output.py', 'w') as file:
     file.write(result)
