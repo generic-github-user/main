@@ -1,0 +1,22 @@
+# TODO: make auto-generated data readable
+# TODO: add other math operations (sqrt, modulo, trig functions, etc.)
+# TODO: add bit shift operators
+# TODO: add other .join() strings
+# TODO: add other trig functions
+# TODO: random string replacements + string repetition
+# TODO: visualize program as graph of nodes
+# TODO: convert numeric strings to numbers
+# TODO: list standard characters (printables excluding special characters)
+# TODO: add progressive code generation (i.e., output intermediate results of obfuscation)
+# TODO: add boolean comparison operators
+# TODO: add boolean to numerical/other comparison (string inequalities?)
+# TODO: randomly use n // 1 instead of round
+# TODO: map string length to integer
+# TODO: randomize order in which transforms are applied to different node types
+# TODO: use ord() and chr()
+# TODO: get global variables as strings
+# TODO: use any() and all() functions
+# TODO: use iterable manipulations (slices, reversals, etc.) to encode data
+# TODO: add decoy instructions (nops)
+# TODO: add list of keywords
+

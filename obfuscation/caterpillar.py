@@ -156,11 +156,6 @@ def gen_from_keywords(length, reuse=False, reuse_global=True, test=False):
     # generated = ''.join([rand_format(w) for w in words])
     generated = rand_format(''.join(words))
     return generated
-# TODO: random string replacements + string repetition
-# TODO: visualize program as graph of nodes
-# TODO: convert numeric strings to numbers
-# TODO: list standard characters (printables excluding special characters)
-# TODO: add progressive code generation (i.e., output intermediate results of obfuscation)
 
 primitives = [str, int, float, bool]
 def make_tree(source, *nested, ctx=None):
@@ -204,12 +199,6 @@ p = ['', 'a']
 trig_funcs(p)
 trig_funcs(p[::-1])
 # print(transforms[4][1](5).body[0].func.id, transforms[6][1](5).body[0].func.id)
-# TODO: make auto-generated data readable
-
-# TODO: add other math operations (sqrt, modulo, trig functions, etc.)
-# TODO: add bit shift operators
-# TODO: add other .join() strings
-# TODO: add other trig functions
 
 iterable = [list, tuple]
 ast_iterable = [ast.List, ast.Tuple]
@@ -231,16 +220,6 @@ booleans = {
         'False != False',
     ]
 }
-# TODO: add boolean comparison operators
-# TODO: add boolean to numerical/other comparison (string inequalities?)
-# TODO: randomly use n // 1 instead of round
-# TODO: map string length to integer
-# TODO: randomize order in which transforms are applied to different node types
-# TODO: use ord() and chr()
-# TODO: get global variables as strings
-# TODO: use any() and all() functions
-# TODO: use iterable manipulations (slices, reversals, etc.) to encode data
-# TODO: add decoy instructions (nops)
 
 def gen_string(n, charset=normal_chars, strict=True):
     if type(n) in iterable:
@@ -266,7 +245,6 @@ def principal_period(s):
     return None if i == -1 else s[:i]
 
 print(principal_period('0.6666666666666666'))
-# TODO: add list of keywords
 
 # https://stackoverflow.com/a/9079897/10940584
 def repetitions(s):
