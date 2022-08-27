@@ -1,4 +1,6 @@
-# The following code is intended solely for educational and experimental purposes. I do not condone any unethical use of the code and disclaim responsibility from such use.
+# The following code is intended solely for educational and experimental
+# purposes. I do not condone any unethical use of the code and disclaim
+# responsibility from such use.
 
 import ast
 import random
@@ -170,12 +172,16 @@ def make_tree(source, *nested, ctx=None):
         # print(source, ast.dump(ast.parse(source)))
         return ast.parse(source)
 
-# Store a list of mathematical transforms for generating expressions equivalent to numeric values
+# Store a list of mathematical transforms for generating expressions equivalent
+# to numeric values
+
 # Each sub-list contains:
-    # the initial operation applied to generate the "obfuscated" value; f(x)
-    # a function that takes an int or float creates an AST node representing the inverse operation, f^-1(x)
-    # the arity or number of arguments the function or inverse function accepts
-    # the lower and upper bounds of the domain of f(x)
+# - the initial operation applied to generate the "obfuscated" value; f(x)
+# - a function that takes an int or float creates an AST node representing
+# the inverse operation, f^-1(x)
+# - the arity or number of arguments the function or inverse function accepts
+# - the lower and upper bounds of the domain of f(x)
+
 transforms = [
     [ops.add, ast.Sub, 2],
     [ops.sub, ast.Add, 2],
@@ -258,11 +264,14 @@ print(s, list(repetitions(s)))
 
 def segment(sequence, num=None):
     """
-    Randomly divide an iterable (list, string, or tuple) into a number of sections
+    Randomly divide an iterable (list, string, or tuple) into a number of
+    sections
 
     Params:
         sequence: The iterable to be segmented
-        num: The number of sections the result should have; if `None`, the number will be randomly determined from the length of the input sequence
+        num: The number of sections the result should have; if `None`, the
+        number will be randomly determined from the length of the input
+        sequence
     """
     chars = len(sequence)
     if not num:
@@ -339,13 +348,16 @@ def modify_node(node):
                     print(inv)
                     print(node.body[0].value.func.attr)
 
-                # Round nodes that might produce float values if the node originally stored an integer
+                # Round nodes that might produce float values if the node
+                # originally stored an integer
                 if (inv in [ops.mul, ops.truediv] or type(inverted_val) is float) and node_int:
                     node = ast.Call(ast.Name('round'), [node], [])
-            # Generate a random string with len == value and encode the integer as the length of the string
+            # Generate a random string with len == value and encode the integer
+            # as the length of the string
             elif m == 2 and node.value <= 10:
                 node = ast.Call(ast.Name('len'), [ast.Constant(gen_string(node.value))], [])
-            # Generate a shuffled list of characters and use an index method call to encode the integer
+            # Generate a shuffled list of characters and use an index method
+            # call to encode the integer
             elif m == 3:
                 shuffled_chars = list(normal_chars[:30])
                 random.shuffle(shuffled_chars)
@@ -365,7 +377,8 @@ def modify_node(node):
             # Apply no transform
             if m == 1:
                 pass
-            # Split the string into random segments and represent it as the concatenation of these segments
+            # Split the string into random segments and represent it as the
+            # concatenation of these segments
             elif m == 2:
                 parts = segment(node.value)
                 if random.random() < 0.5:
@@ -378,14 +391,17 @@ def modify_node(node):
                         [random.choice(ast_iterable)(elts=[ast.Constant(p) for p in parts], ctx=ast.Load())],
                         []
                     )
-            # Rewrite the string as the (equivalent) result of replacing a sequence of characters
+            # Rewrite the string as the (equivalent) result of replacing a
+            # sequence of characters
             elif m == 3:
                 g = gen_string(3, charset=string.ascii_uppercase)
                 if node.value and g not in node.value:
                     c = random.choice(node.value)
                     node.value = node.value.replace(c, g)
                     node = make_tree('{}.replace({}, {})', node, g, c)
-            # "Compress" the string by finding a repeated pattern/substring and encoding this part of the string as a repeated string literal (e.g., "0.6666666" might become something like "0." + "6" * 7)
+            # "Compress" the string by finding a repeated pattern/substring and
+            # encoding this part of the string as a repeated string literal
+            # (e.g., "0.6666666" might become something like "0." + "6" * 7)
             elif m == 4:
                 sections = condense(node.value)
                 if sections:
@@ -401,7 +417,8 @@ def modify_node(node):
             m = random.choice([1, 2, 3, 4, 5])
             # if random.random() < 1:
 
-            # Rewrite boolean as a comparison between numerical values that is guaranteed to evaluate to the original True/False value
+            # Rewrite boolean as a comparison between numerical values that is
+            # guaranteed to evaluate to the original True/False value
             if m == 1:
                 x = random.randint(-50, 50)
                 y = random.randint(1, 100)
@@ -412,15 +429,17 @@ def modify_node(node):
                     z = x - y
                     node = ast.Compare(ac(x), [ast.Lt()], [ac(z)])
                 # node = ast.Expr(node)
-            # Rewrite the boolean as a logical operation on other boolean values
-            # e.g., True might become (True or False) or False might become (False and True)
+            # Rewrite the boolean as a logical operation on other boolean
+            # values e.g., True might become (True or False) or False might
+            # become (False and True)
             elif m == 2:
                 parts = random.choice(booleans[node.value])
                 if type(parts) in iterable:
                     node = ast.BoolOp(parts[0](), [ac(p) for p in parts[1:]])
                 elif type(parts) is str:
                     node = make_tree(parts)
-            # Encode the boolean as a casting from a numerical value to a bool; 0 will become False and anything else will evaluate as True
+            # Encode the boolean as a casting from a numerical value to a bool;
+            # 0 will become False and anything else will evaluate as True
             elif m == 3:
                 node = ast.Call(ast.Name('bool'), [ac(random.randint(-50, 50)) if node.value else ac(0)], [])
             # Rewrite as boolean inverse ("not" operator)
@@ -429,7 +448,8 @@ def modify_node(node):
             elif m == 5:
                 pass
 
-    # Randomly wrap the node in a lambda function and a function call that executes it
+    # Randomly wrap the node in a lambda function and a function call that
+    # executes it
     if random.random() < 0.5:
         node = ast.Call(ast.Lambda([], body=node), [], [])
 
@@ -518,7 +538,9 @@ class NameRewriter(ast.NodeTransformer):
 
 def obfuscate(p, iterations=1):
     """
-    Obfuscate source code by applying logical transformations that convert abstract syntax tree nodes into other nodes (or combinations of nodes) that are semantically equivalent
+    Obfuscate source code by applying logical transformations that convert
+    abstract syntax tree nodes into other nodes (or combinations of nodes) that
+    are semantically equivalent
 
     Params:
         iterations: The number of times to apply the obfuscation
