@@ -6,15 +6,23 @@ repository will continue to be developed independently in their corresponding
 repositories, but I'm hoping to ameliorate some of the code duplication issues
 and other maintenance headaches I've run into recently.
 
+## Branches
+
+- leetcode: some of my solutions to programming problems from [leetcode.com](https://leetcode.com/)
+- geometry: helper classes for geometry in Python that I've been copy-pasting around periodically for the last 18 months or so (and actually one of the main reasons for creating this monorepo)
+- meta: information about this repository itself (code statistics, file listings, issue metadata, etc.)
+- pythings: useful tools and scripts for the boring parts of Python (mainly writing tests, documentation, etc.)
+- obfuscation: code obfuscation tools repurposed from an old repository of mine
+
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2015.5 files/s, 215787.7 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2041.8 files/s, 219324.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|17|272|0|911
+Markdown|17|274|0|920
 Python|5|188|344|716
 Bourne Shell|2|77|102|449
 JSON|1|0|0|185
@@ -23,7 +31,7 @@ TOML|2|4|1|14
 Rust|1|2|2|13
 YAML|1|0|0|1
 --------|--------|--------|--------|--------
-SUM:|31|553|462|2304
+SUM:|31|555|462|2313
 
 
 ## Tree
