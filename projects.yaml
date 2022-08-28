@@ -19,4 +19,33 @@ graphs:
 captcha:
   - inactive
   - unstarted
-
+zeal:
+  - semi-inactive
+  - unfinished
+ao:
+  - inactive
+  - unfinished
+board:
+  - active
+  - unfinished
+transpiler:
+  - inactive
+  - unstarted
+finch:
+  - active
+  - unfinished
+clover:
+  - on hold
+  - unfinished
+c2s:
+  - on hold
+  - unfinished
+utils:
+  - inactive
+  - ongoing
+tetris-variants:
+  - inactive
+  - unfinished
+generic-github-user:
+  - inactive
+  - ongoing
