@@ -9,13 +9,13 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2015.5 files/s, 215787.7 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2063.9 files/s, 192857.4 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|17|272|0|911
-Python|5|188|344|716
+Markdown|17|272|0|914
+Python|10|188|347|755
 Bourne Shell|2|77|102|449
 JSON|1|0|0|185
 vim script|2|10|13|15
@@ -23,7 +23,7 @@ TOML|2|4|1|14
 Rust|1|2|2|13
 YAML|1|0|0|1
 --------|--------|--------|--------|--------
-SUM:|31|553|462|2304
+SUM:|36|553|465|2346
 
 
 ## Tree
@@ -59,6 +59,12 @@ SUM:|31|553|462|2304
 │   │   ├── _config.yml
 │   │   └── index.md
 │   └── README.md
+├── leetcode
+│   ├── 1436.py
+│   ├── 1528.py
+│   ├── 1869.py
+│   ├── 39.py
+│   └── 796.py
 ├── obfuscation
 │   ├── caterpillar.py
 │   └── LICENSE.md
@@ -83,7 +89,7 @@ SUM:|31|553|462|2304
 └── zeal
     └── README.md
 
-17 directories, 35 files
+18 directories, 40 files
 
 ```
 
