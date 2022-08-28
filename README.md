@@ -9,21 +9,22 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2063.9 files/s, 192857.4 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2917.4 files/s, 330412.2 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|17|272|0|914
-Python|10|188|347|755
+Python|19|281|432|1191
+Markdown|18|273|0|922
 Bourne Shell|2|77|102|449
+Jupyter Notebook|1|0|1043|293
 JSON|1|0|0|185
 vim script|2|10|13|15
 TOML|2|4|1|14
 Rust|1|2|2|13
 YAML|1|0|0|1
 --------|--------|--------|--------|--------
-SUM:|36|553|465|2346
+SUM:|47|647|1593|3083
 
 
 ## Tree
@@ -59,6 +60,20 @@ SUM:|36|553|465|2346
 │   │   ├── _config.yml
 │   │   └── index.md
 │   └── README.md
+├── graphs
+│   ├── completegraph.py
+│   ├── giraffe.ipynb
+│   ├── giraffe.py
+│   ├── graph.py
+│   ├── gridgraph.py
+│   ├── manual_testing.py
+│   ├── node.py
+│   ├── randomgraph.py
+│   └── randomizer.py
+├── keyboard-dynamics
+│   ├── keyboard.py
+│   ├── LICENSE
+│   └── README.md
 ├── leetcode
 │   ├── 1436.py
 │   ├── 1528.py
@@ -68,6 +83,18 @@ SUM:|36|553|465|2346
 ├── obfuscation
 │   ├── caterpillar.py
 │   └── LICENSE.md
+├── __pycache__
+│   ├── completegraph.cpython-38.pyc
+│   ├── completegraph.cpython-39.pyc
+│   ├── giraffe.cpython-38.pyc
+│   ├── graph.cpython-38.pyc
+│   ├── graph.cpython-39.pyc
+│   ├── gridgraph.cpython-38.pyc
+│   ├── gridgraph.cpython-39.pyc
+│   ├── node.cpython-38.pyc
+│   ├── node.cpython-39.pyc
+│   ├── randomgraph.cpython-38.pyc
+│   └── randomgraph.cpython-39.pyc
 ├── pythings
 │   ├── build.py
 │   ├── Pipfile
@@ -89,7 +116,7 @@ SUM:|36|553|465|2346
 └── zeal
     └── README.md
 
-18 directories, 40 files
+21 directories, 63 files
 
 ```
 
