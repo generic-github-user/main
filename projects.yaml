@@ -1,0 +1,22 @@
+pythings:
+  - active
+  - unfinished
+obfuscation:
+  - inactive
+  - unfinished
+unicode-art:
+  - inactive
+  - unfinished
+leetcode:
+  - active
+  - unfinished
+geometry:
+  - inactive
+  - unfinished
+graphs:
+  - inactive
+  - unfinished
+captcha:
+  - inactive
+  - unstarted
+
