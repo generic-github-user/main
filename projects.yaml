@@ -13,11 +13,13 @@ projects:
     status: active
     completion: unfinished
     language: python
+    labels: [tools, utilities, metaprogramming]
   obfuscation:
     location: /main
     status: inactive
     completion: unfinished
     language: python
+    labels: [tools, security, languages]
   unicode-art:
     status: inactive
     completion: unfinished
@@ -26,16 +28,19 @@ projects:
     status: active
     completion: unfinished
     language: python
+    labels: [programming-challenges, leetcode, algorithms]
   geometry:
     location: /main
     status: inactive
     completion: unfinished
     language: python
+    labels: [libraries, mathematics, geometry, analysis]
   graphs:
     location: /main
     status: inactive
     completion: unfinished
     language: python
+    labels: [libraries, mathematics, graphs, graph-theory, data-structures]
   captcha:
     status: inactive
     completion: unstarted
@@ -52,14 +57,17 @@ projects:
     status: active
     completion: unfinished
     language: c++
+    labels: [mathematics, combinatorics, board-games, simulations, chess]
   transpiler:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [programming-languages, transpilers, compilers]
   finch:
     status: active
     completion: unfinished
     language: [python, rust, c++]
+    labels: [programming-languages, new-language, compilers, transpilers, experimental]
   clover:
     status: on hold
     completion: unfinished
@@ -68,10 +76,12 @@ projects:
     status: on hold
     completion: unfinished
     language: [python, c]
+    labels: [programming-languages, new-language, compilers, transpilers, experimental]
   utils:
     status: inactive
     completion: ongoing
     language: python
+    labels: [unix, utilities, tools, scripting, command-line]
   tetris-variants:
     status: inactive
     completion: unfinished
