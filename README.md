@@ -17,22 +17,23 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2013.6 files/s, 241144.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (2931.6 files/s, 362132.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Markdown|18|280|0|1310
-Python|20|286|434|1200
+Markdown|19|282|0|1351
+Python|21|305|450|1279
 Bourne Shell|2|77|102|449
+C|1|73|92|353
 Jupyter Notebook|1|0|1043|293
 JSON|1|0|0|185
-YAML|2|2|0|133
+YAML|3|2|0|137
 vim script|2|10|13|15
 TOML|2|4|1|14
 Rust|1|2|2|13
 --------|--------|--------|--------|--------
-SUM:|49|661|1595|3612
+SUM:|53|755|1703|4089
 
 
 ## Tree
@@ -91,6 +92,10 @@ SUM:|49|661|1595|3612
 ├── obfuscation
 │   ├── caterpillar.py
 │   └── LICENSE.md
+├── packings
+│   ├── packings.c
+│   ├── packings.py
+│   └── README.md
 ├── projects.yaml
 ├── __pycache__
 │   ├── completegraph.cpython-38.pyc
@@ -113,6 +118,7 @@ SUM:|49|661|1595|3612
 │   └── README.src.md
 ├── README.md
 ├── README.src.md
+├── substitutions.yaml
 ├── tetris-variants
 │   └── README.md
 ├── transpiler
@@ -125,81 +131,88 @@ SUM:|49|661|1595|3612
 └── zeal
     └── README.md
 
-21 directories, 64 files
+22 directories, 68 files
 
 ```
 
 ## History
 
 ```
-*   2962087 (refs/stash) WIP on meta: 3217348 add labels to other projects in this monorepo
+*   4db490e (refs/stash) WIP on meta: 3217348 add labels to other projects in this monorepo
 |\  
-| * 27bfced index on meta: 3217348 add labels to other projects in this monorepo
+| * 51f8f65 index on meta: 3217348 add labels to other projects in this monorepo
 |/  
-* 3217348 (origin/meta, meta) add labels to other projects in this monorepo
-* b5b027a add list of labels/topics to some projects
-* 6763501 add language information for some projects
-* f558afc add diagram of repository branching history
-* 2200f35 minor reorganization (added location indicators to some items)
-* e0f70c4 add descriptions of some status labels
-* 56384bf add info about some external repositories
-* bf2f053 add metadata for other projects
-* 224ffa9 add information about some projects' statuses
-* b66eca8 update formatting
-* a2166a6 add branch summaries
-| *   f1932de (origin/packings, packings) Merge remote-tracking branch 'packings/main' into packings
+| *   79a8246 (HEAD -> meta, origin/meta, origin/master, master) Merge branch 'packings'
 | |\  
-| | * 9c38413 move files to subdirectory to allow merge with monorepo
-| | * 58292da Refactor add_center
-| | * ba9e195 Add README
-| | * 07e0436 change some return types, etc
-| | * b6180ba Add function for placing center block
-| | * 63035a3 Add missing compute counters
-| | * 61e06f0 Add global list of allocated polyominoes
-| | * 33dda73 Add polyomino optimization function
-| | * 0012982 cleanup
-| | * 40dcb04 minor refactoring
-| | * f1177db Add templates for other functions
-| | * a1d2330 add node and graph structs
-| | * da4d468 Generate and display sample polyominoes
-| | * 74e6b8d update polyomino indexing scheme
-| | * 7190a04 miscellaneous
-| | * c9db171 Add main function
-| | * e1af71e Add function for randomly removing blocks
-| | * 0840c72 Add helper function for removing blocks
-| | * b2931b7 Add function for adding blocks to polyomino (while maintaining both the geometric data structure and index)
-| | * e037be9 Add function for finding available memory to store pointer to new index (vector) in
-| | * 0071f44 add polyomino equivalence function
-| | * ae8b76c Add randomized function for expanding polyominoes
-| | * bbb3d8d Add function for computing perimeter of polyomino
-| | * 9366309 Add function for counting adjacent blocks
-| | * 4737686 misc
-| | * fa74741 Add function for checking polyomino equivalence up to translation
-| | * 33d8129 Add function for generating and counting polyominoes (in place)
-| | * 36f893f Add function for getting pointers to all candidate cells in a polyomino representation
-| | * 3d33edf Add function for testing whether 2 (aligned) polyominoes overlap
-| | * 22d781b Add helper functions
-| | * f246748 Add functions for releasing dynamically allocated memory (used to store arrays and polyominoes)
-| | * b59d30b misc
-| | * d54b2ce Add polyomino printing function
-| | * 56ab5c9 Add function for safely getting pointer to a block from a polyomino
-| | * e3b44b9 Add polyomino struct and constructor
-| | * cb12b75 Add function for creating arrays
-| | * 06f770b add TODOs
-| | * 52de5b6 Add function for populating array with value
-| | * 0e82000 Add ANSI escape codes for printing colored text
-| | * 7e4c2a5 add vector and array structs
-| | * dd5fcc5 Add C-based version of system
-| | * c533d05 refactoring
-| | * 79a95b4 Add method for removing squares from polyominoes
-| | * 9eaa77e Add method for building larger polyominos by adding squares to edges
-| | * f71322b Add str method to Polyomino class
-| | * c2bf715 Add method for expanding polyomino representation to correct size
-| | * 5fac011 Add Polyomino class
-| | * c6c3b2d Add class for representing collections of polyominoes
-| | * a48bce8 add packings.py
-| | * f49d0c1 Initial commit
-| * f798b6e (HEAD -> master, origin/master) update stats (again
+| | *   f1932de (origin/packings-rust, origin/packings, packings-rust, packings) Merge remote-tracking branch 'packings/main' into packings
+| | |\  
+| | | * 9c38413 move files to subdirectory to allow merge with monorepo
+| | | * 58292da Refactor add_center
+| | | * ba9e195 Add README
+| | | * 07e0436 change some return types, etc
+| | | * b6180ba Add function for placing center block
+| | | * 63035a3 Add missing compute counters
+| | | * 61e06f0 Add global list of allocated polyominoes
+| | | * 33dda73 Add polyomino optimization function
+| | | * 0012982 cleanup
+| | | * 40dcb04 minor refactoring
+| | | * f1177db Add templates for other functions
+| | | * a1d2330 add node and graph structs
+| | | * da4d468 Generate and display sample polyominoes
+| | | * 74e6b8d update polyomino indexing scheme
+| | | * 7190a04 miscellaneous
+| | | * c9db171 Add main function
+| | | * e1af71e Add function for randomly removing blocks
+| | | * 0840c72 Add helper function for removing blocks
+| | | * b2931b7 Add function for adding blocks to polyomino (while maintaining both the geometric data structure and index)
+| | | * e037be9 Add function for finding available memory to store pointer to new index (vector) in
+| | | * 0071f44 add polyomino equivalence function
+| | | * ae8b76c Add randomized function for expanding polyominoes
+| | | * bbb3d8d Add function for computing perimeter of polyomino
+| | | * 9366309 Add function for counting adjacent blocks
+| | | * 4737686 misc
+| | | * fa74741 Add function for checking polyomino equivalence up to translation
+| | | * 33d8129 Add function for generating and counting polyominoes (in place)
+| | | * 36f893f Add function for getting pointers to all candidate cells in a polyomino representation
+| | | * 3d33edf Add function for testing whether 2 (aligned) polyominoes overlap
+| | | * 22d781b Add helper functions
+| | | * f246748 Add functions for releasing dynamically allocated memory (used to store arrays and polyominoes)
+| | | * b59d30b misc
+| | | * d54b2ce Add polyomino printing function
+| | | * 56ab5c9 Add function for safely getting pointer to a block from a polyomino
+| | | * e3b44b9 Add polyomino struct and constructor
+| | | * cb12b75 Add function for creating arrays
+| | | * 06f770b add TODOs
+| | | * 52de5b6 Add function for populating array with value
+| | | * 0e82000 Add ANSI escape codes for printing colored text
+| | | * 7e4c2a5 add vector and array structs
+| | | * dd5fcc5 Add C-based version of system
+| | | * c533d05 refactoring
+| | | * 79a95b4 Add method for removing squares from polyominoes
+| | | * 9eaa77e Add method for building larger polyominos by adding squares to edges
+| | | * f71322b Add str method to Polyomino class
+| | | * c2bf715 Add method for expanding polyomino representation to correct size
+| | | * 5fac011 Add Polyomino class
+| | | * c6c3b2d Add class for representing collections of polyominoes
+| | | * a48bce8 add packings.py
+| | | * f49d0c1 Initial commit
+| * |   c203f54 Merge branch 'meta'
+| |\ \  
+| |/ /  
+|/| /   
+| |/    
+* | 3217348 add labels to other projects in this monorepo
+* | b5b027a add list of labels/topics to some projects
+* | 6763501 add language information for some projects
+* | f558afc add diagram of repository branching history
+* | 2200f35 minor reorganization (added location indicators to some items)
+* | e0f70c4 add descriptions of some status labels
+* | 56384bf add info about some external repositories
+* | bf2f053 add metadata for other projects
+* | 224ffa9 add information about some projects' statuses
+* | b66eca8 update formatting
+* | a2166a6 add branch summaries
+| * f798b6e update stats (again
 | *   21fde43 Merge remote-tracking branch 'graphs/graphs'
 | |\  
 | | * 228ea98 (graphs) fix merge prep from last commit (on /giraffe)
