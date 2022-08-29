@@ -49,3 +49,31 @@ tetris-variants:
 generic-github-user:
   - inactive
   - ongoing
+
+englint:
+  - inactive
+  - unstarted
+set:
+  - inactive
+  - unstarted
+grammars:
+  - semi-active
+  - unfinished
+chrestomathy:
+  - inactive
+  - ongoing
+CA2:
+  - semi-active
+  - unfinished
+packings:
+  - semi-active
+  - unfinished
+CogBench:
+  - inactive
+  - unfinished
+Time-Zone-Roles:
+  - inactive
+  - shelved
+Blender:
+  - inactive
+  - ongoing
