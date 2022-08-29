@@ -1,79 +1,89 @@
-pythings:
-  - active
-  - unfinished
-obfuscation:
-  - inactive
-  - unfinished
-unicode-art:
-  - inactive
-  - unfinished
-leetcode:
-  - active
-  - unfinished
-geometry:
-  - inactive
-  - unfinished
-graphs:
-  - inactive
-  - unfinished
-captcha:
-  - inactive
-  - unstarted
-zeal:
-  - semi-inactive
-  - unfinished
-ao:
-  - inactive
-  - unfinished
-board:
-  - active
-  - unfinished
-transpiler:
-  - inactive
-  - unstarted
-finch:
-  - active
-  - unfinished
-clover:
-  - on hold
-  - unfinished
-c2s:
-  - on hold
-  - unfinished
-utils:
-  - inactive
-  - ongoing
-tetris-variants:
-  - inactive
-  - unfinished
-generic-github-user:
-  - inactive
-  - ongoing
+labels:
+  active: currently under development or work will resume soon
+  inactive: progress has stalled for some reason; it is unclear when development work will continue
+  semi-active/semi-inactive: development has been/will be intermittent based on availability
+  unstarted: a rough plan for the project exists but minimal work has been done thus far
+  unfinished: project is in progress or near completion (but may be inactive)
+  ongoing: project is not intended to be finished
+  on hold: work has temporarily ceased but will ostensibly continue in the near future
 
-englint:
-  - inactive
-  - unstarted
-set:
-  - inactive
-  - unstarted
-grammars:
-  - semi-active
-  - unfinished
-chrestomathy:
-  - inactive
-  - ongoing
-CA2:
-  - semi-active
-  - unfinished
-packings:
-  - semi-active
-  - unfinished
-CogBench:
-  - inactive
-  - unfinished
-Time-Zone-Roles:
-  - inactive
-  - shelved
-Blender:
-  - inactive
-  - ongoing
+projects:
+  pythings:
+    - active
+    - unfinished
+  obfuscation:
+    - inactive
+    - unfinished
+  unicode-art:
+    - inactive
+    - unfinished
+  leetcode:
+    - active
+    - unfinished
+  geometry:
+    - inactive
+    - unfinished
+  graphs:
+    - inactive
+    - unfinished
+  captcha:
+    - inactive
+    - unstarted
+  zeal:
+    - semi-inactive
+    - unfinished
+  ao:
+    - inactive
+    - unfinished
+  board:
+    - active
+    - unfinished
+  transpiler:
+    - inactive
+    - unstarted
+  finch:
+    - active
+    - unfinished
+  clover:
+    - on hold
+    - unfinished
+  c2s:
+    - on hold
+    - unfinished
+  utils:
+    - inactive
+    - ongoing
+  tetris-variants:
+    - inactive
+    - unfinished
+  generic-github-user:
+    - inactive
+    - ongoing
+
+  englint:
+    - inactive
+    - unstarted
+  set:
+    - inactive
+    - unstarted
+  grammars:
+    - semi-active
+    - unfinished
+  chrestomathy:
+    - inactive
+    - ongoing
+  CA2:
+    - semi-active
+    - unfinished
+  packings:
+    - semi-active
+    - unfinished
+  CogBench:
+    - inactive
+    - unfinished
+  Time-Zone-Roles:
+    - inactive
+    - shelved
+  Blender:
+    - inactive
+    - ongoing
