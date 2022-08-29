@@ -23,6 +23,7 @@ projects:
   unicode-art:
     status: inactive
     completion: unfinished
+    labels: [graphics, diagrams, tools]
   leetcode:
     location: /main
     status: active
@@ -45,10 +46,12 @@ projects:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [hci, security, experiments]
   zeal:
     status: semi-inactive
     completion: unfinished
     language: python
+    labels: [serialization, markup, file-formats]
   ao:
     status: inactive
     completion: unfinished
@@ -72,6 +75,7 @@ projects:
     status: on hold
     completion: unfinished
     language: c++
+    labels: [ai, ml, mathematics, optimization]
   c2s:
     status: on hold
     completion: unfinished
@@ -85,9 +89,16 @@ projects:
   tetris-variants:
     status: inactive
     completion: unfinished
+    labels: [games, tetris, interactive]
   generic-github-user:
     status: inactive
     completion: ongoing
+    labels: [meta, profile]
+  packings:
+    status: semi-active
+    completion: unfinished
+    language: c
+    labels: [mathematics, combinatorics, simulations, geometry]
 
   englint:
     status: inactive
@@ -108,10 +119,6 @@ projects:
     status: semi-active
     completion: unfinished
     language: [c, python]
-  packings:
-    status: semi-active
-    completion: unfinished
-    language: c
   CogBench:
     status: inactive
     completion: unfinished
@@ -119,7 +126,9 @@ projects:
   Time-Zone-Roles:
     status: inactive
     completion: shelved
+    labels: [discord-bot, automation]
   Blender:
     status: inactive
     completion: ongoing
     language: python
+    labels: [add-ons, extensions, 3d-graphics, blender]
