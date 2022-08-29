@@ -10,6 +10,7 @@ with open('README.src.md', 'r') as f: content = f.read()
 content = content.replace('[[toc]]', runcmd('markdown-toc README.src.md'))
 content = content.replace('[[stats]]', runcmd('cloc . --md'))
 content = content.replace('[[tree]]', runcmd('tree'))
+content = content.replace('[[history]]', runcmd('git log --all --oneline --graph --decorate --topo-order'))
 
 with open('README.md', 'w+') as f: f.write(content)
 

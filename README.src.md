@@ -24,3 +24,8 @@ and other maintenance headaches I've run into recently.
 [[tree]]
 ```
 
+## History
+
+```
+[[history]]
+```
