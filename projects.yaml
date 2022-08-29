@@ -9,81 +9,86 @@ labels:
 
 projects:
   pythings:
-    - active
-    - unfinished
+    location: /main
+    status: active
+    completion: unfinished
   obfuscation:
-    - inactive
-    - unfinished
+    location: /main
+    status: inactive
+    completion: unfinished
   unicode-art:
-    - inactive
-    - unfinished
+    status: inactive
+    completion: unfinished
   leetcode:
-    - active
-    - unfinished
+    location: /main
+    status: active
+    completion: unfinished
   geometry:
-    - inactive
-    - unfinished
+    location: /main
+    status: inactive
+    completion: unfinished
   graphs:
-    - inactive
-    - unfinished
+    location: /main
+    status: inactive
+    completion: unfinished
   captcha:
-    - inactive
-    - unstarted
+    status: inactive
+    completion: unstarted
   zeal:
-    - semi-inactive
-    - unfinished
+    status: semi-inactive
+    completion: unfinished
   ao:
-    - inactive
-    - unfinished
+    status: inactive
+    completion: unfinished
   board:
-    - active
-    - unfinished
+    status: active
+    completion: unfinished
   transpiler:
-    - inactive
-    - unstarted
+    status: inactive
+    completion: unstarted
   finch:
-    - active
-    - unfinished
+    status: active
+    completion: unfinished
   clover:
-    - on hold
-    - unfinished
+    status: on hold
+    completion: unfinished
   c2s:
-    - on hold
-    - unfinished
+    status: on hold
+    completion: unfinished
   utils:
-    - inactive
-    - ongoing
+    status: inactive
+    completion: ongoing
   tetris-variants:
-    - inactive
-    - unfinished
+    status: inactive
+    completion: unfinished
   generic-github-user:
-    - inactive
-    - ongoing
+    status: inactive
+    completion: ongoing
 
   englint:
-    - inactive
-    - unstarted
+    status: inactive
+    completion: unstarted
   set:
-    - inactive
-    - unstarted
+    status: inactive
+    completion: unstarted
   grammars:
-    - semi-active
-    - unfinished
+    status: semi-active
+    completion: unfinished
   chrestomathy:
-    - inactive
-    - ongoing
+    status: inactive
+    completion: ongoing
   CA2:
-    - semi-active
-    - unfinished
+    status: semi-active
+    completion: unfinished
   packings:
-    - semi-active
-    - unfinished
+    status: semi-active
+    completion: unfinished
   CogBench:
-    - inactive
-    - unfinished
+    status: inactive
+    completion: unfinished
   Time-Zone-Roles:
-    - inactive
-    - shelved
+    status: inactive
+    completion: shelved
   Blender:
-    - inactive
-    - ongoing
+    status: inactive
+    completion: ongoing
