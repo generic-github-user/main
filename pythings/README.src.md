@@ -97,8 +97,11 @@ following:
 - Automatic construction of diagrams and other auxiliary material
 - Documentation generation (multiple formats, high flexibility)
 - Serialization/deserialization
-- Templating or fully automated generation of boilerplate code and derivable methods/properties
-- Code generation (module should be able to disappear WRT production code where possible, i.e. less dynamic attributes that can be determined prior to the "actual" runtime)
+- Templating or fully automated generation of boilerplate code and derivable
+	methods/properties
+- Code generation (module should be able to disappear WRT production code where
+	possible, i.e. less dynamic attributes that can be determined prior to the
+	"actual" runtime)
 - Semi-automated implementation of intuitive command-line interfaces
 
 ## Technical Details
@@ -107,11 +110,28 @@ Thus, the goal here is to create a generic helper class that others can extend
 and which integrates (potentially sophisticated) type information to
 automatically perform runtime type checking for arguments and other values when
 appropriate, generate relevant unit tests, and build formatted documentation.
-In Python, there are a few reasonable options for achieving something like this:
+In Python, there are a few reasonable options for achieving something like
+this:
 
-- Create a base class, subclass it, and instantiate the subclass: this raises the potential for namespace conflicts between the base class and subclass, and special attributes need to be manually bound to the class since there's no conceptual separation between the type in question and *its* type reflected in the class structure
-- Use a function to dynamically generate a closure containing the target class and any tests/type checks/auxiliary information constructed by the module: this works fine if we don't intend to introspect the class itself later (and the information could indeed be abstracted out to the constructor level if one preferred), but seemed like the wrong choice for this module since I wanted to include features like documentation/API reference generation tied directly into generated classes
-- Create an outer class to represent the type of types that stores metadata about valid argument types, how object fields are produced from arguments, invariants/assertions that should be tested during execution, etc., then use this class to dynamically declare the actual target class that will be instantiated by the user (and provide an interface to it via the wrapper): this appeared to be the most flexible option and is the one I elected for this tool
+- Create a base class, subclass it, and instantiate the subclass: this raises
+	the potential for namespace conflicts between the base class and subclass,
+	and special attributes need to be manually bound to the class since there's
+	no conceptual separation between the type in question and *its* type
+	reflected in the class structure
+- Use a function to dynamically generate a closure containing the target class
+	and any tests/type checks/auxiliary information constructed by the module:
+	this works fine if we don't intend to introspect the class itself later (and
+	the information could indeed be abstracted out to the constructor level if
+	one preferred), but seemed like the wrong choice for this module since I
+	wanted to include features like documentation/API reference generation tied
+	directly into generated classes
+- Create an outer class to represent the type of types that stores metadata
+	about valid argument types, how object fields are produced from arguments,
+	invariants/assertions that should be tested during execution, etc., then use
+	this class to dynamically declare the actual target class that will be
+	instantiated by the user (and provide an interface to it via the wrapper):
+	this appeared to be the most flexible option and is the one I elected for
+	this tool
 
 ## Project Structure
 
@@ -152,16 +172,25 @@ flowchart TD
 
 ## Branches
 
-- `pythings-comments`: comments, when I'm in the mood; most of the time, how my code works is between me and God
-- `pythings-decorator`: allows use of pythings' `Class` as a decorator for normal Python classes
-- `pythings-diagrams`: generating diagrams that summarize class/method/type structures and relationships
-- `pythings-docgen`: creating documentation formatted with Markdown, AsciiDoc, HTML, etc. from source code and lightweight type annotations
-- `pythings-docs`: documentation for the pythings module itself (not code for its documentation generation capabilities)
-- `pythings-examples`: generation of useful documentation examples from class and function metadata (type annotations and such)
-- `pythings-restructuring`: for large refactors and moving sections of code between files, adding/moving/removing files, etc.
+- `pythings-comments`: comments, when I'm in the mood; most of the time, how my
+	code works is between me and God
+- `pythings-decorator`: allows use of pythings' `Class` as a decorator for
+	normal Python classes
+- `pythings-diagrams`: generating diagrams that summarize class/method/type
+	structures and relationships
+- `pythings-docgen`: creating documentation formatted with Markdown, AsciiDoc,
+	HTML, etc. from source code and lightweight type annotations
+- `pythings-docs`: documentation for the pythings module itself (not code for
+	its documentation generation capabilities)
+- `pythings-examples`: generation of useful documentation examples from class
+	and function metadata (type annotations and such)
+- `pythings-restructuring`: for large refactors and moving sections of code
+	between files, adding/moving/removing files, etc.
 - `pythings-srclinks`: automagically linking to source code in documentation
 - `pythings-testing`: unit testing utilities
-- `pythings`: main pythings branch; stable-ish features should be merged here periodically (can also be used as a single source of truth for updating stale branches before working on them)
+- `pythings`: main pythings branch; stable-ish features should be merged here
+	periodically (can also be used as a single source of truth for updating stale
+	branches before working on them)
 
 ## Stats
 
