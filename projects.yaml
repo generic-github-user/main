@@ -12,10 +12,12 @@ projects:
     location: /main
     status: active
     completion: unfinished
+    language: python
   obfuscation:
     location: /main
     status: inactive
     completion: unfinished
+    language: python
   unicode-art:
     status: inactive
     completion: unfinished
@@ -23,41 +25,53 @@ projects:
     location: /main
     status: active
     completion: unfinished
+    language: python
   geometry:
     location: /main
     status: inactive
     completion: unfinished
+    language: python
   graphs:
     location: /main
     status: inactive
     completion: unfinished
+    language: python
   captcha:
     status: inactive
     completion: unstarted
+    language: undecided
   zeal:
     status: semi-inactive
     completion: unfinished
+    language: python
   ao:
     status: inactive
     completion: unfinished
+    language: [bash, python]
   board:
     status: active
     completion: unfinished
+    language: c++
   transpiler:
     status: inactive
     completion: unstarted
+    language: undecided
   finch:
     status: active
     completion: unfinished
+    language: [python, rust, c++]
   clover:
     status: on hold
     completion: unfinished
+    language: c++
   c2s:
     status: on hold
     completion: unfinished
+    language: [python, c]
   utils:
     status: inactive
     completion: ongoing
+    language: python
   tetris-variants:
     status: inactive
     completion: unfinished
@@ -68,27 +82,34 @@ projects:
   englint:
     status: inactive
     completion: unstarted
+    language: undecided
   set:
     status: inactive
     completion: unstarted
+    language: undecided
   grammars:
     status: semi-active
     completion: unfinished
   chrestomathy:
     status: inactive
     completion: ongoing
+    language: multiple
   CA2:
     status: semi-active
     completion: unfinished
+    language: [c, python]
   packings:
     status: semi-active
     completion: unfinished
+    language: c
   CogBench:
     status: inactive
     completion: unfinished
+    language: python
   Time-Zone-Roles:
     status: inactive
     completion: shelved
   Blender:
     status: inactive
     completion: ongoing
+    language: python
