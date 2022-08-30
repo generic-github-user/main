@@ -1,15 +1,17 @@
 __all__ = ['Attractor', 'IteratedFunctionSystem', 'rotation_matrix', 'rotate', 'simulate_accelerated', 'line',
            'RouletteCurve']
 
-# %matplotlib widget
 import IPython
 # IPython.get_ipython().run_line_magic('matplotlib', 'widget')
+
 import matplotlib
 import matplotlib.pyplot as plt
+
 import numpy as np
 import numba as nb
 import math
 import random
+
 import time
 from scipy import signal, misc
 
@@ -43,10 +45,12 @@ def rotate(a, b, t):
 @nb.njit
 def simulate_accelerated(speeds, pivots, center, angles, start, points, steps=100, clip=True):
     """
-    Efficiently simulate a system of rotating segments joined by pivots using Numba to JIT-compile operations on NumPy arrays.
+    Efficiently simulate a system of rotating segments joined by pivots using
+    Numba to JIT-compile operations on NumPy arrays.
 
     - `steps`: integer >=1; the number of timesteps to simulate
-    - `clip`: `boolean`; whether to limit the maximum angle of each section (if `True`, the values will wrap around to 0; defaults to `True`)
+    - `clip`: `boolean`; whether to limit the maximum angle of each section (if
+      `True`, the values will wrap around to 0; defaults to `True`)
 
     Returns an `ndarray` of the generated points
     """
@@ -89,7 +93,8 @@ def line(start, stop, bg, width=1., quality=5.):
     -`stop`: `ndarray`; the end point
     -`bg` (background): `ndarray`; the array to draw the line onto
     -`width`: `int` or `float` >= 1; the thickness of the line
-    -`quality`: `int` or `float` >= 1; the number of points to draw for each unit of distance between the points
+    -`quality`: `int` or `float` >= 1; the number of points to draw for each
+    unit of distance between the points
 
     Returns the modified `bg` array with the line drawn
     """
@@ -120,13 +125,25 @@ def line(start, stop, bg, width=1., quality=5.):
 class RouletteCurve(Attractor):
     def __init__(self, center=[0, 0], num_sections=4, lengths=None, speeds=None, random_distribution='uniform'):
         """
-        Create a new `RouletteCurve` object. This subclasses `Attractor` and describes a process where one or more line segments, connected end-to-end, rotate continuously about their pivots/endpoints. The length of each line segment and the speed at which it rotates are adjustable parameters.
+        Create a new `RouletteCurve` object. This subclasses `Attractor` and
+        describes a process where one or more line segments, connected
+        end-to-end, rotate continuously about their pivots/endpoints. The
+        length of each line segment and the speed at which it rotates are
+        adjustable parameters.
 
-        -`center`: A `list`/`tuple`/`ndarray` of `float`s or `int`s; the pivot point/base of the first arm
-        -`num_sections`: `int` >= 1; the number of arms/sections used to simulate the system. This will be used to randomly generate the lengths and speeds of each arm if those parameters are not provided
-        -`lengths`: A `list`/`tuple`/`ndarray` of `float`s or `int`s > 0; length of each arm in n-dimensional Euclidian space
-        -`speeds`: A `list`/`tuple`/`ndarray` of `float`s or `int`s; how quickly each arm rotates (note that negative values may be used for counterclockwise rotation, and 0 may be used for arms that do not rotate)
-        -`random_distribution`: `'uniform'` or `'normal'`; what distribution to draw the lengths and speeds from if they are not provided
+        -`center`: A `list`/`tuple`/`ndarray` of `float`s or `int`s; the pivot
+        point/base of the first arm
+        -`num_sections`: `int` >= 1; the number of arms/sections used to
+        simulate the system. This will be used to randomly generate the lengths
+        and speeds of each arm if those parameters are not provided
+        -`lengths`: A `list`/`tuple`/`ndarray` of `float`s or `int`s > 0;
+        length of each arm in n-dimensional Euclidian space
+        -`speeds`: A `list`/`tuple`/`ndarray` of `float`s or `int`s; how
+        quickly each arm rotates (note that negative values may be used for
+        counterclockwise rotation, and 0 may be used for arms that do not
+        rotate)
+        -`random_distribution`: `'uniform'` or `'normal'`; what distribution to
+        draw the lengths and speeds from if they are not provided
 
         Returns a `RouletteCurve` instance.
         """
@@ -153,7 +170,6 @@ class RouletteCurve(Attractor):
         self.start = self.start.astype(float)
         self.pivots = self.start.copy()
         self.pivots_ = []
-#         self.points = []
         self.points = np.zeros([1, 2])
         self.canvas = np.zeros([100, 100])
         self.position = 0
@@ -180,7 +196,9 @@ class RouletteCurve(Attractor):
 
     def get_state(self):
         """
-        Internal/helper function; gets current values of this instance's speeds, pivots, angles, etc. as a dictionary (mainly for use in typed functions like simulate_accelerated)
+        Internal/helper function; gets current values of this instance's
+        speeds, pivots, angles, etc. as a dictionary (mainly for use in typed
+        functions like simulate_accelerated)
 
         Returns a `dict`
         """
@@ -195,7 +213,10 @@ class RouletteCurve(Attractor):
 
     def simulate_accelerated(self, steps, duration=None):
         """
-        A faster (but less dynamic) version of `simulate` based on Numba. The actual computation is offloaded to a simplified, strongly typed global function. This method is several times faster than `simulate`, especially for more complex `Attractor`s.
+        A faster (but less dynamic) version of `simulate` based on Numba. The
+        actual computation is offloaded to a simplified, strongly typed global
+        function. This method is several times faster than `simulate`,
+        especially for more complex `Attractor`s.
 
         Returns the class instance (a `RouletteCurve` object).
         """
@@ -221,13 +242,20 @@ class RouletteCurve(Attractor):
 #     @nb.jit#(forceobj=True)
     def simulate(self, steps=None, render_each=None, render_settings={}, clip=True, duration=None, timecheck_frequency=100, live_rendering=True):
         """
-        Simulate the system by calculating the position of each point from data about the preceding points, and updating the internal state accordingly.
+        Simulate the system by calculating the position of each point from data
+        about the preceding points, and updating the internal state
+        accordingly.
 
         - `steps`: (optional) integer >=1; the number of timesteps to simulate
-        - `render_each`: (optional) integer >=1 representing how many steps to run before re-rendering the simulation result
-        - `render_settings`: (optional) a `dictionary` that will be passed to `render` if using `render_each`
-        - `clip`: `boolean`; whether to limit the maximum angle of each section (if `True`, the values will wrap around to 0; defaults to `True`)
-        - `duration`: `float` or `int` >0; the maximum length of time, in seconds, to run the simulation for; if `steps` is not provided, the simulation will run until this amount of time has elapsed
+        - `render_each`: (optional) integer >=1 representing how many steps to
+          run before re-rendering the simulation result
+        - `render_settings`: (optional) a `dictionary` that will be passed to
+          `render` if using `render_each`
+        - `clip`: `boolean`; whether to limit the maximum angle of each section
+          (if `True`, the values will wrap around to 0; defaults to `True`)
+        - `duration`: `float` or `int` >0; the maximum length of time, in
+          seconds, to run the simulation for; if `steps` is not provided, the
+          simulation will run until this amount of time has elapsed
         - `timecheck_frequency`: Not yet documented
         - `live_rendering`: Not yet documented
 
@@ -379,16 +407,29 @@ class RouletteCurve(Attractor):
         """
         Render an image from the list of points stored in the class instance.
 
-        - `discard`: `boolean`; if `True`, clear this `Attractor`'s points after rendering to free up memory
-        - `axis`: A Matplotlib axis to render the finished image to (if one is not provided, it will be created)
-        - `zoom`: A scaling factor by which to resize points relative to the `center` before rendering
+        - `discard`: `boolean`; if `True`, clear this `Attractor`'s points
+          after rendering to free up memory
+        - `axis`: A Matplotlib axis to render the finished image to (if one is
+          not provided, it will be created)
+        - `zoom`: A scaling factor by which to resize points relative to the
+          `center` before rendering
         - `mode`: `str`, one of `pixel`, `dist`/`brush`, `line`, or `hist`
-            -     `pixel`: Convert each point coordinate to the (integer) coordinate of the nearest pixel
-            -     `dist`: Generate a "brush" based on a distance function relative to the point coordinates, then (for each point) paint this over a region of the canvas centered on that point
-            -     `line`: Draw a line from the last rendered point to the current one (helpful for reducing the total number of points that must be rendered)
-            -     `hist`: Generate a 2D histogram using NumPy and display this (similar to `pixel`)
-        - `blending`: `str`, one of `set`, `add`, or `mul`; how the new pixel value (while rendering a point) should be combined with the current one
-        - `cmap`: `random` or a Matplotlib colormap; the colormap to pass to `imshow` - if `random`, one will be selected from the sequential colormaps listed in `RouletteCurve().cmaps`
+            -     `pixel`: Convert each point coordinate to the (integer)
+                  coordinate of the nearest pixel
+            -     `dist`: Generate a "brush" based on a distance function
+                  relative to the point coordinates, then (for each point)
+                  paint this over a region of the canvas centered on that point
+            -     `line`: Draw a line from the last rendered point to the
+                  current one (helpful for reducing the total number of points
+                  that must be rendered)
+            -     `hist`: Generate a 2D histogram using NumPy and display this
+                  (similar to `pixel`)
+        - `blending`: `str`, one of `set`, `add`, or `mul`; how the new pixel
+          value (while rendering a point) should be combined with the current
+          one
+        - `cmap`: `random` or a Matplotlib colormap; the colormap to pass to
+          `imshow` - if `random`, one will be selected from the sequential
+          colormaps listed in `RouletteCurve().cmaps`
         - `point_value`
         - `**kwargs`
         """
