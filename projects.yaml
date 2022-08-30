@@ -132,3 +132,11 @@ projects:
     completion: ongoing
     language: python
     labels: [add-ons, extensions, 3d-graphics, blender]
+  quickplot: null
+  epidemic-modelling: null
+  fractals: null
+  ascii-physics-sim: null
+  self-avoiding-walks: null
+  python-experiments: null
+  python-snippets: null
+  shelf: null
