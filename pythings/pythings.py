@@ -190,7 +190,8 @@ class Class:
             for mname, m in src_methods:
                 # Split type annotations into the return type and input types
                 # (i.e., all others)
-                T_in = []; T_out = None;
+                T_in = []
+                T_out = None
                 for k, v in typing.get_type_hints(m).items():
                     T_out = v if k == 'return' else T_in.append(v)
 
