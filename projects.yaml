@@ -115,6 +115,7 @@ projects:
   tetris-variants:
     status: inactive
     completion: unfinished
+    language: python
     labels: [games, tetris, interactive]
 
   generic-github-user:
@@ -161,6 +162,7 @@ projects:
     status: inactive
     completion: shelved
     labels: [discord-bot, automation]
+    language: javascript
 
   Blender:
     status: inactive
@@ -172,78 +174,96 @@ projects:
     status: inactive
     completion: unfinished
     labels: [plotting, graphs, tools, libraries, matplotlib]
+    language: python
 
   epidemic-modelling:
     status: inactive
     completion: unfinished
     labels: [mathematics, modelling, simulations, dynamical-systems]
+    language: python
 
   fractals:
     status: inactive
     completion: unfinished
     labels: [fractals, mathematics, graphics, numerical-analysis, dynamical-systems]
+    language: python
 
   ascii-physics-sim:
     status: inactive
     completion: unfinished
     labels: [ascii, physics, simulations, experiments]
+    language: python
 
   self-avoiding-walks:
     status: inactive
     completion: unfinished
     labels: [mathematics, combinatorics, analysis, simulations, random-walks]
+    language: python
 
   python-experiments:
     status: inactive
     completion: ongoing
     labels: [tools, utilities, metaprogramming, experiments, programming-languages]
+    language: python
 
   python-snippets:
     status: inactive
     completion: ongoing
     labels: [tools, utilities, templates, programming-languages, helpers, libraries]
+    language: python
 
   shelf:
     status: inactive
     completion: unfinished
     labels: [tools, utilities, software, command-line, organization, notes]
+    language: python
 
   locus:
     status: inactive
     completion: unfinished
+    language: python
 
   punchcard:
     status: inactive
     completion: unfinished
+    language: python
 
   wordtetris:
     status: inactive
     completion: unfinished
+    language: python
 
   alexandria:
     status: inactive
     completion: unfinished
+    language: python
 
   roulette-curves:
     status: inactive
     completion: unfinished
+    language: python
 
   cellular-automata-experiments:
     status: inactive
     completion: unfinished
+    language: python
 
   foldz:
     status: inactive
     completion: unfinished
+    language: python
 
   programming-puzzles:
     status: inactive
     completion: unfinished
+    language: python
 
   visual-computing-simulation:
     status: inactive
     completion: unfinished
+    language: python
 
   project-summary:
     status: inactive
     completion: unfinished
+    language: python
