@@ -1,8 +1,8 @@
 [submodule "ao"]
-	path = ao
+	path = tools/ao
 	url = https://github.com/generic-github-user/ao
 [submodule "zeal"]
-	path = zeal
+	path = lib/zeal
 	url = https://github.com/generic-github-user/zeal
 [submodule "generic-github-user"]
 	path = generic-github-user
@@ -11,7 +11,7 @@
 	path = clover
 	url = https://github.com/generic-github-user/clover
 [submodule "utils"]
-	path = utils
+	path = tools/utils
 	url = https://github.com/generic-github-user/utils
 [submodule "c2s"]
 	path = languages/c2s
