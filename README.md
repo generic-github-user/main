@@ -52,33 +52,36 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.06 s (2198.8 files/s, 408654.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.06 s (2495.7 files/s, 464572.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-HTML|12|1696|21|5056
-Python|53|1062|1407|3176
-Markdown|29|422|0|2465
-Jupyter Notebook|10|0|5110|1630
+HTML|14|2059|35|5936
+Python|59|1271|1751|4139
+Markdown|34|441|0|2527
+Jupyter Notebook|12|0|5640|2133
 Bourne Shell|2|77|102|449
+YAML|13|30|20|409
 C|1|73|92|353
-YAML|9|16|10|304
-JSON|3|0|0|204
-INI|1|13|0|62
+JSON|4|0|0|210
+INI|2|26|0|124
+make|2|22|0|52
 XML|2|4|0|52
-make|1|11|0|26
 TOML|3|6|1|20
 vim script|2|10|13|15
 Rust|1|2|2|13
 --------|--------|--------|--------|--------
-SUM:|129|3392|6758|13825
+SUM:|151|4021|7656|16432
 
 
 ## Tree
 
 ```
 .
+├── alexandria
+│   ├── library.ipynb
+│   └── main.py
 ├── ao
 │   ├── ao.sh
 │   ├── command_docs.md
@@ -134,6 +137,14 @@ SUM:|129|3392|6758|13825
 ├── c2s
 │   └── README.md
 ├── captcha
+├── cellular-automata-experiments
+│   ├── doc-generator.py
+│   ├── docs
+│   │   ├── class_template.md
+│   │   ├── method_template.md
+│   │   └── parameter_template.md
+│   ├── main.py
+│   └── README.md
 ├── clover
 │   ├── Cargo.lock
 │   ├── Cargo.toml
@@ -145,6 +156,32 @@ SUM:|129|3392|6758|13825
 │   └── README.md
 ├── finch
 │   └── README.md
+├── foldz
+│   ├── CONTRIBUTING.md
+│   ├── docker-compose.yml
+│   ├── docs
+│   │   ├── _config.yml
+│   │   ├── _data
+│   │   │   ├── sidebars
+│   │   │   │   └── home_sidebar.yml
+│   │   │   └── topnav.yml
+│   │   ├── feed.xml
+│   │   ├── fold.html
+│   │   ├── Gemfile
+│   │   ├── Gemfile.lock
+│   │   ├── index.html
+│   │   ├── sidebar.json
+│   │   └── sitemap.xml
+│   ├── FoldZ
+│   │   ├── fold.py
+│   │   ├── __init__.py
+│   │   └── _nbdev.py
+│   ├── LICENSE
+│   ├── Makefile
+│   ├── MANIFEST.in
+│   ├── README.md
+│   ├── settings.ini
+│   └── setup.py
 ├── fractals
 │   ├── fractals.ipynb
 │   └── README.md
@@ -173,6 +210,8 @@ SUM:|129|3392|6758|13825
 │   ├── 1869.py
 │   ├── 39.py
 │   └── 796.py
+├── locus
+│   └── locus.ipynb
 ├── obfuscation
 │   ├── caterpillar.py
 │   └── LICENSE.md
@@ -248,6 +287,8 @@ SUM:|129|3392|6758|13825
 │   └── requirements.txt
 ├── README.md
 ├── README.src.md
+├── roulette-curves
+│   └── main.py
 ├── self-avoiding-walks
 │   ├── self-avoiding-walk.ipynb
 │   └── self-avoiding-walk.py
@@ -279,61 +320,338 @@ SUM:|129|3392|6758|13825
 └── zeal
     └── README.md
 
-41 directories, 158 files
+51 directories, 189 files
 
 ```
 
 ## History
 
 ```
-*   86e3465 (origin/meta, meta) Merge branch 'programming-puzzles' into meta
+*   92aa751 (HEAD -> master, alexandria) Add 'alexandria/' from commit '69b7e1b300e9283e158220c33a3258c1d9213973'
 |\  
-| *   9b64bbe (programming-puzzles) Add 'programming-puzzles/' from commit '3ec6e42ee6bc8513a57a10b970e7d56724ab6113'
+| * 69b7e1b add return values
+| * 6f5a48f fixed bug adding duplicate tags each time Collection.find() was run
+| * 36f5ef0 test simple search based on NLP query
+| * 1b042cc add simple search parameter extraction
+| * ec47cb8 add spacy dependency parsing for NLP commands
+| * 1b93aef fix tag printing (add lookup by ID)
+| * 3fb216b add base64_encoding parameter
+| * 4ca55f6 add compress level setting
+| * 1e40705 fix data serialization
+| * 15852c4 use IDs in place of references to Tag objects within Page objects
+| * 14551c0 add parameter defining percentage of nodes to display in the network visualization
+| * 98dc2af Include time of backup in archive
+| * 7a255aa cleanup
+| * e1c700b store persistent list of common keywords
+| * 23c6bf3 add more statistics
+| * bce2e32 add UUIDs
+| * 8581aa4 add method to open a random page
+| * 7b2d008 add hide_labels parameter and fix keyword updating (after subpage extraction)
+| * 5df3b79 handle keyword extraction in the Collection that contains the pages; this allows sorting keywords by frequency, for example to only use the most common 10 or 20 as tags
+| * dc9a580 some adjustments to network visualization
+| * 6a6904b miscellaneous
+| * 609d397 add Collection statistics/summary method
+| * 6b6908d add keyword extraction parameter
+| * 2206ef3 add network graph visualization
+| * e2c01c0 add headers
+| * ea929ea exclude common terms from automatic tags/keywords
+| * 5f3620f add colored text output
+| * 26af0c8 add keyword extraction from urls/page titles
+| * 6a1678d basic Collection loading functionality
+| * d4bf396 only create tags once
+| * 188468d refactoring
+| * e4da588 extraction of frozen/suspended pages
+| * 3f5e5db allow saving collections to text files
+| * 8cea88b add bookmark content retrieval/archiving
+| * 7976a58 add string/print methods
+| * 94a1e5a add Rule class
+| * 8691562 add convenience method for tagging pages if their titles or urls contain a string
+| * 0c5de41 add visualization method
+| * 57701b5 automatically create tag if string (tag name) is provided
+| * fb1db27 extract url parameters
+| * f14a12e allow Collection subscripting
+| * 2276d9f add tagging method for Collections (and other adjustments)
+| * 3605df2 add Tag class
+| * ee71d96 add Collection filtering method
+| * 44af073 add multiple pages by url/info string
+| * 1987929 add Page class
+| * 3efb256 add Collection class
+| * 9199623 add basic text file import
+| * 451c9cf update gitignore
+| * bb6078b ignore bookmark files
+| * 5fb5c54 Initialize
+*   c5baf58 (origin/master) Merge branch 'roulette-curves'
+|\  
+| *   f8f9d1e (roulette-curves) Add 'roulette-curves/' from commit 'bff39483afb0b93e2355e5511840cdb34af5f021'
 | |\  
-| | * 3ec6e42 Add .deepsource.toml
-| | * b5dc423 Update puzzles.ipynb
-| | * 4fe4fc5 testing
-| | * b1406ea add divide-and-conquer method for computing large factorials
-| | * be6bee8 compute sample results and plot
-| | * 2f6d189 add Python versions of functions
-| | * 5319bf2 additional tiling challenges
-| | * c599a41 add base for logical inference programming puzzle
-| | * 5a38040 Add memoized factorial function
-| | * b065504 Update puzzles.py
-| | * 7bf9155 add factorial-length problem
-| | * ae33a57 add extensions of chessboard tiling puzzle
-| | * 77a1eb6 add chessboard/domino tiling problem
-| | * 3ab107b Add simple solution to first puzzle
-| | * 8a9c663 Add function for checking if an integer string contains its square root
-| | * 1c244ea Add puzzle (and first attempt at solving)
-| | * 7b6accd Add introduction
-| | * e717c5c Create .gitignore
-| | * d9a7a7b Create puzzles.ipynb
-| | * b366e13 Initial commit
-* |   4efe011 (visual-computing-simulation) Add 'visual-computing-simulation/' from commit 'a9c03dd593f10544ffee4f536d8b9be2fd99f307'
+| | * bff3948 handle parent spinner rotation offset
+| | * eab4e25 handle parent spinner coordinate offset
+| | * 38c4cc5 add radius alias ("r")
+| | * faab331 fix theta handling
+| | * aefff2f allow specifying draw method from the top down
+| | * 2b11433 fix dimension argument processing
+| | * b59f7f4 add "method" argument (to specify how the current spinner should interact with the provided canvas)
+| | * 9e655c0 add add() method
+| | * 11074ab add testing code
+| | * decae2f add step method to update all spinners in roulette (and optionally update canvas/render)
+| | * 3f4a9d3 add method to render a Roulette object by recursively calling draw() on its spinners
+| | * 1db476b add base Roulette curve class
+| | * 2df838f import other modules
+| | * c7dbd92 implement render enable/disable option for spinner
+| | * 42dd4c0 add method to draw point in spinner
+| | * b47f97c add step method to rotate Spinner class instance
+| | * 07da274 add spinner class base
+| | * 32a3608 add point rotation functions (https://gist.github.com/LyleScott/e36e08bfb23b1f87af68c9051f985302)
+| | * 930b155 Add line generator (https://stackoverflow.com/a/47381058)
+| | * 29364e1 initial commit
+* |   967b02d (locus) Add 'locus/' from commit 'f551492651c1738d04ce93285d0bd85df1d79ed7'
 |\ \  
 | |/  
 |/|   
-| * a9c03dd set input cells and random cells before simulating logic components
-| * fed497d generate array from input text (schematic)
-| * 7d55787 Add parameters/settings and other variables
-| * d2a2c89 auto-generate colors (or colormap indices) for specific operators
-| * 0036c07 add input/output operators (symbols)
-| * 00fc4b7 add operator symbols for moving data around
-| * 37448aa add some basic logical operators
-| * 5df768d Add sample logic circuit schematic (full binary adder)
-| * 18abf7f Add list of relative coordinates for adjacent cells
-| * baa9d48 Create simulation.py
-| * 6e540a4 Create .gitignore
-* 16026a6 add status of newly integrated projects
-* f47d8ed add some notes on methodology/repository organization
-* 35e2315 add some badges for decoration
-| * 00eef5c (HEAD -> master, origin/master) rebuild README
-| *   0ee232e Merge branch 'project-summary'
+| * f551492 Add .deepsource.toml
+| * 5a319e9 add some documentation
+| * 35467ff add identity operator
+| * 81fa473 add more operators
+| * 7788c3e cleanup
+| * cab8640 lots more refactoring
+| * 6373cb9 more refactoring
+| * 107c528 refactoring
+| * 486dd0d add operator class
+| * a33e142 add comments
+| * f3b3f2b More testing + fix issue with data buffer persisting from one check to another
+| * e54940f add one-directional operators
+| * ee6c9ac add display method
+| * 38f5b0f add Locus class
+| * c9a5623 improve printout (all rows have even widths)
+| * 827b320 add exponentiation operator
+| * 8491fad fix bug causing incorrect evaluation past first interpreter iteration
+| * 6c901da add iteration parameter
+| * 7c56fbe add more operations
+| * c736242 rewrite interpreter
+| * 3e50859 first interpreter attempt
+| * cd4c816 initial code
+*   e0d58a6 (cellular-automata-experiments) Add 'cellular-automata-experiments/' from commit '0085b8ab5516e8f6156c4ec0c46ea4bb12f03361'
+|\  
+| * 0085b8a add improved tag parser (this was written a while ago, is somewhat messy, and will most likely be replaced)
+| * 4b17c48 add function to split string into numeric and non-numeric sections
+| * 69b796c update templates
+| * 9f15721 add docstring to Search constructor
+| * 7e17eae update docstring to use new format
+| * 6759449 add example tags
+| * 091f96a program-specific terms and abbreviations
+| * 6dc4fb6 add docstrings for other parameters
+| * 69f0ae0 add docstring
+| * afbd935 global replacements
+| * c3a7d9d add simple docstrings
+| * e0b3510 expand docstring
+| * fa1a030 parse symbols (e.g., >=, <, etc.)
+| * 9f38c82 add parameter documentation template
+| * 9145370 parse ranges for numeric parameters
+| * 5565a7b add list of commonly used symbols
+| * b4bb833 parse base parameter type
+| * 52612db parameter documentation processor
+| * 43f227f refactor method doc processing
+| * ed5029d only extract docstring if top-level object
+| * 3194216 more refactoring
+| * b8703d0 add function to automatically generate section
+| * 283a4d3 clean up template path definition
+| * 57efc45 refactoring
+| * 14e03fe misc
+| * 752980a process parameter descriptions
+| * 2df7965 save result when done processing documentation
+| * 921c694 add subsection parsing
+| * 8648a22 add simple parser to loop through lines in docstring and check for headers
+| * ef1c10a add function to extract data from parameter list/annotations
+| * 7a35482 add function to strip leading tabs from lines
+| * 8255382 add function to detect leading whitespace
+| * 4be0651 automatically document class methods
+| * b40236f automatically document classes
+| * aa6948e read template files into strings
+| * 906e8de add doc gen settings
+| * f069ca3 add class documentation template
+| * aeb6a88 create .gitignore
+| * e68c654 add method documentation template
+| * 6dc09cd start documentation generator script
+| * 7e00f48 testing different features
+| * a6d5189 add short summary of features
+| *   9bc1b3b Merge branch 'master' of https://github.com/generic-github-user/cellular-automata-experiments
 | |\  
-| | * c9f4af8 (project-summary) Add 'project-summary/' from commit 'd124f5466d516d8b08ae97c2e25c9d7f8ff6c7c3'
-| |/| 
-|/| | 
+| | * 3432ec7 Create README.md
+| * | 4060db2 3D voxel display of cellular automata across timesteps
+| * | e243d61 optionally store each state/timestep of simulation
+| * | 3b29733 record total time cell is "alive" over course of simulation
+| |/  
+| * 18c4098 add return value option
+| * 897d493 add option to apply function before displaying
+| * fa3d6fc add display method
+| * cf2fd03 add generations parameter
+| * 9a71c64 testing code
+| * be4716a add some other sample goals
+| * 8eb3531 check for provided pattern before processing
+| * 849790f allow custom search goal (e.g., highest/lowest final population, average cell age, etc.)
+| * 3e1671d add option to end early if exact match is found
+| * 7a06934 add option to search every generation of cellular automata (or just specified one)
+| * 1ae81fc testing Search class and methods
+| * 357cd78 create list of axes that includes hyperparameter and metric names
+| * dc50332 add another (simpler) test search pattern
+| * cc392ea add search function
+| * d4d23a7 randomize generations if tuple/list is provided
+| * 6763281 add a test search pattern
+| * 2562a55 convert pattern to kernel (replace 0s with -1s to select against regions with live cells that should be empty)
+| * 7bf5b95 add clone function
+| * db13fc7 add Search class
+| * 29ebfbf only plot first 3 dimensions
+| * 8c31c77 add (working) parameter for setting number of steps in simulation
+| * 0b22632 add hyperparameters (independent variables) to visualization
+| * f8cd54b fix issue with initial random size calculation
+| * ca26df8 update default hyperparameters
+| * 727bace add axis labels
+| * 9d91ea3 use randomizer in Automata constructor
+| * 6de0e3e collect and store additional arguments
+| * d44e722 add more defaults
+| * b0c0e22 handle parameters in simulation loop
+| * 8f7d502 add merging of default hyperparameters with provided ones
+| * 6e97ba2 bug fixes
+| * a977d94 allow random selection of trial to display
+| * 4cee829 add argument for size of initial random noise
+| * c706be3 add argument to set chance of cell starting out living or dead
+| * 6d2e3da add non-numpy reduction functions (like getting only the last value of the metric)
+| * 5f096da automatically apply population reduction function
+| * c694fb3 adjust plot settings
+| * bcd4f0d use generations hyperparameter
+| * 331b594 track average number of neighbors per cell over time
+| * 44a7344 define some functions for reducing axes
+| * f6dab1f fix typo
+| * 19b4b55 improved collection and processing of simulation data
+| * 4efe7cc add line graph display for more simple datasets
+| * 050460c improve description of metrics
+| * 4c11a8d allow display of 3 metrics with 3D scatter plot
+| * 2161962 add comments
+| * 014792f add docstrings
+| * 6c7406e add more parameters
+| * 7cd077d add better logging
+| * a60f6fe testing code for simulation aggregator
+| * 0e869df add method to display results as 2D scatter plot
+| * 46fedc3 add method to run cellular automata simulations and collect results
+| * 9709d4a add other parameters to Aggregator class
+| * 4445179 add default hyperparameters and reporting metrics
+| * 7faabec fix age reporting when using scipy convolution method
+| * 21d1764 rename variable for clarity
+| * 6e9525b allow user to change pen width with -/= keys
+| * 44843a7 pass args to subclass
+| * 63d24ae allow integer as "size" parameter for cellular automata world
+| * 1774034 add double-click for pausing simulation
+| * ecf0e7a minor refactoring
+| * b6541ff remove cells using right click and drag
+| * f2f0417 various testing and debugging
+| * 7c28576 add Aggregator class to run sets of simulations with different settings
+| * 7e451d4 allow user to place cells with the mouse
+| * aada32d make temp an instance variable
+| * 7eac30b add option for using vectorized 2D convolutions to process cellular automata
+| * 7ed1ffa add convenience class for Conway's Game of Life
+| * 5c5090b add neighborhood (slice size) parameter
+| * 3672f8b add parameters for cellular automata rules
+| * ccea94b allow coloring of cells by number of neighbors
+| * 139b97e track average cell age over time
+| * 66231df track age of each cell
+| * 214d25e track generation and total cell processing
+| * 44d0a48 add render parameter
+| * ef44f16 add population tracking over time
+| * 85d022a content parameter (for providing cellular automata world)
+| * 38590db add dimension inference from cell width and world size
+| * e80daca add time report
+| * 11151ed add simulate() method
+| * c26ed73 optimize with np.where()
+| * 7c737e5 add simulation renderer
+| * c67ac2b add function step/evolve simulation
+| * c94d74c add more properties
+| * 47eaccb add cellular automata class base
+| * 92bee0b create Scene class
+| * 535ee82 tkinter canvas boilerplate code
+*   44398e3 (foldz) Add 'foldz/' from commit '5d15ef12e8690b0164d0b6d7cd926165df4a6e71'
+|\  
+| * 5d15ef1 Create CONTRIBUTING.md
+| * 4e02f1a more geometry classes
+| * f887829 Update some generated/config files
+| * 5ba6b34 Create README.md
+| * 2bd5391 Build docs
+| * 1a2831d reorganize imports
+| * 7c7e068 Add more Polygon class methods
+| * 8691f74 Testing/notes
+| * 9a4b0b3 Add code for randomly folding polygonal curve/linkage using custom geometry classes
+| * 3e9d1ed Add function for checking intersection of two line segments
+| * 18eba8b Add string methods
+| * d9391cf Add function for solving system of linear equations
+| * e8bcfc3 Add functions for calculating midpoint, slope, and y-intercept of line segment
+| * f21ddf2 Add method for randomly folding a linkage/polygonal curve
+| * 66c3e02 Add other (reused) geometry classes
+| * 4905641 Move code for updating position axis variables (x, y, ...) to dedicated method
+| * fe0fbd2 Add function for getting list of a linkage's self-intersection points
+| * 7c28ecc Add function for checking if a linkage intersects itself at any point
+| * 316ad0a Add function for rotating all line segments in one "side" of a linkage/chain
+| * fc4302a Add Event class
+| * 4e4fd31 Add method for rendering Foldable object geometry to SVG
+| * 6c68639 add autogenerated scripts
+| * 99ec506 Add "Foldable" class
+| * e930432 Add generated config files
+| * 39daefb Add methods for common math operations to Point class
+| * 1156911 Add manifold class
+| * 0f15058 Add geometry classes
+| * df891fd Create fold.py
+| * efa2042 Create settings.ini
+| * 95da766 Add setup files
+| * 9377900 Initial commit
+*   bc866cb Merge branch 'meta'
+|\  
+| *   86e3465 (origin/meta, meta) Merge branch 'programming-puzzles' into meta
+| |\  
+| | *   9b64bbe (origin/programming-puzzles, programming-puzzles) Add 'programming-puzzles/' from commit '3ec6e42ee6bc8513a57a10b970e7d56724ab6113'
+| | |\  
+| | | * 3ec6e42 Add .deepsource.toml
+| | | * b5dc423 Update puzzles.ipynb
+| | | * 4fe4fc5 testing
+| | | * b1406ea add divide-and-conquer method for computing large factorials
+| | | * be6bee8 compute sample results and plot
+| | | * 2f6d189 add Python versions of functions
+| | | * 5319bf2 additional tiling challenges
+| | | * c599a41 add base for logical inference programming puzzle
+| | | * 5a38040 Add memoized factorial function
+| | | * b065504 Update puzzles.py
+| | | * 7bf9155 add factorial-length problem
+| | | * ae33a57 add extensions of chessboard tiling puzzle
+| | | * 77a1eb6 add chessboard/domino tiling problem
+| | | * 3ab107b Add simple solution to first puzzle
+| | | * 8a9c663 Add function for checking if an integer string contains its square root
+| | | * 1c244ea Add puzzle (and first attempt at solving)
+| | | * 7b6accd Add introduction
+| | | * e717c5c Create .gitignore
+| | | * d9a7a7b Create puzzles.ipynb
+| | | * b366e13 Initial commit
+| * |   4efe011 (origin/visual-computing-simulation, visual-computing-simulation) Add 'visual-computing-simulation/' from commit 'a9c03dd593f10544ffee4f536d8b9be2fd99f307'
+| |\ \  
+| | |/  
+| |/|   
+| | * a9c03dd set input cells and random cells before simulating logic components
+| | * fed497d generate array from input text (schematic)
+| | * 7d55787 Add parameters/settings and other variables
+| | * d2a2c89 auto-generate colors (or colormap indices) for specific operators
+| | * 0036c07 add input/output operators (symbols)
+| | * 00fc4b7 add operator symbols for moving data around
+| | * 37448aa add some basic logical operators
+| | * 5df768d Add sample logic circuit schematic (full binary adder)
+| | * 18abf7f Add list of relative coordinates for adjacent cells
+| | * baa9d48 Create simulation.py
+| | * 6e540a4 Create .gitignore
+| * 16026a6 add status of newly integrated projects
+| * f47d8ed add some notes on methodology/repository organization
+| * 35e2315 add some badges for decoration
+* | 00eef5c rebuild README
+* |   0ee232e Merge branch 'project-summary'
+|\ \  
+| * \   c9f4af8 (origin/project-summary, project-summary) Add 'project-summary/' from commit 'd124f5466d516d8b08ae97c2e25c9d7f8ff6c7c3'
+| |\ \  
+| | |/  
+| |/|   
 | | * d124f54 add information about API tokens
 | | * 3b820a3 add more comments
 | | * fb35d84 refactor with functions
@@ -365,8 +683,10 @@ SUM:|129|3392|6758|13825
 | | * 664d7e0 add checkpoints to gitignore
 | | * a2077ff change encoding
 | | * 937c3f8 Add gitignore
-| * 52fb267 (attractors) Add 'attractors/' from commit '7b772bba73545e2ce98916e458b16b2fc44f2bfb'
-|/| 
+* |   52fb267 (origin/attractors, attractors) Add 'attractors/' from commit '7b772bba73545e2ce98916e458b16b2fc44f2bfb'
+|\ \  
+| |/  
+|/|   
 | * 7b772bb Create requirements.txt
 | * e029682 Add return values to docstrings
 | * 8bc5ed7 Add descriptions of Roulette_Curve.__init__ parameters
@@ -504,7 +824,7 @@ SUM:|129|3392|6758|13825
 | | | * e0f62ac Initial commit
 | * |   e5ff69d Merge branch 'quickplot'
 | |\ \  
-| | * \   e5cb7aa (quickplot) Add 'quickplot/' from commit 'f6d19babdcb793315ea41aa53d6e2fa3f9569c1c'
+| | * \   e5cb7aa (origin/quickplot, quickplot) Add 'quickplot/' from commit 'f6d19babdcb793315ea41aa53d6e2fa3f9569c1c'
 | | |\ \  
 | | | * | f6d19ba Create requirements.txt
 | | | * | 717a0fb Add colorbar
@@ -538,7 +858,7 @@ SUM:|129|3392|6758|13825
 | | | * | b584639 Add project summary
 | | | * | 9fdcd7c Initial commit
 | | |  /  
-| * | |   cd2322b (fractals) Add 'fractals/' from commit '6d1b5081d64ae55a4b05bce0fcba1a5bacb23633'
+| * | |   cd2322b (origin/fractals, fractals) Add 'fractals/' from commit '6d1b5081d64ae55a4b05bce0fcba1a5bacb23633'
 | |\ \ \  
 | | |/ /  
 | |/| |   
