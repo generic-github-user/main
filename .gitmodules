@@ -17,7 +17,7 @@
 	path = languages/c2s
 	url = https://github.com/generic-github-user/c2s
 [submodule "board"]
-	path = board
+	path = combinatorics/board
 	url = https://github.com/generic-github-user/board
 [submodule "finch"]
 	path = languages/finch
