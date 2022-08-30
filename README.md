@@ -1,10 +1,32 @@
 # main
 
+[![CodeFactor](https://www.codefactor.io/repository/github/generic-github-user/main/badge)](https://www.codefactor.io/repository/github/generic-github-user/main)
+[![tokei](https://img.shields.io/tokei/lines/github/generic-github-user/main)](https://github.com/generic-github-user/main)
+
 An experimental [monorepo](https://en.wikipedia.org/wiki/Monorepo) for some of
 my projects. Most of the existing projects that I've cloned into this
 repository will continue to be developed independently in their corresponding
 repositories, but I'm hoping to ameliorate some of the code duplication issues
 and other maintenance headaches I've run into recently.
+
+Other projects of mine are integrated through git submodules, branch merges,
+and git's subtree tool, depending on what seems most appropriate. After the
+repositories are combined, I sometimes make a point of ceasing development in
+the original repository and treating this one as a single source of truth;
+seeing as most of these projects were already inactive, I haven't run into too
+many issues. `projects.yaml` stores metadata about each major project,
+including its current development status and how close it is to completion.
+`build.py` pulls information from various sources to generate `README.md`,
+using `README.src.md` as a template and substituting the outputs of commands
+from `substitutions.yaml`.
+
+I find gratuitous use of git branches helpful for organization; this repository
+has several dozen, and I freely merge components between branches as needed.
+I'm less cautious about merging into the mainline (currently `/master`) here
+than in some of my other repos since there is no unified public API that needs
+to remain stable. I plan to integrate more third-party tooling in the future
+and complete some heavy refactoring of old projects that I am interested in
+further developing or reusing components from.
 
 ## Branches
 
@@ -30,27 +52,27 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.05 s (2647.6 files/s, 484463.2 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.06 s (2198.8 files/s, 408654.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 HTML|12|1696|21|5056
-Python|51|961|1327|3040
-Markdown|29|418|0|2256
-Jupyter Notebook|9|0|4653|1539
+Python|53|1062|1407|3176
+Markdown|29|422|0|2465
+Jupyter Notebook|10|0|5110|1630
 Bourne Shell|2|77|102|449
 C|1|73|92|353
-YAML|9|16|10|288
+YAML|9|16|10|304
 JSON|3|0|0|204
 INI|1|13|0|62
 XML|2|4|0|52
 make|1|11|0|26
+TOML|3|6|1|20
 vim script|2|10|13|15
-TOML|2|4|1|14
 Rust|1|2|2|13
 --------|--------|--------|--------|--------
-SUM:|125|3285|6221|13367
+SUM:|129|3392|6758|13825
 
 
 ## Tree
@@ -181,6 +203,9 @@ SUM:|125|3285|6221|13367
 │   ├── scripts
 │   │   └── build-docs.txt
 │   └── tensor.py
+├── programming-puzzles
+│   ├── puzzles.ipynb
+│   └── puzzles.py
 ├── project-summary
 │   ├── summarize.ipynb
 │   └── summarize.py
@@ -248,21 +273,67 @@ SUM:|125|3285|6221|13367
 │   ├── mv.py
 │   ├── README.md
 │   └── README.src.md
+├── visual-computing-simulation
+│   └── simulation.py
 ├── yaml_json.py
 └── zeal
     └── README.md
 
-39 directories, 155 files
+41 directories, 158 files
 
 ```
 
 ## History
 
 ```
-*   0ee232e (HEAD -> master) Merge branch 'project-summary'
+*   86e3465 (origin/meta, meta) Merge branch 'programming-puzzles' into meta
 |\  
-| *   c9f4af8 (project-summary) Add 'project-summary/' from commit 'd124f5466d516d8b08ae97c2e25c9d7f8ff6c7c3'
+| *   9b64bbe (programming-puzzles) Add 'programming-puzzles/' from commit '3ec6e42ee6bc8513a57a10b970e7d56724ab6113'
 | |\  
+| | * 3ec6e42 Add .deepsource.toml
+| | * b5dc423 Update puzzles.ipynb
+| | * 4fe4fc5 testing
+| | * b1406ea add divide-and-conquer method for computing large factorials
+| | * be6bee8 compute sample results and plot
+| | * 2f6d189 add Python versions of functions
+| | * 5319bf2 additional tiling challenges
+| | * c599a41 add base for logical inference programming puzzle
+| | * 5a38040 Add memoized factorial function
+| | * b065504 Update puzzles.py
+| | * 7bf9155 add factorial-length problem
+| | * ae33a57 add extensions of chessboard tiling puzzle
+| | * 77a1eb6 add chessboard/domino tiling problem
+| | * 3ab107b Add simple solution to first puzzle
+| | * 8a9c663 Add function for checking if an integer string contains its square root
+| | * 1c244ea Add puzzle (and first attempt at solving)
+| | * 7b6accd Add introduction
+| | * e717c5c Create .gitignore
+| | * d9a7a7b Create puzzles.ipynb
+| | * b366e13 Initial commit
+* |   4efe011 (visual-computing-simulation) Add 'visual-computing-simulation/' from commit 'a9c03dd593f10544ffee4f536d8b9be2fd99f307'
+|\ \  
+| |/  
+|/|   
+| * a9c03dd set input cells and random cells before simulating logic components
+| * fed497d generate array from input text (schematic)
+| * 7d55787 Add parameters/settings and other variables
+| * d2a2c89 auto-generate colors (or colormap indices) for specific operators
+| * 0036c07 add input/output operators (symbols)
+| * 00fc4b7 add operator symbols for moving data around
+| * 37448aa add some basic logical operators
+| * 5df768d Add sample logic circuit schematic (full binary adder)
+| * 18abf7f Add list of relative coordinates for adjacent cells
+| * baa9d48 Create simulation.py
+| * 6e540a4 Create .gitignore
+* 16026a6 add status of newly integrated projects
+* f47d8ed add some notes on methodology/repository organization
+* 35e2315 add some badges for decoration
+| * 00eef5c (HEAD -> master, origin/master) rebuild README
+| *   0ee232e Merge branch 'project-summary'
+| |\  
+| | * c9f4af8 (project-summary) Add 'project-summary/' from commit 'd124f5466d516d8b08ae97c2e25c9d7f8ff6c7c3'
+| |/| 
+|/| | 
 | | * d124f54 add information about API tokens
 | | * 3b820a3 add more comments
 | | * fb35d84 refactor with functions
@@ -294,10 +365,8 @@ SUM:|125|3285|6221|13367
 | | * 664d7e0 add checkpoints to gitignore
 | | * a2077ff change encoding
 | | * 937c3f8 Add gitignore
-* |   52fb267 (attractors) Add 'attractors/' from commit '7b772bba73545e2ce98916e458b16b2fc44f2bfb'
-|\ \  
-| |/  
-|/|   
+| * 52fb267 (attractors) Add 'attractors/' from commit '7b772bba73545e2ce98916e458b16b2fc44f2bfb'
+|/| 
 | * 7b772bb Create requirements.txt
 | * e029682 Add return values to docstrings
 | * 8bc5ed7 Add descriptions of Roulette_Curve.__init__ parameters
@@ -371,7 +440,7 @@ SUM:|125|3285|6221|13367
 |/| 
 | * 464c2de index on meta: f13f7d4 add new projects (integrated from other repos)
 |/  
-* f13f7d4 (origin/meta, origin/master, meta) add new projects (integrated from other repos)
+* f13f7d4 add new projects (integrated from other repos)
 *   b0d2a7a Merge branch 'master' into meta
 |\  
 | * 81dab70 rebuild README

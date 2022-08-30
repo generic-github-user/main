@@ -132,11 +132,27 @@ projects:
     completion: ongoing
     language: python
     labels: [add-ons, extensions, 3d-graphics, blender]
-  quickplot: null
-  epidemic-modelling: null
-  fractals: null
-  ascii-physics-sim: null
-  self-avoiding-walks: null
-  python-experiments: null
-  python-snippets: null
-  shelf: null
+  quickplot:
+    status: inactive
+    completion: unfinished
+  epidemic-modelling:
+    status: inactive
+    completion: unfinished
+  fractals:
+    status: inactive
+    completion: unfinished
+  ascii-physics-sim:
+    status: inactive
+    completion: unfinished
+  self-avoiding-walks:
+    status: inactive
+    completion: unfinished
+  python-experiments:
+    status: inactive
+    completion: ongoing
+  python-snippets:
+    status: inactive
+    completion: ongoing
+  shelf:
+    status: inactive
+    completion: unfinished
