@@ -1,10 +1,3 @@
-./build.py:7:1: E302 expected 2 blank lines, found 1
-./build.py:8:80: E501 line too long (89 > 79 characters)
-./build.py:10:1: E305 expected 2 blank lines after class or function definition, found 1
-./build.py:10:37: E701 multiple statements on one line (colon)
-./build.py:11:42: E701 multiple statements on one line (colon)
-./build.py:17:34: E701 multiple statements on one line (colon)
-./build.py:18:1: W391 blank line at end of file
 ./wordtetris/wordtetris.py:3:1: F401 'os' imported but unused
 ./wordtetris/wordtetris.py:10:1: F401 'colorama' imported but unused
 ./wordtetris/wordtetris.py:11:1: F401 'colorama.Fore' imported but unused
