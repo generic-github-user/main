@@ -1,11 +1,21 @@
 labels:
   active: currently under development or work will resume soon
-  inactive: progress has stalled for some reason; it is unclear when development work will continue
-  semi-active/semi-inactive: development has been/will be intermittent based on availability
-  unstarted: a rough plan for the project exists but minimal work has been done thus far
+
+  inactive: progress has stalled for some reason; it is unclear when
+    development work will continue
+
+  semi-active/semi-inactive: development has been/will be intermittent based on
+    availability
+
+  unstarted: a rough plan for the project exists but minimal work has been done
+    thus far
+
   unfinished: project is in progress or near completion (but may be inactive)
+
   ongoing: project is not intended to be finished
-  on hold: work has temporarily ceased but will ostensibly continue in the near future
+
+  on hold: work has temporarily ceased but will ostensibly continue in the near
+    future
 
 projects:
 
