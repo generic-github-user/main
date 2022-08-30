@@ -189,3 +189,43 @@ projects:
   shelf:
     status: inactive
     completion: unfinished
+
+  locus:
+    status: inactive
+    completion: unfinished
+
+  punchcard:
+    status: inactive
+    completion: unfinished
+
+  wordtetris:
+    status: inactive
+    completion: unfinished
+
+  alexandria:
+    status: inactive
+    completion: unfinished
+
+  roulette-curves:
+    status: inactive
+    completion: unfinished
+
+  cellular-automata-experiments:
+    status: inactive
+    completion: unfinished
+
+  foldz:
+    status: inactive
+    completion: unfinished
+
+  programming-puzzles:
+    status: inactive
+    completion: unfinished
+
+  visual-computing-simulation:
+    status: inactive
+    completion: unfinished
+
+  project-summary:
+    status: inactive
+    completion: unfinished
