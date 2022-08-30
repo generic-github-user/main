@@ -1,0 +1,1702 @@
+./build.py:7:1: E302 expected 2 blank lines, found 1
+./build.py:8:80: E501 line too long (89 > 79 characters)
+./build.py:10:1: E305 expected 2 blank lines after class or function definition, found 1
+./build.py:10:37: E701 multiple statements on one line (colon)
+./build.py:11:42: E701 multiple statements on one line (colon)
+./build.py:17:34: E701 multiple statements on one line (colon)
+./build.py:18:1: W391 blank line at end of file
+./wordtetris/wordtetris.py:3:1: F401 'os' imported but unused
+./wordtetris/wordtetris.py:10:1: F401 'colorama' imported but unused
+./wordtetris/wordtetris.py:11:1: F401 'colorama.Fore' imported but unused
+./wordtetris/wordtetris.py:11:1: F401 'colorama.Style' imported but unused
+./wordtetris/wordtetris.py:28:80: E501 line too long (85 > 79 characters)
+./wordtetris/wordtetris.py:39:1: E302 expected 2 blank lines, found 1
+./wordtetris/wordtetris.py:48:68: E231 missing whitespace after ','
+./wordtetris/wordtetris.py:73:1: E305 expected 2 blank lines after class or function definition, found 1
+./wordtetris/wordtetris.py:74:1: E302 expected 2 blank lines, found 0
+./wordtetris/wordtetris.py:75:80: E501 line too long (89 > 79 characters)
+./wordtetris/wordtetris.py:90:80: E501 line too long (80 > 79 characters)
+./wordtetris/wordtetris.py:102:80: E501 line too long (99 > 79 characters)
+./wordtetris/wordtetris.py:123:80: E501 line too long (86 > 79 characters)
+./wordtetris/wordtetris.py:128:80: E501 line too long (128 > 79 characters)
+./wordtetris/wordtetris.py:159:80: E501 line too long (151 > 79 characters)
+./wordtetris/wordtetris.py:184:1: E302 expected 2 blank lines, found 0
+./wordtetris/wordtetris.py:193:13: F841 local variable 'key_name' is assigned to but never used
+./wordtetris/wordtetris.py:194:9: F841 local variable 'e' is assigned to but never used
+./wordtetris/wordtetris.py:200:80: E501 line too long (81 > 79 characters)
+./wordtetris/wordtetris.py:204:80: E501 line too long (97 > 79 characters)
+./wordtetris/wordtetris.py:216:1: E305 expected 2 blank lines after class or function definition, found 0
+./icon-encoder/src/main.py:12:80: E501 line too long (130 > 79 characters)
+./icon-encoder/src/main.py:29:7: E114 indentation is not a multiple of 4 (comment)
+./icon-encoder/src/main.py:29:7: E117 over-indented (comment)
+./icon-encoder/src/main.py:30:7: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:30:7: E117 over-indented
+./icon-encoder/src/main.py:31:11: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:32:11: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:33:11: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:34:7: E114 indentation is not a multiple of 4 (comment)
+./icon-encoder/src/main.py:35:7: E722 do not use bare 'except'
+./icon-encoder/src/main.py:35:7: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:36:11: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:45:1: E302 expected 2 blank lines, found 1
+./icon-encoder/src/main.py:50:1: E302 expected 2 blank lines, found 1
+./icon-encoder/src/main.py:51:3: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:52:3: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:53:3: E111 indentation is not a multiple of 4
+./icon-encoder/src/main.py:61:1: E302 expected 2 blank lines, found 1
+./icon-encoder/src/main.py:63:80: E501 line too long (103 > 79 characters)
+./icon-encoder/src/main.py:66:80: E501 line too long (85 > 79 characters)
+./icon-encoder/src/main.py:68:1: E305 expected 2 blank lines after class or function definition, found 1
+./icon-encoder/src/main.py:76:80: E501 line too long (82 > 79 characters)
+./icon-encoder/src/main.py:79:80: E501 line too long (82 > 79 characters)
+./icon-encoder/src/main.py:85:80: E501 line too long (82 > 79 characters)
+./icon-encoder/src/main.py:91:80: E501 line too long (82 > 79 characters)
+./icon-encoder/src/main.py:97:5: E301 expected 1 blank line, found 0
+./icon-encoder/src/main.py:112:19: E231 missing whitespace after ','
+./icon-encoder/src/main.py:112:80: E501 line too long (99 > 79 characters)
+./icon-encoder/src/main.py:114:30: E231 missing whitespace after ','
+./icon-encoder/src/main.py:114:80: E501 line too long (120 > 79 characters)
+./icon-encoder/src/main.py:116:31: E231 missing whitespace after ','
+./icon-encoder/src/main.py:116:80: E501 line too long (111 > 79 characters)
+./icon-encoder/src/main.py:117:35: E231 missing whitespace after ','
+./icon-encoder/src/main.py:117:80: E501 line too long (125 > 79 characters)
+./icon-encoder/src/main.py:119:80: E501 line too long (115 > 79 characters)
+./icon-encoder/src/main.py:123:60: F821 undefined name 'standard_deviation'
+./icon-encoder/src/main.py:124:66: F821 undefined name 'standard_deviation'
+./icon-encoder/src/main.py:124:80: E501 line too long (84 > 79 characters)
+./icon-encoder/src/main.py:126:5: E301 expected 1 blank line, found 0
+./icon-encoder/src/main.py:130:80: E501 line too long (105 > 79 characters)
+./icon-encoder/src/main.py:134:80: E501 line too long (80 > 79 characters)
+./icon-encoder/src/main.py:135:80: E501 line too long (149 > 79 characters)
+./icon-encoder/src/main.py:138:80: E501 line too long (82 > 79 characters)
+./icon-encoder/src/main.py:146:80: E501 line too long (120 > 79 characters)
+./icon-encoder/src/main.py:148:80: E501 line too long (92 > 79 characters)
+./icon-encoder/src/main.py:151:80: E501 line too long (90 > 79 characters)
+./icon-encoder/src/main.py:152:80: E501 line too long (89 > 79 characters)
+./icon-encoder/src/main.py:154:80: E501 line too long (140 > 79 characters)
+./icon-encoder/src/main.py:155:80: E501 line too long (97 > 79 characters)
+./keyboard-dynamics/keyboard.py:20:40: E741 ambiguous variable name 'l'
+./keyboard-dynamics/keyboard.py:51:1: E302 expected 2 blank lines, found 1
+./keyboard-dynamics/keyboard.py:51:80: E501 line too long (93 > 79 characters)
+./keyboard-dynamics/keyboard.py:57:80: E501 line too long (143 > 79 characters)
+./keyboard-dynamics/keyboard.py:70:80: E501 line too long (84 > 79 characters)
+./keyboard-dynamics/keyboard.py:73:80: E501 line too long (92 > 79 characters)
+./keyboard-dynamics/keyboard.py:79:1: E302 expected 2 blank lines, found 1
+./keyboard-dynamics/keyboard.py:79:80: E501 line too long (191 > 79 characters)
+./keyboard-dynamics/keyboard.py:113:46: E231 missing whitespace after ','
+./keyboard-dynamics/keyboard.py:113:65: E231 missing whitespace after ','
+./keyboard-dynamics/keyboard.py:119:1: E305 expected 2 blank lines after class or function definition, found 1
+./keyboard-dynamics/keyboard.py:125:1: E302 expected 2 blank lines, found 1
+./keyboard-dynamics/keyboard.py:125:19: E741 ambiguous variable name 'l'
+./keyboard-dynamics/keyboard.py:128:1: E302 expected 2 blank lines, found 1
+./keyboard-dynamics/keyboard.py:128:45: E741 ambiguous variable name 'l'
+./keyboard-dynamics/keyboard.py:152:80: E501 line too long (99 > 79 characters)
+./keyboard-dynamics/keyboard.py:163:80: E501 line too long (113 > 79 characters)
+./music-generation-experiments/scale.py:4:1: F403 'from melody import *' used; unable to detect undefined names
+./music-generation-experiments/scale.py:6:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/scale.py:6:13: F405 'Melody' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:8:80: E501 line too long (103 > 79 characters)
+./music-generation-experiments/scale.py:30:26: E231 missing whitespace after ','
+./music-generation-experiments/scale.py:30:33: E231 missing whitespace after ','
+./music-generation-experiments/scale.py:50:80: E501 line too long (103 > 79 characters)
+./music-generation-experiments/scale.py:54:80: E501 line too long (81 > 79 characters)
+./music-generation-experiments/scale.py:62:27: F405 'Pitch' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:63:21: F405 'Note' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:65:21: F405 'Note' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:65:26: F405 'Pitch' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:67:21: F405 'Note' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:82:30: F405 'Chord' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:82:36: F405 'Pitch' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:82:80: E501 line too long (142 > 79 characters)
+./music-generation-experiments/scale.py:84:30: F405 'Note' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:84:35: F405 'Pitch' may be undefined, or defined from star imports: melody
+./music-generation-experiments/scale.py:84:80: E501 line too long (120 > 79 characters)
+./music-generation-experiments/melody.py:5:1: F403 'from pitch import *' used; unable to detect undefined names
+./music-generation-experiments/melody.py:6:1: F403 'from note import *' used; unable to detect undefined names
+./music-generation-experiments/melody.py:7:1: F403 'from chord import *' used; unable to detect undefined names
+./music-generation-experiments/melody.py:9:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/melody.py:11:80: E501 line too long (81 > 79 characters)
+./music-generation-experiments/melody.py:25:80: E501 line too long (111 > 79 characters)
+./music-generation-experiments/melody.py:28:50: E231 missing whitespace after ','
+./music-generation-experiments/melody.py:28:80: E501 line too long (154 > 79 characters)
+./music-generation-experiments/melody.py:44:80: E501 line too long (83 > 79 characters)
+./music-generation-experiments/melody.py:49:39: E231 missing whitespace after ','
+./music-generation-experiments/melody.py:51:29: F405 'Chord' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/melody.py:51:80: E501 line too long (156 > 79 characters)
+./music-generation-experiments/melody.py:53:29: F405 'Note' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/melody.py:53:34: F405 'Pitch' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/melody.py:53:80: E501 line too long (138 > 79 characters)
+./music-generation-experiments/melody.py:62:9: F841 local variable 'tempo' is assigned to but never used
+./music-generation-experiments/melody.py:68:30: F405 'Note' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/melody.py:68:52: F405 'Chord' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/melody.py:91:26: E741 ambiguous variable name 'l'
+./music-generation-experiments/melody.py:92:80: E501 line too long (82 > 79 characters)
+./music-generation-experiments/melody.py:117:13: F841 local variable 'tempo' is assigned to but never used
+./music-generation-experiments/melody.py:125:22: F405 'mean' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/melody.py:126:25: F405 'mean' may be undefined, or defined from star imports: chord, note, pitch
+./music-generation-experiments/composition.py:2:1: F401 'itertools.chain' imported but unused
+./music-generation-experiments/composition.py:3:1: F401 'copy' imported but unused
+./music-generation-experiments/composition.py:6:1: F403 'from note import *' used; unable to detect undefined names
+./music-generation-experiments/composition.py:7:1: F403 'from pitch import *' used; unable to detect undefined names
+./music-generation-experiments/composition.py:8:1: F403 'from melody import *' used; unable to detect undefined names
+./music-generation-experiments/composition.py:9:1: F403 'from chord import *' used; unable to detect undefined names
+./music-generation-experiments/composition.py:10:1: F403 'from scale import *' used; unable to detect undefined names
+./music-generation-experiments/composition.py:12:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/composition.py:13:80: E501 line too long (120 > 79 characters)
+./music-generation-experiments/composition.py:37:9: E303 too many blank lines (2)
+./music-generation-experiments/composition.py:37:28: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:40:80: E501 line too long (111 > 79 characters)
+./music-generation-experiments/composition.py:42:23: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:48:32: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:48:80: E501 line too long (103 > 79 characters)
+./music-generation-experiments/composition.py:50:64: E261 at least two spaces before inline comment
+./music-generation-experiments/composition.py:50:64: E262 inline comment should start with '# '
+./music-generation-experiments/composition.py:53:80: E501 line too long (92 > 79 characters)
+./music-generation-experiments/composition.py:57:80: E501 line too long (155 > 79 characters)
+./music-generation-experiments/composition.py:64:27: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:67:9: E303 too many blank lines (2)
+./music-generation-experiments/composition.py:67:28: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:70:28: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:73:80: E501 line too long (102 > 79 characters)
+./music-generation-experiments/composition.py:77:40: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:47: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:54: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:61: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:68: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:75: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:80: E501 line too long (389 > 79 characters)
+./music-generation-experiments/composition.py:77:264: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:282: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:77:364: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:78:80: E501 line too long (86 > 79 characters)
+./music-generation-experiments/composition.py:83:80: E501 line too long (107 > 79 characters)
+./music-generation-experiments/composition.py:85:80: E501 line too long (146 > 79 characters)
+./music-generation-experiments/composition.py:86:80: E501 line too long (80 > 79 characters)
+./music-generation-experiments/composition.py:89:80: E501 line too long (96 > 79 characters)
+./music-generation-experiments/composition.py:94:80: E501 line too long (84 > 79 characters)
+./music-generation-experiments/composition.py:97:36: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:98:34: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:98:80: E501 line too long (146 > 79 characters)
+./music-generation-experiments/composition.py:100:34: F405 'Scale' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:100:49: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:100:80: E501 line too long (210 > 79 characters)
+./music-generation-experiments/composition.py:100:105: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:100:173: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:103:80: E501 line too long (166 > 79 characters)
+./music-generation-experiments/composition.py:108:80: E501 line too long (89 > 79 characters)
+./music-generation-experiments/composition.py:110:32: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:110:80: E501 line too long (114 > 79 characters)
+./music-generation-experiments/composition.py:113:32: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:116:36: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:120:36: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:125:36: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:137:48: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:149:80: E501 line too long (168 > 79 characters)
+./music-generation-experiments/composition.py:150:80: E501 line too long (163 > 79 characters)
+./music-generation-experiments/composition.py:152:80: E501 line too long (160 > 79 characters)
+./music-generation-experiments/composition.py:153:80: E501 line too long (155 > 79 characters)
+./music-generation-experiments/composition.py:177:80: E501 line too long (80 > 79 characters)
+./music-generation-experiments/composition.py:196:80: E501 line too long (81 > 79 characters)
+./music-generation-experiments/composition.py:199:28: F405 'Note' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:204:28: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:234:25: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:234:80: E501 line too long (95 > 79 characters)
+./music-generation-experiments/composition.py:238:29: F405 'Melody' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:240:31: F405 'Note' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:244:80: E501 line too long (87 > 79 characters)
+./music-generation-experiments/composition.py:249:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:249:31: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:250:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:250:31: E231 missing whitespace after ','
+./music-generation-experiments/composition.py:253:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:254:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:256:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:256:15: F405 'Pitch' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:257:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:257:15: F405 'Pitch' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:258:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:258:15: F405 'Pitch' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:260:9: F405 'Chord' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:262:9: F405 'time' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:266:80: E501 line too long (105 > 79 characters)
+./music-generation-experiments/composition.py:267:13: F405 'time' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:269:9: F405 'time' may be undefined, or defined from star imports: chord, melody, note, pitch, scale
+./music-generation-experiments/composition.py:274:5: E303 too many blank lines (2)
+./music-generation-experiments/composition.py:276:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/note.py:3:1: F403 'from pitch import *' used; unable to detect undefined names
+./music-generation-experiments/note.py:5:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/note.py:6:80: E501 line too long (108 > 79 characters)
+./music-generation-experiments/note.py:7:27: F405 'Pitch' may be undefined, or defined from star imports: pitch
+./music-generation-experiments/note.py:10:26: F405 'Pitch' may be undefined, or defined from star imports: pitch
+./music-generation-experiments/note.py:36:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/note.py:40:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/note.py:57:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/note.py:61:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/note.py:68:26: E741 ambiguous variable name 'l'
+./music-generation-experiments/note.py:71:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/main.py:1:1: F401 'playsound' imported but unused
+./music-generation-experiments/main.py:2:1: F401 'pydub.AudioSegment' imported but unused
+./music-generation-experiments/main.py:3:1: F401 'random' imported but unused
+./music-generation-experiments/main.py:9:1: F401 'itertools.chain' imported but unused
+./music-generation-experiments/main.py:11:1: F403 'from noteinfo import *' used; unable to detect undefined names
+./music-generation-experiments/main.py:12:1: F403 'from pitch import *' used; unable to detect undefined names
+./music-generation-experiments/main.py:13:1: F403 'from note import *' used; unable to detect undefined names
+./music-generation-experiments/main.py:14:1: F403 'from melody import *' used; unable to detect undefined names
+./music-generation-experiments/main.py:15:1: F403 'from composition import *' used; unable to detect undefined names
+./music-generation-experiments/main.py:28:5: E116 unexpected indentation (comment)
+./music-generation-experiments/main.py:59:1: E303 too many blank lines (4)
+./music-generation-experiments/main.py:60:8: F405 'Composition' may be undefined, or defined from star imports: composition, melody, note, noteinfo, pitch
+./music-generation-experiments/main.py:61:80: E501 line too long (84 > 79 characters)
+./music-generation-experiments/main.py:81:80: E501 line too long (90 > 79 characters)
+./music-generation-experiments/pitch.py:1:1: F403 'from noteinfo import *' used; unable to detect undefined names
+./music-generation-experiments/pitch.py:3:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/pitch.py:12:45: F405 'num_naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:12:61: F405 'naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:12:80: E501 line too long (88 > 79 characters)
+./music-generation-experiments/pitch.py:14:38: F405 'note_list' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:16:58: F405 'note_list' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:24:37: F405 'num_naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:25:32: F405 'naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:26:43: F405 'num_naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:28:80: E501 line too long (98 > 79 characters)
+./music-generation-experiments/pitch.py:29:46: F405 'num_notes' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:29:59: F405 'note_list' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:29:80: E501 line too long (91 > 79 characters)
+./music-generation-experiments/pitch.py:31:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/pitch.py:35:24: F405 'naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:35:44: F405 'num_naturals' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:36:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/pitch.py:42:25: F405 'note_list' may be undefined, or defined from star imports: noteinfo
+./music-generation-experiments/pitch.py:43:5: E301 expected 1 blank line, found 0
+./music-generation-experiments/chord.py:1:1: F401 'time' imported but unused
+./music-generation-experiments/chord.py:3:1: F403 'from note import *' used; unable to detect undefined names
+./music-generation-experiments/chord.py:4:1: F403 'from pitch import *' used; unable to detect undefined names
+./music-generation-experiments/chord.py:6:1: E302 expected 2 blank lines, found 1
+./music-generation-experiments/chord.py:7:80: E501 line too long (154 > 79 characters)
+./music-generation-experiments/chord.py:15:27: F405 'Note' may be undefined, or defined from star imports: note, pitch
+./music-generation-experiments/chord.py:17:29: F405 'Pitch' may be undefined, or defined from star imports: note, pitch
+./music-generation-experiments/chord.py:20:21: F405 'Note' may be undefined, or defined from star imports: note, pitch
+./music-generation-experiments/chord.py:24:9: E303 too many blank lines (2)
+./music-generation-experiments/chord.py:25:26: F405 'Note' may be undefined, or defined from star imports: note, pitch
+./music-generation-experiments/chord.py:25:31: F405 'Pitch' may be undefined, or defined from star imports: note, pitch
+./music-generation-experiments/chord.py:25:80: E501 line too long (98 > 79 characters)
+./music-generation-experiments/chord.py:42:5: E303 too many blank lines (3)
+./music-generation-experiments/chord.py:53:5: E303 too many blank lines (2)
+./music-generation-experiments/chord.py:61:48: F405 'random' may be undefined, or defined from star imports: note, pitch
+./music-generation-experiments/chord.py:63:5: F811 redefinition of unused 'time' from line 1
+./music-generation-experiments/chord.py:65:26: E741 ambiguous variable name 'l'
+./visual-computing-simulation/simulation.py:8:1: F401 'matplotlib.pyplot as plt' imported but unused
+./visual-computing-simulation/simulation.py:9:1: F401 'itertools' imported but unused
+./visual-computing-simulation/simulation.py:26:1: E303 too many blank lines (4)
+./visual-computing-simulation/simulation.py:27:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:28:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:29:46: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:30:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:31:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:32:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:33:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:34:16: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:35:29: W291 trailing whitespace
+./visual-computing-simulation/simulation.py:44:1: E731 do not assign a lambda expression, use a def
+./visual-computing-simulation/simulation.py:50:1: E122 continuation line missing indentation or outdented
+./visual-computing-simulation/simulation.py:56:1: E122 continuation line missing indentation or outdented
+./visual-computing-simulation/simulation.py:72:2: E225 missing whitespace around operator
+./visual-computing-simulation/simulation.py:83:12: E231 missing whitespace after ','
+./visual-computing-simulation/simulation.py:83:14: E231 missing whitespace after ','
+./visual-computing-simulation/simulation.py:84:15: E225 missing whitespace around operator
+./visual-computing-simulation/simulation.py:91:15: E225 missing whitespace around operator
+./mathematics/combinatorics/packings/packings.py:4:1: E302 expected 2 blank lines, found 1
+./mathematics/combinatorics/packings/packings.py:6:13: F821 undefined name 'numpy'
+./mathematics/combinatorics/packings/packings.py:7:11: F821 undefined name 'numpy'
+./mathematics/combinatorics/packings/packings.py:8:27: F821 undefined name 'numpy'
+./mathematics/combinatorics/packings/packings.py:9:16: E231 missing whitespace after ','
+./mathematics/combinatorics/packings/packings.py:12:1: E302 expected 2 blank lines, found 1
+./mathematics/combinatorics/packings/packings.py:18:1: E302 expected 2 blank lines, found 1
+./mathematics/combinatorics/packings/packings.py:24:24: F841 local variable 'offsets' is assigned to but never used
+./mathematics/combinatorics/packings/packings.py:36:9: E306 expected 1 blank line before a nested definition, found 0
+./mathematics/combinatorics/packings/packings.py:39:80: E501 line too long (85 > 79 characters)
+./mathematics/combinatorics/packings/packings.py:40:80: E501 line too long (82 > 79 characters)
+./mathematics/combinatorics/packings/packings.py:61:80: E501 line too long (122 > 79 characters)
+./mathematics/combinatorics/packings/packings.py:73:9: E303 too many blank lines (2)
+./mathematics/combinatorics/packings/packings.py:77:5: E303 too many blank lines (2)
+./mathematics/combinatorics/packings/packings.py:80:41: E225 missing whitespace around operator
+./mathematics/combinatorics/packings/packings.py:81:41: E225 missing whitespace around operator
+./mathematics/combinatorics/packings/packings.py:99:80: E501 line too long (94 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:4:80: E501 line too long (429 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:6:80: E501 line too long (116 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:8:80: E501 line too long (84 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:9:80: E501 line too long (83 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:10:80: E501 line too long (82 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:11:80: E501 line too long (82 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:12:80: E501 line too long (122 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:13:80: E501 line too long (94 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:14:80: E501 line too long (102 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:15:2: W291 trailing whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:16:80: E501 line too long (204 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:19:2: W291 trailing whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:22:80: E501 line too long (86 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:28:80: E501 line too long (109 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:29:2: W291 trailing whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:31:80: E501 line too long (81 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:32:80: E501 line too long (99 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:34:80: E501 line too long (92 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:39:80: E501 line too long (115 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:42:80: E501 line too long (135 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:43:80: E501 line too long (87 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:49:2: W291 trailing whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:66:80: E501 line too long (246 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:67:80: E501 line too long (379 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:72:2: W291 trailing whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:74:80: E501 line too long (396 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:75:80: E501 line too long (349 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:83:1: F401 'itertools' imported but unused
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:84:1: F401 'random' imported but unused
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:113:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:113:80: E501 line too long (108 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:116:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:121:14: E225 missing whitespace around operator
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:122:18: E225 missing whitespace around operator
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:124:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:140:1: E302 expected 2 blank lines, found 1
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:150:9: E261 at least two spaces before inline comment
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:150:9: E262 inline comment should start with '# '
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:162:18: E261 at least two spaces before inline comment
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:166:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:170:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:171:80: E501 line too long (93 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:173:5: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:174:5: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:177:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:181:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:186:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:187:43: E261 at least two spaces before inline comment
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:187:43: E262 inline comment should start with '# '
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:189:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:190:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:191:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:192:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:193:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:194:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:196:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:197:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:204:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:208:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:222:80: E501 line too long (83 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:230:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:232:13: E303 too many blank lines (2)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:233:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:234:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:237:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:238:1: E115 expected an indented block (comment)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:242:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:255:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:256:80: E501 line too long (104 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:267:80: E501 line too long (87 > 79 characters)
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:281:1: W293 blank line contains whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:296:24: W291 trailing whitespace
+./mathematics/combinatorics/self-avoiding-walks/self-avoiding-walk.py:325:1: W391 blank line at end of file
+./mathematics/combinatorics/random-walks/setup.py:4:45: E225 missing whitespace around operator
+./mathematics/combinatorics/random-walks/setup.py:12:80: E501 line too long (96 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:13:18: E701 multiple statements on one line (colon)
+./mathematics/combinatorics/random-walks/setup.py:14:15: E231 missing whitespace after ':'
+./mathematics/combinatorics/random-walks/setup.py:17:46: E231 missing whitespace after ','
+./mathematics/combinatorics/random-walks/setup.py:17:80: E501 line too long (89 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:19:80: E501 line too long (103 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:20:80: E501 line too long (103 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:23:13: E201 whitespace after '['
+./mathematics/combinatorics/random-walks/setup.py:24:5: E128 continuation line under-indented for visual indent
+./mathematics/combinatorics/random-walks/setup.py:24:70: E202 whitespace before ']'
+./mathematics/combinatorics/random-walks/setup.py:25:80: E501 line too long (91 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:27:38: E231 missing whitespace after ','
+./mathematics/combinatorics/random-walks/setup.py:32:9: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:32:11: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:33:12: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:33:14: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:34:16: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:34:18: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:38:80: E501 line too long (150 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:38:129: E202 whitespace before ']'
+./mathematics/combinatorics/random-walks/setup.py:39:8: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:39:10: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:40:13: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:40:15: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:41:25: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:41:27: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:42:21: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:42:23: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:43:21: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:43:23: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:43:43: E231 missing whitespace after ','
+./mathematics/combinatorics/random-walks/setup.py:44:20: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:44:20: E221 multiple spaces before operator
+./mathematics/combinatorics/random-walks/setup.py:44:23: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:45:21: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:45:23: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:46:34: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:46:36: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:47:13: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:47:15: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:48:17: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:48:19: E251 unexpected spaces around keyword / parameter equals
+./mathematics/combinatorics/random-walks/setup.py:48:21: E201 whitespace after '{'
+./mathematics/combinatorics/random-walks/setup.py:48:66: E231 missing whitespace after ','
+./mathematics/combinatorics/random-walks/setup.py:48:78: E202 whitespace before '}'
+./mathematics/combinatorics/random-walks/setup.py:48:80: E501 line too long (80 > 79 characters)
+./mathematics/combinatorics/random-walks/setup.py:50:1: W391 blank line at end of file
+./mathematics/combinatorics/random-walks/random-walks/_nbdev.py:13:1: E302 expected 2 blank lines, found 1
+./mathematics/symbolic-approximation/symbolic-approximation.py:6:80: E501 line too long (550 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:8:80: E501 line too long (449 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:10:2: W291 trailing whitespace
+./mathematics/symbolic-approximation/symbolic-approximation.py:18:1: F401 'IPython.display.Latex' imported but unused
+./mathematics/symbolic-approximation/symbolic-approximation.py:18:1: F401 'IPython.display.Math' imported but unused
+./mathematics/symbolic-approximation/symbolic-approximation.py:43:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:44:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:45:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:58:20: E261 at least two spaces before inline comment
+./mathematics/symbolic-approximation/symbolic-approximation.py:58:21: E262 inline comment should start with '# '
+./mathematics/symbolic-approximation/symbolic-approximation.py:59:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:60:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:61:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:62:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:63:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:64:1: W293 blank line contains whitespace
+./mathematics/symbolic-approximation/symbolic-approximation.py:65:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:70:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:71:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:73:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:74:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:79:26: W605 invalid escape sequence '\c'
+./mathematics/symbolic-approximation/symbolic-approximation.py:80:30: W605 invalid escape sequence '\d'
+./mathematics/symbolic-approximation/symbolic-approximation.py:83:39: W605 invalid escape sequence '\s'
+./mathematics/symbolic-approximation/symbolic-approximation.py:86:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:101:32: E225 missing whitespace around operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:116:5: E125 continuation line with same indent as next logical line
+./mathematics/symbolic-approximation/symbolic-approximation.py:126:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:136:53: E225 missing whitespace around operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:137:80: E501 line too long (96 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:139:80: E501 line too long (82 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:142:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:143:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:144:1: W293 blank line contains whitespace
+./mathematics/symbolic-approximation/symbolic-approximation.py:145:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:146:80: E501 line too long (93 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:152:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:152:80: E501 line too long (90 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:153:25: E117 over-indented
+./mathematics/symbolic-approximation/symbolic-approximation.py:153:80: E501 line too long (114 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:159:1: E302 expected 2 blank lines, found 1
+./mathematics/symbolic-approximation/symbolic-approximation.py:160:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:162:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:163:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:164:80: E501 line too long (104 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:167:48: E225 missing whitespace around operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:170:80: E501 line too long (84 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:172:80: E501 line too long (102 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:181:80: E501 line too long (85 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:191:1: E303 too many blank lines (3)
+./mathematics/symbolic-approximation/symbolic-approximation.py:199:13: W605 invalid escape sequence '\s'
+./mathematics/symbolic-approximation/symbolic-approximation.py:200:13: W605 invalid escape sequence '\L'
+./mathematics/symbolic-approximation/symbolic-approximation.py:208:5: F821 undefined name 'plot_symbolic'
+./mathematics/symbolic-approximation/symbolic-approximation.py:211:1: E122 continuation line missing indentation or outdented
+./mathematics/symbolic-approximation/symbolic-approximation.py:216:1: E115 expected an indented block (comment)
+./mathematics/symbolic-approximation/symbolic-approximation.py:229:1: F821 undefined name 'plot_symbolic'
+./mathematics/symbolic-approximation/symbolic-approximation.py:252:80: E501 line too long (104 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:257:39: E227 missing whitespace around bitwise or shift operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:265:1: F821 undefined name 'evaluate'
+./mathematics/symbolic-approximation/symbolic-approximation.py:286:80: E501 line too long (93 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:287:80: E501 line too long (83 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:288:80: E501 line too long (138 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:289:80: E501 line too long (93 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:291:80: E501 line too long (130 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:292:80: E501 line too long (214 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:294:80: E501 line too long (165 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:296:80: E501 line too long (139 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:297:80: E501 line too long (185 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:298:80: E501 line too long (228 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:304:16: E741 ambiguous variable name 'l'
+./mathematics/symbolic-approximation/symbolic-approximation.py:310:5: E722 do not use bare 'except'
+./mathematics/symbolic-approximation/symbolic-approximation.py:324:26: E225 missing whitespace around operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:330:40: E225 missing whitespace around operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:331:80: E501 line too long (86 > 79 characters)
+./mathematics/symbolic-approximation/symbolic-approximation.py:333:31: E225 missing whitespace around operator
+./mathematics/symbolic-approximation/symbolic-approximation.py:340:1: E305 expected 2 blank lines after class or function definition, found 0
+./mathematics/symbolic-approximation/symbolic-approximation.py:352:48: F821 undefined name 'B'
+./mathematics/symbolic-approximation/symbolic-approximation.py:352:51: F821 undefined name 'B'
+./mathematics/symbolic-approximation/symbolic-approximation.py:352:58: F821 undefined name 'n'
+./mathematics/symbolic-approximation/symbolic-approximation.py:358:37: F821 undefined name 'B'
+./mathematics/symbolic-approximation/symbolic-approximation.py:358:40: F821 undefined name 'B'
+./mathematics/symbolic-approximation/symbolic-approximation.py:358:47: F821 undefined name 'n'
+./mathematics/symbolic-approximation/symbolic-approximation.py:358:66: F821 undefined name 'n'
+./mathematics/symbolic-approximation/symbolic-approximation.py:358:70: E231 missing whitespace after ','
+./mathematics/symbolic-approximation/symbolic-approximation.py:370:10: F821 undefined name 'grid'
+./mathematics/symbolic-approximation/symbolic-approximation.py:370:24: F821 undefined name 'n'
+./mathematics/symbolic-approximation/symbolic-approximation.py:419:1: W391 blank line at end of file
+./leetcode/1869.py:3:15: E702 multiple statements on one line (semicolon)
+./leetcode/1869.py:4:15: E702 multiple statements on one line (semicolon)
+./leetcode/1869.py:7:32: E701 multiple statements on one line (colon)
+./leetcode/1869.py:8:24: E701 multiple statements on one line (colon)
+./leetcode/1869.py:8:32: E702 multiple statements on one line (semicolon)
+./leetcode/1869.py:10:32: E701 multiple statements on one line (colon)
+./leetcode/1869.py:11:24: E701 multiple statements on one line (colon)
+./leetcode/1869.py:11:32: E702 multiple statements on one line (semicolon)
+./leetcode/1869.py:12:23: E701 multiple statements on one line (colon)
+./leetcode/1869.py:13:23: E701 multiple statements on one line (colon)
+./leetcode/1436.py:2:31: F821 undefined name 'List'
+./leetcode/1436.py:2:36: F821 undefined name 'List'
+./leetcode/1436.py:3:80: E501 line too long (90 > 79 characters)
+./leetcode/39.py:2:42: F821 undefined name 'List'
+./leetcode/39.py:2:69: F821 undefined name 'List'
+./leetcode/39.py:2:74: F821 undefined name 'List'
+./leetcode/39.py:2:80: E501 line too long (84 > 79 characters)
+./leetcode/39.py:8:21: E265 block comment should start with '# '
+./leetcode/39.py:14:21: E701 multiple statements on one line (colon)
+./leetcode/1528.py:2:46: F821 undefined name 'List'
+./leetcode/1528.py:4:36: E701 multiple statements on one line (colon)
+./python-experiments/automacro.py:10:1: E122 continuation line missing indentation or outdented
+./python-experiments/automacro.py:11:1: E122 continuation line missing indentation or outdented
+./python-experiments/automacro.py:12:1: E122 continuation line missing indentation or outdented
+./python-experiments/automacro.py:13:1: E122 continuation line missing indentation or outdented
+./python-experiments/automacro.py:15:1: E122 continuation line missing indentation or outdented
+./python-experiments/automacro.py:28:80: E501 line too long (90 > 79 characters)
+./python-experiments/automacro.py:34:5: E115 expected an indented block (comment)
+./python-experiments/automacro.py:39:5: E115 expected an indented block (comment)
+./python-experiments/automacro.py:42:1: E115 expected an indented block (comment)
+./python-experiments/automacro.py:49:32: E712 comparison to True should be 'if cond is True:' or 'if cond:'
+./python-experiments/automacro.py:51:1: W293 blank line contains whitespace
+./python-experiments/automacro.py:60:5: E115 expected an indented block (comment)
+./python-experiments/automacro.py:65:1: W293 blank line contains whitespace
+./python-experiments/automacro.py:68:80: E501 line too long (113 > 79 characters)
+./python-experiments/automacro.py:81:1: W391 blank line at end of file
+./python-experiments/processor.py:8:1: F401 're' imported but unused
+./python-experiments/processor.py:9:1: F401 'string' imported but unused
+./python-experiments/processor.py:10:1: F401 'time' imported but unused
+./python-experiments/processor.py:13:80: E501 line too long (362 > 79 characters)
+./python-experiments/processor.py:64:1: E122 continuation line missing indentation or outdented
+./python-experiments/processor.py:69:5: E115 expected an indented block (comment)
+./python-experiments/processor.py:76:1: E302 expected 2 blank lines, found 1
+./python-experiments/processor.py:82:1: E302 expected 2 blank lines, found 1
+./python-experiments/symbolic-algebra.py:26:1: E115 expected an indented block (comment)
+./python-experiments/symbolic-algebra.py:33:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:34:80: E501 line too long (112 > 79 characters)
+./python-experiments/symbolic-algebra.py:35:34: E225 missing whitespace around operator
+./python-experiments/symbolic-algebra.py:38:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:39:1: E115 expected an indented block (comment)
+./python-experiments/symbolic-algebra.py:41:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:53:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:55:80: E501 line too long (147 > 79 characters)
+./python-experiments/symbolic-algebra.py:58:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:71:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:73:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:82:1: E302 expected 2 blank lines, found 0
+./python-experiments/symbolic-algebra.py:85:1: E305 expected 2 blank lines after class or function definition, found 1
+./python-experiments/symbolic-algebra.py:85:80: E501 line too long (87 > 79 characters)
+./python-experiments/symbolic-algebra.py:86:1: E115 expected an indented block (comment)
+./python-experiments/symbolic-algebra.py:100:1: E305 expected 2 blank lines after class or function definition, found 0
+./python-experiments/symbolic-algebra.py:106:19: E225 missing whitespace around operator
+./python-experiments/symbolic-algebra.py:120:3: F821 undefined name 'x'
+./python-experiments/symbolic-algebra.py:120:11: E227 missing whitespace around bitwise or shift operator
+./python-experiments/symbolic-algebra.py:149:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:151:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:153:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:155:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:157:5: E301 expected 1 blank line, found 0
+./python-experiments/symbolic-algebra.py:172:2: E227 missing whitespace around bitwise or shift operator
+./python-experiments/symbolic-algebra.py:172:8: E227 missing whitespace around bitwise or shift operator
+./python-experiments/symbolic-algebra.py:172:10: F821 undefined name 'x'
+./python-experiments/symbolic-algebra.py:179:1: W391 blank line at end of file
+./python-experiments/py2english.py:6:80: E501 line too long (305 > 79 characters)
+./python-experiments/py2english.py:11:1: F401 'ast' imported but unused
+./tools/cogbench/setup.py:4:45: E225 missing whitespace around operator
+./tools/cogbench/setup.py:12:80: E501 line too long (96 > 79 characters)
+./tools/cogbench/setup.py:13:18: E701 multiple statements on one line (colon)
+./tools/cogbench/setup.py:14:15: E231 missing whitespace after ':'
+./tools/cogbench/setup.py:17:46: E231 missing whitespace after ','
+./tools/cogbench/setup.py:17:80: E501 line too long (89 > 79 characters)
+./tools/cogbench/setup.py:19:80: E501 line too long (103 > 79 characters)
+./tools/cogbench/setup.py:20:80: E501 line too long (103 > 79 characters)
+./tools/cogbench/setup.py:23:13: E201 whitespace after '['
+./tools/cogbench/setup.py:24:5: E128 continuation line under-indented for visual indent
+./tools/cogbench/setup.py:24:70: E202 whitespace before ']'
+./tools/cogbench/setup.py:25:80: E501 line too long (91 > 79 characters)
+./tools/cogbench/setup.py:27:38: E231 missing whitespace after ','
+./tools/cogbench/setup.py:32:9: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:32:11: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:33:12: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:33:14: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:34:16: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:34:18: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:38:80: E501 line too long (150 > 79 characters)
+./tools/cogbench/setup.py:38:129: E202 whitespace before ']'
+./tools/cogbench/setup.py:39:8: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:39:10: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:40:13: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:40:15: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:41:25: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:41:27: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:42:21: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:42:23: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:43:21: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:43:23: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:43:43: E231 missing whitespace after ','
+./tools/cogbench/setup.py:44:20: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:44:20: E221 multiple spaces before operator
+./tools/cogbench/setup.py:44:23: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:45:21: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:45:23: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:46:34: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:46:36: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:47:13: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:47:15: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:48:17: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:48:19: E251 unexpected spaces around keyword / parameter equals
+./tools/cogbench/setup.py:48:21: E201 whitespace after '{'
+./tools/cogbench/setup.py:48:66: E231 missing whitespace after ','
+./tools/cogbench/setup.py:48:78: E202 whitespace before '}'
+./tools/cogbench/setup.py:48:80: E501 line too long (80 > 79 characters)
+./tools/cogbench/setup.py:50:1: W391 blank line at end of file
+./tools/cogbench/manual/test.py:3:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/alternation.py:4:1: F401 'fuzzywuzzy.process' imported but unused
+./tools/cogbench/manual/alternation.py:20:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/alternation.py:22:5: E301 expected 1 blank line, found 0
+./tools/cogbench/manual/alternation.py:22:80: E501 line too long (104 > 79 characters)
+./tools/cogbench/manual/alternation.py:26:80: E501 line too long (84 > 79 characters)
+./tools/cogbench/manual/alternation.py:31:9: F841 local variable 'defaults' is assigned to but never used
+./tools/cogbench/manual/utils.py:8:1: F401 'colorama.Back' imported but unused
+./tools/cogbench/manual/utils.py:10:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/utils.py:20:80: E501 line too long (93 > 79 characters)
+./tools/cogbench/manual/utils.py:28:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/utils.py:41:80: E501 line too long (93 > 79 characters)
+./tools/cogbench/manual/utils.py:46:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/utils.py:66:80: E501 line too long (82 > 79 characters)
+./tools/cogbench/manual/utils.py:69:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/utils.py:71:80: E501 line too long (109 > 79 characters)
+./tools/cogbench/manual/utils.py:82:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/utils.py:84:80: E501 line too long (163 > 79 characters)
+./tools/cogbench/manual/utils.py:86:80: E501 line too long (132 > 79 characters)
+./tools/cogbench/manual/cogbench.py:3:1: F401 'string' imported but unused
+./tools/cogbench/manual/cogbench.py:4:1: F401 'random' imported but unused
+./tools/cogbench/manual/cogbench.py:5:1: F401 'fuzzywuzzy.fuzz' imported but unused
+./tools/cogbench/manual/cogbench.py:5:1: F401 'fuzzywuzzy.process' imported but unused
+./tools/cogbench/manual/cogbench.py:8:1: F401 'utils.pickle' imported but unused
+./tools/cogbench/manual/cogbench.py:9:1: F401 'test.Test' imported but unused
+./tools/cogbench/manual/cogbench.py:14:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/cogbench.py:15:80: E501 line too long (86 > 79 characters)
+./tools/cogbench/manual/cogbench.py:22:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/cogbench.py:36:1: E303 too many blank lines (5)
+./tools/cogbench/manual/cogbench.py:42:1: E305 expected 2 blank lines after class or function definition, found 5
+./tools/cogbench/manual/cogbench.py:46:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/cogbench.py:58:80: E501 line too long (82 > 79 characters)
+./tools/cogbench/manual/cogbench.py:70:80: E501 line too long (100 > 79 characters)
+./tools/cogbench/manual/cogbench.py:81:80: E501 line too long (158 > 79 characters)
+./tools/cogbench/manual/cogbench.py:83:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/cogbench.py:93:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/cogbench/manual/minmax.py:6:1: E302 expected 2 blank lines, found 1
+./tools/cogbench/manual/minmax.py:8:5: E301 expected 1 blank line, found 0
+./tools/utils/mv.py:3:1: F401 'itertools' imported but unused
+./tools/utils/mv.py:10:80: E501 line too long (94 > 79 characters)
+./tools/utils/mv.py:12:80: E501 line too long (123 > 79 characters)
+./tools/utils/mv.py:13:80: E501 line too long (167 > 79 characters)
+./tools/utils/mv.py:14:80: E501 line too long (129 > 79 characters)
+./tools/utils/mv.py:35:9: E128 continuation line under-indented for visual indent
+./tools/utils/mv.py:36:9: E128 continuation line under-indented for visual indent
+./tools/utils/mv.py:37:9: E128 continuation line under-indented for visual indent
+./tools/utils/mv.py:39:18: E701 multiple statements on one line (colon)
+./tools/utils/mv.py:40:5: E265 block comment should start with '# '
+./tools/utils/mv.py:43:26: E701 multiple statements on one line (colon)
+./tools/utils/mv.py:44:13: E701 multiple statements on one line (colon)
+./tools/utils/mv.py:46:24: E701 multiple statements on one line (colon)
+./tools/utils/mv.py:49:16: E701 multiple statements on one line (colon)
+./tools/utils/mv.py:53:16: E701 multiple statements on one line (colon)
+./tools/utils/build.py:5:1: E302 expected 2 blank lines, found 1
+./tools/utils/build.py:6:80: E501 line too long (89 > 79 characters)
+./tools/utils/build.py:8:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/utils/build.py:8:37: E701 multiple statements on one line (colon)
+./tools/utils/build.py:13:33: E701 multiple statements on one line (colon)
+./tools/utils/build.py:14:1: W391 blank line at end of file
+./tools/project-summary/summarize.py:5:2: W291 trailing whitespace
+./tools/project-summary/summarize.py:6:80: E501 line too long (243 > 79 characters)
+./tools/project-summary/summarize.py:7:2: W291 trailing whitespace
+./tools/project-summary/summarize.py:9:2: W291 trailing whitespace
+./tools/project-summary/summarize.py:10:80: E501 line too long (769 > 79 characters)
+./tools/project-summary/summarize.py:20:1: F401 'IPython.display.display' imported but unused
+./tools/project-summary/summarize.py:34:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:38:80: E501 line too long (85 > 79 characters)
+./tools/project-summary/summarize.py:44:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/project-summary/summarize.py:63:1: E115 expected an indented block (comment)
+./tools/project-summary/summarize.py:63:80: E501 line too long (92 > 79 characters)
+./tools/project-summary/summarize.py:65:80: E501 line too long (90 > 79 characters)
+./tools/project-summary/summarize.py:66:80: E501 line too long (81 > 79 characters)
+./tools/project-summary/summarize.py:67:80: E501 line too long (91 > 79 characters)
+./tools/project-summary/summarize.py:71:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:78:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:89:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:93:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:98:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:103:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:104:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/project-summary/summarize.py:108:1: E122 continuation line missing indentation or outdented
+./tools/project-summary/summarize.py:109:80: E501 line too long (122 > 79 characters)
+./tools/project-summary/summarize.py:112:80: E501 line too long (111 > 79 characters)
+./tools/project-summary/summarize.py:116:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:121:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:128:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:131:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/project-summary/summarize.py:135:1: E722 do not use bare 'except'
+./tools/project-summary/summarize.py:149:1: E115 expected an indented block (comment)
+./tools/project-summary/summarize.py:150:80: E501 line too long (84 > 79 characters)
+./tools/project-summary/summarize.py:152:1: E302 expected 2 blank lines, found 1
+./tools/project-summary/summarize.py:154:80: E501 line too long (80 > 79 characters)
+./tools/project-summary/summarize.py:156:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:158:5: F841 local variable 'divider' is assigned to but never used
+./tools/project-summary/summarize.py:161:80: E501 line too long (151 > 79 characters)
+./tools/project-summary/summarize.py:167:80: E501 line too long (111 > 79 characters)
+./tools/project-summary/summarize.py:174:80: E501 line too long (131 > 79 characters)
+./tools/project-summary/summarize.py:179:1: E115 expected an indented block (comment)
+./tools/project-summary/summarize.py:181:80: E501 line too long (88 > 79 characters)
+./tools/project-summary/summarize.py:182:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:189:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:191:1: W293 blank line contains whitespace
+./tools/project-summary/summarize.py:192:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/project-summary/summarize.py:206:1: W391 blank line at end of file
+./tools/obfuscation/caterpillar.py:1:80: E501 line too long (172 > 79 characters)
+./tools/obfuscation/caterpillar.py:7:1: F401 'itertools' imported but unused
+./tools/obfuscation/caterpillar.py:37:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:38:80: E501 line too long (94 > 79 characters)
+./tools/obfuscation/caterpillar.py:41:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:47:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:50:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:108:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:121:80: E501 line too long (88 > 79 characters)
+./tools/obfuscation/caterpillar.py:130:80: E501 line too long (88 > 79 characters)
+./tools/obfuscation/caterpillar.py:163:80: E501 line too long (90 > 79 characters)
+./tools/obfuscation/caterpillar.py:165:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:166:1: E302 expected 2 blank lines, found 0
+./tools/obfuscation/caterpillar.py:168:80: E501 line too long (82 > 79 characters)
+./tools/obfuscation/caterpillar.py:178:80: E501 line too long (97 > 79 characters)
+./tools/obfuscation/caterpillar.py:181:80: E501 line too long (107 > 79 characters)
+./tools/obfuscation/caterpillar.py:184:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:191:1: E302 expected 2 blank lines, found 0
+./tools/obfuscation/caterpillar.py:192:80: E501 line too long (80 > 79 characters)
+./tools/obfuscation/caterpillar.py:197:9: E306 expected 1 blank line before a nested definition, found 0
+./tools/obfuscation/caterpillar.py:203:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:206:80: E501 line too long (81 > 79 characters)
+./tools/obfuscation/caterpillar.py:245:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:257:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:264:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:268:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:272:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:273:4: E111 indentation is not a multiple of 4
+./tools/obfuscation/caterpillar.py:274:4: E111 indentation is not a multiple of 4
+./tools/obfuscation/caterpillar.py:275:8: E111 indentation is not a multiple of 4
+./tools/obfuscation/caterpillar.py:276:1: E305 expected 2 blank lines after class or function definition, found 0
+./tools/obfuscation/caterpillar.py:281:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:283:80: E501 line too long (82 > 79 characters)
+./tools/obfuscation/caterpillar.py:287:80: E501 line too long (147 > 79 characters)
+./tools/obfuscation/caterpillar.py:302:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:322:1: E305 expected 2 blank lines after class or function definition, found 0
+./tools/obfuscation/caterpillar.py:329:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:351:80: E501 line too long (92 > 79 characters)
+./tools/obfuscation/caterpillar.py:364:80: E501 line too long (102 > 79 characters)
+./tools/obfuscation/caterpillar.py:365:80: E501 line too long (95 > 79 characters)
+./tools/obfuscation/caterpillar.py:367:80: E501 line too long (107 > 79 characters)
+./tools/obfuscation/caterpillar.py:369:80: E501 line too long (92 > 79 characters)
+./tools/obfuscation/caterpillar.py:370:80: E501 line too long (103 > 79 characters)
+./tools/obfuscation/caterpillar.py:377:80: E501 line too long (153 > 79 characters)
+./tools/obfuscation/caterpillar.py:390:80: E501 line too long (107 > 79 characters)
+./tools/obfuscation/caterpillar.py:399:80: E501 line too long (80 > 79 characters)
+./tools/obfuscation/caterpillar.py:400:80: E501 line too long (109 > 79 characters)
+./tools/obfuscation/caterpillar.py:403:80: E501 line too long (97 > 79 characters)
+./tools/obfuscation/caterpillar.py:410:80: E501 line too long (204 > 79 characters)
+./tools/obfuscation/caterpillar.py:415:80: E501 line too long (81 > 79 characters)
+./tools/obfuscation/caterpillar.py:426:80: E501 line too long (134 > 79 characters)
+./tools/obfuscation/caterpillar.py:437:80: E501 line too long (80 > 79 characters)
+./tools/obfuscation/caterpillar.py:438:80: E501 line too long (92 > 79 characters)
+./tools/obfuscation/caterpillar.py:445:80: E501 line too long (139 > 79 characters)
+./tools/obfuscation/caterpillar.py:447:80: E501 line too long (109 > 79 characters)
+./tools/obfuscation/caterpillar.py:454:80: E501 line too long (86 > 79 characters)
+./tools/obfuscation/caterpillar.py:463:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:473:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:497:80: E501 line too long (104 > 79 characters)
+./tools/obfuscation/caterpillar.py:498:80: E501 line too long (89 > 79 characters)
+./tools/obfuscation/caterpillar.py:518:80: E501 line too long (91 > 79 characters)
+./tools/obfuscation/caterpillar.py:524:80: E501 line too long (96 > 79 characters)
+./tools/obfuscation/caterpillar.py:529:5: E303 too many blank lines (2)
+./tools/obfuscation/caterpillar.py:541:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:543:80: E501 line too long (178 > 79 characters)
+./tools/obfuscation/caterpillar.py:553:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:564:1: E302 expected 2 blank lines, found 1
+./tools/obfuscation/caterpillar.py:567:13: E117 over-indented (comment)
+./tools/obfuscation/caterpillar.py:573:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:573:80: E501 line too long (107 > 79 characters)
+./tools/obfuscation/caterpillar.py:574:1: E402 module level import not at top of file
+./tools/obfuscation/caterpillar.py:575:1: E302 expected 2 blank lines, found 0
+./tools/obfuscation/caterpillar.py:586:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/obfuscation/caterpillar.py:613:1: E302 expected 2 blank lines, found 0
+./tools/obfuscation/caterpillar.py:633:1: E305 expected 2 blank lines after class or function definition, found 0
+./tools/shelf/stringb.py:1:1: F401 'colorama.Back' imported but unused
+./tools/shelf/stringb.py:3:1: E302 expected 2 blank lines, found 1
+./tools/shelf/stringb.py:18:80: E501 line too long (93 > 79 characters)
+./tools/shelf/shelf.py:1:1: F401 'dill' imported but unused
+./tools/shelf/shelf.py:3:1: F401 'uuid' imported but unused
+./tools/shelf/shelf.py:5:1: F401 'zlib' imported but unused
+./tools/shelf/shelf.py:6:1: F401 'base64' imported but unused
+./tools/shelf/shelf.py:9:1: F401 'numpy as np' imported but unused
+./tools/shelf/shelf.py:11:1: F401 'fuzzywuzzy' imported but unused
+./tools/shelf/shelf.py:12:1: F401 'fuzzywuzzy.fuzz' imported but unused
+./tools/shelf/shelf.py:15:1: F401 'string' imported but unused
+./tools/shelf/shelf.py:16:1: F401 'random' imported but unused
+./tools/shelf/shelf.py:17:1: F401 'colorama.Fore' imported but unused
+./tools/shelf/shelf.py:17:1: F401 'colorama.Back' imported but unused
+./tools/shelf/shelf.py:17:1: F401 'colorama.Style' imported but unused
+./tools/shelf/shelf.py:21:1: F401 'library.Library' imported but unused
+./tools/shelf/shelf.py:21:1: F401 'library.Statistics' imported but unused
+./tools/shelf/shelf.py:22:1: F401 'note.Note' imported but unused
+./tools/shelf/shelf.py:23:1: F401 'term.Term' imported but unused
+./tools/shelf/shelf.py:28:80: E501 line too long (275 > 79 characters)
+./tools/shelf/shelf.py:29:80: E501 line too long (86 > 79 characters)
+./tools/shelf/shelf.py:30:80: E501 line too long (126 > 79 characters)
+./tools/shelf/shelf.py:31:80: E501 line too long (112 > 79 characters)
+./tools/shelf/shelf.py:32:80: E501 line too long (106 > 79 characters)
+./tools/shelf/shelf.py:33:80: E501 line too long (152 > 79 characters)
+./tools/shelf/shelf.py:34:80: E501 line too long (102 > 79 characters)
+./tools/shelf/shelf.py:35:80: E501 line too long (110 > 79 characters)
+./tools/shelf/shelf.py:38:80: E501 line too long (162 > 79 characters)
+./tools/shelf/shelf.py:44:80: E501 line too long (98 > 79 characters)
+./tools/shelf/shelf.py:45:80: E501 line too long (127 > 79 characters)
+./tools/shelf/shelf.py:52:1: E302 expected 2 blank lines, found 1
+./tools/shelf/shelf.py:63:80: E501 line too long (85 > 79 characters)
+./tools/shelf/shelf.py:73:1: E303 too many blank lines (4)
+./tools/shelf/shelf.py:80:1: E305 expected 2 blank lines after class or function definition, found 1
+./tools/shelf/shelf.py:100:80: E501 line too long (87 > 79 characters)
+./tools/shelf/shelf.py:116:80: E501 line too long (104 > 79 characters)
+./tools/shelf/shelf.py:117:80: E501 line too long (86 > 79 characters)
+./tools/shelf/shelf.py:155:80: E501 line too long (138 > 79 characters)
+./tools/shelf/shelf.py:156:80: E501 line too long (91 > 79 characters)
+./tools/shelf/shelf.py:157:80: E501 line too long (106 > 79 characters)
+./tools/shelf/shelf.py:158:80: E501 line too long (135 > 79 characters)
+./tools/shelf/note.py:4:1: E302 expected 2 blank lines, found 1
+./tools/shelf/note.py:8:1: E302 expected 2 blank lines, found 1
+./tools/shelf/utils.py:7:1: E302 expected 2 blank lines, found 1
+./tools/shelf/utils.py:28:80: E501 line too long (86 > 79 characters)
+./tools/shelf/utils.py:30:1: E302 expected 2 blank lines, found 1
+./tools/shelf/utils.py:32:80: E501 line too long (109 > 79 characters)
+./tools/shelf/utils.py:43:1: E302 expected 2 blank lines, found 1
+./tools/shelf/utils.py:45:80: E501 line too long (163 > 79 characters)
+./tools/shelf/utils.py:47:80: E501 line too long (132 > 79 characters)
+./tools/shelf/term.py:3:1: E302 expected 2 blank lines, found 1
+./tools/shelf/library.py:5:1: F401 'fuzzywuzzy' imported but unused
+./tools/shelf/library.py:14:1: E302 expected 2 blank lines, found 1
+./tools/shelf/library.py:17:1: E302 expected 2 blank lines, found 1
+./tools/shelf/library.py:21:1: E302 expected 2 blank lines, found 1
+./tools/shelf/library.py:43:28: F821 undefined name 'Values'
+./tools/shelf/library.py:47:80: E501 line too long (92 > 79 characters)
+./tools/shelf/library.py:57:80: E501 line too long (84 > 79 characters)
+./tools/shelf/library.py:64:80: E501 line too long (84 > 79 characters)
+./tools/shelf/library.py:82:80: E501 line too long (102 > 79 characters)
+./tools/shelf/library.py:84:80: E501 line too long (148 > 79 characters)
+./tools/shelf/library.py:90:80: E501 line too long (87 > 79 characters)
+./tools/shelf/library.py:99:80: E501 line too long (137 > 79 characters)
+./tools/shelf/library.py:100:80: E501 line too long (158 > 79 characters)
+./tools/shelf/library.py:100:102: E225 missing whitespace around operator
+./tools/shelf/library.py:103:80: E501 line too long (91 > 79 characters)
+./tools/shelf/library.py:110:80: E501 line too long (141 > 79 characters)
+./tools/shelf/library.py:111:80: E501 line too long (230 > 79 characters)
+./tools/shelf/library.py:116:80: E501 line too long (84 > 79 characters)
+./tools/shelf/library.py:127:80: E501 line too long (125 > 79 characters)
+./tools/shelf/library.py:130:13: E741 ambiguous variable name 'l'
+./tools/shelf/library.py:133:80: E501 line too long (93 > 79 characters)
+./tools/shelf/library.py:139:80: E501 line too long (92 > 79 characters)
+./tools/shelf/library.py:145:5: E303 too many blank lines (2)
+./tools/shelf/library.py:153:80: E501 line too long (94 > 79 characters)
+./tools/shelf/library.py:155:80: E501 line too long (90 > 79 characters)
+./tools/shelf/base.py:7:1: E302 expected 2 blank lines, found 1
+./tools/shelf/base.py:12:80: E501 line too long (93 > 79 characters)
+./tools/shelf/base.py:24:80: E501 line too long (93 > 79 characters)
+./decision-tree-experiments/game.py:11:1: E302 expected 2 blank lines, found 1
+./decision-tree-experiments/game.py:51:80: E501 line too long (90 > 79 characters)
+./decision-tree-experiments/game.py:68:27: E231 missing whitespace after ','
+./decision-tree-experiments/game.py:68:37: E231 missing whitespace after ','
+./decision-tree-experiments/game.py:73:80: E501 line too long (86 > 79 characters)
+./decision-tree-experiments/game.py:88:80: E501 line too long (94 > 79 characters)
+./decision-tree-experiments/game.py:94:80: E501 line too long (106 > 79 characters)
+./decision-tree-experiments/game.py:158:17: E117 over-indented (comment)
+./decision-tree-experiments/game.py:159:21: E117 over-indented (comment)
+./decision-tree-experiments/game.py:160:21: E117 over-indented (comment)
+./decision-tree-experiments/game.py:161:25: E117 over-indented (comment)
+./decision-tree-experiments/game.py:161:80: E501 line too long (82 > 79 characters)
+./decision-tree-experiments/game.py:162:25: E117 over-indented (comment)
+./decision-tree-experiments/game.py:162:80: E501 line too long (87 > 79 characters)
+./decision-tree-experiments/game.py:163:25: E117 over-indented (comment)
+./decision-tree-experiments/game.py:165:25: E117 over-indented (comment)
+./decision-tree-experiments/game.py:166:25: E117 over-indented (comment)
+./decision-tree-experiments/game.py:167:17: E741 ambiguous variable name 'l'
+./decision-tree-experiments/game.py:212:80: E501 line too long (123 > 79 characters)
+./decision-tree-experiments/game.py:240:80: E501 line too long (86 > 79 characters)
+./decision-tree-experiments/game.py:258:80: E501 line too long (92 > 79 characters)
+./decision-tree-experiments/main.py:2:1: F401 'copy' imported but unused
+./decision-tree-experiments/main.py:3:1: F401 'random' imported but unused
+./decision-tree-experiments/main.py:4:1: F401 'json' imported but unused
+./decision-tree-experiments/main.py:6:1: F403 'from game import *' used; unable to detect undefined names
+./decision-tree-experiments/main.py:7:1: F403 'from node import *' used; unable to detect undefined names
+./decision-tree-experiments/main.py:8:1: F403 'from tree import *' used; unable to detect undefined names
+./decision-tree-experiments/main.py:11:8: F405 'RowGame' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:17:21: F405 'Player' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:18:21: F405 'Player' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:29:8: F405 'DecisionTree' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:29:21: F405 'RowGame' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:31:32: F405 'Player' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:32:32: F405 'Player' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:51:5: E722 do not use bare 'except'
+./decision-tree-experiments/main.py:68:10: F405 'RowGame' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/main.py:74:13: F405 'RowGame' may be undefined, or defined from star imports: game, node, tree
+./decision-tree-experiments/tree.py:3:1: F403 'from node import *' used; unable to detect undefined names
+./decision-tree-experiments/tree.py:5:1: E302 expected 2 blank lines, found 1
+./decision-tree-experiments/tree.py:9:21: F405 'Node' may be undefined, or defined from star imports: node
+./decision-tree-experiments/tree.py:23:34: E741 ambiguous variable name 'l'
+./decision-tree-experiments/tree.py:27:80: E501 line too long (120 > 79 characters)
+./decision-tree-experiments/node.py:3:1: E302 expected 2 blank lines, found 1
+./decision-tree-experiments/node.py:47:80: E501 line too long (88 > 79 characters)
+./decision-tree-experiments/node.py:65:21: F841 local variable 'delta' is assigned to but never used
+./lib/pythings/build.py:5:1: E302 expected 2 blank lines, found 1
+./lib/pythings/build.py:6:80: E501 line too long (89 > 79 characters)
+./lib/pythings/build.py:8:1: E305 expected 2 blank lines after class or function definition, found 1
+./lib/pythings/build.py:8:37: E701 multiple statements on one line (colon)
+./lib/pythings/build.py:14:34: E701 multiple statements on one line (colon)
+./lib/pythings/build.py:15:1: W391 blank line at end of file
+./lib/pythings/pythings.py:56:15: E999 SyntaxError: invalid syntax
+./lib/punchcard/dataclass.py:8:80: E501 line too long (318 > 79 characters)
+./lib/punchcard/dataclass.py:9:2: W291 trailing whitespace
+./lib/punchcard/dataclass.py:10:80: E501 line too long (332 > 79 characters)
+./lib/punchcard/dataclass.py:11:2: W291 trailing whitespace
+./lib/punchcard/dataclass.py:12:80: E501 line too long (229 > 79 characters)
+./lib/punchcard/dataclass.py:13:2: W291 trailing whitespace
+./lib/punchcard/dataclass.py:14:80: E501 line too long (152 > 79 characters)
+./lib/punchcard/dataclass.py:15:80: E501 line too long (86 > 79 characters)
+./lib/punchcard/dataclass.py:16:80: E501 line too long (192 > 79 characters)
+./lib/punchcard/dataclass.py:17:80: E501 line too long (116 > 79 characters)
+./lib/punchcard/dataclass.py:18:80: E501 line too long (240 > 79 characters)
+./lib/punchcard/dataclass.py:19:80: E501 line too long (119 > 79 characters)
+./lib/punchcard/dataclass.py:20:80: E501 line too long (199 > 79 characters)
+./lib/punchcard/dataclass.py:21:2: W291 trailing whitespace
+./lib/punchcard/dataclass.py:22:80: E501 line too long (293 > 79 characters)
+./lib/punchcard/dataclass.py:23:2: W291 trailing whitespace
+./lib/punchcard/dataclass.py:25:2: W291 trailing whitespace
+./lib/punchcard/dataclass.py:26:80: E501 line too long (88 > 79 characters)
+./lib/punchcard/dataclass.py:27:80: E501 line too long (83 > 79 characters)
+./lib/punchcard/dataclass.py:28:80: E501 line too long (115 > 79 characters)
+./lib/punchcard/dataclass.py:35:1: F401 'string' imported but unused
+./lib/punchcard/dataclass.py:38:1: F401 'requests' imported but unused
+./lib/punchcard/dataclass.py:40:1: F401 'math' imported but unused
+./lib/punchcard/dataclass.py:46:1: F401 'bs4.BeautifulSoup' imported but unused
+./lib/punchcard/dataclass.py:47:1: F401 'zlib' imported but unused
+./lib/punchcard/dataclass.py:48:1: F401 'sys' imported but unused
+./lib/punchcard/dataclass.py:58:1: E122 continuation line missing indentation or outdented
+./lib/punchcard/dataclass.py:61:80: E501 line too long (80 > 79 characters)
+./lib/punchcard/dataclass.py:62:80: E501 line too long (143 > 79 characters)
+./lib/punchcard/dataclass.py:63:80: E501 line too long (105 > 79 characters)
+./lib/punchcard/dataclass.py:63:106: W291 trailing whitespace
+./lib/punchcard/dataclass.py:87:5: E301 expected 1 blank line, found 0
+./lib/punchcard/dataclass.py:91:80: E501 line too long (92 > 79 characters)
+./lib/punchcard/dataclass.py:93:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:98:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:102:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:107:1: E305 expected 2 blank lines after class or function definition, found 0
+./lib/punchcard/dataclass.py:123:80: E501 line too long (85 > 79 characters)
+./lib/punchcard/dataclass.py:124:80: E501 line too long (132 > 79 characters)
+./lib/punchcard/dataclass.py:149:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:150:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:180:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:197:80: E501 line too long (230 > 79 characters)
+./lib/punchcard/dataclass.py:334:80: E501 line too long (95 > 79 characters)
+./lib/punchcard/dataclass.py:336:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:339:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:344:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:344:63: E261 at least two spaces before inline comment
+./lib/punchcard/dataclass.py:344:64: E262 inline comment should start with '# '
+./lib/punchcard/dataclass.py:346:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:392:80: E501 line too long (170 > 79 characters)
+./lib/punchcard/dataclass.py:434:1: E303 too many blank lines (5)
+./lib/punchcard/dataclass.py:475:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:513:5: E301 expected 1 blank line, found 0
+./lib/punchcard/dataclass.py:523:5: E301 expected 1 blank line, found 0
+./lib/punchcard/dataclass.py:526:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:551:5: E731 do not assign a lambda expression, use a def
+./lib/punchcard/dataclass.py:554:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:557:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:562:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:569:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:572:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:577:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:581:1: E122 continuation line missing indentation or outdented
+./lib/punchcard/dataclass.py:614:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:617:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:622:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:626:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:629:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:634:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:649:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:652:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:655:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:657:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:660:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:662:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:665:1: E303 too many blank lines (3)
+./lib/punchcard/dataclass.py:668:1: E302 expected 2 blank lines, found 3
+./lib/punchcard/dataclass.py:678:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:679:1: E115 expected an indented block (comment)
+./lib/punchcard/dataclass.py:680:1: W293 blank line contains whitespace
+./lib/punchcard/dataclass.py:703:80: E501 line too long (107 > 79 characters)
+./lib/punchcard/dataclass.py:715:80: E501 line too long (107 > 79 characters)
+./lib/punchcard/dataclass.py:734:1: E302 expected 2 blank lines, found 1
+./lib/punchcard/dataclass.py:741:1: F821 undefined name 's'
+./lib/punchcard/dataclass.py:760:1: W391 blank line at end of file
+./lib/graphs/manual_testing.py:1:10: F821 undefined name 'nltk'
+./lib/graphs/manual_testing.py:2:1: E302 expected 2 blank lines, found 0
+./lib/graphs/manual_testing.py:4:29: F821 undefined name 'string'
+./lib/graphs/manual_testing.py:6:1: E305 expected 2 blank lines after class or function definition, found 0
+./lib/graphs/manual_testing.py:10:1: E302 expected 2 blank lines, found 0
+./lib/graphs/manual_testing.py:13:1: E305 expected 2 blank lines after class or function definition, found 1
+./lib/graphs/manual_testing.py:13:5: F821 undefined name 'random'
+./lib/graphs/manual_testing.py:20:13: F821 undefined name 'itertools'
+./lib/graphs/manual_testing.py:21:12: F821 undefined name 'fuzz'
+./lib/graphs/manual_testing.py:27:12: F821 undefined name 'pprint'
+./lib/graphs/manual_testing.py:33:1: E303 too many blank lines (3)
+./lib/graphs/manual_testing.py:40:17: F821 undefined name 'random'
+./lib/graphs/manual_testing.py:41:5: F821 undefined name 'Graph'
+./lib/graphs/manual_testing.py:46:1: E115 expected an indented block (comment)
+./lib/graphs/manual_testing.py:46:80: E501 line too long (86 > 79 characters)
+./lib/graphs/manual_testing.py:53:80: E501 line too long (86 > 79 characters)
+./lib/graphs/manual_testing.py:58:9: E741 ambiguous variable name 'l'
+./lib/graphs/manual_testing.py:59:1: E115 expected an indented block (comment)
+./lib/graphs/manual_testing.py:60:1: E115 expected an indented block (comment)
+./lib/graphs/manual_testing.py:61:9: F821 undefined name 'Node'
+./lib/graphs/manual_testing.py:63:80: E501 line too long (85 > 79 characters)
+./lib/graphs/manual_testing.py:66:5: F821 undefined name 'RandomGraph'
+./lib/graphs/manual_testing.py:67:7: F821 undefined name 'random'
+./lib/graphs/manual_testing.py:71:5: F821 undefined name 'RandomGraph'
+./lib/graphs/manual_testing.py:72:1: F821 undefined name 'plt'
+./lib/graphs/manual_testing.py:75:5: F821 undefined name 'CompleteGraph'
+./lib/graphs/manual_testing.py:75:45: F821 undefined name 'Randomizer'
+./lib/graphs/manual_testing.py:76:80: E501 line too long (101 > 79 characters)
+./lib/graphs/manual_testing.py:84:1: E303 too many blank lines (7)
+./lib/graphs/manual_testing.py:89:80: E501 line too long (88 > 79 characters)
+./lib/graphs/manual_testing.py:97:5: F821 undefined name 'Graph'
+./lib/graphs/manual_testing.py:107:22: E225 missing whitespace around operator
+./lib/graphs/manual_testing.py:115:80: E501 line too long (107 > 79 characters)
+./lib/graphs/manual_testing.py:120:1: E115 expected an indented block (comment)
+./lib/graphs/manual_testing.py:121:1: E115 expected an indented block (comment)
+./lib/graphs/manual_testing.py:125:13: E231 missing whitespace after ','
+./lib/graphs/manual_testing.py:133:11: F821 undefined name 'Graph'
+./lib/graphs/manual_testing.py:145:80: E501 line too long (84 > 79 characters)
+./lib/graphs/completegraph.py:3:1: E302 expected 2 blank lines, found 1
+./lib/graphs/completegraph.py:6:36: E231 missing whitespace after ','
+./lib/graphs/completegraph.py:11:1: E115 expected an indented block (comment)
+./lib/graphs/completegraph.py:18:48: F821 undefined name 'Randomizer'
+./lib/graphs/completegraph.py:20:80: E501 line too long (103 > 79 characters)
+./lib/graphs/randomgraph.py:3:1: E302 expected 2 blank lines, found 1
+./lib/graphs/randomgraph.py:6:36: E231 missing whitespace after ','
+./lib/graphs/randomgraph.py:10:41: F821 undefined name 'random'
+./lib/graphs/randomgraph.py:11:34: F821 undefined name 'random'
+./lib/graphs/randomgraph.py:11:80: E501 line too long (87 > 79 characters)
+./lib/graphs/gridgraph.py:3:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:3:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:13:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:15:30: F821 undefined name 'pyvis'
+./lib/graphs/graph.py:16:9: F841 local variable 'added_nodes' is assigned to but never used
+./lib/graphs/graph.py:20:1: E115 expected an indented block (comment)
+./lib/graphs/graph.py:23:1: E115 expected an indented block (comment)
+./lib/graphs/graph.py:35:80: E501 line too long (127 > 79 characters)
+./lib/graphs/graph.py:35:93: E261 at least two spaces before inline comment
+./lib/graphs/graph.py:35:93: E262 inline comment should start with '# '
+./lib/graphs/graph.py:39:1: E115 expected an indented block (comment)
+./lib/graphs/graph.py:46:1: E115 expected an indented block (comment)
+./lib/graphs/graph.py:49:80: E501 line too long (117 > 79 characters)
+./lib/graphs/graph.py:50:21: E722 do not use bare 'except'
+./lib/graphs/graph.py:54:80: E501 line too long (117 > 79 characters)
+./lib/graphs/graph.py:55:21: E722 do not use bare 'except'
+./lib/graphs/graph.py:59:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:64:80: E501 line too long (123 > 79 characters)
+./lib/graphs/graph.py:67:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:77:43: E261 at least two spaces before inline comment
+./lib/graphs/graph.py:78:80: E501 line too long (109 > 79 characters)
+./lib/graphs/graph.py:81:80: E501 line too long (86 > 79 characters)
+./lib/graphs/graph.py:88:43: E261 at least two spaces before inline comment
+./lib/graphs/graph.py:89:1: E115 expected an indented block (comment)
+./lib/graphs/graph.py:97:1: E115 expected an indented block (comment)
+./lib/graphs/graph.py:98:80: E501 line too long (89 > 79 characters)
+./lib/graphs/graph.py:109:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:111:28: F821 undefined name 'random'
+./lib/graphs/graph.py:114:16: F821 undefined name 'random'
+./lib/graphs/graph.py:126:80: E501 line too long (95 > 79 characters)
+./lib/graphs/graph.py:129:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:138:1: E302 expected 2 blank lines, found 1
+./lib/graphs/graph.py:140:18: F821 undefined name 'np'
+./lib/graphs/graph.py:141:21: F821 undefined name 'itertools'
+./lib/graphs/graph.py:143:80: E501 line too long (108 > 79 characters)
+./lib/graphs/randomizer.py:2:80: E501 line too long (84 > 79 characters)
+./lib/graphs/randomizer.py:8:24: F821 undefined name 'random'
+./lib/graphs/randomizer.py:13:1: E305 expected 2 blank lines after class or function definition, found 1
+./lib/graphs/randomizer.py:13:13: F821 undefined name 'Graph'
+./lib/graphs/randomizer.py:13:20: F821 undefined name 'Node'
+./lib/graphs/giraffe.py:4:1: F401 'nltk' imported but unused
+./lib/graphs/giraffe.py:5:1: F401 'fuzzywuzzy.fuzz' imported but unused
+./lib/graphs/giraffe.py:6:1: F401 'string' imported but unused
+./lib/graphs/giraffe.py:7:1: F401 'random' imported but unused
+./lib/graphs/giraffe.py:8:1: F401 'itertools' imported but unused
+./lib/graphs/giraffe.py:9:1: F401 'pprint' imported but unused
+./lib/graphs/giraffe.py:10:1: F401 'pyvis' imported but unused
+./lib/graphs/giraffe.py:11:1: F401 'IPython.display.JSON' imported but unused
+./lib/graphs/giraffe.py:12:1: F401 'numpy as np' imported but unused
+./lib/graphs/giraffe.py:13:1: F401 'matplotlib.pyplot as plt' imported but unused
+./lib/graphs/giraffe.py:15:1: F401 'graph.Graph' imported but unused
+./lib/graphs/giraffe.py:16:1: F401 'randomgraph.RandomGraph' imported but unused
+./lib/graphs/giraffe.py:17:1: F401 'completegraph.CompleteGraph' imported but unused
+./lib/graphs/giraffe.py:18:1: F401 'gridgraph.GridGraph' imported but unused
+./lib/graphs/node.py:6:80: E501 line too long (90 > 79 characters)
+./lib/graphs/node.py:12:80: E501 line too long (112 > 79 characters)
+./lib/graphs/node.py:13:27: E261 at least two spaces before inline comment
+./lib/graphs/node.py:13:27: E262 inline comment should start with '# '
+./lib/graphs/node.py:17:54: E261 at least two spaces before inline comment
+./lib/graphs/node.py:17:54: E262 inline comment should start with '# '
+./lib/graphs/node.py:26:1: E115 expected an indented block (comment)
+./lib/graphs/node.py:27:1: E115 expected an indented block (comment)
+./lib/graphs/node.py:34:16: F821 undefined name 'Graph'
+./lib/graphs/node.py:34:80: E501 line too long (139 > 79 characters)
+./lib/graphs/node.py:37:80: E501 line too long (80 > 79 characters)
+./lib/quickplot/quickplot.py:373:10: E999 SyntaxError: invalid syntax
+./programming-puzzles/puzzles.py:7:1: F821 undefined name 'get_ipython'
+./programming-puzzles/puzzles.py:11:2: W291 trailing whitespace
+./programming-puzzles/puzzles.py:12:80: E501 line too long (525 > 79 characters)
+./programming-puzzles/puzzles.py:14:80: E501 line too long (146 > 79 characters)
+./programming-puzzles/puzzles.py:33:1: E402 module level import not at top of file
+./programming-puzzles/puzzles.py:34:1: E302 expected 2 blank lines, found 0
+./programming-puzzles/puzzles.py:43:1: E115 expected an indented block (comment)
+./programming-puzzles/puzzles.py:46:1: E305 expected 2 blank lines after class or function definition, found 1
+./programming-puzzles/puzzles.py:49:1: E115 expected an indented block (comment)
+./programming-puzzles/puzzles.py:57:80: E501 line too long (318 > 79 characters)
+./programming-puzzles/puzzles.py:59:80: E501 line too long (576 > 79 characters)
+./programming-puzzles/puzzles.py:66:80: E501 line too long (201 > 79 characters)
+./programming-puzzles/puzzles.py:77:1: E402 module level import not at top of file
+./programming-puzzles/puzzles.py:78:1: F401 'numpy as np' imported but unused
+./programming-puzzles/puzzles.py:78:1: E402 module level import not at top of file
+./programming-puzzles/puzzles.py:79:1: E402 module level import not at top of file
+./programming-puzzles/puzzles.py:100:1: E302 expected 2 blank lines, found 1
+./programming-puzzles/puzzles.py:119:7: F821 undefined name 'factorial'
+./programming-puzzles/puzzles.py:126:1: E303 too many blank lines (3)
+./programming-puzzles/puzzles.py:127:1: E115 expected an indented block (comment)
+./programming-puzzles/puzzles.py:128:1: W293 blank line contains whitespace
+./programming-puzzles/puzzles.py:135:1: W293 blank line contains whitespace
+./programming-puzzles/puzzles.py:137:40: E225 missing whitespace around operator
+./programming-puzzles/puzzles.py:141:9: E722 do not use bare 'except'
+./programming-puzzles/puzzles.py:146:18: W291 trailing whitespace
+./programming-puzzles/puzzles.py:151:1: W293 blank line contains whitespace
+./programming-puzzles/puzzles.py:159:1: W293 blank line contains whitespace
+./programming-puzzles/puzzles.py:164:1: E302 expected 2 blank lines, found 1
+./programming-puzzles/puzzles.py:168:1: E302 expected 2 blank lines, found 1
+./programming-puzzles/puzzles.py:173:1: E305 expected 2 blank lines after class or function definition, found 1
+./programming-puzzles/puzzles.py:199:2: W291 trailing whitespace
+./programming-puzzles/puzzles.py:200:80: E501 line too long (110 > 79 characters)
+./programming-puzzles/puzzles.py:213:80: E501 line too long (401 > 79 characters)
+./programming-puzzles/puzzles.py:215:80: E501 line too long (390 > 79 characters)
+./programming-puzzles/puzzles.py:216:2: W291 trailing whitespace
+./programming-puzzles/puzzles.py:217:80: E501 line too long (181 > 79 characters)
+./programming-puzzles/puzzles.py:218:80: E501 line too long (101 > 79 characters)
+./programming-puzzles/puzzles.py:220:80: E501 line too long (221 > 79 characters)
+./programming-puzzles/puzzles.py:222:80: E501 line too long (332 > 79 characters)
+./programming-puzzles/puzzles.py:224:80: E501 line too long (187 > 79 characters)
+./simulations/attractors/setup.py:4:45: E225 missing whitespace around operator
+./simulations/attractors/setup.py:12:80: E501 line too long (96 > 79 characters)
+./simulations/attractors/setup.py:13:18: E701 multiple statements on one line (colon)
+./simulations/attractors/setup.py:14:15: E231 missing whitespace after ':'
+./simulations/attractors/setup.py:17:46: E231 missing whitespace after ','
+./simulations/attractors/setup.py:17:80: E501 line too long (89 > 79 characters)
+./simulations/attractors/setup.py:19:80: E501 line too long (103 > 79 characters)
+./simulations/attractors/setup.py:20:80: E501 line too long (103 > 79 characters)
+./simulations/attractors/setup.py:23:13: E201 whitespace after '['
+./simulations/attractors/setup.py:24:5: E128 continuation line under-indented for visual indent
+./simulations/attractors/setup.py:24:70: E202 whitespace before ']'
+./simulations/attractors/setup.py:25:80: E501 line too long (95 > 79 characters)
+./simulations/attractors/setup.py:30:27: E701 multiple statements on one line (colon)
+./simulations/attractors/setup.py:30:67: E231 missing whitespace after ','
+./simulations/attractors/setup.py:31:31: E701 multiple statements on one line (colon)
+./simulations/attractors/setup.py:31:75: E231 missing whitespace after ','
+./simulations/attractors/setup.py:31:80: E501 line too long (86 > 79 characters)
+./simulations/attractors/setup.py:37:9: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:37:11: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:38:12: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:38:14: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:39:16: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:39:18: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:43:80: E501 line too long (150 > 79 characters)
+./simulations/attractors/setup.py:43:129: E202 whitespace before ']'
+./simulations/attractors/setup.py:44:8: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:44:10: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:45:13: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:45:15: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:46:25: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:46:27: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:47:21: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:47:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:48:21: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:48:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:48:43: E231 missing whitespace after ','
+./simulations/attractors/setup.py:49:20: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:49:20: E221 multiple spaces before operator
+./simulations/attractors/setup.py:49:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:50:21: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:50:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:51:34: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:51:36: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:52:13: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:52:15: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:53:17: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:53:19: E251 unexpected spaces around keyword / parameter equals
+./simulations/attractors/setup.py:53:21: E201 whitespace after '{'
+./simulations/attractors/setup.py:53:66: E231 missing whitespace after ','
+./simulations/attractors/setup.py:53:78: E202 whitespace before '}'
+./simulations/attractors/setup.py:53:80: E501 line too long (80 > 79 characters)
+./simulations/attractors/setup.py:55:1: W391 blank line at end of file
+./simulations/attractors/attractors/_nbdev.py:19:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:1:80: E501 line too long (92 > 79 characters)
+./simulations/attractors/attractors/core.py:3:80: E501 line too long (110 > 79 characters)
+./simulations/attractors/attractors/core.py:9:1: F401 'IPython' imported but unused
+./simulations/attractors/attractors/core.py:11:1: F401 'matplotlib' imported but unused
+./simulations/attractors/attractors/core.py:18:1: F401 'scipy.signal' imported but unused
+./simulations/attractors/attractors/core.py:18:1: F401 'scipy.misc' imported but unused
+./simulations/attractors/attractors/core.py:22:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:28:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:34:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:46:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:48:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:49:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:57:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:58:80: E501 line too long (94 > 79 characters)
+./simulations/attractors/attractors/core.py:60:80: E501 line too long (126 > 79 characters)
+./simulations/attractors/attractors/core.py:63:80: E501 line too long (141 > 79 characters)
+./simulations/attractors/attractors/core.py:80:13: E741 ambiguous variable name 'l'
+./simulations/attractors/attractors/core.py:81:13: F841 local variable 'rMatrix' is assigned to but never used
+./simulations/attractors/attractors/core.py:82:13: F841 local variable 'offsets' is assigned to but never used
+./simulations/attractors/attractors/core.py:82:33: E741 ambiguous variable name 'l'
+./simulations/attractors/attractors/core.py:100:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:108:80: E501 line too long (112 > 79 characters)
+./simulations/attractors/attractors/core.py:122:80: E501 line too long (107 > 79 characters)
+./simulations/attractors/attractors/core.py:126:27: E231 missing whitespace after ','
+./simulations/attractors/attractors/core.py:129:19: E261 at least two spaces before inline comment
+./simulations/attractors/attractors/core.py:129:19: E262 inline comment should start with '# '
+./simulations/attractors/attractors/core.py:138:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors/core.py:139:80: E501 line too long (112 > 79 characters)
+./simulations/attractors/attractors/core.py:141:80: E501 line too long (294 > 79 characters)
+./simulations/attractors/attractors/core.py:143:80: E501 line too long (106 > 79 characters)
+./simulations/attractors/attractors/core.py:144:80: E501 line too long (204 > 79 characters)
+./simulations/attractors/attractors/core.py:145:80: E501 line too long (125 > 79 characters)
+./simulations/attractors/attractors/core.py:146:80: E501 line too long (214 > 79 characters)
+./simulations/attractors/attractors/core.py:147:80: E501 line too long (137 > 79 characters)
+./simulations/attractors/attractors/core.py:167:80: E501 line too long (82 > 79 characters)
+./simulations/attractors/attractors/core.py:170:80: E501 line too long (107 > 79 characters)
+./simulations/attractors/attractors/core.py:184:80: E501 line too long (155 > 79 characters)
+./simulations/attractors/attractors/core.py:185:80: E501 line too long (102 > 79 characters)
+./simulations/attractors/attractors/core.py:201:80: E501 line too long (179 > 79 characters)
+./simulations/attractors/attractors/core.py:216:80: E501 line too long (253 > 79 characters)
+./simulations/attractors/attractors/core.py:240:80: E501 line too long (145 > 79 characters)
+./simulations/attractors/attractors/core.py:242:80: E501 line too long (152 > 79 characters)
+./simulations/attractors/attractors/core.py:245:80: E501 line too long (124 > 79 characters)
+./simulations/attractors/attractors/core.py:246:80: E501 line too long (109 > 79 characters)
+./simulations/attractors/attractors/core.py:247:80: E501 line too long (145 > 79 characters)
+./simulations/attractors/attractors/core.py:248:80: E501 line too long (199 > 79 characters)
+./simulations/attractors/attractors/core.py:260:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:264:80: E501 line too long (140 > 79 characters)
+./simulations/attractors/attractors/core.py:270:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:271:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:272:13: F841 local variable 'gamma' is assigned to but never used
+./simulations/attractors/attractors/core.py:274:17: E741 ambiguous variable name 'l'
+./simulations/attractors/attractors/core.py:275:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:276:17: F841 local variable 'rMatrix' is assigned to but never used
+./simulations/attractors/attractors/core.py:278:17: F841 local variable 'offsets' is assigned to but never used
+./simulations/attractors/attractors/core.py:278:42: E741 ambiguous variable name 'l'
+./simulations/attractors/attractors/core.py:278:70: E261 at least two spaces before inline comment
+./simulations/attractors/attractors/core.py:278:70: E262 inline comment should start with '# '
+./simulations/attractors/attractors/core.py:278:80: E501 line too long (80 > 79 characters)
+./simulations/attractors/attractors/core.py:282:80: E501 line too long (103 > 79 characters)
+./simulations/attractors/attractors/core.py:291:80: E501 line too long (87 > 79 characters)
+./simulations/attractors/attractors/core.py:301:80: E501 line too long (94 > 79 characters)
+./simulations/attractors/attractors/core.py:306:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:307:80: E501 line too long (90 > 79 characters)
+./simulations/attractors/attractors/core.py:313:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:314:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:315:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:315:80: E501 line too long (110 > 79 characters)
+./simulations/attractors/attractors/core.py:316:80: E501 line too long (101 > 79 characters)
+./simulations/attractors/attractors/core.py:322:47: F821 undefined name 'none'
+./simulations/attractors/attractors/core.py:322:80: E501 line too long (87 > 79 characters)
+./simulations/attractors/attractors/core.py:328:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:329:80: E501 line too long (87 > 79 characters)
+./simulations/attractors/attractors/core.py:330:80: E501 line too long (88 > 79 characters)
+./simulations/attractors/attractors/core.py:331:80: E501 line too long (96 > 79 characters)
+./simulations/attractors/attractors/core.py:335:80: E501 line too long (89 > 79 characters)
+./simulations/attractors/attractors/core.py:396:80: E501 line too long (179 > 79 characters)
+./simulations/attractors/attractors/core.py:400:80: E501 line too long (108 > 79 characters)
+./simulations/attractors/attractors/core.py:401:80: E501 line too long (112 > 79 characters)
+./simulations/attractors/attractors/core.py:402:80: E501 line too long (102 > 79 characters)
+./simulations/attractors/attractors/core.py:404:80: E501 line too long (105 > 79 characters)
+./simulations/attractors/attractors/core.py:405:80: E501 line too long (192 > 79 characters)
+./simulations/attractors/attractors/core.py:406:80: E501 line too long (157 > 79 characters)
+./simulations/attractors/attractors/core.py:407:80: E501 line too long (99 > 79 characters)
+./simulations/attractors/attractors/core.py:408:80: E501 line too long (149 > 79 characters)
+./simulations/attractors/attractors/core.py:409:80: E501 line too long (185 > 79 characters)
+./simulations/attractors/attractors/core.py:419:36: E261 at least two spaces before inline comment
+./simulations/attractors/attractors/core.py:421:80: E501 line too long (81 > 79 characters)
+./simulations/attractors/attractors/core.py:427:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:436:80: E501 line too long (86 > 79 characters)
+./simulations/attractors/attractors/core.py:440:5: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:449:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:449:80: E501 line too long (91 > 79 characters)
+./simulations/attractors/attractors/core.py:453:13: E115 expected an indented block (comment)
+./simulations/attractors/attractors/core.py:466:80: E501 line too long (132 > 79 characters)
+./simulations/attractors/attractors/core.py:468:80: E501 line too long (101 > 79 characters)
+./simulations/attractors/attractors/core.py:489:26: F821 undefined name 'self'
+./simulations/attractors/attractors/core.py:489:80: E501 line too long (84 > 79 characters)
+./simulations/attractors/attractors/core.py:489:85: W292 no newline at end of file
+./simulations/foldz/setup.py:4:45: E225 missing whitespace around operator
+./simulations/foldz/setup.py:12:80: E501 line too long (96 > 79 characters)
+./simulations/foldz/setup.py:13:18: E701 multiple statements on one line (colon)
+./simulations/foldz/setup.py:14:15: E231 missing whitespace after ':'
+./simulations/foldz/setup.py:17:46: E231 missing whitespace after ','
+./simulations/foldz/setup.py:17:80: E501 line too long (89 > 79 characters)
+./simulations/foldz/setup.py:19:80: E501 line too long (103 > 79 characters)
+./simulations/foldz/setup.py:20:80: E501 line too long (103 > 79 characters)
+./simulations/foldz/setup.py:23:13: E201 whitespace after '['
+./simulations/foldz/setup.py:24:5: E128 continuation line under-indented for visual indent
+./simulations/foldz/setup.py:24:70: E202 whitespace before ']'
+./simulations/foldz/setup.py:25:80: E501 line too long (91 > 79 characters)
+./simulations/foldz/setup.py:27:38: E231 missing whitespace after ','
+./simulations/foldz/setup.py:32:9: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:32:11: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:33:12: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:33:14: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:34:16: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:34:18: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:38:80: E501 line too long (150 > 79 characters)
+./simulations/foldz/setup.py:38:129: E202 whitespace before ']'
+./simulations/foldz/setup.py:39:8: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:39:10: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:40:13: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:40:15: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:41:25: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:41:27: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:42:21: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:42:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:43:21: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:43:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:43:43: E231 missing whitespace after ','
+./simulations/foldz/setup.py:44:20: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:44:20: E221 multiple spaces before operator
+./simulations/foldz/setup.py:44:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:45:21: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:45:23: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:46:34: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:46:36: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:47:13: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:47:15: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:48:17: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:48:19: E251 unexpected spaces around keyword / parameter equals
+./simulations/foldz/setup.py:48:21: E201 whitespace after '{'
+./simulations/foldz/setup.py:48:66: E231 missing whitespace after ','
+./simulations/foldz/setup.py:48:78: E202 whitespace before '}'
+./simulations/foldz/setup.py:48:80: E501 line too long (80 > 79 characters)
+./simulations/foldz/setup.py:50:1: W391 blank line at end of file
+./simulations/foldz/FoldZ/_nbdev.py:26:1: E302 expected 2 blank lines, found 1
+./simulations/foldz/FoldZ/fold.py:7:1: E999 SyntaxError: invalid syntax
+./simulations/physics/helpers.py:6:1: E302 expected 2 blank lines, found 1
+./simulations/physics/helpers.py:12:1: E302 expected 2 blank lines, found 1
+./simulations/physics/helpers.py:15:5: E301 expected 1 blank line, found 0
+./simulations/physics/object.py:1:1: F403 'from tensor import *' used; unable to detect undefined names
+./simulations/physics/object.py:3:1: E302 expected 2 blank lines, found 1
+./simulations/physics/object.py:8:1: E302 expected 2 blank lines, found 1
+./simulations/physics/object.py:11:80: E501 line too long (86 > 79 characters)
+./simulations/physics/object.py:13:19: F405 'Vector' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:14:80: E501 line too long (100 > 79 characters)
+./simulations/physics/object.py:18:19: F405 'Vector' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:21:24: F405 'Angle' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:22:22: F405 'Scalar' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:30:25: F405 'Scalar' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:31:28: F405 'Scalar' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:32:24: F405 'Scalar' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:38:22: F405 'Tensor' may be undefined, or defined from star imports: tensor
+./simulations/physics/object.py:41:80: E501 line too long (86 > 79 characters)
+./simulations/physics/main.py:1:1: F401 'os' imported but unused
+./simulations/physics/main.py:2:1: F401 'time' imported but unused
+./simulations/physics/main.py:3:1: F401 'random' imported but unused
+./simulations/physics/main.py:5:1: F401 'numpy as np' imported but unused
+./simulations/physics/main.py:6:1: F401 'importlib' imported but unused
+./simulations/physics/main.py:16:1: F401 'material.Material' imported but unused
+./simulations/physics/main.py:17:1: F401 'object.Object' imported but unused
+./simulations/physics/main.py:18:1: F403 'from renderer import *' used; unable to detect undefined names
+./simulations/physics/main.py:19:1: F403 'from tensor import *' used; unable to detect undefined names
+./simulations/physics/main.py:20:1: F403 'from geometry import *' used; unable to detect undefined names
+./simulations/physics/main.py:21:1: F403 'from helpers import *' used; unable to detect undefined names
+./simulations/physics/main.py:66:1: F401 'tkinter' imported but unused
+./simulations/physics/main.py:70:1: E303 too many blank lines (3)
+./simulations/physics/main.py:83:1: E303 too many blank lines (3)
+./simulations/physics/main.py:87:1: E302 expected 2 blank lines, found 1
+./simulations/physics/main.py:95:1: E303 too many blank lines (5)
+./simulations/physics/main.py:96:80: E501 line too long (91 > 79 characters)
+./simulations/physics/main.py:107:1: E303 too many blank lines (3)
+./simulations/physics/main.py:111:1: E302 expected 2 blank lines, found 1
+./simulations/physics/main.py:115:5: E301 expected 1 blank line, found 0
+./simulations/physics/main.py:116:9: F405 'self' may be undefined, or defined from star imports: geometry, helpers, renderer, tensor
+./simulations/physics/main.py:118:1: E302 expected 2 blank lines, found 1
+./simulations/physics/main.py:125:7: F405 'Vec' may be undefined, or defined from star imports: geometry, helpers, renderer, tensor
+./simulations/physics/main.py:126:18: F405 'Vec' may be undefined, or defined from star imports: geometry, helpers, renderer, tensor
+./simulations/physics/geometry.py:23:1: E302 expected 2 blank lines, found 1
+./simulations/physics/geometry.py:28:1: E302 expected 2 blank lines, found 1
+./simulations/physics/geometry.py:33:1: E302 expected 2 blank lines, found 1
+./simulations/physics/geometry.py:38:1: E302 expected 2 blank lines, found 1
+./simulations/physics/geometry.py:44:1: E303 too many blank lines (3)
+./simulations/physics/geometry.py:45:1: E302 expected 2 blank lines, found 3
+./simulations/physics/geometry.py:50:22: F821 undefined name 'line'
+./simulations/physics/geometry.py:51:5: E301 expected 1 blank line, found 0
+./simulations/physics/geometry.py:52:80: E501 line too long (93 > 79 characters)
+./simulations/physics/geometry.py:58:1: E302 expected 2 blank lines, found 1
+./simulations/physics/geometry.py:61:1: E302 expected 2 blank lines, found 1
+./simulations/physics/geometry.py:65:22: F821 undefined name 'Scalar'
+./simulations/physics/geometry.py:66:5: E301 expected 1 blank line, found 0
+./simulations/physics/geometry.py:67:80: E501 line too long (164 > 79 characters)
+./simulations/physics/geometry.py:70:20: F821 undefined name 'np'
+./simulations/physics/geometry.py:73:21: F821 undefined name 'np'
+./simulations/physics/geometry.py:75:80: E501 line too long (82 > 79 characters)
+./simulations/physics/geometry.py:76:16: F821 undefined name 'np'
+./simulations/physics/geometry.py:76:25: F821 undefined name 'np'
+./simulations/physics/geometry.py:76:40: F821 undefined name 'np'
+./simulations/physics/geometry.py:76:59: F821 undefined name 'np'
+./simulations/physics/geometry.py:76:80: E501 line too long (82 > 79 characters)
+./simulations/physics/geometry.py:78:23: F821 undefined name 'np'
+./simulations/physics/geometry.py:81:21: F821 undefined name 'np'
+./simulations/physics/geometry.py:86:16: F821 undefined name 'np'
+./simulations/physics/renderer.py:7:80: E501 line too long (110 > 79 characters)
+./simulations/physics/renderer.py:13:20: F821 undefined name 'Scalar'
+./simulations/physics/renderer.py:14:19: F821 undefined name 'Vector'
+./simulations/physics/renderer.py:23:20: F821 undefined name 'Vector'
+./simulations/physics/renderer.py:29:80: E501 line too long (83 > 79 characters)
+./simulations/physics/renderer.py:31:80: E501 line too long (81 > 79 characters)
+./simulations/physics/renderer.py:40:80: E501 line too long (82 > 79 characters)
+./simulations/physics/renderer.py:41:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:42:80: E501 line too long (98 > 79 characters)
+./simulations/physics/renderer.py:43:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:48:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:49:80: E501 line too long (90 > 79 characters)
+./simulations/physics/renderer.py:50:80: E501 line too long (105 > 79 characters)
+./simulations/physics/renderer.py:51:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:52:80: E501 line too long (115 > 79 characters)
+./simulations/physics/renderer.py:54:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:60:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:70:80: E501 line too long (97 > 79 characters)
+./simulations/physics/renderer.py:81:5: E301 expected 1 blank line, found 0
+./simulations/physics/renderer.py:88:9: F841 local variable 'frame_pos' is assigned to but never used
+./simulations/physics/renderer.py:92:80: E501 line too long (90 > 79 characters)
+./simulations/physics/renderer.py:94:80: E501 line too long (140 > 79 characters)
+./simulations/physics/renderer.py:98:42: F821 undefined name 'Circle'
+./simulations/physics/renderer.py:109:80: E501 line too long (82 > 79 characters)
+./simulations/physics/renderer.py:110:21: E722 do not use bare 'except'
+./simulations/physics/renderer.py:140:80: E501 line too long (91 > 79 characters)
+./simulations/physics/renderer.py:141:80: E501 line too long (127 > 79 characters)
+./simulations/physics/renderer.py:159:80: E501 line too long (107 > 79 characters)
+./simulations/physics/renderer.py:162:9: E303 too many blank lines (2)
+./simulations/physics/renderer.py:164:80: E501 line too long (80 > 79 characters)
+./simulations/physics/renderer.py:170:9: E303 too many blank lines (3)
+./simulations/physics/material.py:4:80: E501 line too long (127 > 79 characters)
+./simulations/physics/material.py:24:80: E501 line too long (88 > 79 characters)
+./simulations/physics/material.py:26:80: E501 line too long (99 > 79 characters)
+./simulations/physics/material.py:27:30: F821 undefined name 'tempThreshold'
+./simulations/physics/tensor.py:3:1: E302 expected 2 blank lines, found 1
+./simulations/physics/tensor.py:12:5: E301 expected 1 blank line, found 0
+./simulations/physics/tensor.py:15:5: E301 expected 1 blank line, found 0
+./simulations/physics/tensor.py:18:1: E305 expected 2 blank lines after class or function definition, found 1
+./simulations/physics/scene.py:1:1: F401 'curses' imported but unused
+./simulations/physics/scene.py:4:1: F403 'from tensor import *' used; unable to detect undefined names
+./simulations/physics/scene.py:5:1: F403 'from renderer import *' used; unable to detect undefined names
+./simulations/physics/scene.py:6:1: F403 'from object import *' used; unable to detect undefined names
+./simulations/physics/scene.py:7:1: F403 'from geometry import *' used; unable to detect undefined names
+./simulations/physics/scene.py:8:1: F403 'from helpers import *' used; unable to detect undefined names
+./simulations/physics/scene.py:10:1: E302 expected 2 blank lines, found 1
+./simulations/physics/scene.py:11:80: E501 line too long (127 > 79 characters)
+./simulations/physics/scene.py:15:24: F405 'Object' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:21:20: F405 'Vector' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:26:80: E501 line too long (155 > 79 characters)
+./simulations/physics/scene.py:27:80: E501 line too long (92 > 79 characters)
+./simulations/physics/scene.py:30:33: F405 'Scalar' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:35:9: E303 too many blank lines (2)
+./simulations/physics/scene.py:35:25: F405 'Renderer' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:35:73: F405 'Camera' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:35:80: F405 'Tensor' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:35:80: E501 line too long (136 > 79 characters)
+./simulations/physics/scene.py:35:104: F405 'GlyphSet' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:40:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:41:80: E501 line too long (82 > 79 characters)
+./simulations/physics/scene.py:50:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:59:80: E501 line too long (107 > 79 characters)
+./simulations/physics/scene.py:60:80: E501 line too long (127 > 79 characters)
+./simulations/physics/scene.py:66:80: E501 line too long (95 > 79 characters)
+./simulations/physics/scene.py:70:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:72:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:75:80: E501 line too long (83 > 79 characters)
+./simulations/physics/scene.py:86:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:96:22: F405 'Object' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:33: F405 'Tensor' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:40: F405 'np' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:80: E501 line too long (219 > 79 characters)
+./simulations/physics/scene.py:96:87: F405 'Tensor' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:94: F405 'np' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:132: F405 'Angle' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:153: F405 'Scalar' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:171: F405 'Matter' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:178: F405 'Circle' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:96:192: F405 'Scalar' may be undefined, or defined from star imports: geometry, helpers, object, renderer, tensor
+./simulations/physics/scene.py:99:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:105:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:107:5: E301 expected 1 blank line, found 0
+./simulations/physics/scene.py:113:13: F841 local variable 'pause' is assigned to but never used
+./simulations/physics/scene.py:115:10: E225 missing whitespace around operator
+./simulations/physics/scene.py:122:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:123:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:125:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:126:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:127:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:128:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:129:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:130:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:131:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:132:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:133:13: E116 unexpected indentation (comment)
+./simulations/physics/scene.py:134:13: E116 unexpected indentation (comment)
+./simulations/epidemic-modelling/epidemic-modelling.py:13:1: F821 undefined name 'get_ipython'
+./simulations/epidemic-modelling/epidemic-modelling.py:14:1: F401 'matplotlib.pyplot as plt' imported but unused
+./simulations/epidemic-modelling/epidemic-modelling.py:14:1: E402 module level import not at top of file
+./simulations/epidemic-modelling/epidemic-modelling.py:15:1: E402 module level import not at top of file
+./simulations/epidemic-modelling/epidemic-modelling.py:16:1: F401 'random' imported but unused
+./simulations/epidemic-modelling/epidemic-modelling.py:16:1: E402 module level import not at top of file
+./simulations/epidemic-modelling/epidemic-modelling.py:17:1: F401 'base64' imported but unused
+./simulations/epidemic-modelling/epidemic-modelling.py:17:1: E402 module level import not at top of file
+./simulations/epidemic-modelling/epidemic-modelling.py:36:1: W293 blank line contains whitespace
+./simulations/epidemic-modelling/epidemic-modelling.py:39:1: W293 blank line contains whitespace
+./simulations/epidemic-modelling/epidemic-modelling.py:48:1: E302 expected 2 blank lines, found 0
+./simulations/epidemic-modelling/epidemic-modelling.py:52:1: W293 blank line contains whitespace
+./simulations/epidemic-modelling/epidemic-modelling.py:53:1: E302 expected 2 blank lines, found 1
+./simulations/epidemic-modelling/epidemic-modelling.py:70:1: E122 continuation line missing indentation or outdented
+./simulations/epidemic-modelling/epidemic-modelling.py:72:1: E122 continuation line missing indentation or outdented
+./simulations/epidemic-modelling/epidemic-modelling.py:79:1: W293 blank line contains whitespace
+./simulations/epidemic-modelling/epidemic-modelling.py:87:1: W293 blank line contains whitespace
+./simulations/epidemic-modelling/epidemic-modelling.py:89:1: W293 blank line contains whitespace
+./simulations/epidemic-modelling/epidemic-modelling.py:93:80: E501 line too long (91 > 79 characters)
+./simulations/epidemic-modelling/epidemic-modelling.py:96:80: E501 line too long (92 > 79 characters)
+./simulations/epidemic-modelling/epidemic-modelling.py:109:1: E302 expected 2 blank lines, found 0
+./simulations/roulette-curves/main.py:9:1: E302 expected 2 blank lines, found 1
+./simulations/roulette-curves/main.py:9:13: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:9:16: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:10:55: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:10:57: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:12:1: E302 expected 2 blank lines, found 1
+./simulations/roulette-curves/main.py:39:33: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:39:61: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:39:80: E501 line too long (88 > 79 characters)
+./simulations/roulette-curves/main.py:39:84: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:41:35: E231 missing whitespace after ','
+./simulations/roulette-curves/main.py:55:1: E302 expected 2 blank lines, found 1
+./simulations/roulette-curves/main.py:107:1: E305 expected 2 blank lines after class or function definition, found 0
+./simulations/roulette-curves/main.py:109:1: E302 expected 2 blank lines, found 1
+./simulations/roulette-curves/main.py:110:80: E501 line too long (89 > 79 characters)
+./simulations/roulette-curves/main.py:144:80: E501 line too long (82 > 79 characters)
+./simulations/roulette-curves/main.py:159:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/main.py:1:1: F403 'from tkinter import *' used; unable to detect undefined names
+./simulations/cellular-automata-experiments/main.py:11:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/main.py:21:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/main.py:24:80: E501 line too long (173 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:32:80: E501 line too long (113 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:35:80: E501 line too long (110 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:37:80: E501 line too long (90 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:39:80: E501 line too long (92 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:61:80: E501 line too long (97 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:62:80: E501 line too long (93 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:63:80: E501 line too long (108 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:75:80: E501 line too long (101 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:113:80: E501 line too long (142 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:115:80: E501 line too long (137 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:116:80: E501 line too long (82 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:121:80: E501 line too long (83 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:122:80: E501 line too long (85 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:123:80: E501 line too long (82 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:124:80: E501 line too long (159 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:125:80: E501 line too long (82 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:131:80: E501 line too long (90 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:135:80: E501 line too long (91 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:138:21: F841 local variable 'current' is assigned to but never used
+./simulations/cellular-automata-experiments/main.py:139:80: E501 line too long (159 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:161:80: E501 line too long (98 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:174:80: E501 line too long (83 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:189:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/main.py:190:80: E501 line too long (338 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:191:80: E501 line too long (117 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:207:80: E501 line too long (95 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:209:80: E501 line too long (172 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:210:80: E501 line too long (178 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:211:80: E501 line too long (113 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:230:80: E501 line too long (89 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:230:85: E261 at least two spaces before inline comment
+./simulations/cellular-automata-experiments/main.py:230:85: E262 inline comment should start with '# '
+./simulations/cellular-automata-experiments/main.py:243:80: E501 line too long (95 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:266:80: E501 line too long (89 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:298:39: E231 missing whitespace after ','
+./simulations/cellular-automata-experiments/main.py:319:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/main.py:320:80: E501 line too long (108 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:327:80: E501 line too long (134 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:329:80: E501 line too long (103 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:347:80: E501 line too long (87 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:362:80: E501 line too long (86 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:372:1: W293 blank line contains whitespace
+./simulations/cellular-automata-experiments/main.py:388:80: E501 line too long (92 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:396:80: E501 line too long (100 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:399:21: F405 'Tk' may be undefined, or defined from star imports: tkinter
+./simulations/cellular-automata-experiments/main.py:407:23: F405 'Canvas' may be undefined, or defined from star imports: tkinter
+./simulations/cellular-automata-experiments/main.py:407:46: E251 unexpected spaces around keyword / parameter equals
+./simulations/cellular-automata-experiments/main.py:407:48: E251 unexpected spaces around keyword / parameter equals
+./simulations/cellular-automata-experiments/main.py:407:58: E251 unexpected spaces around keyword / parameter equals
+./simulations/cellular-automata-experiments/main.py:407:60: E251 unexpected spaces around keyword / parameter equals
+./simulations/cellular-automata-experiments/main.py:462:80: E501 line too long (83 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:491:80: E501 line too long (116 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:492:5: E301 expected 1 blank line, found 0
+./simulations/cellular-automata-experiments/main.py:496:1: E305 expected 2 blank lines after class or function definition, found 1
+./simulations/cellular-automata-experiments/main.py:533:80: E501 line too long (87 > 79 characters)
+./simulations/cellular-automata-experiments/main.py:534:80: E501 line too long (89 > 79 characters)
+./simulations/cellular-automata-experiments/doc-generator.py:1:17: E401 multiple imports on one line
+./simulations/cellular-automata-experiments/doc-generator.py:3:1: F401 'json' imported but unused
+./simulations/cellular-automata-experiments/doc-generator.py:4:1: F401 'random' imported but unused
+./simulations/cellular-automata-experiments/doc-generator.py:23:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:28:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:36:36: E741 ambiguous variable name 'l'
+./simulations/cellular-automata-experiments/doc-generator.py:38:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:45:9: E741 ambiguous variable name 'l'
+./simulations/cellular-automata-experiments/doc-generator.py:65:51: E231 missing whitespace after ','
+./simulations/cellular-automata-experiments/doc-generator.py:73:5: E303 too many blank lines (2)
+./simulations/cellular-automata-experiments/doc-generator.py:75:1: E305 expected 2 blank lines after class or function definition, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:82:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:85:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:103:1: E305 expected 2 blank lines after class or function definition, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:104:1: E302 expected 2 blank lines, found 0
+./simulations/cellular-automata-experiments/doc-generator.py:142:1: E302 expected 2 blank lines, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:159:80: E501 line too long (86 > 79 characters)
+./simulations/cellular-automata-experiments/doc-generator.py:184:1: E305 expected 2 blank lines after class or function definition, found 1
+./simulations/cellular-automata-experiments/doc-generator.py:205:80: E501 line too long (87 > 79 characters)
+./simulations/cellular-automata-experiments/doc-generator.py:209:80: E501 line too long (94 > 79 characters)
+./simulations/cellular-automata-experiments/doc-generator.py:212:9: E303 too many blank lines (2)
+./python-snippets/snippets.py:5:2: W291 trailing whitespace
+./python-snippets/snippets.py:14:1: E303 too many blank lines (5)
+./python-snippets/snippets.py:26:2: W291 trailing whitespace
+./python-snippets/snippets.py:27:80: E501 line too long (91 > 79 characters)
+./python-snippets/snippets.py:28:2: W291 trailing whitespace
+./python-snippets/snippets.py:41:1: E305 expected 2 blank lines after class or function definition, found 1
+./python-snippets/snippets.py:52:80: E501 line too long (90 > 79 characters)
+./python-snippets/snippets.py:54:1: E305 expected 2 blank lines after class or function definition, found 1
+./python-snippets/snippets.py:63:1: E305 expected 2 blank lines after class or function definition, found 1
+./python-snippets/snippets.py:77:1: E115 expected an indented block (comment)
+./python-snippets/snippets.py:140:80: E501 line too long (83 > 79 characters)
+./python-snippets/snippets.py:142:1: E305 expected 2 blank lines after class or function definition, found 1
+./python-snippets/snippets.py:149:1: W391 blank line at end of file
