@@ -122,10 +122,10 @@ for s in test_strings:
     scores[s] = val
     print(val)
 
-def random_string(l=10):
-    return ''.join(random.choices(string.ascii_lowercase+string.digits, k=l))
+def random_string(length=10):
+    return ''.join(random.choices(string.ascii_lowercase+string.digits, k=length))
 
-def sample_random(n=None, string_list=None, l=10, **kwargs):
+def sample_random(n=None, string_list=None, length=10, **kwargs):
     if string_list is None:
         strings = []
     else:
@@ -135,7 +135,7 @@ def sample_random(n=None, string_list=None, l=10, **kwargs):
     values = []
     for i in range(n):
         if string_list is None:
-            s = random_string(l=l)
+            s = random_string(length=length)
             strings.append(s)
         else:
             s = strings[i]
@@ -146,7 +146,7 @@ def sample_random(n=None, string_list=None, l=10, **kwargs):
 defaults = dict(seed=42)
 plt.style.use('seaborn')
 # plt.hist(scores.values(), bins=20)
-s, v = sample_random(500, l=10)
+s, v = sample_random(500, length=10)
 bins = np.linspace(0, 200, 100)
 for method in ['random', 'nearest']:
     s2, v2 = sample_random(500, string_list=s, positioning=method, stretch_penalty=0.2, **defaults)
@@ -154,7 +154,7 @@ for method in ['random', 'nearest']:
 plt.legend()
 plt.show()
 
-s, v = sample_random(string_list=test_strings, l=10, **defaults)
+s, v = sample_random(string_list=test_strings, length=10, **defaults)
 s2, v2 = sample_random(string_list=s, positioning='nearest', **defaults)
 s, v, v2 = zip(*sorted(zip(s, v, v2), key=lambda x: x[1]))
 
@@ -187,7 +187,7 @@ methods = ['random', 'nearest']
 for i in range(500):
     A = np.random.randint(5, 100)
     B = random.choice(methods)
-    s = random_string(l=A)
+    s = random_string(length=A)
     score_value = score(s, positioning=B)
     P = [A, score_value, methods.index(B)]
     points.append(P)
