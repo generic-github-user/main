@@ -1,6 +1,12 @@
 # Self-Avoiding Walks
 
-Refer to the [Wikipedia article](https://en.wikipedia.org/wiki/Self-avoiding_walk) on self-avoiding walks for a good primer on the subject. [Bauerschmidt et al. (2012)](https://www.ihes.fr/~duminil/publi/saw_lecture_notes.pdf) give an extremely thorough description of known qualities of self-avoiding random walks and their connections to other areas of mathematics. Here are links to some other resources I found informative:
+Refer to the [Wikipedia
+article](https://en.wikipedia.org/wiki/Self-avoiding_walk) on self-avoiding
+walks for a good primer on the subject. [Bauerschmidt et al.
+(2012)](https://www.ihes.fr/~duminil/publi/saw_lecture_notes.pdf) give an
+extremely thorough description of known qualities of self-avoiding random walks
+and their connections to other areas of mathematics. Here are links to some
+other resources I found informative:
 
  - MathOverflow
    - https://mathoverflow.net/questions/158811/wander-distance-of-self-avoiding-walk-that-backs-out-of-culs-de-sac
@@ -13,7 +19,9 @@ Refer to the [Wikipedia article](https://en.wikipedia.org/wiki/Self-avoiding_wal
    - https://math.stackexchange.com/questions/2900521/counting-hamiltonian-cycles-in-a-graph
  - https://stackoverflow.com/questions/7371227/algorithm-to-find-a-random-hamiltonian-path-in-a-grid
  
-Some exhaustive results by numerical simulation are available here (also see the OEIS entries and their associated references, several of which contain extensive tables of data for specific grid sizes):
+Some exhaustive results by numerical simulation are available here (also see
+the OEIS entries and their associated references, several of which contain
+extensive tables of data for specific grid sizes):
 
  - https://secure.math.ubc.ca/~slade/lacecounts/index.html
  - https://secure.math.ubc.ca/~slade/se_tables.pdf
@@ -67,8 +75,16 @@ Some search terms in case you wish to explore further:
  - [Adjacency matrix](https://en.wikipedia.org/wiki/Adjacency_matrix)
  - Planar graph
  - Backbite algorithm
-     - This approach appears a handful of times (seriously, a Google search for that specific phrase returned 46 results), mostly in blog posts; it appears to be effective for some purposes (mainly artistic or exploratory) despite its obscurity
-     - (Though, as far as I can tell, the method only produces a small subset of the possible Hamiltonian paths on a grid/lattice and a brute force search is required for rigorous conclusions regarding a given grid size (also see: NP-completeness); clearly, the issue there is that the search space is intractably large for grid sizes above 6 by 6 or so, even in 2 dimensions.)
+     - This approach appears a handful of times (seriously, a Google search for
+         that specific phrase returned 46 results), mostly in blog posts; it
+         appears to be effective for some purposes (mainly artistic or
+         exploratory) despite its obscurity
+     - (Though, as far as I can tell, the method only produces a small subset
+         of the possible Hamiltonian paths on a grid/lattice and a brute force
+         search is required for rigorous conclusions regarding a given grid
+         size (also see: NP-completeness); clearly, the issue there is that the
+         search space is intractably large for grid sizes above 6 by 6 or so,
+         even in 2 dimensions.)
  - Ant colony optimization/system
  - Maze generation algorithms
  - Pivot algorithm (self-avoiding walks)
@@ -76,5 +92,15 @@ Some search terms in case you wish to explore further:
 
 Other notes:
 
- - "Greek-key tours" also came up in a handful of online blog posts (linked above) but I was unable to find any relevant information in the literature; in case you want to look, it seems to be related to chess, in the same sense as a Knight's Tour. It also appears in the context of [protein folding](https://en.wikipedia.org/wiki/Beta_sheet#Greek_key_motif) (a surprisingly connected subject).
- - There are quite a few thorough but (unfortunately) isolated resources about this niche of geometry/graph theory on the web; there appears to be a standard nomenclature and some established methodology for these problems but very limited resources on specific (and modern - most of what I could find is at least a few years old) implementations.
+ - "Greek-key tours" also came up in a handful of online blog posts (linked
+     above) but I was unable to find any relevant information in the
+     literature; in case you want to look, it seems to be related to chess, in
+     the same sense as a Knight's Tour. It also appears in the context of
+     [protein
+     folding](https://en.wikipedia.org/wiki/Beta_sheet#Greek_key_motif) (a
+     surprisingly connected subject).
+ - There are quite a few thorough but (unfortunately) isolated resources about
+     this niche of geometry/graph theory on the web; there appears to be a
+     standard nomenclature and some established methodology for these problems
+     but very limited resources on specific (and modern - most of what I could
+     find is at least a few years old) implementations.
