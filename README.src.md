@@ -1,5 +1,8 @@
 # main
 
+[![CodeFactor](https://www.codefactor.io/repository/github/generic-github-user/main/badge)](https://www.codefactor.io/repository/github/generic-github-user/main)
+[![tokei](https://img.shields.io/tokei/lines/github/generic-github-user/main)](https://github.com/generic-github-user/main)
+
 An experimental [monorepo](https://en.wikipedia.org/wiki/Monorepo) for some of
 my projects. Most of the existing projects that I've cloned into this
 repository will continue to be developed independently in their corresponding

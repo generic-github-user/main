@@ -1,5 +1,8 @@
 # main
 
+[![CodeFactor](https://www.codefactor.io/repository/github/generic-github-user/main/badge)](https://www.codefactor.io/repository/github/generic-github-user/main)
+[![tokei](https://img.shields.io/tokei/lines/github/generic-github-user/main)](https://github.com/generic-github-user/main)
+
 An experimental [monorepo](https://en.wikipedia.org/wiki/Monorepo) for some of
 my projects. Most of the existing projects that I've cloned into this
 repository will continue to be developed independently in their corresponding
@@ -30,24 +33,24 @@ and other maintenance headaches I've run into recently.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.04 s (2451.8 files/s, 411364.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.04 s (2700.7 files/s, 444260.4 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 HTML|9|999|0|3400
-Python|45|823|1127|2600
-Markdown|26|291|0|2073
+Python|46|824|1127|2607
+Markdown|26|292|0|1896
 Jupyter Notebook|6|0|2772|980
 Bourne Shell|2|77|102|449
 C|1|73|92|353
 JSON|1|0|0|185
-YAML|4|2|0|138
+YAML|4|2|0|146
 vim script|2|10|13|15
 TOML|2|4|1|14
 Rust|1|2|2|13
 --------|--------|--------|--------|--------
-SUM:|99|2281|4109|10220
+SUM:|100|2283|4109|10058
 
 
 ## Tree
@@ -204,424 +207,537 @@ SUM:|99|2281|4109|10220
 │   ├── mv.py
 │   ├── README.md
 │   └── README.src.md
+├── yaml_json.py
 └── zeal
     └── README.md
 
-32 directories, 120 files
+32 directories, 121 files
 
 ```
 
 ## History
 
 ```
-* 81dab70 (origin/master, master) rebuild README
-*   b5aa9c5 Merge branch 'python-experiments'
+* 00eef5c (origin/master, master) rebuild README
+*   0ee232e Merge branch 'project-summary'
 |\  
-| *   d7ccb72 (origin/python-experiments, python-experiments) Add 'python-experiments/' from commit '23fef38879b5506c943e59ca2ab26f54f3c7b4ec'
+| *   c9f4af8 (project-summary) Add 'project-summary/' from commit 'd124f5466d516d8b08ae97c2e25c9d7f8ff6c7c3'
 | |\  
-| | * 23fef38 Add sample code snippet (prime number generator)
-| | * 322e349 Add experiment summary
-| | * d44bc2a Create requirements.txt
-| | * 169c1f5 Create symbolic-algebra.ipynb
-| | * e95faf7 Testing
-| | * e4f24e3 automatically assign default variables/symbols
-| | * f8c4e6b Generate magic methods for common math operations
-| | * e07648d Add Symbol class
-| | * 6831c90 Add operator class-specific string methods
-| | * aaac70c Add operator (sub)class
-| | * 252fea8 Add string conversion methods
-| | * 306a37e Testing dynamic/automated variable creation
-| | * 61212b7 Add Expression class
-| | * 059d0f7 Create symbolic-algebra.py
-| | * 75a92f8 add transform combination testing limit
-| | * 36fefdd support application of iterable transform to list (e.g., of words in input string) instead of only text
-| | * aacb1f5 add alternative test strings
-| | * e7b7551 Track number of transform combinations checked
-| | * 4d78d27 Search combinations of varying lengths (1 to max)
-| | * fde46d0 Add notebook version of code
-| | * e67419b Loop through possible combinations of string transformations and test them on examples
-| | * b83b8d1 add names of string transformations
-| | * bf339eb add example string mappings
-| | * 8e3cc58 Iteratively replace nested type keywords with their corresponding regular expressions
-| | * 7eab638 add more test statements/operations
-| | * 3950f53 add list of possible string operations
-| | * db6dff5 Create .gitignore
-| | * 9651aa2 Add function for repeating a value/array a certain number of times along multiple axes
-| | * fa4fab0 add function for generating iterated function string
-| | * a103acc Create automacro.py
-| | * 542f748 Add regexes for common statements and expressions
-| | * 74102bb Add test statements
-| | * 96314b9 Add imports
-| | * 4dd0635 Create README.md
-| | * 5798ff2 Create LICENSE.md
-| | * 9d5a9ec Create .gitattributes
-* |   0e79829 Merge branch 'python-snippets'
-|\ \  
-| * \   bbbe213 (origin/python-snippets, python-snippets) Add 'python-snippets/' from commit 'a20f7f9b234b69a275ae6828e941c5e9b9d692f3'
-| |\ \  
-| | |/  
-| |/|   
-| | * a20f7f9 Add IPython/Jupyter notebook version of code
-| | * 8d35040 Add function for generating change given an amount of money as an input
-| | * 0811f4c add list of coins/bills and corresponding amounts
-| | * 53063c3 Add function for determining the smallest combination of multiples of some given values needed to produce a larger number
-| | * 4e548bb add function for making word plural
-| | * cbcd32e add function for generating text list from list of items
-| | * 521ade9 add title-case function
-| | * 3607532 Add nested list flattening function
-| | * 3ed717f Add prime-generating function
-| | * 56e0766 Create .gitignore
-| | * 302a9df Create README.md
-| | * e0f62ac Initial commit
-* |   e5ff69d Merge branch 'quickplot'
-|\ \  
-| * \   e5cb7aa (quickplot) Add 'quickplot/' from commit 'f6d19babdcb793315ea41aa53d6e2fa3f9569c1c'
-| |\ \  
-| | * | f6d19ba Create requirements.txt
-| | * | 717a0fb Add colorbar
-| | * | da4b275 misc. (plot style, instance attributes, etc.)
-| | * | be9f990 Add method for generating contour plots
-| | * | 0ab62c7 Add 2D histogram helper method
-| | * | 091c446 more docstrings
-| | * | 16626c5 add method docstrings
-| | * | 5af863a miscellaneous testing code/unused code
-| | * | 6ccbce4 tweak (default) plot settings
-| | * | 5b79824 Support float value for "annotate" argument
-| | * | 44b08bd Test contour plot generation
-| | * | f91d4c8 add test plot
-| | * | 560a52f add heuristic for automatically repositioning labels to minimize overlap
-| | * | 6bf2e6e Add helper Array class (wraps np.ndarray)
-| | * | 495c58d Randomly sample points and add annotations showing their coordinates
-| | * | 27f8dea Add method for generating Python code (non-dependent on quickplot) that builds equivalent plot
-| | * | 539d026 Automatically set axis labels and scales for each spatial dimension (x, y or x, y, z)
-| | * | c4246cc Add method for adding coordinate labels/annotations to scatter plots
-| | * | c780f35 Add helper methods for generating grids of indices
-| | * | 501e8f5 Add function for randomly sampling slices of array
-| | * | cc47a25 Adjust scatter plot marker sizes based on number of points in plot if use_density is set to True
-| | * | 2ef3f8e Add some todos
-| | * | c6bb19b Handle projection argument (2d, 3d, polar)
-| | * | 53f14d9 generate plot
-| | * | 65996da Process plot settings/options (substitute aliases and values)
-| | * | 74bde2e Add heuristic for determining whether log scale should be used for a given axis
-| | * | a00532d Add method for generating plot
-| | * | 590b89e Add Plot class
-| | * | 304d5f2 Add imports
-| | * | b584639 Add project summary
-| | * | 9fdcd7c Initial commit
-| |  /  
-* | |   cd2322b (fractals) Add 'fractals/' from commit '6d1b5081d64ae55a4b05bce0fcba1a5bacb23633'
-|\ \ \  
-| |/ /  
-|/| |   
-| * | 6d1b508 minor bug fixes
-| * | 1867fa4 Add option ("direct") to draw the fractal to pixel grid while generating it
-| * | c706288 add random transforms applied to points before moving toward vertex
-| * | 58ac046 add option for multiple interpolation ratios (i.e., randomly select what percentage of the distance is travelled from the current location to the selected vertex)
-| * | 8cfe054 more testing
-| * | 5e53a9d add more transforms/functions for iterative generator
-| * | 8e0a005 add render method
-| * | 7d17460 add generate method (not yet complete)
-| * | 94d75be add iterated function-based fractal class
-| * | aedf008 add Attractor (super)class
-| * | 540d731 cleanup
-| * | 18d4e08 miscellaneous
-| * | 6dcdf94 fix random rule generator and add random number of sides
-| * | d14c515 add random rule/restriction generation for vertex selection
-| * | d3b3478 add SierpinskiTriangle convenience class
-| * | 25d40ff add info strings to ChaosGame methods
-| * | 3b51f6c add method to divide line into equal segments
-| * | e511c16 add "jump" distance parameter
-| * | ef14a70 add looping point distance function
-| * | 36ad665 add function-based point evaluation
-| * | 6a79708 add different point coloring methods
-| * | 7b066ef add simple rules limiting vertex selection
-| * | eebe672 correct orientation
-| * | d03714e add render method
-| * | 3e54a41 add generate method
-| * | f3a2471 add ChaosGame class
-| * | 14222ca add automatic rounding to handle floating point error
-| * | 1eafc08 add polygon string method
-| * | cea799d add point print method
-| * | 73b69ac Add RegularPolygon class
-| * | 829cedb Add Polygon class
-| * | 82528f9 add move and rotate methods to Line class
-| * | 032b547 add Line class
-| * | de316ad add 2d rotation about a point
-| * | 2ac41ca add move method
-| * | e680af9 add point class
-| * | 93515f9 add info for Fractal.autozoom method
-| * | 735ba4c testing other random parameters
-| * | 6671bae add random arguments
-| * | 118ab90 reorganize method arguments
-| * | 7c9e37d cleanup
-| * | b011fbe reorganize fractal generation and rendering system
-| * | 00f2e1d refactoring (create generate method)
-| * | 3dea437 Add info string for Fractal class (and other tests)
-| * | 3686270 add documentation for Fractal.scale method
-| * | d6d2a35 add cmap parameter
-| * | 085ef99 add display method
-| * | 1954999 improve default arguments
-| * | 4d9edf7 add automatic extraction of interesting section of fractal (based on variance)
-| * | ea8665f add method for evaluating variance of different sections of fractal render
-| * | 30cd739 create Fractal class
-| * | 75cd945 fix smooth coloring algorithm (scale to maximum iteration values)
-| * | 68a5a56 testing smooth coloring function (normalized iteration count)
-| * | bcb77fd add main header
-| * | 1664f0f add parameter to combine multiple axes into a single image
-| * | e68dd6b add global parameter for number of interpolation steps
-| * | 349f026 add fractal metadata interpolation
-| * | 1196268 re-add .gitignore
-| * |   2eeeb28 Merge pull request #1 from generic-github-user/master
-| |\ \  
-| | * \   f0a1f04 Merge branch 'master' of https://github.com/generic-github-user/fractals
-| | |\ \  
-| | | * | d60e3b8 ignore checkpoint files
-| | | * | 0fe1dfc metadata
-| | | * | a395688 Set up basic fractal generation function
-| | |  /  
-| | * | c60dc9f ignore checkpoint files
-| | * | d5f15bb metadata
-| | * | e1b8d3e Set up basic fractal generation function
-| |/ /  
-| * / 20315a0 Initial commit
-|  /  
-* |   c9ac18e Merge branch 'self-avoiding-walks'
-|\ \  
-| * \   ab98020 (origin/self-avoiding-walks, self-avoiding-walks) Add 'shelf/' from commit 'c1d707c4638d2c5c1f682a82d4fee4cc286aea43'
-| |\ \  
-| | * | c1d707c Add (brief) installation section to README
-| | * | d8f2e27 Add checkboxes to indicate feature development status
-| | * | 732844e Add more features to README
-| | * | 8966af8 misc.
-| | * | a7b01d6 Add comments
-| | * | 346699f Add util function docstrings
-| | * | c889065 Include statistics about size of pickled library representation (both compressed and uncompressed)
-| | * | 59731e6 Compress backup files
-| | * | 32a721a Move object pickling/string conversion to a separate function
-| | * | d5783de Add comma separators to printed statistics
-| | * | be8494d Add timestamps to export filenames
-| | * | 85403aa Include common terms in note exports
-| | * | 78500d6 Improve term extraction/filtering
-| | * | d0b9172 Store references to terms in note instances
-| | * | c0b1ece Fix other dependencies
-| | * | bb498ca Add missing import statements
-| | * | 2b6981e Move some more functions out of main script
-| | * | 0f17161 Move classes to separate scripts for ease of development
-| | * | c3ccb21 Allow sorting notes by length (in chracters) or number of words
-| | * | db5933b Add store option (if False, the loaded library will be returned instead of assigning to a variable)
-| | * | d3244ba Add changed() method
-| | * | 224f00a miscellaneous
-| | * | 6ae92ad Add command for displaying summary statistics about note library
-| | * | 1533de4 Add truncate method
-| | * | edbe195 Add regex search command
-| | * | d974a5a Store timestamp as String class instance
-| | * | 07d9570 Add method for generating text colored with ANSI escape sequences
-| | * | 681304a Add command for exploring data saved in backup files
-| | * | 8ac4c9d Add helper class with additional string methods
-| | * | 9b8f28f Add comments
-| | * | 6572cc5 Use note template to generate Markdown export files
-| | * | 0240d1e Add command for removing a specified value
-| | * | 8c4e314 Add note template for Markdown exports
-| | * | be697b9 Fix bug in ranking code
-| | * | 759413c Add option for providing numeric arguments to commands
-| | * | 8c01b11 Exclude numeric results
-| | * | 66a736c Allow weighting by length in characters or words/tokens of each candidate
-| | * | d24598b Add method for recalculating rankings based on saved comparisons
-| | * | 74f0467 Add note sorting command
-| | * | 574bf32 Add note ranking command
-| | * | 223612e Add more features to list
-| | * | e6cf2cf Add ranking method for interactively sorting notes by a specified attribute
-| | * | 9e45fb8 Add library and note class upgrade methods
-| | * | 2841536 Add upgrade method that generates missing fields in loaded objects
-| | * | f8ea828 Add log parameter
-| | * | 91748df Miscellaneous
-| | * | 3d6e2cd Minor tweaks to extract_terms() method
-| | * | 9b411d8 Allow returning a minimum number of results (i.e., the n closest notes to the target note)
-| | * | 96bcd78 Move database file path to Session object
-| | * | 5a564b5 Add comments to extract_terms method
-| | * | 4c688e6 Add function for extracting common terms and phrases from note library
-| | * | 7a5786a Slight backup adjustments
-| | * | 39df917 Add Markdown export feature
-| | * | fd4828d Add simple backup functionality
-| | * | ce161d0 Add feature list (subject to change)
-| | * | 62483cc Update gitignore
-| | * | c553feb Add comments
-| | * | 16c18c6 Add function for interactive command usage/note creation
-| | * | cc19a2d Add Tag class
-| | * | cd14f3b Add note class methods
-| | * | 3d55a57 Add Note class
-| | * | 97c6174 Add function for finding similar notes using edit distance metrics/fuzzy string search
-| | * | a2cbac0 Add method for adding note instances to libraries
-| | * | f89f7c3 Add library saving and loading functions
-| | * | 6496b66 Add Library class for storing collections of notes
-| | * | 4945aee Add base class for notes, tags, etc.
-| | * | 88a085f Add command line argument parser with argparse
-| | * | 5ca6668 Add README
-| | * | a84cbc9 Add shelf.py (will contain main scripts and command handler)
-| | * | ccf74ea Initial commit
-| |  /  
-| * |   122a13d Add 'self-avoiding-walks/' from commit 'fef229a276c71f444187311be874343f8f800651'
-| |\ \  
-| | |/  
-| |/|   
-| | * fef229a add some more notes
-| | * e371d20 more terms
-| | * 62a88ee add links to other papers and threads regarding Hamiltonian paths/grid graphs
-| | * 9ea5be8 add more graph theory terms
-| | * 108e901 add more research links/OEIS entries
-| | * fad47a4 add option for allowing path to cross edges
-| | * 9f2de9a add notes
-| | * 2deeb5a add list of relevant search terms/keywords
-| | * ca1a668 add some more relevant links
-| | * 43ea396 Add option for randomizing tree search
-| | * 68984d6 Add depth-first tree search-based path discovery
-| | * 065443c add comments
-| | * 8d9db36 fix path length calculation
-| | * 073caac add more parameters
-| | * 93fd54c Add single-step backtracking
-| | * ddf2432 Update self-avoiding-walk.ipynb
-| | * 3f60f6b add supplementary materials
-| | * 96a373e add links to research papers on self-avoiding walks
-| | * dc6ddc3 miscellaneous
-| | * 5201167 improve visualization and add todos/future research topics
-| | * 707c1b3 optimize with Numba
-| | * c873064 Add Numba-compatible bounding function
-| | * 2ab0a8c Add links to threads about self-avoiding walks
-| | * 96a4cfe add notebook that mirrors script
-| | * 6c08921 add some graphs
-| | * 8af71f2 Add simulation code
-| | * cb90fc3 Create .gitignore
-| | * 901fa9d generate list of possible steps
-| | * fd08d33 Create self-avoiding-walk.py
-| | * df3371b Initial commit
-* |   d568adc Merge branch 'epidemic-modelling'
-|\ \  
-| * \   09e55e9 (origin/epidemic-modelling, epidemic-modelling) Add 'epidemic-modelling/' from commit '8794b9f38532e498fc65ec9f3f4ef1d0bf39e744'
-| |\ \  
-| | |/  
-| |/|   
-| | * 8794b9f Add function for updating Person class instance
-| | * 3ff9ef5 Add method for simulating virus test (with optional inaccuracy)
-| | * ade18fc Add Person class
-| | * 7e2cecc Add Population class
-| | * b621561 Add History class
-| | * 6b35fc9 Create README.md
-| | * ec86c67 Add helper functions
-| | * 7b27941 Add string conversion methods
-| | * 2397043 Add Pathogen class
-| | * c8539af Create epidemic-modelling.py
-| | * 616c49a Initial commit
-* |   9fbb532 (origin/physics, physics) Add 'physics/' from commit '59e45d7f25b0ad89938a37317695b7f7428c8b68'
+| | * d124f54 add information about API tokens
+| | * 3b820a3 add more comments
+| | * fb35d84 refactor with functions
+| | * 2a64f5a Add completion percentages to some columns
+| | * 35eac7f clean up unused code
+| | * 77b60b0 Add License column to table
+| | * c5a1aab add comments
+| | * de3aff9 Align specific columns by name
+| | * 43286e4 Add link to create a new issue in a repository
+| | * 349305f shorten long repo descriptions
+| | * bcf3e7a Add notebook source
+| | * 2f2d1a3 Update .gitignore
+| | * 9fd60eb save generated table to file
+| | * 6bfcd08 add repo creation timestamp (and sort by milliseconds since epoch, newest first)
+| | * 274405a format topics
+| | * 873083d add function for truncating topics list/other lists of strings
+| | * 02ce1b6 add API request headers
+| | * d2001af save cache and display result
+| | * 3c14684 generate table row for each repository
+| | * 3a8701e load cached data from local file
+| | * c5466a3 add function for formatting table cell correctly
+| | * b24f964 generate table header
+| | * e385d80 add list of fields to display in table
+| | * 62b90b0 add function to look up file tree for each repository and check if a README exists
+| | * be0b17b get API token from local file
+| | * 89feb16 ignore cache files
+| | * 2fce435 get list of repositories using GitHub REST API
+| | * fdddd47 Create summarize.py
+| | * 664d7e0 add checkpoints to gitignore
+| | * a2077ff change encoding
+| | * 937c3f8 Add gitignore
+* |   52fb267 (attractors) Add 'attractors/' from commit '7b772bba73545e2ce98916e458b16b2fc44f2bfb'
 |\ \  
 | |/  
 |/|   
-| *   59e45d7 Merge branch 'master' of https://github.com/generic-github-user/ascii-physics-sim
-| |\  
-| | * af2e589 Set theme jekyll-theme-cayman
-| * | 6d13213 add command for building documentation with pdoc
-| |/  
-| * 5d66559 build documentation
-| * 95db5a9 Create README.md
-| * 3a1698e add rotation and angular velocity tracking to object class
-| * 4ff543e move a few helper classes to a separate file
-| * f985adf cleanup
-| * 23a3949 Split code into multiple files to make development go smoother
-| * b25b5b8 remove unused Vec class code
-| * 8a3b05b more documentation
-| * 7ed8107 document Object class
-| * b2ff6e5 Material class documentation
-| * 95dd809 Add some documentation to Renderer class (via https://pdoc.dev/)
-| * 9432df7 add 4D helper class, might remain unused
-| * 2d6531b add some comments
-| * 1228562 ignore compiled python files
-| * bd1ee5d only get rtype once
-| * 1c0a248 property storage placeholder classes
-| * 16644ba remove unused scalar code
-| * 05d1c71 miscellanous, pt. II
-| * 38c9409 add motion delta handling
-| * 71770c9 updated simulation code to handle new renderer
-| * 03d3979 update default renderer settings
-| * aedc313 recursive self-call in rendering function (used with python canvas until I can find a workaround)
-| * cf58193 placeholders for opengl and cairo graphics (planning to implement in future)
-| * 28e57cc add canvas renderer (can currently only handle circles)
-| * 353b507 add line (ASCII) renderer
-| * a450729 method for looking up ASCII characters corresponding to incline angles
-| * 23d274f new frame rendering function
-| * ce12913 material class updates
-| * 91829ac more materials properties
-| * 8162a90 add output concatenation method
-| * 19d7819 initialization code for new (tkinter) canvas based renderer
-| * 256c7ac miscellaneous
-| * a233646 clean out old tests
-| * aba91cb create Name class (not entirely sure yet if this will be used)
-| * 2b5ffe4 unused code
-| * 81fb3f4 update random scene generation function
-| * 8f57703 add clear parameter to randomize() method
-| * c48dcd0 add more material properties
-| * 62bba49 more TODOs
-| * 294d6b1 create gitignore
-| * fbd5e32 add Angle class
-| * 1526692 add method to calculate angles of tangent lines around circle perimeter (still eneds some debugging)
-| * 80572b9 default for geometry parts should be a list
-| * 12440b9 testing python opengl bindings per https://stackabuse.com/brief-introduction-to-opengl-in-python-with-pyopengl/
-| * cef00b5 tests/todos
-| * aaea382 reorganize rendering functions
-| * dfc830c GlyphSet helper class
-| * 92ceed9 just in case
-| * cea2d5d Cleanup
-| * 2db9988 Add camera class
-| * c9af190 Add world and cluster classes
-| * 38d3414 multiple small updates/fixes
-| * eb6f2d9 Add simulation and renderer placeholder classes
-| * 848762d Add matter class
-| * 3d6a5fd Add material class
-| * cea2d2f Add circle class
-| * 2ba9137 Add Polygon class
-| * 10cc8c0 Add specialized subclasses of Geometry
-| * fef43d8 Add Geometry class
-| * 445cede fix gravity (sim was using the old .x/.y notation)
-| * 8c15a89 more tests
-| * 074f9ed decommission old classes and create aliases for new Tensor class
-| * cbe9dd9 add random scene generator
-| * 3922def add unit class
-| * 0d172b1 clean out some obsolete math functions
-| * 3a4db46 Add general tensor class + begin transitioning to NumPy arrays
-| * 4e3a800 add more tests
-| * 1e3126e add gravity function (currently unused)
-| * 781e589 some TODOs
-| * bcd4169 add more operations to scalar class
-| * 48e92d1 Non-reductive distance function
-| * be3e739 Default mass scalar for objects
-| * 819d278 Clean up math operation functions
-| * 148a842 Additional scene properties
-| * 34b148b Vec class distance function
-| * d78659c add position vector to object class (with backwards-compatible x & y properties)
-| * 22625ea add printing functions to Vec class
-| * 89a56dd add square and reduce (sum) functions to Vec class
-| * 76527af each utility function (Vec class)
-| * 46bb26b add some basic math functions to vector class
-| * 962a6ef add clone function to vector class
-| * 148b51a add scalar class
-| * 2bab5d6 use time in position change calculation
-| * d584521 handle edge wrapping
-| * c99287f add scene size handling
-| * 7800ef1 add unit dict to scene class
-| * 7f47595 clean up render testing code
-| * 32776ef start with random velocity
-| * ae15d1e update rendering function
-| * 5301e39 add velocity property to object class
-| * f999721 add physics stepping function
-| * b589acd create vector class
-| * 7c0d750 add simple renderer
-| * 109dda7 main scene/object classes
-| * 658d809 Initial commit
-| * 9308577 (refs/stash) WIP on master: 79a8246 Merge branch 'packings'
+| * 7b772bb Create requirements.txt
+| * e029682 Add return values to docstrings
+| * 8bc5ed7 Add descriptions of Roulette_Curve.__init__ parameters
+| * 6f81593 Add transform_point method docstring
+| * d5278ac Add docstring for draw_point method (of RouletteCurve class)
+| * 9525410 Add line function docstring
+| * 34921bf Re-build documentation
+| * 450a98d Add credits to nbdev/Jupyter (Lab)
+| * aa40ccc Add links to documentation and license
+| * 615aa3d add other unit tests
+| * 48581fe Add more tests/parameter value validation
+| * b4fbddd Add tests to transform_point
+| * 6d752ad Add tests to render method
+| * 3ff041e Update index.html
+| * 3bf1a05 Set theme jekyll-theme-cayman
+| * 381efa9 Update setup.py
+| * 42ed524 Correct min required Python version
+| * 2611599 Add explicit list of dependencies
+| * ceb6e06 Change license
+| * 514614e Add list of dependencies
+| * 89d7b20 Add some keywords
+| * c9f6203 temporarily allow docs build without specifying license in settings.ini
+| * fa6a696 Update docs build
+| * 78b506d Add (Jupyter/IPython) notebook sources
+| * 021db5f Refactor rendering method into smaller functions and add other parameters/settings
+| * 044e009 While running simulation, periodically check if time limit has been exceeded (and end simulation if it has been)
+| * 778bca7 Add option for simultaneously simulating and rendering system
+| * a4f93bf Add docstring (and parameter descriptions) to simulate method
+| * b5f72f3 Add method that runs JIT-compiled simulate_accelerated function
+| * 1d41b9b Add simulate_accelerated docstring
+| * bb85787 Create LICENSE.md
+| * 72c52cc Add descriptions of specific mode parameter values
+| * 7d2bc1c Add render method docstring
+| * 0ff9870 miscellaneous tweaks & placeholders
+| * b142bec Create home_sidebar.yml
+| * 13a3a76 misc
+| * c811047 Create settings.ini
+| * e07a117 Generate README from index.ipynb
+| * ba71172 Create _config.yml
+| * 1150bd4 Add function for drawing line with start/stop points
+| * e35b373 Create setup.py
+| * f5bb104 Update metadata
+| * 629ce3f add docstring
+| * eebe459 Store rendering offset as instance attribute
+| * c586ba8 Add necessary imports
+| * e8a7e24 Build docs homepage and add generated images from examples
+| * 2579fe0 Build docs
+| * 08ada38 Create CONTRIBUTING.md
+| * df7662e Add helper function for getting (some) properties of class instance as a dict
+| * da84e55 Add function for clearing a RouletteCurve object's points
+| * ebe2807 add some more instance variables
+| * 29f4123 Add function for accelerated simulation using Numba JIT compilation/vectorization
+| * fc37d8f Update metadata
+| * 4616fb3 Add "dist" mode for rendering evolution of system
+| * 07a87e1 Add relative-angle based simulation method
+| * 54a9dd5 Prepare rotation matrices in advance
+| * bc4b9a8 Add instance properties/variables for tracking history of pivot locations and segment angles
+| * 9f2810d JIT-compile functions with Numba
+| * 9a77e63 Add function for rotating point about another point given an angle
+| * 3c3cbca Add function for efficiently generating rotation matrix for a given angle (in radians)
+| * 6968a90 Add function for rendering points as image/heatmap
+| * 00000e0 Add helper function for replacing tuples in iterables (e.g., in function arguments) with the result of passing the tuples as arguments to a random number generator
+| * 09bed59 Add function for generating roulette curve points from parameters
+| * 58d03ef Add nbdev config files
+| * 1c95580 Create _nbdev.py
+| * 01b1062 Randomly select segment lengths and speeds if not provided
+| * fd88b91 Add RouletteCurve class
+| * 7326d79 Create core.py
+| * de3b718 Initial commit
+| * 8c4bce6 (refs/stash) WIP on meta: f13f7d4 add new projects (integrated from other repos)
 |/| 
-| * 6d17452 index on master: 79a8246 Merge branch 'packings'
+| * 464c2de index on meta: f13f7d4 add new projects (integrated from other repos)
 |/  
-| * 59d62c0 (HEAD -> meta, origin/meta) reflow branch list
-| * 111afe0 add summaries of recent branches
-| * 37a73d4 extract commands corresponding to template strings (moved to substitutions.yaml)
+* f13f7d4 (HEAD -> meta, origin/meta) add new projects (integrated from other repos)
+*   b0d2a7a Merge branch 'master' into meta
+|\  
+| * 81dab70 rebuild README
+| *   b5aa9c5 Merge branch 'python-experiments'
+| |\  
+| | *   d7ccb72 (origin/python-experiments, python-experiments) Add 'python-experiments/' from commit '23fef38879b5506c943e59ca2ab26f54f3c7b4ec'
+| | |\  
+| | | * 23fef38 Add sample code snippet (prime number generator)
+| | | * 322e349 Add experiment summary
+| | | * d44bc2a Create requirements.txt
+| | | * 169c1f5 Create symbolic-algebra.ipynb
+| | | * e95faf7 Testing
+| | | * e4f24e3 automatically assign default variables/symbols
+| | | * f8c4e6b Generate magic methods for common math operations
+| | | * e07648d Add Symbol class
+| | | * 6831c90 Add operator class-specific string methods
+| | | * aaac70c Add operator (sub)class
+| | | * 252fea8 Add string conversion methods
+| | | * 306a37e Testing dynamic/automated variable creation
+| | | * 61212b7 Add Expression class
+| | | * 059d0f7 Create symbolic-algebra.py
+| | | * 75a92f8 add transform combination testing limit
+| | | * 36fefdd support application of iterable transform to list (e.g., of words in input string) instead of only text
+| | | * aacb1f5 add alternative test strings
+| | | * e7b7551 Track number of transform combinations checked
+| | | * 4d78d27 Search combinations of varying lengths (1 to max)
+| | | * fde46d0 Add notebook version of code
+| | | * e67419b Loop through possible combinations of string transformations and test them on examples
+| | | * b83b8d1 add names of string transformations
+| | | * bf339eb add example string mappings
+| | | * 8e3cc58 Iteratively replace nested type keywords with their corresponding regular expressions
+| | | * 7eab638 add more test statements/operations
+| | | * 3950f53 add list of possible string operations
+| | | * db6dff5 Create .gitignore
+| | | * 9651aa2 Add function for repeating a value/array a certain number of times along multiple axes
+| | | * fa4fab0 add function for generating iterated function string
+| | | * a103acc Create automacro.py
+| | | * 542f748 Add regexes for common statements and expressions
+| | | * 74102bb Add test statements
+| | | * 96314b9 Add imports
+| | | * 4dd0635 Create README.md
+| | | * 5798ff2 Create LICENSE.md
+| | | * 9d5a9ec Create .gitattributes
+| * |   0e79829 Merge branch 'python-snippets'
+| |\ \  
+| | * \   bbbe213 (origin/python-snippets, python-snippets) Add 'python-snippets/' from commit 'a20f7f9b234b69a275ae6828e941c5e9b9d692f3'
+| | |\ \  
+| | | |/  
+| | |/|   
+| | | * a20f7f9 Add IPython/Jupyter notebook version of code
+| | | * 8d35040 Add function for generating change given an amount of money as an input
+| | | * 0811f4c add list of coins/bills and corresponding amounts
+| | | * 53063c3 Add function for determining the smallest combination of multiples of some given values needed to produce a larger number
+| | | * 4e548bb add function for making word plural
+| | | * cbcd32e add function for generating text list from list of items
+| | | * 521ade9 add title-case function
+| | | * 3607532 Add nested list flattening function
+| | | * 3ed717f Add prime-generating function
+| | | * 56e0766 Create .gitignore
+| | | * 302a9df Create README.md
+| | | * e0f62ac Initial commit
+| * |   e5ff69d Merge branch 'quickplot'
+| |\ \  
+| | * \   e5cb7aa (quickplot) Add 'quickplot/' from commit 'f6d19babdcb793315ea41aa53d6e2fa3f9569c1c'
+| | |\ \  
+| | | * | f6d19ba Create requirements.txt
+| | | * | 717a0fb Add colorbar
+| | | * | da4b275 misc. (plot style, instance attributes, etc.)
+| | | * | be9f990 Add method for generating contour plots
+| | | * | 0ab62c7 Add 2D histogram helper method
+| | | * | 091c446 more docstrings
+| | | * | 16626c5 add method docstrings
+| | | * | 5af863a miscellaneous testing code/unused code
+| | | * | 6ccbce4 tweak (default) plot settings
+| | | * | 5b79824 Support float value for "annotate" argument
+| | | * | 44b08bd Test contour plot generation
+| | | * | f91d4c8 add test plot
+| | | * | 560a52f add heuristic for automatically repositioning labels to minimize overlap
+| | | * | 6bf2e6e Add helper Array class (wraps np.ndarray)
+| | | * | 495c58d Randomly sample points and add annotations showing their coordinates
+| | | * | 27f8dea Add method for generating Python code (non-dependent on quickplot) that builds equivalent plot
+| | | * | 539d026 Automatically set axis labels and scales for each spatial dimension (x, y or x, y, z)
+| | | * | c4246cc Add method for adding coordinate labels/annotations to scatter plots
+| | | * | c780f35 Add helper methods for generating grids of indices
+| | | * | 501e8f5 Add function for randomly sampling slices of array
+| | | * | cc47a25 Adjust scatter plot marker sizes based on number of points in plot if use_density is set to True
+| | | * | 2ef3f8e Add some todos
+| | | * | c6bb19b Handle projection argument (2d, 3d, polar)
+| | | * | 53f14d9 generate plot
+| | | * | 65996da Process plot settings/options (substitute aliases and values)
+| | | * | 74bde2e Add heuristic for determining whether log scale should be used for a given axis
+| | | * | a00532d Add method for generating plot
+| | | * | 590b89e Add Plot class
+| | | * | 304d5f2 Add imports
+| | | * | b584639 Add project summary
+| | | * | 9fdcd7c Initial commit
+| | |  /  
+| * | |   cd2322b (fractals) Add 'fractals/' from commit '6d1b5081d64ae55a4b05bce0fcba1a5bacb23633'
+| |\ \ \  
+| | |/ /  
+| |/| |   
+| | * | 6d1b508 minor bug fixes
+| | * | 1867fa4 Add option ("direct") to draw the fractal to pixel grid while generating it
+| | * | c706288 add random transforms applied to points before moving toward vertex
+| | * | 58ac046 add option for multiple interpolation ratios (i.e., randomly select what percentage of the distance is travelled from the current location to the selected vertex)
+| | * | 8cfe054 more testing
+| | * | 5e53a9d add more transforms/functions for iterative generator
+| | * | 8e0a005 add render method
+| | * | 7d17460 add generate method (not yet complete)
+| | * | 94d75be add iterated function-based fractal class
+| | * | aedf008 add Attractor (super)class
+| | * | 540d731 cleanup
+| | * | 18d4e08 miscellaneous
+| | * | 6dcdf94 fix random rule generator and add random number of sides
+| | * | d14c515 add random rule/restriction generation for vertex selection
+| | * | d3b3478 add SierpinskiTriangle convenience class
+| | * | 25d40ff add info strings to ChaosGame methods
+| | * | 3b51f6c add method to divide line into equal segments
+| | * | e511c16 add "jump" distance parameter
+| | * | ef14a70 add looping point distance function
+| | * | 36ad665 add function-based point evaluation
+| | * | 6a79708 add different point coloring methods
+| | * | 7b066ef add simple rules limiting vertex selection
+| | * | eebe672 correct orientation
+| | * | d03714e add render method
+| | * | 3e54a41 add generate method
+| | * | f3a2471 add ChaosGame class
+| | * | 14222ca add automatic rounding to handle floating point error
+| | * | 1eafc08 add polygon string method
+| | * | cea799d add point print method
+| | * | 73b69ac Add RegularPolygon class
+| | * | 829cedb Add Polygon class
+| | * | 82528f9 add move and rotate methods to Line class
+| | * | 032b547 add Line class
+| | * | de316ad add 2d rotation about a point
+| | * | 2ac41ca add move method
+| | * | e680af9 add point class
+| | * | 93515f9 add info for Fractal.autozoom method
+| | * | 735ba4c testing other random parameters
+| | * | 6671bae add random arguments
+| | * | 118ab90 reorganize method arguments
+| | * | 7c9e37d cleanup
+| | * | b011fbe reorganize fractal generation and rendering system
+| | * | 00f2e1d refactoring (create generate method)
+| | * | 3dea437 Add info string for Fractal class (and other tests)
+| | * | 3686270 add documentation for Fractal.scale method
+| | * | d6d2a35 add cmap parameter
+| | * | 085ef99 add display method
+| | * | 1954999 improve default arguments
+| | * | 4d9edf7 add automatic extraction of interesting section of fractal (based on variance)
+| | * | ea8665f add method for evaluating variance of different sections of fractal render
+| | * | 30cd739 create Fractal class
+| | * | 75cd945 fix smooth coloring algorithm (scale to maximum iteration values)
+| | * | 68a5a56 testing smooth coloring function (normalized iteration count)
+| | * | bcb77fd add main header
+| | * | 1664f0f add parameter to combine multiple axes into a single image
+| | * | e68dd6b add global parameter for number of interpolation steps
+| | * | 349f026 add fractal metadata interpolation
+| | * | 1196268 re-add .gitignore
+| | * |   2eeeb28 Merge pull request #1 from generic-github-user/master
+| | |\ \  
+| | | * \   f0a1f04 Merge branch 'master' of https://github.com/generic-github-user/fractals
+| | | |\ \  
+| | | | * | d60e3b8 ignore checkpoint files
+| | | | * | 0fe1dfc metadata
+| | | | * | a395688 Set up basic fractal generation function
+| | | |  /  
+| | | * | c60dc9f ignore checkpoint files
+| | | * | d5f15bb metadata
+| | | * | e1b8d3e Set up basic fractal generation function
+| | |/ /  
+| | * / 20315a0 Initial commit
+| |  /  
+| * |   c9ac18e Merge branch 'self-avoiding-walks'
+| |\ \  
+| | * \   ab98020 (origin/self-avoiding-walks, self-avoiding-walks) Add 'shelf/' from commit 'c1d707c4638d2c5c1f682a82d4fee4cc286aea43'
+| | |\ \  
+| | | * | c1d707c Add (brief) installation section to README
+| | | * | d8f2e27 Add checkboxes to indicate feature development status
+| | | * | 732844e Add more features to README
+| | | * | 8966af8 misc.
+| | | * | a7b01d6 Add comments
+| | | * | 346699f Add util function docstrings
+| | | * | c889065 Include statistics about size of pickled library representation (both compressed and uncompressed)
+| | | * | 59731e6 Compress backup files
+| | | * | 32a721a Move object pickling/string conversion to a separate function
+| | | * | d5783de Add comma separators to printed statistics
+| | | * | be8494d Add timestamps to export filenames
+| | | * | 85403aa Include common terms in note exports
+| | | * | 78500d6 Improve term extraction/filtering
+| | | * | d0b9172 Store references to terms in note instances
+| | | * | c0b1ece Fix other dependencies
+| | | * | bb498ca Add missing import statements
+| | | * | 2b6981e Move some more functions out of main script
+| | | * | 0f17161 Move classes to separate scripts for ease of development
+| | | * | c3ccb21 Allow sorting notes by length (in chracters) or number of words
+| | | * | db5933b Add store option (if False, the loaded library will be returned instead of assigning to a variable)
+| | | * | d3244ba Add changed() method
+| | | * | 224f00a miscellaneous
+| | | * | 6ae92ad Add command for displaying summary statistics about note library
+| | | * | 1533de4 Add truncate method
+| | | * | edbe195 Add regex search command
+| | | * | d974a5a Store timestamp as String class instance
+| | | * | 07d9570 Add method for generating text colored with ANSI escape sequences
+| | | * | 681304a Add command for exploring data saved in backup files
+| | | * | 8ac4c9d Add helper class with additional string methods
+| | | * | 9b8f28f Add comments
+| | | * | 6572cc5 Use note template to generate Markdown export files
+| | | * | 0240d1e Add command for removing a specified value
+| | | * | 8c4e314 Add note template for Markdown exports
+| | | * | be697b9 Fix bug in ranking code
+| | | * | 759413c Add option for providing numeric arguments to commands
+| | | * | 8c01b11 Exclude numeric results
+| | | * | 66a736c Allow weighting by length in characters or words/tokens of each candidate
+| | | * | d24598b Add method for recalculating rankings based on saved comparisons
+| | | * | 74f0467 Add note sorting command
+| | | * | 574bf32 Add note ranking command
+| | | * | 223612e Add more features to list
+| | | * | e6cf2cf Add ranking method for interactively sorting notes by a specified attribute
+| | | * | 9e45fb8 Add library and note class upgrade methods
+| | | * | 2841536 Add upgrade method that generates missing fields in loaded objects
+| | | * | f8ea828 Add log parameter
+| | | * | 91748df Miscellaneous
+| | | * | 3d6e2cd Minor tweaks to extract_terms() method
+| | | * | 9b411d8 Allow returning a minimum number of results (i.e., the n closest notes to the target note)
+| | | * | 96bcd78 Move database file path to Session object
+| | | * | 5a564b5 Add comments to extract_terms method
+| | | * | 4c688e6 Add function for extracting common terms and phrases from note library
+| | | * | 7a5786a Slight backup adjustments
+| | | * | 39df917 Add Markdown export feature
+| | | * | fd4828d Add simple backup functionality
+| | | * | ce161d0 Add feature list (subject to change)
+| | | * | 62483cc Update gitignore
+| | | * | c553feb Add comments
+| | | * | 16c18c6 Add function for interactive command usage/note creation
+| | | * | cc19a2d Add Tag class
+| | | * | cd14f3b Add note class methods
+| | | * | 3d55a57 Add Note class
+| | | * | 97c6174 Add function for finding similar notes using edit distance metrics/fuzzy string search
+| | | * | a2cbac0 Add method for adding note instances to libraries
+| | | * | f89f7c3 Add library saving and loading functions
+| | | * | 6496b66 Add Library class for storing collections of notes
+| | | * | 4945aee Add base class for notes, tags, etc.
+| | | * | 88a085f Add command line argument parser with argparse
+| | | * | 5ca6668 Add README
+| | | * | a84cbc9 Add shelf.py (will contain main scripts and command handler)
+| | | * | ccf74ea Initial commit
+| | |  /  
+| | * |   122a13d Add 'self-avoiding-walks/' from commit 'fef229a276c71f444187311be874343f8f800651'
+| | |\ \  
+| | | |/  
+| | |/|   
+| | | * fef229a add some more notes
+| | | * e371d20 more terms
+| | | * 62a88ee add links to other papers and threads regarding Hamiltonian paths/grid graphs
+| | | * 9ea5be8 add more graph theory terms
+| | | * 108e901 add more research links/OEIS entries
+| | | * fad47a4 add option for allowing path to cross edges
+| | | * 9f2de9a add notes
+| | | * 2deeb5a add list of relevant search terms/keywords
+| | | * ca1a668 add some more relevant links
+| | | * 43ea396 Add option for randomizing tree search
+| | | * 68984d6 Add depth-first tree search-based path discovery
+| | | * 065443c add comments
+| | | * 8d9db36 fix path length calculation
+| | | * 073caac add more parameters
+| | | * 93fd54c Add single-step backtracking
+| | | * ddf2432 Update self-avoiding-walk.ipynb
+| | | * 3f60f6b add supplementary materials
+| | | * 96a373e add links to research papers on self-avoiding walks
+| | | * dc6ddc3 miscellaneous
+| | | * 5201167 improve visualization and add todos/future research topics
+| | | * 707c1b3 optimize with Numba
+| | | * c873064 Add Numba-compatible bounding function
+| | | * 2ab0a8c Add links to threads about self-avoiding walks
+| | | * 96a4cfe add notebook that mirrors script
+| | | * 6c08921 add some graphs
+| | | * 8af71f2 Add simulation code
+| | | * cb90fc3 Create .gitignore
+| | | * 901fa9d generate list of possible steps
+| | | * fd08d33 Create self-avoiding-walk.py
+| | | * df3371b Initial commit
+| * |   d568adc Merge branch 'epidemic-modelling'
+| |\ \  
+| | * \   09e55e9 (origin/epidemic-modelling, epidemic-modelling) Add 'epidemic-modelling/' from commit '8794b9f38532e498fc65ec9f3f4ef1d0bf39e744'
+| | |\ \  
+| | | |/  
+| | |/|   
+| | | * 8794b9f Add function for updating Person class instance
+| | | * 3ff9ef5 Add method for simulating virus test (with optional inaccuracy)
+| | | * ade18fc Add Person class
+| | | * 7e2cecc Add Population class
+| | | * b621561 Add History class
+| | | * 6b35fc9 Create README.md
+| | | * ec86c67 Add helper functions
+| | | * 7b27941 Add string conversion methods
+| | | * 2397043 Add Pathogen class
+| | | * c8539af Create epidemic-modelling.py
+| | | * 616c49a Initial commit
+| * |   9fbb532 (origin/physics, physics) Add 'physics/' from commit '59e45d7f25b0ad89938a37317695b7f7428c8b68'
+| |\ \  
+| | |/  
+| |/|   
+| | *   59e45d7 Merge branch 'master' of https://github.com/generic-github-user/ascii-physics-sim
+| | |\  
+| | | * af2e589 Set theme jekyll-theme-cayman
+| | * | 6d13213 add command for building documentation with pdoc
+| | |/  
+| | * 5d66559 build documentation
+| | * 95db5a9 Create README.md
+| | * 3a1698e add rotation and angular velocity tracking to object class
+| | * 4ff543e move a few helper classes to a separate file
+| | * f985adf cleanup
+| | * 23a3949 Split code into multiple files to make development go smoother
+| | * b25b5b8 remove unused Vec class code
+| | * 8a3b05b more documentation
+| | * 7ed8107 document Object class
+| | * b2ff6e5 Material class documentation
+| | * 95dd809 Add some documentation to Renderer class (via https://pdoc.dev/)
+| | * 9432df7 add 4D helper class, might remain unused
+| | * 2d6531b add some comments
+| | * 1228562 ignore compiled python files
+| | * bd1ee5d only get rtype once
+| | * 1c0a248 property storage placeholder classes
+| | * 16644ba remove unused scalar code
+| | * 05d1c71 miscellanous, pt. II
+| | * 38c9409 add motion delta handling
+| | * 71770c9 updated simulation code to handle new renderer
+| | * 03d3979 update default renderer settings
+| | * aedc313 recursive self-call in rendering function (used with python canvas until I can find a workaround)
+| | * cf58193 placeholders for opengl and cairo graphics (planning to implement in future)
+| | * 28e57cc add canvas renderer (can currently only handle circles)
+| | * 353b507 add line (ASCII) renderer
+| | * a450729 method for looking up ASCII characters corresponding to incline angles
+| | * 23d274f new frame rendering function
+| | * ce12913 material class updates
+| | * 91829ac more materials properties
+| | * 8162a90 add output concatenation method
+| | * 19d7819 initialization code for new (tkinter) canvas based renderer
+| | * 256c7ac miscellaneous
+| | * a233646 clean out old tests
+| | * aba91cb create Name class (not entirely sure yet if this will be used)
+| | * 2b5ffe4 unused code
+| | * 81fb3f4 update random scene generation function
+| | * 8f57703 add clear parameter to randomize() method
+| | * c48dcd0 add more material properties
+| | * 62bba49 more TODOs
+| | * 294d6b1 create gitignore
+| | * fbd5e32 add Angle class
+| | * 1526692 add method to calculate angles of tangent lines around circle perimeter (still eneds some debugging)
+| | * 80572b9 default for geometry parts should be a list
+| | * 12440b9 testing python opengl bindings per https://stackabuse.com/brief-introduction-to-opengl-in-python-with-pyopengl/
+| | * cef00b5 tests/todos
+| | * aaea382 reorganize rendering functions
+| | * dfc830c GlyphSet helper class
+| | * 92ceed9 just in case
+| | * cea2d5d Cleanup
+| | * 2db9988 Add camera class
+| | * c9af190 Add world and cluster classes
+| | * 38d3414 multiple small updates/fixes
+| | * eb6f2d9 Add simulation and renderer placeholder classes
+| | * 848762d Add matter class
+| | * 3d6a5fd Add material class
+| | * cea2d2f Add circle class
+| | * 2ba9137 Add Polygon class
+| | * 10cc8c0 Add specialized subclasses of Geometry
+| | * fef43d8 Add Geometry class
+| | * 445cede fix gravity (sim was using the old .x/.y notation)
+| | * 8c15a89 more tests
+| | * 074f9ed decommission old classes and create aliases for new Tensor class
+| | * cbe9dd9 add random scene generator
+| | * 3922def add unit class
+| | * 0d172b1 clean out some obsolete math functions
+| | * 3a4db46 Add general tensor class + begin transitioning to NumPy arrays
+| | * 4e3a800 add more tests
+| | * 1e3126e add gravity function (currently unused)
+| | * 781e589 some TODOs
+| | * bcd4169 add more operations to scalar class
+| | * 48e92d1 Non-reductive distance function
+| | * be3e739 Default mass scalar for objects
+| | * 819d278 Clean up math operation functions
+| | * 148a842 Additional scene properties
+| | * 34b148b Vec class distance function
+| | * d78659c add position vector to object class (with backwards-compatible x & y properties)
+| | * 22625ea add printing functions to Vec class
+| | * 89a56dd add square and reduce (sum) functions to Vec class
+| | * 76527af each utility function (Vec class)
+| | * 46bb26b add some basic math functions to vector class
+| | * 962a6ef add clone function to vector class
+| | * 148b51a add scalar class
+| | * 2bab5d6 use time in position change calculation
+| | * d584521 handle edge wrapping
+| | * c99287f add scene size handling
+| | * 7800ef1 add unit dict to scene class
+| | * 7f47595 clean up render testing code
+| | * 32776ef start with random velocity
+| | * ae15d1e update rendering function
+| | * 5301e39 add velocity property to object class
+| | * f999721 add physics stepping function
+| | * b589acd create vector class
+| | * 7c0d750 add simple renderer
+| | * 109dda7 main scene/object classes
+| | * 658d809 Initial commit
+* | 59d62c0 reflow branch list
+* | 111afe0 add summaries of recent branches
+* | 37a73d4 extract commands corresponding to template strings (moved to substitutions.yaml)
 |/  
 *   79a8246 Merge branch 'packings'
 |\  
