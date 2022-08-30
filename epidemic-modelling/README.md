@@ -1,0 +1,5 @@
+# Probabilistic Infectious Disease Modelling
+
+## Introduction
+
+This project contains Python code for simulating epidemics using stochastic models. It was inspired by [this video](https://www.youtube.com/watch?v=gxAaO2rsdIs) by 3Blue1Brown on YouTube. Included are a number of classes and methods representing various approaches to estimating the dynamics of infectious disease transmission among humans and the intertangled effects of public health policy, mitigation efforts, virus mutation, etc. These provide an object-oriented approach to simulating complex population dynamics and generating statistics relating input variables including virus transmissibility, virulence, population density, movement, age/health demographics, time of intervention with output variables like mortality rate, total number of infections, network effects, etc. (with respect to time). The goal is to generate unintuitive insights about the relationships between starting conditions & population variables and outcomes.
