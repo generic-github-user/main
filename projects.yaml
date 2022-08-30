@@ -171,34 +171,42 @@ projects:
   quickplot:
     status: inactive
     completion: unfinished
+    labels: [plotting, graphs, tools, libraries, matplotlib]
 
   epidemic-modelling:
     status: inactive
     completion: unfinished
+    labels: [mathematics, modelling, simulations, dynamical-systems]
 
   fractals:
     status: inactive
     completion: unfinished
+    labels: [fractals, mathematics, graphics, numerical-analysis, dynamical-systems]
 
   ascii-physics-sim:
     status: inactive
     completion: unfinished
+    labels: [ascii, physics, simulations, experiments]
 
   self-avoiding-walks:
     status: inactive
     completion: unfinished
+    labels: [mathematics, combinatorics, analysis, simulations, random-walks]
 
   python-experiments:
     status: inactive
     completion: ongoing
+    labels: [tools, utilities, metaprogramming, experiments, programming-languages]
 
   python-snippets:
     status: inactive
     completion: ongoing
+    labels: [tools, utilities, templates, programming-languages, helpers, libraries]
 
   shelf:
     status: inactive
     completion: unfinished
+    labels: [tools, utilities, software, command-line, organization, notes]
 
   locus:
     status: inactive
