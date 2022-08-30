@@ -13,6 +13,10 @@ and other maintenance headaches I've run into recently.
 - `meta`: information about this repository itself (code statistics, file listings, issue metadata, etc.)
 - `obfuscation`: code obfuscation tools repurposed from an old repository of mine
 - `pythings`: useful tools and scripts for the boring parts of Python (mainly writing tests, documentation, etc.)
+- `unicode-art`: scripts and command-line tools for generating diagrams, charts, and other materials using ASCII and/or Unicode characters
+- `graphs`: Python graph classes and functions that I find myself rewriting often for different projects
+- `packings`: polyomino tiling simulations (also see the source repository on my GitHub profile)
+- `wordle-variants`: various language-based guessing games
 
 ## Statistics
 
