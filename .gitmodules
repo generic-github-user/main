@@ -14,13 +14,13 @@
 	path = utils
 	url = https://github.com/generic-github-user/utils
 [submodule "c2s"]
-	path = c2s
+	path = languages/c2s
 	url = https://github.com/generic-github-user/c2s
 [submodule "board"]
 	path = board
 	url = https://github.com/generic-github-user/board
 [submodule "finch"]
-	path = finch
+	path = languages/finch
 	url = https://github.com/generic-github-user/finch
 [submodule "tetris-variants"]
 	path = tetris-variants
