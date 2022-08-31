@@ -222,48 +222,59 @@ projects:
     status: inactive
     completion: unfinished
     language: python
+    labels: [esoteroic, programming-languages, experiments]
 
   punchcard:
     status: inactive
     completion: unfinished
     language: python
+    labels: [data-structures, utilities, libraries]
 
   wordtetris:
     status: inactive
     completion: unfinished
     language: python
+    labels: [games, tetris, word-games]
 
   alexandria:
     status: inactive
     completion: unfinished
     language: python
+    labels: [organization, tools, software, bookmarks, backup]
 
   roulette-curves:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations]
 
   cellular-automata-experiments:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations, cellular-automata, cgol,
+      combinatorics, discrete-math]
 
   foldz:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations, computational-geometry, origami]
 
   programming-puzzles:
     status: inactive
     completion: unfinished
     language: python
+    labels: [programming-puzzles, interactive]
 
   visual-computing-simulation:
     status: inactive
     completion: unfinished
     language: python
+    labels: [circuits, simulations, interactive, computing]
 
   project-summary:
     status: inactive
     completion: unfinished
     language: python
+    labels: [github, metadata, apis, data-aggregation]
