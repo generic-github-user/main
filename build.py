@@ -2,6 +2,7 @@ import subprocess
 import yaml
 import json
 from box import Box
+import textwrap
 
 # Run a shell command and return the output (i.e., stdout); assumes result is
 # UTF-8 encoded text
@@ -21,6 +22,12 @@ for k, v in subs.items():
     content = content.replace(f'[[{k}]]', runcmd(v))
 content = content.replace('[[projects]]', '\n'.join(
     f'- {k} {"".join(f" `{t}`" for t in v.labels)}' for k, v in projects.projects.items()))
+
+msg = """This file was automatically generated from README.src.md; you should
+edit that file instead. Any changes made to this file will be overwritten the
+next time build.py is executed."""
+w = 50
+content = '\n'.join(f'<!--  {line}{" "*(w-len(line))}  -->' for line in textwrap.wrap(msg, w)) + ('\n' * 5) + content
 
 print(f'Writing output file')
 with open('README.md', 'w+') as f: f.write(content)
