@@ -9,3 +9,52 @@ use derive_more::{Add, Mul, Sub, Div};
 struct Int32(i32);
 #[derive(Add, Mul)]
 struct Int64(i64);
+
+//#[derive(Add, Mul, Sub, Div)]
+//enum Number {
+//    Int32(i32),
+//    Int64(i64)
+//}
+
+//impl ops::Add for Number {
+//    type Output = Number;
+//    fn add(
+
+
+#[derive(PartialEq, PartialOrd, Clone, Debug)]
+struct Variable (char);
+
+//#[derive(Clone)]
+//struct Vec<Variable> (Variable);
+
+#[derive(Clone, Debug)]
+struct Term {
+    cf: i64,
+    vars: Vec<Variable>,
+    exps: Vec<i64>
+}
+
+//impl Add for Term {
+//    fn add(self, other)
+//
+
+// Based on https://stackoverflow.com/a/54603724
+pub fn vec_add<T>(v1: &[T], v2: &[T]) -> Vec<T>
+    where
+        T: std::ops::Add<Output = T> + Copy,
+{
+    v1.iter().zip(v2).map(|(&i1, &i2)| i1 + i2).collect()
+}
+
+
+impl ops::Mul for Term {
+    type Output = Term;
+    fn mul(self, other: Term) -> Term {
+        Term {
+            cf: self.cf * other.cf,
+            vars: self.vars.clone(),
+//            exps: self.exps + other.exps
+            exps: vec_add(&self.exps, &other.exps)
+        }
+    }
+}
