@@ -144,3 +144,23 @@ impl<T> Graph<T> {
 
     }
 }
+
+struct Range<T> (T, T);
+
+struct Summation<T> {
+    start: i64,
+}
+
+fn is_prime(i64) -> bool {
+
+}
+
+struct Limit<T, V> {
+    func: Function<T, V>,
+    var: Variable,
+    to: T
+}
+
+fn main() {
+    println!("Hello, world!");
+}
