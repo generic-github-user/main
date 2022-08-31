@@ -28,47 +28,11 @@ list(flatten([[[1, 2, 3], [4, 5]], 6]))
 
 # ## String Manipulation
 
-# ### Title Case
-
-
-def title(text, ignore=['in', 'the', 'of', 'with', 'or', 'and']):
-    return ' '.join(w[0].upper()+w[1:] if w not in ignore else w for w in text.split(' '))
-
-title('trends in machine learning')
 
 def makelist(items):
     return ', '.join(items[:-1])+', and '+items[-1]
 
 makelist(list('xyz'))
-
-
-def subdivide(num, parts):
-    result = []
-#     while num>0:
-    factor = max(1/p for p in parts)
-    parts = [int(p*factor) for p in parts]
-    num *= factor
-    parts.sort(reverse=True)
-    for p in parts:
-#             while num>p:
-        if num >= p:
-            x = num // p
-            result.append((p/factor, x))
-            num -= p * x
-    if num:
-        print(f'Remainder of {round(num/factor, 4)}')
-    return result
-
-
-def plural(a, b, prepend=False):
-    if b != 1:
-        if a[-1] == 'y':
-            a = a[:-1] + 'ies'
-        elif a[-1] != 's':
-            a += 's'
-    if prepend:
-        a = f'{b} {a}'
-    return a
 
 
 values = [
