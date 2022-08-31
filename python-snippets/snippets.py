@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[1]:
+
+
+get_ipython().system('jupyter nbconvert --to script snippets.ipynb')
+
+
 # ### Prime Number Generator
 # 
 # Prints out a list of prime numbers in the specified range.
-
-# In[ ]:
-
-
-
-
 
 # In[2]:
 
