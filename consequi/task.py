@@ -5,8 +5,11 @@ import datetime
 from recurrent.event_parser import RecurringEvent
 from dateutil import rrule
 
-from settings import *
-from duration import *
+import json
+
+from settings import Settings
+from duration import parse_duration
+
 
 class Task:
     def __init__(self, content='', name='', created=None, modified=None, datestring=None, importance=1000, durationstring=None):
@@ -30,7 +33,7 @@ class Task:
         # self.next = 1
         self.datestring = datestring
 
-        if self.datestring != None and len(self.datestring) > 0:
+        if self.datestring is not None and len(self.datestring) > 0:
             try:
                 now = datetime.datetime.now()
                 # now = datetime.datetime(2010, 1, 1)
@@ -42,13 +45,14 @@ class Task:
                     rr = rrule.rrulestr(r.get_RFC_rrule())
                     self.next = str(rr.after(now))
 
-                    print(self.dateparse, self.dateparams, self.datesummary, self.next)
+                    print(self.dateparse, self.dateparams,
+                          self.datesummary, self.next)
             except Exception as e:
                 print(e)
 
         self.durationstring = durationstring
 
-        if self.durationstring != None and len(self.durationstring) > 0:
+        if self.durationstring is not None and len(self.durationstring) > 0:
             self.duration = parse_duration(self.durationstring)
 
         self.importance = {
@@ -64,12 +68,14 @@ class Task:
         if hasattr(self, 'duration') and hasattr(self, 'importance') and self.duration != 0:
             self.efficiency_ratio = self.importance['calculated'] / self.duration
 
-    # there might be a bug here where some of the properties are misaligned with their values...
+    # there might be a bug here where some of the properties are misaligned
+    # with their values...
 
     # is name dict reserved?
     def as_dict(self, compressed=True):
         task_dict = {}
-        # If 'compressed' is set to True, use the abbreviated task properties (as listed in settings)
+        # If 'compressed' is set to True, use the abbreviated task properties
+        # (as listed in settings)
         if compressed:
             for i, prop in enumerate(Settings.task_properties):
                 # Abbreviated attribute name
@@ -84,9 +90,11 @@ class Task:
                 if hasattr(self, prop):
                     task_dict[prop] = getattr(self, prop)
         return task_dict
+
     def stringify(self, compressed=True):
         # Get dictionary and convert to a string, then return
         return json.dump(self.as_dict(compressed))
+
     def from_dict(self, data, compressed=True):
         if compressed:
             for i, prop in enumerate(Settings.task_properties):
@@ -94,7 +102,8 @@ class Task:
                 # if hasattr(data, short):
                 if short in data:
                     setattr(self, prop, data[short])
-            # For backwards-compatibility, round existing calculated importance scores if they have extra precision
+            # For backwards-compatibility, round existing calculated importance
+            # scores if they have extra precision
             try:
                 self.importance['calculated'] = round(self.importance['calculated'])
             except:
@@ -104,6 +113,7 @@ class Task:
 
         self.update()
         return self
+
     def archived_(self):
         if hasattr(self, 'archived'):
             return self.archived
