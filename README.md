@@ -52,14 +52,14 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.08 s (2797.0 files/s, 438490.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.09 s (2672.6 files/s, 421886.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|88|2098|2603|6278
+Python|92|2162|2716|6618
 HTML|15|2061|35|6012
-Markdown|41|621|0|4038
+Markdown|42|636|0|4552
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
 YAML|15|89|26|531
@@ -74,13 +74,30 @@ XML|2|4|0|52
 TOML|4|8|2|26
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|237|5531|8995|22629
+SUM:|242|5610|9108|23483
 
 
 ## Tree
 
 ```
 .
+├── ao
+│   ├── ao.sh
+│   ├── ap
+│   │   ├── ap.py
+│   │   ├── files.py
+│   │   ├── README.md
+│   │   ├── todo.py
+│   │   └── utils.py
+│   ├── command_docs.md
+│   ├── docinfo.json
+│   ├── README.md
+│   ├── README.src.md
+│   ├── todo
+│   │   ├── cflags
+│   │   ├── todo_ft.vim
+│   │   └── todo.vim
+│   └── utodo.sh
 ├── build.py
 ├── ca2
 │   ├── abbrs.txt
@@ -519,15 +536,258 @@ SUM:|237|5531|8995|22629
 │   └── wordtetris.py
 └── yaml_json.py
 
-94 directories, 343 files
+97 directories, 357 files
 
 ```
 
 ## History
 
 ```
-*   84cf2eb (HEAD -> master, origin/master, origin/ca2, ca2) Add 'ca2/' from commit '49576963f63827c0cad40c823821a5a7f9d3587a'
+*   740f9e2 (HEAD -> master) Merge branch 'ao'
 |\  
+| *   c4e401d (ao) Add 'ao/' from commit '94f741b542116f4daa0b0e32129d217e6a455a61'
+| |\  
+| | *   94f741b Merge pull request #30 from generic-github-user/python
+| | |\  
+| | | *   e4519ed Merge branch 'ap-todo' into python
+| | | |\  
+| | | | * 468f35e improve sorting of todo items
+| | | | * db3d73f move todo items based on completion status and tags
+| | | | * e763394 clean up unused code
+| | | | * ab2e0e7 parse and integrate each todo list separately
+| | | | * 1d3f3df store paths to multiple (synced) todo lists
+| | | | * f05e213 update todo file content with new state
+| | | | * 9b19705 misc. bug fixes and logging
+| | | | * 209a6b5 automatically back up todo file(s) and database
+| | | | * 840f2b6 update stored state based on snapshots generated from todo list file
+| | | | * 3c6eedd add some high-level comments to todo.py
+| | | | * a22fcd4 add function for parsing todo statements and generating corresponding snapshots
+| | | | * b600744 fix some bugs, misc todo class improvements
+| | | | * 9e092e0 add todo class for representing items on todo list(s)
+| | | * | 1499fd0 move TODOs from ap.py to github issues
+| | | * |   cfb9569 Merge pull request #15 from generic-github-user/ap-docs
+| | | |\ \  
+| | | | * \   3aed490 Merge branch 'python' into ap-docs
+| | | | |\ \  
+| | | | |/ /  
+| | | |/| |   
+| | | * | | a884211 summarize import groups
+| | | * | |   14f668c Merge pull request #12 from generic-github-user/ap-restructuring
+| | | |\ \ \  
+| | | | |_|/  
+| | | |/| |   
+| | | | * |   b1c0bde Merge branch 'python' into ap-restructuring
+| | | | |\ \  
+| | | | |/ /  
+| | | |/| |   
+| | | * | | 5712f15 minor README changes
+| | | * | | 5d235f0 record sensor data from psutil
+| | | | * | fe64530 move global settings to config file
+| | | | * | d02452f move file handling classes and functions to files module
+| | | | * |   4c7277c Merge branch 'ap-restructuring' of github.com:generic-github-user/ao into ap-restructuring
+| | | | |\ \  
+| | | | | * | d505f42 move getsize and hashfile helper functions to utils.py
+| | | | |/ /  
+| | | |/| |   
+| | | | * | b62cbb7 move getsize and hashfile helper functions to utils.py
+| | | |/ /  
+| | | | * ccd549b minor README tweaks
+| | | | *   c1bc53b Merge pull request #14 from generic-github-user/comments
+| | | | |\  
+| | | | | * 7457912 add comments to openfiles function
+| | | | | * b8c3818 add comments to extracttext file
+| | | | | * 35de70d add some comments to tagfile and tagfiles
+| | | | | *   7bbe6a4 Merge branch 'images' into comments
+| | | | | |\  
+| | | | | | * cc6dc4c make this version work (was originally one file, split into multiple branches to preserve my sanity and achieved the opposite effect)
+| | | | | | *   f9209ab Merge pull request #8 from generic-github-user/command-line
+| | | | | | |\  
+| | | | | | | * fa8aeab use argparse to process subcommands supplied via the terminal
+| | | | | | * |   3701299 Merge pull request #7 from generic-github-user/file-processing
+| | | | | | |\ \  
+| | | | | | | |/  
+| | | | | | |/|   
+| | | | | | | * 200ad71 refactor tagfiles
+| | | | | | | * 1873a10 miscellaneous
+| | | | | | | * 25bc256 add helper function for accessing sets of files though default file manager
+| | | | | | * | d481791 use (py)tesseract to extract text from images
+| | | | | | |/  
+| | | | | | * e0b2837 automatically tag some files based on filetype
+| | | | |_|/  
+| | | |/| |   
+| | | | | * 303c3d7 add some comments to snapshot class
+| | | | | * 3a830da add some comments to catalog function
+| | | | | * ae11626 add more comments to filenode class
+| | | | | * 958cf96 add summary comments to other functions
+| | | | * | f73d53b add descriptions of other branches
+| | | | |/  
+| | | | * cceab27 add summaries of some branches to README
+| | | |/  
+| | | * a8eab31 add function for generating file snapshots (using os and pathlib)
+| | | * 6a0d2e3 add file snapshot class (in the style of Git and other VCS software)
+| | | * dab6837 add filenode class for representing files and directories
+| | | * b2a73c7 more .gitignore updates
+| | | * db832bc add feature summary to README
+| | | * 67f5d51 expand README introduction
+| | | * 931b100 add more helper functions (log and save)
+| | | * 43dd651 add some helper functions
+| | | * ef69999 add ap.py
+| | | * 1f49544 update .gitignore
+| | | * ca0a3f9 add README for Python-based version
+| | * | c53c961 copy branch descriptions from README.md in ao@ao-docs
+| | * | 01c9dd7 add link to new(-ish) python branch
+| | |/  
+| | * 45e86d1 update requirements list
+| | *   c042f17 Merge pull request #6 from generic-github-user/todo-handling
+| | |\  
+| | | *   a6916b2 Merge branch 'master' of github.com:generic-github-user/ao into todo-handling
+| | | |\  
+| | | |/  
+| | |/|   
+| | * |   24a417a Merge pull request #5 from generic-github-user/system-monitoring
+| | |\ \  
+| | | * \   c4faf9e Merge branch 'master' of github.com:generic-github-user/ao into system-monitoring
+| | | |\ \  
+| | | |/ /  
+| | |/| |   
+| | * | | 4c7ebca fix minor errors and reflow README
+| | * | | 74285ff add usage instructions and command reference to README
+| | * | | eaf29a9 move syntax highlighting files and use vim highlighting groups
+| | * | | 579c347 update .gitignore
+| | * | | 7a26168 clean up some temp files, standardize paths
+| | * | | 77bdb2b misc. fixes, improve relative path consistency
+| | * | | 12e2bb3 improve path consistency in utodo.sh
+| | * | | 5428650 add SLOC statistics to README
+| | * | | 743e7bf add table of contents
+| | * | |   ff543d0 Merge pull request #4 from generic-github-user/files
+| | |\ \ \  
+| | | * \ \   1ac70ea Merge branch 'master' into files
+| | | |\ \ \  
+| | | |/ / /  
+| | |/| | |   
+| | * | | | 6561b55 more feature information
+| | * | | | bddd08c add information about some features to README
+| | | * | |   da66d3c Merge pull request #3 from generic-github-user/docs
+| | | |\ \ \  
+| | | | * | | 937fc4e include command parameters in generated documentation
+| | | | * | | d1f44d2 add documentation database file
+| | | | * | | e459f2d add subcommand (build) for generating documentation files
+| | | |/ / /  
+| | | * | | aebf4e3 reflow some of the longer lines
+| | | * | | 3c6d9ec misc updates and fixes
+| | | * | | d5fb8b2 support dry run option for cleanup subcommand
+| | | * | |   4f39ea9 Merge pull request #2 from generic-github-user/todo-handling
+| | | |\ \ \  
+| | | | | * | 51f6119 add subcommand for recording data about available memory
+| | | | | * | 549a9a8 misc.
+| | | | | * | 8855661 add record command
+| | | | | | * e642e34 add some comments to utodo.sh
+| | | | | | * 16e43d6 add flags for tasks that recur on a weekly/monthly basis
+| | | | | | * c7324f6 various improvements to todo processing
+| | | | | | * 6e665af grab .gitignore from master
+| | | | | | * bb03314 add ao subcommand for dispatching utodo.sh
+| | | | | | * 60d7cb0 copy over path changes from master
+| | | | | | * fcded87 miscellaneous
+| | | | | |/  
+| | | | |/|   
+| | | | * |   13a8f41 Merge branch 'files' into todo-handling
+| | | | |\ \  
+| | | | |/ /  
+| | | |/| |   
+| | | * | | c248b2a Display output types and command parameters
+| | | * | | e3dcce6 process command parameter information
+| | | * | | 617eca7 add some comments and reformat comment blocks
+| | | * | | b716fcf process command output type markers
+| | | * | | c19189b support argument for help command
+| | | * | | 2099d41 add some more comments to shell functions
+| | | * | | c15f8e7 add command output type notations
+| | | * | | 180fa8e improve help command and documentation printing
+| | | * | | 1709898 execute commands from documentation database
+| | | * | | f28c28a add information about command parameters
+| | | * | | 06dc47c add help command for printing information about (sub)command usage
+| | | * | | 8ea5784 add function for documenting commands, parameters, etc.)
+| | | * | | f818a00 refactor commands into functions for easier maintenance and semi-automated documentation
+| | | * | | 41ec5f1 add some more comments
+| | | * | | d9f950f various improvements to cleanup subcommand and file moving
+| | | * | | ca47dc1 support JSON inputs for open subcommand
+| | | * | | c5f4013 add plain output option
+| | | * | | 0d1146f use json-based image index for imfind
+| | | * | |   d3d77a7 Merge pull request #1 from generic-github-user/notes
+| | | |\ \ \  
+| | | | * | | 4f04f0e refactoring with db helper functions
+| | | | * | | ab303f8 add read_db and write_db helper functions
+| | | | * | | 03c5207 add helper function for extracting a database component to a new file
+| | | | * | | 2e458db add note searching functionality
+| | | | * | | 1c383dd add command for storing text-based notes in database
+| | | |/ / /  
+| | | * | | b56986f add ffind command for searching files
+| | | * | | 1d80309 cleanup and reformatting
+| | | * | | 33b1f8a convert some options to subcommands
+| | | * | | 8b05723 store file snapshot batch as stream of JSON objects (faster)
+| | | * | | 8503117 add some comments
+| | | * | | f85c2c7 misc updates to file snapshot processing
+| | | * | | c9f02f9 add summary of file tracking system
+| | | * | | b633192 generate summary statistics from file information
+| | | | |/  
+| | | |/|   
+| | | * | b42af4c use jq to generate filenodes from snapshots
+| | | * | 8b0d8ee avoid nesting arrays when recording file information
+| | |/ /  
+| | | * c8fb87f misc
+| | | * 37bf77a add some logging
+| | | * 7af6eaf miscellaneous tips and tricks
+| | | * ccacc55 add todo workflow advice
+| | | * 8c48aa0 add custom syntax highlighting instructions
+| | | * 75345b0 add information about todo item arguments and flags
+| | | * 44526df add todo flag/option syntax highlighting
+| | | * c584710 update script to use .todo file extension
+| | | * 524807f fix some bugs in sed filters
+| | | * 946f5cb add vim scripts for todo list syntax highlighting
+| | | * 2532226 cleanup
+| | | * f5c9208 add information about utodo.sh usage
+| | | * 4c17c9c fix string escaping issues
+| | | * c487c5a improve flag handling and recurring task management
+| | | * 0d1686c misc todo backup improvements
+| | | * 9b78e1b mild refactoring
+| | | * 5a7538f back up tasks whenever update script is run
+| | | * 172ac51 generate specified instances of recurring tasks
+| | | * 1e5101e add script for handling completed tasks
+| | |/  
+| | * 64242a2 clean up unused code
+| | * 06953bc various "improvements"
+| | * fc6c67c generate and store json data about files when generating manifest
+| | * 3e519bf more misc
+| | * 0031c80 store information about ao command call/execution, etc
+| | * 4b0c1e6 miscellaneous
+| | * 7e3c0d1 add command for generating flower-like patterns
+| | * 05ea618 extract information about text files
+| | * ac8e716 add installation instructions
+| | * 621a41b add README.md
+| | * b0f5e1c add some comments with information about commands
+| | * 045ad15 add command for fetching data from the web
+| | * bf36fd4 store only checksum (without filename)
+| | * 965d43c add command for generating summaries of directory contents
+| | * f75da58 move reorganization functionality to a (sub)command
+| | * 29bd81e improve target directory handling
+| | * 4aa142f cleanup & misc
+| | * bc3bca7 improve logging
+| | * ce328be add helper function to automatically group all files of a certain type
+| | * 9fc9016 add tool for finding images with text
+| | * 97c7c89 add command (option) for running OCR on images and generating checksums
+| | * 8b6f1cc add command for viewing search results as folder of symlinks
+| | * 15e2759 process command line options
+| | * f6d62b4 automatically organize main file types
+| | * 120e90d add additional metadata and path settings
+| | * 29a9c61 set globbing options with shopt
+| | * 5b3e5e0 (origin/meta, meta) generate project list (see #16)
+| |/  
+|/|   
+* | c5eeb81 (origin/master) add simple build-and-commit script
+* | 8b26b10 Rebuild project
+* |   84cf2eb (origin/ca2, ca2) Add 'ca2/' from commit '49576963f63827c0cad40c823821a5a7f9d3587a'
+|\ \  
+| |/  
+|/|   
 | * 4957696 generate directory listing
 | * 4ae5c9d fix some issues with state code
 | * 0ef3d31 add include guard to prevent duplicate declaration, other minor bug fixes
@@ -869,12 +1129,12 @@ SUM:|237|5531|8995|22629
 | * 937d5d4 add alternate version of source with IPython markers stripped out
 * |   5ee1074 Merge branch 'meta'
 |\ \  
-| * \   d230ab4 (meta) Merge branch 'metadata' into meta
+| * \   d230ab4 Merge branch 'metadata' into meta
 | |\ \  
 | | * | 543b65e (origin/metadata, metadata) list languages for newly added projects
 | | * | 12e734d add labels to some recently merged projects
 | | * | c440a60 reflow label descriptions
-| * | | 9f2f770 (origin/meta) add simple logging to build script
+| * | | 9f2f770 add simple logging to build script
 | |/ /  
 | * | fd5fc44 add newly merged projects
 | * | ead61a5 add some whitespace (to save my eyes)
