@@ -23,10 +23,12 @@ def load_data(path='cq_data.json'):
         loaded_data = {}
     return loaded_data
 
+
 def save_data(data, path='cq_data.json'):
     with open(path, 'w') as save_file:
         json.dump(data, save_file)
     return True
+
 
 class session_data:
     ld = load_data()
@@ -46,6 +48,7 @@ class session_data:
 
     # are these local?
 
+
 def jsonify():
     save_buffer = {
         'tasks': [],
@@ -61,21 +64,26 @@ def jsonify():
 
     return save_buffer
 
+
 def save_all():
     # moved this out of the loop
     save_data(data=jsonify())
+
 
 save_all()
 
 greetings = ['Hey', 'Hello', 'Good morning', 'Buenos dias', 'Welcome back']
 farewells = ['Bye', 'Goodbye', 'Until next time']
 
+
 def get_random_task():
     return random.choice(session_data.tasks)
+
 
 # Abbreviation
 def z(x):
     return x.importance['calculated']
+
 
 def rank():
     # Get two random tasks
@@ -112,16 +120,20 @@ def rank():
     save_all()
     return reverse
 
+
 command_buffer = []
+
 
 class Session:
     selection = []
     context = []
 
+
 def store_command(undo_function):
     command_buffer.append(undo_function)
     if len(command_buffer) > Settings.command_buffer_size:
         command_buffer.pop(0)
+
 
 def add_task(task):
     session_data.tasks.append(task)
@@ -133,6 +145,7 @@ def add_task(task):
         print('Reverted add task')
 
     return reverse
+
 
 def remove_tasks(task_list):
     for task in task_list:
@@ -147,6 +160,7 @@ def remove_tasks(task_list):
 
     return reverse
 
+
 def add_tag(tag):
     session_data.tags.append(tag)
     Session.context = [tag]
@@ -158,11 +172,13 @@ def add_tag(tag):
 
     return reverse
 
+
 def undo():
     # command_buffer[-1].reverse()
     command_buffer[-1]()
     command_buffer.pop()
     save_all()
+
 
 def get_arg(command, labels):
     p = command
@@ -177,11 +193,14 @@ def get_arg(command, labels):
 
     return p, arg_string
 
+
 def search(search_func):
     return list(filter(search_func, session_data.tasks))
 
+
 def not_archived():
     return search(lambda t: not t.archived_())
+
 
 def print_tasks(tasks):
     task_info = []
@@ -197,6 +216,7 @@ def print_tasks(tasks):
         )
     else:
         print('Nothing is selected')
+
 
 def backup(compress=False, compress_level=6):
     # Dump the current session's data to a string
@@ -233,6 +253,7 @@ def backup(compress=False, compress_level=6):
         print('{} characters; compressed to {} characters ({}%)'.format(original_length, compressed_length, round(compressed_length / original_length * 100)))
     else:
         print('{} characters written'.format(original_length))
+
 
 def run_command(text):
     cmd_parts = text.split()
