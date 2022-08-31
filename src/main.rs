@@ -107,3 +107,40 @@ impl<'a, T, V> ops::Mul for Operator<'a, T, V> {
         self.clone()
     }
 }
+
+struct Set<T> {
+
+}
+
+struct Node<T> {
+    value: T
+}
+
+struct Edge<T> (Node<T>, Node<T>);
+
+#[derive(Clone, Debug)]
+struct Graph<T> {
+    nodes: Vec<Node<T>>,
+    edges: Vec<Edge<T>>,
+    size: i64
+}
+
+impl<T> Graph<T> {
+    fn new(n: Vec<Node<T>>, e: Vec<Edge<T>>) -> Graph<T> {
+        Graph { nodes: n, edges: e }
+    }
+
+//    fn filter(&self, f: Node<T> -> bool) {
+
+    fn adjacent(&self, n: Node<T>) -> Graph<T>{
+        self.edges.filter(|e| e.0 == n).map(|e| e.1)
+    }
+
+    fn degree(&self, n: Node<T>) -> i64 {
+        self.adjacent(n).size;
+    }
+
+    fn max_degree(&self) -> i64 {
+
+    }
+}
