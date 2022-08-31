@@ -28,6 +28,10 @@ to remain stable. I plan to integrate more third-party tooling in the future
 and complete some heavy refactoring of old projects that I am interested in
 further developing or reusing components from.
 
+## Projects
+
+[[projects]]
+
 ## Branches
 
 - `geometry`: helper classes for geometry in Python that I've been copy-pasting

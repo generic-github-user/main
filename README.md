@@ -28,6 +28,53 @@ to remain stable. I plan to integrate more third-party tooling in the future
 and complete some heavy refactoring of old projects that I am interested in
 further developing or reusing components from.
 
+## Projects
+
+- pythings  `tools` `utilities` `metaprogramming`
+- obfuscation  `tools` `security` `languages`
+- unicode-art  `graphics` `diagrams` `tools`
+- leetcode  `programming-challenges` `leetcode` `algorithms`
+- geometry  `libraries` `mathematics` `geometry` `analysis`
+- graphs  `libraries` `mathematics` `graphs` `graph-theory` `data-structures`
+- captcha  `hci` `security` `experiments`
+- zeal  `serialization` `markup` `file-formats`
+- ao 
+- board  `mathematics` `combinatorics` `board-games` `simulations` `chess`
+- transpiler  `programming-languages` `transpilers` `compilers`
+- finch  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
+- clover  `ai` `ml` `mathematics` `optimization`
+- c2s  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
+- utils  `unix` `utilities` `tools` `scripting` `command-line`
+- tetris-variants  `games` `tetris` `interactive`
+- generic-github-user  `meta` `profile`
+- packings  `mathematics` `combinatorics` `simulations` `geometry`
+- englint 
+- set 
+- grammars 
+- chrestomathy 
+- CA2 
+- CogBench 
+- Time-Zone-Roles  `discord-bot` `automation`
+- Blender  `add-ons` `extensions` `3d-graphics` `blender`
+- quickplot  `plotting` `graphs` `tools` `libraries` `matplotlib`
+- epidemic-modelling  `mathematics` `modelling` `simulations` `dynamical-systems`
+- fractals  `fractals` `mathematics` `graphics` `numerical-analysis` `dynamical-systems`
+- ascii-physics-sim  `ascii` `physics` `simulations` `experiments`
+- self-avoiding-walks  `mathematics` `combinatorics` `analysis` `simulations` `random-walks`
+- python-experiments  `tools` `utilities` `metaprogramming` `experiments` `programming-languages`
+- python-snippets  `tools` `utilities` `templates` `programming-languages` `helpers` `libraries`
+- shelf  `tools` `utilities` `software` `command-line` `organization` `notes`
+- locus 
+- punchcard 
+- wordtetris 
+- alexandria 
+- roulette-curves 
+- cellular-automata-experiments 
+- foldz 
+- programming-puzzles 
+- visual-computing-simulation 
+- project-summary 
+
 ## Branches
 
 - `geometry`: helper classes for geometry in Python that I've been copy-pasting
@@ -52,14 +99,14 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.08 s (2797.0 files/s, 438490.1 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.09 s (2723.9 files/s, 432863.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|88|2098|2603|6278
+Python|88|2099|2603|6282
 HTML|15|2061|35|6012
-Markdown|41|621|0|4038
+Markdown|41|625|0|4537
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
 YAML|15|89|26|531
@@ -74,7 +121,7 @@ XML|2|4|0|52
 TOML|4|8|2|26
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|237|5531|8995|22629
+SUM:|237|5536|8995|23132
 
 
 ## Tree
@@ -526,7 +573,9 @@ SUM:|237|5531|8995|22629
 ## History
 
 ```
-*   84cf2eb (HEAD -> master, origin/master, origin/ca2, ca2) Add 'ca2/' from commit '49576963f63827c0cad40c823821a5a7f9d3587a'
+* c5eeb81 (HEAD -> meta, origin/master, master) add simple build-and-commit script
+* 8b26b10 Rebuild project
+*   84cf2eb (origin/ca2, ca2) Add 'ca2/' from commit '49576963f63827c0cad40c823821a5a7f9d3587a'
 |\  
 | * 4957696 generate directory listing
 | * 4ae5c9d fix some issues with state code
@@ -869,12 +918,12 @@ SUM:|237|5531|8995|22629
 | * 937d5d4 add alternate version of source with IPython markers stripped out
 * |   5ee1074 Merge branch 'meta'
 |\ \  
-| * \   d230ab4 (meta) Merge branch 'metadata' into meta
+| * \   d230ab4 (origin/meta) Merge branch 'metadata' into meta
 | |\ \  
 | | * | 543b65e (origin/metadata, metadata) list languages for newly added projects
 | | * | 12e734d add labels to some recently merged projects
 | | * | c440a60 reflow label descriptions
-| * | | 9f2f770 (origin/meta) add simple logging to build script
+| * | | 9f2f770 add simple logging to build script
 | |/ /  
 | * | fd5fc44 add newly merged projects
 | * | ead61a5 add some whitespace (to save my eyes)
