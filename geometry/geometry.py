@@ -16,6 +16,8 @@ import random
 import time
 from IPython.display import display, SVG
 
+# TODO: global geometry sessions? (moved from fold.py)
+
 
 class Geometry:
     """Generalized multidimensional shape class"""
@@ -179,6 +181,14 @@ class Line:
         return sections[::-1]
 
     def intersects(self, B):
+        # sift through this later (or don't; it probably doesn't matter)
+        #         return any([((Y.pos > Z.pos).all() or (Y.pos < Z.pos).all()) for Y, Z in [(self.a, B.a), (self.b, B.b)]])
+        #         if not (min(self.a.x, self.b.x) > min(self.a.x, self.b.x) or max(self.a.x, self.b.x) < max(self.a.x, self.b.x)):
+        #             return False
+        #        if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
+        #        elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
+
+
         if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
             return False
         elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
