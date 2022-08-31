@@ -47,6 +47,9 @@ class Point:
             pos: The new point's position in the coordinate system
             p: The level of precision to store the point's position with
         """
+
+        # super(Geometry, self).__init__()
+        super().__init__(dimensions=0)
         self.pos = np.array(pos, dtype=float)
         self.precision = p
         self.update()
@@ -62,7 +65,8 @@ class Point:
         Translate the point
 
         Params:
-            delta: A list of offsets to move the point along each axis in space by
+            delta: A list of offsets to move the point along each axis in space
+            by
         """
         self.pos += np.array(delta)
         self.update()
@@ -136,7 +140,7 @@ class Point:
 
 
 # 1D geometry convenience subclass
-class Line:
+class Line(Geometry):
     def __init__(self, a, b):
         """Create a new line
 
@@ -144,6 +148,7 @@ class Line:
             a: The start point of the line
             b: The end point of the line
         """
+        super().__init__(dimensions=1)
         self.a = a
         self.b = b
 
@@ -168,7 +173,8 @@ class Line:
         Params:
             n: The number of sections to divide the line into
         """
-#         return [Line(Point(np.average([self.a, self.b], weights=[]))) for i in range(n)]
+#         return [Line(Point(np.average([self.a, self.b], weights=[]))) for i
+#         in range(n)]
         sections = []
         for i in range(n):
             a_ = np.average([self.a(), self.b()], weights=[i, n-i], axis=0)
@@ -189,17 +195,21 @@ class Line:
         #        elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
 
 
-        if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
+        if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or\
+                all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
             return False
-        elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
+        elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or\
+                all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
             return False
         else:
             solution = self.solve(B)
             if solution:
     #             Check that solution is within bounds of both line segments
     #             (only need to check one axis)
-                if (self.a.x <= solution.x <= self.b.x) or (self.a.x >= solution.x >= self.b.x):
-                    if (B.a.x <= solution.x <= B.b.x) or (B.a.x >= solution.x >= B.b.x):
+                if (self.a.x <= solution.x <= self.b.x) or\
+                        (self.a.x >= solution.x >= self.b.x):
+                    if (B.a.x <= solution.x <= B.b.x) or\
+                            (B.a.x >= solution.x >= B.b.x):
                         return True
     #             else:
     #                 print('Not in bounds')
@@ -226,7 +236,10 @@ class Line:
     def solve(self, L2):
         try:
             A, B = self.coefficients(), L2.coefficients()
-            solution = np.linalg.solve(np.array([A[:2], B[:2]]), np.array([A[-1], B[-1]]))
+            solution = np.linalg.solve(
+                np.array([A[:2], B[:2]]),
+                np.array([A[-1], B[-1]])
+            )
             return Point(solution)
         except:
             return False
@@ -296,11 +309,43 @@ class RegularPolygon(Polygon):
             self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
 
 
+# TODO: numerical precision setting
+class Ellipse(Shape):
+    pass
+
+
 class Circle(Shape):
     """A geometric 2D circle with a certain radius; subclass of Shape"""
     def __init__(self, radius):
         super().__init__()
         self.radius: Scalar = radius
+
+    def get_tangents(self):
+        """
+        Quickly calculate incline angle of tangent line for each cell rendered
+        on circle outline; these will be used to render the outline in ASCII
+        characters
+        """
+
+        r = self.radius()
+        # possibly move this code
+        minigrid = np.zeros([r*2+1, r*2+1])
+        # crossed_cells = minigrid
+        # TODO: mirroring for efficiency?
+        for x, y in np.ndindex(minigrid.shape):
+            # print(5)
+            # print(np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))))
+            if np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))) == r:
+                minigrid[x, y] = 1
+        num_crossed = np.sum(minigrid)
+        d_theta = 360 / num_crossed
+        c = 0
+        for x, y in np.ndindex(minigrid.shape):
+            # if
+            c += minigrid[x, y]
+            # minigrid[x, y] = Angle(d_theta * c)
+            minigrid[x, y] = d_theta * c * minigrid[x, y]
+        return np.round(minigrid)
 
 
 class Manifold:
