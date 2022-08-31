@@ -57,6 +57,53 @@ further developing or reusing components from.
 
 [[stats]]
 
+## On Monorepos
+
+Here's a sampling of links you might find interesting if you're considering
+doing something like this:
+
+- https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext
+- https://presumably.de/monorepos-and-the-fallacy-of-scale.html
+- https://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b
+- https://blog.afoolishmanifesto.com/posts/personal-monorepo/
+- https://news.ycombinator.com/item?id=23483436
+- https://betterprogramming.pub/the-pros-and-cons-monorepos-explained-f86c998392e1
+
+These were the concerns that were most salient to me when I was first
+considering whether (and to what extent) I wanted to incorporate a monorepo
+structure into my workflow:
+
+*favorable*
+
+- being able to update a build script or some piece of "glue" code that
+	operates across multiple projects just once can significantly enhance
+	productivity and overall neatness
+- empirically, I'm more motivated to revisit old projects when they are easily
+	accessible and tightly integrated with more recent work
+- I have many custom helper functions, data structure classes, etc. that don't
+	necessarily constitute one or more complete software libraries but are still
+	used across many of my projects; having everything in one place makes code
+	deduplication much less painful and allows me to rapidly revise somewhat
+	large subsets of my codebase on which many other parts are dependent
+- I want to be able to continuously enforce a consistent style across all my
+	code without manually configuring a tool across dozens of different
+	repositories (even if this style changes over time)
+
+*unfavorable*
+
+- access control is much less straightforward in a monorepo setup, and I have
+	several private repositories that would ideally be integrated with my other
+	code
+
+*n/a*
+
+- scale: I doubt this repository will exceed a gigabyte in size anytime in the
+	near future, so my current tooling is more than efficient enough
+- versioning: this is also mentioned near the top of the page, but most of my
+	projects are experiments or personal scripts rather than software packages or
+	libraries that need to maintain a stable public API; thus the difficulty of
+	per-project versioning in a monorepo is not a significant drawback for me
+
 ## Tree
 
 ```
