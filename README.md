@@ -1,3 +1,11 @@
+<!--  This file was automatically generated from          -->
+<!--  README.src.md; you should edit that file instead.   -->
+<!--  Any changes made to this file will be overwritten   -->
+<!--  the next time build.py is executed.                 -->
+
+
+
+
 # main
 
 [![CodeFactor](https://www.codefactor.io/repository/github/generic-github-user/main/badge)](https://www.codefactor.io/repository/github/generic-github-user/main)
@@ -28,6 +36,53 @@ to remain stable. I plan to integrate more third-party tooling in the future
 and complete some heavy refactoring of old projects that I am interested in
 further developing or reusing components from.
 
+## Projects
+
+- pythings  `tools` `utilities` `metaprogramming`
+- obfuscation  `tools` `security` `languages`
+- unicode-art  `graphics` `diagrams` `tools`
+- leetcode  `programming-challenges` `leetcode` `algorithms`
+- geometry  `libraries` `mathematics` `geometry` `analysis`
+- graphs  `libraries` `mathematics` `graphs` `graph-theory` `data-structures`
+- captcha  `hci` `security` `experiments`
+- zeal  `serialization` `markup` `file-formats`
+- ao 
+- board  `mathematics` `combinatorics` `board-games` `simulations` `chess`
+- transpiler  `programming-languages` `transpilers` `compilers`
+- finch  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
+- clover  `ai` `ml` `mathematics` `optimization`
+- c2s  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
+- utils  `unix` `utilities` `tools` `scripting` `command-line`
+- tetris-variants  `games` `tetris` `interactive`
+- generic-github-user  `meta` `profile`
+- packings  `mathematics` `combinatorics` `simulations` `geometry`
+- englint 
+- set 
+- grammars 
+- chrestomathy 
+- CA2 
+- CogBench 
+- Time-Zone-Roles  `discord-bot` `automation`
+- Blender  `add-ons` `extensions` `3d-graphics` `blender`
+- quickplot  `plotting` `graphs` `tools` `libraries` `matplotlib`
+- epidemic-modelling  `mathematics` `modelling` `simulations` `dynamical-systems`
+- fractals  `fractals` `mathematics` `graphics` `numerical-analysis` `dynamical-systems`
+- ascii-physics-sim  `ascii` `physics` `simulations` `experiments`
+- self-avoiding-walks  `mathematics` `combinatorics` `analysis` `simulations` `random-walks`
+- python-experiments  `tools` `utilities` `metaprogramming` `experiments` `programming-languages`
+- python-snippets  `tools` `utilities` `templates` `programming-languages` `helpers` `libraries`
+- shelf  `tools` `utilities` `software` `command-line` `organization` `notes`
+- locus 
+- punchcard 
+- wordtetris 
+- alexandria 
+- roulette-curves 
+- cellular-automata-experiments 
+- foldz 
+- programming-puzzles 
+- visual-computing-simulation 
+- project-summary 
+
 ## Branches
 
 - `geometry`: helper classes for geometry in Python that I've been copy-pasting
@@ -52,17 +107,17 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.09 s (2672.6 files/s, 421886.6 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.13 s (1847.8 files/s, 289725.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|92|2162|2716|6618
+Python|93|2167|2718|6652
 HTML|15|2061|35|6012
-Markdown|42|636|0|4552
+Markdown|42|644|0|4889
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
-YAML|15|89|26|531
+YAML|20|89|26|829
 Bourne Shell|3|77|102|451
 C/C++ Header|18|87|69|324
 INI|4|52|0|248
@@ -74,7 +129,7 @@ XML|2|4|0|52
 TOML|4|8|2|26
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|242|5610|9108|23483
+SUM:|248|5623|9110|24152
 
 
 ## Tree
@@ -471,6 +526,13 @@ SUM:|242|5610|9108|23483
 ├── substitutions.yaml
 ├── tetris-variants
 │   └── README.md
+├── todo-backup
+│   ├── todo-30-08-1661911147_21-59-07.yaml
+│   ├── todo-30-08-1661911208_22-00-08.yaml
+│   ├── todo-30-08-1661911220_22-00-20.yaml
+│   ├── todo-30-08-1661912623_22-23-43.yaml
+│   ├── todo-30-08-1661912670_22-24-30.yaml
+│   └── todo-30-08-1661912755_22-25-55.yaml
 ├── tools
 │   ├── alexandria
 │   │   ├── library.ipynb
@@ -521,11 +583,12 @@ SUM:|242|5610|9108|23483
 │   │   ├── stringb.py
 │   │   ├── term.py
 │   │   └── utils.py
-│   └── utils
-│       ├── build.py
-│       ├── mv.py
-│       ├── README.md
-│       └── README.src.md
+│   ├── utils
+│   │   ├── build.py
+│   │   ├── mv.py
+│   │   ├── README.md
+│   │   └── README.src.md
+│   └── ytodo.py
 ├── transpiler
 ├── unicode-art
 ├── update.sh
@@ -534,16 +597,21 @@ SUM:|242|5610|9108|23483
 ├── wordtetris
 │   ├── LICENSE
 │   └── wordtetris.py
-└── yaml_json.py
+├── yaml_json.py
+└── ydone.yaml
 
-97 directories, 357 files
+98 directories, 365 files
 
 ```
 
 ## History
 
 ```
-*   740f9e2 (HEAD -> master) Merge branch 'ao'
+* ec89e06 (HEAD -> master, origin/ytodo, ytodo) update .gitignore
+* 6d10835 filter out tasks marked as complete and append to an archive file
+* 1c18187 add simple YAML-based version of todo manager
+* bc22647 (origin/master) Rebuild project
+*   740f9e2 Merge branch 'ao'
 |\  
 | *   c4e401d (ao) Add 'ao/' from commit '94f741b542116f4daa0b0e32129d217e6a455a61'
 | |\  
@@ -779,10 +847,11 @@ SUM:|242|5610|9108|23483
 | | * f6d62b4 automatically organize main file types
 | | * 120e90d add additional metadata and path settings
 | | * 29a9c61 set globbing options with shopt
-| | * 5b3e5e0 (origin/meta, meta) generate project list (see #16)
+| | * ddd3d16 (origin/meta, meta) add notice about auto-generation of README.md (and ref to appropriate file)
+| | * 5b3e5e0 generate project list (see #16)
 | |/  
 |/|   
-* | c5eeb81 (origin/master) add simple build-and-commit script
+* | c5eeb81 add simple build-and-commit script
 * | 8b26b10 Rebuild project
 * |   84cf2eb (origin/ca2, ca2) Add 'ca2/' from commit '49576963f63827c0cad40c823821a5a7f9d3587a'
 |\ \  
