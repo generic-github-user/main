@@ -133,30 +133,38 @@ projects:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [language, tools, software]
 
   set:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [version-control, tools, software, software-development, organization]
 
   grammars:
     status: semi-active
     completion: unfinished
+    labels: [experiments, tools, libraries, grammars, linguistics,
+      combinatorics, discrete-mathematics]
 
   chrestomathy:
     status: inactive
     completion: ongoing
     language: multiple
+    labels: [reference, chrestomathy, examples, educational]
 
   CA2:
     status: semi-active
     completion: unfinished
     language: [c, python]
+    labels: [mathematics, geometry, art, simulations, cellular-automata, cgol,
+      combinatorics, discrete-math]
 
   CogBench:
     status: inactive
     completion: unfinished
     language: python
+    labels: [psychometrics, software, tools, interactive]
 
   Time-Zone-Roles:
     status: inactive
