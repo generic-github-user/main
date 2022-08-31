@@ -57,6 +57,14 @@ def transition_cost(
         stretch_penalty,
         stretch_order,
         groups):
+    """
+    Computes a scalar value representing the "cost" of transitioning between
+    states. Specifically, this means we have a set of loss functions that take
+    two positions in space and a pointer configuration and estimate the amount
+    of effort that this movement would require, relative to other possible
+    transitions.
+    """
+
     new = pos1.copy()
     step_cost = 0
     new[index] = pos2
@@ -101,6 +109,13 @@ def score(text,
           seed=None,
           length=6,
           return_value=np.sum):
+    """
+    Calculate the relative difficulty of typing `text`, provided various
+    parameters that designate the heuristic(s) used to move from one keyboard
+    state to another. Returns a scalar value by default, but this can be
+    modified using the `return_value` argument.
+    """
+
     if log:
         print(text)
     if seed is not None:
