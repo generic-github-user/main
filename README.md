@@ -107,14 +107,14 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.10 s (2726.7 files/s, 422724.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.10 s (2677.9 files/s, 421103.8 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|100|2306|2811|7314
-HTML|15|2061|35|6012
-Markdown|45|654|0|5231
+Python|102|2338|2879|7485
+HTML|17|2240|35|6842
+Markdown|46|664|0|5305
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
 YAML|20|89|26|829
@@ -129,7 +129,7 @@ XML|2|4|0|52
 TOML|5|10|3|33
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|260|5811|9224|25273
+SUM:|265|6032|9292|26348
 
 
 ## On Monorepos
@@ -312,12 +312,22 @@ structure into my workflow:
 │   ├── main.py
 │   ├── object.py
 │   └── README.md
+├── fire-sim
+│   └── simulation.py
 ├── generic-github-user
 │   ├── docs
 │   │   ├── _config.yml
 │   │   └── index.md
 │   └── README.md
 ├── githist.nu
+├── handwriting-generator
+│   ├── docs
+│   │   ├── index.html
+│   │   └── main.html
+│   ├── main.py
+│   ├── README.md
+│   └── scripts
+│       └── build-docs.txt
 ├── icon-encoder
 │   ├── README.md
 │   ├── screenshots
@@ -666,110 +676,174 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-102 directories, 380 files
+106 directories, 386 files
 
 ```
 
 ## History
 
 ```
-*   d1233cd (HEAD -> master) Merge branch 'rcas'
+*   8db8543 (HEAD -> master) Merge branch 'fire-sim'
 |\  
-| *   072458d (origin/rcas, origin/nushell-testing, rcas, nushell-testing) Add 'rcas/' from commit 'c6f22ab7b6c222a975a06e37895d43ea7f5c28b8'
+| *   0f2330f (fire-sim) Add 'fire-sim/' from commit '40be238ef44d351542682327e03a4e052d84b6fc'
 | |\  
-| | * c6f22ab miscellaneous
-| | * 0e10079 add graph-related types
-| | * 6a6abb3 add Operator type
-| | * 587ec27 add Expression and Function types
-| | * 1767eb2 implement Term type
-| | * eff3abb add main.rs with some basic numeric types
-| | * 2e84406 add .gitignore and cargo metadata files
-| * 04c0391 add git log parsing script
-| * f552a4d generate file list using script
-| | * fe83b6a (origin/fractals-dedup, fractals-dedup) remove superfluous geometry module
-| | *   1cc6b2c Merge branch 'geometry' into fractals-dedup
-| | |\  
-| | | * c0ab375 (origin/geometry, geometry) clean up comments and unused code
-| | | * 03ebc7e add basic geometry classes (borrowed from FoldZ)
-| | * | 8970ece (origin/fractals, fractals) clean up some artifacts from source notebook
-| | * | ca65afb extract some functions and classes into independent modules
-| | * | 58435f1 add script version of fractal generation/visualization toolkit
-| | | | * 31d356a (origin/music-generation-experiments, music-generation-experiments) install missing dependencies
-| | | | * 6366aa8 get pipfiles from mainline
-| | | | | * 7af8c57 (origin/py-style, py-style) update list of style issues
-| | | | | *   6980e2a Merge branch 'master' into py-style
+| | * 40be238 add repeat control
+| | * eb776a7 add fire clipping threshold
+| | * 3fc2193 Place charts horizontally
+| | * 124b6fd more comments
+| | * 5ae0e5d add random noise
+| | * 483d982 make sure cell computations are in the correct loop
+| | * 1328447 add spreading factor
+| | * 6ceb85b create separate plots
+| | * 837dee1 adjust settings
+| | * fab991a Add more options
+| | * 41eaea5 only burn if fuel exists
+| | * 3e2950c add fire calculations
+| | * 3b47831 Add comments
+| | * 10c63c6 Fuel generation
+| | * 4ff5fcd loop through and update
+| | * 40036c0 Fix starting conditions
+| | * 6b7bb4e Initialize
+* |   bac1774 Merge branch 'handwriting-generator'
+|\ \  
+| * \   923f12e (handwriting-generator) Add 'handwriting-generator/' from commit 'b6267d76a42a2785d0fb1e8766061b7aacaf7237'
+| |\ \  
+| | |/  
+| |/|   
+| | * b6267d7 build docs
+| | * 4f1ee91 ignore compiled .pyc files
+| | * b8002d7 add command for building docs with pdoc
+| | * b088043 Create README.md
+| | * 0631ac1 document Pen class
+| | * fb8263b add randomness to shaking event
+| | * 5c61eb7 add some documentation to Drawer class
+| | * 4c0326a add option for normalizing pen randomness to unit vector (limiting more extreme values, in theory)
+| | * 9ddb379 add jittering to pen
+| | * 142ccad add more letters
+| | * 9db7d0b use relative coordinates
+| | * 70dc4a8 add momentum-based renderer
+| | * d0ba7a1 add pen step method
+| | * f188ade testing code
+| | * aae5baf move display code to Write class
+| | * 5d9dbcd add method to clear canvas
+| | * aaef38d add method to convert point labels to coordinates
+| | * 44e8727 add Drawer class to generate writing
+| | * 25dc69b add pen class
+| | * c0f7312 add coords for notation
+| | * 6309996 add sample letter outline
+| | * 52ef79b add canvas + display
+| | * 0352184 initial commit
+| | * 5d24145 (origin/keyboard-dynamics, keyboard-dynamics) make script (mostly) flake8 compliant
+| |/  
+|/|   
+* | 4d2307d (origin/master) Rebuild project
+* |   d1233cd Merge branch 'rcas'
+|\ \  
+| * \   072458d (origin/rcas, origin/nushell-testing, rcas, nushell-testing) Add 'rcas/' from commit 'c6f22ab7b6c222a975a06e37895d43ea7f5c28b8'
+| |\ \  
+| | * | c6f22ab miscellaneous
+| | * | 0e10079 add graph-related types
+| | * | 6a6abb3 add Operator type
+| | * | 587ec27 add Expression and Function types
+| | * | 1767eb2 implement Term type
+| | * | eff3abb add main.rs with some basic numeric types
+| | * | 2e84406 add .gitignore and cargo metadata files
+| |  /  
+| * | 04c0391 add git log parsing script
+| * | f552a4d generate file list using script
+| | | * 0d8c676 (origin/consequi, consequi) improve flake8 compliance
+| | | * 1508913 improve flake8 style compliance (whitespace)
+| | | | * 109b3e1 (geometry) improve flake8 style compliance
+| | | | | * fe83b6a (origin/fractals-dedup, fractals-dedup) remove superfluous geometry module
+| | | | | *   1cc6b2c Merge branch 'geometry' into fractals-dedup
 | | | | | |\  
-| |_|_|_|_|/  
-|/| | | | |   
-* | | | | | e14f06d (origin/master) Rebuild project
-* | | | | |   1bedcbe Merge branch 'diagrammer'
-|\ \ \ \ \ \  
-| * \ \ \ \ \   bc1b2aa (origin/diagrammer, diagrammer) Add 'diagrammar/' from commit '449c42701c868038d6b5a8cdeff4a3e2c6a5188b'
-| |\ \ \ \ \ \  
-| | * | | | | | 449c427 Create README.md
-| | * | | | | | 0153739 cleanup
-| | * | | | | | 721d83b create gitignore
-| | * | | | | | 4979e86 move Object class (and Arrow subclass) to new file
-| | * | | | | | 581ba53 create arrow class
-| | * | | | | | 1f84828 misc.
-| | * | | | | | 097aa8d add object scaling command
-| | * | | | | | aeac13b fix rotation bugs
-| | * | | | | | 97a4652 handle floats and negatives
-| | * | | | | | 22f776c include last block in result
-| | * | | | | | 6928f5b outline handling in Object class
-| | * | | | | | 1dccc47 add command to set border/outline width
-| | * | | | | | 5481435 clear canvas each time Scene.render() is called
-| | * | | | | | 2f59a1b add option to parse integers out of result
-| | * | | | | | 0b23f1d add function to split text and numbers in a string
-| | * | | | | | 9a1f2e8 create camera class
-| | * | | | | | a70dfd7 add child objects/sub-objects
-| | * | | | | | 76ee53a accept integer dimensions argument
-| | * | | | | | 53d55da add text rendering
-| | * | | | | | 15116f2 misc
-| | * | | | | | 5faef96 add object rotation command
-| | * | | | | | 97e2aab more comments and placeholders
-| | * | | | | | 063a2e1 add comments
-| | * | | | | | ddd724a add regular polygon generator
-| | * | | | | | df53849 move flip code out of specific shape drawer
-| | * | | | | | 9e655f4 update to use stored context
-| | * | | | | | eb48463 cleanup
-| | * | | | | | f5444ca test code
-| | * | | | | | ce14d43 misc
-| | * | | | | | 04b23b8 add method to get command inputs from user in console
-| | * | | | | | 5ba1528 add method to render current scene
-| | * | | | | | b72351b command placeholders
-| | * | | | | | b01a06d updates to clone method
-| | * | | | | | 3d990da add fill argument
-| | * | | | | | 992c617 add object duplication command
-| | * | | | | | 0d4b0a0 use context buffer (result of last command) as input for next command
-| | * | | | | | 0236e17 allow inputting list of command argument strings for Scene.command()
-| | * | | | | | 53eeb3f initialize bounds as None
-| | * | | | | | cf66f0f command for changing object's fill color
-| | * | | | | | b787902 command for moving objects
-| | * | | | | | d10eb49 command for adding circles to scene
-| | * | | | | | ad649dc add simple command processor
-| | * | | | | | 33ad35e add method to add objects to scene
-| | * | | | | | 662a577 add clear function to reset canvas
-| | * | | | | | 6e50b85 miscellaneous
-| | * | | | | | 4229f19 add direction shortcuts
-| | * | | | | | 5f80a13 fix Object clone method (certain attributes like the 'drawer' should be shallow copied)
-| | * | | | | | 2c53ebc add method to update calculated object data
-| | * | | | | | 300c58b add abbreviated axes (Scene.x, .y, etc.)
-| | * | | | | | a280ea0 add method to generate bounding box for object
-| | * | | | | | 675f163 add option for vertically flipping when drawing objects
-| | * | | | | | 340cd0c add display with pyplot imshow
-| | * | | | | | 34c1443 add color handling
-| | * | | | | | ec14ed6 create Scene class
-| | * | | | | | ca704c2 add Object.clone method
-| | * | | | | | 8e229b2 add Object.move() method
-| | * | | | | | 18b0ba9 add Object.draw()
-| | * | | | | | f833712 add Object class
-| | * | | | | | ada68b2 rendering tests
-| | * | | | | | e902d16 init and import modules
-| |  / / / / /  
-* | | | | | |   91981ce Merge branch 'consequi'
-|\ \ \ \ \ \ \  
-| * \ \ \ \ \ \   de8e0ce (origin/consequi, consequi) Add 'consequi/' from commit '84b8e90e65ab6b24bc1ac28e2d27b8b59e2c30a0'
+| | | | | |/  
+| | | | |/|   
+| | | | * | c0ab375 (origin/geometry) clean up comments and unused code
+| | | | * | 03ebc7e add basic geometry classes (borrowed from FoldZ)
+| | | | | * 8970ece (origin/fractals, fractals) clean up some artifacts from source notebook
+| | | | | * ca65afb extract some functions and classes into independent modules
+| | | | | * 58435f1 add script version of fractal generation/visualization toolkit
+| | | | | | * 31d356a (origin/music-generation-experiments, music-generation-experiments) install missing dependencies
+| | | | | | * 6366aa8 get pipfiles from mainline
+| | | | | | | * 7af8c57 (origin/py-style, py-style) update list of style issues
+| | | | | | | *   6980e2a Merge branch 'master' into py-style
+| | | | | | | |\  
+| |_|_|_|_|_|_|/  
+|/| | | | | | |   
+* | | | | | | | e14f06d Rebuild project
+* | | | | | | |   1bedcbe Merge branch 'diagrammer'
+|\ \ \ \ \ \ \ \  
+| * \ \ \ \ \ \ \   bc1b2aa (origin/diagrammer, diagrammer) Add 'diagrammar/' from commit '449c42701c868038d6b5a8cdeff4a3e2c6a5188b'
+| |\ \ \ \ \ \ \ \  
+| | |_|/ / / / / /  
+| |/| | | | | | |   
+| | * | | | | | | 449c427 Create README.md
+| | * | | | | | | 0153739 cleanup
+| | * | | | | | | 721d83b create gitignore
+| | * | | | | | | 4979e86 move Object class (and Arrow subclass) to new file
+| | * | | | | | | 581ba53 create arrow class
+| | * | | | | | | 1f84828 misc.
+| | * | | | | | | 097aa8d add object scaling command
+| | * | | | | | | aeac13b fix rotation bugs
+| | * | | | | | | 97a4652 handle floats and negatives
+| | * | | | | | | 22f776c include last block in result
+| | * | | | | | | 6928f5b outline handling in Object class
+| | * | | | | | | 1dccc47 add command to set border/outline width
+| | * | | | | | | 5481435 clear canvas each time Scene.render() is called
+| | * | | | | | | 2f59a1b add option to parse integers out of result
+| | * | | | | | | 0b23f1d add function to split text and numbers in a string
+| | * | | | | | | 9a1f2e8 create camera class
+| | * | | | | | | a70dfd7 add child objects/sub-objects
+| | * | | | | | | 76ee53a accept integer dimensions argument
+| | * | | | | | | 53d55da add text rendering
+| | * | | | | | | 15116f2 misc
+| | * | | | | | | 5faef96 add object rotation command
+| | * | | | | | | 97e2aab more comments and placeholders
+| | * | | | | | | 063a2e1 add comments
+| | * | | | | | | ddd724a add regular polygon generator
+| | * | | | | | | df53849 move flip code out of specific shape drawer
+| | * | | | | | | 9e655f4 update to use stored context
+| | * | | | | | | eb48463 cleanup
+| | * | | | | | | f5444ca test code
+| | * | | | | | | ce14d43 misc
+| | * | | | | | | 04b23b8 add method to get command inputs from user in console
+| | * | | | | | | 5ba1528 add method to render current scene
+| | * | | | | | | b72351b command placeholders
+| | * | | | | | | b01a06d updates to clone method
+| | * | | | | | | 3d990da add fill argument
+| | * | | | | | | 992c617 add object duplication command
+| | * | | | | | | 0d4b0a0 use context buffer (result of last command) as input for next command
+| | * | | | | | | 0236e17 allow inputting list of command argument strings for Scene.command()
+| | * | | | | | | 53eeb3f initialize bounds as None
+| | * | | | | | | cf66f0f command for changing object's fill color
+| | * | | | | | | b787902 command for moving objects
+| | * | | | | | | d10eb49 command for adding circles to scene
+| | * | | | | | | ad649dc add simple command processor
+| | * | | | | | | 33ad35e add method to add objects to scene
+| | * | | | | | | 662a577 add clear function to reset canvas
+| | * | | | | | | 6e50b85 miscellaneous
+| | * | | | | | | 4229f19 add direction shortcuts
+| | * | | | | | | 5f80a13 fix Object clone method (certain attributes like the 'drawer' should be shallow copied)
+| | * | | | | | | 2c53ebc add method to update calculated object data
+| | * | | | | | | 300c58b add abbreviated axes (Scene.x, .y, etc.)
+| | * | | | | | | a280ea0 add method to generate bounding box for object
+| | * | | | | | | 675f163 add option for vertically flipping when drawing objects
+| | * | | | | | | 340cd0c add display with pyplot imshow
+| | * | | | | | | 34c1443 add color handling
+| | * | | | | | | ec14ed6 create Scene class
+| | * | | | | | | ca704c2 add Object.clone method
+| | * | | | | | | 8e229b2 add Object.move() method
+| | * | | | | | | 18b0ba9 add Object.draw()
+| | * | | | | | | f833712 add Object class
+| | * | | | | | | ada68b2 rendering tests
+| | * | | | | | | e902d16 init and import modules
+| |  / / / / / /  
+* | | | | | | |   91981ce Merge branch 'consequi'
+|\ \ \ \ \ \ \ \  
+| | |_|/ / / / /  
+| |/| | | | | |   
+| * | | | | | |   de8e0ce Add 'consequi/' from commit '84b8e90e65ab6b24bc1ac28e2d27b8b59e2c30a0'
 | |\ \ \ \ \ \ \  
 | | |/ / / / / /  
 | |/| | | | | |   
@@ -2549,7 +2623,7 @@ structure into my workflow:
 | | |  / / / / / / /  
 | * | | | | | | | |   e5ff69d Merge branch 'quickplot'
 | |\ \ \ \ \ \ \ \ \  
-| | |_|/ / / / / / /  
+| | |_|_|/ / / / / /  
 | |/| | | | | | | |   
 | | * | | | | | | |   e5cb7aa (origin/quickplot, quickplot) Add 'quickplot/' from commit 'f6d19babdcb793315ea41aa53d6e2fa3f9569c1c'
 | | |\ \ \ \ \ \ \ \  
@@ -3045,7 +3119,7 @@ structure into my workflow:
 | | | | | | | * d36cb4c rename ambiguous variable
 | | | |_|_|_|/  
 | | |/| | | |   
-| | * | | | | 70c22af (origin/keyboard-dynamics, keyboard-dynamics) restructure to allow merging with main repo
+| | * | | | | 70c22af restructure to allow merging with main repo
 | | * | | | | d40a3fa Scale key location coordinates by keyboard length parameter
 | | * | | | | 56fe8fb Move code for computing cost of moving to new position to a dedicated function
 | | * | | | | a267602 Add more testing strings
