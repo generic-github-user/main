@@ -7,6 +7,9 @@ name = "pypi"
 python-box = "*"
 flake8 = "*"
 pyyaml = "*"
+playsound = "*"
+pydub = "*"
+pygame = "*"
 
 [dev-packages]
 
