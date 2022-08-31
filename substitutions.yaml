@@ -1,0 +1,4 @@
+toc: markdown-toc README.src.md
+stats: cloc . --md
+tree: tree
+history: git log --all --oneline --graph --decorate --topo-order

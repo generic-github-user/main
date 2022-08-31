@@ -1,0 +1,281 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/time.h>
+
+#include "../state/state.h"
+#include "../helpers/helpers.h"
+#include "../array/array.h"
+#include "../timeinfo.h"
+#include "../mainheaders.h"
+
+extern char* COLOR_ORDER[6];
+// char* RESET;
+#define RESET   "\x1b[0m"
+
+state* new_state(array data, simulation* sim) {
+	state* s = malloc(sizeof(state));
+	*s = (state) {data, 0, 0, sim, 0};
+	s -> shape = s -> data.shape;
+	s -> size = s -> data.size;
+	s -> time = init_time();
+	update_state(s);
+	return s;
+}
+
+void free_state(state* s) {
+//	free_array(s -> data);
+	free(s -> name);
+	free(s);
+}
+
+// Recompute state statistics and generated fields
+void update_state(state* s) {
+	(s -> population) = array_sum(s -> data);
+	// TODO: should s -> data be a pointer?
+	(s -> density) = (double) array_sum(s -> data) / (double) (s -> data).size;
+	s -> name = state_name(s);
+	gettimeofday(&s->time->modified, NULL);
+}
+
+// Generate a random state
+state* random_state(int* shape) {
+	state* result = new_state(new_array(2, shape), NULL);
+	for (int x=0; x<shape[0]; x++) {
+		for (int y=0; y<shape[1]; y++) {
+			array_set(result -> data, vec(x, y, 0), rand() % 2);
+		}
+	}
+	result -> shape = shape;
+	update_state(result);
+	return result;
+}
+
+// Render information about a state to a string
+char* state_summary(state s) {
+	// temporary
+	char* output = calloc(s.data.size+s.data.shape[0]+1, sizeof(char));
+	int i = 0;
+	for (int x=0; x<s.data.shape[0]; x++) {
+		for (int y=0; y<s.data.shape[1]; y++) {
+			char c = array_get(s.data, vec(x, y, 0)) ? '#' : ' ';
+			output[i++] = c;
+		}
+		output[i++] = '\n';
+	}
+	output[i++] = '\0';
+	return output;
+}
+
+char* state_info(state s) {
+	char* result = calloc(150, sizeof(char));
+	snprintf(result, 150, CYAN "State { name: %s, population: %i, density: %f, data: %s }" RESET, s.name, s.population, s.density, array_info(s.data));
+	return result;
+}
+
+// From https://stackoverflow.com/a/34035474
+char *str_reverse_in_place(char *str, int len)
+{
+    char *p1 = str;
+    char *p2 = str + len - 1;
+
+    while (p1 < p2) {
+        char tmp = *p1;
+        *p1++ = *p2;
+        *p2-- = tmp;
+    }
+
+    return str;
+}
+
+// Generate a string representing the given state
+char* state_name(state* s) {
+	// Convert the state to a compact integer representation
+	unsigned long int N = 0;
+	unsigned long int deg = 1;
+//	for (int a=0; a<s->shape[0]; a++) {
+//		for (int b=0; b<s->shape[1]; b++) {
+//			N += array_get(s->data, vec(a, b, 0)) * deg;
+//			deg *= 2;
+//		}
+//	}
+	for (int i=0; i<s->data.size; i++) {
+		N += s->data.data[i] * deg;
+		deg *= 2;
+	}
+
+	// All alphanumeric ASCII characters; specify additional ranges as needed
+	// int char_ranges[3][2] = { {48, 57}, {65, 90}, {97, 122} };
+	unsigned int char_ranges[1][2] = {{65,90}};
+	unsigned int base = 0;
+	for (int i=0; i<1; i++) {
+		base += char_ranges[i][1] - char_ranges[i][0] + 1;
+	}
+
+	// Generate the name string
+	char* name = malloc(30);
+	int j = 0;
+	while (N > 0) {
+		name[j] = char_ranges[0][0] + (unsigned int) (N % base);
+		N /= base;
+		j ++;
+	}
+	name[j] = '\0';
+	str_reverse_in_place(name, j-1);
+
+	return name;
+}
+
+// Count neighbor cells given a state and coordinate
+int count_neighbors(state source, int x, int y, int* cc) {
+	int neighbors = 0;
+	int c, d;
+	for (int a=-1; a<=1; a++) {
+		for (int b=-1; b<=1; b++) {
+			// Exclude target cell
+			if (a!=0 || b!=0) {
+				c = x+a;
+				d = y+b;
+				if (inrange(c, 0, source.shape[0]-1) && inrange(d, 0, source.shape[1]-1)) {
+					neighbors += array_get(source.data, vec(c, d, 0));
+				}
+			}
+			(*cc) ++;
+		}
+	}
+	return neighbors;
+}
+
+// Generate a new state where each position in the output corresponds to the number of neighbors that cell has in the input (s)
+state* map_neighbors(state s, int* cc) {
+	int neighbors;
+	state* counts = new_state(new_array(2, s.data.shape), NULL);
+	for (int x=0; x<s.shape[0]; x++) {
+		for (int y=0; y<s.shape[1]; y++) {
+			neighbors = count_neighbors(s, x, y, cc);
+			array_set(counts -> data, vec(x, y, 0), neighbors);
+			//(*cc) ++;
+		}
+	}
+	return counts;
+}
+
+void print_state(FILE* target, state s, int unicode, char color) {
+	// printf("Total compute: %i \n", compute);
+	fprintf(target, "Name: %s \n", s.name);
+	fprintf(target, "Population: %i \n", s.population);
+	fprintf(target, "Density: %f \n", s.density);
+	fprintf(target, "\n");
+	int c = 0;
+	for (int x=0; x<s.shape[0]; x++) {
+		for (int y=0; y<s.shape[1]; y++) {
+			c = 0;
+			if (color == 'a' && s.sim != NULL) {
+				int age = array_get(s.sim -> ages, vec(x, y, 0));
+				if (age > 1) {
+					if (age > 7) { age = 7; }
+					c = 1;
+					fprintf(target, "%s", COLOR_ORDER[age-2]);
+				}
+			}
+			fprintf(target,
+				array_get(s.data, vec(x, y, 0)) ?
+				(unicode ? "██" : "*") :
+				(unicode ? "  " : " "));
+			if (c) { fprintf(target, "%s", RESET); }
+		}
+		fprintf(target, "\n");
+	}
+}
+
+state* clone_state(state s) {
+	//state clone = (state) {new_array(2, s.data.shape)};
+	state* clone = new_state(new_array(2, s.data.shape), s.sim);
+	for (int x=0; x<s.shape[0]; x++) {
+		for (int y=0; y<s.shape[1]; y++) {
+			array_set(clone -> data, vec(x, y, 0), array_get(s.data, vec(x, y, 0)));
+			// compute ++;
+		}
+	}
+	return clone;
+}
+
+void write_state(state s, FILE* fptr) {
+	fprintf(fptr, "Population: %i \n", array_sum(s.data));
+	fprintf(fptr, "Density: %f \n", (double) array_sum(s.data) / (double) s.data.size);
+	int cc = 0;
+	fprintf(fptr, "Avg. neighbors: %f \n", array_mean(map_neighbors(s, &cc) -> data));
+
+	char* summary = state_summary(s);
+	fprintf(fptr, "%s", summary);
+	free(summary);
+}
+
+state* state_sum(state* a, state* b) {
+	array* x = malloc(sizeof(array));
+	*x = array_bsum(a->data, b->data);
+	return new_state(*x, a->sim);
+}
+
+int states_equal(state a, state b) {
+	// TODO: check that states are of the same size
+	for (int x=0; x<a.shape[0]; x++) {
+		for (int y=0; y<a.shape[1]; y++) {
+			if (array_get(a.data, vec(x, y, 0)) != array_get(b.data, vec(x, y, 0))) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+void mutate_state(state* s) {
+	array_set(s -> data, vec(rand() % 30, rand() % 30, 0), rand() % 2);
+	gettimeofday(&s->time->modified, NULL);
+}
+
+// Separates a state into appropriately sized substates containing the input's connected components (using a modified flood fill algorithm)
+// TODO: prove correctness
+// TODO: add function for simply counting connected components
+// TODO: would a recursive/stack-based solution be more efficient?
+// TODO: handle backtracing
+state* components(state* s) {
+	assert(s != NULL, "Input type was null (expected state*)");
+
+	int neighbors = 0;
+	int c, d;
+	int n = 0;
+	array labels = new_array(2, s -> shape);
+	for (int x=0; x<s->shape[0]; x++) { for (int y=0; y<s->shape[1]; y++) {
+		if (array_get(s -> data, vec(x, y, 0)) == 1) {
+			for (int a=-1; a<=1; a++) { for (int b=-1; b<=1; b++) {
+				// Exclude target cell
+				if (a!=0 || b!=0) {
+					c = x+a;
+					d = y+b;
+					if (inrange(c, 0, s->shape[0]-1) && inrange(d, 0, s->shape[1]-1)) {
+						vector v = vec(c, d, 0);
+						int value = array_get(s -> data, v);
+						if (value == 1) {
+							int l = array_get(labels, v);
+							if (l == 0) { l = ++n; }
+							array_set(labels, v, l);
+							goto neighbor_check;
+						}
+					}
+				}
+			} }
+			neighbor_check: ;
+		}
+	} }
+
+	state* result = calloc(n, sizeof(state));
+	array bounds = new_array(3, (int[3]) {n, 2, 2});
+
+	if (n == 0) { return NULL; }
+	return result;
+}
+
+$ptr_reduce(name:max_population,property:population,op:>)$
+$ptr_reduce(name:min_population,property:population,op:<)$
+
+$EXTRACT(property:population)$

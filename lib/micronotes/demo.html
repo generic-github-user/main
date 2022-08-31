@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+      <head>
+            <title>
+                  Micronotes
+            </title>
+            <style>
+                  * {
+                        font-family: "Roboto", sans-serif;
+                  }
+                  p, h1, #footnotes-box {
+                        margin: 2vw;
+                        font-size: 200%;
+                  }
+                  h1 {
+                        font-size: 400%;
+                  }
+                  p {
+                        margin-bottom: 500px;
+                  }
+            </style>
+      </head>
+      <body>
+            <h1>Micronotes</h1>
+            <p>
+                  Micronotes is a compact JavaScript plugin that allows for beautiful{note}
+                  According to me.
+                  {/note}, clean, responsive footnotes to be added to plain HTML text. All you need to do is add a reference to the script{note}
+                  You can either <a href="https://github.com/generic-github-user/micronotes/releases" target="_blank">download the script and add it to your website</a> or add a reference to a <a href="https://cdn.jsdelivr.net/gh/generic-github-user/micronotes@v1.0/micronotes.js" target="_blank">hosted version of the script</a> (you should do that, it's way easier).
+                  {/note} somewhere in your HTML.
+                  <br />
+                  <br />
+                  Footnotes can be used for citations{note}
+                  <a href="https://github.com/generic-github-user/micronotes" target="_blank">github.com/generic-github-user/micronotes</a>
+                  {/note}, additional information{note}
+                  Did you know that Post It notes were invented by accident?{note}
+                  <a href="http://www.todayifoundout.com/index.php/2011/11/post-it-notes-were-invented-by-accident/" target="_blank">www.todayifoundout.com/index.php/2011/11/post-it-notes-were-invented-by-accident</a>
+                  {/note}
+                  {/note}, or anything else you want. Footnotes can also contain links{note}<a href="https://i.redditmedia.com/FgJBxdIrtnZCN5miwSNOBXKTeZ6xjz4Mo8orPZQcJH0.jpg?fit=crop&crop=faces%2Centropy&arh=2&w=640&s=b38731b6c41b675cde7d3cbc39a0ed8a" target="_blank">This is a link.</a>{/note}, images{note}
+                  <a href="https://www.reddit.com/r/aww/comments/7m44jt/my_sister_made_a_sweater_for_spaghettii_think_he/" target="_blank"><img src="https://i.redditmedia.com/tKky7Dax1yYBPzTNP93LgIsQbBdoaipOy2WAXwVb8iY.jpg?fit=crop&crop=faces%2Centropy&arh=2&w=960&s=697a6bf39a1c362aea842bb41a6e101e" style="width: 250px" /></a>
+                  {/note}, custom HTML{note}
+                  <marquee>This is a marquee using the outdated, obsolete HTML <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/marquee" target="_blank">marquee</a> element.</marquee>
+                  {/note} (and CSS{note}
+                  <span style="color:#ff0000;">T</span><span style="color:#ff2a00;">h</span><span style="color:#ff5500;">i</span><span style="color:#ff7f00;">s</span><span style="color:#ffaa00;"> </span><span style="color:#ffd400;">i</span><span style="color:#ffff00;">s</span><span style="color:#aaff00;"> </span><span style="color:#55ff00;">s</span><span style="color:#00ff00;">o</span><span style="color:#00ff80;">m</span><span style="color:#00ffff;">e</span><span style="color:#00aaff;"> </span><span style="color:#0055ff;">t</span><span style="color:#0000ff;">e</span><span style="color:#2e00ff;">x</span><span style="color:#5d00ff;">t</span><span style="color:#8b00ff;">.</span>
+                  <br />
+                  <br />
+                  <span style="font-style: italic;">This text is in italics.</span><br />
+                  <span style="font-weight: bold;">This text is bold.</span><br />
+                  <span style="text-decoration: underline;">This text is underlined.</span>
+                  {/note}), or just about anything else{note}<iframe width="750px" height="500px" src="https://poly.google.com/view/9_5klA_gndu/embed" frameborder="0" style="border:none;" allowvr="yes" allow="vr; xr; accelerometer; magnetometer; gyroscope; autoplay;" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel="" ></iframe>{/note}. You can put as much stuff as you want into each footnote{note}
+                  Example snippet:
+                  <br />
+                  <br />
+                  The program creates a set number of “nodes,” or points, that are connected to other nodes. These are dispersed randomly around the screen, and are not visually represented, but serve as points to connect with “connections” (which connect the things that are to be connected). There are also a set number of these, which are randomly given set source and destination nodes. Each connection is a bézier curve with 2 control points, stored in a JavaScript object (along with the node data). The control points are determined by performing a random weighted average on the x and y positions of the source and destination node positions (this is why two nodes with very similar x or y positions will form almost a straight line between the two – hopefully I can fix this in the future). Each connection is also assigned an opacity and width value, used for display purposes (the minimum and maximum values for these can be defined by the user in the control panel). All the lines are drawn on the HTML5 canvas with the “bezierCurveTo()” and “stroke()” functions.
+                  <br />
+                  <br />
+                  To use the program, just open the web page, linked below (and here). It will immediately generate a web with the default settings (5 nodes, 100 connections, 0.1 min opacity, 0.5 max opacity, 0.1 min width, 1.0 max width). To generate a new web, you can refresh the page. To open a control panel with more settings, move your cursor to the left side of the page, and a window will open up from the side (I checked this out on mobile, and it’s a little buggy, but it usually works to just tap once on the left side of the screen. Just keep in mind that the program isn’t designed for mobile devices.). The control panel was made invisible so that if you want to take screenshots of your webs without any clutter in the way, you can. Here you can define how many nodes you want to be generated, how many connections, and the minimum and maximum opacity and width values for the connections. You can also enable “show markers” to see indicators for each node and the bézier control points for the connections (scroll down for more information about this (wow, there are a lot of parentheses in this post)). Refreshing the page will also clear any settings you have changed, so just use the “Generate” button at the bottom of the control panel if you want to regenerate the web without refreshing the page.
+                  <br />
+                  <br />
+                  From <a href="http://onlyonesandzeros.com/programming/web-another-javascript-program/" target="_blank">onlyonesandzeros.com/programming/web-another-javascript-program</a>.
+                  {/note} - footnotes can even be nested{note}
+                  inside{note}
+                  of{note}
+                  one{note}
+                  another!
+                  {/note}
+                  {/note}
+                  {/note}
+                  {/note}.
+                  <br />
+                  <br />
+                  To view the source code for this demo page, press CTRL+U on your keyboard. More information is available in the micronotes <a href="https://github.com/generic-github-user/micronotes/blob/master/README.md" target="_blank">README</a>.
+            </p>
+
+            <script type="text/javascript" src="micronotes.js"></script>
+      </body>
+</html>
