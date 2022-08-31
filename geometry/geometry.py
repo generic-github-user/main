@@ -32,11 +32,12 @@ class Geometry:
         else:
             self.dimensions = dimensions
 
+
 class Point:
     pos: np.ndarray
     precision: int
 
-    def __init__(self, pos:list, p:int=8):
+    def __init__(self, pos: list, p: int = 8):
         """
         Create a new Point instance
 
@@ -54,7 +55,7 @@ class Point:
             setattr(self, varnames[i], self.pos[i])
         return self
 
-    def move(self, delta:list):
+    def move(self, delta: list):
         """
         Translate the point
 
@@ -65,7 +66,7 @@ class Point:
         self.update()
         return self
 
-    def rotate(self, a:list, theta:int, rad:float=None):
+    def rotate(self, a: list, theta: int, rad: float = None):
         """
         Rotate the point about another
 
@@ -131,6 +132,7 @@ class Point:
         """
         return 'Point ' + str(self.pos)
 
+
 # 1D geometry convenience subclass
 class Line:
     def __init__(self, a, b):
@@ -158,7 +160,7 @@ class Line:
             p.rotate(*args, **kwargs)
         return self
 
-    def divide(self, n:int=1) -> list['Line']:
+    def divide(self, n: int = 1) -> list['Line']:
         """Split the line into several smaller line segments
 
         Params:
@@ -283,11 +285,13 @@ class RegularPolygon(Polygon):
         for i in range(n-1):
             self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
 
+
 class Circle(Shape):
     """A geometric 2D circle with a certain radius; subclass of Shape"""
     def __init__(self, radius):
         super().__init__()
         self.radius: Scalar = radius
+
 
 class Manifold:
     def __init__(self, dimensions=2):
