@@ -74,3 +74,36 @@ struct Function<T, V> {
     name: String,
     f: fn(T, T) -> V
 }
+
+struct Operator<'a, T, V> {
+    func: &'a Function<T, V>,
+//    terms: Vec<Expression>,
+    terms: Vec<Term>
+}
+
+impl<'a, T, V> Operator<'a, T, V> {
+    fn new(f: &'a Function<T, V>, t: Vec<Term>) -> Operator<'a, T, V> {
+        return Operator { func: f, terms: t };
+    }
+
+    fn simplify(&self) -> Operator<T, V> {
+        let mut result = Operator::new(self.func, vec![]);
+        'outer: for term in self.terms.iter() {
+            for r in &mut result.terms.iter_mut() {
+                if term.vars == r.vars && term.exps == r.exps {
+                    r.cf += term.cf;
+                }
+                break 'outer;
+            }
+            result.terms.push(term.clone());
+        }
+        return result;
+    }
+}
+
+impl<'a, T, V> ops::Mul for Operator<'a, T, V> {
+    type Output = Operator<'a, T, V>;
+    fn mul(&self, other: i64) -> Operator<'a, T, V> {
+        self.clone()
+    }
+}
