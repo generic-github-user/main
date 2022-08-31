@@ -135,7 +135,7 @@ class Point:
 
 
 # 1D geometry convenience subclass
-class Line:
+class Line(Geometry):
     def __init__(self, a, b):
         """Create a new line
 
@@ -143,6 +143,7 @@ class Line:
             a: The start point of the line
             b: The end point of the line
         """
+        super().__init__(dimensions=1)
         self.a = a
         self.b = b
 
