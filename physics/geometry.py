@@ -41,18 +41,6 @@ class Hypersolid(Geometry):
 
 
 
-# should this subclass Geometry instead?
-class Polygon(Shape):
-    """General polygon class that extends the Shape class"""
-    def __init__(self):
-        """Create a new polygon"""
-        super().__init__()
-        self.sides: [line] = []
-    def regular(self, sides, radius):
-        """Define polygon's geometry as a regular polygon; one with equal sides and angles"""
-        for s in range(sides):
-            self.sides.append(Line())
-
 # TODO: numerical precision setting
 
 class Ellipse(Shape):

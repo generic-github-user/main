@@ -272,7 +272,6 @@ class Polygon(Shape):
     def __repr__(self):
         return str(self)
 
-
 class RegularPolygon(Polygon):
     def __init__(self, r=1, n=4, c=None, manifold=2, axis=0):
         super().__init__()
