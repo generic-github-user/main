@@ -45,6 +45,9 @@ class Point:
             pos: The new point's position in the coordinate system
             p: The level of precision to store the point's position with
         """
+
+        # super(Geometry, self).__init__()
+        super().__init__(dimensions=0)
         self.pos = np.array(pos, dtype=float)
         self.precision = p
         self.update()
@@ -294,6 +297,11 @@ class RegularPolygon(Polygon):
         self.center = c
         for i in range(n-1):
             self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
+
+
+# TODO: numerical precision setting
+class Ellipse(Shape):
+    pass
 
 
 class Circle(Shape):
