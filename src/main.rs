@@ -58,3 +58,19 @@ impl ops::Mul for Term {
         }
     }
 }
+
+
+// can we just store in an enum and define for all members (term, number, etc.)?
+// trait Derivative 
+
+enum Expression {
+    Number(i64),
+    Variable,
+    Term,
+    Operator
+}
+
+struct Function<T, V> {
+    name: String,
+    f: fn(T, T) -> V
+}
