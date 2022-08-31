@@ -1,3 +1,8 @@
+./build.py:16:7: F541 f-string is missing placeholders
+./build.py:30:80: E501 line too long (91 > 79 characters)
+./build.py:36:80: E501 line too long (117 > 79 characters)
+./build.py:38:7: F541 f-string is missing placeholders
+./build.py:41:1: W391 blank line at end of file
 ./wordtetris/wordtetris.py:3:1: F401 'os' imported but unused
 ./wordtetris/wordtetris.py:10:1: F401 'colorama' imported but unused
 ./wordtetris/wordtetris.py:11:1: F401 'colorama.Fore' imported but unused
@@ -545,6 +550,143 @@
 ./leetcode/39.py:14:21: E701 multiple statements on one line (colon)
 ./leetcode/1528.py:2:46: F821 undefined name 'List'
 ./leetcode/1528.py:4:36: E701 multiple statements on one line (colon)
+./diagrammar/object.py:5:1: E302 expected 2 blank lines, found 1
+./diagrammar/object.py:6:80: E501 line too long (204 > 79 characters)
+./diagrammar/object.py:14:80: E501 line too long (81 > 79 characters)
+./diagrammar/object.py:51:80: E501 line too long (109 > 79 characters)
+./diagrammar/object.py:53:80: E501 line too long (135 > 79 characters)
+./diagrammar/object.py:55:20: F821 undefined name 'ImageFont'
+./diagrammar/object.py:56:80: E501 line too long (134 > 79 characters)
+./diagrammar/object.py:86:34: F821 undefined name 'copy'
+./diagrammar/object.py:90:80: E501 line too long (80 > 79 characters)
+./diagrammar/object.py:100:1: E303 too many blank lines (3)
+./diagrammar/main.py:1:1: F401 'PIL.ImageFont' imported but unused
+./diagrammar/main.py:2:1: F401 'sys' imported but unused
+./diagrammar/main.py:4:1: F401 'matplotlib.image as mpimg' imported but unused
+./diagrammar/main.py:6:1: F401 'copy' imported but unused
+./diagrammar/main.py:8:1: F403 'from object import *' used; unable to detect undefined names
+./diagrammar/main.py:26:1: E303 too many blank lines (3)
+./diagrammar/main.py:33:1: E302 expected 2 blank lines, found 1
+./diagrammar/main.py:62:43: E231 missing whitespace after ','
+./diagrammar/main.py:76:80: E501 line too long (93 > 79 characters)
+./diagrammar/main.py:77:80: E501 line too long (80 > 79 characters)
+./diagrammar/main.py:109:5: E303 too many blank lines (2)
+./diagrammar/main.py:123:9: F841 local variable 'q' is assigned to but never used
+./diagrammar/main.py:123:10: E225 missing whitespace around operator
+./diagrammar/main.py:126:80: E501 line too long (96 > 79 characters)
+./diagrammar/main.py:127:27: F405 'Object' may be undefined, or defined from star imports: object
+./diagrammar/main.py:127:80: E501 line too long (84 > 79 characters)
+./diagrammar/main.py:130:27: F405 'Object' may be undefined, or defined from star imports: object
+./diagrammar/main.py:130:80: E501 line too long (96 > 79 characters)
+./diagrammar/main.py:134:27: F405 'Object' may be undefined, or defined from star imports: object
+./diagrammar/main.py:134:80: E501 line too long (93 > 79 characters)
+./diagrammar/main.py:241:1: E303 too many blank lines (3)
+./diagrammar/main.py:245:1: E305 expected 2 blank lines after class or function definition, found 3
+./consequi/task.py:8:1: F403 'from settings import *' used; unable to detect undefined names
+./consequi/task.py:9:1: F403 'from duration import *' used; unable to detect undefined names
+./consequi/task.py:11:1: E302 expected 2 blank lines, found 1
+./consequi/task.py:12:80: E501 line too long (128 > 79 characters)
+./consequi/task.py:33:28: E711 comparison to None should be 'if cond is not None:'
+./consequi/task.py:45:80: E501 line too long (87 > 79 characters)
+./consequi/task.py:51:32: E711 comparison to None should be 'if cond is not None:'
+./consequi/task.py:52:29: F405 'parse_duration' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:64:80: E501 line too long (92 > 79 characters)
+./consequi/task.py:65:80: E501 line too long (81 > 79 characters)
+./consequi/task.py:67:80: E501 line too long (96 > 79 characters)
+./consequi/task.py:72:80: E501 line too long (101 > 79 characters)
+./consequi/task.py:74:38: F405 'Settings' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:76:25: F405 'Settings' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:82:38: F405 'Settings' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:83:25: F405 'Settings' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:87:5: E301 expected 1 blank line, found 0
+./consequi/task.py:89:16: F405 'json' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:90:5: E301 expected 1 blank line, found 0
+./consequi/task.py:92:38: F405 'Settings' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:93:25: F405 'Settings' may be undefined, or defined from star imports: duration, settings
+./consequi/task.py:97:80: E501 line too long (115 > 79 characters)
+./consequi/task.py:99:80: E501 line too long (84 > 79 characters)
+./consequi/task.py:100:13: E722 do not use bare 'except'
+./consequi/task.py:107:5: E301 expected 1 blank line, found 0
+./consequi/main.py:2:1: F401 'time' imported but unused
+./consequi/main.py:5:1: F401 'recurrent.event_parser.RecurringEvent' imported but unused
+./consequi/main.py:6:1: F401 'dateutil.rrule' imported but unused
+./consequi/main.py:7:1: F401 'uuid' imported but unused
+./consequi/main.py:14:1: F403 'from task import *' used; unable to detect undefined names
+./consequi/main.py:15:1: F403 'from settings import *' used; unable to detect undefined names
+./consequi/main.py:16:1: F403 'from tag import *' used; unable to detect undefined names
+./consequi/main.py:18:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:22:5: E722 do not use bare 'except'
+./consequi/main.py:26:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:31:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:33:14: F405 'Task' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:36:17: F405 'Tag' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:49:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:64:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:68:1: E305 expected 2 blank lines after class or function definition, found 1
+./consequi/main.py:73:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:77:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:80:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:95:80: E501 line too long (87 > 79 characters)
+./consequi/main.py:115:1: E305 expected 2 blank lines after class or function definition, found 1
+./consequi/main.py:117:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:121:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:123:30: F405 'Settings' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:126:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:137:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:150:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:161:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:167:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:180:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:183:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:186:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:201:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:207:80: E501 line too long (88 > 79 characters)
+./consequi/main.py:220:80: E501 line too long (82 > 79 characters)
+./consequi/main.py:233:80: E501 line too long (158 > 79 characters)
+./consequi/main.py:237:1: E302 expected 2 blank lines, found 1
+./consequi/main.py:245:17: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:246:20: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:250:68: F405 'Settings' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:250:80: E501 line too long (93 > 79 characters)
+./consequi/main.py:251:57: F405 'Settings' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:251:80: E501 line too long (86 > 79 characters)
+./consequi/main.py:253:24: F405 'Task' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:253:80: E501 line too long (100 > 79 characters)
+./consequi/main.py:255:22: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:257:23: F405 'Tag' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:260:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:262:36: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:267:22: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:273:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:276:22: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:282:80: E501 line too long (125 > 79 characters)
+./consequi/main.py:288:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:291:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:296:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:301:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:304:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:307:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:310:19: F405 'Aliases' may be undefined, or defined from star imports: settings, tag, task
+./consequi/main.py:317:1: E305 expected 2 blank lines after class or function definition, found 1
+./consequi/tag.py:3:1: F403 'from settings import *' used; unable to detect undefined names
+./consequi/tag.py:5:1: E302 expected 2 blank lines, found 1
+./consequi/tag.py:21:5: E301 expected 1 blank line, found 0
+./consequi/tag.py:23:80: E501 line too long (100 > 79 characters)
+./consequi/tag.py:25:38: F405 'Settings' may be undefined, or defined from star imports: settings
+./consequi/tag.py:27:25: F405 'Settings' may be undefined, or defined from star imports: settings
+./consequi/tag.py:33:38: F405 'Settings' may be undefined, or defined from star imports: settings
+./consequi/tag.py:34:25: F405 'Settings' may be undefined, or defined from star imports: settings
+./consequi/tag.py:38:5: E301 expected 1 blank line, found 0
+./consequi/tag.py:40:16: F405 'json' may be undefined, or defined from star imports: settings
+./consequi/tag.py:41:5: E301 expected 1 blank line, found 0
+./consequi/tag.py:43:38: F405 'Settings' may be undefined, or defined from star imports: settings
+./consequi/tag.py:44:25: F405 'Settings' may be undefined, or defined from star imports: settings
+./consequi/duration.py:11:1: E302 expected 2 blank lines, found 1
+./consequi/settings.py:6:80: E501 line too long (210 > 79 characters)
+./consequi/settings.py:7:80: E501 line too long (111 > 79 characters)
+./consequi/settings.py:8:80: E501 line too long (86 > 79 characters)
+./consequi/settings.py:12:1: E302 expected 2 blank lines, found 1
+./consequi/settings.py:17:80: E501 line too long (95 > 79 characters)
 ./python-experiments/automacro.py:10:1: E122 continuation line missing indentation or outdented
 ./python-experiments/automacro.py:11:1: E122 continuation line missing indentation or outdented
 ./python-experiments/automacro.py:12:1: E122 continuation line missing indentation or outdented
@@ -599,6 +741,9 @@
 ./python-experiments/symbolic-algebra.py:179:1: W391 blank line at end of file
 ./python-experiments/py2english.py:6:80: E501 line too long (305 > 79 characters)
 ./python-experiments/py2english.py:11:1: F401 'ast' imported but unused
+./tools/ytodo.py:2:1: F401 'json' imported but unused
+./tools/ytodo.py:24:20: E701 multiple statements on one line (colon)
+./tools/ytodo.py:25:9: E701 multiple statements on one line (colon)
 ./tools/cogbench/setup.py:4:45: E225 missing whitespace around operator
 ./tools/cogbench/setup.py:12:80: E501 line too long (96 > 79 characters)
 ./tools/cogbench/setup.py:13:18: E701 multiple statements on one line (colon)
@@ -1197,6 +1342,213 @@
 ./programming-puzzles/puzzles.py:220:80: E501 line too long (221 > 79 characters)
 ./programming-puzzles/puzzles.py:222:80: E501 line too long (332 > 79 characters)
 ./programming-puzzles/puzzles.py:224:80: E501 line too long (187 > 79 characters)
+./ao/ap/utils.py:11:1: E302 expected 2 blank lines, found 1
+./ao/ap/utils.py:14:69: E225 missing whitespace around operator
+./ao/ap/utils.py:14:80: E501 line too long (85 > 79 characters)
+./ao/ap/utils.py:23:25: F821 undefined name 'sys'
+./ao/ap/utils.py:30:1: E302 expected 2 blank lines, found 1
+./ao/ap/utils.py:34:11: F821 undefined name 'hashlib'
+./ao/ap/utils.py:35:12: F821 undefined name 'hashlib'
+./ao/ap/utils.py:39:24: E701 multiple statements on one line (colon)
+./ao/ap/todo.py:3:1: F401 're' imported but unused
+./ao/ap/todo.py:21:1: E302 expected 2 blank lines, found 1
+./ao/ap/todo.py:33:25: E261 at least two spaces before inline comment
+./ao/ap/todo.py:33:80: E501 line too long (225 > 79 characters)
+./ao/ap/todo.py:45:73: E222 multiple spaces after operator
+./ao/ap/todo.py:45:80: E501 line too long (91 > 79 characters)
+./ao/ap/todo.py:53:1: E305 expected 2 blank lines after class or function definition, found 1
+./ao/ap/todo.py:59:1: E302 expected 2 blank lines, found 1
+./ao/ap/todo.py:63:28: E741 ambiguous variable name 'l'
+./ao/ap/todo.py:74:13: E741 ambiguous variable name 'l'
+./ao/ap/todo.py:77:27: E701 multiple statements on one line (colon)
+./ao/ap/todo.py:89:13: E741 ambiguous variable name 'l'
+./ao/ap/todo.py:97:11: F541 f-string is missing placeholders
+./ao/ap/todo.py:99:30: E701 multiple statements on one line (colon)
+./ao/ap/todo.py:100:18: E701 multiple statements on one line (colon)
+./ao/ap/todo.py:106:80: E501 line too long (91 > 79 characters)
+./ao/ap/todo.py:119:1: E302 expected 2 blank lines, found 1
+./ao/ap/todo.py:120:80: E501 line too long (99 > 79 characters)
+./ao/ap/todo.py:138:21: E265 block comment should start with '# '
+./ao/ap/todo.py:140:80: E501 line too long (97 > 79 characters)
+./ao/ap/todo.py:147:1: E305 expected 2 blank lines after class or function definition, found 1
+./ao/ap/ap.py:4:1: F401 'shutil' imported but unused
+./ao/ap/ap.py:8:1: F401 'graphviz' imported but unused
+./ao/ap/ap.py:17:1: F401 'string' imported but unused
+./ao/ap/ap.py:20:1: F401 'warnings' imported but unused
+./ao/ap/ap.py:24:1: F401 'psutil' imported but unused
+./ao/ap/ap.py:25:1: F401 'hashlib' imported but unused
+./ao/ap/ap.py:31:1: F401 'utils.getsize' imported but unused
+./ao/ap/ap.py:31:1: F401 'utils.hashfile' imported but unused
+./ao/ap/ap.py:32:1: F401 'files.filenode' imported but unused
+./ao/ap/ap.py:32:1: F401 'files.snapshot' imported but unused
+./ao/ap/ap.py:32:1: F401 'files.catalog' imported but unused
+./ao/ap/ap.py:35:1: F403 'from config import *' used; unable to detect undefined names
+./ao/ap/ap.py:38:1: E265 block comment should start with '# '
+./ao/ap/ap.py:43:80: E501 line too long (157 > 79 characters)
+./ao/ap/ap.py:45:1: E265 block comment should start with '# '
+./ao/ap/ap.py:48:1: E265 block comment should start with '# '
+./ao/ap/ap.py:63:1: E302 expected 2 blank lines, found 1
+./ao/ap/ap.py:63:15: F405 'dbpath' may be undefined, or defined from star imports: config
+./ao/ap/ap.py:69:1: E302 expected 2 blank lines, found 1
+./ao/ap/ap.py:70:6: E225 missing whitespace around operator
+./ao/ap/ap.py:71:5: F841 local variable 'lines' is assigned to but never used
+./ao/ap/ap.py:72:5: E265 block comment should start with '# '
+./ao/ap/ap.py:73:5: E265 block comment should start with '# '
+./ao/ap/ap.py:74:5: E265 block comment should start with '# '
+./ao/ap/ap.py:76:6: E225 missing whitespace around operator
+./ao/ap/ap.py:76:19: E261 at least two spaces before inline comment
+./ao/ap/ap.py:88:9: F841 local variable 'created' is assigned to but never used
+./ao/ap/ap.py:103:80: E501 line too long (83 > 79 characters)
+./ao/ap/ap.py:105:17: E265 block comment should start with '# '
+./ao/ap/ap.py:105:24: W291 trailing whitespace
+./ao/ap/ap.py:116:1: E302 expected 2 blank lines, found 1
+./ao/ap/ap.py:119:5: E129 visually indented line with same indent as next logical line
+./ao/ap/ap.py:119:36: E261 at least two spaces before inline comment
+./ao/ap/ap.py:123:1: E302 expected 2 blank lines, found 1
+./ao/ap/ap.py:132:38: E701 multiple statements on one line (colon)
+./ao/ap/ap.py:136:1: E302 expected 2 blank lines, found 1
+./ao/ap/ap.py:144:1: E302 expected 2 blank lines, found 1
+./ao/ap/ap.py:148:17: E131 continuation line unaligned for hanging indent
+./ao/ap/ap.py:149:17: E128 continuation line under-indented for visual indent
+./ao/ap/ap.py:150:17: E128 continuation line under-indented for visual indent
+./ao/ap/ap.py:152:9: E265 block comment should start with '# '
+./ao/ap/ap.py:170:1: E305 expected 2 blank lines after class or function definition, found 1
+./ao/ap/ap.py:170:11: F405 'dbpath' may be undefined, or defined from star imports: config
+./ao/ap/ap.py:174:1: E265 block comment should start with '# '
+./ao/ap/files.py:8:1: E302 expected 2 blank lines, found 1
+./ao/ap/files.py:10:24: E261 at least two spaces before inline comment
+./ao/ap/files.py:10:37: W291 trailing whitespace
+./ao/ap/files.py:11:26: E261 at least two spaces before inline comment
+./ao/ap/files.py:12:26: E261 at least two spaces before inline comment
+./ao/ap/files.py:13:27: E261 at least two spaces before inline comment
+./ao/ap/files.py:13:80: E501 line too long (109 > 79 characters)
+./ao/ap/files.py:14:26: E261 at least two spaces before inline comment
+./ao/ap/files.py:15:32: E261 at least two spaces before inline comment
+./ao/ap/files.py:15:80: E501 line too long (86 > 79 characters)
+./ao/ap/files.py:16:24: E261 at least two spaces before inline comment
+./ao/ap/files.py:18:5: E301 expected 1 blank line, found 0
+./ao/ap/files.py:41:80: E501 line too long (149 > 79 characters)
+./ao/ap/files.py:49:1: E302 expected 2 blank lines, found 1
+./ao/ap/files.py:57:9: F821 undefined name 'log'
+./ao/ap/files.py:59:9: E265 block comment should start with '# '
+./ao/ap/files.py:60:62: F821 undefined name 'data'
+./ao/ap/files.py:62:13: E265 block comment should start with '# '
+./ao/ap/files.py:65:9: E265 block comment should start with '# '
+./ao/ap/files.py:68:9: E265 block comment should start with '# '
+./ao/ap/files.py:70:27: F821 undefined name 'os'
+./ao/ap/files.py:74:13: F821 undefined name 'log'
+./ao/ap/files.py:76:13: E265 block comment should start with '# '
+./ao/ap/files.py:78:13: E265 block comment should start with '# '
+./ao/ap/files.py:81:13: F821 undefined name 'log'
+./ao/ap/files.py:81:58: F821 undefined name 'data'
+./ao/ap/files.py:81:80: E501 line too long (84 > 79 characters)
+./ao/ap/files.py:83:24: F821 undefined name 'data'
+./ao/ap/files.py:91:13: F821 undefined name 'data'
+./ao/ap/files.py:92:13: E265 block comment should start with '# '
+./ao/ap/files.py:94:23: E225 missing whitespace around operator
+./ao/ap/files.py:96:80: E501 line too long (90 > 79 characters)
+./ao/ap/files.py:103:1: E302 expected 2 blank lines, found 1
+./ao/ap/files.py:103:80: E501 line too long (83 > 79 characters)
+./ao/ap/files.py:104:20: F821 undefined name 'os'
+./ao/ap/files.py:105:9: F821 undefined name 'log'
+./ao/ap/files.py:106:20: F821 undefined name 'os'
+./ao/ap/files.py:107:9: E265 block comment should start with '# '
+./ao/ap/files.py:108:9: E265 block comment should start with '# '
+./ao/ap/files.py:110:9: F821 undefined name 'log'
+./ao/ap/files.py:110:37: F821 undefined name 'data'
+./ao/ap/files.py:111:22: F821 undefined name 'os'
+./ao/ap/files.py:113:17: F821 undefined name 'os'
+./ao/ap/files.py:115:80: E501 line too long (91 > 79 characters)
+./ao/ap/files.py:117:20: F821 undefined name 'data'
+./ao/ap/files.py:122:18: F821 undefined name 'time'
+./ao/ap/files.py:123:19: F821 undefined name 'os'
+./ao/ap/files.py:125:13: E265 block comment should start with '# '
+./ao/ap/files.py:126:13: E265 block comment should start with '# '
+./ao/ap/files.py:129:12: F821 undefined name 'os'
+./ao/ap/files.py:136:9: F821 undefined name 'data'
+./ao/ap/files.py:142:9: E265 block comment should start with '# '
+./ao/ap/files.py:143:12: F821 undefined name 'os'
+./ao/ap/files.py:149:9: F821 undefined name 'time'
+./ca2/build.py:7:1: E302 expected 2 blank lines, found 1
+./ca2/build.py:12:1: E305 expected 2 blank lines after class or function definition, found 0
+./ca2/build.py:13:1: E302 expected 2 blank lines, found 0
+./ca2/build.py:29:1: E265 block comment should start with '# '
+./ca2/build.py:30:1: E305 expected 2 blank lines after class or function definition, found 1
+./ca2/build.py:40:47: E703 statement ends with a semicolon
+./ca2/build.py:42:80: E501 line too long (123 > 79 characters)
+./ca2/build.py:48:1: W391 blank line at end of file
+./ca2/plot/plot.py:4:1: F401 'time' imported but unused
+./ca2/plot/plot.py:7:1: E302 expected 2 blank lines, found 1
+./ca2/plot/plot.py:10:1: E305 expected 2 blank lines after class or function definition, found 0
+./ca2/plot/plot.py:12:1: E265 block comment should start with '# '
+./ca2/plot/plot.py:23:1: W293 blank line contains whitespace
+./ca2/plot/plot.py:34:1: W391 blank line at end of file
+./simulations/attractors/attractor.py:5:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors.py:1:80: E501 line too long (110 > 79 characters)
+./simulations/attractors/attractors.py:4:1: F401 'IPython' imported but unused
+./simulations/attractors/attractors.py:7:1: F401 'matplotlib' imported but unused
+./simulations/attractors/attractors.py:11:1: F401 'numba as nb' imported but unused
+./simulations/attractors/attractors.py:16:1: F401 'scipy.signal' imported but unused
+./simulations/attractors/attractors.py:16:1: F401 'scipy.misc' imported but unused
+./simulations/attractors/attractors.py:24:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/attractors.py:25:80: E501 line too long (112 > 79 characters)
+./simulations/attractors/attractors.py:65:80: E501 line too long (82 > 79 characters)
+./simulations/attractors/attractors.py:68:80: E501 line too long (107 > 79 characters)
+./simulations/attractors/attractors.py:81:80: E501 line too long (155 > 79 characters)
+./simulations/attractors/attractors.py:82:80: E501 line too long (102 > 79 characters)
+./simulations/attractors/attractors.py:142:80: E501 line too long (145 > 79 characters)
+./simulations/attractors/attractors.py:169:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:173:80: E501 line too long (140 > 79 characters)
+./simulations/attractors/attractors.py:179:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:180:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:181:13: F841 local variable 'gamma' is assigned to but never used
+./simulations/attractors/attractors.py:183:17: E741 ambiguous variable name 'l'
+./simulations/attractors/attractors.py:184:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:185:17: F841 local variable 'rMatrix' is assigned to but never used
+./simulations/attractors/attractors.py:187:17: F841 local variable 'offsets' is assigned to but never used
+./simulations/attractors/attractors.py:187:42: E741 ambiguous variable name 'l'
+./simulations/attractors/attractors.py:187:70: E261 at least two spaces before inline comment
+./simulations/attractors/attractors.py:187:70: E262 inline comment should start with '# '
+./simulations/attractors/attractors.py:187:80: E501 line too long (80 > 79 characters)
+./simulations/attractors/attractors.py:191:80: E501 line too long (103 > 79 characters)
+./simulations/attractors/attractors.py:200:80: E501 line too long (87 > 79 characters)
+./simulations/attractors/attractors.py:210:80: E501 line too long (94 > 79 characters)
+./simulations/attractors/attractors.py:215:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:216:80: E501 line too long (90 > 79 characters)
+./simulations/attractors/attractors.py:222:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:223:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:224:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:224:80: E501 line too long (110 > 79 characters)
+./simulations/attractors/attractors.py:225:80: E501 line too long (101 > 79 characters)
+./simulations/attractors/attractors.py:231:47: F821 undefined name 'none'
+./simulations/attractors/attractors.py:231:80: E501 line too long (87 > 79 characters)
+./simulations/attractors/attractors.py:237:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:238:80: E501 line too long (87 > 79 characters)
+./simulations/attractors/attractors.py:239:80: E501 line too long (88 > 79 characters)
+./simulations/attractors/attractors.py:240:80: E501 line too long (96 > 79 characters)
+./simulations/attractors/attractors.py:244:80: E501 line too long (89 > 79 characters)
+./simulations/attractors/attractors.py:305:80: E501 line too long (179 > 79 characters)
+./simulations/attractors/attractors.py:341:36: E261 at least two spaces before inline comment
+./simulations/attractors/attractors.py:343:80: E501 line too long (81 > 79 characters)
+./simulations/attractors/attractors.py:349:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:358:80: E501 line too long (86 > 79 characters)
+./simulations/attractors/attractors.py:362:5: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:371:1: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:371:80: E501 line too long (91 > 79 characters)
+./simulations/attractors/attractors.py:375:13: E115 expected an indented block (comment)
+./simulations/attractors/attractors.py:388:80: E501 line too long (132 > 79 characters)
+./simulations/attractors/attractors.py:390:80: E501 line too long (101 > 79 characters)
+./simulations/attractors/attractors.py:411:26: F821 undefined name 'self'
+./simulations/attractors/attractors.py:411:80: E501 line too long (84 > 79 characters)
+./simulations/attractors/line.py:23:16: F821 undefined name 'np'
+./simulations/attractors/line.py:23:31: F821 undefined name 'np'
+./simulations/attractors/line.py:24:11: F821 undefined name 'np'
+./simulations/attractors/line.py:25:80: E501 line too long (107 > 79 characters)
+./simulations/attractors/line.py:29:10: F821 undefined name 'np'
+./simulations/attractors/line.py:29:27: E231 missing whitespace after ','
+./simulations/attractors/line.py:30:14: F821 undefined name 'np'
+./simulations/attractors/line.py:32:19: E261 at least two spaces before inline comment
+./simulations/attractors/line.py:32:19: E262 inline comment should start with '# '
 ./simulations/attractors/setup.py:4:45: E225 missing whitespace around operator
 ./simulations/attractors/setup.py:12:80: E501 line too long (96 > 79 characters)
 ./simulations/attractors/setup.py:13:18: E701 multiple statements on one line (colon)
@@ -1249,6 +1601,26 @@
 ./simulations/attractors/setup.py:53:78: E202 whitespace before '}'
 ./simulations/attractors/setup.py:53:80: E501 line too long (80 > 79 characters)
 ./simulations/attractors/setup.py:55:1: W391 blank line at end of file
+./simulations/attractors/simulate.py:1:2: F821 undefined name 'nb'
+./simulations/attractors/simulate.py:2:80: E501 line too long (94 > 79 characters)
+./simulations/attractors/simulate.py:23:26: F821 undefined name 'rotation_matrix'
+./simulations/attractors/simulate.py:26:13: E741 ambiguous variable name 'l'
+./simulations/attractors/simulate.py:27:13: F841 local variable 'rMatrix' is assigned to but never used
+./simulations/attractors/simulate.py:28:13: F841 local variable 'offsets' is assigned to but never used
+./simulations/attractors/simulate.py:28:33: E741 ambiguous variable name 'l'
+./simulations/attractors/simulate.py:31:35: F821 undefined name 'math'
+./simulations/attractors/simulate.py:32:16: F821 undefined name 'rotate'
+./simulations/attractors/simulate.py:34:25: F821 undefined name 'rotate'
+./simulations/attractors/simulate.py:39:18: F821 undefined name 'np'
+./simulations/attractors/simulate.py:39:36: F821 undefined name 'np'
+./simulations/attractors/rotate.py:1:2: F821 undefined name 'nb'
+./simulations/attractors/rotate.py:3:11: F821 undefined name 'np'
+./simulations/attractors/rotate.py:4:11: F821 undefined name 'np'
+./simulations/attractors/rotate.py:9:12: F821 undefined name 'np'
+./simulations/attractors/rotate.py:11:1: E302 expected 2 blank lines, found 1
+./simulations/attractors/rotate.py:11:2: F821 undefined name 'nb'
+./simulations/attractors/rotate.py:13:1: E115 expected an indented block (comment)
+./simulations/attractors/rotate.py:14:1: E115 expected an indented block (comment)
 ./simulations/attractors/attractors/_nbdev.py:19:1: E302 expected 2 blank lines, found 1
 ./simulations/attractors/attractors/core.py:1:80: E501 line too long (92 > 79 characters)
 ./simulations/attractors/attractors/core.py:3:80: E501 line too long (110 > 79 characters)
