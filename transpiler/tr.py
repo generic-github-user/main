@@ -64,6 +64,19 @@ def transpile(source, target: str) -> str:
                 case ast.Mult: return '*'
                 case ast.Div: return '/'
                 case ast.Mod: return '%'
+
+                case ast.Constant:
+                    #match source.kind:
+                    match type(source.value).__name__:
+                        case 'str': return f'"{source.value}"'
+                        case 'NoneType': return 'null'
+                        case 'int' | 'float': return str(source.value)
+                        case 'bool': return str(source.value).lower()
+                        case _: raise NotImplementedError(source.value, source.kind)
+                #case ast.NameConstant:
+                    #match source.value:
+                case ast.Expr:
+                    return transpile(source.value, target)
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
