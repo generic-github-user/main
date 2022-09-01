@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Side Scroller Survivor
+</title>
+</head>
+<body>
+<canvas id="canvas1" width="1000" height="1000"></canvas>
+
+<script type="text/javascript" src="Side Scroller.js"></script>
+<script type="text/javascript" src="Tsunami/Tsunami.js"></script>
+<script type="text/javascript">
+
+//Add averages
+//Make sure to edit the right program...
+//Add neural network interaction, inputs in real time
+//Output average score
+//calculatePostitions
+//Add backup restore
+//hard to program without seeing it
+
+var accuracy = 100;
+var iterations = 100;
+var neuralNetworksNumber = 100;
+var mutationNumber = 1;
+var mutationSize = 1;
+
+
+var averageScore;
+
+createNeuralNetworks(neuralNetworksNumber,22,50,1,0.1);
+
+for(q=0;q<iterations;q++){ //Iteration of neural network training
+	for(w=0;w<neuralNetworks.length;w++){ //Individual neural network testing
+		averageScore = 0;
+		for(e=0;e<accuracy;e++){ //Individual game
+			startGame(); //Game is set up and started
+			do{ //One step/frame
+				inputs = [];
+				for(r=0;r<obstacles.x.length;r++){
+					inputs.push(obstacles.x[r])
+				}
+				for(r=0;r<obstacles.y.length;r++){
+					inputs.push(obstacles.y[r])
+				}
+				inputs.push(playerY);
+				inputs.push(gameSpeed);
+				
+				playerMotionY = evaluateNeuralNetwork(w,inputs)[0];
+				
+				calculatePositions();
+				
+			}while(gameOver == 0)
+			averageScore += score/accuracy;
+		}
+		assignScore(w,averageScore);
+	}
+	console.log("Iteration " + (q + 1) + " complete. Score: " + neuralNetworks[0].score + ".");
+	evolveNeuralNetworks("max",mutationNumber,mutationSize);
+}
+console.log(neuralNetworks);
+
+</script>
+</body>
+</html>
