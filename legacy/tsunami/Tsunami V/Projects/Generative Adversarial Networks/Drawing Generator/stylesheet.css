@@ -1,0 +1,10 @@
+*{
+	font-family: Arial;
+	user-select: none;
+}
+
+canvas {
+	border-style: solid;
+	border-color: black;
+	border-width: 5px;
+}
