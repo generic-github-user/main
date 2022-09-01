@@ -21,6 +21,12 @@ with open('README.src.md', 'r') as f: content = f.read()
 with open('substitutions.yaml', 'r') as f: subs = yaml.safe_load(f.read())
 with open('projects.yaml', 'r') as f: projects = Box(yaml.safe_load(f.read()), default_box=True)
 
+with open('branches.yaml', 'r') as f: branches = yaml.safe_load(f.read())
+# ref https://stackoverflow.com/a/3495395
+B = {}
+for b in branches: B |= b
+branches = Box(B)
+
 print(json.dumps(subs, indent=4))
 
 for k, v in subs.items():
@@ -28,6 +34,8 @@ for k, v in subs.items():
     content = content.replace(f'[[{k}]]', runcmd(v))
 content = content.replace('[[projects]]', '\n'.join(
     f'- {k} {"".join(f" `{t}`" for t in v.labels)}' for k, v in projects.projects.items()))
+content = content.replace('[[branches]]', '\n'.join(
+    f'- `{k}`: {v.strip()}' for k, v in branches.items()))
 
 msg = """This file was automatically generated from README.src.md; you should
 edit that file instead. Any changes made to this file will be overwritten the
