@@ -1,0 +1,24 @@
+\documentclass{article}
+\begin{document}
+      The modern version of Eva is implemented in a functional style that maintains a single global state which is read from and written to sequentially; the command flow is completely synchronous and as such it is (at least theoretically) well-adapted for debugging and analysis.
+
+      Eva's underlying data structure would likely best be described as a "weakly typed metagraph", one of the most general possible forms of a graph data structure in which the distinction between nodes/vertices and edges is eschewed and a graph consists only of a single type of object. This atomic unit (generally referred to as a node) contains some value and an ordered (possibly empty) set of other nodes (in practice, node references).
+
+      A traditional directed edge between two nodes can therefore be represented as an ordered pair of nodes, with the associated value determining their relationship. I have found this to be an empirically effective model for handling complex, dynamic data with a frequently changing schema and a requirement to be able to add additional properties to even the most basic, fundamental objects present in the database.
+
+      Some notation:
+      \begin{itemize}
+            \item $G$ - a metagraph (i.e., a set of nodes)
+            \item $G_i$ - a specific node (tuple of index, value, and subnodes)
+            \item $r_i$ - a list of nodes that reference node $G_i$
+      \end{itemize}
+
+      Attributes such as data types are handled at the database level - that is, the implementation does not specify node types or directly operate on them. In practice, "type" edge-nodes are generated as needed to link individual nodes to other nodes that specify the types corresponding to their values. As a matter of implementation, it is of course possible to "roll" external attributes into objects used to represent nodes if every or nearly every node will have a given property.
+
+      With that in mind, we also define the following functions:
+
+      \begin{itemize}
+            \item $e(G, x)$ - expand a binary (edge) node such that $e(G, (v, (a, b))) = (\emptyset, (a, c)), (v, \emptyset), (\emptyset, (c, b))$
+            \item $f(G, v)$ - search for a value in the graph
+      \end{itemize}
+\end{document}
