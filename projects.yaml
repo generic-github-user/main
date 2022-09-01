@@ -133,30 +133,38 @@ projects:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [language, tools, software]
 
   set:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [version-control, tools, software, software-development, organization]
 
   grammars:
     status: semi-active
     completion: unfinished
+    labels: [experiments, tools, libraries, grammars, linguistics,
+      combinatorics, discrete-mathematics]
 
   chrestomathy:
     status: inactive
     completion: ongoing
     language: multiple
+    labels: [reference, chrestomathy, examples, educational]
 
   CA2:
     status: semi-active
     completion: unfinished
     language: [c, python]
+    labels: [mathematics, geometry, art, simulations, cellular-automata, cgol,
+      combinatorics, discrete-math]
 
   CogBench:
     status: inactive
     completion: unfinished
     language: python
+    labels: [psychometrics, software, tools, interactive]
 
   Time-Zone-Roles:
     status: inactive
@@ -222,48 +230,59 @@ projects:
     status: inactive
     completion: unfinished
     language: python
+    labels: [esoteroic, programming-languages, experiments]
 
   punchcard:
     status: inactive
     completion: unfinished
     language: python
+    labels: [data-structures, utilities, libraries]
 
   wordtetris:
     status: inactive
     completion: unfinished
     language: python
+    labels: [games, tetris, word-games]
 
   alexandria:
     status: inactive
     completion: unfinished
     language: python
+    labels: [organization, tools, software, bookmarks, backup]
 
   roulette-curves:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations]
 
   cellular-automata-experiments:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations, cellular-automata, cgol,
+      combinatorics, discrete-math]
 
   foldz:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations, computational-geometry, origami]
 
   programming-puzzles:
     status: inactive
     completion: unfinished
     language: python
+    labels: [programming-puzzles, interactive]
 
   visual-computing-simulation:
     status: inactive
     completion: unfinished
     language: python
+    labels: [circuits, simulations, interactive, computing]
 
   project-summary:
     status: inactive
     completion: unfinished
     language: python
+    labels: [github, metadata, apis, data-aggregation]
