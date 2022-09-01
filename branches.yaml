@@ -8,9 +8,22 @@
     some of my solutions to programming problems from
     [leetcode.com](https://leetcode.com/)
 
+- master: >
+    main branch; other branches are merged into this branch frequently (the
+    build script is usually executed on this branch after some changes have
+    been accumulated from other branches)
+
 - meta: >
     information about this repository itself (code statistics, file
     listings, issue metadata, etc.)
+
+- metadata: >
+    updating serialized metadata about projects and branches stored in this
+    repository (scripts developed on /meta use this information)
+
+- repo-import: >
+    used as a base branch for `git-subtree` merges (a subbranch is usually
+    created off of this one with the new content, then merged into /master)
 
 - obfuscation: >
     code obfuscation tools repurposed from an old repository of
@@ -19,6 +32,12 @@
 - pythings: >
     useful tools and scripts for the boring parts of Python (mainly
     writing tests, documentation, etc.)
+
+- py-style: >
+    revising Python code to comply with flake8 standards
+
+- code-quality: >
+    implementing improvements recommended by codefactor and other tools
 
 - unicode-art: >
     scripts and command-line tools for generating diagrams,
