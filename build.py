@@ -29,6 +29,12 @@ branches = Box(B)
 
 print(json.dumps(subs, indent=4))
 
+# projects.projects.sort()
+# branches.sort()
+
+projects.projects = dict(sorted(projects.projects.items(), key=lambda x: x[0].casefold()))
+branches = dict(sorted(branches.items(), key=lambda x: x[0].casefold()))
+
 for k, v in subs.items():
     print(f'Replacing template: {k}')
     content = content.replace(f'[[{k}]]', runcmd(v))
