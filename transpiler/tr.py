@@ -58,6 +58,12 @@ def transpile(source, target: str) -> str:
                     # ref https://stackoverflow.com/a/7946825
                     tail = [val for pair in zip(source.ops, source.comparators) for val in pair]
                     return ' '.join(transpile(x, target) for x in [source.left] + tail)
+
+                case ast.Add: return '+'
+                case ast.Sub: return '-'
+                case ast.Mult: return '*'
+                case ast.Div: return '/'
+                case ast.Mod: return '%'
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
