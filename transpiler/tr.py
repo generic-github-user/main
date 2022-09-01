@@ -39,6 +39,25 @@ def transpile(source, target: str) -> str:
                 case ast.UAdd: return '+'
                 case ast.USub: return '-'
                 case ast.Not | ast.Invert: return '!'
+
+                case ast.BinOp:
+                    return ' '.join([
+                        transpile(source.left, target),
+                        transpile(source.op, target),
+                        transpile(source.right, target)
+                    ])
+                case ast.BoolOp:
+                    return f' {transpile(source.op, target)} '.join(transpile(v, target) for v in source.values)
+                case ast.Or: return '||'
+                case ast.And: return '&&'
+                case ast.Eq: return '=='
+                case ast.NotEq: return '=='
+                case ast.Gt: return '>'
+                case ast.GtE: return '>='
+                case ast.Compare:
+                    # ref https://stackoverflow.com/a/7946825
+                    tail = [val for pair in zip(source.ops, source.comparators) for val in pair]
+                    return ' '.join(transpile(x, target) for x in [source.left] + tail)
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
