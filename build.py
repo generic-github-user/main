@@ -1,3 +1,9 @@
+# This script performs various tasks that apply to this repository at the top
+# level and potentially lower levels. Most notably, it builds README.md from
+# README.src.md and the metadata stored in projects.yaml and
+# substitutions.yaml. It should be periodically executed on the /master branch
+# and other long-lived branches to generate updated code statistics.
+
 import subprocess
 import yaml
 import json
