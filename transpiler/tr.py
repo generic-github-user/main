@@ -69,6 +69,11 @@ def transpile(source, target: str) -> str:
                     return f'`{"".join(transpile(x, target) for x in source.values)}`'
                 case ast.FormattedValue:
                     return f'${{{transpile(source.value, target)}}}'
+
+                case ast.Subscript:
+                    return f'{transpile(source.value, target)}[{transpile(source.slice, target)}]'
+                case ast.Slice:
+                    return transpile(source.lower, target)
                 case ast.Constant:
                     #match source.kind:
                     match type(source.value).__name__:
