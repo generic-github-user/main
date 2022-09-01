@@ -31,6 +31,9 @@ def transpile(source, target: str) -> str:
                 case ast.Return:
                     return f'return {transpile(source.value, target)}'
 
+                case ast.Name:
+                    return source.id
+
                 case ast.UnaryOp:
                     return ' '.join([
                         transpile(source.op, target),
@@ -39,6 +42,10 @@ def transpile(source, target: str) -> str:
                 case ast.UAdd: return '+'
                 case ast.USub: return '-'
                 case ast.Not | ast.Invert: return '!'
+
+                case ast.Assign:
+                    targets = ', '.join(transpile(t, target) for t in source.targets)
+                    return f'{targets} = {transpile(source.value, target)}'
 
                 case ast.BinOp:
                     return ' '.join([
@@ -74,6 +81,11 @@ def transpile(source, target: str) -> str:
                     return f'{transpile(source.value, target)}[{transpile(source.slice, target)}]'
                 case ast.Slice:
                     return transpile(source.lower, target)
+
+                case ast.If:
+                    NL = '\n'
+                    return f'if ({transpile(source.test, target)}) {{{transpile(source.body, target)}}}'
+
                 case ast.Constant:
                     #match source.kind:
                     match type(source.value).__name__:
@@ -86,6 +98,10 @@ def transpile(source, target: str) -> str:
                     #match source.value:
                 case ast.Expr:
                     return transpile(source.value, target)
+                #case _ if isinstance(source, NoneType):
+                case _ if source is None:
+                    return 'null'
+
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
