@@ -117,30 +117,31 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.11 s (2613.2 files/s, 401488.8 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.13 s (2392.1 files/s, 351343.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 Python|128|2513|3008|8490
-Markdown|46|680|0|7226
-HTML|17|2240|35|6842
+HTML|19|2270|58|7085
+Markdown|47|740|0|5747
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
+JavaScript|13|214|415|1365
 YAML|21|104|26|889
 Bourne Shell|3|77|102|452
 C/C++ Header|18|87|69|324
 INI|4|52|0|248
 JSON|5|0|0|226
 Rust|3|56|39|198
+CSS|5|33|8|176
 make|4|41|6|103
-JavaScript|1|7|30|95
 XML|2|4|0|52
 TOML|5|10|3|33
 TeX|1|6|0|18
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|293|6244|9421|29352
+SUM:|313|6574|9837|29562
 
 
 ## On Monorepos
@@ -324,6 +325,59 @@ structure into my workflow:
 │   ├── README.md
 │   └── scripts
 │       └── build-docs.txt
+├── img-conv
+│   ├── docs
+│   │   ├── 1.PNG
+│   │   └── settings
+│   │       ├── automatically-update
+│   │       │   └── 1.PNG
+│   │       ├── download-image
+│   │       │   └── 1.png
+│   │       ├── filter
+│   │       │   └── 1.PNG
+│   │       ├── kernel-export
+│   │       │   └── 1.PNG
+│   │       ├── kernel-import
+│   │       │   └── 1.PNG
+│   │       ├── randomize
+│   │       │   ├── 1.PNG
+│   │       │   ├── 2.PNG
+│   │       │   ├── 3.PNG
+│   │       │   └── 4.PNG
+│   │       ├── repeat-filter
+│   │       │   ├── 1.PNG
+│   │       │   ├── 2.PNG
+│   │       │   └── 3.PNG
+│   │       └── resolution
+│   │           ├── 1.PNG
+│   │           ├── 2.PNG
+│   │           └── 3.PNG
+│   ├── LICENSE
+│   ├── README.md
+│   ├── src
+│   │   ├── dialog-polyfill
+│   │   │   ├── dialog-polyfill.css
+│   │   │   └── dialog-polyfill.js
+│   │   ├── images
+│   │   │   └── github.png
+│   │   ├── index.html
+│   │   ├── js
+│   │   │   ├── canvas.js
+│   │   │   ├── download.js
+│   │   │   ├── import-export.js
+│   │   │   ├── jquery-3.3.1.min.js
+│   │   │   ├── kernels.js
+│   │   │   ├── script.js
+│   │   │   ├── setup.js
+│   │   │   ├── utilities.js
+│   │   │   └── variables.js
+│   │   ├── mdl
+│   │   │   ├── icons.css
+│   │   │   ├── material.js
+│   │   │   └── material.red-indigo.min.css
+│   │   └── style.css
+│   └── testing
+│       └── 1.PNG
 ├── keyboard-dynamics
 │   ├── keyboard.py
 │   ├── LICENSE
@@ -497,6 +551,10 @@ structure into my workflow:
 │   └── title.py
 ├── README.md
 ├── README.src.md
+├── sandbox
+│   ├── index.html
+│   ├── main.js
+│   └── styles.css
 ├── simulations
 │   ├── attractors
 │   │   ├── 00_attractor.ipynb
@@ -727,335 +785,479 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-113 directories, 419 files
+131 directories, 458 files
 
 ```
 
 ## History
 
 ```
-* 4fcf1d8 (origin/meta, meta) process branch metadata to generate README.md
-*   35c1db9 Merge branch 'metadata' into meta
+*   24d323a (HEAD -> master) Merge branch 'sandbox'
 |\  
-| * 9d1b082 (origin/metadata, metadata) document new(er) branches
-| * 1885970 add yaml-serialized version of repository branch info
-| * c87960e move pipenv metadata files (again)
-| * d2d8a9d label remaining projects
-| * 30d4b02 add labels to more projects
-* | 81f6a9a add summary of build.py script
-* | 2a216c3 add table of contents
-| | *   8a1d55f (refs/stash) WIP on py-js-transpiler: 14d64b1 transpile function-related nodes
-| | |\  
-| | | * d051688 index on py-js-transpiler: 14d64b1 transpile function-related nodes
+| *   274d258 (origin/sandbox, sandbox) Add 'sandbox/' from commit '6920e6ed77d238cdcccb7f770d712dd895a815de'
+| |\  
+| | * 6920e6e Add function for calculating post-collision velocity
+| | * 9da73fe miscellaneous
+| | * 4534e0d Add function for creating particle objects
+| | * c03cb0f Add functions for randomization
+| | * fd818ad Store other simulation quantities
+| | * 1d22bfb cleanup
+| | * 0cc701e Add user interaction via mouse events
+| | * 2dbe313 Add set method
+| | * 42844b2 Render and update simulation
+| | * c508fe7 Add index-based mapping function
+| | * 85fbde8 Add method for applying function over squares centered on each point in the original array
+| | * 6b5cb78 Add array summary methods
+| | * 60a3e5f Add reduce method
+| | * 6d84862 Add index method (NumPy-like array access)
+| | * 0edec8f Add method for getting array entries by position
+| | * ee15808 Add forEach method
+| | * b619e91 add methods for altering an ndarray
+| | * 344543d add ndarray map method
+| | * 69cf274 add stylesheet
+| | * e3a57dc add clip function
+| | * e27013d add ndarray class
+| | * c447205 add boilerplate HTML
+* |   3b05949 Merge branch 'img-conv'
+|\ \  
+| * \   101051a (origin/img-conv, img-conv) Add 'img-conv/' from commit '8ed488bd53c7d380c64237a9f3a92a04addb2f00'
+| |\ \  
 | | |/  
-| | * 14d64b1 (origin/py-js-transpiler, py-js-transpiler) transpile function-related nodes
-| | * 0bc4833 add support for transpiling arguments and arg lists (to JS)
-| | * ec7d793 (python-transpiler) transpile top-level AST nodes
-| | * 6c2fd4e add transpiler script base
-| | * 23197bb add slightly more complex sample (borrowed from python-snippets)
-| | * 5468da8 (origin/python-transpiler) add brief sample program for testing
-| | *   9c24f65 (HEAD -> master, origin/master, transpiler) Merge branch 'symbolic-ai'
+| |/|   
+| | * 8ed488b Kernel data is now exported as a .json file
+| | * dcfd14e Fixed kernel loading issue
+| | * 3504259 Code cleanup
+| | * 3b2ac38 Added setup.js
+| | * 51971e0 Code cleanup
+| | * 3859277 Added import-export.js
+| | * b21c522 Added code snippets to README
+| | * 528a803 Fixed filter kernel import setting documentation image alternate text
+| | * 545ba88 Added filter kernel import/export information to README
+| | * 352fc0a Added HTML dialog element polyfill
+| | * da025b1 Added libraries to README.md
+| | * 96fcb29 Added filter kernel data importing
+| | * a8f2919 Removed form element from image URL loading text field
+| | * 2641c16 Added filter kernel exporting
+| | * eb80301 Added GitHub repository link icon tooltip
+| | * a53bff7 Added documentation for image download button to README.md
+| | * e209303 Added image downloading buttons
+| | * 3c3da9d Added download.js library
+| | * 985f456 Fixed filter list indentation
+| | * c6cfe33 Added automatic update setting information to README
+| | * a57b3fa Update docs/settings/randomize/4.PNG
+| | * e3705d3 Added randomize setting info to README
+| | * 3845ffa Added some console logs to script.js
+| | * f2aab1f Kernel weight randomization now clones the kernel to the custom kernel, like editing a kernel does
+| | * 9606ed9 Fixed #23
+| | * dd65bf8 Removed global canvas_data variable
+| | * 448deac Added script loading console logs
+| | * 10d0789 Added sliding transition to title and subtitle when header is hovered on
+| | * c6126d9 Added variables.js
+| | * 4733e7a Added utilities.js
+| | *   2d772dc Merge branch 'master' of https://github.com/generic-github-user/Image-Convolution-Playground
 | | |\  
-| | | *   433f39f (origin/symbolic-ai, symbolic-ai) Add 'symbolic-ai/eva2022/' from commit 'af1a571d26f98eef2502b6932bcc71141d4bf942'
-| | | |\  
-| | | | * af1a571 clean up graph database code, remove superfluous methods
-| | | | * 2fbb879 mark image files based on file extensions
-| | | | * 0d1e16d make some adjustments to logging system
-| | | | * 78e4629 add some comments to graph.py
-| | | | * f2b4dd5 Move other commands
-| | | | * f75ebe3 misc bug fixes
-| | | | * 066e1cb Fix globals naming
-| | | | * a68c5a9 Move loadBackup command
-| | | | * bdc5e5a Move query command to its own file
-| | | | * b69afed Move global data class to new file
-| | | | * 26b3730 Restructure command handling
-| | | | * 59a418c Move architecture description
-| | | | * 0925b14 Move scanDir to helpers module
-| | | | * 009dd3d Restructure project with relative imports
-| | | | * 7bcba57 refactor markType and markLength using makePropertyBuilder
-| | | | * 8fcfecb graphbrain testing
-| | | | * f062b13 Finish makePropertyBuilder function
-| | | | * 54f0dbb Store system information
-| | | | * 5074cf4 Update gitignore
-| | | | * 90ce493 Fix logging
-| | | | * d75bdf3 More organization and cleanup
-| | | | * bcee5da Move backup function
-| | | | * 6e9ee0f Use timeFunc decorator to factor out duplicated code
-| | | | * 22f0ba6 Move say function
-| | | | * 07afcc6 Moved other commands
-| | | | * 148c84c misc
-| | | | * e85a6ec refactor some commands
-| | | | * fb0125a cleanup
-| | | | * 9400ee6 Move entropy estimation function
-| | | | * 1515fcc Move timeFunc
-| | | | * 8cd241f Move some commands to dedicated functions
-| | | | * 79f8e90 Fix issue with type checking
-| | | | * 5586f1e Add some assertions and type checks
-| | | | * 67b88b8 Extract some specific functionality out of Graph class
-| | | | * a90a8c4 More reorganization and cleanup
-| | | | * d2fccbe miscellaneous
-| | | | * ab5783d Move settings/constant sto new file
-| | | | * d79f1c7 Move getId
-| | | | * 6defecb cleanup
-| | | | * d8df593 Move Graph and Node classes
-| | | | * ba5a2ea Condense recent changes into temp commit
-| | | | * af47888 Find substring relationships between string nodes
-| | | | * def8b40 Move settings and global objects into Eva class
-| | | | * 50738d1 more imports
-| | | | * c9a59a2 Add command for querying graph database
-| | | | * 9e7e7bd Misc
-| | | | * 321af52 Add dependency parsing with spacy
-| | | | * abb3bc2 Read lines from text-based file formats into database
-| | | | * 603e9d6 Run OCR on image files
-| | | | * d0147bc Move string tokenization code
-| | | | * f38d8be Cleanup
-| | | | * 87a2168 Add nesting indents to improve readability
-| | | | * 238b0d2 Add string method to Node class
-| | | | * 8125a3d Add emergency checks to avoid discarding database in the event of severe errors
-| | | | * 50c721d Weight metadata nodes lower during random selection by default
-| | | | * 205c6aa move TODOs
-| | | | * bc81db5 Add HOF for tracking execution time of (some) function calls
-| | | | * 28e0057 Add simple parser for graph database queries
-| | | | * 4007140 Misc bug fixes and cleanup
-| | | | * 6cda3e8 Approximate entropy of string nodes
-| | | | * 9496edb Move database loading into Graph class
-| | | | * 62ab3e3 Organize imports
-| | | | * 945664c more miscellaneous
-| | | | * e58130b Add assertions
-| | | | * 53827d9 Move node length labelling logic
-| | | | * 9c70678 Move node type labelling logic
-| | | | * 347cd21 cleanup
-| | | | * 48a14ee misc
-| | | | * b59c495 Add return_ids option
-| | | | * 11daaa8 Move list command
-| | | | * 2c9a1bb Extract inference command ("think")
-| | | | * 603eb6d misc
-| | | | * 7455fcf Add option to display information without storing in database
-| | | | * 88ff044 update imports
-| | | | * 3ceef8d misc
-| | | | * 477890d Add update parameter to other functions
-| | | | * 55086ec Add Graph filter method
-| | | | * c5eada2 Add method for getting node without propagating updates
-| | | | * 84ee2e9 Count adjacent nodes
-| | | | * 344d698 Automatically refresh multiple nodes
-| | | | * f519684 Add file hashing function
-| | | | * 0779e4d Move functions for getting referring/adjacent nodes into Node class and update some code to use new interface
-| | | | * 3ca5411 Improve dir scanning command
-| | | | * 507f14b Add Graph method for getting random node
-| | | | * a5b97ce more miscellaneous updates
-| | | | * b923ff2 fix some database loading issues
-| | | | * 30d5332 misc
-| | | | * 1916d2e Store reference to internal node representation in Node instance
-| | | | * 65f11cd Support slice notation and return Node instance
-| | | | * 94e020a refactor backup command
-| | | | * 444e30d Move getsize function
-| | | | * 46b0eeb Miscellaneous
-| | | | * afd4301 return Graphs instead of lists of nodes
-| | | | * 236fed3 Add command for loading database from backup
-| | | | * a865a4e Use Graph class instance variables instead of global node list
-| | | | * 0c15dde Add magic methods to Graph class
-| | | | * 5c933c2 fix typo
-| | | | * fddb9fc Move save function into Graph class method
-| | | | * ff7de6b move getNodes into Graph class
-| | | | * 71f03ef Refactor some commands using command decorator
-| | | | * d7136cc Refactoring
-| | | | * 3dbc74a Use say function
-| | | | * 67aa50c Update architecture.tex
-| | | | * 3217d3b Add command for updating individual nodes
-| | | | * bc1965d Add command for displaying adjacent nodes
-| | | | * 5cc95fc miscellaneous fixes
-| | | | * 2c8b485 Track start and end time for find command
-| | | | * 7a9b6d1 add basic inference engine
-| | | | * e47a75d Add function for displaying output
-| | | | * 9607967 gitignore latex helper files
-| | | | * 003c6d3 Calculate size of nodes (in memory)
-| | | | * 38a9647 add simple mathematical expression parser
-| | | | * 97c75cb update gitignore
-| | | | * a57d1e5 miscellaneous
-| | | | * b1d8f80 Add command for mapping directory structure
-| | | | * 32fad94 Fix naming conflict
-| | | | * 9e1bafb Object size computation function from https://stackoverflow.com/a/30316760
-| | | | * 5efa6f6 Add function for scanning local directory structure
-| | | | * 062f7cd misc
-| | | | * 0fe229a Add function for finding adjacent nodes
-| | | | * 05b92f5 more imports
-| | | | * 40e4fa8 miscellaneous
-| | | | * 084abf7 Add simple backup functionality
-| | | | * 70a54cf add Node class
-| | | | * 7e58336 Add getReferrers
-| | | | * 835b053 Add command for importing JSON data
-| | | | * 808ac64 Add marker to processed nodes
-| | | | * e560724 Add syntax for direct (but user-efficient) interaction with database
-| | | | * f589eca optimize getInfo
-| | | | * e9b1526 Fix scoping bug in user inquiry process
-| | | | * 25bf42e Convert functions to Graph class methods and perform operations using a centralized database object
-| | | | * e494999 clean up code
-| | | | * 6803109 Update code to use namedtuple fields when accessing node properties
-| | | | * 4deaf42 Use namedtuple to make node access more readable
-| | | | * ff28add Store reference lists between sessions
-| | | | * 02666a8 fix logging
-| | | | * 9ff4d9d Add command for listing members of a set or category
-| | | | * b7b4003 Link rating nodes to their descriptors
-| | | | * 4123ab2 Add more logging
-| | | | * c4558ba Update ask command
-| | | | * c7d8474 fix indices
-| | | | * 9729c5e Add overview of data structure
-| | | | * 559760a optimize
-| | | | * 6f8f01e Optimize user inquiry generation using node reference list
-| | | | * 16fe106 Build list of nodes that refer to each node on startup
-| | | | * 84d022b Update gitignore
-| | | | * f3b3953 Minor refactoring
-| | | | * dd1404c Update to only use addNode for node creation
-| | | | * 4ffeb23 Improve relation gathering and fix bug causing some questions to be repeated
-| | | | * cb859b6 Allow breakpoint access from interface
-| | | | * 77cd299 Display function
-| | | | * e968f81 Add command for updating all nodes in database
-| | | | * 1e59baf Get node relationship data from user
-| | | | * 25cd262 misc
-| | | | * 758c3d6 Add some logging
-| | | | * 21510b4 Improve node printing
-| | | | * 5a9e67a Extract tokens from inputs
-| | | | * 85dd555 Add node length labels (for strings)
-| | | | * 299c105 Add node type labels
-| | | | * 7c92075 misc
-| | | | * d0084cc Generate "concept nodes" that unify terms extracted from inputs
-| | | | * 8cd52b9 Only attempt to extract binary relations
-| | | | * 182d68b Add more parameters to addNode
-| | | | * b6b150b Basic question-answer functionality
-| | | | * 844c66c Add utility commands
-| | | | * 943be1b miscellaneous
-| | | | * 8f85ab9 Add helper function for getting property specified by pseudoedge
-| | | | * a5be2e4 Add find command
-| | | | * 54b9d02 Add search function
-| | | | * 0e450d8 Add function for finding nodes by partial descriptions
-| | | | * 82101ce save() function
-| | | | * c6be9b3 Refactoring
-| | | | * 63ebd7a Add basic relation extraction from inputs
-| | | | * 77470c4 Get inputs and store in database
-| | | | * 14b0aa5 Load database
-| | | | * f8575bd Add eva.py
-| | | | * 714d3e2 Initial commit
-| | * | 6bab693 Rebuild project
-| | * |   763d117 Merge branch 'python-snippets'
-| | |\ \  
-| | | * | 6054027 (origin/python-snippets, python-snippets) move some snippets/functions to separate modules
-| | | * |   7b87da6 Merge branch 'master' into python-snippets
-| | | |\ \  
-| | | * | | fd5ffd4 remove artifacts from notebook conversion
-| | | * | | 11b1164 regenerate script version of python-snippets
-| | * | | |   948433b Merge branch 'kd-docs'
-| | |\ \ \ \  
-| | | * | | | 0fa84b7 (origin/kd-docs, kd-docs) add docstrings to "transition_cost" and "score" functions
-| | | * | | |   110a68e (origin/keyboard-dynamics, keyboard-dynamics) Merge branch 'master' into keyboard-dynamics
-| | | |\ \ \ \  
-| | | | | |/ /  
-| | | | |/| |   
-| | | * | | | 5d24145 make script (mostly) flake8 compliant
-| | * | | | | 71f1d88 (origin/foldz, origin/fold-dedup, foldz, fold-dedup) remove other duplicated classes
-| | * | | | |   264c578 Merge branch 'physics' into fold-dedup
-| | |\ \ \ \ \  
-| | | * | | | | 19c99f5 (origin/physics-dedup, origin/physics, physics-dedup, physics) merge other geometry-related classes
-| | | * | | | | 1ca95e7 merge Line class and other generic n-d geometry classes
-| | | * | | | | af07bbb improve code style
-| | | * | | | | ce88214 merge Polygon classes
-| | | * | | | | e98d8d1 merge Circle classes from physics and geometry projects
-| | | * | | | |   57437f3 Merge branch 'geometry' into physics-dedup
-| | | |\ \ \ \ \  
-| | * | | | | | | 12d3df3 remove most duplicated classes from fold.py
-| | * | | | | | |   ca2b14a Merge branch 'geometry' into fold-dedup
-| | |\ \ \ \ \ \ \  
-| | | | |/ / / / /  
-| | | |/| | / / /   
-| | | |_|_|/ / /    
-| | |/| | | | |     
-| | | * | | | | 109b3e1 (origin/geometry, geometry) improve flake8 style compliance
-| | * | | | | | a6bcf86 (origin/epidemic-modelling, epidemic-modelling) more directory restructuring/reorganization
-| | * | | | | | 886f924 Rebuild project
-| | * | | | | |   8db8543 Merge branch 'fire-sim'
-| | |\ \ \ \ \ \  
-| | | * \ \ \ \ \   0f2330f (origin/fire-sim, fire-sim) Add 'fire-sim/' from commit '40be238ef44d351542682327e03a4e052d84b6fc'
-| | | |\ \ \ \ \ \  
-| | | | |_|_|_|_|/  
-| | | |/| | | | |   
-| | | | * | | | | 40be238 add repeat control
-| | | | * | | | | eb776a7 add fire clipping threshold
-| | | | * | | | | 3fc2193 Place charts horizontally
-| | | | * | | | | 124b6fd more comments
-| | | | * | | | | 5ae0e5d add random noise
-| | | | * | | | | 483d982 make sure cell computations are in the correct loop
-| | | | * | | | | 1328447 add spreading factor
-| | | | * | | | | 6ceb85b create separate plots
-| | | | * | | | | 837dee1 adjust settings
-| | | | * | | | | fab991a Add more options
-| | | | * | | | | 41eaea5 only burn if fuel exists
-| | | | * | | | | 3e2950c add fire calculations
-| | | | * | | | | 3b47831 Add comments
-| | | | * | | | | 10c63c6 Fuel generation
-| | | | * | | | | 4ff5fcd loop through and update
-| | | | * | | | | 40036c0 Fix starting conditions
-| | | | * | | | | 6b7bb4e Initialize
-| | | |  / / / /  
-| | * | | | | |   bac1774 Merge branch 'handwriting-generator'
-| | |\ \ \ \ \ \  
-| | | |_|_|_|/ /  
-| | |/| | | | |   
-| | | * | | | |   923f12e (origin/handwriting-generator, handwriting-generator) Add 'handwriting-generator/' from commit 'b6267d76a42a2785d0fb1e8766061b7aacaf7237'
-| | | |\ \ \ \ \  
-| | | | |/ / / /  
-| | | |/| | | |   
-| | | | * | | | b6267d7 build docs
-| | | | * | | | 4f1ee91 ignore compiled .pyc files
-| | | | * | | | b8002d7 add command for building docs with pdoc
-| | | | * | | | b088043 Create README.md
-| | | | * | | | 0631ac1 document Pen class
-| | | | * | | | fb8263b add randomness to shaking event
-| | | | * | | | 5c61eb7 add some documentation to Drawer class
-| | | | * | | | 4c0326a add option for normalizing pen randomness to unit vector (limiting more extreme values, in theory)
-| | | | * | | | 9ddb379 add jittering to pen
-| | | | * | | | 142ccad add more letters
-| | | | * | | | 9db7d0b use relative coordinates
-| | | | * | | | 70dc4a8 add momentum-based renderer
-| | | | * | | | d0ba7a1 add pen step method
-| | | | * | | | f188ade testing code
-| | | | * | | | aae5baf move display code to Write class
-| | | | * | | | 5d9dbcd add method to clear canvas
-| | | | * | | | aaef38d add method to convert point labels to coordinates
-| | | | * | | | 44e8727 add Drawer class to generate writing
-| | | | * | | | 25dc69b add pen class
-| | | | * | | | c0f7312 add coords for notation
-| | | | * | | | 6309996 add sample letter outline
-| | | | * | | | 52ef79b add canvas + display
-| | | | * | | | 0352184 initial commit
-| | | |  / / /  
-| | * | | | | 4d2307d Rebuild project
-| | * | | | |   d1233cd Merge branch 'rcas'
-| | |\ \ \ \ \  
-| | | * \ \ \ \   072458d (origin/rcas, origin/nushell-testing, rcas, nushell-testing) Add 'rcas/' from commit 'c6f22ab7b6c222a975a06e37895d43ea7f5c28b8'
-| | | |\ \ \ \ \  
-| | | | * | | | | c6f22ab miscellaneous
-| | | | * | | | | 0e10079 add graph-related types
-| | | | * | | | | 6a6abb3 add Operator type
-| | | | * | | | | 587ec27 add Expression and Function types
-| | | | * | | | | 1767eb2 implement Term type
-| | | | * | | | | eff3abb add main.rs with some basic numeric types
-| | | | * | | | | 2e84406 add .gitignore and cargo metadata files
-| | | |  / / / /  
-| | | * | | | | 04c0391 add git log parsing script
-| | | * | | | | f552a4d generate file list using script
-| | | * | | | | 473a935 add simple nu(shell) script for summarizing lines/tokens/characters in source code files
-| |_|/ / / / /  
-|/| | | | | |   
-* | | | | | | 16d978d add discussion of monorepo pros/cons
+| | | * 54283f7 Create LICENSE
+| | * | 56d6e36 Added usage instructions to README
+| | * | 429c20f canvas_width and canvas_height must be set
+| | |/  
+| | * c801efc Added even more comments!
+| | * 6f36e29 Added more comments to script.js
+| | * c9dac7d Added GitHub link to demo
+| | * 6f6a2ed Added labels to images in README
+| | * 7effdd4 Added repeat filter to README
+| | * b2cdd9f Added filter setting info to README
+| | * c427416 Fixed README image sources not displaying correctly on GitHub page
+| | * 1e98287 Added images to resolution setting information in README
+| | * 7a00b40 Update README.md
+| | * e14d288 Added tooltips to canvases
+| | * 6041bc7 Added image resolution tooltip
+| | * 6dd4b23 Fixed layout issues
+| | * e64206e Layout reorganization
+| | * 6aa7886 Added filter kernel weight selection and editing
+| | * 10df239 Improvements to kernel randomization
+| | * 8773f99 Added filter kernel randomize button
+| | * 51f8dc2 CSS adjustments
+| | * 8686638 Code cleanup and more comments
+| | * de6ae2c Added more tooltips
+| | * 926cde5 Added more tooltips to settings
+| | * d7077e5 Fixed automatic update toggle tooltip
+| | * a660a1e Added some comments to HTML
+| | * 5c61eae More layout tweaks
+| | * 8fcdd02 Added automatic update toggle and apply filter button
+| | * db176d6 Added filter repeat iterations setting
+| | * d6664ff Added resolution indicator
+| | * 70d2e21 More layout adjustments
+| | * 6b5f07e Fixed layout
+| | * a7ffa4b Added credits for code snippets
+| | * 27f7db0 Fixed filter kernel visualization spacing issues
+| | * 36a9a35 Added kernel visualization
+| | * 9e4743f Added undo snackbar notification
+| | * 8b3aebe Fixed undo issues and image loading bugs
+| | * 7233b91 Made convolutions section in README more clear
+| | * fc50b01 Added more information to README.md
+| | * d9234a1 Added JavaScript (js) subfolder of /src
+| | * c2850cb Added canvas.js
+| | * 7983acb Added more comments
+| | * 5fb17c8 Added image resolution slider
+| | * 6fbaddd Code cleanup and added comments
+| | * 16eaa62 Added automatic image resizing
+| | * 4381f8b Added testing screenshots folder
+| | * 90b061a Moved canvas_width and canvas_height
+| | * 7b07ab4 Added unprocessed image canvas
+| | * 9c29539 Added some comments
+| | * c20c105 Added styling to file upload
+| | * 5fcada3 Removed convolution edge padding
+| | * 938efbb Added custom image uploading
+| | * eca26c2 Reorganized convolution function
+| | * 669c06d Added random default demo image
+| | * 46da820 Added filter selection dropdown
+| | * deb967f Added some stuff to the README
+| | * a1a0cf2 Moved kernel information into a separate JavaScript file
+| | * 12113fe Added unsharp masking convolutional filter kernel
+| | * ddccafc Added blur filter kernels
+| | * c8518e6 Added convolutional kernel name property
+| | * f241825 Added kernel factors/multipliers
+| | * ac1c859 Added "sharpen" convolution kernel
+| | * b11e935 Removed unused get_pixel() function
+| | * c5d24fc Added convolutions
+| | * 72834b7 Added image loading from URL
+| | * f08cafb Added canvas element and rendering context
+| | * 4a965de Added jQuery
+| | * afb1767 Added title
+| | * 1143964 Hosting Material Design Lite in project files
+| | * b54c20f Added Material Design Lite
+| | * 1a865bd Added boilerplate HTML code
+| | * 9ed625b Added source files
+| | * 554080d Initial commit
+* |   c1e08db (origin/master) Merge branch 'meta'
+|\ \  
+| * | 4fcf1d8 (origin/meta, meta) process branch metadata to generate README.md
+| * |   35c1db9 Merge branch 'metadata' into meta
+| |\ \  
+| | * | 9d1b082 (origin/metadata, metadata) document new(er) branches
+| | * | 1885970 add yaml-serialized version of repository branch info
+| | * | c87960e move pipenv metadata files (again)
+| | * | d2d8a9d label remaining projects
+| | * | 30d4b02 add labels to more projects
+| * | | 81f6a9a add summary of build.py script
+| * | | 2a216c3 add table of contents
+| | | | *   8a1d55f (refs/stash) WIP on py-js-transpiler: 14d64b1 transpile function-related nodes
+| | | | |\  
+| | | | | * d051688 index on py-js-transpiler: 14d64b1 transpile function-related nodes
+| | | | |/  
+| | | | * 14d64b1 (origin/py-js-transpiler, py-js-transpiler) transpile function-related nodes
+| | | | * 0bc4833 add support for transpiling arguments and arg lists (to JS)
+| | | | * ec7d793 (python-transpiler) transpile top-level AST nodes
+| | | | * 6c2fd4e add transpiler script base
+| | | | * 23197bb add slightly more complex sample (borrowed from python-snippets)
+| | | | * 5468da8 (origin/python-transpiler) add brief sample program for testing
+| |_|_|/  
+|/| | |   
+* | | |   9c24f65 (transpiler) Merge branch 'symbolic-ai'
+|\ \ \ \  
+| * \ \ \   433f39f (origin/symbolic-ai, symbolic-ai) Add 'symbolic-ai/eva2022/' from commit 'af1a571d26f98eef2502b6932bcc71141d4bf942'
+| |\ \ \ \  
+| | |_|_|/  
+| |/| | |   
+| | * | | af1a571 clean up graph database code, remove superfluous methods
+| | * | | 2fbb879 mark image files based on file extensions
+| | * | | 0d1e16d make some adjustments to logging system
+| | * | | 78e4629 add some comments to graph.py
+| | * | | f2b4dd5 Move other commands
+| | * | | f75ebe3 misc bug fixes
+| | * | | 066e1cb Fix globals naming
+| | * | | a68c5a9 Move loadBackup command
+| | * | | bdc5e5a Move query command to its own file
+| | * | | b69afed Move global data class to new file
+| | * | | 26b3730 Restructure command handling
+| | * | | 59a418c Move architecture description
+| | * | | 0925b14 Move scanDir to helpers module
+| | * | | 009dd3d Restructure project with relative imports
+| | * | | 7bcba57 refactor markType and markLength using makePropertyBuilder
+| | * | | 8fcfecb graphbrain testing
+| | * | | f062b13 Finish makePropertyBuilder function
+| | * | | 54f0dbb Store system information
+| | * | | 5074cf4 Update gitignore
+| | * | | 90ce493 Fix logging
+| | * | | d75bdf3 More organization and cleanup
+| | * | | bcee5da Move backup function
+| | * | | 6e9ee0f Use timeFunc decorator to factor out duplicated code
+| | * | | 22f0ba6 Move say function
+| | * | | 07afcc6 Moved other commands
+| | * | | 148c84c misc
+| | * | | e85a6ec refactor some commands
+| | * | | fb0125a cleanup
+| | * | | 9400ee6 Move entropy estimation function
+| | * | | 1515fcc Move timeFunc
+| | * | | 8cd241f Move some commands to dedicated functions
+| | * | | 79f8e90 Fix issue with type checking
+| | * | | 5586f1e Add some assertions and type checks
+| | * | | 67b88b8 Extract some specific functionality out of Graph class
+| | * | | a90a8c4 More reorganization and cleanup
+| | * | | d2fccbe miscellaneous
+| | * | | ab5783d Move settings/constant sto new file
+| | * | | d79f1c7 Move getId
+| | * | | 6defecb cleanup
+| | * | | d8df593 Move Graph and Node classes
+| | * | | ba5a2ea Condense recent changes into temp commit
+| | * | | af47888 Find substring relationships between string nodes
+| | * | | def8b40 Move settings and global objects into Eva class
+| | * | | 50738d1 more imports
+| | * | | c9a59a2 Add command for querying graph database
+| | * | | 9e7e7bd Misc
+| | * | | 321af52 Add dependency parsing with spacy
+| | * | | abb3bc2 Read lines from text-based file formats into database
+| | * | | 603e9d6 Run OCR on image files
+| | * | | d0147bc Move string tokenization code
+| | * | | f38d8be Cleanup
+| | * | | 87a2168 Add nesting indents to improve readability
+| | * | | 238b0d2 Add string method to Node class
+| | * | | 8125a3d Add emergency checks to avoid discarding database in the event of severe errors
+| | * | | 50c721d Weight metadata nodes lower during random selection by default
+| | * | | 205c6aa move TODOs
+| | * | | bc81db5 Add HOF for tracking execution time of (some) function calls
+| | * | | 28e0057 Add simple parser for graph database queries
+| | * | | 4007140 Misc bug fixes and cleanup
+| | * | | 6cda3e8 Approximate entropy of string nodes
+| | * | | 9496edb Move database loading into Graph class
+| | * | | 62ab3e3 Organize imports
+| | * | | 945664c more miscellaneous
+| | * | | e58130b Add assertions
+| | * | | 53827d9 Move node length labelling logic
+| | * | | 9c70678 Move node type labelling logic
+| | * | | 347cd21 cleanup
+| | * | | 48a14ee misc
+| | * | | b59c495 Add return_ids option
+| | * | | 11daaa8 Move list command
+| | * | | 2c9a1bb Extract inference command ("think")
+| | * | | 603eb6d misc
+| | * | | 7455fcf Add option to display information without storing in database
+| | * | | 88ff044 update imports
+| | * | | 3ceef8d misc
+| | * | | 477890d Add update parameter to other functions
+| | * | | 55086ec Add Graph filter method
+| | * | | c5eada2 Add method for getting node without propagating updates
+| | * | | 84ee2e9 Count adjacent nodes
+| | * | | 344d698 Automatically refresh multiple nodes
+| | * | | f519684 Add file hashing function
+| | * | | 0779e4d Move functions for getting referring/adjacent nodes into Node class and update some code to use new interface
+| | * | | 3ca5411 Improve dir scanning command
+| | * | | 507f14b Add Graph method for getting random node
+| | * | | a5b97ce more miscellaneous updates
+| | * | | b923ff2 fix some database loading issues
+| | * | | 30d5332 misc
+| | * | | 1916d2e Store reference to internal node representation in Node instance
+| | * | | 65f11cd Support slice notation and return Node instance
+| | * | | 94e020a refactor backup command
+| | * | | 444e30d Move getsize function
+| | * | | 46b0eeb Miscellaneous
+| | * | | afd4301 return Graphs instead of lists of nodes
+| | * | | 236fed3 Add command for loading database from backup
+| | * | | a865a4e Use Graph class instance variables instead of global node list
+| | * | | 0c15dde Add magic methods to Graph class
+| | * | | 5c933c2 fix typo
+| | * | | fddb9fc Move save function into Graph class method
+| | * | | ff7de6b move getNodes into Graph class
+| | * | | 71f03ef Refactor some commands using command decorator
+| | * | | d7136cc Refactoring
+| | * | | 3dbc74a Use say function
+| | * | | 67aa50c Update architecture.tex
+| | * | | 3217d3b Add command for updating individual nodes
+| | * | | bc1965d Add command for displaying adjacent nodes
+| | * | | 5cc95fc miscellaneous fixes
+| | * | | 2c8b485 Track start and end time for find command
+| | * | | 7a9b6d1 add basic inference engine
+| | * | | e47a75d Add function for displaying output
+| | * | | 9607967 gitignore latex helper files
+| | * | | 003c6d3 Calculate size of nodes (in memory)
+| | * | | 38a9647 add simple mathematical expression parser
+| | * | | 97c75cb update gitignore
+| | * | | a57d1e5 miscellaneous
+| | * | | b1d8f80 Add command for mapping directory structure
+| | * | | 32fad94 Fix naming conflict
+| | * | | 9e1bafb Object size computation function from https://stackoverflow.com/a/30316760
+| | * | | 5efa6f6 Add function for scanning local directory structure
+| | * | | 062f7cd misc
+| | * | | 0fe229a Add function for finding adjacent nodes
+| | * | | 05b92f5 more imports
+| | * | | 40e4fa8 miscellaneous
+| | * | | 084abf7 Add simple backup functionality
+| | * | | 70a54cf add Node class
+| | * | | 7e58336 Add getReferrers
+| | * | | 835b053 Add command for importing JSON data
+| | * | | 808ac64 Add marker to processed nodes
+| | * | | e560724 Add syntax for direct (but user-efficient) interaction with database
+| | * | | f589eca optimize getInfo
+| | * | | e9b1526 Fix scoping bug in user inquiry process
+| | * | | 25bf42e Convert functions to Graph class methods and perform operations using a centralized database object
+| | * | | e494999 clean up code
+| | * | | 6803109 Update code to use namedtuple fields when accessing node properties
+| | * | | 4deaf42 Use namedtuple to make node access more readable
+| | * | | ff28add Store reference lists between sessions
+| | * | | 02666a8 fix logging
+| | * | | 9ff4d9d Add command for listing members of a set or category
+| | * | | b7b4003 Link rating nodes to their descriptors
+| | * | | 4123ab2 Add more logging
+| | * | | c4558ba Update ask command
+| | * | | c7d8474 fix indices
+| | * | | 9729c5e Add overview of data structure
+| | * | | 559760a optimize
+| | * | | 6f8f01e Optimize user inquiry generation using node reference list
+| | * | | 16fe106 Build list of nodes that refer to each node on startup
+| | * | | 84d022b Update gitignore
+| | * | | f3b3953 Minor refactoring
+| | * | | dd1404c Update to only use addNode for node creation
+| | * | | 4ffeb23 Improve relation gathering and fix bug causing some questions to be repeated
+| | * | | cb859b6 Allow breakpoint access from interface
+| | * | | 77cd299 Display function
+| | * | | e968f81 Add command for updating all nodes in database
+| | * | | 1e59baf Get node relationship data from user
+| | * | | 25cd262 misc
+| | * | | 758c3d6 Add some logging
+| | * | | 21510b4 Improve node printing
+| | * | | 5a9e67a Extract tokens from inputs
+| | * | | 85dd555 Add node length labels (for strings)
+| | * | | 299c105 Add node type labels
+| | * | | 7c92075 misc
+| | * | | d0084cc Generate "concept nodes" that unify terms extracted from inputs
+| | * | | 8cd52b9 Only attempt to extract binary relations
+| | * | | 182d68b Add more parameters to addNode
+| | * | | b6b150b Basic question-answer functionality
+| | * | | 844c66c Add utility commands
+| | * | | 943be1b miscellaneous
+| | * | | 8f85ab9 Add helper function for getting property specified by pseudoedge
+| | * | | a5be2e4 Add find command
+| | * | | 54b9d02 Add search function
+| | * | | 0e450d8 Add function for finding nodes by partial descriptions
+| | * | | 82101ce save() function
+| | * | | c6be9b3 Refactoring
+| | * | | 63ebd7a Add basic relation extraction from inputs
+| | * | | 77470c4 Get inputs and store in database
+| | * | | 14b0aa5 Load database
+| | * | | f8575bd Add eva.py
+| | * | | 714d3e2 Initial commit
+| |  / /  
+* | | | 6bab693 Rebuild project
+* | | |   763d117 Merge branch 'python-snippets'
+|\ \ \ \  
+| * | | | 6054027 (origin/python-snippets, python-snippets) move some snippets/functions to separate modules
+| * | | |   7b87da6 Merge branch 'master' into python-snippets
+| |\ \ \ \  
+| * | | | | fd5ffd4 remove artifacts from notebook conversion
+| * | | | | 11b1164 regenerate script version of python-snippets
+* | | | | |   948433b Merge branch 'kd-docs'
+|\ \ \ \ \ \  
+| * | | | | | 0fa84b7 (origin/kd-docs, kd-docs) add docstrings to "transition_cost" and "score" functions
+| * | | | | |   110a68e (origin/keyboard-dynamics, keyboard-dynamics) Merge branch 'master' into keyboard-dynamics
+| |\ \ \ \ \ \  
+| | | |/ / / /  
+| | |/| | | |   
+| * | | | | | 5d24145 make script (mostly) flake8 compliant
+* | | | | | | 71f1d88 (origin/foldz, origin/fold-dedup, foldz, fold-dedup) remove other duplicated classes
+* | | | | | |   264c578 Merge branch 'physics' into fold-dedup
+|\ \ \ \ \ \ \  
+| * | | | | | | 19c99f5 (origin/physics-dedup, origin/physics, physics-dedup, physics) merge other geometry-related classes
+| * | | | | | | 1ca95e7 merge Line class and other generic n-d geometry classes
+| * | | | | | | af07bbb improve code style
+| * | | | | | | ce88214 merge Polygon classes
+| * | | | | | | e98d8d1 merge Circle classes from physics and geometry projects
+| * | | | | | |   57437f3 Merge branch 'geometry' into physics-dedup
+| |\ \ \ \ \ \ \  
+* | | | | | | | | 12d3df3 remove most duplicated classes from fold.py
+* | | | | | | | |   ca2b14a Merge branch 'geometry' into fold-dedup
+|\ \ \ \ \ \ \ \ \  
+| | |/ / / / / / /  
+| |/| | / / / / /   
+| |_|_|/ / / / /    
+|/| | | | | | |     
+| * | | | | | | 109b3e1 (origin/geometry, geometry) improve flake8 style compliance
+* | | | | | | | a6bcf86 (origin/epidemic-modelling, epidemic-modelling) more directory restructuring/reorganization
+* | | | | | | | 886f924 Rebuild project
+* | | | | | | |   8db8543 Merge branch 'fire-sim'
+|\ \ \ \ \ \ \ \  
+| * \ \ \ \ \ \ \   0f2330f (origin/fire-sim, fire-sim) Add 'fire-sim/' from commit '40be238ef44d351542682327e03a4e052d84b6fc'
+| |\ \ \ \ \ \ \ \  
+| | |_|_|_|_|/ / /  
+| |/| | | | | | |   
+| | * | | | | | | 40be238 add repeat control
+| | * | | | | | | eb776a7 add fire clipping threshold
+| | * | | | | | | 3fc2193 Place charts horizontally
+| | * | | | | | | 124b6fd more comments
+| | * | | | | | | 5ae0e5d add random noise
+| | * | | | | | | 483d982 make sure cell computations are in the correct loop
+| | * | | | | | | 1328447 add spreading factor
+| | * | | | | | | 6ceb85b create separate plots
+| | * | | | | | | 837dee1 adjust settings
+| | * | | | | | | fab991a Add more options
+| | * | | | | | | 41eaea5 only burn if fuel exists
+| | * | | | | | | 3e2950c add fire calculations
+| | * | | | | | | 3b47831 Add comments
+| | * | | | | | | 10c63c6 Fuel generation
+| | * | | | | | | 4ff5fcd loop through and update
+| | * | | | | | | 40036c0 Fix starting conditions
+| | * | | | | | | 6b7bb4e Initialize
+| |  / / / / / /  
+* | | | | | | |   bac1774 Merge branch 'handwriting-generator'
+|\ \ \ \ \ \ \ \  
+| |_|_|_|/ / / /  
+|/| | | | | | |   
+| * | | | | | |   923f12e (origin/handwriting-generator, handwriting-generator) Add 'handwriting-generator/' from commit 'b6267d76a42a2785d0fb1e8766061b7aacaf7237'
+| |\ \ \ \ \ \ \  
+| | |/ / / / / /  
+| |/| | | | | |   
+| | * | | | | | b6267d7 build docs
+| | * | | | | | 4f1ee91 ignore compiled .pyc files
+| | * | | | | | b8002d7 add command for building docs with pdoc
+| | * | | | | | b088043 Create README.md
+| | * | | | | | 0631ac1 document Pen class
+| | * | | | | | fb8263b add randomness to shaking event
+| | * | | | | | 5c61eb7 add some documentation to Drawer class
+| | * | | | | | 4c0326a add option for normalizing pen randomness to unit vector (limiting more extreme values, in theory)
+| | * | | | | | 9ddb379 add jittering to pen
+| | * | | | | | 142ccad add more letters
+| | * | | | | | 9db7d0b use relative coordinates
+| | * | | | | | 70dc4a8 add momentum-based renderer
+| | * | | | | | d0ba7a1 add pen step method
+| | * | | | | | f188ade testing code
+| | * | | | | | aae5baf move display code to Write class
+| | * | | | | | 5d9dbcd add method to clear canvas
+| | * | | | | | aaef38d add method to convert point labels to coordinates
+| | * | | | | | 44e8727 add Drawer class to generate writing
+| | * | | | | | 25dc69b add pen class
+| | * | | | | | c0f7312 add coords for notation
+| | * | | | | | 6309996 add sample letter outline
+| | * | | | | | 52ef79b add canvas + display
+| | * | | | | | 0352184 initial commit
+| |  / / / / /  
+* | | | | | | 4d2307d Rebuild project
+* | | | | | |   d1233cd Merge branch 'rcas'
+|\ \ \ \ \ \ \  
+| * \ \ \ \ \ \   072458d (origin/rcas, origin/nushell-testing, rcas, nushell-testing) Add 'rcas/' from commit 'c6f22ab7b6c222a975a06e37895d43ea7f5c28b8'
+| |\ \ \ \ \ \ \  
+| | * | | | | | | c6f22ab miscellaneous
+| | * | | | | | | 0e10079 add graph-related types
+| | * | | | | | | 6a6abb3 add Operator type
+| | * | | | | | | 587ec27 add Expression and Function types
+| | * | | | | | | 1767eb2 implement Term type
+| | * | | | | | | eff3abb add main.rs with some basic numeric types
+| | * | | | | | | 2e84406 add .gitignore and cargo metadata files
+| |  / / / / / /  
+| * | | | | | | 04c0391 add git log parsing script
+| * | | | | | | f552a4d generate file list using script
+| * | | | | | | 473a935 add simple nu(shell) script for summarizing lines/tokens/characters in source code files
+| | |_|_|_|/ /  
+| |/| | | | |   
+| * | | | | | 16d978d add discussion of monorepo pros/cons
 | | | | | | | * 3bbb595 (origin/alexandria, alexandria) add script version of core library (alexandria)
 | | | | | | | | * 0d8c676 (origin/consequi, consequi) improve flake8 compliance
 | | | | | | | | * 1508913 improve flake8 style compliance (whitespace)
 | | | | | | | | | * fe83b6a (origin/fractals-dedup, fractals-dedup) remove superfluous geometry module
 | | | | | | | | | *   1cc6b2c Merge branch 'geometry' into fractals-dedup
 | | | | | | | | | |\  
-| | | | | |_|_|_|_|/  
-| | | | |/| | | | |   
-| | | | * | | | | | c0ab375 clean up comments and unused code
-| | | | * | | | | | 03ebc7e add basic geometry classes (borrowed from FoldZ)
+| | | | |_|_|_|_|_|/  
+| | | |/| | | | | |   
+| | | * | | | | | | c0ab375 clean up comments and unused code
+| | | * | | | | | | 03ebc7e add basic geometry classes (borrowed from FoldZ)
 | | | | | | | | | * 8970ece (origin/fractals, fractals) clean up some artifacts from source notebook
 | | | | | | | | | * ca65afb extract some functions and classes into independent modules
 | | | | | | | | | * 58435f1 add script version of fractal generation/visualization toolkit
@@ -1064,461 +1266,462 @@ structure into my workflow:
 | | | | | | | | | | | * 7af8c57 (origin/py-style, py-style) update list of style issues
 | | | | | | | | | | | *   6980e2a Merge branch 'master' into py-style
 | | | | | | | | | | | |\  
-| | | |_|_|_|_|_|_|_|_|/  
-| | |/| | | | | | | | |   
-| | * | | | | | | | | | e14f06d Rebuild project
-| | * | | | | | | | | |   1bedcbe Merge branch 'diagrammer'
+| |_|_|_|_|_|_|_|_|_|_|/  
+|/| | | | | | | | | | |   
+* | | | | | | | | | | | e14f06d Rebuild project
+* | | | | | | | | | | |   1bedcbe Merge branch 'diagrammer'
+|\ \ \ \ \ \ \ \ \ \ \ \  
+| * \ \ \ \ \ \ \ \ \ \ \   bc1b2aa (origin/diagrammer, diagrammer) Add 'diagrammar/' from commit '449c42701c868038d6b5a8cdeff4a3e2c6a5188b'
+| |\ \ \ \ \ \ \ \ \ \ \ \  
+| | |_|/ / / / / / / / / /  
+| |/| | | | | | | | | | |   
+| | * | | | | | | | | | | 449c427 Create README.md
+| | * | | | | | | | | | | 0153739 cleanup
+| | * | | | | | | | | | | 721d83b create gitignore
+| | * | | | | | | | | | | 4979e86 move Object class (and Arrow subclass) to new file
+| | * | | | | | | | | | | 581ba53 create arrow class
+| | * | | | | | | | | | | 1f84828 misc.
+| | * | | | | | | | | | | 097aa8d add object scaling command
+| | * | | | | | | | | | | aeac13b fix rotation bugs
+| | * | | | | | | | | | | 97a4652 handle floats and negatives
+| | * | | | | | | | | | | 22f776c include last block in result
+| | * | | | | | | | | | | 6928f5b outline handling in Object class
+| | * | | | | | | | | | | 1dccc47 add command to set border/outline width
+| | * | | | | | | | | | | 5481435 clear canvas each time Scene.render() is called
+| | * | | | | | | | | | | 2f59a1b add option to parse integers out of result
+| | * | | | | | | | | | | 0b23f1d add function to split text and numbers in a string
+| | * | | | | | | | | | | 9a1f2e8 create camera class
+| | * | | | | | | | | | | a70dfd7 add child objects/sub-objects
+| | * | | | | | | | | | | 76ee53a accept integer dimensions argument
+| | * | | | | | | | | | | 53d55da add text rendering
+| | * | | | | | | | | | | 15116f2 misc
+| | * | | | | | | | | | | 5faef96 add object rotation command
+| | * | | | | | | | | | | 97e2aab more comments and placeholders
+| | * | | | | | | | | | | 063a2e1 add comments
+| | * | | | | | | | | | | ddd724a add regular polygon generator
+| | * | | | | | | | | | | df53849 move flip code out of specific shape drawer
+| | * | | | | | | | | | | 9e655f4 update to use stored context
+| | * | | | | | | | | | | eb48463 cleanup
+| | * | | | | | | | | | | f5444ca test code
+| | * | | | | | | | | | | ce14d43 misc
+| | * | | | | | | | | | | 04b23b8 add method to get command inputs from user in console
+| | * | | | | | | | | | | 5ba1528 add method to render current scene
+| | * | | | | | | | | | | b72351b command placeholders
+| | * | | | | | | | | | | b01a06d updates to clone method
+| | * | | | | | | | | | | 3d990da add fill argument
+| | * | | | | | | | | | | 992c617 add object duplication command
+| | * | | | | | | | | | | 0d4b0a0 use context buffer (result of last command) as input for next command
+| | * | | | | | | | | | | 0236e17 allow inputting list of command argument strings for Scene.command()
+| | * | | | | | | | | | | 53eeb3f initialize bounds as None
+| | * | | | | | | | | | | cf66f0f command for changing object's fill color
+| | * | | | | | | | | | | b787902 command for moving objects
+| | * | | | | | | | | | | d10eb49 command for adding circles to scene
+| | * | | | | | | | | | | ad649dc add simple command processor
+| | * | | | | | | | | | | 33ad35e add method to add objects to scene
+| | * | | | | | | | | | | 662a577 add clear function to reset canvas
+| | * | | | | | | | | | | 6e50b85 miscellaneous
+| | * | | | | | | | | | | 4229f19 add direction shortcuts
+| | * | | | | | | | | | | 5f80a13 fix Object clone method (certain attributes like the 'drawer' should be shallow copied)
+| | * | | | | | | | | | | 2c53ebc add method to update calculated object data
+| | * | | | | | | | | | | 300c58b add abbreviated axes (Scene.x, .y, etc.)
+| | * | | | | | | | | | | a280ea0 add method to generate bounding box for object
+| | * | | | | | | | | | | 675f163 add option for vertically flipping when drawing objects
+| | * | | | | | | | | | | 340cd0c add display with pyplot imshow
+| | * | | | | | | | | | | 34c1443 add color handling
+| | * | | | | | | | | | | ec14ed6 create Scene class
+| | * | | | | | | | | | | ca704c2 add Object.clone method
+| | * | | | | | | | | | | 8e229b2 add Object.move() method
+| | * | | | | | | | | | | 18b0ba9 add Object.draw()
+| | * | | | | | | | | | | f833712 add Object class
+| | * | | | | | | | | | | ada68b2 rendering tests
+| | * | | | | | | | | | | e902d16 init and import modules
+| |  / / / / / / / / / /  
+* | | | | | | | | | | |   91981ce Merge branch 'consequi'
+|\ \ \ \ \ \ \ \ \ \ \ \  
+| | |_|_|_|_|_|_|/ / / /  
+| |/| | | | | | | | | |   
+| * | | | | | | | | | |   de8e0ce Add 'consequi/' from commit '84b8e90e65ab6b24bc1ac28e2d27b8b59e2c30a0'
+| |\ \ \ \ \ \ \ \ \ \ \  
+| | |/ / / / / / / / / /  
+| |/| | | | | | | | | |   
+| | * | | | | | | | | | 84b8e90 add comments to backup function
+| | * | | | | | | | | | c0726ad add additional backup information
+| | * | | | | | | | | | b68b18f add compressed plaintext backups (#37)
+| | * | | | | | | | | | f1c4782 move command aliases to settings.py
+| | * | | | | | | | | |   eea56ae Merge pull request #27 from generic-github-user/remove
 | | |\ \ \ \ \ \ \ \ \ \  
-| | | * \ \ \ \ \ \ \ \ \   bc1b2aa (origin/diagrammer, diagrammer) Add 'diagrammar/' from commit '449c42701c868038d6b5a8cdeff4a3e2c6a5188b'
+| | | * \ \ \ \ \ \ \ \ \   c19be4e Merge pull request #26 from generic-github-user/backup
 | | | |\ \ \ \ \ \ \ \ \ \  
-| | | | |/ / / / / / / / /  
-| | | |/| | | | | | | | |   
-| | | | * | | | | | | | | 449c427 Create README.md
-| | | | * | | | | | | | | 0153739 cleanup
-| | | | * | | | | | | | | 721d83b create gitignore
-| | | | * | | | | | | | | 4979e86 move Object class (and Arrow subclass) to new file
-| | | | * | | | | | | | | 581ba53 create arrow class
-| | | | * | | | | | | | | 1f84828 misc.
-| | | | * | | | | | | | | 097aa8d add object scaling command
-| | | | * | | | | | | | | aeac13b fix rotation bugs
-| | | | * | | | | | | | | 97a4652 handle floats and negatives
-| | | | * | | | | | | | | 22f776c include last block in result
-| | | | * | | | | | | | | 6928f5b outline handling in Object class
-| | | | * | | | | | | | | 1dccc47 add command to set border/outline width
-| | | | * | | | | | | | | 5481435 clear canvas each time Scene.render() is called
-| | | | * | | | | | | | | 2f59a1b add option to parse integers out of result
-| | | | * | | | | | | | | 0b23f1d add function to split text and numbers in a string
-| | | | * | | | | | | | | 9a1f2e8 create camera class
-| | | | * | | | | | | | | a70dfd7 add child objects/sub-objects
-| | | | * | | | | | | | | 76ee53a accept integer dimensions argument
-| | | | * | | | | | | | | 53d55da add text rendering
-| | | | * | | | | | | | | 15116f2 misc
-| | | | * | | | | | | | | 5faef96 add object rotation command
-| | | | * | | | | | | | | 97e2aab more comments and placeholders
-| | | | * | | | | | | | | 063a2e1 add comments
-| | | | * | | | | | | | | ddd724a add regular polygon generator
-| | | | * | | | | | | | | df53849 move flip code out of specific shape drawer
-| | | | * | | | | | | | | 9e655f4 update to use stored context
-| | | | * | | | | | | | | eb48463 cleanup
-| | | | * | | | | | | | | f5444ca test code
-| | | | * | | | | | | | | ce14d43 misc
-| | | | * | | | | | | | | 04b23b8 add method to get command inputs from user in console
-| | | | * | | | | | | | | 5ba1528 add method to render current scene
-| | | | * | | | | | | | | b72351b command placeholders
-| | | | * | | | | | | | | b01a06d updates to clone method
-| | | | * | | | | | | | | 3d990da add fill argument
-| | | | * | | | | | | | | 992c617 add object duplication command
-| | | | * | | | | | | | | 0d4b0a0 use context buffer (result of last command) as input for next command
-| | | | * | | | | | | | | 0236e17 allow inputting list of command argument strings for Scene.command()
-| | | | * | | | | | | | | 53eeb3f initialize bounds as None
-| | | | * | | | | | | | | cf66f0f command for changing object's fill color
-| | | | * | | | | | | | | b787902 command for moving objects
-| | | | * | | | | | | | | d10eb49 command for adding circles to scene
-| | | | * | | | | | | | | ad649dc add simple command processor
-| | | | * | | | | | | | | 33ad35e add method to add objects to scene
-| | | | * | | | | | | | | 662a577 add clear function to reset canvas
-| | | | * | | | | | | | | 6e50b85 miscellaneous
-| | | | * | | | | | | | | 4229f19 add direction shortcuts
-| | | | * | | | | | | | | 5f80a13 fix Object clone method (certain attributes like the 'drawer' should be shallow copied)
-| | | | * | | | | | | | | 2c53ebc add method to update calculated object data
-| | | | * | | | | | | | | 300c58b add abbreviated axes (Scene.x, .y, etc.)
-| | | | * | | | | | | | | a280ea0 add method to generate bounding box for object
-| | | | * | | | | | | | | 675f163 add option for vertically flipping when drawing objects
-| | | | * | | | | | | | | 340cd0c add display with pyplot imshow
-| | | | * | | | | | | | | 34c1443 add color handling
-| | | | * | | | | | | | | ec14ed6 create Scene class
-| | | | * | | | | | | | | ca704c2 add Object.clone method
-| | | | * | | | | | | | | 8e229b2 add Object.move() method
-| | | | * | | | | | | | | 18b0ba9 add Object.draw()
-| | | | * | | | | | | | | f833712 add Object class
-| | | | * | | | | | | | | ada68b2 rendering tests
-| | | | * | | | | | | | | e902d16 init and import modules
-| | | |  / / / / / / / /  
-| | * | | | | | | | | |   91981ce Merge branch 'consequi'
+| | | | * | | | | | | | | | 4c31303 add (simple) backup functionality
+| | | | * | | | | | | | | | 990db07 create function to convert session data to dictionary objects
+| | | | * | | | | | | | | | b30802d add settings to main data file
+| | | |/ / / / / / / / / /  
+| | | * | | | | | | | | | 94eaaf8 add undo task removal
+| | | * | | | | | | | | | d467165 add task remove/delete command
+| | | * | | | | | | | | | 788b56f add remove_tasks
+| | |/ / / / / / / / / /  
+| | * | | | | | | | | |   f4d4d75 Merge pull request #21 from generic-github-user/archiving
 | | |\ \ \ \ \ \ \ \ \ \  
-| | | | |_|_|_|_|/ / / /  
-| | | |/| | | | | | | |   
-| | | * | | | | | | | |   de8e0ce Add 'consequi/' from commit '84b8e90e65ab6b24bc1ac28e2d27b8b59e2c30a0'
-| | | |\ \ \ \ \ \ \ \ \  
-| | | | |/ / / / / / / /  
-| | | |/| | | | | | | |   
-| | | | * | | | | | | | 84b8e90 add comments to backup function
-| | | | * | | | | | | | c0726ad add additional backup information
-| | | | * | | | | | | | b68b18f add compressed plaintext backups (#37)
-| | | | * | | | | | | | f1c4782 move command aliases to settings.py
-| | | | * | | | | | | |   eea56ae Merge pull request #27 from generic-github-user/remove
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * \ \ \ \ \ \ \   c19be4e Merge pull request #26 from generic-github-user/backup
-| | | | | |\ \ \ \ \ \ \ \  
-| | | | | | * | | | | | | | 4c31303 add (simple) backup functionality
-| | | | | | * | | | | | | | 990db07 create function to convert session data to dictionary objects
-| | | | | | * | | | | | | | b30802d add settings to main data file
-| | | | | |/ / / / / / / /  
-| | | | | * | | | | | | | 94eaaf8 add undo task removal
-| | | | | * | | | | | | | d467165 add task remove/delete command
-| | | | | * | | | | | | | 788b56f add remove_tasks
-| | | | |/ / / / / / / /  
-| | | | * | | | | | | |   f4d4d75 Merge pull request #21 from generic-github-user/archiving
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | c25b043 add task archiving
-| | | | | * | | | | | | | bd1062a various restructuring of search/print commands
-| | | | | * | | | | | | | bdb7c6a add function to get tasks in session that are not archived
-| | | | | * | | | | | | | 96c6a06 add method to quickly get archival state of task
-| | | | | * | | | | | | | 3a5f2d0 miscellaneous
-| | | | | * | | | | | | | f13f537 add deselect function
-| | | | | * | | | | | | | 6baa4d3 add selection command
-| | | | | * | | | | | | | 0218ddd add printing of current selection (if no arguments provided)
-| | | | | * | | | | | | | 4fccc91 add task searching function
-| | | | | * | | | | | | | 9ffa8bf add context from previous command
-| | | | | * | | | | | | | 25b0d51 add aliases for new commands
-| | | | |/ / / / / / / /  
-| | | | * | | | | | | | e2e96ad Fix #20
-| | | | * | | | | | | | 52209ab compute efficiency ratio (task importance divided by estimated completion time)
-| | | | * | | | | | | | f2ea5d6 add multi-word tag names
-| | | | * | | | | | | | db068a5 move Tag class to its own file
-| | | | * | | | | | | | be35398 error handling
-| | | | * | | | | | | | bb1c7fc fix bug in argument extractor
-| | | | * | | | | | | | 8358de2 add duration label handling
-| | | | * | | | | | | | 68afb4a fix bug and add more task properties
-| | | | * | | | | | | | 145a9e1 add parsing of other duration formats (e.g., "5 hours, 30 minutes")
-| | | | * | | | | | | | b309834 add duration parser (...hh:mm:ss)
-| | | | * | | | | | | | d3452fb add info about different time units
-| | | | * | | | | | | | 93dcdc8 add get_arg function
-| | | | * | | | | | | | 99adf47 fix handling of multiword task entries
-| | | | * | | | | | | | f3944d8 fix date parsing
-| | | | * | | | | | | | 497c938 add task display as table (in lookup command)
-| | | | * | | | | | | | 6b5d5ff ignore .pyc
-| | | | * | | | | | | | 28c8445 move Settings and Task classes to their own files
-| | | | * | | | | | | | 71b56d3 add tag creation handling
-| | | | * | | | | | | | 63ec9bb add tag import/export functions (nearly identical to task class methods)
-| | | | * | | | | | | | 0180688 add entity aliases
-| | | | * | | | | | | | e2fb8fa fix merge conflicts
-| | | | * | | | | | | |   0246f57 Merge pull request #12 from generic-github-user/comments
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * \ \ \ \ \ \ \   bb318c4 Merge branch 'master' into comments
-| | | | | |\ \ \ \ \ \ \ \  
-| | | | | |/ / / / / / / /  
-| | | | |/| | | | | | | |   
-| | | | * | | | | | | | | 73c693a add back missing add_task changes
-| | | | * | | | | | | | |   a8c08d3 Merge pull request #11 from generic-github-user/revert-10-revert-9-undo
-| | | | |\ \ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | | 54657a8 Revert "Revert "Undo""
-| | | | |/ / / / / / / / /  
-| | | | * | | | | | | | |   87ff598 Merge pull request #10 from generic-github-user/revert-9-undo
-| | | | |\ \ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | | b78b08f Revert "Undo"
-| | | | |/ / / / / / / / /  
-| | | | * | | | | | | | |   aa36521 Merge pull request #9 from generic-github-user/undo
-| | | | |\ \ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | | d84f974 remove last command from buffer once undo is complete
-| | | | | * | | | | | | | | c11e277 add max command/undo buffer size
-| | | | | * | | | | | | | | b3af7dc add undo function for ranking system
-| | | | | * | | | | | | | | 7049037 add undo add task command
-| | | | | * | | | | | | | | 509b062 restructured code to use dict as main data wrapper (tasks, tags, etc. to be stored in sub-arrays)
-| | | | | * | | | | | | | | a4596be create Tag class
-| | | | |/ / / / / / / / /  
-| | | | | * | | | | | | | 34022c2 add more comments
-| | | | | * | | | | | | | c216786 add some comments
-| | | | |/ / / / / / / /  
-| | | | * | | | | | | | 9524261 fix aliases broken in previous merge commit
-| | | | * | | | | | | |   101b3be Merge pull request #2 from generic-github-user/ranking
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * \ \ \ \ \ \ \   c9d65eb Merge branch 'master' into ranking
-| | | | | |\ \ \ \ \ \ \ \  
-| | | | | |/ / / / / / / /  
-| | | | |/| | | | | | | |   
-| | | | * | | | | | | | | 858a9c8 add short command aliases
-| | | | * | | | | | | | | dab969c add exit command(s)
-| | | | | * | | | | | | | 8046ff5 save after loading data (to apply changes made during loading process, such as format standardization/updates)
-| | | | | * | | | | | | | 799480e round importance scores to nearest integer value
-| | | | | * | | | | | | | d677f0e create simple ranking system
-| | | | | * | | | | | | | 4eba2cc add task IDs
-| | | | |/ / / / / / / /  
-| | | | * | | | | | | |   b51fdd7 Merge pull request #1 from generic-github-user/dev
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | 6bfb883 store date as string to avoid JSON serialization error
-| | | | | * | | | | | | | 634b934 add command to list all tasks
-| | | | | * | | | | | | | eab142c only decode datestring if the task has one
-| | | | | * | | | | | | | 7132ee0 programmatically access task properties
-| | | | | * | | | | | | | 087847a parse complex date strings with https://github.com/kvh/recurrent
-| | | | | * | | | | | | | f601b36 add datestring storage
-| | | | | * | | | | | | | 9ec6018 fix data loading issue
-| | | | * | | | | | | | | 3a2ef2e make sure not to overwrite data file when opening
-| | | | |/ / / / / / / /  
-| | | | * | | | | | | | 810f9d8 gitignore data storage files
-| | | | * | | | | | | | f32b1b5 add greetings
-| | | | * | | | | | | | 64d79f5 get commands from user (in command line/console)
-| | | | * | | | | | | | 8fcde78 cleanup
-| | | | * | | | | | | | ca4831f add command processor
-| | | | * | | | | | | | 13ace08 error handling
-| | | | * | | | | | | | 77a7a86 remove unused self argument
-| | | | * | | | | | | | 1cc930c add method for getting task as string
-| | | | * | | | | | | | ebb5559 add method for getting task as dictionary object
-| | | | * | | | | | | | 73310a8 create Task class
-| | | | * | | | | | | | 11f0f48 update function variable names
-| | | | * | | | | | | |   e28dcc4 Merge branch 'master' of https://github.com/generic-github-user/consequi
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | bdcc0fa Create README.md
-| | | | * | | | | | | | | 112b310 add functions for loading/saving data
-| | | | |/ / / / / / / /  
-| | | | * / / / / / / / 54db252 initialize
-| | | |  / / / / / / /  
-| | * | | | | | | | | b78388b Rebuild project
-| | * | | | | | | | |   c3f0a3c Merge branch 'meta'
-| | |\ \ \ \ \ \ \ \ \  
-| |_|/ / / / / / / / /  
+| | | * | | | | | | | | | c25b043 add task archiving
+| | | * | | | | | | | | | bd1062a various restructuring of search/print commands
+| | | * | | | | | | | | | bdb7c6a add function to get tasks in session that are not archived
+| | | * | | | | | | | | | 96c6a06 add method to quickly get archival state of task
+| | | * | | | | | | | | | 3a5f2d0 miscellaneous
+| | | * | | | | | | | | | f13f537 add deselect function
+| | | * | | | | | | | | | 6baa4d3 add selection command
+| | | * | | | | | | | | | 0218ddd add printing of current selection (if no arguments provided)
+| | | * | | | | | | | | | 4fccc91 add task searching function
+| | | * | | | | | | | | | 9ffa8bf add context from previous command
+| | | * | | | | | | | | | 25b0d51 add aliases for new commands
+| | |/ / / / / / / / / /  
+| | * | | | | | | | | | e2e96ad Fix #20
+| | * | | | | | | | | | 52209ab compute efficiency ratio (task importance divided by estimated completion time)
+| | * | | | | | | | | | f2ea5d6 add multi-word tag names
+| | * | | | | | | | | | db068a5 move Tag class to its own file
+| | * | | | | | | | | | be35398 error handling
+| | * | | | | | | | | | bb1c7fc fix bug in argument extractor
+| | * | | | | | | | | | 8358de2 add duration label handling
+| | * | | | | | | | | | 68afb4a fix bug and add more task properties
+| | * | | | | | | | | | 145a9e1 add parsing of other duration formats (e.g., "5 hours, 30 minutes")
+| | * | | | | | | | | | b309834 add duration parser (...hh:mm:ss)
+| | * | | | | | | | | | d3452fb add info about different time units
+| | * | | | | | | | | | 93dcdc8 add get_arg function
+| | * | | | | | | | | | 99adf47 fix handling of multiword task entries
+| | * | | | | | | | | | f3944d8 fix date parsing
+| | * | | | | | | | | | 497c938 add task display as table (in lookup command)
+| | * | | | | | | | | | 6b5d5ff ignore .pyc
+| | * | | | | | | | | | 28c8445 move Settings and Task classes to their own files
+| | * | | | | | | | | | 71b56d3 add tag creation handling
+| | * | | | | | | | | | 63ec9bb add tag import/export functions (nearly identical to task class methods)
+| | * | | | | | | | | | 0180688 add entity aliases
+| | * | | | | | | | | | e2fb8fa fix merge conflicts
+| | * | | | | | | | | |   0246f57 Merge pull request #12 from generic-github-user/comments
+| | |\ \ \ \ \ \ \ \ \ \  
+| | | * \ \ \ \ \ \ \ \ \   bb318c4 Merge branch 'master' into comments
+| | | |\ \ \ \ \ \ \ \ \ \  
+| | | |/ / / / / / / / / /  
+| | |/| | | | | | | | | |   
+| | * | | | | | | | | | | 73c693a add back missing add_task changes
+| | * | | | | | | | | | |   a8c08d3 Merge pull request #11 from generic-github-user/revert-10-revert-9-undo
+| | |\ \ \ \ \ \ \ \ \ \ \  
+| | | * | | | | | | | | | | 54657a8 Revert "Revert "Undo""
+| | |/ / / / / / / / / / /  
+| | * | | | | | | | | | |   87ff598 Merge pull request #10 from generic-github-user/revert-9-undo
+| | |\ \ \ \ \ \ \ \ \ \ \  
+| | | * | | | | | | | | | | b78b08f Revert "Undo"
+| | |/ / / / / / / / / / /  
+| | * | | | | | | | | | |   aa36521 Merge pull request #9 from generic-github-user/undo
+| | |\ \ \ \ \ \ \ \ \ \ \  
+| | | * | | | | | | | | | | d84f974 remove last command from buffer once undo is complete
+| | | * | | | | | | | | | | c11e277 add max command/undo buffer size
+| | | * | | | | | | | | | | b3af7dc add undo function for ranking system
+| | | * | | | | | | | | | | 7049037 add undo add task command
+| | | * | | | | | | | | | | 509b062 restructured code to use dict as main data wrapper (tasks, tags, etc. to be stored in sub-arrays)
+| | | * | | | | | | | | | | a4596be create Tag class
+| | |/ / / / / / / / / / /  
+| | | * | | | | | | | | | 34022c2 add more comments
+| | | * | | | | | | | | | c216786 add some comments
+| | |/ / / / / / / / / /  
+| | * | | | | | | | | | 9524261 fix aliases broken in previous merge commit
+| | * | | | | | | | | |   101b3be Merge pull request #2 from generic-github-user/ranking
+| | |\ \ \ \ \ \ \ \ \ \  
+| | | * \ \ \ \ \ \ \ \ \   c9d65eb Merge branch 'master' into ranking
+| | | |\ \ \ \ \ \ \ \ \ \  
+| | | |/ / / / / / / / / /  
+| | |/| | | | | | | | | |   
+| | * | | | | | | | | | | 858a9c8 add short command aliases
+| | * | | | | | | | | | | dab969c add exit command(s)
+| | | * | | | | | | | | | 8046ff5 save after loading data (to apply changes made during loading process, such as format standardization/updates)
+| | | * | | | | | | | | | 799480e round importance scores to nearest integer value
+| | | * | | | | | | | | | d677f0e create simple ranking system
+| | | * | | | | | | | | | 4eba2cc add task IDs
+| | |/ / / / / / / / / /  
+| | * | | | | | | | | |   b51fdd7 Merge pull request #1 from generic-github-user/dev
+| | |\ \ \ \ \ \ \ \ \ \  
+| | | * | | | | | | | | | 6bfb883 store date as string to avoid JSON serialization error
+| | | * | | | | | | | | | 634b934 add command to list all tasks
+| | | * | | | | | | | | | eab142c only decode datestring if the task has one
+| | | * | | | | | | | | | 7132ee0 programmatically access task properties
+| | | * | | | | | | | | | 087847a parse complex date strings with https://github.com/kvh/recurrent
+| | | * | | | | | | | | | f601b36 add datestring storage
+| | | * | | | | | | | | | 9ec6018 fix data loading issue
+| | * | | | | | | | | | | 3a2ef2e make sure not to overwrite data file when opening
+| | |/ / / / / / / / / /  
+| | * | | | | | | | | | 810f9d8 gitignore data storage files
+| | * | | | | | | | | | f32b1b5 add greetings
+| | * | | | | | | | | | 64d79f5 get commands from user (in command line/console)
+| | * | | | | | | | | | 8fcde78 cleanup
+| | * | | | | | | | | | ca4831f add command processor
+| | * | | | | | | | | | 13ace08 error handling
+| | * | | | | | | | | | 77a7a86 remove unused self argument
+| | * | | | | | | | | | 1cc930c add method for getting task as string
+| | * | | | | | | | | | ebb5559 add method for getting task as dictionary object
+| | * | | | | | | | | | 73310a8 create Task class
+| | * | | | | | | | | | 11f0f48 update function variable names
+| | * | | | | | | | | |   e28dcc4 Merge branch 'master' of https://github.com/generic-github-user/consequi
+| | |\ \ \ \ \ \ \ \ \ \  
+| | | * | | | | | | | | | bdcc0fa Create README.md
+| | * | | | | | | | | | | 112b310 add functions for loading/saving data
+| | |/ / / / / / / / / /  
+| | * / / / / / / / / / 54db252 initialize
+| |  / / / / / / / / /  
+* | | | | | | | | | | b78388b Rebuild project
+* | | | | | | | | | |   c3f0a3c Merge branch 'meta'
+|\ \ \ \ \ \ \ \ \ \ \  
+| | |/ / / / / / / / /  
+| |/| | | | | | | | |   
+| * | | | | | | | | | ddd3d16 add notice about auto-generation of README.md (and ref to appropriate file)
+| * | | | | | | | | | 5b3e5e0 generate project list (see #16)
+* | | | | | | | | | | ec89e06 (origin/ytodo, ytodo) update .gitignore
+* | | | | | | | | | | 6d10835 filter out tasks marked as complete and append to an archive file
+* | | | | | | | | | | 1c18187 add simple YAML-based version of todo manager
+* | | | | | | | | | | bc22647 Rebuild project
+* | | | | | | | | | |   740f9e2 Merge branch 'ao'
+|\ \ \ \ \ \ \ \ \ \ \  
+| |/ / / / / / / / / /  
 |/| | | | | | | | | |   
-* | | | | | | | | | | ddd3d16 add notice about auto-generation of README.md (and ref to appropriate file)
-* | | | | | | | | | | 5b3e5e0 generate project list (see #16)
-| | * | | | | | | | | ec89e06 (origin/ytodo, ytodo) update .gitignore
-| | * | | | | | | | | 6d10835 filter out tasks marked as complete and append to an archive file
-| | * | | | | | | | | 1c18187 add simple YAML-based version of todo manager
-| | * | | | | | | | | bc22647 Rebuild project
-| | * | | | | | | | | 740f9e2 Merge branch 'ao'
-| |/| | | | | | | | | 
-|/| | | | | | | | | | 
-| | * | | | | | | | |   c4e401d (origin/ao, ao) Add 'ao/' from commit '94f741b542116f4daa0b0e32129d217e6a455a61'
+| * | | | | | | | | |   c4e401d (origin/ao, ao) Add 'ao/' from commit '94f741b542116f4daa0b0e32129d217e6a455a61'
+| |\ \ \ \ \ \ \ \ \ \  
+| | |/ / / / / / / / /  
+| |/| | | | | | | | |   
+| | * | | | | | | | |   94f741b Merge pull request #30 from generic-github-user/python
 | | |\ \ \ \ \ \ \ \ \  
-| | | |/ / / / / / / /  
-| | |/| | | | | | | |   
-| | | * | | | | | | |   94f741b Merge pull request #30 from generic-github-user/python
-| | | |\ \ \ \ \ \ \ \  
-| | | | * \ \ \ \ \ \ \   e4519ed Merge branch 'ap-todo' into python
-| | | | |\ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | 468f35e improve sorting of todo items
-| | | | | * | | | | | | | db3d73f move todo items based on completion status and tags
-| | | | | * | | | | | | | e763394 clean up unused code
-| | | | | * | | | | | | | ab2e0e7 parse and integrate each todo list separately
-| | | | | * | | | | | | | 1d3f3df store paths to multiple (synced) todo lists
-| | | | | * | | | | | | | f05e213 update todo file content with new state
-| | | | | * | | | | | | | 9b19705 misc. bug fixes and logging
-| | | | | * | | | | | | | 209a6b5 automatically back up todo file(s) and database
-| | | | | * | | | | | | | 840f2b6 update stored state based on snapshots generated from todo list file
-| | | | | * | | | | | | | 3c6eedd add some high-level comments to todo.py
-| | | | | * | | | | | | | a22fcd4 add function for parsing todo statements and generating corresponding snapshots
-| | | | | * | | | | | | | b600744 fix some bugs, misc todo class improvements
-| | | | | * | | | | | | | 9e092e0 add todo class for representing items on todo list(s)
-| | | | * | | | | | | | | 1499fd0 move TODOs from ap.py to github issues
-| | | | * | | | | | | | |   cfb9569 Merge pull request #15 from generic-github-user/ap-docs
-| | | | |\ \ \ \ \ \ \ \ \  
-| | | | | * \ \ \ \ \ \ \ \   3aed490 Merge branch 'python' into ap-docs
-| | | | | |\ \ \ \ \ \ \ \ \  
-| | | | | |/ / / / / / / / /  
-| | | | |/| | | | | | | | |   
-| | | | * | | | | | | | | | a884211 summarize import groups
-| | | | * | | | | | | | | |   14f668c Merge pull request #12 from generic-github-user/ap-restructuring
-| | | | |\ \ \ \ \ \ \ \ \ \  
-| | | | | |_|/ / / / / / / /  
-| | | | |/| | | | | | | | |   
-| | | | | * | | | | | | | |   b1c0bde Merge branch 'python' into ap-restructuring
-| | | | | |\ \ \ \ \ \ \ \ \  
-| | | | | |/ / / / / / / / /  
-| | | | |/| | | | | | | | |   
-| | | | * | | | | | | | | | 5712f15 minor README changes
-| | | | * | | | | | | | | | 5d235f0 record sensor data from psutil
-| | | | | * | | | | | | | | fe64530 move global settings to config file
-| | | | | * | | | | | | | | d02452f move file handling classes and functions to files module
-| | | | | * | | | | | | | |   4c7277c Merge branch 'ap-restructuring' of github.com:generic-github-user/ao into ap-restructuring
-| | | | | |\ \ \ \ \ \ \ \ \  
-| | | | | | * | | | | | | | | d505f42 move getsize and hashfile helper functions to utils.py
-| | | | | |/ / / / / / / / /  
-| | | | |/| | | | | | | | |   
-| | | | | * | | | | | | | | b62cbb7 move getsize and hashfile helper functions to utils.py
-| | | | |/ / / / / / / / /  
-| | | | | * | | | | | | | ccd549b minor README tweaks
-| | | | | * | | | | | | |   c1bc53b Merge pull request #14 from generic-github-user/comments
-| | | | | |\ \ \ \ \ \ \ \  
-| | | | | | * | | | | | | | 7457912 add comments to openfiles function
-| | | | | | * | | | | | | | b8c3818 add comments to extracttext file
-| | | | | | * | | | | | | | 35de70d add some comments to tagfile and tagfiles
-| | | | | | * | | | | | | |   7bbe6a4 Merge branch 'images' into comments
-| | | | | | |\ \ \ \ \ \ \ \  
-| | | | | | | * | | | | | | | cc6dc4c make this version work (was originally one file, split into multiple branches to preserve my sanity and achieved the opposite effect)
-| | | | | | | * | | | | | | |   f9209ab Merge pull request #8 from generic-github-user/command-line
-| | | | | | | |\ \ \ \ \ \ \ \  
-| | | | | | | | * | | | | | | | fa8aeab use argparse to process subcommands supplied via the terminal
-| | | | | | | * | | | | | | | |   3701299 Merge pull request #7 from generic-github-user/file-processing
-| | | | | | | |\ \ \ \ \ \ \ \ \  
-| | | | | | | | |/ / / / / / / /  
-| | | | | | | |/| | | | | | | |   
-| | | | | | | | * | | | | | | | 200ad71 refactor tagfiles
-| | | | | | | | * | | | | | | | 1873a10 miscellaneous
-| | | | | | | | * | | | | | | | 25bc256 add helper function for accessing sets of files though default file manager
-| | | | | | | * | | | | | | | | d481791 use (py)tesseract to extract text from images
-| | | | | | | |/ / / / / / / /  
-| | | | | | | * / / / / / / / e0b2837 automatically tag some files based on filetype
-| | | | | |_|/ / / / / / / /  
-| | | | |/| | | | | | | | |   
-| | | | | | * | | | | | | | 303c3d7 add some comments to snapshot class
-| | | | | | * | | | | | | | 3a830da add some comments to catalog function
-| | | | | | * | | | | | | | ae11626 add more comments to filenode class
-| | | | | | * | | | | | | | 958cf96 add summary comments to other functions
-| | | | | * | | | | | | | | f73d53b add descriptions of other branches
-| | | | | |/ / / / / / / /  
-| | | | | * / / / / / / / cceab27 add summaries of some branches to README
-| | | | |/ / / / / / / /  
-| | | | * | | | | | | | a8eab31 add function for generating file snapshots (using os and pathlib)
-| | | | * | | | | | | | 6a0d2e3 add file snapshot class (in the style of Git and other VCS software)
-| | | | * | | | | | | | dab6837 add filenode class for representing files and directories
-| | | | * | | | | | | | b2a73c7 more .gitignore updates
-| | | | * | | | | | | | db832bc add feature summary to README
-| | | | * | | | | | | | 67f5d51 expand README introduction
-| | | | * | | | | | | | 931b100 add more helper functions (log and save)
-| | | | * | | | | | | | 43dd651 add some helper functions
-| | | | * | | | | | | | ef69999 add ap.py
-| | | | * | | | | | | | 1f49544 update .gitignore
-| | | | * | | | | | | | ca0a3f9 add README for Python-based version
-| | | * | | | | | | | | c53c961 copy branch descriptions from README.md in ao@ao-docs
-| | | * | | | | | | | | 01c9dd7 add link to new(-ish) python branch
-| | | |/ / / / / / / /  
-| | | * | | | | | | | 45e86d1 update requirements list
-| | | * | | | | | | |   c042f17 Merge pull request #6 from generic-github-user/todo-handling
-| | | |\ \ \ \ \ \ \ \  
-| | | | * \ \ \ \ \ \ \   a6916b2 Merge branch 'master' of github.com:generic-github-user/ao into todo-handling
-| | | | |\ \ \ \ \ \ \ \  
-| | | | |/ / / / / / / /  
-| | | |/| | | | | | | |   
-| | | * | | | | | | | |   24a417a Merge pull request #5 from generic-github-user/system-monitoring
+| | | * \ \ \ \ \ \ \ \   e4519ed Merge branch 'ap-todo' into python
 | | | |\ \ \ \ \ \ \ \ \  
-| | | | * \ \ \ \ \ \ \ \   c4faf9e Merge branch 'master' of github.com:generic-github-user/ao into system-monitoring
-| | | | |\ \ \ \ \ \ \ \ \  
-| | | | |/ / / / / / / / /  
-| | | |/| | | | | | | | |   
-| | | * | | | | | | | | | 4c7ebca fix minor errors and reflow README
-| | | * | | | | | | | | | 74285ff add usage instructions and command reference to README
-| | | * | | | | | | | | | eaf29a9 move syntax highlighting files and use vim highlighting groups
-| | | * | | | | | | | | | 579c347 update .gitignore
-| | | * | | | | | | | | | 7a26168 clean up some temp files, standardize paths
-| | | * | | | | | | | | | 77bdb2b misc. fixes, improve relative path consistency
-| | | * | | | | | | | | | 12e2bb3 improve path consistency in utodo.sh
-| | | * | | | | | | | | | 5428650 add SLOC statistics to README
-| | | * | | | | | | | | | 743e7bf add table of contents
-| | | * | | | | | | | | |   ff543d0 Merge pull request #4 from generic-github-user/files
+| | | | * | | | | | | | | 468f35e improve sorting of todo items
+| | | | * | | | | | | | | db3d73f move todo items based on completion status and tags
+| | | | * | | | | | | | | e763394 clean up unused code
+| | | | * | | | | | | | | ab2e0e7 parse and integrate each todo list separately
+| | | | * | | | | | | | | 1d3f3df store paths to multiple (synced) todo lists
+| | | | * | | | | | | | | f05e213 update todo file content with new state
+| | | | * | | | | | | | | 9b19705 misc. bug fixes and logging
+| | | | * | | | | | | | | 209a6b5 automatically back up todo file(s) and database
+| | | | * | | | | | | | | 840f2b6 update stored state based on snapshots generated from todo list file
+| | | | * | | | | | | | | 3c6eedd add some high-level comments to todo.py
+| | | | * | | | | | | | | a22fcd4 add function for parsing todo statements and generating corresponding snapshots
+| | | | * | | | | | | | | b600744 fix some bugs, misc todo class improvements
+| | | | * | | | | | | | | 9e092e0 add todo class for representing items on todo list(s)
+| | | * | | | | | | | | | 1499fd0 move TODOs from ap.py to github issues
+| | | * | | | | | | | | |   cfb9569 Merge pull request #15 from generic-github-user/ap-docs
 | | | |\ \ \ \ \ \ \ \ \ \  
-| | | | * \ \ \ \ \ \ \ \ \   1ac70ea Merge branch 'master' into files
+| | | | * \ \ \ \ \ \ \ \ \   3aed490 Merge branch 'python' into ap-docs
 | | | | |\ \ \ \ \ \ \ \ \ \  
 | | | | |/ / / / / / / / / /  
 | | | |/| | | | | | | | | |   
-| | | * | | | | | | | | | | 6561b55 more feature information
-| | | * | | | | | | | | | | bddd08c add information about some features to README
-| | | | * | | | | | | | | |   da66d3c Merge pull request #3 from generic-github-user/docs
+| | | * | | | | | | | | | | a884211 summarize import groups
+| | | * | | | | | | | | | |   14f668c Merge pull request #12 from generic-github-user/ap-restructuring
+| | | |\ \ \ \ \ \ \ \ \ \ \  
+| | | | |_|/ / / / / / / / /  
+| | | |/| | | | | | | | | |   
+| | | | * | | | | | | | | |   b1c0bde Merge branch 'python' into ap-restructuring
 | | | | |\ \ \ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | | | 937fc4e include command parameters in generated documentation
-| | | | | * | | | | | | | | | d1f44d2 add documentation database file
-| | | | | * | | | | | | | | | e459f2d add subcommand (build) for generating documentation files
 | | | | |/ / / / / / / / / /  
-| | | | * | | | | | | | | | aebf4e3 reflow some of the longer lines
-| | | | * | | | | | | | | | 3c6d9ec misc updates and fixes
-| | | | * | | | | | | | | | d5fb8b2 support dry run option for cleanup subcommand
-| | | | * | | | | | | | | |   4f39ea9 Merge pull request #2 from generic-github-user/todo-handling
+| | | |/| | | | | | | | | |   
+| | | * | | | | | | | | | | 5712f15 minor README changes
+| | | * | | | | | | | | | | 5d235f0 record sensor data from psutil
+| | | | * | | | | | | | | | fe64530 move global settings to config file
+| | | | * | | | | | | | | | d02452f move file handling classes and functions to files module
+| | | | * | | | | | | | | |   4c7277c Merge branch 'ap-restructuring' of github.com:generic-github-user/ao into ap-restructuring
 | | | | |\ \ \ \ \ \ \ \ \ \  
-| | | | | | * | | | | | | | | 51f6119 add subcommand for recording data about available memory
-| | | | | | * | | | | | | | | 549a9a8 misc.
-| | | | | | * | | | | | | | | 8855661 add record command
-| | | | | | | * | | | | | | | e642e34 add some comments to utodo.sh
-| | | | | | | * | | | | | | | 16e43d6 add flags for tasks that recur on a weekly/monthly basis
-| | | | | | | * | | | | | | | c7324f6 various improvements to todo processing
-| | | | | | | * | | | | | | | 6e665af grab .gitignore from master
-| | | | | | | * | | | | | | | bb03314 add ao subcommand for dispatching utodo.sh
-| | | | | | | * | | | | | | | 60d7cb0 copy over path changes from master
-| | | | | | | * | | | | | | | fcded87 miscellaneous
-| | | | | | |/ / / / / / / /  
-| | | | | |/| | | | | | | |   
-| | | | | * | | | | | | | |   13a8f41 Merge branch 'files' into todo-handling
+| | | | | * | | | | | | | | | d505f42 move getsize and hashfile helper functions to utils.py
+| | | | |/ / / / / / / / / /  
+| | | |/| | | | | | | | | |   
+| | | | * | | | | | | | | | b62cbb7 move getsize and hashfile helper functions to utils.py
+| | | |/ / / / / / / / / /  
+| | | | * | | | | | | | | ccd549b minor README tweaks
+| | | | * | | | | | | | |   c1bc53b Merge pull request #14 from generic-github-user/comments
+| | | | |\ \ \ \ \ \ \ \ \  
+| | | | | * | | | | | | | | 7457912 add comments to openfiles function
+| | | | | * | | | | | | | | b8c3818 add comments to extracttext file
+| | | | | * | | | | | | | | 35de70d add some comments to tagfile and tagfiles
+| | | | | * | | | | | | | |   7bbe6a4 Merge branch 'images' into comments
 | | | | | |\ \ \ \ \ \ \ \ \  
+| | | | | | * | | | | | | | | cc6dc4c make this version work (was originally one file, split into multiple branches to preserve my sanity and achieved the opposite effect)
+| | | | | | * | | | | | | | |   f9209ab Merge pull request #8 from generic-github-user/command-line
+| | | | | | |\ \ \ \ \ \ \ \ \  
+| | | | | | | * | | | | | | | | fa8aeab use argparse to process subcommands supplied via the terminal
+| | | | | | * | | | | | | | | |   3701299 Merge pull request #7 from generic-github-user/file-processing
+| | | | | | |\ \ \ \ \ \ \ \ \ \  
+| | | | | | | |/ / / / / / / / /  
+| | | | | | |/| | | | | | | | |   
+| | | | | | | * | | | | | | | | 200ad71 refactor tagfiles
+| | | | | | | * | | | | | | | | 1873a10 miscellaneous
+| | | | | | | * | | | | | | | | 25bc256 add helper function for accessing sets of files though default file manager
+| | | | | | * | | | | | | | | | d481791 use (py)tesseract to extract text from images
+| | | | | | |/ / / / / / / / /  
+| | | | | | * / / / / / / / / e0b2837 automatically tag some files based on filetype
+| | | | |_|/ / / / / / / / /  
+| | | |/| | | | | | | | | |   
+| | | | | * | | | | | | | | 303c3d7 add some comments to snapshot class
+| | | | | * | | | | | | | | 3a830da add some comments to catalog function
+| | | | | * | | | | | | | | ae11626 add more comments to filenode class
+| | | | | * | | | | | | | | 958cf96 add summary comments to other functions
+| | | | * | | | | | | | | | f73d53b add descriptions of other branches
+| | | | |/ / / / / / / / /  
+| | | | * / / / / / / / / cceab27 add summaries of some branches to README
+| | | |/ / / / / / / / /  
+| | | * | | | | | | | | a8eab31 add function for generating file snapshots (using os and pathlib)
+| | | * | | | | | | | | 6a0d2e3 add file snapshot class (in the style of Git and other VCS software)
+| | | * | | | | | | | | dab6837 add filenode class for representing files and directories
+| | | * | | | | | | | | b2a73c7 more .gitignore updates
+| | | * | | | | | | | | db832bc add feature summary to README
+| | | * | | | | | | | | 67f5d51 expand README introduction
+| | | * | | | | | | | | 931b100 add more helper functions (log and save)
+| | | * | | | | | | | | 43dd651 add some helper functions
+| | | * | | | | | | | | ef69999 add ap.py
+| | | * | | | | | | | | 1f49544 update .gitignore
+| | | * | | | | | | | | ca0a3f9 add README for Python-based version
+| | * | | | | | | | | | c53c961 copy branch descriptions from README.md in ao@ao-docs
+| | * | | | | | | | | | 01c9dd7 add link to new(-ish) python branch
+| | |/ / / / / / / / /  
+| | * | | | | | | | | 45e86d1 update requirements list
+| | * | | | | | | | |   c042f17 Merge pull request #6 from generic-github-user/todo-handling
+| | |\ \ \ \ \ \ \ \ \  
+| | | * \ \ \ \ \ \ \ \   a6916b2 Merge branch 'master' of github.com:generic-github-user/ao into todo-handling
+| | | |\ \ \ \ \ \ \ \ \  
+| | | |/ / / / / / / / /  
+| | |/| | | | | | | | |   
+| | * | | | | | | | | |   24a417a Merge pull request #5 from generic-github-user/system-monitoring
+| | |\ \ \ \ \ \ \ \ \ \  
+| | | * \ \ \ \ \ \ \ \ \   c4faf9e Merge branch 'master' of github.com:generic-github-user/ao into system-monitoring
+| | | |\ \ \ \ \ \ \ \ \ \  
+| | | |/ / / / / / / / / /  
+| | |/| | | | | | | | | |   
+| | * | | | | | | | | | | 4c7ebca fix minor errors and reflow README
+| | * | | | | | | | | | | 74285ff add usage instructions and command reference to README
+| | * | | | | | | | | | | eaf29a9 move syntax highlighting files and use vim highlighting groups
+| | * | | | | | | | | | | 579c347 update .gitignore
+| | * | | | | | | | | | | 7a26168 clean up some temp files, standardize paths
+| | * | | | | | | | | | | 77bdb2b misc. fixes, improve relative path consistency
+| | * | | | | | | | | | | 12e2bb3 improve path consistency in utodo.sh
+| | * | | | | | | | | | | 5428650 add SLOC statistics to README
+| | * | | | | | | | | | | 743e7bf add table of contents
+| | * | | | | | | | | | |   ff543d0 Merge pull request #4 from generic-github-user/files
+| | |\ \ \ \ \ \ \ \ \ \ \  
+| | | * \ \ \ \ \ \ \ \ \ \   1ac70ea Merge branch 'master' into files
+| | | |\ \ \ \ \ \ \ \ \ \ \  
+| | | |/ / / / / / / / / / /  
+| | |/| | | | | | | | | | |   
+| | * | | | | | | | | | | | 6561b55 more feature information
+| | * | | | | | | | | | | | bddd08c add information about some features to README
+| | | * | | | | | | | | | |   da66d3c Merge pull request #3 from generic-github-user/docs
+| | | |\ \ \ \ \ \ \ \ \ \ \  
+| | | | * | | | | | | | | | | 937fc4e include command parameters in generated documentation
+| | | | * | | | | | | | | | | d1f44d2 add documentation database file
+| | | | * | | | | | | | | | | e459f2d add subcommand (build) for generating documentation files
+| | | |/ / / / / / / / / / /  
+| | | * | | | | | | | | | | aebf4e3 reflow some of the longer lines
+| | | * | | | | | | | | | | 3c6d9ec misc updates and fixes
+| | | * | | | | | | | | | | d5fb8b2 support dry run option for cleanup subcommand
+| | | * | | | | | | | | | |   4f39ea9 Merge pull request #2 from generic-github-user/todo-handling
+| | | |\ \ \ \ \ \ \ \ \ \ \  
+| | | | | * | | | | | | | | | 51f6119 add subcommand for recording data about available memory
+| | | | | * | | | | | | | | | 549a9a8 misc.
+| | | | | * | | | | | | | | | 8855661 add record command
+| | | | | | * | | | | | | | | e642e34 add some comments to utodo.sh
+| | | | | | * | | | | | | | | 16e43d6 add flags for tasks that recur on a weekly/monthly basis
+| | | | | | * | | | | | | | | c7324f6 various improvements to todo processing
+| | | | | | * | | | | | | | | 6e665af grab .gitignore from master
+| | | | | | * | | | | | | | | bb03314 add ao subcommand for dispatching utodo.sh
+| | | | | | * | | | | | | | | 60d7cb0 copy over path changes from master
+| | | | | | * | | | | | | | | fcded87 miscellaneous
 | | | | | |/ / / / / / / / /  
 | | | | |/| | | | | | | | |   
-| | | | * | | | | | | | | | c248b2a Display output types and command parameters
-| | | | * | | | | | | | | | e3dcce6 process command parameter information
-| | | | * | | | | | | | | | 617eca7 add some comments and reformat comment blocks
-| | | | * | | | | | | | | | b716fcf process command output type markers
-| | | | * | | | | | | | | | c19189b support argument for help command
-| | | | * | | | | | | | | | 2099d41 add some more comments to shell functions
-| | | | * | | | | | | | | | c15f8e7 add command output type notations
-| | | | * | | | | | | | | | 180fa8e improve help command and documentation printing
-| | | | * | | | | | | | | | 1709898 execute commands from documentation database
-| | | | * | | | | | | | | | f28c28a add information about command parameters
-| | | | * | | | | | | | | | 06dc47c add help command for printing information about (sub)command usage
-| | | | * | | | | | | | | | 8ea5784 add function for documenting commands, parameters, etc.)
-| | | | * | | | | | | | | | f818a00 refactor commands into functions for easier maintenance and semi-automated documentation
-| | | | * | | | | | | | | | 41ec5f1 add some more comments
-| | | | * | | | | | | | | | d9f950f various improvements to cleanup subcommand and file moving
-| | | | * | | | | | | | | | ca47dc1 support JSON inputs for open subcommand
-| | | | * | | | | | | | | | c5f4013 add plain output option
-| | | | * | | | | | | | | | 0d1146f use json-based image index for imfind
-| | | | * | | | | | | | | |   d3d77a7 Merge pull request #1 from generic-github-user/notes
+| | | | * | | | | | | | | |   13a8f41 Merge branch 'files' into todo-handling
 | | | | |\ \ \ \ \ \ \ \ \ \  
-| | | | | * | | | | | | | | | 4f04f0e refactoring with db helper functions
-| | | | | * | | | | | | | | | ab303f8 add read_db and write_db helper functions
-| | | | | * | | | | | | | | | 03c5207 add helper function for extracting a database component to a new file
-| | | | | * | | | | | | | | | 2e458db add note searching functionality
-| | | | | * | | | | | | | | | 1c383dd add command for storing text-based notes in database
 | | | | |/ / / / / / / / / /  
-| | | | * | | | | | | | | | b56986f add ffind command for searching files
-| | | | * | | | | | | | | | 1d80309 cleanup and reformatting
-| | | | * | | | | | | | | | 33b1f8a convert some options to subcommands
-| | | | * | | | | | | | | | 8b05723 store file snapshot batch as stream of JSON objects (faster)
-| | | | * | | | | | | | | | 8503117 add some comments
-| | | | * | | | | | | | | | f85c2c7 misc updates to file snapshot processing
-| | | | * | | | | | | | | | c9f02f9 add summary of file tracking system
-| | | | * | | | | | | | | | b633192 generate summary statistics from file information
-| | | | | |/ / / / / / / /  
-| | | | |/| | | | | | | |   
-| | | | * | | | | | | | | b42af4c use jq to generate filenodes from snapshots
-| | | | * | | | | | | | | 8b0d8ee avoid nesting arrays when recording file information
-| | | |/ / / / / / / / /  
-| | | | * | | | | | | | c8fb87f misc
-| | | | * | | | | | | | 37bf77a add some logging
-| | | | * | | | | | | | 7af6eaf miscellaneous tips and tricks
-| | | | * | | | | | | | ccacc55 add todo workflow advice
-| | | | * | | | | | | | 8c48aa0 add custom syntax highlighting instructions
-| | | | * | | | | | | | 75345b0 add information about todo item arguments and flags
-| | | | * | | | | | | | 44526df add todo flag/option syntax highlighting
-| | | | * | | | | | | | c584710 update script to use .todo file extension
-| | | | * | | | | | | | 524807f fix some bugs in sed filters
-| | | | * | | | | | | | 946f5cb add vim scripts for todo list syntax highlighting
-| | | | * | | | | | | | 2532226 cleanup
-| | | | * | | | | | | | f5c9208 add information about utodo.sh usage
-| | | | * | | | | | | | 4c17c9c fix string escaping issues
-| | | | * | | | | | | | c487c5a improve flag handling and recurring task management
-| | | | * | | | | | | | 0d1686c misc todo backup improvements
-| | | | * | | | | | | | 9b78e1b mild refactoring
-| | | | * | | | | | | | 5a7538f back up tasks whenever update script is run
-| | | | * | | | | | | | 172ac51 generate specified instances of recurring tasks
-| | | | * | | | | | | | 1e5101e add script for handling completed tasks
-| | | |/ / / / / / / /  
-| | | * | | | | | | | 64242a2 clean up unused code
-| | | * | | | | | | | 06953bc various "improvements"
-| | | * | | | | | | | fc6c67c generate and store json data about files when generating manifest
-| | | * | | | | | | | 3e519bf more misc
-| | | * | | | | | | | 0031c80 store information about ao command call/execution, etc
-| | | * | | | | | | | 4b0c1e6 miscellaneous
-| | | * | | | | | | | 7e3c0d1 add command for generating flower-like patterns
-| | | * | | | | | | | 05ea618 extract information about text files
-| | | * | | | | | | | ac8e716 add installation instructions
-| | | * | | | | | | | 621a41b add README.md
-| | | * | | | | | | | b0f5e1c add some comments with information about commands
-| | | * | | | | | | | 045ad15 add command for fetching data from the web
-| | | * | | | | | | | bf36fd4 store only checksum (without filename)
-| | | * | | | | | | | 965d43c add command for generating summaries of directory contents
-| | | * | | | | | | | f75da58 move reorganization functionality to a (sub)command
-| | | * | | | | | | | 29bd81e improve target directory handling
-| | | * | | | | | | | 4aa142f cleanup & misc
-| | | * | | | | | | | bc3bca7 improve logging
-| | | * | | | | | | | ce328be add helper function to automatically group all files of a certain type
-| | | * | | | | | | | 9fc9016 add tool for finding images with text
-| | | * | | | | | | | 97c7c89 add command (option) for running OCR on images and generating checksums
-| | | * | | | | | | | 8b6f1cc add command for viewing search results as folder of symlinks
-| | | * | | | | | | | 15e2759 process command line options
-| | | * | | | | | | | f6d62b4 automatically organize main file types
-| | | * | | | | | | | 120e90d add additional metadata and path settings
-| | | * | | | | | | | 29a9c61 set globbing options with shopt
-| | |  / / / / / / /  
+| | | |/| | | | | | | | | |   
+| | | * | | | | | | | | | | c248b2a Display output types and command parameters
+| | | * | | | | | | | | | | e3dcce6 process command parameter information
+| | | * | | | | | | | | | | 617eca7 add some comments and reformat comment blocks
+| | | * | | | | | | | | | | b716fcf process command output type markers
+| | | * | | | | | | | | | | c19189b support argument for help command
+| | | * | | | | | | | | | | 2099d41 add some more comments to shell functions
+| | | * | | | | | | | | | | c15f8e7 add command output type notations
+| | | * | | | | | | | | | | 180fa8e improve help command and documentation printing
+| | | * | | | | | | | | | | 1709898 execute commands from documentation database
+| | | * | | | | | | | | | | f28c28a add information about command parameters
+| | | * | | | | | | | | | | 06dc47c add help command for printing information about (sub)command usage
+| | | * | | | | | | | | | | 8ea5784 add function for documenting commands, parameters, etc.)
+| | | * | | | | | | | | | | f818a00 refactor commands into functions for easier maintenance and semi-automated documentation
+| | | * | | | | | | | | | | 41ec5f1 add some more comments
+| | | * | | | | | | | | | | d9f950f various improvements to cleanup subcommand and file moving
+| | | * | | | | | | | | | | ca47dc1 support JSON inputs for open subcommand
+| | | * | | | | | | | | | | c5f4013 add plain output option
+| | | * | | | | | | | | | | 0d1146f use json-based image index for imfind
+| | | * | | | | | | | | | |   d3d77a7 Merge pull request #1 from generic-github-user/notes
+| | | |\ \ \ \ \ \ \ \ \ \ \  
+| | | | * | | | | | | | | | | 4f04f0e refactoring with db helper functions
+| | | | * | | | | | | | | | | ab303f8 add read_db and write_db helper functions
+| | | | * | | | | | | | | | | 03c5207 add helper function for extracting a database component to a new file
+| | | | * | | | | | | | | | | 2e458db add note searching functionality
+| | | | * | | | | | | | | | | 1c383dd add command for storing text-based notes in database
+| | | |/ / / / / / / / / / /  
+| | | * | | | | | | | | | | b56986f add ffind command for searching files
+| | | * | | | | | | | | | | 1d80309 cleanup and reformatting
+| | | * | | | | | | | | | | 33b1f8a convert some options to subcommands
+| | | * | | | | | | | | | | 8b05723 store file snapshot batch as stream of JSON objects (faster)
+| | | * | | | | | | | | | | 8503117 add some comments
+| | | * | | | | | | | | | | f85c2c7 misc updates to file snapshot processing
+| | | * | | | | | | | | | | c9f02f9 add summary of file tracking system
+| | | * | | | | | | | | | | b633192 generate summary statistics from file information
+| | | | |/ / / / / / / / /  
+| | | |/| | | | | | | | |   
+| | | * | | | | | | | | | b42af4c use jq to generate filenodes from snapshots
+| | | * | | | | | | | | | 8b0d8ee avoid nesting arrays when recording file information
+| | |/ / / / / / / / / /  
+| | | * | | | | | | | | c8fb87f misc
+| | | * | | | | | | | | 37bf77a add some logging
+| | | * | | | | | | | | 7af6eaf miscellaneous tips and tricks
+| | | * | | | | | | | | ccacc55 add todo workflow advice
+| | | * | | | | | | | | 8c48aa0 add custom syntax highlighting instructions
+| | | * | | | | | | | | 75345b0 add information about todo item arguments and flags
+| | | * | | | | | | | | 44526df add todo flag/option syntax highlighting
+| | | * | | | | | | | | c584710 update script to use .todo file extension
+| | | * | | | | | | | | 524807f fix some bugs in sed filters
+| | | * | | | | | | | | 946f5cb add vim scripts for todo list syntax highlighting
+| | | * | | | | | | | | 2532226 cleanup
+| | | * | | | | | | | | f5c9208 add information about utodo.sh usage
+| | | * | | | | | | | | 4c17c9c fix string escaping issues
+| | | * | | | | | | | | c487c5a improve flag handling and recurring task management
+| | | * | | | | | | | | 0d1686c misc todo backup improvements
+| | | * | | | | | | | | 9b78e1b mild refactoring
+| | | * | | | | | | | | 5a7538f back up tasks whenever update script is run
+| | | * | | | | | | | | 172ac51 generate specified instances of recurring tasks
+| | | * | | | | | | | | 1e5101e add script for handling completed tasks
+| | |/ / / / / / / / /  
+| | * | | | | | | | | 64242a2 clean up unused code
+| | * | | | | | | | | 06953bc various "improvements"
+| | * | | | | | | | | fc6c67c generate and store json data about files when generating manifest
+| | * | | | | | | | | 3e519bf more misc
+| | * | | | | | | | | 0031c80 store information about ao command call/execution, etc
+| | * | | | | | | | | 4b0c1e6 miscellaneous
+| | * | | | | | | | | 7e3c0d1 add command for generating flower-like patterns
+| | * | | | | | | | | 05ea618 extract information about text files
+| | * | | | | | | | | ac8e716 add installation instructions
+| | * | | | | | | | | 621a41b add README.md
+| | * | | | | | | | | b0f5e1c add some comments with information about commands
+| | * | | | | | | | | 045ad15 add command for fetching data from the web
+| | * | | | | | | | | bf36fd4 store only checksum (without filename)
+| | * | | | | | | | | 965d43c add command for generating summaries of directory contents
+| | * | | | | | | | | f75da58 move reorganization functionality to a (sub)command
+| | * | | | | | | | | 29bd81e improve target directory handling
+| | * | | | | | | | | 4aa142f cleanup & misc
+| | * | | | | | | | | bc3bca7 improve logging
+| | * | | | | | | | | ce328be add helper function to automatically group all files of a certain type
+| | * | | | | | | | | 9fc9016 add tool for finding images with text
+| | * | | | | | | | | 97c7c89 add command (option) for running OCR on images and generating checksums
+| | * | | | | | | | | 8b6f1cc add command for viewing search results as folder of symlinks
+| | * | | | | | | | | 15e2759 process command line options
+| | * | | | | | | | | f6d62b4 automatically organize main file types
+| | * | | | | | | | | 120e90d add additional metadata and path settings
+| | * | | | | | | | | 29a9c61 set globbing options with shopt
+| |  / / / / / / / /  
 * | | | | | | | | | c5eeb81 add simple build-and-commit script
 * | | | | | | | | | 8b26b10 Rebuild project
 * | | | | | | | | |   84cf2eb (origin/ca2, ca2) Add 'ca2/' from commit '49576963f63827c0cad40c823821a5a7f9d3587a'
 |\ \ \ \ \ \ \ \ \ \  
-| |_|/ / / / / / / /  
+| |/ / / / / / / / /  
 |/| | | | | | | | |   
 | * | | | | | | | | 4957696 generate directory listing
 | * | | | | | | | | 4ae5c9d fix some issues with state code
@@ -1864,7 +2067,7 @@ structure into my workflow:
 |\ \ \ \ \ \ \ \ \ \  
 | * \ \ \ \ \ \ \ \ \   d230ab4 Merge branch 'metadata' into meta
 | |\ \ \ \ \ \ \ \ \ \  
-| | | |/ / / / / / / /  
+| | | |_|_|_|/ / / / /  
 | | |/| | | | | | | |   
 | | * | | | | | | | | 543b65e list languages for newly added projects
 | | * | | | | | | | | 12e734d add labels to some recently merged projects
