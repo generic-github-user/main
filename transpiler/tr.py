@@ -21,6 +21,15 @@ def transpile(source, target: str) -> str:
                     return arglist
                 case ast.arg:
                     return source.arg
+
+                case ast.FunctionDef:
+                    #arglist = ', '.join(transpile(a, target) for a in source.args)
+                    arglist = transpile(source.args, target)
+                    return f'function {source.name} ({arglist}) {{{transpile(source.body, target)}}}'
+                case ast.Call:
+                    return f'{transpile(source.func, target)}({", ".join(transpile(a, target) for a in source.args)})'
+                case ast.Return:
+                    return f'return {transpile(source.value, target)}'
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
