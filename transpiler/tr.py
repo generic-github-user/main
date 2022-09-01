@@ -30,6 +30,15 @@ def transpile(source, target: str) -> str:
                     return f'{transpile(source.func, target)}({", ".join(transpile(a, target) for a in source.args)})'
                 case ast.Return:
                     return f'return {transpile(source.value, target)}'
+
+                case ast.UnaryOp:
+                    return ' '.join([
+                        transpile(source.op, target),
+                        transpile(source.operand, target)
+                    ])
+                case ast.UAdd: return '+'
+                case ast.USub: return '-'
+                case ast.Not | ast.Invert: return '!'
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
