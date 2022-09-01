@@ -1,0 +1,91 @@
+* {
+      user-select: none;
+}
+
+html, body {
+      width: 100%;
+      height: 100%;
+}
+
+body {
+      /* Transparent Textures */
+      /* https://www.transparenttextures.com/ */
+      /* Brushed Alum */
+      /* https://www.transparenttextures.com/patterns/brushed-alum.png */
+      /* By Tim Ward */
+      /* http://www.mentalwarddesign.com/ */
+      background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+      background-blend-mode: multiply;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+      text-shadow: 3px 3px 3px #AAA;
+      transition: all 0.5s ease;
+}
+p, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+      text-shadow: 6px 6px 8px #AAA;
+      transition: all 0.5s ease;
+}
+
+button {
+      /* background-size: 10% !important;
+      background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+      background-blend-mode: multiply; */
+}
+
+#control-panel {
+      width: 16%;
+      height: 96%;
+      padding: 2%;
+      float: left;
+
+      background-color: #e8f0ff;
+      box-shadow: 10px 10px 15px #888;
+      transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
+      /* Transparent Textures */
+      /* https://www.transparenttextures.com/ */
+      /* Az Subtle */
+      /* https://www.transparenttextures.com/patterns/az-subtle.png */
+      /* By Anli. */
+      /* https://azmind.com/ */
+      background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+      background-blend-mode: multiply;
+}
+
+#control-panel > * {
+      margin: 0 0 5% 0;
+}
+
+#control-panel:hover {
+      width: 26%;
+
+      background-color: #bacdf2;
+      box-shadow: 20px 20px 30px #888;
+      transition: background-color 1s ease, box-shadow 1.5s ease, width 2s ease;
+}
+#control-panel:hover ~ #network-visualization { width: 70%; }
+
+#social-icons {
+      width: 100%;
+}
+
+.social-icon {
+      width: 10%;
+      height: 10%;
+
+      -webkit-filter: brightness(0) drop-shadow(1px 1px 1px #444);
+      filter: brightness(0) drop-shadow(1px 1px 1px #444);
+      transition: -webkit-filter 1s ease, filter 1s ease;
+}
+.social-icon:hover {
+      drop-shadow: 6px 6px 8px #AAA;
+      -webkit-filter: brightness(1) drop-shadow(6px 6px 6px #444);
+      filter: brightness(1) drop-shadow(6px 6px 6px #444);
+      transition: -webkit-filter 1s ease, filter 1s ease;
+}
+.social-icon:active {
+      drop-shadow: 6px 6px 8px #AAA;
+      -webkit-filter: brightness(2) drop-shadow(8px 8px 8px #444);
+      filter: brightness(2) drop-shadow(8px 8px 8px #444);
+      transition: -webkit-filter 0.1s ease, filter 0.1s ease;
+}
