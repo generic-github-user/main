@@ -16,6 +16,11 @@ def transpile(source, target: str) -> str:
                 case _ if isinstance(source, list):
                     return '\n'.join(transpile(s, target) for s in source)
 
+                case ast.arguments:
+                    arglist = ', '.join(transpile(a, target) for a in source.args)
+                    return arglist
+                case ast.arg:
+                    return source.arg
                 case _: raise NotImplementedError(source, type(source))
         case _: raise NotImplementedError
 
