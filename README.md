@@ -117,31 +117,31 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.13 s (2392.1 files/s, 351343.6 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.74 s (544.8 files/s, 98240.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
+JavaScript|56|3808|3699|19036
 Python|128|2513|3008|8490
-HTML|19|2270|58|7085
-Markdown|47|740|0|5747
+HTML|45|2444|71|7937
+Markdown|55|898|0|6284
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
-JavaScript|13|214|415|1365
-YAML|21|104|26|889
+YAML|22|104|26|890
 Bourne Shell|3|77|102|452
+CSS|15|58|28|364
 C/C++ Header|18|87|69|324
 INI|4|52|0|248
-JSON|5|0|0|226
+JSON|6|0|0|227
 Rust|3|56|39|198
-CSS|5|33|8|176
 make|4|41|6|103
 XML|2|4|0|52
 TOML|5|10|3|33
 TeX|1|6|0|18
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|313|6574|9837|29562
+SUM:|402|10525|13154|48812
 
 
 ## On Monorepos
@@ -302,6 +302,116 @@ structure into my workflow:
 │       ├── vector.c
 │       ├── vector.c0
 │       └── vector.h
+├── caesium
+│   ├── docs
+│   │   └── javascript
+│   │       └── js.md
+│   ├── extra
+│   │   ├── css
+│   │   │   └── 5.css
+│   │   ├── javascript
+│   │   │   ├── 1.js
+│   │   │   ├── 2.js
+│   │   │   ├── 3.js
+│   │   │   └── 4.js
+│   │   ├── markdown
+│   │   │   └── 4.md
+│   │   └── other
+│   │       └── 1.txt
+│   ├── LICENSE
+│   ├── notes.md
+│   ├── README.md
+│   ├── src
+│   │   └── versions
+│   │       └── javascript
+│   │           ├── benchmarks
+│   │           │   ├── graphs
+│   │           │   │   ├── buffer-2.PNG
+│   │           │   │   ├── buffer.PNG
+│   │           │   │   └── restructure.PNG
+│   │           │   ├── iteration.js
+│   │           │   ├── library
+│   │           │   │   ├── combined
+│   │           │   │   │   ├── chart.js
+│   │           │   │   │   ├── index.html
+│   │           │   │   │   └── script.js
+│   │           │   │   ├── network_creation.js
+│   │           │   │   ├── network_evaluation.js
+│   │           │   │   └── neuroevolution.js
+│   │           │   ├── lookup.js
+│   │           │   └── README.md
+│   │           ├── lib
+│   │           │   └── chart
+│   │           │       ├── chart_colors.js
+│   │           │       └── chart.js
+│   │           ├── library
+│   │           │   ├── caesium.js
+│   │           │   └── caesium.min.js
+│   │           └── projects
+│   │               ├── 2d-classification
+│   │               │   ├── index.html
+│   │               │   ├── screenshots
+│   │               │   │   └── testing
+│   │               │   │       └── mobile
+│   │               │   │           ├── 1.JPG
+│   │               │   │           ├── 2.JPG
+│   │               │   │           └── 3.JPG
+│   │               │   ├── script.js
+│   │               │   └── stylesheet.css
+│   │               ├── basic-demo
+│   │               │   ├── index.html
+│   │               │   └── screenshots
+│   │               │       └── 1.PNG
+│   │               ├── curve-fitting
+│   │               │   ├── index.html
+│   │               │   ├── screenshots
+│   │               │   │   ├── 1.PNG
+│   │               │   │   ├── 2.PNG
+│   │               │   │   └── 3.PNG
+│   │               │   ├── script.js
+│   │               │   └── stylesheet.css
+│   │               ├── general
+│   │               │   ├── data.js
+│   │               │   ├── graphing.js
+│   │               │   ├── index.html
+│   │               │   └── script.js
+│   │               ├── network-visualization
+│   │               │   ├── css
+│   │               │   │   ├── main.css
+│   │               │   │   ├── reset.css
+│   │               │   │   └── visualization.css
+│   │               │   ├── images
+│   │               │   │   └── social-icons
+│   │               │   │       └── github.png
+│   │               │   ├── index.html
+│   │               │   └── javascript
+│   │               │       └── visualization.js
+│   │               ├── neural-turing-machine
+│   │               │   ├── index.html
+│   │               │   ├── script.js
+│   │               │   └── stylesheet.css
+│   │               └── neuroevolution
+│   │                   ├── index.html
+│   │                   ├── jquery-3.3.1.min.js
+│   │                   ├── screenshots
+│   │                   │   └── 1.PNG
+│   │                   ├── script.js
+│   │                   └── stylesheet.css
+│   └── testing
+│       ├── 10.PNG
+│       ├── 11.PNG
+│       ├── 12.PNG
+│       ├── 13.PNG
+│       ├── 14.PNG
+│       ├── 1.PNG
+│       ├── 2.PNG
+│       ├── 3.PNG
+│       ├── 4.PNG
+│       ├── 5.PNG
+│       ├── 6.PNG
+│       ├── 7.PNG
+│       ├── 8.PNG
+│       └── 9.PNG
 ├── captcha
 ├── decision-tree-experiments
 │   ├── game.py
@@ -389,6 +499,116 @@ structure into my workflow:
 │   │   └── README.md
 │   └── locus
 │       └── locus.ipynb
+├── legacy
+│   ├── hurricane
+│   │   ├── Documentation.txt
+│   │   ├── Example.html
+│   │   ├── Hurricane.js
+│   │   ├── LICENSE
+│   │   ├── Previous Versions
+│   │   │   ├── Hurricane 2.js
+│   │   │   └── Hurricane.js
+│   │   ├── Projects
+│   │   │   └── Name Detector
+│   │   │       ├── Data
+│   │   │       │   ├── JavaScript
+│   │   │       │   │   ├── Combined.js
+│   │   │       │   │   ├── Names.js
+│   │   │       │   │   └── Words.js
+│   │   │       │   ├── JavaScript (With Outputs)
+│   │   │       │   │   ├── Combined.js
+│   │   │       │   │   ├── Names.js
+│   │   │       │   │   └── Words.js
+│   │   │       │   ├── JavaScript (With Outputs) [Constant Data Size] {Reduced}
+│   │   │       │   │   ├── Names.txt
+│   │   │       │   │   └── Words.txt
+│   │   │       │   ├── Numbers
+│   │   │       │   │   ├── Names.txt
+│   │   │       │   │   └── Words.txt
+│   │   │       │   └── Text
+│   │   │       │       ├── Names.txt
+│   │   │       │       └── Words.txt
+│   │   │       └── Project.html
+│   │   └── README.md
+│   ├── Supernova
+│   │   ├── cheatsheet.txt
+│   │   ├── Data
+│   │   │   ├── data.json
+│   │   │   └── data.xlsx
+│   │   ├── demo-2.html
+│   │   ├── demo.html
+│   │   ├── documentation.txt
+│   │   ├── extra.txt
+│   │   ├── Projects
+│   │   │   ├── ColorMatch
+│   │   │   │   ├── index.html
+│   │   │   │   ├── script.js
+│   │   │   │   └── stylesheet.css
+│   │   │   ├── Data Projection
+│   │   │   │   ├── index.html
+│   │   │   │   ├── script.js
+│   │   │   │   └── stylesheet.css
+│   │   │   ├── Neuroevolution
+│   │   │   │   ├── Neuroevolution.html
+│   │   │   │   └── script.js
+│   │   │   └── Side Scroller
+│   │   │       ├── Side Scroller.html
+│   │   │       ├── Side Scroller.js
+│   │   │       ├── Side Scroller Survivor.html
+│   │   │       └── Tsunami
+│   │   │           └── Tsunami.js
+│   │   ├── README.md
+│   │   ├── supernova.js
+│   │   └── usage-example.html
+│   └── tsunami
+│       ├── LICENSE
+│       ├── README.md
+│       ├── Tsunami 1
+│       │   ├── Projects
+│       │   │   ├── Sequence.html
+│       │   │   └── Side Scroller
+│       │   │       ├── Side Scroller.html
+│       │   │       ├── Side Scroller.js
+│       │   │       ├── Side Scroller Survivor.html
+│       │   │       └── Tsunami
+│       │   │           └── Tsunami.js
+│       │   └── Tsunami
+│       │       ├── Cheatsheet.txt
+│       │       ├── Tsunami Demo.html
+│       │       └── Tsunami.js
+│       ├── Tsunami 2
+│       │   └── Tsunami 2
+│       │       ├── Cheatsheet.txt
+│       │       ├── Demo.html
+│       │       ├── Tsunami 2.js
+│       │       └── Usage Example.html
+│       ├── Tsunami 3
+│       │   └── Tsunami 3
+│       │       ├── Demo.html
+│       │       └── tsunami-3.js
+│       ├── Tsunami 4
+│       │   └── Tsunami 4
+│       │       ├── cheatsheet.txt
+│       │       ├── demo.html
+│       │       ├── documentation.txt
+│       │       ├── tsunami-4.js
+│       │       └── usage-example.html
+│       └── Tsunami V
+│           ├── Notes.txt
+│           ├── Projects
+│           │   └── Generative Adversarial Networks
+│           │       └── Drawing Generator
+│           │           ├── index.html
+│           │           ├── script.js
+│           │           └── stylesheet.css
+│           ├── tsunami-v
+│           │   ├── cheatsheet.txt
+│           │   ├── demo.html
+│           │   ├── documentation.txt
+│           │   ├── tsunami-v.js
+│           │   └── usage-example.html
+│           ├── Tsunami V Demo Output.txt
+│           └── Tsunami V Flowchart.png
 ├── lib
 │   ├── graphs
 │   │   ├── completegraph.py
@@ -777,6 +997,7 @@ structure into my workflow:
 │   │   ├── README.md
 │   │   └── README.src.md
 │   └── ytodo.py
+├── tree.yaml
 ├── unicode-art
 ├── update.sh
 ├── wordtetris
@@ -785,17 +1006,421 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-131 directories, 458 files
+204 directories, 606 files
 
 ```
 
 ## History
 
 ```
-*   24d323a (HEAD -> master) Merge branch 'sandbox'
+*   cc0c4b6 (HEAD -> master) Merge branch 'legacy'
 |\  
-| *   274d258 (origin/sandbox, sandbox) Add 'sandbox/' from commit '6920e6ed77d238cdcccb7f770d712dd895a815de'
+| *   d16c8b1 (origin/legacy, legacy) Merge branch 'legacy-nn-2' into legacy
 | |\  
+| | *   6c72e0b (origin/legacy-nn-2, legacy-nn-2) Add 'legacy/hurricane/' from commit '311e9fca9450327ad146a75b17abf811902b0c7d'
+| | |\  
+| | | * 311e9fc Create LICENSE
+| | | * 40d2f5e Initial commit
+| * |   13badf1 Merge branch 'legacy-nn-1' into legacy
+| |\ \  
+| | * \   3a7e632 (origin/legacy-nn-1, legacy-nn-1) Add 'legacy/tsunami/' from commit '96427c78876b2d7188b6a0c159e6d1b5e0e72e3f'
+| | |\ \  
+| | | |/  
+| | |/|   
+| | | * 96427c7 Added gitignore
+| | | * fedf3f0 Tsunami 5 (Tsunami V)
+| | | * 1a572b3 Tsunami 4
+| | | * 665dc8d Tsunami 3
+| | | * 489b849 Tsunami 2
+| | | * bb38e16 Tsunami 1
+| | | * c6b8cb7 Initial commit
+| * |   633f643 Add 'legacy/Supernova/' from commit '8564e68c1c6710f6c4dfdb339e308d9ce83d5cc2'
+| |\ \  
+| | |/  
+| |/|   
+| | * 8564e68 Initial commit
+* |   9c17e73 Merge branch 'caesium'
+|\ \  
+| * \   f2e4d37 (origin/caesium, caesium) Add 'caesium/' from commit 'b6b4b97349ad5d7fecd0a7f84ce37b2451074d2f'
+| |\ \  
+| | |/  
+| |/|   
+| | * b6b4b97 Added page anchor links for methods
+| | * da94c92 Update header levels
+| | * eb2fa05 Move info about JavaScript implementation to docs folder
+| | * c707faa More methods
+| | * c6db607 Add info about network.set_inputs()
+| | * 3e5f69c Optimized model parameters list
+| | * 5c081da Cleanup
+| | * 990c15f Add JavaScript implementation usage information
+| | * 3747dbd Update project descriptin
+| | * 8992abb Adding information about network.export()
+| | * 3cdcc13 Planned Node.js implementation
+| | * 0dc5073 Adding information about network.save()
+| | * 23df7fc Adding updated information about network.evolve()
+| | * 8194938 Adding average network loss to graph
+| | * d0e5653 Adding best network fitness to graph
+| | * 0461b6b Cleanup
+| | * 30ea53c Added scatter plot to visualize network loss
+| | * 068d8da Don't round outputs
+| | * 8b21603 Reset input values to 0 after done feeding inputs
+| | * 0962691 Lots of testing
+| | * aa632e4 Use cs.random() instead of Math.random()
+| | * 28a4d4c Added update function in script file
+| | * 97c21b8 Refer to self when defining methods
+| | * 06d84b3 Added min_weight() and max_weight() functions
+| | * f038ad1 Added loop_nodes() and loop_connections() functions
+| | * 9f0ac88 Added network.min_node() and network.max_node() functions
+| | * e445017 Added Neural Turing Machine project
+| | * faab92e sanity testing
+| | * 58b9699 Added some comments
+| | * 48c9d61 Added browser localStorage saving of models
+| | * 757b99b Added model exporting to JSON string
+| | * d9761f8 Update notes.md
+| | * 0a65a9a Added num_nodes control variable
+| | * 7221142 Node color input
+| | * 8a7d0e1 Added node type color option
+| | * 4eee94e Fixed connection display bug
+| | * 115fe7c Added connection weight visualization opacity range mapping
+| | * c9124aa Update .gitignore
+| | * b280c6e Added minified version of library
+| | * b8e5e14 Added gitignore
+| | * d2ad340 Added connection weight visualization
+| | * a0bcc75 Create notes.md
+| | * 14d595b Added example log
+| | * 5f6ad83 Added update config limit defaults
+| | * 7f7c1dc Added range mapping function to library
+| | * 1926cfe Updated visualization to work with newest version of Caesium
+| | * d359818 Fixed relative file paths
+| | * 2e18caf Beautified JavaScript
+| | * fd56f96 Beautified HTML
+| | * b5c88e7 Create 4.js
+| | * 156fd1f Added subfolders for extra code folder
+| | * 7f5d00c Variable scope
+| | * e90b6cb Added mobile device testing screenshots for 2D point classification project
+| | * 608fbd0 One-hot character decoding function now finds maximum value of inputs
+| | * 1c33170 Updated training system to ingest one character at a time as a one-hot encoded vector
+| | * b52b29a Updated charset
+| | * 0f06e43 Added custom evaluation function setting to evolve function config object
+| | * a6217d2 Converted input/output format: single-character one-hot encoding
+| | * 6c4cfe8 Settings
+| | * 63ac03e Moved string encoding and decoding functions to main library file
+| | * 7876857 Moved benchmark graphs into new folder
+| | * d0ff257 Added network buffer setting for update function
+| | * 1129e77 Removed integer encoding functions
+| | * 29635dc Moved integer encoding script
+| | * f3db105 Hyperparameters
+| | * 86ed6d4 Training data
+| | * 29eb1c3 Added more training data
+| | * 82fa6be Added update loop
+| | * 3b213e6 Added literal character encoding
+| | * 400edd0 Added network training
+| | * 66e0ace Added predict function
+| | * 3a2c0c2 Create data.js
+| | * dddc189 Added network creation
+| | * 24a2b99 Added one-hot character encoding script
+| | * 1d5fd82 Added new project
+| | * 812b417 New benchmarks
+| | * 85241b0 Updated benchmark script config objects
+| | * 0627b2f Fixed node and connection removal parameter discrepancies
+| | * 7fb749c Replaced full clone of network with with network_buffer object with only node values
+| | * 390860e FLashing colors warning for 2D classification
+| | * 1041540 More testing screenshots
+| | * 8be9efb Comments
+| | * d193eb1 Added links to demo screenshots
+| | * d52feab Added screenshots for basic demo and neuroevolution project
+| | * e65f6ef Added images to curve-fitting demo
+| | * 5b0c70a Updated confg objects
+| | * 954d594 Moved index.html of network visualization demo
+| | * 137f9ba Added Caesium demos to README
+| | * f092040 Updated config object formats
+| | * 3b97d96 Removed input/output scaling
+| | * 3e6b258 Settings
+| | * 4ee33ca Connection weights were not actually being mutated
+| | * 39e807c Input and output nodes are now handled like other node types
+| | * 420212c Settings
+| | * 35871ad Help function improvements
+| | * 3619472 Comments
+| | * 7690d45 Added points control variable
+| | * ef5d7fa Node control variable
+| | * b64010a Comments
+| | * aad453b Moved min_max calculations to node and connection constructor functions
+| | * 49b7013 Fixed bug
+| | * c3d33d1 More config improvements
+| | * 8c74035 Config object validation improvements
+| | * f5c720e Comments
+| | * 6d0c2eb Moved value node value mutation settings to sub-object
+| | * 665326f Added connection weight evolution
+| | * bf03363 Moved chart.js to shared lib folder
+| | * c582a5a Disabled network buffer
+| | * 31e9a80 Forgot to push node types list change commit
+| | * 6b46ab1 Added connection weights
+| | * 2ffd760 Added polynomial degree variable
+| | * 172667c Added tanh, sine, and cosine node types
+| | * c68225e 2 more testing screenshots
+| | * 3fb4d07 Added library folder
+| | * d908918 Added benchmark test graphs
+| | * aeb4584 Create 9.PNG
+| | * d8e258d Added array iteration loop benchmark
+| | * df7b380 Nodes are now stored as object properties instead of array entries
+| | * 7cd6f4d Removed global node and connection lists
+| | * 998dc7d Added comments
+| | * cc0c5e9 Added comments
+| | * 75256cc Simplified random input data generation
+| | * 3008f85 Added comments to network evaluation benchmark script
+| | * f802b83 Added neuroevolution optimization benchmark script
+| | * bb97f03 Removed chartColors variable
+| | * efcfce6 Replaced node type names in projects
+| | * 5a94683 Added network evaluation benchmark script
+| | * a5035f0 Double quotes!
+| | * 3d02a53 Added chart_colors.js
+| | * 981786b Added combined benchmark
+| | * 7c2a601 Added network creation time benchmark
+| | * 996bc90 Added extra code
+| | * 21b4916 Removed "Data/" and "Operation/" node type prefixes
+| | * bdb4332 Added information about lookup.js benchmark to benchmark scripts folder README file
+| | * 7fd9b9d Added README to benchmarks folder
+| | * 7bf5c9e Added node addition/removal control variable
+| | * 4eac236 Changed problem from classification to neural regression
+| | * 727eb2e Added node lookup benchmark
+| | * 72c584a Network information
+| | * 002c8c1 Added timestamp to evolve function console logs
+| | * fc4e77a Revert "Added some default values"
+| | * 593e8b4 Added some default values
+| | * 0f453dc Added Operation/Tanh node type
+| | * f180256 Updated settings
+| | * e4ee292 Removed unused round function
+| | * a5c8c7d Removed unused code
+| | * 7496b35 Added resolution variable
+| | * 8773a6b Updated variable names
+| | * 8207666 Added network training with Caesium
+| | * 4763ff6 Reformatted input/output data to work with Caesium API
+| | * c35c6d2 Added Caesium network creation
+| | * 3f54c97 Fixed "cs is not defined" error
+| | * 652d6c4 Added stylesheet.css
+| | * 43db145 Added script.js
+| | * 9dab644 Added 2D classification demo project
+| | * d244586 Added cs.alias function
+| | * 924c909 Removed text shadow
+| | * c799c56 Adding padding to cells
+| | * c1b7c51 Added automatic scrolling
+| | * 44e7a57 Added conditional cell formatting
+| | * 2a79600 Added default CSS properties
+| | * a4c0151 Added network representation rendering
+| | * 588f5e6 Using x and y arrays as input/output data
+| | * f46cd50 Added evolution loop
+| | * d7ec76e Added training data
+| | * 394c036 Added network creation
+| | * 4780d86 Added return parameter to network evolve function config object
+| | * a02b09a Added jQuery
+| | * fc3e138 Added JavaScript and CSS
+| | * d6db0d4 Created neuroevolution demo project
+| | * 0886925 Comments
+| | * c4ea4b0 Adjusting settings
+| | * 15d48cf Created update_settings variable
+| | * 651bee2 Might have to move settings to a gitignore
+| | * d2deb38 Added iterations parameter to network mutation function config object
+| | * 1953c45 More settings adjustments
+| | * 01fdac4 Output network from network evolve function clones best network from randomly generated population
+| | * 9d90ce9 network.evolve.config.mutation renamed to .mutate
+| | * 9a2524a Added evaluate function to networks
+| | * 524f44a Made y2 a global variable
+| | * cd2a67e Fixed issue with network scoring function
+| | * 92fad1b yay, it works
+| | * 627417a Fixed random number generation function bug
+| | * 2cf30ba Added node value reset function
+| | * 63525b0 Testing screenshot
+| | * fbfd9d6 Added kind of working testing screenshot for curve fitting project
+| | * 494966d Added node and connection total limits
+| | * 37f99f1 More settings tweaks
+| | * 0ec29e6 Added random ranges to training parameters
+| | * 6af0ffb Added short (array) syntax to cs.min_max() function
+| | * 64f6e4b Changed name of chart variable
+| | * e387641 Network is now trained repeatedly on a delay
+| | * 2652dc8 Updated graph config data object
+| | * c7db76c Generating lists of real and synthetic data
+| | * 4439b5b Added node value limit setting to network update function
+| | * 79b255a Added new testing screenshot
+| | * 7836d36 Predict y values from x values using trained network
+| | * d655de4 Network training setting adjustments
+| | * cde1e91 Using Caesium random function
+| | * 202bca4 Random range from -0.5 to +0.5
+| | * adfeefa So this is why the node values kept exploding
+| | * 83952af Added network neuroevolution
+| | * 5013f49 Disabled mutation function config object checking
+| | * eeb5405 Added node value limit to update function
+| | * fc76e6d Added testing screenshot from curve fitting project
+| | * b2bfae9 Added network creation
+| | * 596a6e7 Removed automatic rounding from min_max() function
+| | * 990c3c8 Added synthetic data generation
+| | * 482f058 Removed text
+| | * 631ad4c Added chart
+| | * bd3b60a Added Chart.js to curve fitting project
+| | * bb48767 Added stylesheet to curve fitting project
+| | * 1c5e7fe Added curve fitting sample project
+| | * a7a128f cs.random function returns random number from 0 to 1 if no arguments are provided
+| | * 60c9245 Moved global functions to cs object
+| | * baace08 Removed unused short versions of node type names from settings object
+| | * 89bb870 Updated network constructor config object and compacted code
+| | * 619bb35 Added mutate config object to evolve config object
+| | * 999294b Added console logs to network.evolve() function
+| | * b965867 Fixed undefined best network issue in neuroevolution code
+| | * 7d7463a Added MIT License
+| | * 3ab61bb Replaced network.node_types arrays with automatically generated arrays from cs.settings.node_types
+| | * 116895c Improved non-supported node type error message
+| | * a2243d7 Added initial values to new value nodes created by mutation function
+| | * 33f8db6 Some more comments
+| | * e5577af Compacted node mutation script
+| | * 2c93de5 Added rest of config variables to network mutation function
+| | * 5631cf4 Additions to mutation function config object
+| | * 2b77eda Added folder for extra unused code snippets
+| | * 5c99cc8 Added cs.help function
+| | * 7cb5394 Added yet more comments
+| | * f8b433e Connection removal in mutation function now uses config information
+| | * 59337c5 Removed global UUID list
+| | * ae7fcec Global node list screenshot
+| | * 51c4f2a Various performance optimizations
+| | * df7a9d7 Added min_max() function to get value from config object input properties with arbitrary data format
+| | * 5365b7d Added addition and multiplication node removal
+| | * 9076634 Fixed undefined error when removing connections while performing topology mutation
+| | * 095a150 Compacted dead connection removal code
+| | * 50231d1 Added even more comments
+| | * c37c645 Improved mutation function config object
+| | * eaa2550 Added network.add_connection function
+| | * bf37dd2 Fixed undefined node ID error in topology mutation script for node removal
+| | * 38ae61b Added network topology mutation
+| | * 2120bf4 Renamed network.node() and network.connection() to network.find_node() and network.find_connection(), respectively
+| | * 36b7192 Added remove_node and remove_connection functions
+| | * 194ef24 Fixed error with error message for incorrect number of inputs
+| | * 11cc46b Added even more comments
+| | * f81f0e3 Updated planned library implementation information
+| | * aaaff33 "use strict"
+| | * 09232ce Added network connection retrieval function information to README
+| | * 7f8ccac Added node retrieval function documentation to README
+| | * f895a62 Updated network constructor code example
+| | * 45bddc1 Changed function funcName() {} syntax to const funcName = function() {}
+| | * 2142700 Fixed for loop variable naming order in network updating function
+| | * bb7636d Added network class information to README
+| | * 5518809 ASCII art is now displayed via a function
+| | * d38fb98 Added comments to network updating function
+| | * d056f6c Removed forEach loops
+| | * 705e382 Improvements to network updating function config object
+| | * 0cfaf89 Added first working testing screenshot of neuroevolution
+| | * 827de26 Added support for multiple sets of training data for neuroevolution
+| | * b5408d4 Fixed network cloning bugs in update and evolve functions
+| | * 2038e25 Added clone_network() function
+| | * 37b206b Updated object cloning function
+| | * ce6623b Changed global node finding function to network finding function
+| | * 599a44c Moved settings to cs object
+| | * b1a0c07 Removed cs.temp
+| | * 6f4cc4b All network nodes are now represented by IDs instead of references
+| | * c7c0c8c Changed network config property from num_inputs to inputs
+| | * 8b39d38 Added error messages to network node and connection retrieval functions
+| | * cf796fa Added a function for getting network connection by ID
+| | * 3f9ba3b Nodes within networks are now referenced by IDs to avoid a lot of issues
+| | * 8429f1f Added some comments
+| | * d607f6a Beautified JavaScript
+| | * 5d66cad Revert "Added add_network_functions and updated network cloning function"
+| | * 4961d44 Added add_network_functions and updated network cloning function
+| | * a3e60be Added evolution function - #14
+| | * 0d50269 Added new cloning function
+| | * 6e0f830 Added array average function [utility]
+| | * 6493278 Added array summation function (utility)
+| | * ea54c32 Added array difference function
+| | * 008ea61 Network .input() and .output() function names
+| | * 3a2e292 Added network scores
+| | * 1e3f805 Added network and connection constructor config objects
+| | * f36c14b Added mutation function for evolution optimization algorithm
+| | * fcb9b40 Added node_types sub-object to networks
+| | * 6bea6cd Added global lists of connections and networks
+| | * 13c4846 Project titles
+| | * 6fdbcaa Added plain demo page - #66
+| | * d8e22a2 Updated code
+| | * f3a45c9 Separated Caesium project into main library and visualization app
+| | * 7375af3 One more code snippet
+| | * d46cbdc Added ASCII text art creator to credits in README.md
+| | * 6a3fbc5 Added JavaScript code snippet credits to README.md
+| | * d3dbae3 Added credits to the README
+| | * 531edfb Added more credits to HTML and CSS
+| | * a23deeb Reorganized CSS
+| | * 7748d94 Reorganized files
+| | * d8c7d64 Social media button press transition
+| | * 5effaab Added GitHub repository link
+| | * 33552c7 Added moving backgrounds
+| | * e59f774 #50
+| | * 6c04215 Added background textures - #44
+| | * 984feb9 Testing background textures
+| | * f0ed8e3 Sidebar padding
+| | * 363f37e Text shadows!
+| | * 413de66 Added network update button
+| | * b4351fc We don't need that stylesheet
+| | * 4f1f831 Quick fix for #48
+| | * b91fd3f Cleanup for the mess that the last commit was
+| | * c6d4c15 Added node value labels - #28
+| | * bff0978 Added global UUID registry
+| | * aa9a4b2 More nodes!
+| | * 253ea67 Added code snippet credits to JavaScript code
+| | * 510e6ed Added visualization/display update function - #25
+| | * cae5d05 Added even more comments
+| | * 9f29009 Added some comments
+| | * 10bd1d5 Added node size and brightness display controls to control panel
+| | * 496a360 Added sidebar control panel
+| | * e257d7a Changed color, added shadow
+| | * 9328283 Added brightness to nodes - #43
+| | * 7454448 Added node types list - #22
+| | * 0821676 Fixed issue #40
+| | * dd5c9b7 Coordinates are now defined in percentages
+| | * b551311 Circle coordinate generation now uses the dimensions of the SVG element
+| | * 8763af8 Fixed issue #35
+| | * 049253a Updated relative file paths
+| | * 42e144f Added folders to organize files
+| | * c7f93a4 Fixed issue #31
+| | * 681eb1d Add more comments
+| | * 3f38fe7 Added network visualization
+| | * 86335fa Added number range mapping function
+| | * f52b4bc Added SVG element to display networks on
+| | * 71b142a Added CSS reset
+| | * b35c99d Added styling to ASCII logo
+| | * 1d467b3 Added ASCII logo art - #20
+| | * a25c9a9 Removed (most) console logs
+| | * 28c87a1 Added value class to classes list in README.md
+| | * ace5ec2 Added more console logs and added spacers
+| | * 9b4f98b Added console logs - #1
+| | * 65c236d Changed "node.output" to "node.value"
+| | * bf46ebf Added node type error message
+| | * 9bfc190 Added network output function - #16
+| | * 0dcaf2d Added network data input function - #15
+| | * c90d0cc Added input_nodes and output_nodes lists
+| | * 88322e7 Fixed issue #12
+| | * e44f71e Fixed issue #11
+| | * 6900bba Added neural network update function
+| | * 1405440 Added comments to functions
+| | * 768ed55 Added object cloning function
+| | * bf9327f Class name capitalization
+| | * f0f6282 Node outputs can now be undefined when being generated
+| | * 84e7c48 Double quotes
+| | * 159fab2 Add neural network population generation
+| | * 04ec641 Semicolon
+| | * df5ee14 Added random addition and multiplication operation node generation
+| | * 5eb5063 Added list of node inputs/outputs - #6
+| | * 0fe225e Added node connections
+| | * b94b4c7 Fixed bug #7
+| | * 4b10d3c Added node constructor information object and node type-specific constructor properties
+| | * e176b89 Added unique node UUIDs
+| | * 8d20ee7 Added utility functions
+| | * 4597d9e Added "Network" class and constructor
+| | * d609dab Added "Node" class and constructor
+| | * 31b1e4e Added script reference
+| | * 755f85c HTML boilerplate code
+| | * 68c0a48 Added main source files
+| | * d3a81f4 Initial commit
+* | f44449a (origin/master) Rebuild project
+* |   24d323a Merge branch 'sandbox'
+|\ \  
+| * \   274d258 (origin/sandbox, sandbox) Add 'sandbox/' from commit '6920e6ed77d238cdcccb7f770d712dd895a815de'
+| |\ \  
+| | |/  
+| |/|   
 | | * 6920e6e Add function for calculating post-collision velocity
 | | * 9da73fe miscellaneous
 | | * 4534e0d Add function for creating particle objects
@@ -929,7 +1554,7 @@ structure into my workflow:
 | | * 1a865bd Added boilerplate HTML code
 | | * 9ed625b Added source files
 | | * 554080d Initial commit
-* |   c1e08db (origin/master) Merge branch 'meta'
+* |   c1e08db Merge branch 'meta'
 |\ \  
 | * | 4fcf1d8 (origin/meta, meta) process branch metadata to generate README.md
 | * |   35c1db9 Merge branch 'metadata' into meta
