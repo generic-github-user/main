@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Tsunami V Demo
+	</title>
+</head>
+	<body>
+
+		<div id="output" style="width: 90vw; word-wrap: break-word;">
+			Running neural network training algorithm...
+		</div>
+	
+		<script type="text/javascript" src="tsunami-v.js"></script>
+		<script type="text/javascript">
+
+			var trainingDataInput = [0,1,2,3,4,5,6,7,8,9];
+			var trainingDataOutput = 10;
+			var iteration = 1;
+			var score = 0;
+			const output = document.getElementById("output");
+			//adaptive mutations
+			//mutation issue (backups restored?)
+			create(10,[5],1,1);
+			output.innerHTML = ("<p>Beginning neural network training.</p>");
+			do{
+				//output.innerHTML += ("Before testing: " + JSON.stringify(neuralNetworks[0]) + "<br />");
+				assignScore(0,Math.abs(evaluate(0,trainingDataInput)-trainingDataOutput));
+				//output.innerHTML += ("After testing: " + JSON.stringify(neuralNetworks[0]) + "<br />");
+				evolve(0,"min",1,1);
+				iteration++;
+				//output.innerHTML += ("<p>Iteration " + (iteration+1) + " complete.</p>");
+				//output.innerHTML += ("<p>Neural network score: " + neuralNetworks[0].score + "</p>");
+			}
+			while(neuralNetworks[0].score > 0.01)
+			output.innerHTML += ("<p>Neural network training complete.</p>")
+			output.innerHTML += ("<p>Finished neural network: " + JSON.stringify(neuralNetworks[0]) + "</p>");
+			console.log(neuralNetworks[0]);
+
+		</script>
+		
+	</body>
+</html>

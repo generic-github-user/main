@@ -1,0 +1,8 @@
+Create
+
+Clone
+Mutate
+Evaluate
+Evolve
+
+neuralNetworks[0] = Object.assign({},neuralNetworksClone[0]);
