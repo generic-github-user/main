@@ -65,6 +65,10 @@ def transpile(source, target: str) -> str:
                 case ast.Div: return '/'
                 case ast.Mod: return '%'
 
+                case ast.JoinedStr:
+                    return f'`{"".join(transpile(x, target) for x in source.values)}`'
+                case ast.FormattedValue:
+                    return f'${{{transpile(source.value, target)}}}'
                 case ast.Constant:
                     #match source.kind:
                     match type(source.value).__name__:
