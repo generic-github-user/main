@@ -16,7 +16,8 @@ from globals import Eva
 
 # say = partial(say, Eva.database)
 
-# A generic graph data structure (more specifically, a metagraph, which does not distinguish between nodes and edges)
+# A generic graph data structure (more specifically, a metagraph, which does
+# not distinguish between nodes and edges)
 class Graph:
     def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None, logger=None):
         if not (parent is None or isinstance(parent, Graph)):
@@ -69,7 +70,8 @@ class Graph:
             self.hashmap[n.id] = n
         return self
 
-    # Returns a new graph containing only the nodes for which condition evaluates to true
+    # Returns a new graph containing only the nodes for which condition
+    # evaluates to true
     def filter(self, condition, log=False):
         if log:
             self.logger(f'Searching {len(self)} nodes')
@@ -100,7 +102,8 @@ class Graph:
     def map(self, f):
         return Graph(map(f, self.nodes), parent=self.parent)
 
-    # A callback used when a graph update needs to be propagated to a node; updates information such as adjacency lists
+    # A callback used when a graph update needs to be propagated to a node;
+    # updates information such as adjacency lists
     def updateNode(self, node, level=0, callback=None):
         assert(isinstance(node, int))
         self.logger(f'Updating node {node}')
