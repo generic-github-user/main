@@ -59,8 +59,8 @@ assignment:
     | NAME ":" expression ["=" annotated_rhs ] 
     | ("(" single_target ")" 
          | single_subscript_attribute_target) ":" expression ["=" annotated_rhs ] 
-    | (star_targets "=" )+ (yield_expr | star_expressions) !"=" [TYPE_COMMENT] 
-    | single_target augassign ~ (yield_expr | star_expressions) 
+    //| (star_targets "=" )+ (yield_expr | star_expressions) !"=" [TYPE_COMMENT] 
+    //| single_target augassign ~ (yield_expr | star_expressions) 
 
 augassign:
     | "+=" 
@@ -85,17 +85,17 @@ yield_stmt: yield_expr
 assert_stmt: "assert" expression ["," expression ] 
 
 del_stmt:
-    | "del" del_targets &(";" | NEWLINE) 
+    | "del" del_targets (";" | NEWLINE) 
 
 import_stmt: import_name | import_from
 import_name: "import" dotted_as_names 
-# note below: the ("." | "...") is necessary because "..." is tokenized as ELLIPSIS
+// note below: the ("." | "...") is necessary because "..." is tokenized as ELLIPSIS
 import_from:
     | "from" ("." | "...")* dotted_name "import" import_from_targets 
     | "from" ("." | "...")+ "import" import_from_targets 
 import_from_targets:
     | "(" import_from_as_names [","] ")" 
-    | import_from_as_names !","
+    //| import_from_as_names !","
     | "*" 
 import_from_as_names:
     | (import_from_as_name ("," import_from_as_name)*) 
@@ -122,8 +122,8 @@ while_stmt:
     | "while" named_expression ":" block [else_block] 
 
 for_stmt:
-    | "for" star_targets "in" ~ star_expressions ":" [TYPE_COMMENT] block [else_block] 
-    | ASYNC "for" star_targets "in" ~ star_expressions ":" [TYPE_COMMENT] block [else_block] 
+    | "for" star_targets "in" star_expressions ":" [TYPE_COMMENT] block [else_block] 
+    | ASYNC "for" star_targets "in" star_expressions ":" [TYPE_COMMENT] block [else_block] 
 
 with_stmt:
     | "with" "(" (with_item ("," with_item)*) ","? ")" ":" block 
@@ -132,7 +132,7 @@ with_stmt:
     | ASYNC "with" (with_item ("," with_item)*) ":" [TYPE_COMMENT] block 
 
 with_item:
-    | expression "as" star_target &("," | ")" | ":") 
+    | expression "as" star_target ("," | ")" | ":") 
     | expression 
 
 try_stmt:
@@ -176,7 +176,7 @@ closed_pattern:
 
 // Literal patterns are used for equality and identity constraints
 literal_pattern:
-    | signed_number !("+" | "-") 
+    //| signed_number !("+" | "-") 
     | complex_number 
     | strings 
     | "None" 
@@ -185,7 +185,7 @@ literal_pattern:
 
 // Literal expressions are used to restrict permitted mapping pattern keys
 literal_expr:
-    | signed_number !("+" | "-")
+    //| signed_number !("+" | "-")
     | complex_number
     | strings
     | "None" 
@@ -213,14 +213,14 @@ imaginary_number:
 capture_pattern:
     | pattern_capture_target 
 
-pattern_capture_target:
-    | !"_" NAME !("." | "(" | "=") 
+//pattern_capture_target:
+    //| !"_" NAME !("." | "(" | "=") 
 
 wildcard_pattern:
     | "_" 
 
-value_pattern:
-    | attr !("." | "(" | "=") 
+//value_pattern:
+    //| attr !("." | "(" | "=") 
 attr:
     | name_or_attr "." NAME 
 name_or_attr:
@@ -284,7 +284,7 @@ function_def_raw:
     | "def" NAME "(" [params] ")" ["->" expression ] ":" [func_type_comment] block 
     | ASYNC "def" NAME "(" [params] ")" ["->" expression ] ":" [func_type_comment] block 
 func_type_comment:
-    | NEWLINE TYPE_COMMENT &(NEWLINE INDENT)   # Must be followed by indented block
+    | NEWLINE TYPE_COMMENT (NEWLINE INDENT)   // Must be followed by indented block
     | TYPE_COMMENT
 
 params:
@@ -302,10 +302,10 @@ parameters:
 
 slash_no_default:
     | param_no_default+ "/" "," 
-    | param_no_default+ "/" &")" 
+    | param_no_default+ "/" ")" 
 slash_with_default:
     | param_no_default* param_with_default+ "/" "," 
-    | param_no_default* param_with_default+ "/" &")" 
+    | param_no_default* param_with_default+ "/" ")" 
 
 star_etc:
     | "*" param_no_default param_maybe_default* [kwds] 
@@ -328,13 +328,13 @@ kwds: "**" param_no_default
 
 param_no_default:
     | param "," TYPE_COMMENT? 
-    | param TYPE_COMMENT? &")" 
+    | param TYPE_COMMENT? ")" 
 param_with_default:
     | param default "," TYPE_COMMENT? 
-    | param default TYPE_COMMENT? &")" 
+    | param default TYPE_COMMENT? ")" 
 param_maybe_default:
     | param default? "," TYPE_COMMENT? 
-    | param default? TYPE_COMMENT? &")" 
+    | param default? TYPE_COMMENT? ")" 
 param: NAME annotation? 
 
 annotation: ":" expression 
@@ -367,11 +367,11 @@ star_named_expression:
 
 
 assignment_expression:
-    | NAME ":=" ~ expression 
+    | NAME ":=" expression
 
 named_expression:
     | assignment_expression
-    | expression !":="
+    //| expression !":="
 
 annotated_rhs: yield_expr | star_expressions
 
@@ -403,10 +403,10 @@ lambda_parameters:
 
 lambda_slash_no_default:
     | lambda_param_no_default+ "/" "," 
-    | lambda_param_no_default+ "/" &":" 
+    | lambda_param_no_default+ "/" ":" 
 lambda_slash_with_default:
     | lambda_param_no_default* lambda_param_with_default+ "/" "," 
-    | lambda_param_no_default* lambda_param_with_default+ "/" &":" 
+    | lambda_param_no_default* lambda_param_with_default+ "/" ":" 
 
 lambda_star_etc:
     | "*" lambda_param_no_default lambda_param_maybe_default* [lambda_kwds] 
@@ -417,13 +417,13 @@ lambda_kwds: "**" lambda_param_no_default
 
 lambda_param_no_default:
     | lambda_param "," 
-    | lambda_param &":" 
+    | lambda_param ":" 
 lambda_param_with_default:
     | lambda_param default "," 
-    | lambda_param default &":" 
+    | lambda_param default ":" 
 lambda_param_maybe_default:
     | lambda_param default? "," 
-    | lambda_param default? &":" 
+    | lambda_param default? ":" 
 lambda_param: NAME 
 
 disjunction:
@@ -505,7 +505,7 @@ primary:
     | atom
 
 slices:
-    | slice !"," 
+    //| slice !"," 
     | (slice ("," slice)*) [","] 
 slice:
     | [expression] ":" [expression] [":" [expression] ] 
@@ -532,7 +532,7 @@ tuple:
 group:
     | "(" (yield_expr | named_expression) ")" 
 genexp:
-    | "(" ( assignment_expression | expression !":=") for_if_clauses ")" 
+    | "(" ( assignment_expression | expression) for_if_clauses ")" 
 set: "{" star_named_expressions "}" 
 setcomp:
     | "{" named_expression for_if_clauses "}" 
@@ -549,17 +549,18 @@ kvpair: expression ":" expression
 for_if_clauses:
     | for_if_clause+ 
 for_if_clause:
-    | ASYNC "for" star_targets "in" ~ disjunction ("if" disjunction )* 
-    | "for" star_targets "in" ~ disjunction ("if" disjunction )* 
+    | ASYNC "for" star_targets "in" disjunction ("if" disjunction )* 
+    | "for" star_targets "in" disjunction ("if" disjunction )* 
 
 yield_expr:
     | "yield" "from" expression 
     | "yield" [star_expressions] 
 
 arguments:
-    | args [","] &")" 
+    | args [","] ")" 
+e0: (starred_expression | ( assignment_expression | expression))
 args:
-    | ",".(starred_expression | ( assignment_expression | expression !":=") !"=")+ ["," kwargs ] 
+    | (e0 ("," e0)*) ["," kwargs ] 
     | kwargs 
 
 kwargs:
@@ -575,20 +576,20 @@ kwarg_or_double_starred:
     | NAME "=" expression 
     | "**" expression 
 
-# NOTE: star_targets may contain *bitwise_or, targets may not.
+// NOTE: star_targets may contain *bitwise_or, targets may not.
 star_targets:
-    | star_target !"," 
+    | star_target
     | star_target ("," star_target )* [","] 
 star_targets_list_seq: (star_target ("," star_target)*) [","] 
 star_targets_tuple_seq:
     | star_target ("," star_target )+ [","] 
     | star_target "," 
 star_target:
-    | "*" (!"*" star_target) 
+    | "*" star_target
     | target_with_star_atom
 target_with_star_atom:
-    | t_primary "." NAME !t_lookahead 
-    | t_primary "[" slices "]" !t_lookahead 
+    | t_primary "." NAME
+    | t_primary "[" slices "]"
     | star_atom
 star_atom:
     | NAME 
@@ -601,13 +602,12 @@ single_target:
     | NAME 
     | "(" single_target ")" 
 single_subscript_attribute_target:
-    | t_primary "." NAME !t_lookahead 
-    | t_primary "[" slices "]" !t_lookahead 
-
-del_targets: ",".del_target+ [","] 
+    | t_primary "." NAME 
+    | t_primary "[" slices "]"
+del_targets: (del_target ("," del_target)*) [","] 
 del_target:
-    | t_primary "." NAME !t_lookahead 
-    | t_primary "[" slices "]" !t_lookahead 
+    | t_primary "." NAME 
+    | t_primary "[" slices "]" 
     | del_t_atom
 del_t_atom:
     | NAME 
@@ -616,9 +616,9 @@ del_t_atom:
     | "[" [del_targets] "]" 
 
 t_primary:
-    | t_primary "." NAME &t_lookahead 
-    | t_primary "[" slices "]" &t_lookahead 
-    | t_primary genexp &t_lookahead 
-    | t_primary "(" [arguments] ")" &t_lookahead 
-    | atom &t_lookahead 
+    | t_primary "." NAME t_lookahead 
+    | t_primary "[" slices "]" t_lookahead 
+    | t_primary genexp t_lookahead 
+    | t_primary "(" [arguments] ")" t_lookahead 
+    | atom t_lookahead 
 t_lookahead: "(" | "[" | "."
