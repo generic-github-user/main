@@ -1,6 +1,10 @@
 #!/usr/bin/env nu
 
-def main [] {
+def main [
+				--dry
+		] {
+		if $dry { echo "(dry run)" }
+
 		let path = "/home/alex/Desktop/todo.yaml"
 		let bpath = $"(date format '%Y-%m-%d_%H-%M-%S').yaml"
 		echo $"Backing up to ($bpath)"
@@ -22,5 +26,9 @@ def main [] {
 				}
 		)))
 		echo $output
-		$output | save $path
+		if $dry {
+				echo ($output | to yaml)
+		} else {
+				$output | save $path
+		}
 }
