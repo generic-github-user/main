@@ -9,7 +9,7 @@
 # convenient access to functions on graphs.
 class Node:
     def __init__(self, nid, graph, rep):
-        assert(isinstance(nid, int))
+        assert isinstance(nid, int)
         # assert(isinstance(graph, Graph))
 
         self.id = nid
@@ -27,14 +27,14 @@ class Node:
         return Graph([self.graph.get(x, update) for x in self.graph.references[self.id]])
 
     def adjacent(self, value=None, directional=False, return_ids=True):
-        assert(isinstance(directional, bool))
-        assert(isinstance(return_ids, bool))
+        assert isinstance(directional, bool)
+        assert isinstance(return_ids, bool)
 
         adjacent = []
         # for i, m in self.referrers().hashmap.items():
         for m in self.referrers():
             for ref in m.members:
-                if (ref != self.id) and (value is None or m.value == value) and ((not directional) or m.members.index(self.id)==0):
+                if (ref != self.id) and (value is None or m.value == value) and ((not directional) or m.members.index(self.id) == 0):
                     adjacent.append(ref)
         if return_ids:
             return adjacent

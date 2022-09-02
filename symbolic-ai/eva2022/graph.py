@@ -16,10 +16,19 @@ from globals import Eva
 
 # say = partial(say, Eva.database)
 
+
 # A generic graph data structure (more specifically, a metagraph, which does
 # not distinguish between nodes and edges)
 class Graph:
-    def __init__(self, nodes=None, hashmap=None, savePath='./saved_graph', fields='id value members time', references=None, parent=None, logger=None):
+    def __init__(self,
+                 nodes=None,
+                 hashmap=None,
+                 savePath='./saved_graph',
+                 fields='id value members time',
+                 references=None,
+                 parent=None,
+                 logger=None):
+
         if not (parent is None or isinstance(parent, Graph)):
             raise TypeError
 
@@ -105,7 +114,7 @@ class Graph:
     # A callback used when a graph update needs to be propagated to a node;
     # updates information such as adjacency lists
     def updateNode(self, node, level=0, callback=None):
-        assert(isinstance(node, int))
+        assert isinstance(node, int)
         self.logger(f'Updating node {node}')
         Eva.loglevel += 1
 
@@ -118,38 +127,62 @@ class Graph:
             self.addNode(
                 'unit',
                 [
-                    self.addNode('size', [node, self.addNode(getsize(self[node]), [], False)], False, True, level=level+1),
+                    self.addNode(
+                        'size',
+                        [node, self.addNode(getsize(self[node]), [], False)],
+                        False, True, level=level+1),
                     self.addNode('byte', [], False, level=level+1)
                 ], level=level+1
             )
             # self.addNode('neighborhood_size', [node, self.addNode(len())])
             numAdj = len(self[node].adjacent())
             self.logger(f'Found {numAdj} adjacent nodes', level=level+1)
-            self.addNode('num_adjacent', [node, self.addNode(numAdj, [], False)], False, True, level=level+1)
+            self.addNode(
+                'num_adjacent',
+                [node, self.addNode(numAdj, [], False)],
+                False, True, level=level+1)
             if callback is not None:
                 callback(self[node], level+1)
 
             current = self[node]
-            if current.value not in Settings.ignoredTypes and isinstance(current.value, str):
+            if current.value not in Settings.ignoredTypes and\
+                    isinstance(current.value, str):
+
                 if isinstance(current.value, str):
                     est = estimateEntropy(bytes(current.value, 'UTF-8'))
                 else:
                     est = estimateEntropy(bytes(current.value))
-                self.logger(f'Estimated entropy of {current.value} is {est}', level=level+1)
+                self.logger(
+                    f'Estimated entropy of {current.value} is {est}',
+                    level=level+1
+                )
                 entId = self.addNode(est, [], False, level=level+1)
-                m = list(filter(lambda x: x.members and current.id == x.members[0] and x.value=='entropy_estimate', current.referrers()))
+                m = list(filter(lambda x: x.members and
+                                current.id == x.members[0] and
+                                x.value == 'entropy_estimate',
+                                current.referrers()))
+
                 if (len(m) == 0):
-                    self.addNode('entropy_estimate', [current.id, entId], level=level+1)
+                    self.addNode(
+                        'entropy_estimate',
+                        [current.id, entId],
+                        level=level+1)
 
         Eva.loglevel -= 1
         return node
 
     # Add a node to the graph
-    def addNode(self, value, members=None, duplicate=True, useMembers=False, update=False, level=0):
-        assert(isinstance(members, list) or members is None)
-        assert(isinstance(duplicate, bool))
-        assert(isinstance(useMembers, bool))
-        assert(isinstance(update, bool))
+    def addNode(self,
+                value,
+                members=None,
+                duplicate=True,
+                useMembers=False,
+                update=False,
+                level=0):
+        assert isinstance(members, list) or members is None
+        assert isinstance(duplicate, bool)
+        assert isinstance(useMembers, bool)
+        assert isinstance(update, bool)
 
         newId = self.getId()
         if not duplicate:
@@ -161,17 +194,22 @@ class Graph:
                 self.logger(f'Search results: {matches}', level=level+1)
 
         if (duplicate or not matches):
-                self.logger(f'Creating node {value} with members [{"; ".join(str(m) for m in members)}]', level=level+1)
-                if members is None:
-                    members = []
-                nodeData = [newId, value, members, time.time()]
-                self.nodes.append(self.nodeTemplate(*nodeData))
-                self.references.append([])
-                for m in members:
-                    if m is not None:
-                        self.references[m].append(newId)
+            mems = "; ".join(str(m) for m in members)
+            self.logger(
+                f'Creating node {value} with members [{mems}]',
+                level=level+1
+            )
+
+            if members is None:
+                members = []
+            nodeData = [newId, value, members, time.time()]
+            self.nodes.append(self.nodeTemplate(*nodeData))
+            self.references.append([])
+            for m in members:
+                if m is not None:
+                    self.references[m].append(newId)
         else:
-                return matches[0].id
+            return matches[0].id
         if Settings.debugInfo:
             self.logger('Updating node', level=level+1)
         if update:
@@ -197,23 +235,27 @@ class Graph:
             raise TypeError
 
         # W = [0.9 if nodeProperty(n.id, 'origin')=='user_input' else 0.1 for n in self]
-        W = [0.9 if (n.value not in Settings.ignoredTypes and isinstance(n.value, str)) else 0.1 for n in self.nodes]
+        W = [0.9 if (n.value not in Settings.ignoredTypes and isinstance(n.value, str))
+             else 0.1 for n in self.nodes]
         if weighted:
             node = random.choices(self.nodes, weights=W, k=1)[0]
         else:
             node = random.choice(self.nodes)
         node = Node(node.id, self.parent, node)
-        assert(isinstance(node, Node))
+        assert isinstance(node, Node)
         return node
 
     def get(self, i, update=False):
         # assert(isinstance(i, (int, slice)))
-        assert(isinstance(update, bool))
+        assert isinstance(update, bool)
 
         if isinstance(i, int):
             # todo: call updateNode?
             if update:
-                self.addNode('accessed', [i, self.addNode(time.time(), [], False)])
+                self.addNode(
+                    'accessed',
+                    [i, self.addNode(time.time(), [], False)]
+                )
             return Node(self.nodes[i].id, self.parent, self.nodes[i])
         elif isinstance(i, slice):
             return Graph(self.nodes[i], self.savePath, parent=self.parent)
