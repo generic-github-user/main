@@ -1,0 +1,2 @@
+# Prints out a list of prime numbers
+(2..500).map((i,) -> (2..i).sqrt().none((j,) -> i % j == 0))
