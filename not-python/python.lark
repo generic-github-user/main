@@ -20,7 +20,7 @@ decorators: decorator+
 decorated: decorators (classdef | funcdef | async_funcdef)
 
 async_funcdef: "async" funcdef
-funcdef: "def" name "(" [parameters] ")" ["->" test] ":" suite
+funcdef: "def" name "(" [parameters] ")" [ARROW test] ":" suite
 
 parameters: paramvalue ("," paramvalue)* ["," SLASH ("," paramvalue)*] ["," [starparams | kwparams]]
           | starparams
@@ -193,9 +193,27 @@ AWAIT: "await"
           | atom_expr "[" subscriptlist "]"  -> getitem
           | atom_expr "." name               -> getattr
           | atom
+          | range
+          | arrowfunc
 
+range: atom_expr dots atom_expr
+arrowfunc: tuple ARROW atom_expr
+
+//arrowfunc: "(" [arrow_params] ")" ARROW atom
+//arrow_params: name ("," name)*
+//arrow_params: name
+
+//arrowfunc: lambda_params "->" test
+//arrowfunc: ([parameters] | "()") ARROW atom
+//arrowfunc: "()" ARROW atom
+//arrow_arguments: argvalue ("," argvalue)*
+         //| starargs
+         //| kwargs
+         //| comprehension{test}
+
+tuple: "(" _tuple_inner? ")" -> tuple
 ?atom: "(" yield_expr ")"
-     | "(" _tuple_inner? ")" -> tuple
+     | tuple
      | "(" comprehension{test_or_star_expr} ")" -> tuple_comprehension
      | "[" _testlist_comp? "]"  -> list
      | "[" comprehension{test_or_star_expr} "]"  -> list_comprehension
@@ -219,8 +237,7 @@ _testlist_comp: test | _tuple_inner
 _tuple_inner: test_or_star_expr (("," test_or_star_expr)+ [","] | ",")
             
 
-?test_or_star_expr: test
-                 | star_expr
+?test_or_star_expr: test | star_expr
 
 ?subscriptlist: subscript
               | subscript (("," subscript)+ [","] | ",") -> subscript_tuple
@@ -297,6 +314,7 @@ _EXP: ("e"|"E") ["+" | "-"] _SPECIAL_DEC
 DECIMAL: "." _SPECIAL_DEC | _SPECIAL_DEC "." _SPECIAL_DEC?
 FLOAT_NUMBER.2: _SPECIAL_DEC _EXP | DECIMAL _EXP?
 IMAG_NUMBER.2: (_SPECIAL_DEC      | FLOAT_NUMBER) ("J" | "j")
+ARROW: "->"
 
 
 // Comma-separated list (with an optional trailing comma)
