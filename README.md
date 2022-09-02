@@ -52,60 +52,60 @@ further developing or reusing components from.
 
 ## Projects
 
-- alexandria  `organization` `tools` `software` `bookmarks` `backup`
-- ao 
-- ascii-physics-sim  `ascii` `physics` `simulations` `experiments`
-- Blender  `add-ons` `extensions` `3d-graphics` `blender`
-- board  `mathematics` `combinatorics` `board-games` `simulations` `chess`
-- c2s  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
-- CA2  `mathematics` `geometry` `art` `simulations` `cellular-automata` `cgol` `combinatorics` `discrete-math`
+- alexandria  `bookmarks` `tools` `software` `organization` `backup` `python`
+- ao  `bash` `python`
+- ascii-physics-sim  `simulations` `physics` `python` `ascii` `experiments`
+- Blender  `add-ons` `blender` `3d-graphics` `python` `extensions`
+- board  `simulations` `mathematics` `chess` `c++` `board-games` `combinatorics`
+- c2s  `transpilers` `c` `experimental` `compilers` `python` `programming-languages` `new-language`
+- CA2  `simulations` `c` `mathematics` `cellular-automata` `cgol` `geometry` `art` `python` `combinatorics` `discrete-math`
 - captcha  `hci` `security` `experiments`
-- cellular-automata-experiments  `mathematics` `geometry` `art` `simulations` `cellular-automata` `cgol` `combinatorics` `discrete-math`
-- chrestomathy  `reference` `chrestomathy` `examples` `educational`
-- clover  `ai` `ml` `mathematics` `optimization`
-- CogBench  `psychometrics` `software` `tools` `interactive`
-- consequi  `organization` `tools` `software` `tasks` `productivity`
-- englint  `language` `tools` `software`
-- epidemic-modelling  `mathematics` `modelling` `simulations` `dynamical-systems`
-- finch  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
-- foldz  `mathematics` `geometry` `art` `simulations` `computational-geometry` `origami`
-- fractals  `fractals` `mathematics` `graphics` `numerical-analysis` `dynamical-systems`
+- cellular-automata-experiments  `simulations` `mathematics` `cellular-automata` `cgol` `geometry` `art` `python` `combinatorics` `discrete-math`
+- chrestomathy  `examples` `educational` `multiple` `chrestomathy` `reference`
+- clover  `mathematics` `ml` `c++` `ai` `optimization`
+- CogBench  `tools` `software` `psychometrics` `interactive` `python`
+- consequi  `tasks` `tools` `software` `organization` `python` `productivity`
+- englint  `tools` `software` `language`
+- epidemic-modelling  `simulations` `mathematics` `modelling` `python` `dynamical-systems`
+- finch  `transpilers` `experimental` `c++` `compilers` `rust` `python` `programming-languages` `new-language`
+- foldz  `computational-geometry` `simulations` `mathematics` `origami` `geometry` `art` `python`
+- fractals  `graphics` `numerical-analysis` `mathematics` `fractals` `python` `dynamical-systems`
 - generic-github-user  `meta` `profile`
-- geometry  `libraries` `mathematics` `geometry` `analysis`
-- grammars  `experiments` `tools` `libraries` `grammars` `linguistics` `combinatorics` `discrete-mathematics`
-- graphs  `libraries` `mathematics` `graphs` `graph-theory` `data-structures`
-- hurricane  `ai` `ml` `mathematics` `optimization` `libraries`
-- img-conv  `demos` `web` `image-processing` `interactive` `ml` `convolutional-filters`
-- keyboard-dynamics  `simulations` `mathematics` `optimization` `statistics` `analysis` `hci`
-- leetcode  `programming-challenges` `leetcode` `algorithms`
-- locus  `esoteroic` `programming-languages` `experiments`
-- not-python  `python` `experiments` `programming-languages` `syntax-extensions` `grammars`
-- obfuscation  `tools` `security` `languages`
-- packings  `mathematics` `combinatorics` `simulations` `geometry`
-- programming-puzzles  `programming-puzzles` `interactive`
-- project-summary  `github` `metadata` `apis` `data-aggregation`
-- punchcard  `data-structures` `utilities` `libraries`
-- pythings  `tools` `utilities` `metaprogramming`
-- python-experiments  `tools` `utilities` `metaprogramming` `experiments` `programming-languages`
-- python-snippets  `tools` `utilities` `templates` `programming-languages` `helpers` `libraries`
-- quickplot  `plotting` `graphs` `tools` `libraries` `matplotlib`
-- rcas  `mathematics` `cas` `symbolic-computation` `rust` `libraries`
-- roulette-curves  `mathematics` `geometry` `art` `simulations`
-- sandbox  `interactive` `demos` `web` `physics` `simulations` `experiments`
-- self-avoiding-walks  `mathematics` `combinatorics` `analysis` `simulations` `random-walks`
-- set  `version-control` `tools` `software` `software-development` `organization`
-- shelf  `tools` `utilities` `software` `command-line` `organization` `notes`
-- supernova  `ai` `ml` `mathematics` `optimization` `libraries`
-- tetris-variants  `games` `tetris` `interactive`
-- Time-Zone-Roles  `discord-bot` `automation`
-- transpiler  `programming-languages` `transpilers` `compilers`
-- tsunami  `ai` `ml` `mathematics` `optimization` `libraries`
-- unicode-art  `graphics` `diagrams` `tools`
-- unmacro  `macros` `vim` `experiments` `hci` `text-processing` `editors` `automation`
-- utils  `unix` `utilities` `tools` `scripting` `command-line`
-- visual-computing-simulation  `circuits` `simulations` `interactive` `computing`
-- wordtetris  `games` `tetris` `word-games`
-- zeal  `serialization` `markup` `file-formats`
+- geometry  `analysis` `mathematics` `geometry` `libraries` `python`
+- grammars  `discrete-mathematics` `tools` `grammars` `libraries` `linguistics` `combinatorics` `experiments`
+- graphs  `graph-theory` `data-structures` `mathematics` `graphs` `libraries` `python`
+- hurricane  `mathematics` `libraries` `ml` `ai` `optimization`
+- img-conv  `convolutional-filters` `interactive` `ml` `image-processing` `demos` `web` `javascript`
+- keyboard-dynamics  `hci` `analysis` `simulations` `mathematics` `python` `optimization` `statistics`
+- leetcode  `programming-challenges` `algorithms` `python` `leetcode`
+- locus  `esoteroic` `python` `experiments` `programming-languages`
+- not-python  `grammars` `syntax-extensions` `python` `programming-languages` `experiments`
+- obfuscation  `tools` `security` `python` `languages`
+- packings  `simulations` `c` `mathematics` `geometry` `combinatorics`
+- programming-puzzles  `programming-puzzles` `python` `interactive`
+- project-summary  `github` `apis` `python` `data-aggregation` `metadata`
+- punchcard  `libraries` `python` `utilities` `data-structures`
+- pythings  `tools` `metaprogramming` `python` `utilities`
+- python-experiments  `tools` `utilities` `python` `programming-languages` `metaprogramming` `experiments`
+- python-snippets  `templates` `tools` `libraries` `helpers` `utilities` `python` `programming-languages`
+- quickplot  `tools` `graphs` `libraries` `matplotlib` `python` `plotting`
+- rcas  `symbolic-computation` `cas` `mathematics` `libraries` `rust`
+- roulette-curves  `simulations` `mathematics` `geometry` `art` `python`
+- sandbox  `simulations` `interactive` `demos` `physics` `web` `experiments` `javascript`
+- self-avoiding-walks  `analysis` `simulations` `mathematics` `random-walks` `python` `combinatorics`
+- set  `tools` `software` `software-development` `organization` `version-control`
+- shelf  `tools` `software` `notes` `utilities` `organization` `command-line` `python`
+- supernova  `mathematics` `libraries` `ml` `ai` `optimization`
+- tetris-variants  `games` `tetris` `python` `interactive`
+- Time-Zone-Roles  `automation` `javascript` `discord-bot`
+- transpiler  `transpilers` `compilers` `programming-languages`
+- tsunami  `mathematics` `libraries` `ml` `ai` `optimization`
+- unicode-art  `tools` `graphics` `diagrams`
+- unmacro  `hci` `vim` `text-processing` `editors` `python` `macros` `automation` `experiments`
+- utils  `unix` `scripting` `tools` `utilities` `command-line` `python`
+- visual-computing-simulation  `simulations` `interactive` `computing` `python` `circuits`
+- wordtetris  `games` `python` `tetris` `word-games`
+- zeal  `python` `file-formats` `serialization` `markup`
 
 ## Branches
 
@@ -127,14 +127,14 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.73 s (624.2 files/s, 74827.0 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.72 s (632.1 files/s, 76022.7 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|131|2531|3031|8516
+Python|131|2531|3031|8522
 HTML|45|2444|71|7937
-Markdown|55|898|0|6912
+Markdown|55|898|0|7084
 JavaScript|55|928|1233|5420
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
@@ -152,7 +152,7 @@ TOML|5|10|3|33
 TeX|1|6|0|18
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|456|7736|10711|36215
+SUM:|456|7736|10711|36393
 
 
 ## On Monorepos
@@ -1119,7 +1119,8 @@ structure into my workflow:
 ## History
 
 ```
-*   4761cf3 (HEAD -> meta, origin/meta) Merge branch 'master' into meta
+* ad2fbf6 (HEAD -> meta) update metadata file paths in build.py
+*   4761cf3 (origin/meta) Merge branch 'master' into meta
 |\  
 * \   487ebe4 Merge branch 'metadata' into meta
 |\ \  

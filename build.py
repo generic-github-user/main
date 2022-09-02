@@ -22,6 +22,12 @@ print(f'Loading source files')
 with open('README.src.md', 'r') as f: content = f.read()
 with open(metadata_path + 'substitutions.yaml', 'r') as f: subs = yaml.safe_load(f.read())
 with open(metadata_path + 'projects.yaml', 'r') as f: projects = Box(yaml.safe_load(f.read()), default_box=True)
+for k, v in projects.projects.items():
+    print(v)
+    v.labels = set(v.labels)
+    if isinstance(v.language, list): v.labels |= set(v.language)
+    elif isinstance(v.language, str) and v.language != 'undecided':
+        v.labels.add(v.language)
 
 with open(metadata_path + 'branches.yaml', 'r') as f: branches = yaml.safe_load(f.read())
 # ref https://stackoverflow.com/a/3495395
