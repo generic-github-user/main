@@ -10,14 +10,13 @@ func_type: "(" [type_expressions] ")" "->" expression NEWLINE* ENDMARKER
 fstring: star_expressions
 
 // type_expressions allow */** but ignore them
-type_expressions:
-    | ",".expression+ "," "*" expression "," "**" expression 
-    | ",".expression+ "," "*" expression 
-    | ",".expression+ "," "**" expression 
+type_expressions: (expression ("," expression)*) "," "*" expression "," "**" expression 
+    | (expression ("," expression)*) "," "*" expression 
+    | (expression ("," expression)*) "," "**" expression 
     | "*" expression "," "**" expression 
     | "*" expression 
     | "**" expression 
-    | ",".expression+ 
+    | (expression ("," expression)*) 
 
 statements: statement+ 
 statement: compound_stmt  | simple_stmts 
@@ -27,8 +26,8 @@ statement_newline:
     | NEWLINE 
     | ENDMARKER 
 simple_stmts:
-    | simple_stmt !";" NEWLINE  # Not needed, there for speedup
-    | ";".simple_stmt+ [";"] NEWLINE 
+    //| simple_stmt !";" NEWLINE  // Not needed, there for speedup
+    | (simple_stmt (";" simple_stmt)*) [";"] NEWLINE 
 // NOTE: assignment MUST precede expression, else parsing a simple assignment
 // will throw a SyntaxError.
 simple_stmt:
@@ -55,7 +54,7 @@ compound_stmt:
     | while_stmt
     | match_stmt
 
-# NOTE: annotated_rhs may start with "yield"; yield_expr must start with "yield"
+// NOTE: annotated_rhs may start with "yield"; yield_expr must start with "yield"
 assignment:
     | NAME ":" expression ["=" annotated_rhs ] 
     | ("(" single_target ")" 
@@ -78,8 +77,8 @@ augassign:
     | "**=" 
     | "//=" 
 
-global_stmt: "global" ",".NAME+ 
-nonlocal_stmt: "nonlocal" ",".NAME+ 
+global_stmt: "global" (NAME ("," NAME)*) 
+nonlocal_stmt: "nonlocal" (NAME ("," NAME)*) 
 
 yield_stmt: yield_expr 
 
@@ -99,11 +98,11 @@ import_from_targets:
     | import_from_as_names !","
     | "*" 
 import_from_as_names:
-    | ",".import_from_as_name+ 
+    | (import_from_as_name ("," import_from_as_name)*) 
 import_from_as_name:
     | NAME ["as" NAME ] 
 dotted_as_names:
-    | ",".dotted_as_name+ 
+    | (dotted_as_name ("," dotted_as_name)*) 
 dotted_as_name:
     | dotted_name ["as" NAME ] 
 dotted_name:
@@ -127,10 +126,10 @@ for_stmt:
     | ASYNC "for" star_targets "in" ~ star_expressions ":" [TYPE_COMMENT] block [else_block] 
 
 with_stmt:
-    | "with" "(" ",".with_item+ ","? ")" ":" block 
-    | "with" ",".with_item+ ":" [TYPE_COMMENT] block 
-    | ASYNC "with" "(" ",".with_item+ ","? ")" ":" block 
-    | ASYNC "with" ",".with_item+ ":" [TYPE_COMMENT] block 
+    | "with" "(" (with_item ("," with_item)*) ","? ")" ":" block 
+    | "with" (with_item ("," with_item)*) ":" [TYPE_COMMENT] block 
+    | ASYNC "with" "(" (with_item ("," with_item)*) ","? ")" ":" block 
+    | ASYNC "with" (with_item ("," with_item)*) ":" [TYPE_COMMENT] block 
 
 with_item:
     | expression "as" star_target &("," | ")" | ":") 
@@ -163,7 +162,7 @@ pattern:
 as_pattern:
     | or_pattern "as" pattern_capture_target 
 or_pattern:
-    | "|".closed_pattern+ 
+    | (closed_pattern ("|" closed_pattern)*) 
 
 closed_pattern:
     | literal_pattern
@@ -237,7 +236,7 @@ sequence_pattern:
 open_sequence_pattern:
     | maybe_star_pattern "," maybe_sequence_pattern? 
 maybe_sequence_pattern:
-    | ",".maybe_star_pattern+ ","? 
+    | (maybe_star_pattern ("," maybe_star_pattern)*) ","? 
 maybe_star_pattern:
     | star_pattern
     | pattern
@@ -252,7 +251,7 @@ mapping_pattern:
     | "{" items_pattern "," double_star_pattern ","? "}" 
     | "{" items_pattern ","? "}" 
 items_pattern:
-    | ",".key_value_pattern+
+    | (key_value_pattern ("," key_value_pattern)*)
 key_value_pattern:
     | (literal_expr | attr) ":" pattern 
 double_star_pattern:
@@ -264,9 +263,9 @@ class_pattern:
     | name_or_attr "(" keyword_patterns ","? ")" 
     | name_or_attr "(" positional_patterns "," keyword_patterns ","? ")" 
 positional_patterns:
-    | ",".pattern+ 
+    | (pattern ("," pattern)*) 
 keyword_patterns:
-    | ",".keyword_pattern+
+    | (keyword_pattern ("," keyword_pattern)*)
 keyword_pattern:
     | NAME "=" pattern 
 
@@ -361,7 +360,7 @@ star_expression:
     | "*" bitwise_or 
     | expression
 
-star_named_expressions: ",".star_named_expression+ [","] 
+star_named_expressions: (star_named_expression ("," star_named_expression)*) [","] 
 star_named_expression:
     | "*" bitwise_or 
     | named_expression
@@ -507,7 +506,7 @@ primary:
 
 slices:
     | slice !"," 
-    | ",".slice+ [","] 
+    | (slice ("," slice)*) [","] 
 slice:
     | [expression] ":" [expression] [":" [expression] ] 
     | named_expression 
@@ -542,7 +541,7 @@ dict:
 
 dictcomp:
     | "{" kvpair for_if_clauses "}" 
-double_starred_kvpairs: ",".double_starred_kvpair+ [","] 
+double_starred_kvpairs: (double_starred_kvpair ("," double_starred_kvpair)*) [","] 
 double_starred_kvpair:
     | "**" bitwise_or 
     | kvpair
@@ -564,9 +563,9 @@ args:
     | kwargs 
 
 kwargs:
-    | ",".kwarg_or_starred+ "," ",".kwarg_or_double_starred+ 
-    | ",".kwarg_or_starred+
-    | ",".kwarg_or_double_starred+
+    | (kwarg_or_starred ("," kwarg_or_starred)*) "," (kwarg_or_double_starred ("," kwarg_or_double_starred)*) 
+    | (kwarg_or_starred ("," kwarg_or_starred)*)
+    | (kwarg_or_double_starred ("," kwarg_or_double_starred)*)
 starred_expression:
     | "*" expression 
 kwarg_or_starred:
@@ -580,7 +579,7 @@ kwarg_or_double_starred:
 star_targets:
     | star_target !"," 
     | star_target ("," star_target )* [","] 
-star_targets_list_seq: ",".star_target+ [","] 
+star_targets_list_seq: (star_target ("," star_target)*) [","] 
 star_targets_tuple_seq:
     | star_target ("," star_target )+ [","] 
     | star_target "," 
