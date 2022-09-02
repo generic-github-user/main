@@ -1,0 +1,4 @@
+lib: libraries and modules that I've written for use in other projects of mine (or extracted ex post facto from projects they were originally developed for, if generally applicable to other projects); not necessarily standalone
+legacy: contains very old projects that I don't intend to develop any further; included only for completeness (and potentially so that useful components can be extracted for use by other projects)
+languages: programming languages I've developed or am developing, including domain-specific languages and unserious estoeric PLs (see locus for an example)
+tools: standalone software that is intended mainly to be used as a utility by some user (usually myself), as opposed to being integrated as a library/module into a larger software package
