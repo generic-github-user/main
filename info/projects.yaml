@@ -1,3 +1,17 @@
+abbreviations:
+  um: unmacro
+  np: not-python
+  nu: nushell
+  py: python
+  js: javascript
+  nn: neural-network
+  lc: leetcode
+  kd: keyboard-dynamics
+  img: image
+  ao: auto-organize
+  hci: human-computer interaction
+  cas: computer algebra system
+
 labels:
   active: currently under development or work will resume soon
 
@@ -286,3 +300,57 @@ projects:
     completion: unfinished
     language: python
     labels: [github, metadata, apis, data-aggregation]
+
+  unmacro:
+    status: active
+    completion: unfinished
+    language: python
+    labels: [macros, vim, experiments, hci, text-processing, editors, automation]
+
+  not-python:
+    status: active
+    completion: unfinished
+    language: python
+    labels: [python, experiments, programming-languages, syntax-extensions, grammars]
+
+  rcas:
+    status: inactive
+    completion: unfinished
+    language: rust
+    labels: [mathematics, cas, symbolic-computation, rust, libraries]
+
+  sandbox:
+    status: inactive
+    completion: unfinished
+    language: javascript
+    labels: [interactive, demos, web, physics, simulations, experiments]
+
+  img-conv:
+    status: inactive
+    completion: stable
+    language: javascript
+    labels: [demos, web, image-processing, interactive, ml, convolutional-filters]
+
+  keyboard-dynamics:
+    status: inactive
+    completion: unfinished
+    language: python
+    labels: [simulations, mathematics, optimization, statistics, analysis, hci]
+
+  consequi:
+    status: inactive
+    completion: unfinished
+    language: python
+    labels: [organization, tools, software, tasks, productivity]
+
+  hurricane:
+    status: archived
+    labels: [ai, ml, mathematics, optimization, libraries]
+
+  supernova:
+    status: archived
+    labels: [ai, ml, mathematics, optimization, libraries]
+
+  tsunami:
+    status: archived
+    labels: [ai, ml, mathematics, optimization, libraries]

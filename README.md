@@ -52,88 +52,99 @@ further developing or reusing components from.
 
 ## Projects
 
-- pythings  `tools` `utilities` `metaprogramming`
-- obfuscation  `tools` `security` `languages`
-- unicode-art  `graphics` `diagrams` `tools`
-- leetcode  `programming-challenges` `leetcode` `algorithms`
-- geometry  `libraries` `mathematics` `geometry` `analysis`
-- graphs  `libraries` `mathematics` `graphs` `graph-theory` `data-structures`
+- alexandria  `bookmarks` `tools` `software` `organization` `backup` `python`
+- ao  `bash` `python`
+- ascii-physics-sim  `simulations` `physics` `python` `ascii` `experiments`
+- Blender  `add-ons` `blender` `3d-graphics` `python` `extensions`
+- board  `simulations` `mathematics` `chess` `c++` `board-games` `combinatorics`
+- c2s  `transpilers` `c` `experimental` `compilers` `python` `programming-languages` `new-language`
+- CA2  `simulations` `c` `mathematics` `cellular-automata` `cgol` `geometry` `art` `python` `combinatorics` `discrete-math`
 - captcha  `hci` `security` `experiments`
-- zeal  `serialization` `markup` `file-formats`
-- ao 
-- board  `mathematics` `combinatorics` `board-games` `simulations` `chess`
-- transpiler  `programming-languages` `transpilers` `compilers`
-- finch  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
-- clover  `ai` `ml` `mathematics` `optimization`
-- c2s  `programming-languages` `new-language` `compilers` `transpilers` `experimental`
-- utils  `unix` `utilities` `tools` `scripting` `command-line`
-- tetris-variants  `games` `tetris` `interactive`
+- cellular-automata-experiments  `simulations` `mathematics` `cellular-automata` `cgol` `geometry` `art` `python` `combinatorics` `discrete-math`
+- chrestomathy  `examples` `educational` `multiple` `chrestomathy` `reference`
+- clover  `mathematics` `ml` `c++` `ai` `optimization`
+- CogBench  `tools` `software` `psychometrics` `interactive` `python`
+- consequi  `tasks` `tools` `software` `organization` `python` `productivity`
+- englint  `tools` `software` `language`
+- epidemic-modelling  `simulations` `mathematics` `modelling` `python` `dynamical-systems`
+- finch  `transpilers` `experimental` `c++` `compilers` `rust` `python` `programming-languages` `new-language`
+- foldz  `computational-geometry` `simulations` `mathematics` `origami` `geometry` `art` `python`
+- fractals  `graphics` `numerical-analysis` `mathematics` `fractals` `python` `dynamical-systems`
 - generic-github-user  `meta` `profile`
-- packings  `mathematics` `combinatorics` `simulations` `geometry`
-- englint  `language` `tools` `software`
-- set  `version-control` `tools` `software` `software-development` `organization`
-- grammars  `experiments` `tools` `libraries` `grammars` `linguistics` `combinatorics` `discrete-mathematics`
-- chrestomathy  `reference` `chrestomathy` `examples` `educational`
-- CA2  `mathematics` `geometry` `art` `simulations` `cellular-automata` `cgol` `combinatorics` `discrete-math`
-- CogBench  `psychometrics` `software` `tools` `interactive`
-- Time-Zone-Roles  `discord-bot` `automation`
-- Blender  `add-ons` `extensions` `3d-graphics` `blender`
-- quickplot  `plotting` `graphs` `tools` `libraries` `matplotlib`
-- epidemic-modelling  `mathematics` `modelling` `simulations` `dynamical-systems`
-- fractals  `fractals` `mathematics` `graphics` `numerical-analysis` `dynamical-systems`
-- ascii-physics-sim  `ascii` `physics` `simulations` `experiments`
-- self-avoiding-walks  `mathematics` `combinatorics` `analysis` `simulations` `random-walks`
-- python-experiments  `tools` `utilities` `metaprogramming` `experiments` `programming-languages`
-- python-snippets  `tools` `utilities` `templates` `programming-languages` `helpers` `libraries`
-- shelf  `tools` `utilities` `software` `command-line` `organization` `notes`
-- locus  `esoteroic` `programming-languages` `experiments`
-- punchcard  `data-structures` `utilities` `libraries`
-- wordtetris  `games` `tetris` `word-games`
-- alexandria  `organization` `tools` `software` `bookmarks` `backup`
-- roulette-curves  `mathematics` `geometry` `art` `simulations`
-- cellular-automata-experiments  `mathematics` `geometry` `art` `simulations` `cellular-automata` `cgol` `combinatorics` `discrete-math`
-- foldz  `mathematics` `geometry` `art` `simulations` `computational-geometry` `origami`
-- programming-puzzles  `programming-puzzles` `interactive`
-- visual-computing-simulation  `circuits` `simulations` `interactive` `computing`
-- project-summary  `github` `metadata` `apis` `data-aggregation`
+- geometry  `analysis` `mathematics` `geometry` `libraries` `python`
+- grammars  `discrete-mathematics` `tools` `grammars` `libraries` `linguistics` `combinatorics` `experiments`
+- graphs  `graph-theory` `data-structures` `mathematics` `graphs` `libraries` `python`
+- hurricane  `mathematics` `libraries` `ml` `ai` `optimization`
+- img-conv  `convolutional-filters` `interactive` `ml` `image-processing` `demos` `web` `javascript`
+- keyboard-dynamics  `hci` `analysis` `simulations` `mathematics` `python` `optimization` `statistics`
+- leetcode  `programming-challenges` `algorithms` `python` `leetcode`
+- locus  `esoteroic` `python` `experiments` `programming-languages`
+- not-python  `grammars` `syntax-extensions` `python` `programming-languages` `experiments`
+- obfuscation  `tools` `security` `python` `languages`
+- packings  `simulations` `c` `mathematics` `geometry` `combinatorics`
+- programming-puzzles  `programming-puzzles` `python` `interactive`
+- project-summary  `github` `apis` `python` `data-aggregation` `metadata`
+- punchcard  `libraries` `python` `utilities` `data-structures`
+- pythings  `tools` `metaprogramming` `python` `utilities`
+- python-experiments  `tools` `utilities` `python` `programming-languages` `metaprogramming` `experiments`
+- python-snippets  `templates` `tools` `libraries` `helpers` `utilities` `python` `programming-languages`
+- quickplot  `tools` `graphs` `libraries` `matplotlib` `python` `plotting`
+- rcas  `symbolic-computation` `cas` `mathematics` `libraries` `rust`
+- roulette-curves  `simulations` `mathematics` `geometry` `art` `python`
+- sandbox  `simulations` `interactive` `demos` `physics` `web` `experiments` `javascript`
+- self-avoiding-walks  `analysis` `simulations` `mathematics` `random-walks` `python` `combinatorics`
+- set  `tools` `software` `software-development` `organization` `version-control`
+- shelf  `tools` `software` `notes` `utilities` `organization` `command-line` `python`
+- supernova  `mathematics` `libraries` `ml` `ai` `optimization`
+- tetris-variants  `games` `tetris` `python` `interactive`
+- Time-Zone-Roles  `automation` `javascript` `discord-bot`
+- transpiler  `transpilers` `compilers` `programming-languages`
+- tsunami  `mathematics` `libraries` `ml` `ai` `optimization`
+- unicode-art  `tools` `graphics` `diagrams`
+- unmacro  `hci` `vim` `text-processing` `editors` `python` `macros` `automation` `experiments`
+- utils  `unix` `scripting` `tools` `utilities` `command-line` `python`
+- visual-computing-simulation  `simulations` `interactive` `computing` `python` `circuits`
+- wordtetris  `games` `python` `tetris` `word-games`
+- zeal  `python` `file-formats` `serialization` `markup`
 
 ## Branches
 
+- `code-quality`: implementing improvements recommended by codefactor and other tools
 - `geometry`: helper classes for geometry in Python that I've been copy-pasting around periodically for the last 18 months or so (and actually one of the main reasons for creating this monorepo)
+- `graphs`: Python graph classes and functions that I find myself rewriting often for different projects
 - `leetcode`: some of my solutions to programming problems from [leetcode.com](https://leetcode.com/)
 - `master`: main branch; other branches are merged into this branch frequently (the build script is usually executed on this branch after some changes have been accumulated from other branches)
 - `meta`: information about this repository itself (code statistics, file listings, issue metadata, etc.)
 - `metadata`: updating serialized metadata about projects and branches stored in this repository (scripts developed on /meta use this information)
-- `repo-import`: used as a base branch for `git-subtree` merges (a subbranch is usually created off of this one with the new content, then merged into /master)
 - `obfuscation`: code obfuscation tools repurposed from an old repository of mine
-- `pythings`: useful tools and scripts for the boring parts of Python (mainly writing tests, documentation, etc.)
-- `py-style`: revising Python code to comply with flake8 standards
-- `code-quality`: implementing improvements recommended by codefactor and other tools
-- `unicode-art`: scripts and command-line tools for generating diagrams, charts, and other materials using ASCII and/or Unicode characters
-- `graphs`: Python graph classes and functions that I find myself rewriting often for different projects
 - `packings`: polyomino tiling simulations (also see the source repository on my GitHub profile)
+- `py-style`: revising Python code to comply with flake8 standards
+- `pythings`: useful tools and scripts for the boring parts of Python (mainly writing tests, documentation, etc.)
+- `repo-import`: used as a base branch for `git-subtree` merges (a subbranch is usually created off of this one with the new content, then merged into /master)
+- `unicode-art`: scripts and command-line tools for generating diagrams, charts, and other materials using ASCII and/or Unicode characters
 - `wordle-variants`: various language-based guessing games
 
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.74 s (544.8 files/s, 98240.5 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=0.72 s (632.1 files/s, 76022.7 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JavaScript|56|3808|3699|19036
-Python|128|2513|3008|8490
+Python|131|2531|3031|8522
 HTML|45|2444|71|7937
-Markdown|55|898|0|6284
+Markdown|55|898|0|7084
+JavaScript|55|928|1233|5420
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
-YAML|22|104|26|890
+YAML|22|115|26|950
 Bourne Shell|3|77|102|452
 CSS|15|58|28|364
 C/C++ Header|18|87|69|324
+D|25|62|0|278
+JSON|33|0|0|254
 INI|4|52|0|248
-JSON|6|0|0|227
 Rust|3|56|39|198
 make|4|41|6|103
 XML|2|4|0|52
@@ -141,7 +152,7 @@ TOML|5|10|3|33
 TeX|1|6|0|18
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|402|10525|13154|48812
+SUM:|456|7736|10711|36393
 
 
 ## On Monorepos
@@ -212,7 +223,6 @@ structure into my workflow:
 │   │   ├── todo_ft.vim
 │   │   └── todo.vim
 │   └── utodo.sh
-├── branches.yaml
 ├── build.py
 ├── ca2
 │   ├── abbrs.txt
@@ -332,7 +342,6 @@ structure into my workflow:
 │   │           │   ├── iteration.js
 │   │           │   ├── library
 │   │           │   │   ├── combined
-│   │           │   │   │   ├── chart.js
 │   │           │   │   │   ├── index.html
 │   │           │   │   │   └── script.js
 │   │           │   │   ├── network_creation.js
@@ -342,8 +351,7 @@ structure into my workflow:
 │   │           │   └── README.md
 │   │           ├── lib
 │   │           │   └── chart
-│   │           │       ├── chart_colors.js
-│   │           │       └── chart.js
+│   │           │       └── chart_colors.js
 │   │           ├── library
 │   │           │   ├── caesium.js
 │   │           │   └── caesium.min.js
@@ -413,6 +421,7 @@ structure into my workflow:
 │       ├── 8.PNG
 │       └── 9.PNG
 ├── captcha
+├── db_path
 ├── decision-tree-experiments
 │   ├── game.py
 │   ├── main.py
@@ -488,6 +497,11 @@ structure into my workflow:
 │   │   └── style.css
 │   └── testing
 │       └── 1.PNG
+├── info
+│   ├── branches.yaml
+│   ├── projects.yaml
+│   ├── substitutions.yaml
+│   └── tree.yaml
 ├── keyboard-dynamics
 │   ├── keyboard.py
 │   ├── LICENSE
@@ -683,8 +697,99 @@ structure into my workflow:
 │   ├── rcas
 │   │   ├── Cargo.lock
 │   │   ├── Cargo.toml
-│   │   └── src
-│   │       └── main.rs
+│   │   ├── src
+│   │   │   └── main.rs
+│   │   └── target
+│   │       ├── CACHEDIR.TAG
+│   │       └── debug
+│   │           ├── build
+│   │           │   ├── libc-3ddb04d0aebfade6
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── libc-5ca1b23658d038fa
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-5ca1b23658d038fa
+│   │           │   │   └── build_script_build-5ca1b23658d038fa.d
+│   │           │   ├── proc-macro2-35827982aca1bc22
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-35827982aca1bc22
+│   │           │   │   └── build_script_build-35827982aca1bc22.d
+│   │           │   ├── proc-macro2-9afbe74d41b230f9
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── syn-4e71833d6f53546f
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   └── syn-cfd911bb297c914e
+│   │           │       ├── build-script-build
+│   │           │       ├── build_script_build-cfd911bb297c914e
+│   │           │       └── build_script_build-cfd911bb297c914e.d
+│   │           ├── deps
+│   │           │   ├── cfg_if-a7c41022ab1352a8.d
+│   │           │   ├── cfg_if-ebf035ed12b4adf2.d
+│   │           │   ├── convert_case-a21e1662d061d9d7.d
+│   │           │   ├── derive_more-5d213c49d4347e84.d
+│   │           │   ├── getrandom-0753f49186a99e32.d
+│   │           │   ├── getrandom-9b13050138f9a077.d
+│   │           │   ├── libc-0c34a5e0de6cd63d.d
+│   │           │   ├── libc-882b1bc031692cda.d
+│   │           │   ├── libcfg_if-a7c41022ab1352a8.rmeta
+│   │           │   ├── libcfg_if-ebf035ed12b4adf2.rlib
+│   │           │   ├── libcfg_if-ebf035ed12b4adf2.rmeta
+│   │           │   ├── libconvert_case-a21e1662d061d9d7.rlib
+│   │           │   ├── libconvert_case-a21e1662d061d9d7.rmeta
+│   │           │   ├── libderive_more-5d213c49d4347e84.so
+│   │           │   ├── libgetrandom-0753f49186a99e32.rlib
+│   │           │   ├── libgetrandom-0753f49186a99e32.rmeta
+│   │           │   ├── libgetrandom-9b13050138f9a077.rmeta
+│   │           │   ├── liblibc-0c34a5e0de6cd63d.rmeta
+│   │           │   ├── liblibc-882b1bc031692cda.rlib
+│   │           │   ├── liblibc-882b1bc031692cda.rmeta
+│   │           │   ├── libppv_lite86-3486d2fcc129b3d2.rmeta
+│   │           │   ├── libppv_lite86-77a9f6cf3f9bdde1.rlib
+│   │           │   ├── libppv_lite86-77a9f6cf3f9bdde1.rmeta
+│   │           │   ├── libproc_macro2-d36e90eb8c08b7be.rlib
+│   │           │   ├── libproc_macro2-d36e90eb8c08b7be.rmeta
+│   │           │   ├── libquote-22dc3a80b57b016c.rlib
+│   │           │   ├── libquote-22dc3a80b57b016c.rmeta
+│   │           │   ├── librand-240395f1ac6b9280.rmeta
+│   │           │   ├── librand-b81b358563493acf.rlib
+│   │           │   ├── librand-b81b358563493acf.rmeta
+│   │           │   ├── librand_chacha-4353eebe31684a6a.rmeta
+│   │           │   ├── librand_chacha-9845519f0c2a9e39.rlib
+│   │           │   ├── librand_chacha-9845519f0c2a9e39.rmeta
+│   │           │   ├── librand_core-67bedab063a95f21.rmeta
+│   │           │   ├── librand_core-a4fc4e77067a7955.rlib
+│   │           │   ├── librand_core-a4fc4e77067a7955.rmeta
+│   │           │   ├── libsyn-1206085fb4d18f03.rlib
+│   │           │   ├── libsyn-1206085fb4d18f03.rmeta
+│   │           │   ├── libunicode_ident-3490722f08a3328c.rlib
+│   │           │   ├── libunicode_ident-3490722f08a3328c.rmeta
+│   │           │   ├── ppv_lite86-3486d2fcc129b3d2.d
+│   │           │   ├── ppv_lite86-77a9f6cf3f9bdde1.d
+│   │           │   ├── proc_macro2-d36e90eb8c08b7be.d
+│   │           │   ├── quote-22dc3a80b57b016c.d
+│   │           │   ├── rand-240395f1ac6b9280.d
+│   │           │   ├── rand-b81b358563493acf.d
+│   │           │   ├── rand_chacha-4353eebe31684a6a.d
+│   │           │   ├── rand_chacha-9845519f0c2a9e39.d
+│   │           │   ├── rand_core-67bedab063a95f21.d
+│   │           │   ├── rand_core-a4fc4e77067a7955.d
+│   │           │   ├── rcas-4caa51e6c98407f7.d
+│   │           │   ├── rcas-56d585aa39c0b243.d
+│   │           │   ├── syn-1206085fb4d18f03.d
+│   │           │   └── unicode_ident-3490722f08a3328c.d
+│   │           ├── examples
+│   │           └── incremental
 │   └── symbolic-approximation
 │       ├── LICENSE
 │       ├── requirements.txt
@@ -726,10 +831,12 @@ structure into my workflow:
 │   ├── pitch.py
 │   ├── README.md
 │   └── scale.py
-├── ocr.nu
+├── not-python
+│   ├── macros.txt
+│   ├── np2.py
+│   └── sample.py
 ├── Pipfile
 ├── Pipfile.lock
-├── projects.yaml
 ├── puzzles
 │   ├── leetcode
 │   │   ├── 1436.py
@@ -771,6 +878,7 @@ structure into my workflow:
 │   └── title.py
 ├── README.md
 ├── README.src.md
+├── sample-3.py
 ├── sandbox
 │   ├── index.html
 │   ├── main.js
@@ -888,7 +996,6 @@ structure into my workflow:
 │       └── simulation.py
 ├── sloc.nu
 ├── sloc-output.md
-├── substitutions.yaml
 ├── symbolic-ai
 │   └── eva2022
 │       ├── architecture
@@ -997,7 +1104,6 @@ structure into my workflow:
 │   │   ├── README.md
 │   │   └── README.src.md
 │   └── ytodo.py
-├── tree.yaml
 ├── unicode-art
 ├── update.sh
 ├── wordtetris
@@ -1006,858 +1112,927 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-204 directories, 606 files
+222 directories, 683 files
 
 ```
 
 ## History
 
 ```
-*   cc0c4b6 (HEAD -> master) Merge branch 'legacy'
+* ad2fbf6 (HEAD -> meta) update metadata file paths in build.py
+*   4761cf3 (origin/meta) Merge branch 'master' into meta
 |\  
-| *   d16c8b1 (origin/legacy, legacy) Merge branch 'legacy-nn-2' into legacy
-| |\  
-| | *   6c72e0b (origin/legacy-nn-2, legacy-nn-2) Add 'legacy/hurricane/' from commit '311e9fca9450327ad146a75b17abf811902b0c7d'
-| | |\  
-| | | * 311e9fc Create LICENSE
-| | | * 40d2f5e Initial commit
-| * |   13badf1 Merge branch 'legacy-nn-1' into legacy
-| |\ \  
-| | * \   3a7e632 (origin/legacy-nn-1, legacy-nn-1) Add 'legacy/tsunami/' from commit '96427c78876b2d7188b6a0c159e6d1b5e0e72e3f'
-| | |\ \  
+* \   487ebe4 Merge branch 'metadata' into meta
+|\ \  
+| * | ee66233 (metadata) move metadata files to new subdirectory
+| * | 94df33a (origin/metadata) add labels to new projects
+| * | 59c1fee add (some) newly integrated/started projects
+| * | f89fef9 add abbreviations for some projects/branches
+| * | b8df567 add yaml-serialized list of directories with descriptions of each
+* | | a727435 alphebatize project and branch lists
+| | | *   d205d91 (refs/stash) WIP on um-docs: 424f902 add example vim macro
+| | | |\  
+| | | | * 8cee150 index on um-docs: 424f902 add example vim macro
+| | | |/  
+| | | * 424f902 (origin/um-docs, um-docs) add example vim macro
+| | | * 6d5bdb4 (origin/unmacro, unmacro) add README
+| | |/  
+| | | * bb5c59d (not-python) add new parser based on (modified) python.lark grammar
+| | | * 4752d16 (origin/not-python) add some more examples (unfinished)
+| | | * a427574 add some basic extensions to grammar
+| | | * 3df2fc9 add python3 grammar from lark examples
+| | | * d48e721 add lark to requirements (pipenv)
+| | | * 5b78981 remove or defer some other incompatible syntax
+| | | * 85c6236 make [most] separator/expression patterns lark-compatible
+| | | | * 1e40f7d (origin/np-docs, np-docs) add README.md
+| | | |/  
+| | | * d920ac5 make grammar [more] compatible with lark parser
+| | | * 256865e add simple lark parsing script
+| | | * c1224cf add PEG grammar for Python programming language from https://docs.python.org/3/reference/grammar.html
+| | |/  
+| | | * 7d51ea1 (origin/e22-cleanup, e22-cleanup) improve code style (flake8 guidelines)
+| | | *   0144a5c Merge branch 'graphs' into e22-cleanup
+| | | |\  
+| | | | * 7db4d4c (origin/graphs, graphs) improve code style (node.py)
+| | | | * a66bd60 improve code style (graph.py)
+| | | | * 053a238 add missing import statements
 | | | |/  
 | | |/|   
-| | | * 96427c7 Added gitignore
-| | | * fedf3f0 Tsunami 5 (Tsunami V)
-| | | * 1a572b3 Tsunami 4
-| | | * 665dc8d Tsunami 3
-| | | * 489b849 Tsunami 2
-| | | * bb38e16 Tsunami 1
-| | | * c6b8cb7 Initial commit
-| * |   633f643 Add 'legacy/Supernova/' from commit '8564e68c1c6710f6c4dfdb339e308d9ce83d5cc2'
-| |\ \  
-| | |/  
-| |/|   
-| | * 8564e68 Initial commit
-* |   9c17e73 Merge branch 'caesium'
-|\ \  
-| * \   f2e4d37 (origin/caesium, caesium) Add 'caesium/' from commit 'b6b4b97349ad5d7fecd0a7f84ce37b2451074d2f'
-| |\ \  
-| | |/  
-| |/|   
-| | * b6b4b97 Added page anchor links for methods
-| | * da94c92 Update header levels
-| | * eb2fa05 Move info about JavaScript implementation to docs folder
-| | * c707faa More methods
-| | * c6db607 Add info about network.set_inputs()
-| | * 3e5f69c Optimized model parameters list
-| | * 5c081da Cleanup
-| | * 990c15f Add JavaScript implementation usage information
-| | * 3747dbd Update project descriptin
-| | * 8992abb Adding information about network.export()
-| | * 3cdcc13 Planned Node.js implementation
-| | * 0dc5073 Adding information about network.save()
-| | * 23df7fc Adding updated information about network.evolve()
-| | * 8194938 Adding average network loss to graph
-| | * d0e5653 Adding best network fitness to graph
-| | * 0461b6b Cleanup
-| | * 30ea53c Added scatter plot to visualize network loss
-| | * 068d8da Don't round outputs
-| | * 8b21603 Reset input values to 0 after done feeding inputs
-| | * 0962691 Lots of testing
-| | * aa632e4 Use cs.random() instead of Math.random()
-| | * 28a4d4c Added update function in script file
-| | * 97c21b8 Refer to self when defining methods
-| | * 06d84b3 Added min_weight() and max_weight() functions
-| | * f038ad1 Added loop_nodes() and loop_connections() functions
-| | * 9f0ac88 Added network.min_node() and network.max_node() functions
-| | * e445017 Added Neural Turing Machine project
-| | * faab92e sanity testing
-| | * 58b9699 Added some comments
-| | * 48c9d61 Added browser localStorage saving of models
-| | * 757b99b Added model exporting to JSON string
-| | * d9761f8 Update notes.md
-| | * 0a65a9a Added num_nodes control variable
-| | * 7221142 Node color input
-| | * 8a7d0e1 Added node type color option
-| | * 4eee94e Fixed connection display bug
-| | * 115fe7c Added connection weight visualization opacity range mapping
-| | * c9124aa Update .gitignore
-| | * b280c6e Added minified version of library
-| | * b8e5e14 Added gitignore
-| | * d2ad340 Added connection weight visualization
-| | * a0bcc75 Create notes.md
-| | * 14d595b Added example log
-| | * 5f6ad83 Added update config limit defaults
-| | * 7f7c1dc Added range mapping function to library
-| | * 1926cfe Updated visualization to work with newest version of Caesium
-| | * d359818 Fixed relative file paths
-| | * 2e18caf Beautified JavaScript
-| | * fd56f96 Beautified HTML
-| | * b5c88e7 Create 4.js
-| | * 156fd1f Added subfolders for extra code folder
-| | * 7f5d00c Variable scope
-| | * e90b6cb Added mobile device testing screenshots for 2D point classification project
-| | * 608fbd0 One-hot character decoding function now finds maximum value of inputs
-| | * 1c33170 Updated training system to ingest one character at a time as a one-hot encoded vector
-| | * b52b29a Updated charset
-| | * 0f06e43 Added custom evaluation function setting to evolve function config object
-| | * a6217d2 Converted input/output format: single-character one-hot encoding
-| | * 6c4cfe8 Settings
-| | * 63ac03e Moved string encoding and decoding functions to main library file
-| | * 7876857 Moved benchmark graphs into new folder
-| | * d0ff257 Added network buffer setting for update function
-| | * 1129e77 Removed integer encoding functions
-| | * 29635dc Moved integer encoding script
-| | * f3db105 Hyperparameters
-| | * 86ed6d4 Training data
-| | * 29eb1c3 Added more training data
-| | * 82fa6be Added update loop
-| | * 3b213e6 Added literal character encoding
-| | * 400edd0 Added network training
-| | * 66e0ace Added predict function
-| | * 3a2c0c2 Create data.js
-| | * dddc189 Added network creation
-| | * 24a2b99 Added one-hot character encoding script
-| | * 1d5fd82 Added new project
-| | * 812b417 New benchmarks
-| | * 85241b0 Updated benchmark script config objects
-| | * 0627b2f Fixed node and connection removal parameter discrepancies
-| | * 7fb749c Replaced full clone of network with with network_buffer object with only node values
-| | * 390860e FLashing colors warning for 2D classification
-| | * 1041540 More testing screenshots
-| | * 8be9efb Comments
-| | * d193eb1 Added links to demo screenshots
-| | * d52feab Added screenshots for basic demo and neuroevolution project
-| | * e65f6ef Added images to curve-fitting demo
-| | * 5b0c70a Updated confg objects
-| | * 954d594 Moved index.html of network visualization demo
-| | * 137f9ba Added Caesium demos to README
-| | * f092040 Updated config object formats
-| | * 3b97d96 Removed input/output scaling
-| | * 3e6b258 Settings
-| | * 4ee33ca Connection weights were not actually being mutated
-| | * 39e807c Input and output nodes are now handled like other node types
-| | * 420212c Settings
-| | * 35871ad Help function improvements
-| | * 3619472 Comments
-| | * 7690d45 Added points control variable
-| | * ef5d7fa Node control variable
-| | * b64010a Comments
-| | * aad453b Moved min_max calculations to node and connection constructor functions
-| | * 49b7013 Fixed bug
-| | * c3d33d1 More config improvements
-| | * 8c74035 Config object validation improvements
-| | * f5c720e Comments
-| | * 6d0c2eb Moved value node value mutation settings to sub-object
-| | * 665326f Added connection weight evolution
-| | * bf03363 Moved chart.js to shared lib folder
-| | * c582a5a Disabled network buffer
-| | * 31e9a80 Forgot to push node types list change commit
-| | * 6b46ab1 Added connection weights
-| | * 2ffd760 Added polynomial degree variable
-| | * 172667c Added tanh, sine, and cosine node types
-| | * c68225e 2 more testing screenshots
-| | * 3fb4d07 Added library folder
-| | * d908918 Added benchmark test graphs
-| | * aeb4584 Create 9.PNG
-| | * d8e258d Added array iteration loop benchmark
-| | * df7b380 Nodes are now stored as object properties instead of array entries
-| | * 7cd6f4d Removed global node and connection lists
-| | * 998dc7d Added comments
-| | * cc0c5e9 Added comments
-| | * 75256cc Simplified random input data generation
-| | * 3008f85 Added comments to network evaluation benchmark script
-| | * f802b83 Added neuroevolution optimization benchmark script
-| | * bb97f03 Removed chartColors variable
-| | * efcfce6 Replaced node type names in projects
-| | * 5a94683 Added network evaluation benchmark script
-| | * a5035f0 Double quotes!
-| | * 3d02a53 Added chart_colors.js
-| | * 981786b Added combined benchmark
-| | * 7c2a601 Added network creation time benchmark
-| | * 996bc90 Added extra code
-| | * 21b4916 Removed "Data/" and "Operation/" node type prefixes
-| | * bdb4332 Added information about lookup.js benchmark to benchmark scripts folder README file
-| | * 7fd9b9d Added README to benchmarks folder
-| | * 7bf5c9e Added node addition/removal control variable
-| | * 4eac236 Changed problem from classification to neural regression
-| | * 727eb2e Added node lookup benchmark
-| | * 72c584a Network information
-| | * 002c8c1 Added timestamp to evolve function console logs
-| | * fc4e77a Revert "Added some default values"
-| | * 593e8b4 Added some default values
-| | * 0f453dc Added Operation/Tanh node type
-| | * f180256 Updated settings
-| | * e4ee292 Removed unused round function
-| | * a5c8c7d Removed unused code
-| | * 7496b35 Added resolution variable
-| | * 8773a6b Updated variable names
-| | * 8207666 Added network training with Caesium
-| | * 4763ff6 Reformatted input/output data to work with Caesium API
-| | * c35c6d2 Added Caesium network creation
-| | * 3f54c97 Fixed "cs is not defined" error
-| | * 652d6c4 Added stylesheet.css
-| | * 43db145 Added script.js
-| | * 9dab644 Added 2D classification demo project
-| | * d244586 Added cs.alias function
-| | * 924c909 Removed text shadow
-| | * c799c56 Adding padding to cells
-| | * c1b7c51 Added automatic scrolling
-| | * 44e7a57 Added conditional cell formatting
-| | * 2a79600 Added default CSS properties
-| | * a4c0151 Added network representation rendering
-| | * 588f5e6 Using x and y arrays as input/output data
-| | * f46cd50 Added evolution loop
-| | * d7ec76e Added training data
-| | * 394c036 Added network creation
-| | * 4780d86 Added return parameter to network evolve function config object
-| | * a02b09a Added jQuery
-| | * fc3e138 Added JavaScript and CSS
-| | * d6db0d4 Created neuroevolution demo project
-| | * 0886925 Comments
-| | * c4ea4b0 Adjusting settings
-| | * 15d48cf Created update_settings variable
-| | * 651bee2 Might have to move settings to a gitignore
-| | * d2deb38 Added iterations parameter to network mutation function config object
-| | * 1953c45 More settings adjustments
-| | * 01fdac4 Output network from network evolve function clones best network from randomly generated population
-| | * 9d90ce9 network.evolve.config.mutation renamed to .mutate
-| | * 9a2524a Added evaluate function to networks
-| | * 524f44a Made y2 a global variable
-| | * cd2a67e Fixed issue with network scoring function
-| | * 92fad1b yay, it works
-| | * 627417a Fixed random number generation function bug
-| | * 2cf30ba Added node value reset function
-| | * 63525b0 Testing screenshot
-| | * fbfd9d6 Added kind of working testing screenshot for curve fitting project
-| | * 494966d Added node and connection total limits
-| | * 37f99f1 More settings tweaks
-| | * 0ec29e6 Added random ranges to training parameters
-| | * 6af0ffb Added short (array) syntax to cs.min_max() function
-| | * 64f6e4b Changed name of chart variable
-| | * e387641 Network is now trained repeatedly on a delay
-| | * 2652dc8 Updated graph config data object
-| | * c7db76c Generating lists of real and synthetic data
-| | * 4439b5b Added node value limit setting to network update function
-| | * 79b255a Added new testing screenshot
-| | * 7836d36 Predict y values from x values using trained network
-| | * d655de4 Network training setting adjustments
-| | * cde1e91 Using Caesium random function
-| | * 202bca4 Random range from -0.5 to +0.5
-| | * adfeefa So this is why the node values kept exploding
-| | * 83952af Added network neuroevolution
-| | * 5013f49 Disabled mutation function config object checking
-| | * eeb5405 Added node value limit to update function
-| | * fc76e6d Added testing screenshot from curve fitting project
-| | * b2bfae9 Added network creation
-| | * 596a6e7 Removed automatic rounding from min_max() function
-| | * 990c3c8 Added synthetic data generation
-| | * 482f058 Removed text
-| | * 631ad4c Added chart
-| | * bd3b60a Added Chart.js to curve fitting project
-| | * bb48767 Added stylesheet to curve fitting project
-| | * 1c5e7fe Added curve fitting sample project
-| | * a7a128f cs.random function returns random number from 0 to 1 if no arguments are provided
-| | * 60c9245 Moved global functions to cs object
-| | * baace08 Removed unused short versions of node type names from settings object
-| | * 89bb870 Updated network constructor config object and compacted code
-| | * 619bb35 Added mutate config object to evolve config object
-| | * 999294b Added console logs to network.evolve() function
-| | * b965867 Fixed undefined best network issue in neuroevolution code
-| | * 7d7463a Added MIT License
-| | * 3ab61bb Replaced network.node_types arrays with automatically generated arrays from cs.settings.node_types
-| | * 116895c Improved non-supported node type error message
-| | * a2243d7 Added initial values to new value nodes created by mutation function
-| | * 33f8db6 Some more comments
-| | * e5577af Compacted node mutation script
-| | * 2c93de5 Added rest of config variables to network mutation function
-| | * 5631cf4 Additions to mutation function config object
-| | * 2b77eda Added folder for extra unused code snippets
-| | * 5c99cc8 Added cs.help function
-| | * 7cb5394 Added yet more comments
-| | * f8b433e Connection removal in mutation function now uses config information
-| | * 59337c5 Removed global UUID list
-| | * ae7fcec Global node list screenshot
-| | * 51c4f2a Various performance optimizations
-| | * df7a9d7 Added min_max() function to get value from config object input properties with arbitrary data format
-| | * 5365b7d Added addition and multiplication node removal
-| | * 9076634 Fixed undefined error when removing connections while performing topology mutation
-| | * 095a150 Compacted dead connection removal code
-| | * 50231d1 Added even more comments
-| | * c37c645 Improved mutation function config object
-| | * eaa2550 Added network.add_connection function
-| | * bf37dd2 Fixed undefined node ID error in topology mutation script for node removal
-| | * 38ae61b Added network topology mutation
-| | * 2120bf4 Renamed network.node() and network.connection() to network.find_node() and network.find_connection(), respectively
-| | * 36b7192 Added remove_node and remove_connection functions
-| | * 194ef24 Fixed error with error message for incorrect number of inputs
-| | * 11cc46b Added even more comments
-| | * f81f0e3 Updated planned library implementation information
-| | * aaaff33 "use strict"
-| | * 09232ce Added network connection retrieval function information to README
-| | * 7f8ccac Added node retrieval function documentation to README
-| | * f895a62 Updated network constructor code example
-| | * 45bddc1 Changed function funcName() {} syntax to const funcName = function() {}
-| | * 2142700 Fixed for loop variable naming order in network updating function
-| | * bb7636d Added network class information to README
-| | * 5518809 ASCII art is now displayed via a function
-| | * d38fb98 Added comments to network updating function
-| | * d056f6c Removed forEach loops
-| | * 705e382 Improvements to network updating function config object
-| | * 0cfaf89 Added first working testing screenshot of neuroevolution
-| | * 827de26 Added support for multiple sets of training data for neuroevolution
-| | * b5408d4 Fixed network cloning bugs in update and evolve functions
-| | * 2038e25 Added clone_network() function
-| | * 37b206b Updated object cloning function
-| | * ce6623b Changed global node finding function to network finding function
-| | * 599a44c Moved settings to cs object
-| | * b1a0c07 Removed cs.temp
-| | * 6f4cc4b All network nodes are now represented by IDs instead of references
-| | * c7c0c8c Changed network config property from num_inputs to inputs
-| | * 8b39d38 Added error messages to network node and connection retrieval functions
-| | * cf796fa Added a function for getting network connection by ID
-| | * 3f9ba3b Nodes within networks are now referenced by IDs to avoid a lot of issues
-| | * 8429f1f Added some comments
-| | * d607f6a Beautified JavaScript
-| | * 5d66cad Revert "Added add_network_functions and updated network cloning function"
-| | * 4961d44 Added add_network_functions and updated network cloning function
-| | * a3e60be Added evolution function - #14
-| | * 0d50269 Added new cloning function
-| | * 6e0f830 Added array average function [utility]
-| | * 6493278 Added array summation function (utility)
-| | * ea54c32 Added array difference function
-| | * 008ea61 Network .input() and .output() function names
-| | * 3a2e292 Added network scores
-| | * 1e3f805 Added network and connection constructor config objects
-| | * f36c14b Added mutation function for evolution optimization algorithm
-| | * fcb9b40 Added node_types sub-object to networks
-| | * 6bea6cd Added global lists of connections and networks
-| | * 13c4846 Project titles
-| | * 6fdbcaa Added plain demo page - #66
-| | * d8e22a2 Updated code
-| | * f3a45c9 Separated Caesium project into main library and visualization app
-| | * 7375af3 One more code snippet
-| | * d46cbdc Added ASCII text art creator to credits in README.md
-| | * 6a3fbc5 Added JavaScript code snippet credits to README.md
-| | * d3dbae3 Added credits to the README
-| | * 531edfb Added more credits to HTML and CSS
-| | * a23deeb Reorganized CSS
-| | * 7748d94 Reorganized files
-| | * d8c7d64 Social media button press transition
-| | * 5effaab Added GitHub repository link
-| | * 33552c7 Added moving backgrounds
-| | * e59f774 #50
-| | * 6c04215 Added background textures - #44
-| | * 984feb9 Testing background textures
-| | * f0ed8e3 Sidebar padding
-| | * 363f37e Text shadows!
-| | * 413de66 Added network update button
-| | * b4351fc We don't need that stylesheet
-| | * 4f1f831 Quick fix for #48
-| | * b91fd3f Cleanup for the mess that the last commit was
-| | * c6d4c15 Added node value labels - #28
-| | * bff0978 Added global UUID registry
-| | * aa9a4b2 More nodes!
-| | * 253ea67 Added code snippet credits to JavaScript code
-| | * 510e6ed Added visualization/display update function - #25
-| | * cae5d05 Added even more comments
-| | * 9f29009 Added some comments
-| | * 10bd1d5 Added node size and brightness display controls to control panel
-| | * 496a360 Added sidebar control panel
-| | * e257d7a Changed color, added shadow
-| | * 9328283 Added brightness to nodes - #43
-| | * 7454448 Added node types list - #22
-| | * 0821676 Fixed issue #40
-| | * dd5c9b7 Coordinates are now defined in percentages
-| | * b551311 Circle coordinate generation now uses the dimensions of the SVG element
-| | * 8763af8 Fixed issue #35
-| | * 049253a Updated relative file paths
-| | * 42e144f Added folders to organize files
-| | * c7f93a4 Fixed issue #31
-| | * 681eb1d Add more comments
-| | * 3f38fe7 Added network visualization
-| | * 86335fa Added number range mapping function
-| | * f52b4bc Added SVG element to display networks on
-| | * 71b142a Added CSS reset
-| | * b35c99d Added styling to ASCII logo
-| | * 1d467b3 Added ASCII logo art - #20
-| | * a25c9a9 Removed (most) console logs
-| | * 28c87a1 Added value class to classes list in README.md
-| | * ace5ec2 Added more console logs and added spacers
-| | * 9b4f98b Added console logs - #1
-| | * 65c236d Changed "node.output" to "node.value"
-| | * bf46ebf Added node type error message
-| | * 9bfc190 Added network output function - #16
-| | * 0dcaf2d Added network data input function - #15
-| | * c90d0cc Added input_nodes and output_nodes lists
-| | * 88322e7 Fixed issue #12
-| | * e44f71e Fixed issue #11
-| | * 6900bba Added neural network update function
-| | * 1405440 Added comments to functions
-| | * 768ed55 Added object cloning function
-| | * bf9327f Class name capitalization
-| | * f0f6282 Node outputs can now be undefined when being generated
-| | * 84e7c48 Double quotes
-| | * 159fab2 Add neural network population generation
-| | * 04ec641 Semicolon
-| | * df5ee14 Added random addition and multiplication operation node generation
-| | * 5eb5063 Added list of node inputs/outputs - #6
-| | * 0fe225e Added node connections
-| | * b94b4c7 Fixed bug #7
-| | * 4b10d3c Added node constructor information object and node type-specific constructor properties
-| | * e176b89 Added unique node UUIDs
-| | * 8d20ee7 Added utility functions
-| | * 4597d9e Added "Network" class and constructor
-| | * d609dab Added "Node" class and constructor
-| | * 31b1e4e Added script reference
-| | * 755f85c HTML boilerplate code
-| | * 68c0a48 Added main source files
-| | * d3a81f4 Initial commit
-* | f44449a (origin/master) Rebuild project
-* |   24d323a Merge branch 'sandbox'
-|\ \  
-| * \   274d258 (origin/sandbox, sandbox) Add 'sandbox/' from commit '6920e6ed77d238cdcccb7f770d712dd895a815de'
-| |\ \  
-| | |/  
-| |/|   
-| | * 6920e6e Add function for calculating post-collision velocity
-| | * 9da73fe miscellaneous
-| | * 4534e0d Add function for creating particle objects
-| | * c03cb0f Add functions for randomization
-| | * fd818ad Store other simulation quantities
-| | * 1d22bfb cleanup
-| | * 0cc701e Add user interaction via mouse events
-| | * 2dbe313 Add set method
-| | * 42844b2 Render and update simulation
-| | * c508fe7 Add index-based mapping function
-| | * 85fbde8 Add method for applying function over squares centered on each point in the original array
-| | * 6b5cb78 Add array summary methods
-| | * 60a3e5f Add reduce method
-| | * 6d84862 Add index method (NumPy-like array access)
-| | * 0edec8f Add method for getting array entries by position
-| | * ee15808 Add forEach method
-| | * b619e91 add methods for altering an ndarray
-| | * 344543d add ndarray map method
-| | * 69cf274 add stylesheet
-| | * e3a57dc add clip function
-| | * e27013d add ndarray class
-| | * c447205 add boilerplate HTML
-* |   3b05949 Merge branch 'img-conv'
-|\ \  
-| * \   101051a (origin/img-conv, img-conv) Add 'img-conv/' from commit '8ed488bd53c7d380c64237a9f3a92a04addb2f00'
-| |\ \  
-| | |/  
-| |/|   
-| | * 8ed488b Kernel data is now exported as a .json file
-| | * dcfd14e Fixed kernel loading issue
-| | * 3504259 Code cleanup
-| | * 3b2ac38 Added setup.js
-| | * 51971e0 Code cleanup
-| | * 3859277 Added import-export.js
-| | * b21c522 Added code snippets to README
-| | * 528a803 Fixed filter kernel import setting documentation image alternate text
-| | * 545ba88 Added filter kernel import/export information to README
-| | * 352fc0a Added HTML dialog element polyfill
-| | * da025b1 Added libraries to README.md
-| | * 96fcb29 Added filter kernel data importing
-| | * a8f2919 Removed form element from image URL loading text field
-| | * 2641c16 Added filter kernel exporting
-| | * eb80301 Added GitHub repository link icon tooltip
-| | * a53bff7 Added documentation for image download button to README.md
-| | * e209303 Added image downloading buttons
-| | * 3c3da9d Added download.js library
-| | * 985f456 Fixed filter list indentation
-| | * c6cfe33 Added automatic update setting information to README
-| | * a57b3fa Update docs/settings/randomize/4.PNG
-| | * e3705d3 Added randomize setting info to README
-| | * 3845ffa Added some console logs to script.js
-| | * f2aab1f Kernel weight randomization now clones the kernel to the custom kernel, like editing a kernel does
-| | * 9606ed9 Fixed #23
-| | * dd65bf8 Removed global canvas_data variable
-| | * 448deac Added script loading console logs
-| | * 10d0789 Added sliding transition to title and subtitle when header is hovered on
-| | * c6126d9 Added variables.js
-| | * 4733e7a Added utilities.js
-| | *   2d772dc Merge branch 'master' of https://github.com/generic-github-user/Image-Convolution-Playground
-| | |\  
-| | | * 54283f7 Create LICENSE
-| | * | 56d6e36 Added usage instructions to README
-| | * | 429c20f canvas_width and canvas_height must be set
-| | |/  
-| | * c801efc Added even more comments!
-| | * 6f36e29 Added more comments to script.js
-| | * c9dac7d Added GitHub link to demo
-| | * 6f6a2ed Added labels to images in README
-| | * 7effdd4 Added repeat filter to README
-| | * b2cdd9f Added filter setting info to README
-| | * c427416 Fixed README image sources not displaying correctly on GitHub page
-| | * 1e98287 Added images to resolution setting information in README
-| | * 7a00b40 Update README.md
-| | * e14d288 Added tooltips to canvases
-| | * 6041bc7 Added image resolution tooltip
-| | * 6dd4b23 Fixed layout issues
-| | * e64206e Layout reorganization
-| | * 6aa7886 Added filter kernel weight selection and editing
-| | * 10df239 Improvements to kernel randomization
-| | * 8773f99 Added filter kernel randomize button
-| | * 51f8dc2 CSS adjustments
-| | * 8686638 Code cleanup and more comments
-| | * de6ae2c Added more tooltips
-| | * 926cde5 Added more tooltips to settings
-| | * d7077e5 Fixed automatic update toggle tooltip
-| | * a660a1e Added some comments to HTML
-| | * 5c61eae More layout tweaks
-| | * 8fcdd02 Added automatic update toggle and apply filter button
-| | * db176d6 Added filter repeat iterations setting
-| | * d6664ff Added resolution indicator
-| | * 70d2e21 More layout adjustments
-| | * 6b5f07e Fixed layout
-| | * a7ffa4b Added credits for code snippets
-| | * 27f7db0 Fixed filter kernel visualization spacing issues
-| | * 36a9a35 Added kernel visualization
-| | * 9e4743f Added undo snackbar notification
-| | * 8b3aebe Fixed undo issues and image loading bugs
-| | * 7233b91 Made convolutions section in README more clear
-| | * fc50b01 Added more information to README.md
-| | * d9234a1 Added JavaScript (js) subfolder of /src
-| | * c2850cb Added canvas.js
-| | * 7983acb Added more comments
-| | * 5fb17c8 Added image resolution slider
-| | * 6fbaddd Code cleanup and added comments
-| | * 16eaa62 Added automatic image resizing
-| | * 4381f8b Added testing screenshots folder
-| | * 90b061a Moved canvas_width and canvas_height
-| | * 7b07ab4 Added unprocessed image canvas
-| | * 9c29539 Added some comments
-| | * c20c105 Added styling to file upload
-| | * 5fcada3 Removed convolution edge padding
-| | * 938efbb Added custom image uploading
-| | * eca26c2 Reorganized convolution function
-| | * 669c06d Added random default demo image
-| | * 46da820 Added filter selection dropdown
-| | * deb967f Added some stuff to the README
-| | * a1a0cf2 Moved kernel information into a separate JavaScript file
-| | * 12113fe Added unsharp masking convolutional filter kernel
-| | * ddccafc Added blur filter kernels
-| | * c8518e6 Added convolutional kernel name property
-| | * f241825 Added kernel factors/multipliers
-| | * ac1c859 Added "sharpen" convolution kernel
-| | * b11e935 Removed unused get_pixel() function
-| | * c5d24fc Added convolutions
-| | * 72834b7 Added image loading from URL
-| | * f08cafb Added canvas element and rendering context
-| | * 4a965de Added jQuery
-| | * afb1767 Added title
-| | * 1143964 Hosting Material Design Lite in project files
-| | * b54c20f Added Material Design Lite
-| | * 1a865bd Added boilerplate HTML code
-| | * 9ed625b Added source files
-| | * 554080d Initial commit
-* |   c1e08db Merge branch 'meta'
-|\ \  
-| * | 4fcf1d8 (origin/meta, meta) process branch metadata to generate README.md
-| * |   35c1db9 Merge branch 'metadata' into meta
-| |\ \  
-| | * | 9d1b082 (origin/metadata, metadata) document new(er) branches
-| | * | 1885970 add yaml-serialized version of repository branch info
-| | * | c87960e move pipenv metadata files (again)
-| | * | d2d8a9d label remaining projects
-| | * | 30d4b02 add labels to more projects
-| * | | 81f6a9a add summary of build.py script
-| * | | 2a216c3 add table of contents
-| | | | *   8a1d55f (refs/stash) WIP on py-js-transpiler: 14d64b1 transpile function-related nodes
-| | | | |\  
-| | | | | * d051688 index on py-js-transpiler: 14d64b1 transpile function-related nodes
-| | | | |/  
-| | | | * 14d64b1 (origin/py-js-transpiler, py-js-transpiler) transpile function-related nodes
+| | * | c1ee395 (origin/master, master) Merge branch 'caesium'
+| |/| | 
+|/| | | 
+| | * | eb0420e (origin/caesium, caesium) remove vendored chart.js source code
+| | | * 8be38e4 improve code style
+| | | * 262f31f reflow comments (graph.py and node.py)
+| | | | * 86fddf3 (origin/py-cpp-transpiler, py-cpp-transpiler) handle generic operators
+| | | | * 4e0d6ad (origin/python-transpiler, origin/py-js-transpiler, python-transpiler, py-js-transpiler) miscellaneous
+| | | | * b6c25e5 add subscript/slice expression handlers
+| | | | * 3229669 handle f-string literals
+| | | | * 38e0ff8 handle constant expressions
+| | | | * 9ed51ab add binary arithmetic operators
+| | | | * 2fa1254 add conversion of logical binary operators
+| | | | * d82bc37 add unary operators
+| | | | * 14d64b1 transpile function-related nodes
 | | | | * 0bc4833 add support for transpiling arguments and arg lists (to JS)
-| | | | * ec7d793 (python-transpiler) transpile top-level AST nodes
+| | | | * ec7d793 transpile top-level AST nodes
 | | | | * 6c2fd4e add transpiler script base
 | | | | * 23197bb add slightly more complex sample (borrowed from python-snippets)
-| | | | * 5468da8 (origin/python-transpiler) add brief sample program for testing
-| |_|_|/  
-|/| | |   
-* | | |   9c24f65 (transpiler) Merge branch 'symbolic-ai'
-|\ \ \ \  
-| * \ \ \   433f39f (origin/symbolic-ai, symbolic-ai) Add 'symbolic-ai/eva2022/' from commit 'af1a571d26f98eef2502b6932bcc71141d4bf942'
-| |\ \ \ \  
-| | |_|_|/  
-| |/| | |   
-| | * | | af1a571 clean up graph database code, remove superfluous methods
-| | * | | 2fbb879 mark image files based on file extensions
-| | * | | 0d1e16d make some adjustments to logging system
-| | * | | 78e4629 add some comments to graph.py
-| | * | | f2b4dd5 Move other commands
-| | * | | f75ebe3 misc bug fixes
-| | * | | 066e1cb Fix globals naming
-| | * | | a68c5a9 Move loadBackup command
-| | * | | bdc5e5a Move query command to its own file
-| | * | | b69afed Move global data class to new file
-| | * | | 26b3730 Restructure command handling
-| | * | | 59a418c Move architecture description
-| | * | | 0925b14 Move scanDir to helpers module
-| | * | | 009dd3d Restructure project with relative imports
-| | * | | 7bcba57 refactor markType and markLength using makePropertyBuilder
-| | * | | 8fcfecb graphbrain testing
-| | * | | f062b13 Finish makePropertyBuilder function
-| | * | | 54f0dbb Store system information
-| | * | | 5074cf4 Update gitignore
-| | * | | 90ce493 Fix logging
-| | * | | d75bdf3 More organization and cleanup
-| | * | | bcee5da Move backup function
-| | * | | 6e9ee0f Use timeFunc decorator to factor out duplicated code
-| | * | | 22f0ba6 Move say function
-| | * | | 07afcc6 Moved other commands
-| | * | | 148c84c misc
-| | * | | e85a6ec refactor some commands
-| | * | | fb0125a cleanup
-| | * | | 9400ee6 Move entropy estimation function
-| | * | | 1515fcc Move timeFunc
-| | * | | 8cd241f Move some commands to dedicated functions
-| | * | | 79f8e90 Fix issue with type checking
-| | * | | 5586f1e Add some assertions and type checks
-| | * | | 67b88b8 Extract some specific functionality out of Graph class
-| | * | | a90a8c4 More reorganization and cleanup
-| | * | | d2fccbe miscellaneous
-| | * | | ab5783d Move settings/constant sto new file
-| | * | | d79f1c7 Move getId
-| | * | | 6defecb cleanup
-| | * | | d8df593 Move Graph and Node classes
-| | * | | ba5a2ea Condense recent changes into temp commit
-| | * | | af47888 Find substring relationships between string nodes
-| | * | | def8b40 Move settings and global objects into Eva class
-| | * | | 50738d1 more imports
-| | * | | c9a59a2 Add command for querying graph database
-| | * | | 9e7e7bd Misc
-| | * | | 321af52 Add dependency parsing with spacy
-| | * | | abb3bc2 Read lines from text-based file formats into database
-| | * | | 603e9d6 Run OCR on image files
-| | * | | d0147bc Move string tokenization code
-| | * | | f38d8be Cleanup
-| | * | | 87a2168 Add nesting indents to improve readability
-| | * | | 238b0d2 Add string method to Node class
-| | * | | 8125a3d Add emergency checks to avoid discarding database in the event of severe errors
-| | * | | 50c721d Weight metadata nodes lower during random selection by default
-| | * | | 205c6aa move TODOs
-| | * | | bc81db5 Add HOF for tracking execution time of (some) function calls
-| | * | | 28e0057 Add simple parser for graph database queries
-| | * | | 4007140 Misc bug fixes and cleanup
-| | * | | 6cda3e8 Approximate entropy of string nodes
-| | * | | 9496edb Move database loading into Graph class
-| | * | | 62ab3e3 Organize imports
-| | * | | 945664c more miscellaneous
-| | * | | e58130b Add assertions
-| | * | | 53827d9 Move node length labelling logic
-| | * | | 9c70678 Move node type labelling logic
-| | * | | 347cd21 cleanup
-| | * | | 48a14ee misc
-| | * | | b59c495 Add return_ids option
-| | * | | 11daaa8 Move list command
-| | * | | 2c9a1bb Extract inference command ("think")
-| | * | | 603eb6d misc
-| | * | | 7455fcf Add option to display information without storing in database
-| | * | | 88ff044 update imports
-| | * | | 3ceef8d misc
-| | * | | 477890d Add update parameter to other functions
-| | * | | 55086ec Add Graph filter method
-| | * | | c5eada2 Add method for getting node without propagating updates
-| | * | | 84ee2e9 Count adjacent nodes
-| | * | | 344d698 Automatically refresh multiple nodes
-| | * | | f519684 Add file hashing function
-| | * | | 0779e4d Move functions for getting referring/adjacent nodes into Node class and update some code to use new interface
-| | * | | 3ca5411 Improve dir scanning command
-| | * | | 507f14b Add Graph method for getting random node
-| | * | | a5b97ce more miscellaneous updates
-| | * | | b923ff2 fix some database loading issues
-| | * | | 30d5332 misc
-| | * | | 1916d2e Store reference to internal node representation in Node instance
-| | * | | 65f11cd Support slice notation and return Node instance
-| | * | | 94e020a refactor backup command
-| | * | | 444e30d Move getsize function
-| | * | | 46b0eeb Miscellaneous
-| | * | | afd4301 return Graphs instead of lists of nodes
-| | * | | 236fed3 Add command for loading database from backup
-| | * | | a865a4e Use Graph class instance variables instead of global node list
-| | * | | 0c15dde Add magic methods to Graph class
-| | * | | 5c933c2 fix typo
-| | * | | fddb9fc Move save function into Graph class method
-| | * | | ff7de6b move getNodes into Graph class
-| | * | | 71f03ef Refactor some commands using command decorator
-| | * | | d7136cc Refactoring
-| | * | | 3dbc74a Use say function
-| | * | | 67aa50c Update architecture.tex
-| | * | | 3217d3b Add command for updating individual nodes
-| | * | | bc1965d Add command for displaying adjacent nodes
-| | * | | 5cc95fc miscellaneous fixes
-| | * | | 2c8b485 Track start and end time for find command
-| | * | | 7a9b6d1 add basic inference engine
-| | * | | e47a75d Add function for displaying output
-| | * | | 9607967 gitignore latex helper files
-| | * | | 003c6d3 Calculate size of nodes (in memory)
-| | * | | 38a9647 add simple mathematical expression parser
-| | * | | 97c75cb update gitignore
-| | * | | a57d1e5 miscellaneous
-| | * | | b1d8f80 Add command for mapping directory structure
-| | * | | 32fad94 Fix naming conflict
-| | * | | 9e1bafb Object size computation function from https://stackoverflow.com/a/30316760
-| | * | | 5efa6f6 Add function for scanning local directory structure
-| | * | | 062f7cd misc
-| | * | | 0fe229a Add function for finding adjacent nodes
-| | * | | 05b92f5 more imports
-| | * | | 40e4fa8 miscellaneous
-| | * | | 084abf7 Add simple backup functionality
-| | * | | 70a54cf add Node class
-| | * | | 7e58336 Add getReferrers
-| | * | | 835b053 Add command for importing JSON data
-| | * | | 808ac64 Add marker to processed nodes
-| | * | | e560724 Add syntax for direct (but user-efficient) interaction with database
-| | * | | f589eca optimize getInfo
-| | * | | e9b1526 Fix scoping bug in user inquiry process
-| | * | | 25bf42e Convert functions to Graph class methods and perform operations using a centralized database object
-| | * | | e494999 clean up code
-| | * | | 6803109 Update code to use namedtuple fields when accessing node properties
-| | * | | 4deaf42 Use namedtuple to make node access more readable
-| | * | | ff28add Store reference lists between sessions
-| | * | | 02666a8 fix logging
-| | * | | 9ff4d9d Add command for listing members of a set or category
-| | * | | b7b4003 Link rating nodes to their descriptors
-| | * | | 4123ab2 Add more logging
-| | * | | c4558ba Update ask command
-| | * | | c7d8474 fix indices
-| | * | | 9729c5e Add overview of data structure
-| | * | | 559760a optimize
-| | * | | 6f8f01e Optimize user inquiry generation using node reference list
-| | * | | 16fe106 Build list of nodes that refer to each node on startup
-| | * | | 84d022b Update gitignore
-| | * | | f3b3953 Minor refactoring
-| | * | | dd1404c Update to only use addNode for node creation
-| | * | | 4ffeb23 Improve relation gathering and fix bug causing some questions to be repeated
-| | * | | cb859b6 Allow breakpoint access from interface
-| | * | | 77cd299 Display function
-| | * | | e968f81 Add command for updating all nodes in database
-| | * | | 1e59baf Get node relationship data from user
-| | * | | 25cd262 misc
-| | * | | 758c3d6 Add some logging
-| | * | | 21510b4 Improve node printing
-| | * | | 5a9e67a Extract tokens from inputs
-| | * | | 85dd555 Add node length labels (for strings)
-| | * | | 299c105 Add node type labels
-| | * | | 7c92075 misc
-| | * | | d0084cc Generate "concept nodes" that unify terms extracted from inputs
-| | * | | 8cd52b9 Only attempt to extract binary relations
-| | * | | 182d68b Add more parameters to addNode
-| | * | | b6b150b Basic question-answer functionality
-| | * | | 844c66c Add utility commands
-| | * | | 943be1b miscellaneous
-| | * | | 8f85ab9 Add helper function for getting property specified by pseudoedge
-| | * | | a5be2e4 Add find command
-| | * | | 54b9d02 Add search function
-| | * | | 0e450d8 Add function for finding nodes by partial descriptions
-| | * | | 82101ce save() function
-| | * | | c6be9b3 Refactoring
-| | * | | 63ebd7a Add basic relation extraction from inputs
-| | * | | 77470c4 Get inputs and store in database
-| | * | | 14b0aa5 Load database
-| | * | | f8575bd Add eva.py
-| | * | | 714d3e2 Initial commit
-| |  / /  
-* | | | 6bab693 Rebuild project
-* | | |   763d117 Merge branch 'python-snippets'
-|\ \ \ \  
-| * | | | 6054027 (origin/python-snippets, python-snippets) move some snippets/functions to separate modules
-| * | | |   7b87da6 Merge branch 'master' into python-snippets
-| |\ \ \ \  
-| * | | | | fd5ffd4 remove artifacts from notebook conversion
-| * | | | | 11b1164 regenerate script version of python-snippets
-* | | | | |   948433b Merge branch 'kd-docs'
+| | | | * 5468da8 add brief sample program for testing
+| | | | | *   4b7c024 (origin/nu-ocr, nu-ocr) Merge branch 'master' into nu-ocr
+| | | | | |\  
+| |_|_|_|_|/  
+|/| | | | |   
+* | | | | | 0c51023 (origin/rcas, rcas) Rebuild project
+* | | | | |   cc0c4b6 Merge branch 'legacy'
 |\ \ \ \ \ \  
-| * | | | | | 0fa84b7 (origin/kd-docs, kd-docs) add docstrings to "transition_cost" and "score" functions
-| * | | | | |   110a68e (origin/keyboard-dynamics, keyboard-dynamics) Merge branch 'master' into keyboard-dynamics
+| * \ \ \ \ \   d16c8b1 (origin/legacy, legacy) Merge branch 'legacy-nn-2' into legacy
 | |\ \ \ \ \ \  
-| | | |/ / / /  
-| | |/| | | |   
-| * | | | | | 5d24145 make script (mostly) flake8 compliant
-* | | | | | | 71f1d88 (origin/foldz, origin/fold-dedup, foldz, fold-dedup) remove other duplicated classes
-* | | | | | |   264c578 Merge branch 'physics' into fold-dedup
-|\ \ \ \ \ \ \  
-| * | | | | | | 19c99f5 (origin/physics-dedup, origin/physics, physics-dedup, physics) merge other geometry-related classes
-| * | | | | | | 1ca95e7 merge Line class and other generic n-d geometry classes
-| * | | | | | | af07bbb improve code style
-| * | | | | | | ce88214 merge Polygon classes
-| * | | | | | | e98d8d1 merge Circle classes from physics and geometry projects
-| * | | | | | |   57437f3 Merge branch 'geometry' into physics-dedup
+| | * \ \ \ \ \   6c72e0b (origin/legacy-nn-2, legacy-nn-2) Add 'legacy/hurricane/' from commit '311e9fca9450327ad146a75b17abf811902b0c7d'
+| | |\ \ \ \ \ \  
+| | | * | | | | | 311e9fc Create LICENSE
+| | | * | | | | | 40d2f5e Initial commit
+| | |  / / / / /  
+| * | | | | | |   13badf1 Merge branch 'legacy-nn-1' into legacy
 | |\ \ \ \ \ \ \  
-* | | | | | | | | 12d3df3 remove most duplicated classes from fold.py
-* | | | | | | | |   ca2b14a Merge branch 'geometry' into fold-dedup
-|\ \ \ \ \ \ \ \ \  
-| | |/ / / / / / /  
-| |/| | / / / / /   
-| |_|_|/ / / / /    
-|/| | | | | | |     
-| * | | | | | | 109b3e1 (origin/geometry, geometry) improve flake8 style compliance
-* | | | | | | | a6bcf86 (origin/epidemic-modelling, epidemic-modelling) more directory restructuring/reorganization
-* | | | | | | | 886f924 Rebuild project
-* | | | | | | |   8db8543 Merge branch 'fire-sim'
-|\ \ \ \ \ \ \ \  
-| * \ \ \ \ \ \ \   0f2330f (origin/fire-sim, fire-sim) Add 'fire-sim/' from commit '40be238ef44d351542682327e03a4e052d84b6fc'
-| |\ \ \ \ \ \ \ \  
-| | |_|_|_|_|/ / /  
-| |/| | | | | | |   
-| | * | | | | | | 40be238 add repeat control
-| | * | | | | | | eb776a7 add fire clipping threshold
-| | * | | | | | | 3fc2193 Place charts horizontally
-| | * | | | | | | 124b6fd more comments
-| | * | | | | | | 5ae0e5d add random noise
-| | * | | | | | | 483d982 make sure cell computations are in the correct loop
-| | * | | | | | | 1328447 add spreading factor
-| | * | | | | | | 6ceb85b create separate plots
-| | * | | | | | | 837dee1 adjust settings
-| | * | | | | | | fab991a Add more options
-| | * | | | | | | 41eaea5 only burn if fuel exists
-| | * | | | | | | 3e2950c add fire calculations
-| | * | | | | | | 3b47831 Add comments
-| | * | | | | | | 10c63c6 Fuel generation
-| | * | | | | | | 4ff5fcd loop through and update
-| | * | | | | | | 40036c0 Fix starting conditions
-| | * | | | | | | 6b7bb4e Initialize
-| |  / / / / / /  
-* | | | | | | |   bac1774 Merge branch 'handwriting-generator'
-|\ \ \ \ \ \ \ \  
-| |_|_|_|/ / / /  
-|/| | | | | | |   
-| * | | | | | |   923f12e (origin/handwriting-generator, handwriting-generator) Add 'handwriting-generator/' from commit 'b6267d76a42a2785d0fb1e8766061b7aacaf7237'
+| | * \ \ \ \ \ \   3a7e632 (origin/legacy-nn-1, legacy-nn-1) Add 'legacy/tsunami/' from commit '96427c78876b2d7188b6a0c159e6d1b5e0e72e3f'
+| | |\ \ \ \ \ \ \  
+| | | |/ / / / / /  
+| | |/| | | | | |   
+| | | * | | | | | 96427c7 Added gitignore
+| | | * | | | | | fedf3f0 Tsunami 5 (Tsunami V)
+| | | * | | | | | 1a572b3 Tsunami 4
+| | | * | | | | | 665dc8d Tsunami 3
+| | | * | | | | | 489b849 Tsunami 2
+| | | * | | | | | bb38e16 Tsunami 1
+| | | * | | | | | c6b8cb7 Initial commit
+| | |  / / / / /  
+| * | | | | | |   633f643 Add 'legacy/Supernova/' from commit '8564e68c1c6710f6c4dfdb339e308d9ce83d5cc2'
 | |\ \ \ \ \ \ \  
 | | |/ / / / / /  
 | |/| | | | | |   
-| | * | | | | | b6267d7 build docs
-| | * | | | | | 4f1ee91 ignore compiled .pyc files
-| | * | | | | | b8002d7 add command for building docs with pdoc
-| | * | | | | | b088043 Create README.md
-| | * | | | | | 0631ac1 document Pen class
-| | * | | | | | fb8263b add randomness to shaking event
-| | * | | | | | 5c61eb7 add some documentation to Drawer class
-| | * | | | | | 4c0326a add option for normalizing pen randomness to unit vector (limiting more extreme values, in theory)
-| | * | | | | | 9ddb379 add jittering to pen
-| | * | | | | | 142ccad add more letters
-| | * | | | | | 9db7d0b use relative coordinates
-| | * | | | | | 70dc4a8 add momentum-based renderer
-| | * | | | | | d0ba7a1 add pen step method
-| | * | | | | | f188ade testing code
-| | * | | | | | aae5baf move display code to Write class
-| | * | | | | | 5d9dbcd add method to clear canvas
-| | * | | | | | aaef38d add method to convert point labels to coordinates
-| | * | | | | | 44e8727 add Drawer class to generate writing
-| | * | | | | | 25dc69b add pen class
-| | * | | | | | c0f7312 add coords for notation
-| | * | | | | | 6309996 add sample letter outline
-| | * | | | | | 52ef79b add canvas + display
-| | * | | | | | 0352184 initial commit
+| | * | | | | | 8564e68 Initial commit
 | |  / / / / /  
-* | | | | | | 4d2307d Rebuild project
-* | | | | | |   d1233cd Merge branch 'rcas'
+* | | | | | |   9c17e73 Merge branch 'caesium'
 |\ \ \ \ \ \ \  
-| * \ \ \ \ \ \   072458d (origin/rcas, origin/nushell-testing, rcas, nushell-testing) Add 'rcas/' from commit 'c6f22ab7b6c222a975a06e37895d43ea7f5c28b8'
+| | |_|/ / / /  
+| |/| | | | |   
+| * | | | | |   f2e4d37 Add 'caesium/' from commit 'b6b4b97349ad5d7fecd0a7f84ce37b2451074d2f'
+| |\ \ \ \ \ \  
+| | |/ / / / /  
+| |/| | | | |   
+| | * | | | | b6b4b97 Added page anchor links for methods
+| | * | | | | da94c92 Update header levels
+| | * | | | | eb2fa05 Move info about JavaScript implementation to docs folder
+| | * | | | | c707faa More methods
+| | * | | | | c6db607 Add info about network.set_inputs()
+| | * | | | | 3e5f69c Optimized model parameters list
+| | * | | | | 5c081da Cleanup
+| | * | | | | 990c15f Add JavaScript implementation usage information
+| | * | | | | 3747dbd Update project descriptin
+| | * | | | | 8992abb Adding information about network.export()
+| | * | | | | 3cdcc13 Planned Node.js implementation
+| | * | | | | 0dc5073 Adding information about network.save()
+| | * | | | | 23df7fc Adding updated information about network.evolve()
+| | * | | | | 8194938 Adding average network loss to graph
+| | * | | | | d0e5653 Adding best network fitness to graph
+| | * | | | | 0461b6b Cleanup
+| | * | | | | 30ea53c Added scatter plot to visualize network loss
+| | * | | | | 068d8da Don't round outputs
+| | * | | | | 8b21603 Reset input values to 0 after done feeding inputs
+| | * | | | | 0962691 Lots of testing
+| | * | | | | aa632e4 Use cs.random() instead of Math.random()
+| | * | | | | 28a4d4c Added update function in script file
+| | * | | | | 97c21b8 Refer to self when defining methods
+| | * | | | | 06d84b3 Added min_weight() and max_weight() functions
+| | * | | | | f038ad1 Added loop_nodes() and loop_connections() functions
+| | * | | | | 9f0ac88 Added network.min_node() and network.max_node() functions
+| | * | | | | e445017 Added Neural Turing Machine project
+| | * | | | | faab92e sanity testing
+| | * | | | | 58b9699 Added some comments
+| | * | | | | 48c9d61 Added browser localStorage saving of models
+| | * | | | | 757b99b Added model exporting to JSON string
+| | * | | | | d9761f8 Update notes.md
+| | * | | | | 0a65a9a Added num_nodes control variable
+| | * | | | | 7221142 Node color input
+| | * | | | | 8a7d0e1 Added node type color option
+| | * | | | | 4eee94e Fixed connection display bug
+| | * | | | | 115fe7c Added connection weight visualization opacity range mapping
+| | * | | | | c9124aa Update .gitignore
+| | * | | | | b280c6e Added minified version of library
+| | * | | | | b8e5e14 Added gitignore
+| | * | | | | d2ad340 Added connection weight visualization
+| | * | | | | a0bcc75 Create notes.md
+| | * | | | | 14d595b Added example log
+| | * | | | | 5f6ad83 Added update config limit defaults
+| | * | | | | 7f7c1dc Added range mapping function to library
+| | * | | | | 1926cfe Updated visualization to work with newest version of Caesium
+| | * | | | | d359818 Fixed relative file paths
+| | * | | | | 2e18caf Beautified JavaScript
+| | * | | | | fd56f96 Beautified HTML
+| | * | | | | b5c88e7 Create 4.js
+| | * | | | | 156fd1f Added subfolders for extra code folder
+| | * | | | | 7f5d00c Variable scope
+| | * | | | | e90b6cb Added mobile device testing screenshots for 2D point classification project
+| | * | | | | 608fbd0 One-hot character decoding function now finds maximum value of inputs
+| | * | | | | 1c33170 Updated training system to ingest one character at a time as a one-hot encoded vector
+| | * | | | | b52b29a Updated charset
+| | * | | | | 0f06e43 Added custom evaluation function setting to evolve function config object
+| | * | | | | a6217d2 Converted input/output format: single-character one-hot encoding
+| | * | | | | 6c4cfe8 Settings
+| | * | | | | 63ac03e Moved string encoding and decoding functions to main library file
+| | * | | | | 7876857 Moved benchmark graphs into new folder
+| | * | | | | d0ff257 Added network buffer setting for update function
+| | * | | | | 1129e77 Removed integer encoding functions
+| | * | | | | 29635dc Moved integer encoding script
+| | * | | | | f3db105 Hyperparameters
+| | * | | | | 86ed6d4 Training data
+| | * | | | | 29eb1c3 Added more training data
+| | * | | | | 82fa6be Added update loop
+| | * | | | | 3b213e6 Added literal character encoding
+| | * | | | | 400edd0 Added network training
+| | * | | | | 66e0ace Added predict function
+| | * | | | | 3a2c0c2 Create data.js
+| | * | | | | dddc189 Added network creation
+| | * | | | | 24a2b99 Added one-hot character encoding script
+| | * | | | | 1d5fd82 Added new project
+| | * | | | | 812b417 New benchmarks
+| | * | | | | 85241b0 Updated benchmark script config objects
+| | * | | | | 0627b2f Fixed node and connection removal parameter discrepancies
+| | * | | | | 7fb749c Replaced full clone of network with with network_buffer object with only node values
+| | * | | | | 390860e FLashing colors warning for 2D classification
+| | * | | | | 1041540 More testing screenshots
+| | * | | | | 8be9efb Comments
+| | * | | | | d193eb1 Added links to demo screenshots
+| | * | | | | d52feab Added screenshots for basic demo and neuroevolution project
+| | * | | | | e65f6ef Added images to curve-fitting demo
+| | * | | | | 5b0c70a Updated confg objects
+| | * | | | | 954d594 Moved index.html of network visualization demo
+| | * | | | | 137f9ba Added Caesium demos to README
+| | * | | | | f092040 Updated config object formats
+| | * | | | | 3b97d96 Removed input/output scaling
+| | * | | | | 3e6b258 Settings
+| | * | | | | 4ee33ca Connection weights were not actually being mutated
+| | * | | | | 39e807c Input and output nodes are now handled like other node types
+| | * | | | | 420212c Settings
+| | * | | | | 35871ad Help function improvements
+| | * | | | | 3619472 Comments
+| | * | | | | 7690d45 Added points control variable
+| | * | | | | ef5d7fa Node control variable
+| | * | | | | b64010a Comments
+| | * | | | | aad453b Moved min_max calculations to node and connection constructor functions
+| | * | | | | 49b7013 Fixed bug
+| | * | | | | c3d33d1 More config improvements
+| | * | | | | 8c74035 Config object validation improvements
+| | * | | | | f5c720e Comments
+| | * | | | | 6d0c2eb Moved value node value mutation settings to sub-object
+| | * | | | | 665326f Added connection weight evolution
+| | * | | | | bf03363 Moved chart.js to shared lib folder
+| | * | | | | c582a5a Disabled network buffer
+| | * | | | | 31e9a80 Forgot to push node types list change commit
+| | * | | | | 6b46ab1 Added connection weights
+| | * | | | | 2ffd760 Added polynomial degree variable
+| | * | | | | 172667c Added tanh, sine, and cosine node types
+| | * | | | | c68225e 2 more testing screenshots
+| | * | | | | 3fb4d07 Added library folder
+| | * | | | | d908918 Added benchmark test graphs
+| | * | | | | aeb4584 Create 9.PNG
+| | * | | | | d8e258d Added array iteration loop benchmark
+| | * | | | | df7b380 Nodes are now stored as object properties instead of array entries
+| | * | | | | 7cd6f4d Removed global node and connection lists
+| | * | | | | 998dc7d Added comments
+| | * | | | | cc0c5e9 Added comments
+| | * | | | | 75256cc Simplified random input data generation
+| | * | | | | 3008f85 Added comments to network evaluation benchmark script
+| | * | | | | f802b83 Added neuroevolution optimization benchmark script
+| | * | | | | bb97f03 Removed chartColors variable
+| | * | | | | efcfce6 Replaced node type names in projects
+| | * | | | | 5a94683 Added network evaluation benchmark script
+| | * | | | | a5035f0 Double quotes!
+| | * | | | | 3d02a53 Added chart_colors.js
+| | * | | | | 981786b Added combined benchmark
+| | * | | | | 7c2a601 Added network creation time benchmark
+| | * | | | | 996bc90 Added extra code
+| | * | | | | 21b4916 Removed "Data/" and "Operation/" node type prefixes
+| | * | | | | bdb4332 Added information about lookup.js benchmark to benchmark scripts folder README file
+| | * | | | | 7fd9b9d Added README to benchmarks folder
+| | * | | | | 7bf5c9e Added node addition/removal control variable
+| | * | | | | 4eac236 Changed problem from classification to neural regression
+| | * | | | | 727eb2e Added node lookup benchmark
+| | * | | | | 72c584a Network information
+| | * | | | | 002c8c1 Added timestamp to evolve function console logs
+| | * | | | | fc4e77a Revert "Added some default values"
+| | * | | | | 593e8b4 Added some default values
+| | * | | | | 0f453dc Added Operation/Tanh node type
+| | * | | | | f180256 Updated settings
+| | * | | | | e4ee292 Removed unused round function
+| | * | | | | a5c8c7d Removed unused code
+| | * | | | | 7496b35 Added resolution variable
+| | * | | | | 8773a6b Updated variable names
+| | * | | | | 8207666 Added network training with Caesium
+| | * | | | | 4763ff6 Reformatted input/output data to work with Caesium API
+| | * | | | | c35c6d2 Added Caesium network creation
+| | * | | | | 3f54c97 Fixed "cs is not defined" error
+| | * | | | | 652d6c4 Added stylesheet.css
+| | * | | | | 43db145 Added script.js
+| | * | | | | 9dab644 Added 2D classification demo project
+| | * | | | | d244586 Added cs.alias function
+| | * | | | | 924c909 Removed text shadow
+| | * | | | | c799c56 Adding padding to cells
+| | * | | | | c1b7c51 Added automatic scrolling
+| | * | | | | 44e7a57 Added conditional cell formatting
+| | * | | | | 2a79600 Added default CSS properties
+| | * | | | | a4c0151 Added network representation rendering
+| | * | | | | 588f5e6 Using x and y arrays as input/output data
+| | * | | | | f46cd50 Added evolution loop
+| | * | | | | d7ec76e Added training data
+| | * | | | | 394c036 Added network creation
+| | * | | | | 4780d86 Added return parameter to network evolve function config object
+| | * | | | | a02b09a Added jQuery
+| | * | | | | fc3e138 Added JavaScript and CSS
+| | * | | | | d6db0d4 Created neuroevolution demo project
+| | * | | | | 0886925 Comments
+| | * | | | | c4ea4b0 Adjusting settings
+| | * | | | | 15d48cf Created update_settings variable
+| | * | | | | 651bee2 Might have to move settings to a gitignore
+| | * | | | | d2deb38 Added iterations parameter to network mutation function config object
+| | * | | | | 1953c45 More settings adjustments
+| | * | | | | 01fdac4 Output network from network evolve function clones best network from randomly generated population
+| | * | | | | 9d90ce9 network.evolve.config.mutation renamed to .mutate
+| | * | | | | 9a2524a Added evaluate function to networks
+| | * | | | | 524f44a Made y2 a global variable
+| | * | | | | cd2a67e Fixed issue with network scoring function
+| | * | | | | 92fad1b yay, it works
+| | * | | | | 627417a Fixed random number generation function bug
+| | * | | | | 2cf30ba Added node value reset function
+| | * | | | | 63525b0 Testing screenshot
+| | * | | | | fbfd9d6 Added kind of working testing screenshot for curve fitting project
+| | * | | | | 494966d Added node and connection total limits
+| | * | | | | 37f99f1 More settings tweaks
+| | * | | | | 0ec29e6 Added random ranges to training parameters
+| | * | | | | 6af0ffb Added short (array) syntax to cs.min_max() function
+| | * | | | | 64f6e4b Changed name of chart variable
+| | * | | | | e387641 Network is now trained repeatedly on a delay
+| | * | | | | 2652dc8 Updated graph config data object
+| | * | | | | c7db76c Generating lists of real and synthetic data
+| | * | | | | 4439b5b Added node value limit setting to network update function
+| | * | | | | 79b255a Added new testing screenshot
+| | * | | | | 7836d36 Predict y values from x values using trained network
+| | * | | | | d655de4 Network training setting adjustments
+| | * | | | | cde1e91 Using Caesium random function
+| | * | | | | 202bca4 Random range from -0.5 to +0.5
+| | * | | | | adfeefa So this is why the node values kept exploding
+| | * | | | | 83952af Added network neuroevolution
+| | * | | | | 5013f49 Disabled mutation function config object checking
+| | * | | | | eeb5405 Added node value limit to update function
+| | * | | | | fc76e6d Added testing screenshot from curve fitting project
+| | * | | | | b2bfae9 Added network creation
+| | * | | | | 596a6e7 Removed automatic rounding from min_max() function
+| | * | | | | 990c3c8 Added synthetic data generation
+| | * | | | | 482f058 Removed text
+| | * | | | | 631ad4c Added chart
+| | * | | | | bd3b60a Added Chart.js to curve fitting project
+| | * | | | | bb48767 Added stylesheet to curve fitting project
+| | * | | | | 1c5e7fe Added curve fitting sample project
+| | * | | | | a7a128f cs.random function returns random number from 0 to 1 if no arguments are provided
+| | * | | | | 60c9245 Moved global functions to cs object
+| | * | | | | baace08 Removed unused short versions of node type names from settings object
+| | * | | | | 89bb870 Updated network constructor config object and compacted code
+| | * | | | | 619bb35 Added mutate config object to evolve config object
+| | * | | | | 999294b Added console logs to network.evolve() function
+| | * | | | | b965867 Fixed undefined best network issue in neuroevolution code
+| | * | | | | 7d7463a Added MIT License
+| | * | | | | 3ab61bb Replaced network.node_types arrays with automatically generated arrays from cs.settings.node_types
+| | * | | | | 116895c Improved non-supported node type error message
+| | * | | | | a2243d7 Added initial values to new value nodes created by mutation function
+| | * | | | | 33f8db6 Some more comments
+| | * | | | | e5577af Compacted node mutation script
+| | * | | | | 2c93de5 Added rest of config variables to network mutation function
+| | * | | | | 5631cf4 Additions to mutation function config object
+| | * | | | | 2b77eda Added folder for extra unused code snippets
+| | * | | | | 5c99cc8 Added cs.help function
+| | * | | | | 7cb5394 Added yet more comments
+| | * | | | | f8b433e Connection removal in mutation function now uses config information
+| | * | | | | 59337c5 Removed global UUID list
+| | * | | | | ae7fcec Global node list screenshot
+| | * | | | | 51c4f2a Various performance optimizations
+| | * | | | | df7a9d7 Added min_max() function to get value from config object input properties with arbitrary data format
+| | * | | | | 5365b7d Added addition and multiplication node removal
+| | * | | | | 9076634 Fixed undefined error when removing connections while performing topology mutation
+| | * | | | | 095a150 Compacted dead connection removal code
+| | * | | | | 50231d1 Added even more comments
+| | * | | | | c37c645 Improved mutation function config object
+| | * | | | | eaa2550 Added network.add_connection function
+| | * | | | | bf37dd2 Fixed undefined node ID error in topology mutation script for node removal
+| | * | | | | 38ae61b Added network topology mutation
+| | * | | | | 2120bf4 Renamed network.node() and network.connection() to network.find_node() and network.find_connection(), respectively
+| | * | | | | 36b7192 Added remove_node and remove_connection functions
+| | * | | | | 194ef24 Fixed error with error message for incorrect number of inputs
+| | * | | | | 11cc46b Added even more comments
+| | * | | | | f81f0e3 Updated planned library implementation information
+| | * | | | | aaaff33 "use strict"
+| | * | | | | 09232ce Added network connection retrieval function information to README
+| | * | | | | 7f8ccac Added node retrieval function documentation to README
+| | * | | | | f895a62 Updated network constructor code example
+| | * | | | | 45bddc1 Changed function funcName() {} syntax to const funcName = function() {}
+| | * | | | | 2142700 Fixed for loop variable naming order in network updating function
+| | * | | | | bb7636d Added network class information to README
+| | * | | | | 5518809 ASCII art is now displayed via a function
+| | * | | | | d38fb98 Added comments to network updating function
+| | * | | | | d056f6c Removed forEach loops
+| | * | | | | 705e382 Improvements to network updating function config object
+| | * | | | | 0cfaf89 Added first working testing screenshot of neuroevolution
+| | * | | | | 827de26 Added support for multiple sets of training data for neuroevolution
+| | * | | | | b5408d4 Fixed network cloning bugs in update and evolve functions
+| | * | | | | 2038e25 Added clone_network() function
+| | * | | | | 37b206b Updated object cloning function
+| | * | | | | ce6623b Changed global node finding function to network finding function
+| | * | | | | 599a44c Moved settings to cs object
+| | * | | | | b1a0c07 Removed cs.temp
+| | * | | | | 6f4cc4b All network nodes are now represented by IDs instead of references
+| | * | | | | c7c0c8c Changed network config property from num_inputs to inputs
+| | * | | | | 8b39d38 Added error messages to network node and connection retrieval functions
+| | * | | | | cf796fa Added a function for getting network connection by ID
+| | * | | | | 3f9ba3b Nodes within networks are now referenced by IDs to avoid a lot of issues
+| | * | | | | 8429f1f Added some comments
+| | * | | | | d607f6a Beautified JavaScript
+| | * | | | | 5d66cad Revert "Added add_network_functions and updated network cloning function"
+| | * | | | | 4961d44 Added add_network_functions and updated network cloning function
+| | * | | | | a3e60be Added evolution function - #14
+| | * | | | | 0d50269 Added new cloning function
+| | * | | | | 6e0f830 Added array average function [utility]
+| | * | | | | 6493278 Added array summation function (utility)
+| | * | | | | ea54c32 Added array difference function
+| | * | | | | 008ea61 Network .input() and .output() function names
+| | * | | | | 3a2e292 Added network scores
+| | * | | | | 1e3f805 Added network and connection constructor config objects
+| | * | | | | f36c14b Added mutation function for evolution optimization algorithm
+| | * | | | | fcb9b40 Added node_types sub-object to networks
+| | * | | | | 6bea6cd Added global lists of connections and networks
+| | * | | | | 13c4846 Project titles
+| | * | | | | 6fdbcaa Added plain demo page - #66
+| | * | | | | d8e22a2 Updated code
+| | * | | | | f3a45c9 Separated Caesium project into main library and visualization app
+| | * | | | | 7375af3 One more code snippet
+| | * | | | | d46cbdc Added ASCII text art creator to credits in README.md
+| | * | | | | 6a3fbc5 Added JavaScript code snippet credits to README.md
+| | * | | | | d3dbae3 Added credits to the README
+| | * | | | | 531edfb Added more credits to HTML and CSS
+| | * | | | | a23deeb Reorganized CSS
+| | * | | | | 7748d94 Reorganized files
+| | * | | | | d8c7d64 Social media button press transition
+| | * | | | | 5effaab Added GitHub repository link
+| | * | | | | 33552c7 Added moving backgrounds
+| | * | | | | e59f774 #50
+| | * | | | | 6c04215 Added background textures - #44
+| | * | | | | 984feb9 Testing background textures
+| | * | | | | f0ed8e3 Sidebar padding
+| | * | | | | 363f37e Text shadows!
+| | * | | | | 413de66 Added network update button
+| | * | | | | b4351fc We don't need that stylesheet
+| | * | | | | 4f1f831 Quick fix for #48
+| | * | | | | b91fd3f Cleanup for the mess that the last commit was
+| | * | | | | c6d4c15 Added node value labels - #28
+| | * | | | | bff0978 Added global UUID registry
+| | * | | | | aa9a4b2 More nodes!
+| | * | | | | 253ea67 Added code snippet credits to JavaScript code
+| | * | | | | 510e6ed Added visualization/display update function - #25
+| | * | | | | cae5d05 Added even more comments
+| | * | | | | 9f29009 Added some comments
+| | * | | | | 10bd1d5 Added node size and brightness display controls to control panel
+| | * | | | | 496a360 Added sidebar control panel
+| | * | | | | e257d7a Changed color, added shadow
+| | * | | | | 9328283 Added brightness to nodes - #43
+| | * | | | | 7454448 Added node types list - #22
+| | * | | | | 0821676 Fixed issue #40
+| | * | | | | dd5c9b7 Coordinates are now defined in percentages
+| | * | | | | b551311 Circle coordinate generation now uses the dimensions of the SVG element
+| | * | | | | 8763af8 Fixed issue #35
+| | * | | | | 049253a Updated relative file paths
+| | * | | | | 42e144f Added folders to organize files
+| | * | | | | c7f93a4 Fixed issue #31
+| | * | | | | 681eb1d Add more comments
+| | * | | | | 3f38fe7 Added network visualization
+| | * | | | | 86335fa Added number range mapping function
+| | * | | | | f52b4bc Added SVG element to display networks on
+| | * | | | | 71b142a Added CSS reset
+| | * | | | | b35c99d Added styling to ASCII logo
+| | * | | | | 1d467b3 Added ASCII logo art - #20
+| | * | | | | a25c9a9 Removed (most) console logs
+| | * | | | | 28c87a1 Added value class to classes list in README.md
+| | * | | | | ace5ec2 Added more console logs and added spacers
+| | * | | | | 9b4f98b Added console logs - #1
+| | * | | | | 65c236d Changed "node.output" to "node.value"
+| | * | | | | bf46ebf Added node type error message
+| | * | | | | 9bfc190 Added network output function - #16
+| | * | | | | 0dcaf2d Added network data input function - #15
+| | * | | | | c90d0cc Added input_nodes and output_nodes lists
+| | * | | | | 88322e7 Fixed issue #12
+| | * | | | | e44f71e Fixed issue #11
+| | * | | | | 6900bba Added neural network update function
+| | * | | | | 1405440 Added comments to functions
+| | * | | | | 768ed55 Added object cloning function
+| | * | | | | bf9327f Class name capitalization
+| | * | | | | f0f6282 Node outputs can now be undefined when being generated
+| | * | | | | 84e7c48 Double quotes
+| | * | | | | 159fab2 Add neural network population generation
+| | * | | | | 04ec641 Semicolon
+| | * | | | | df5ee14 Added random addition and multiplication operation node generation
+| | * | | | | 5eb5063 Added list of node inputs/outputs - #6
+| | * | | | | 0fe225e Added node connections
+| | * | | | | b94b4c7 Fixed bug #7
+| | * | | | | 4b10d3c Added node constructor information object and node type-specific constructor properties
+| | * | | | | e176b89 Added unique node UUIDs
+| | * | | | | 8d20ee7 Added utility functions
+| | * | | | | 4597d9e Added "Network" class and constructor
+| | * | | | | d609dab Added "Node" class and constructor
+| | * | | | | 31b1e4e Added script reference
+| | * | | | | 755f85c HTML boilerplate code
+| | * | | | | 68c0a48 Added main source files
+| | * | | | | d3a81f4 Initial commit
+| |  / / / /  
+* | | | | | f44449a Rebuild project
+* | | | | |   24d323a Merge branch 'sandbox'
+|\ \ \ \ \ \  
+| * \ \ \ \ \   274d258 (origin/sandbox, sandbox) Add 'sandbox/' from commit '6920e6ed77d238cdcccb7f770d712dd895a815de'
+| |\ \ \ \ \ \  
+| | |/ / / / /  
+| |/| | | | |   
+| | * | | | | 6920e6e Add function for calculating post-collision velocity
+| | * | | | | 9da73fe miscellaneous
+| | * | | | | 4534e0d Add function for creating particle objects
+| | * | | | | c03cb0f Add functions for randomization
+| | * | | | | fd818ad Store other simulation quantities
+| | * | | | | 1d22bfb cleanup
+| | * | | | | 0cc701e Add user interaction via mouse events
+| | * | | | | 2dbe313 Add set method
+| | * | | | | 42844b2 Render and update simulation
+| | * | | | | c508fe7 Add index-based mapping function
+| | * | | | | 85fbde8 Add method for applying function over squares centered on each point in the original array
+| | * | | | | 6b5cb78 Add array summary methods
+| | * | | | | 60a3e5f Add reduce method
+| | * | | | | 6d84862 Add index method (NumPy-like array access)
+| | * | | | | 0edec8f Add method for getting array entries by position
+| | * | | | | ee15808 Add forEach method
+| | * | | | | b619e91 add methods for altering an ndarray
+| | * | | | | 344543d add ndarray map method
+| | * | | | | 69cf274 add stylesheet
+| | * | | | | e3a57dc add clip function
+| | * | | | | e27013d add ndarray class
+| | * | | | | c447205 add boilerplate HTML
+| |  / / / /  
+* | | | | |   3b05949 Merge branch 'img-conv'
+|\ \ \ \ \ \  
+| * \ \ \ \ \   101051a (origin/img-conv, img-conv) Add 'img-conv/' from commit '8ed488bd53c7d380c64237a9f3a92a04addb2f00'
+| |\ \ \ \ \ \  
+| | |/ / / / /  
+| |/| | | | |   
+| | * | | | | 8ed488b Kernel data is now exported as a .json file
+| | * | | | | dcfd14e Fixed kernel loading issue
+| | * | | | | 3504259 Code cleanup
+| | * | | | | 3b2ac38 Added setup.js
+| | * | | | | 51971e0 Code cleanup
+| | * | | | | 3859277 Added import-export.js
+| | * | | | | b21c522 Added code snippets to README
+| | * | | | | 528a803 Fixed filter kernel import setting documentation image alternate text
+| | * | | | | 545ba88 Added filter kernel import/export information to README
+| | * | | | | 352fc0a Added HTML dialog element polyfill
+| | * | | | | da025b1 Added libraries to README.md
+| | * | | | | 96fcb29 Added filter kernel data importing
+| | * | | | | a8f2919 Removed form element from image URL loading text field
+| | * | | | | 2641c16 Added filter kernel exporting
+| | * | | | | eb80301 Added GitHub repository link icon tooltip
+| | * | | | | a53bff7 Added documentation for image download button to README.md
+| | * | | | | e209303 Added image downloading buttons
+| | * | | | | 3c3da9d Added download.js library
+| | * | | | | 985f456 Fixed filter list indentation
+| | * | | | | c6cfe33 Added automatic update setting information to README
+| | * | | | | a57b3fa Update docs/settings/randomize/4.PNG
+| | * | | | | e3705d3 Added randomize setting info to README
+| | * | | | | 3845ffa Added some console logs to script.js
+| | * | | | | f2aab1f Kernel weight randomization now clones the kernel to the custom kernel, like editing a kernel does
+| | * | | | | 9606ed9 Fixed #23
+| | * | | | | dd65bf8 Removed global canvas_data variable
+| | * | | | | 448deac Added script loading console logs
+| | * | | | | 10d0789 Added sliding transition to title and subtitle when header is hovered on
+| | * | | | | c6126d9 Added variables.js
+| | * | | | | 4733e7a Added utilities.js
+| | * | | | |   2d772dc Merge branch 'master' of https://github.com/generic-github-user/Image-Convolution-Playground
+| | |\ \ \ \ \  
+| | | * | | | | 54283f7 Create LICENSE
+| | * | | | | | 56d6e36 Added usage instructions to README
+| | * | | | | | 429c20f canvas_width and canvas_height must be set
+| | |/ / / / /  
+| | * | | | | c801efc Added even more comments!
+| | * | | | | 6f36e29 Added more comments to script.js
+| | * | | | | c9dac7d Added GitHub link to demo
+| | * | | | | 6f6a2ed Added labels to images in README
+| | * | | | | 7effdd4 Added repeat filter to README
+| | * | | | | b2cdd9f Added filter setting info to README
+| | * | | | | c427416 Fixed README image sources not displaying correctly on GitHub page
+| | * | | | | 1e98287 Added images to resolution setting information in README
+| | * | | | | 7a00b40 Update README.md
+| | * | | | | e14d288 Added tooltips to canvases
+| | * | | | | 6041bc7 Added image resolution tooltip
+| | * | | | | 6dd4b23 Fixed layout issues
+| | * | | | | e64206e Layout reorganization
+| | * | | | | 6aa7886 Added filter kernel weight selection and editing
+| | * | | | | 10df239 Improvements to kernel randomization
+| | * | | | | 8773f99 Added filter kernel randomize button
+| | * | | | | 51f8dc2 CSS adjustments
+| | * | | | | 8686638 Code cleanup and more comments
+| | * | | | | de6ae2c Added more tooltips
+| | * | | | | 926cde5 Added more tooltips to settings
+| | * | | | | d7077e5 Fixed automatic update toggle tooltip
+| | * | | | | a660a1e Added some comments to HTML
+| | * | | | | 5c61eae More layout tweaks
+| | * | | | | 8fcdd02 Added automatic update toggle and apply filter button
+| | * | | | | db176d6 Added filter repeat iterations setting
+| | * | | | | d6664ff Added resolution indicator
+| | * | | | | 70d2e21 More layout adjustments
+| | * | | | | 6b5f07e Fixed layout
+| | * | | | | a7ffa4b Added credits for code snippets
+| | * | | | | 27f7db0 Fixed filter kernel visualization spacing issues
+| | * | | | | 36a9a35 Added kernel visualization
+| | * | | | | 9e4743f Added undo snackbar notification
+| | * | | | | 8b3aebe Fixed undo issues and image loading bugs
+| | * | | | | 7233b91 Made convolutions section in README more clear
+| | * | | | | fc50b01 Added more information to README.md
+| | * | | | | d9234a1 Added JavaScript (js) subfolder of /src
+| | * | | | | c2850cb Added canvas.js
+| | * | | | | 7983acb Added more comments
+| | * | | | | 5fb17c8 Added image resolution slider
+| | * | | | | 6fbaddd Code cleanup and added comments
+| | * | | | | 16eaa62 Added automatic image resizing
+| | * | | | | 4381f8b Added testing screenshots folder
+| | * | | | | 90b061a Moved canvas_width and canvas_height
+| | * | | | | 7b07ab4 Added unprocessed image canvas
+| | * | | | | 9c29539 Added some comments
+| | * | | | | c20c105 Added styling to file upload
+| | * | | | | 5fcada3 Removed convolution edge padding
+| | * | | | | 938efbb Added custom image uploading
+| | * | | | | eca26c2 Reorganized convolution function
+| | * | | | | 669c06d Added random default demo image
+| | * | | | | 46da820 Added filter selection dropdown
+| | * | | | | deb967f Added some stuff to the README
+| | * | | | | a1a0cf2 Moved kernel information into a separate JavaScript file
+| | * | | | | 12113fe Added unsharp masking convolutional filter kernel
+| | * | | | | ddccafc Added blur filter kernels
+| | * | | | | c8518e6 Added convolutional kernel name property
+| | * | | | | f241825 Added kernel factors/multipliers
+| | * | | | | ac1c859 Added "sharpen" convolution kernel
+| | * | | | | b11e935 Removed unused get_pixel() function
+| | * | | | | c5d24fc Added convolutions
+| | * | | | | 72834b7 Added image loading from URL
+| | * | | | | f08cafb Added canvas element and rendering context
+| | * | | | | 4a965de Added jQuery
+| | * | | | | afb1767 Added title
+| | * | | | | 1143964 Hosting Material Design Lite in project files
+| | * | | | | b54c20f Added Material Design Lite
+| | * | | | | 1a865bd Added boilerplate HTML code
+| | * | | | | 9ed625b Added source files
+| | * | | | | 554080d Initial commit
+| |  / / / /  
+* | | | | |   c1e08db Merge branch 'meta'
+|\ \ \ \ \ \  
+| |_|_|_|/ /  
+|/| | | | |   
+| * | | | | 4fcf1d8 process branch metadata to generate README.md
+| * | | | |   35c1db9 Merge branch 'metadata' into meta
+| |\ \ \ \ \  
+| | | |/ / /  
+| | |/| | |   
+| | * | | | 9d1b082 document new(er) branches
+| | * | | | 1885970 add yaml-serialized version of repository branch info
+| | * | | | c87960e move pipenv metadata files (again)
+| | * | | | d2d8a9d label remaining projects
+| | * | | | 30d4b02 add labels to more projects
+| * | | | | 81f6a9a add summary of build.py script
+| * | | | | 2a216c3 add table of contents
+* | | | | |   9c24f65 (origin/transpiler, transpiler) Merge branch 'symbolic-ai'
+|\ \ \ \ \ \  
+| | |_|_|/ /  
+| |/| | | |   
+| * | | | |   433f39f (origin/symbolic-ai, symbolic-ai) Add 'symbolic-ai/eva2022/' from commit 'af1a571d26f98eef2502b6932bcc71141d4bf942'
+| |\ \ \ \ \  
+| | |_|_|/ /  
+| |/| | | |   
+| | * | | | af1a571 clean up graph database code, remove superfluous methods
+| | * | | | 2fbb879 mark image files based on file extensions
+| | * | | | 0d1e16d make some adjustments to logging system
+| | * | | | 78e4629 add some comments to graph.py
+| | * | | | f2b4dd5 Move other commands
+| | * | | | f75ebe3 misc bug fixes
+| | * | | | 066e1cb Fix globals naming
+| | * | | | a68c5a9 Move loadBackup command
+| | * | | | bdc5e5a Move query command to its own file
+| | * | | | b69afed Move global data class to new file
+| | * | | | 26b3730 Restructure command handling
+| | * | | | 59a418c Move architecture description
+| | * | | | 0925b14 Move scanDir to helpers module
+| | * | | | 009dd3d Restructure project with relative imports
+| | * | | | 7bcba57 refactor markType and markLength using makePropertyBuilder
+| | * | | | 8fcfecb graphbrain testing
+| | * | | | f062b13 Finish makePropertyBuilder function
+| | * | | | 54f0dbb Store system information
+| | * | | | 5074cf4 Update gitignore
+| | * | | | 90ce493 Fix logging
+| | * | | | d75bdf3 More organization and cleanup
+| | * | | | bcee5da Move backup function
+| | * | | | 6e9ee0f Use timeFunc decorator to factor out duplicated code
+| | * | | | 22f0ba6 Move say function
+| | * | | | 07afcc6 Moved other commands
+| | * | | | 148c84c misc
+| | * | | | e85a6ec refactor some commands
+| | * | | | fb0125a cleanup
+| | * | | | 9400ee6 Move entropy estimation function
+| | * | | | 1515fcc Move timeFunc
+| | * | | | 8cd241f Move some commands to dedicated functions
+| | * | | | 79f8e90 Fix issue with type checking
+| | * | | | 5586f1e Add some assertions and type checks
+| | * | | | 67b88b8 Extract some specific functionality out of Graph class
+| | * | | | a90a8c4 More reorganization and cleanup
+| | * | | | d2fccbe miscellaneous
+| | * | | | ab5783d Move settings/constant sto new file
+| | * | | | d79f1c7 Move getId
+| | * | | | 6defecb cleanup
+| | * | | | d8df593 Move Graph and Node classes
+| | * | | | ba5a2ea Condense recent changes into temp commit
+| | * | | | af47888 Find substring relationships between string nodes
+| | * | | | def8b40 Move settings and global objects into Eva class
+| | * | | | 50738d1 more imports
+| | * | | | c9a59a2 Add command for querying graph database
+| | * | | | 9e7e7bd Misc
+| | * | | | 321af52 Add dependency parsing with spacy
+| | * | | | abb3bc2 Read lines from text-based file formats into database
+| | * | | | 603e9d6 Run OCR on image files
+| | * | | | d0147bc Move string tokenization code
+| | * | | | f38d8be Cleanup
+| | * | | | 87a2168 Add nesting indents to improve readability
+| | * | | | 238b0d2 Add string method to Node class
+| | * | | | 8125a3d Add emergency checks to avoid discarding database in the event of severe errors
+| | * | | | 50c721d Weight metadata nodes lower during random selection by default
+| | * | | | 205c6aa move TODOs
+| | * | | | bc81db5 Add HOF for tracking execution time of (some) function calls
+| | * | | | 28e0057 Add simple parser for graph database queries
+| | * | | | 4007140 Misc bug fixes and cleanup
+| | * | | | 6cda3e8 Approximate entropy of string nodes
+| | * | | | 9496edb Move database loading into Graph class
+| | * | | | 62ab3e3 Organize imports
+| | * | | | 945664c more miscellaneous
+| | * | | | e58130b Add assertions
+| | * | | | 53827d9 Move node length labelling logic
+| | * | | | 9c70678 Move node type labelling logic
+| | * | | | 347cd21 cleanup
+| | * | | | 48a14ee misc
+| | * | | | b59c495 Add return_ids option
+| | * | | | 11daaa8 Move list command
+| | * | | | 2c9a1bb Extract inference command ("think")
+| | * | | | 603eb6d misc
+| | * | | | 7455fcf Add option to display information without storing in database
+| | * | | | 88ff044 update imports
+| | * | | | 3ceef8d misc
+| | * | | | 477890d Add update parameter to other functions
+| | * | | | 55086ec Add Graph filter method
+| | * | | | c5eada2 Add method for getting node without propagating updates
+| | * | | | 84ee2e9 Count adjacent nodes
+| | * | | | 344d698 Automatically refresh multiple nodes
+| | * | | | f519684 Add file hashing function
+| | * | | | 0779e4d Move functions for getting referring/adjacent nodes into Node class and update some code to use new interface
+| | * | | | 3ca5411 Improve dir scanning command
+| | * | | | 507f14b Add Graph method for getting random node
+| | * | | | a5b97ce more miscellaneous updates
+| | * | | | b923ff2 fix some database loading issues
+| | * | | | 30d5332 misc
+| | * | | | 1916d2e Store reference to internal node representation in Node instance
+| | * | | | 65f11cd Support slice notation and return Node instance
+| | * | | | 94e020a refactor backup command
+| | * | | | 444e30d Move getsize function
+| | * | | | 46b0eeb Miscellaneous
+| | * | | | afd4301 return Graphs instead of lists of nodes
+| | * | | | 236fed3 Add command for loading database from backup
+| | * | | | a865a4e Use Graph class instance variables instead of global node list
+| | * | | | 0c15dde Add magic methods to Graph class
+| | * | | | 5c933c2 fix typo
+| | * | | | fddb9fc Move save function into Graph class method
+| | * | | | ff7de6b move getNodes into Graph class
+| | * | | | 71f03ef Refactor some commands using command decorator
+| | * | | | d7136cc Refactoring
+| | * | | | 3dbc74a Use say function
+| | * | | | 67aa50c Update architecture.tex
+| | * | | | 3217d3b Add command for updating individual nodes
+| | * | | | bc1965d Add command for displaying adjacent nodes
+| | * | | | 5cc95fc miscellaneous fixes
+| | * | | | 2c8b485 Track start and end time for find command
+| | * | | | 7a9b6d1 add basic inference engine
+| | * | | | e47a75d Add function for displaying output
+| | * | | | 9607967 gitignore latex helper files
+| | * | | | 003c6d3 Calculate size of nodes (in memory)
+| | * | | | 38a9647 add simple mathematical expression parser
+| | * | | | 97c75cb update gitignore
+| | * | | | a57d1e5 miscellaneous
+| | * | | | b1d8f80 Add command for mapping directory structure
+| | * | | | 32fad94 Fix naming conflict
+| | * | | | 9e1bafb Object size computation function from https://stackoverflow.com/a/30316760
+| | * | | | 5efa6f6 Add function for scanning local directory structure
+| | * | | | 062f7cd misc
+| | * | | | 0fe229a Add function for finding adjacent nodes
+| | * | | | 05b92f5 more imports
+| | * | | | 40e4fa8 miscellaneous
+| | * | | | 084abf7 Add simple backup functionality
+| | * | | | 70a54cf add Node class
+| | * | | | 7e58336 Add getReferrers
+| | * | | | 835b053 Add command for importing JSON data
+| | * | | | 808ac64 Add marker to processed nodes
+| | * | | | e560724 Add syntax for direct (but user-efficient) interaction with database
+| | * | | | f589eca optimize getInfo
+| | * | | | e9b1526 Fix scoping bug in user inquiry process
+| | * | | | 25bf42e Convert functions to Graph class methods and perform operations using a centralized database object
+| | * | | | e494999 clean up code
+| | * | | | 6803109 Update code to use namedtuple fields when accessing node properties
+| | * | | | 4deaf42 Use namedtuple to make node access more readable
+| | * | | | ff28add Store reference lists between sessions
+| | * | | | 02666a8 fix logging
+| | * | | | 9ff4d9d Add command for listing members of a set or category
+| | * | | | b7b4003 Link rating nodes to their descriptors
+| | * | | | 4123ab2 Add more logging
+| | * | | | c4558ba Update ask command
+| | * | | | c7d8474 fix indices
+| | * | | | 9729c5e Add overview of data structure
+| | * | | | 559760a optimize
+| | * | | | 6f8f01e Optimize user inquiry generation using node reference list
+| | * | | | 16fe106 Build list of nodes that refer to each node on startup
+| | * | | | 84d022b Update gitignore
+| | * | | | f3b3953 Minor refactoring
+| | * | | | dd1404c Update to only use addNode for node creation
+| | * | | | 4ffeb23 Improve relation gathering and fix bug causing some questions to be repeated
+| | * | | | cb859b6 Allow breakpoint access from interface
+| | * | | | 77cd299 Display function
+| | * | | | e968f81 Add command for updating all nodes in database
+| | * | | | 1e59baf Get node relationship data from user
+| | * | | | 25cd262 misc
+| | * | | | 758c3d6 Add some logging
+| | * | | | 21510b4 Improve node printing
+| | * | | | 5a9e67a Extract tokens from inputs
+| | * | | | 85dd555 Add node length labels (for strings)
+| | * | | | 299c105 Add node type labels
+| | * | | | 7c92075 misc
+| | * | | | d0084cc Generate "concept nodes" that unify terms extracted from inputs
+| | * | | | 8cd52b9 Only attempt to extract binary relations
+| | * | | | 182d68b Add more parameters to addNode
+| | * | | | b6b150b Basic question-answer functionality
+| | * | | | 844c66c Add utility commands
+| | * | | | 943be1b miscellaneous
+| | * | | | 8f85ab9 Add helper function for getting property specified by pseudoedge
+| | * | | | a5be2e4 Add find command
+| | * | | | 54b9d02 Add search function
+| | * | | | 0e450d8 Add function for finding nodes by partial descriptions
+| | * | | | 82101ce save() function
+| | * | | | c6be9b3 Refactoring
+| | * | | | 63ebd7a Add basic relation extraction from inputs
+| | * | | | 77470c4 Get inputs and store in database
+| | * | | | 14b0aa5 Load database
+| | * | | | f8575bd Add eva.py
+| | * | | | 714d3e2 Initial commit
+| |  / / /  
+* | | | | 6bab693 Rebuild project
+* | | | |   763d117 Merge branch 'python-snippets'
+|\ \ \ \ \  
+| * | | | | 6054027 (origin/python-snippets, python-snippets) move some snippets/functions to separate modules
+| * | | | |   7b87da6 Merge branch 'master' into python-snippets
+| |\ \ \ \ \  
+| * | | | | | fd5ffd4 remove artifacts from notebook conversion
+| * | | | | | 11b1164 regenerate script version of python-snippets
+* | | | | | |   948433b Merge branch 'kd-docs'
+|\ \ \ \ \ \ \  
+| * | | | | | | 0fa84b7 (origin/kd-docs, kd-docs) add docstrings to "transition_cost" and "score" functions
+| * | | | | | |   110a68e (origin/keyboard-dynamics, keyboard-dynamics) Merge branch 'master' into keyboard-dynamics
+| |\ \ \ \ \ \ \  
+| | | |/ / / / /  
+| | |/| | | | |   
+| * | | | | | | 5d24145 make script (mostly) flake8 compliant
+* | | | | | | | 71f1d88 (origin/foldz, origin/fold-dedup, foldz, fold-dedup) remove other duplicated classes
+* | | | | | | |   264c578 Merge branch 'physics' into fold-dedup
+|\ \ \ \ \ \ \ \  
+| * | | | | | | | 19c99f5 (origin/physics-dedup, origin/physics, physics-dedup, physics) merge other geometry-related classes
+| * | | | | | | | 1ca95e7 merge Line class and other generic n-d geometry classes
+| * | | | | | | | af07bbb improve code style
+| * | | | | | | | ce88214 merge Polygon classes
+| * | | | | | | | e98d8d1 merge Circle classes from physics and geometry projects
+| * | | | | | | |   57437f3 Merge branch 'geometry' into physics-dedup
+| |\ \ \ \ \ \ \ \  
+* | | | | | | | | | 12d3df3 remove most duplicated classes from fold.py
+* | | | | | | | | |   ca2b14a Merge branch 'geometry' into fold-dedup
+|\ \ \ \ \ \ \ \ \ \  
+| | |/ / / / / / / /  
+| |/| | / / / / / /   
+| |_|_|/ / / / / /    
+|/| | | | | | | |     
+| * | | | | | | | 109b3e1 (origin/geometry, geometry) improve flake8 style compliance
+* | | | | | | | | a6bcf86 (origin/epidemic-modelling, epidemic-modelling) more directory restructuring/reorganization
+* | | | | | | | | 886f924 Rebuild project
+* | | | | | | | |   8db8543 Merge branch 'fire-sim'
+|\ \ \ \ \ \ \ \ \  
+| * \ \ \ \ \ \ \ \   0f2330f (origin/fire-sim, fire-sim) Add 'fire-sim/' from commit '40be238ef44d351542682327e03a4e052d84b6fc'
+| |\ \ \ \ \ \ \ \ \  
+| | |_|_|_|_|/ / / /  
+| |/| | | | | | | |   
+| | * | | | | | | | 40be238 add repeat control
+| | * | | | | | | | eb776a7 add fire clipping threshold
+| | * | | | | | | | 3fc2193 Place charts horizontally
+| | * | | | | | | | 124b6fd more comments
+| | * | | | | | | | 5ae0e5d add random noise
+| | * | | | | | | | 483d982 make sure cell computations are in the correct loop
+| | * | | | | | | | 1328447 add spreading factor
+| | * | | | | | | | 6ceb85b create separate plots
+| | * | | | | | | | 837dee1 adjust settings
+| | * | | | | | | | fab991a Add more options
+| | * | | | | | | | 41eaea5 only burn if fuel exists
+| | * | | | | | | | 3e2950c add fire calculations
+| | * | | | | | | | 3b47831 Add comments
+| | * | | | | | | | 10c63c6 Fuel generation
+| | * | | | | | | | 4ff5fcd loop through and update
+| | * | | | | | | | 40036c0 Fix starting conditions
+| | * | | | | | | | 6b7bb4e Initialize
+| |  / / / / / / /  
+* | | | | | | | |   bac1774 Merge branch 'handwriting-generator'
+|\ \ \ \ \ \ \ \ \  
+| |_|_|_|/ / / / /  
+|/| | | | | | | |   
+| * | | | | | | |   923f12e (origin/handwriting-generator, handwriting-generator) Add 'handwriting-generator/' from commit 'b6267d76a42a2785d0fb1e8766061b7aacaf7237'
+| |\ \ \ \ \ \ \ \  
+| | |/ / / / / / /  
+| |/| | | | | | |   
+| | * | | | | | | b6267d7 build docs
+| | * | | | | | | 4f1ee91 ignore compiled .pyc files
+| | * | | | | | | b8002d7 add command for building docs with pdoc
+| | * | | | | | | b088043 Create README.md
+| | * | | | | | | 0631ac1 document Pen class
+| | * | | | | | | fb8263b add randomness to shaking event
+| | * | | | | | | 5c61eb7 add some documentation to Drawer class
+| | * | | | | | | 4c0326a add option for normalizing pen randomness to unit vector (limiting more extreme values, in theory)
+| | * | | | | | | 9ddb379 add jittering to pen
+| | * | | | | | | 142ccad add more letters
+| | * | | | | | | 9db7d0b use relative coordinates
+| | * | | | | | | 70dc4a8 add momentum-based renderer
+| | * | | | | | | d0ba7a1 add pen step method
+| | * | | | | | | f188ade testing code
+| | * | | | | | | aae5baf move display code to Write class
+| | * | | | | | | 5d9dbcd add method to clear canvas
+| | * | | | | | | aaef38d add method to convert point labels to coordinates
+| | * | | | | | | 44e8727 add Drawer class to generate writing
+| | * | | | | | | 25dc69b add pen class
+| | * | | | | | | c0f7312 add coords for notation
+| | * | | | | | | 6309996 add sample letter outline
+| | * | | | | | | 52ef79b add canvas + display
+| | * | | | | | | 0352184 initial commit
+| |  / / / / / /  
+* | | | | | | | 4d2307d Rebuild project
+* | | | | | | |   d1233cd Merge branch 'rcas'
+|\ \ \ \ \ \ \ \  
+| | | | | | | | * d3d22bc add simple nushell script for running OCR on images
+| | |_|_|_|_|_|/  
+| |/| | | | | |   
+| * | | | | | |   072458d (origin/nushell-testing, nushell-testing) Add 'rcas/' from commit 'c6f22ab7b6c222a975a06e37895d43ea7f5c28b8'
 | |\ \ \ \ \ \ \  
 | | * | | | | | | c6f22ab miscellaneous
 | | * | | | | | | 0e10079 add graph-related types
@@ -4166,7 +4341,7 @@ structure into my workflow:
 * | | | | | | f798b6e update stats (again
 * | | | | | |   21fde43 Merge remote-tracking branch 'graphs/graphs'
 |\ \ \ \ \ \ \  
-| * | | | | | | 228ea98 (origin/graphs, graphs) fix merge prep from last commit (on /giraffe)
+| * | | | | | | 228ea98 fix merge prep from last commit (on /giraffe)
 | * | | | | | | 343af69 move Randomizer class
 | * | | | | | | ee2e5d3 more cleanup and restructuring
 | * | | | | | | 59ace1a more cleanup
