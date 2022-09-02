@@ -1,0 +1,6 @@
+Functions:
+
+createNeuralNetworks(neuralNetworksNumber,inputNodesNumber,hiddenNodesNumber,outputNodesNumber,startingMutationSize)
+evolveNeuralNetworks(scoreType,mutationsNumber,mutationSize)
+evaluateNeuralNetwork(neuralNetworkLabel,inputs)
+assignScore(neuralNetworkLabel,score)

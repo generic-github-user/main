@@ -1,2 +1,3 @@
-pipenv run python3.10 build.py
+pipenv run python build.py
 git commit --all -m "Rebuild project"
+git push

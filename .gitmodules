@@ -8,7 +8,7 @@
 	path = generic-github-user
 	url = https://github.com/generic-github-user/generic-github-user
 [submodule "clover"]
-	path = clover
+	path = ml/clover
 	url = https://github.com/generic-github-user/clover
 [submodule "utils"]
 	path = tools/utils
