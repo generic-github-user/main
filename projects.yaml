@@ -298,3 +298,48 @@ projects:
     completion: unfinished
     language: python
     labels: [github, metadata, apis, data-aggregation]
+
+  unmacro:
+    status: active
+    completion: unfinished
+    language: python
+
+  not-python:
+    status: active
+    completion: unfinished
+    language: python
+
+  rcas:
+    status: inactive
+    completion: unfinished
+    language: rust
+
+  sandbox:
+    status: inactive
+    completion: unfinished
+    language: javascript
+
+  img-conv:
+    status: inactive
+    completion: stable
+    language: javascript
+
+  keyboard-dynamics:
+    status: inactive
+    completion: unfinished
+    language: python
+
+  consequi:
+    status: inactive
+    completion: unfinished
+    language: python
+    labels: [organization, tools, software, tasks, productivity]
+
+  hurricane:
+    status: archived
+
+  supernova:
+    status: archived
+
+  tsunami:
+    status: archived
