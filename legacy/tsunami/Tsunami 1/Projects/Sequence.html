@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Sequence
+</title>
+</head>
+<body>
+
+<script type="text/javascript" src="Tsunami.js"></script>
+<script type="text/javascript">
+
+var inputs = [1,2,3,4,5,6,7,8,9];
+createNeuralNetworks(100,9,20,1,0.1);
+
+for(q=0;q<100;q++){
+	for(w=0;w<neuralNetworks.length;w++){
+		assignScore(w,Math.abs(inputs[inputs.length-1]-evaluateNeuralNetwork(w,inputs)));
+	}
+	evolveNeuralNetworks("min",1,10);
+	console.log("Iteration " + (q + 1) + " complete. Score: " + neuralNetworks[0].score + ".");
+}
+console.log(neuralNetworks);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+//Store array index of current neural network in a variable
+var neuralNetworks.length-1 = neuralNetworks.length - 1;
+
+
+//Create input nodes
+neuralNetworks[neuralNetworks.length-1].inputNodes = [];
+for(ii=0;ii<inputLayer;ii++){
+	neuralNetworks[neuralNetworks.length-1].inputNodes.push(0);
+}
+
+//Create output nodes
+neuralNetworks[neuralNetworks.length-1].outputNodes = [];
+for(ii=0;ii<outputLayer;ii++){
+	neuralNetworks[neuralNetworks.length-1].outputNodes.push(0);
+}
+
+
+//Create transfer weights from input nodes to first hidden layer
+neuralNetworks[neuralNetworks.length-1].weights.push([]);
+for(ii=0;ii<inputLayer;ii++){
+	//Create new transfer weight layer
+	neuralNetworks[neuralNetworks.length-1].weights[0].push([]);
+	for(jj=0;jj<nodes[0];jj++){
+		//Fill transfer weight layer with placeholder values
+		neuralNetworks[neuralNetworks.length-1].weights[0][ii].push(0);
+	}
+}
+
+//Create transfer weights from last hidden layer to output nodes
+neuralNetworks[neuralNetworks.length-1].weights.push([]);
+for(ii=0;ii<nodes[nodes.length-1];ii++){
+	//Create new transfer weight layer
+	neuralNetworks[neuralNetworks.length-1].weights[neuralNetworks[neuralNetworks.length-1].weights.length-1].push([]);
+	for(jj=0;jj<outputLayer;jj++){
+		//Fill transfer weight layer with placeholder values
+		neuralNetworks[neuralNetworks.length-1].weights[neuralNetworks[neuralNetworks.length-1].weights.length-1][ii].push(0);
+	}
+}
+
+
+//Calculate values of first hidden layer
+for(ii=0;ii<neuralNetworks[index].nodes[0].length;ii++){
+	neuralNetworks[index].nodes[0][ii] = 0;
+	for(jj=0;jj<neuralNetworks[index].inputNodes.length;jj++){
+		neuralNetworks[index].nodes[0][ii] += neuralNetworks[index].inputNodes[jj] * neuralNetworks[index].weights[0][jj][ii];	
+	}
+}
+
+//Calculate values of output layer
+for(ii=0;ii<neuralNetworks[index].outputNodes.length;ii++){
+	neuralNetworks[index].outputNodes[ii] = 0;
+	for(jj=0;jj<neuralNetworks[index].hiddenLayers[neuralNetworks[index].hiddenLayers.length-1].length;jj++){
+		neuralNetworks[index].outputNodes[jj] += neuralNetworks[index].hiddenLayers[neuralNetworks[index].hiddenLayers.length-1][ii] * neuralNetworks[index].weights[neuralNetworks[index].weights.length-1][jj][ii];
+	}
+}

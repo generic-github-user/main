@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Side Scroller Survivor
+</title>
+</head>
+<body>
+<canvas id="canvas1" width="1000" height="1000"></canvas>
+
+<script type="text/javascript" src="Side Scroller.js"></script>
+<script type="text/javascript" src="../../supernova.js"></script>
+<script type="text/javascript">
+
+//Add averages
+//Make sure to edit the right program...
+//Add neural network interaction, inputs in real time
+//Output average score
+//calculatePostitions
+//Add backup restore
+//hard to program without seeing it
+
+var accuracy = 100;
+var generation = 1;
+var neuralNetworksNumber = 100;
+var mutationNumber = 1;
+var mutationSize = 1;
+var averageScore = 0;
+
+create([22,50,1]);
+
+	
+		averageScore = 0;
+		for(e=0;e<accuracy;e++){ //Individual game
+			 //Game is set up and started
+			
+			averageScore += (score / accuracy);
+		}
+		
+
+	
+//console.log("Iteration " + (q + 1) + " complete. Score: " + neuralNetworks[0].score + ".");	
+//console.log(neuralNetworks);
+
+
+function step(){ //One step/frame
+	if(gameOver == true){
+		startGame();
+		if(trial > accuracy){
+			train.evolve.assignScore(w,averageScore);
+			if(species > population.length){
+				train.evolve.iterate(0,"min",10);
+				generation++;
+				train.evolve.mutate(0,100,100,1);
+			}
+		}
+	}
+	inputs = [];
+	for(r=0;r<obstacles.x.length;r++){
+		inputs.push(obstacles.x[r])
+	}
+	for(r=0;r<obstacles.y.length;r++){
+		inputs.push(obstacles.y[r])
+	}
+	inputs.push(playerY);
+	inputs.push(gameSpeed);
+	
+	playerMotionY = evaluate(0,inputs)[0];
+	
+	calculatePositions();
+	draw();
+}
+
+var intervalID = window.setInterval(step,10);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+Tsunami 4 Demo
+</title>
+</head>
+	<body>
+
+		<script type="text/javascript" src="tsunami-4.js"></script>
+		<script type="text/javascript">
+
+			var trainingDataInput = [0,1,2,3,4,5,6,7,8,9];
+			var trainingDataOutput = 10;
+
+			create(10,20,1);
+			console.log("Beginning neural network training.")
+			for(i=0;i<100;i++){
+				assignScore(0,Math.abs(evaluate(0,trainingDataInput)-trainingDataOutput));
+				evolve(0,"min",1,1);
+				
+				console.log("Iteration " + (i+1) + " complete.");
+				console.log("Neural network score: " + neuralNetworks[0].score);
+			}
+			console.log("Neural network training complete: ")
+			console.log(neuralNetworks[0]);
+
+		</script>
+		
+	</body>
+</html>

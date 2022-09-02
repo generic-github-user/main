@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+      <title>
+            Caesium - Network Visualization
+      </title>
+      <!-- Eric Meyer’s “Reset CSS” 2.0 -->
+      <!-- https://cssreset.com/scripts/eric-meyer-reset-css/ -->
+      <link href="css/reset.css" rel="stylesheet" />
+
+      <!-- Material Design icons -->
+      <!-- https://material.io/tools/icons/?style=baseline -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+      <!-- Material Design Lite -->
+      <!-- https://getmdl.io/ -->
+      <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+
+      <link href="css/main.css" rel="stylesheet" />
+      <link href="css/visualization.css" rel="stylesheet" />
+</head>
+
+<body>
+      <div id="control-panel">
+            <h2>CAESIUM</h2>
+
+            <h3>Network</h3>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="update();">
+                        Update
+                  </button>
+
+            <h3>Visualization</h3>
+            <h4>Nodes</h4>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-label">
+                        <input type="checkbox" id="controls-visualization-label" class="mdl-switch__input" oninput="update_settings(); network.update_display();" checked></input>
+                        <span class="mdl-switch__label">Label</span>
+                  </label>
+            <div class="mdl-tooltip" data-mdl-for="controls-visualization-size">
+                  Nodes will be labeled with their value.
+            </div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-size">
+                        <input type="checkbox" id="controls-visualization-size" class="mdl-switch__input" oninput="update_settings(); network.update_display();"></input>
+                        <span class="mdl-switch__label">Size</span>
+                  </label>
+            <div class="mdl-tooltip" data-mdl-for="controls-visualization-size">
+                  Nodes with higher values will be larger.
+            </div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-brightness">
+                        <input type="checkbox" id="controls-visualization-brightness" class="mdl-switch__input" oninput="update_settings(); network.update_display();" checked></input>
+                        <span class="mdl-switch__label">Brightness</span>
+                  </label>
+            <div class="mdl-tooltip" data-mdl-for="controls-visualization-brightness">
+                  Nodes with higher values will be lighter.
+            </div>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="controls-visualization-type">
+                        <input type="checkbox" id="controls-visualization-type" class="mdl-switch__input" oninput="update_settings(); network.update_display();"></input>
+                        <span class="mdl-switch__label">Type</span>
+                  </label>
+            <div class="mdl-tooltip" data-mdl-for="controls-visualization-type">
+                  Nodes will be colored based on their type.
+            </div>
+
+            <div id="social-icons">
+                  <a href="https://github.com/generic-github-user/Caesium" target="_blank">
+                        <!-- GitHub Logo -->
+                        <!-- https://github.com/logos -->
+                        <img src="images/social-icons/github.png" class="social-icon" />
+                  </a>
+            </div>
+      </div>
+
+
+      <svg id="network-visualization" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <script type="text/javascript" src="../../library/caesium.js"></script>
+      <script type="text/javascript" src="javascript/visualization.js"></script>
+      <!-- Material Design Lite -->
+      <!-- https://getmdl.io/ -->
+      <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>

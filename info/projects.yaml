@@ -1,3 +1,17 @@
+abbreviations:
+  um: unmacro
+  np: not-python
+  nu: nushell
+  py: python
+  js: javascript
+  nn: neural-network
+  lc: leetcode
+  kd: keyboard-dynamics
+  img: image
+  ao: auto-organize
+  hci: human-computer interaction
+  cas: computer algebra system
+
 labels:
   active: currently under development or work will resume soon
 
@@ -133,30 +147,38 @@ projects:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [language, tools, software]
 
   set:
     status: inactive
     completion: unstarted
     language: undecided
+    labels: [version-control, tools, software, software-development, organization]
 
   grammars:
     status: semi-active
     completion: unfinished
+    labels: [experiments, tools, libraries, grammars, linguistics,
+      combinatorics, discrete-mathematics]
 
   chrestomathy:
     status: inactive
     completion: ongoing
     language: multiple
+    labels: [reference, chrestomathy, examples, educational]
 
   CA2:
     status: semi-active
     completion: unfinished
     language: [c, python]
+    labels: [mathematics, geometry, art, simulations, cellular-automata, cgol,
+      combinatorics, discrete-math]
 
   CogBench:
     status: inactive
     completion: unfinished
     language: python
+    labels: [psychometrics, software, tools, interactive]
 
   Time-Zone-Roles:
     status: inactive
@@ -222,48 +244,113 @@ projects:
     status: inactive
     completion: unfinished
     language: python
+    labels: [esoteroic, programming-languages, experiments]
 
   punchcard:
     status: inactive
     completion: unfinished
     language: python
+    labels: [data-structures, utilities, libraries]
 
   wordtetris:
     status: inactive
     completion: unfinished
     language: python
+    labels: [games, tetris, word-games]
 
   alexandria:
     status: inactive
     completion: unfinished
     language: python
+    labels: [organization, tools, software, bookmarks, backup]
 
   roulette-curves:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations]
 
   cellular-automata-experiments:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations, cellular-automata, cgol,
+      combinatorics, discrete-math]
 
   foldz:
     status: inactive
     completion: unfinished
     language: python
+    labels: [mathematics, geometry, art, simulations, computational-geometry, origami]
 
   programming-puzzles:
     status: inactive
     completion: unfinished
     language: python
+    labels: [programming-puzzles, interactive]
 
   visual-computing-simulation:
     status: inactive
     completion: unfinished
     language: python
+    labels: [circuits, simulations, interactive, computing]
 
   project-summary:
     status: inactive
     completion: unfinished
     language: python
+    labels: [github, metadata, apis, data-aggregation]
+
+  unmacro:
+    status: active
+    completion: unfinished
+    language: python
+    labels: [macros, vim, experiments, hci, text-processing, editors, automation]
+
+  not-python:
+    status: active
+    completion: unfinished
+    language: python
+    labels: [python, experiments, programming-languages, syntax-extensions, grammars]
+
+  rcas:
+    status: inactive
+    completion: unfinished
+    language: rust
+    labels: [mathematics, cas, symbolic-computation, rust, libraries]
+
+  sandbox:
+    status: inactive
+    completion: unfinished
+    language: javascript
+    labels: [interactive, demos, web, physics, simulations, experiments]
+
+  img-conv:
+    status: inactive
+    completion: stable
+    language: javascript
+    labels: [demos, web, image-processing, interactive, ml, convolutional-filters]
+
+  keyboard-dynamics:
+    status: inactive
+    completion: unfinished
+    language: python
+    labels: [simulations, mathematics, optimization, statistics, analysis, hci]
+
+  consequi:
+    status: inactive
+    completion: unfinished
+    language: python
+    labels: [organization, tools, software, tasks, productivity]
+
+  hurricane:
+    status: archived
+    labels: [ai, ml, mathematics, optimization, libraries]
+
+  supernova:
+    status: archived
+    labels: [ai, ml, mathematics, optimization, libraries]
+
+  tsunami:
+    status: archived
+    labels: [ai, ml, mathematics, optimization, libraries]

@@ -1,0 +1,29 @@
+# TODO: mark time node/neighborhood was last updated
+# TODO: search by pattern
+# TODO: graph compression
+# TODO: node hashes
+# TODO: HCI language
+# TODO: graph manipulation command language
+# TODO: estimate time to completion
+# TODO: create test suite
+# TODO: tripwires
+# TODO: support wolfram alpha-style queries, e.g., "seconds since bill gates was born"
+# TODO: support encoding of algorithms in graph
+# TODO: proper error handling
+# TODO: track compute usage
+# TODO: coincidence finding
+# TODO: function definitions
+# TODO: count appearances of character
+# TODO: extract lines from text files
+# TODO: rigid English parser
+# TODO: graph matching
+# TODO: infinite node chains
+# TODO: construct heuristics
+# TODO: move logical relations into database
+# TODO: graph visualization
+# TODO: define concepts analogous to adjacency using grammars?
+# TODO: exhaustive(ish) list of logical relations and meta-relations
+# TODO: implement staging system for simultaneously using and developing Eva
+# TODO: confidence in ______
+# TODO: demo command
+# TODO: wikidata integration
