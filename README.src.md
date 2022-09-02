@@ -34,6 +34,30 @@ to remain stable. I plan to integrate more third-party tooling in the future
 and complete some heavy refactoring of old projects that I am interested in
 further developing or reusing components from.
 
+A couple other notes:
+
+- the statistics on my GitHub profile will be inaccurate for the time being
+	since commits from other repositories were integrated into this one's history
+	(i.e., rather than being copied or squash-merged); I plan to eventually
+	publish a correct version and will most likely be removing most of the merged
+	repositories from my profile anyway
+- several projects were copied verbatim from other repositories of mine into
+	subdirectories of this one using `git-subtree` and may already have `LICENSE`
+	or `LICENSE.md` files; these will be undergoing revision (though generally
+	only to licenses as permissive or moreso as the current ones) but for now it
+	can be assumed that if a `LICENSE` is present in a subdirectory, it applies
+	to all the files in that directory as well as in all nested directories
+	(recursively)
+- the SLOC count for Python is somewhat overinflated since several projects
+	have both Jupyter notebook versions and Python script/module mirrors or
+	derivatives; similarly, a large portion of the counted HTML lines comprise
+	generated documentation from nbdev or pdoc (though I am gradually migrating
+	away from both of these tools)
+- though I don't foresee it being necessary often, pull requests can be
+	submitted to the appropriate branch or sub-branch corresponding to a project;
+	bug reports and feature requests should be submitted
+	[here](https://github.com/generic-github-user/main/issues/new)
+
 ## Projects
 
 [[projects]]
