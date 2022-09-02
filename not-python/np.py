@@ -15,7 +15,7 @@ class TreeIndenter(Indenter):
     tab_len = 8
 
 
-grammar = pathlib.Path('grammar.lark').read_text()
+grammar = pathlib.Path('python.lark').read_text()
 parser = Lark(grammar, parser='lalr', postlex=TreeIndenter())
 source = pathlib.Path('sample.py').read_text()
 
