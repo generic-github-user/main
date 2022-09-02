@@ -16,7 +16,8 @@ import json
 from box import Box
 import textwrap
 
-metadata_path = './info/'
+root_path = '../'
+metadata_path = root_path + 'info/'
 
 # Run a shell command and return the output (i.e., stdout); assumes result is
 # UTF-8 encoded text
@@ -25,7 +26,7 @@ def runcmd(command):
     return subprocess.run(command.split(), stdout=subprocess.PIPE).stdout.decode('UTF-8')
 
 print(f'Loading source files')
-with open('README.src.md', 'r') as f: content = f.read()
+with open(root_path + 'README.src.md', 'r') as f: content = f.read()
 with open(metadata_path + 'substitutions.yaml', 'r') as f: subs = yaml.safe_load(f.read())
 with open(metadata_path + 'projects.yaml', 'r') as f: projects = Box(yaml.safe_load(f.read()), default_box=True)
 
@@ -68,6 +69,6 @@ w = 50
 content = '\n'.join(f'<!--  {line}{" "*(w-len(line))}  -->' for line in textwrap.wrap(msg, w)) + ('\n' * 5) + content
 
 print(f'Writing output file')
-with open('README.md', 'w+') as f: f.write(content)
+with open(root_path + 'README.md', 'w+') as f: f.write(content)
 
 print('Done')
