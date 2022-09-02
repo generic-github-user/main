@@ -54,3 +54,15 @@
 - wordle-variants: >
     various language-based guessing games
 
+- nushell-testing:
+    - >
+        experiments with Nu/[Nushell](https://www.nushell.sh/), including
+        integration into other projects and scripts
+
+    - nu-ocr: >
+        a more compact version of the Python-based media cataloguer on /ao
+        (mostly to get used to interacting with the filesystem and databases
+        via Nushell)
+
+    - nu-todo: >
+        Nushell-based todo management for task lists serialized with YAML
