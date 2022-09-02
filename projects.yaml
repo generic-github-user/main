@@ -1,3 +1,15 @@
+abbreviations:
+  um: unmacro
+  np: not-python
+  nu: nushell
+  py: python
+  js: javascript
+  nn: neural-network
+  lc: leetcode
+  kd: keyboard-dynamics
+  img: image
+  ao: auto-organize
+
 labels:
   active: currently under development or work will resume soon
 
