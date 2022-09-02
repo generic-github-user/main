@@ -1,5 +1,3 @@
-print('Importing libraries')
-
 import pickle
 import json
 import zlib
@@ -93,6 +91,7 @@ filetypes = {
     'image': 'png jpg PNG JPG JPEG',
 }
 
+
 def importList(data):
     for i, item in enumerate(data):
         if isinstance(item, data):
@@ -100,6 +99,7 @@ def importList(data):
         else:
             database.addNode(item, [], True)
     return data
+
 
 database = Graph(savePath='./eva-db', logger=None)
 Eva.database = database
@@ -125,10 +125,12 @@ except:
 
 # say(database.filter(lambda n: nodeProperty(n, 'member').includes('greetings')))
 
+
 def nodeProperty(node, attr, update=False):
     refs = database.get(node, update).referrers(update=update).search(value=attr)
     links = refs.filter(lambda n: n.members[0] == node)
     return refs.map(lambda n: database.get(n.members[1], update))
+
 
 def updater(node, level):
     markType(node, level=level+1)
@@ -138,6 +140,7 @@ def updater(node, level):
     for k, v in filetypes.items():
         if isinstance(node.value, str) and hasExt(node.value, v):
             database.addNode('filetype', [node.id, database.addNode(k, [], False)])
+
 
 def think(node=None):
     infNode = None
@@ -195,6 +198,7 @@ def think(node=None):
     Eva.loglevel -= 1
     return callNode
 
+
 def getInfo():
     links = []
     for n in nodes:
@@ -218,15 +222,19 @@ def getInfo():
     current_link = random.choice(links)
     q = f'Is {nodes[current_link[2][0]].value} a {current_link.value} of {nodes[current_link[2][1]].value}?'
     # use closure?
-    newId = database.addNode('intent', [database.addNode(q, [], True), database.addNode('question', [], False)])
-    database.addNode('origin', [newId, database.addNode('eva_ouptut', [], False)])
+    newId = database.addNode('intent',
+                             [database.addNode(q, [], True),
+                              database.addNode('question', [], False)])
+    database.addNode('origin',
+                     [newId, database.addNode('eva_ouptut', [], False)])
     print(q)
     # current_question = newId
     return newId, current_link
 
+
 def makePropertyBuilder(name, property, conditions, logger=None):
     def builder(node, **kwargs):
-        assert(isinstance(node, Node))
+        assert isinstance(node, Node)
         if logger is not None:
             logger(node)
         # if node.value not in Settings.ignoredTypes:
@@ -235,9 +243,14 @@ def makePropertyBuilder(name, property, conditions, logger=None):
         #     if (len(m) == 0):
         #         database.addNode('type', [node.id, typeId], **kwargs)
         # return node
-        if (node.value not in Settings.ignoredTypes) and all(c(node) for c in conditions):
-            database.addNode(name, [node.id, database.addNode(property(node), [], False, **kwargs)], False, True, **kwargs)
+        if (node.value not in Settings.ignoredTypes) and\
+                all(c(node) for c in conditions):
+            database.addNode(name, [node.id,
+                                    database.addNode(property(node),
+                                                     [], False, **kwargs)],
+                             False, True, **kwargs)
     return builder
+
 
 def markSubstrings(node, **kwargs):
     say(f'Searching for nodes of which {node} is a substring')
@@ -258,18 +271,24 @@ def markSubstrings(node, **kwargs):
 markType = makePropertyBuilder('type', lambda node: type(node.value).__name__, [])
 markLength = makePropertyBuilder('length', lambda node: len(node.value), [lambda node: isinstance(node.value, str)])
 
+
 def tokenize(node, **kwargs):
-    assert(isinstance(node, Node))
+    assert isinstance(node, Node)
     say(f'Tokenizing {node}')
-    if nodeProperty(node.id, 'origin')=='user_input' and (node.value not in Settings.ignoredTypes):
+    if nodeProperty(node.id, 'origin') == 'user_input' and\
+            (node.value not in Settings.ignoredTypes):
         tokens = node.value.split()
         if len(tokens) > 1:
             for t in tokens:
-                database.addNode('token', [database.addNode(t, [], False, **kwargs), node.id], False, True, **kwargs)
+                database.addNode('token',
+                                 [database.addNode(
+                                     t, [], False, **kwargs), node.id],
+                                 False, True, **kwargs)
     return node
 
 # def ftime(f):
 #     return timeFunc(database, f)
+
 
 def updateAll():
     if debug:
@@ -278,8 +297,8 @@ def updateAll():
     say('Consolidating identical nodes')
     for n in nodes:
         # print(f'Updating node {n[0]}: {n[1]}')
-        duplicates = list(filter(lambda x: n[1]==x[1], database.nodes))
-        exists = len(list(filter(lambda y: len(y[2])>0, duplicates))) > 0
+        duplicates = list(filter(lambda x: n[1] == x[1], database.nodes))
+        exists = len(list(filter(lambda y: len(y[2]) > 0, duplicates))) > 0
         if len(duplicates) > 1 and not exists:
             database.addNode(n[1], [x[0] for x in duplicates])
 
@@ -297,11 +316,20 @@ def updateAll():
     say('Marking rating nodes')
     # TODO: move (some) input processing here
     for n in nodes:
-        if n.value not in Settings.ignoredTypes and isinstance(n.value, str) and len(n.value)==3 and n.value[1]=='.':
+        if n.value not in Settings.ignoredTypes and\
+                isinstance(n.value, str) and\
+                len(n.value) == 3 and n.value[1] == '.':
+
             for r in ratings:
-                if r[0]==n[1][0]:
-                    database.addNode('rating', [n.id, database.addNode(r, [], False)], False, True)
-                    database.addNode('group', [n.id, database.addNode('ratings', [], False)], False, True)
+                if r[0] == n[1][0]:
+                    database.addNode('rating',
+                                     [n.id,
+                                      database.addNode(r, [], False)],
+                                     False, True)
+                    database.addNode('group',
+                                     [n.id,
+                                      database.addNode('ratings', [], False)],
+                                     False, True)
 
     say('Extracting tokens from text nodes')
     for n in nodes:
@@ -310,8 +338,10 @@ def updateAll():
     if debug:
         print('Done')
 
+
 def display(n):
     print(f'{n.id} {n.value} {[database[i].value for i in n.members]}')
+
 
 # start = 'https://en.wikipedia.org/wiki/Branching_random_walk'
 def html_archive(start, node):
@@ -346,12 +376,14 @@ def askCommand(newInput):
     for i in range(num):
         current_question, current_link = getInfo()
 
+
 @command('clear')
 def clearCommand(newInput):
     if not isinstance(newInput, str):
         raise TypeError
     for i in range(50):
         print('')
+
 
 @command('webcrawl')
 def webcrawlCommand(newInput):
@@ -366,6 +398,7 @@ def webcrawlCommand(newInput):
         return scanNode
     timeFunc(webcrawlWrapper)()
 
+
 @command('gb')
 def gbCommand(newInput):
     db = hgraph('gb_database.db')
@@ -375,9 +408,11 @@ def gbCommand(newInput):
         db.add(edge)
     # for edge in db.all():
 
+
 @command('backup')
 def backupCommand(newInput):
     timeFunc(backup)()
+
 
 @command('think')
 def thinkCommand(newInput):
@@ -394,6 +429,7 @@ def thinkCommand(newInput):
             if time.time()-before>Settings.timeLimit:
                 break
 
+
 @command('list')
 def listCommand(newInput):
     target = newInput.split()[1]
@@ -403,12 +439,14 @@ def listCommand(newInput):
     for m in members:
         print(m)
 
+
 @command('label')
 def labelCommand(newInput):
     z = random.randint(1000, 1000000)
     database.addNode(
         database.addNode('{:x}'.format(int(z)))
     )
+
 
 @command('#')
 def nlpCommand(newInput):
@@ -421,6 +459,7 @@ def nlpCommand(newInput):
         database.addNode('dep', [tokenNode, database.addNode(token.dep_, [], False)], True)
         database.addNode('pos', [tokenNode, database.addNode(token.pos_, [], False)], True)
         database.addNode('head', [tokenNode, database.addNode(token.head.text, [], False)], True)
+
 
 ppc = pyparsing.pyparsing_common
 pyparsing.ParserElement.enablePackrat()
@@ -436,6 +475,7 @@ adjOp = pyparsing.Literal(".")
 # plusop = pyparsing.oneOf("+ -")
 # factop = pyparsing.Literal("!")
 
+
 @command('adj')
 def adjCommand(newInput):
     N = list(filter(lambda x: isinstance(x.value, str) and (newInput[4:] == x.value), database))[0]
@@ -444,9 +484,11 @@ def adjCommand(newInput):
         print(n)
         database.addNode('origin', [n.id, database.addNode('eva_output', [], False)])
 
+
 @command('breakpoint')
 def breakpointCommand(newInput):
     breakpoint()
+
 
 @command('$')
 def relationCommand(newInput):
@@ -476,6 +518,7 @@ def relationCommand(newInput):
                     )
             break
 
+
 @command('json')
 def jsonCommand(newInput):
     jsonPath = Settings.importDir + newInput[5:]
@@ -484,13 +527,16 @@ def jsonCommand(newInput):
         newData = json.load(f)
     print(newData)
 
+
 @command('remove')
 def removeCommand(newInput):
     database.nodes.pop()
 
+
 @command('restore')
 def restoreCommand(newInput):
     database.nodes = json.load(open('./prevdata.json'))
+
 
 @command('print')
 def printCommand(newInput):
@@ -499,16 +545,19 @@ def printCommand(newInput):
     for x in range(N-10, N):
         say(str(database[x]))
 
+
 @command('refresh')
 def refreshCommand(newInput):
     print(database.getNodes(newInput[8:]))
     think(database.getNodes(newInput[8:])[0].id)
+
 
 @command('uall')
 def updateCommand(newInput):
     updateAll()
 
 # def mapCommand
+
 
 current_question = None
 current_link = None
@@ -533,13 +582,19 @@ for i in range(1000):
                 # TODO: check this
                 if debug:
                     print('Adding link to database')
-                J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
-                database.addNode('truth', [J, database.addNode(True, [], False)], True)
+                J = database.addNode(current_link.value,
+                                     [x for x in current_link.members],
+                                     False, True)
+                database.addNode('truth',
+                                 [J, database.addNode(True, [], False)], True)
             elif newInput in ['no']:
                 if debug:
                     print('Adding link to database')
-                J = database.addNode(current_link.value, [x for x in current_link.members], False, True)
-                database.addNode('truth', [J, database.addNode(False, [], False)], True)
+                J = database.addNode(current_link.value,
+                                     [x for x in current_link.members],
+                                     False, True)
+                database.addNode('truth',
+                                 [J, database.addNode(False, [], False)], True)
             current_link = None
         current_question = None
     database.save()
