@@ -1,0 +1,24 @@
+#network-visualization {
+      width: 80%;
+      height: 100%;
+
+      float: right;
+
+      filter: drop-shadow(6px 6px 4px #888);
+      transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
+}
+
+#network-visualization:hover {
+      filter: drop-shadow(12px 12px 8px #888);
+      transition: background-color 1s ease, filter 1.5s ease, width 2s ease;
+}
+
+.connection {
+      stroke: black;
+      stroke-width: 2px;
+}
+
+.value-label {
+      font-family: Roboto, sans-serif;
+      color: #000;
+}

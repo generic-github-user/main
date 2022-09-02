@@ -1,4 +1,10 @@
+import pyvis
+import itertools
+import numpy as np
+import random
+
 from node import Node
+
 
 class Graph:
     def __init__(self, nodes=None, duplicate=False, u=False, **kwargs):
@@ -9,6 +15,7 @@ class Graph:
         self.duplicate = duplicate
         if nodes:
             self.add_nodes(nodes, duplicate=u, **kwargs)
+
 
 class Graph(Graph):
     def visualize(self, node_options={}, edge_options={}, **kwargs):
@@ -32,7 +39,8 @@ class Graph(Graph):
 
                 if not text:
                     text = ' '
-                self.visualization.add_node(id(node), label=text, group=deg, **node_options)#, color=deg)#, size=deg**(1/4)*10)
+                self.visualization.add_node(id(node), label=text,
+                                            group=deg, **node_options)#, color=deg)#, size=deg**(1/4)*10)
 #             for g in node.grouped:
 #                 self.visualization.add_edge(text, g.value)
         for node in self.nodes:
@@ -46,23 +54,34 @@ class Graph(Graph):
 #                     d = int(10e2*1/(node.value*0.1))
 
                     try:
-                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, **edge_options)
+                        self.visualization.add_edge(
+                            *[id(x) for x in node.grouped],
+                            label=node.value, **edge_options
+                        )
                     except:
                         pass
                 else:
                     try:
-                        self.visualization.add_edge(*[id(x) for x in node.grouped], label=node.value, **edge_options)
+                        self.visualization.add_edge(
+                            *[id(x) for x in node.grouped],
+                            label=node.value, **edge_options
+                        )
                     except:
                         pass
         return self.visualization.show('./visualization.html')
+
 
 class Graph(Graph):
     def find(self, **kwargs):
         defaults = dict(unique=True)
         kwargs |= defaults
 #         return list(filter(lambda n: n.value == x and n.unique, self.nodes))
-        results = list(filter(lambda n: all((k in vars(n) and getattr(n, k) == v) for k, v in kwargs.items()), self.nodes))
+        results = list(filter(
+            lambda n: all((k in vars(n) and getattr(n, k) == v)
+                          for k, v in kwargs.items()),
+            self.nodes))
         return Graph(nodes=results, duplicate=self.duplicate)
+
 
 class Graph(Graph):
     def add_node(self, data, duplicate=False, return_node=True, metadata=None):
@@ -75,10 +94,15 @@ class Graph(Graph):
         if type(data) in [list, tuple]:
             matches = self.find(value=data[0])
             if (not matches) or duplicate:# or data[0] in '+':
-                connecting_node = Node(data[0], data[1:], graph=self, metadata=metadata, duplicate=duplicate)
+                connecting_node = Node(data[0], data[1:], graph=self,
+                                       metadata=metadata, duplicate=duplicate)
     #             self.nodes.append(connecting_node)
 #                 self.add_node(connecting_node)
-                self.add_node(connecting_node, metadata=metadata, duplicate=duplicate)
+                self.add_node(
+                    connecting_node,
+                    metadata=metadata,
+                    duplicate=duplicate
+                )
                 new_node = connecting_node
             elif matches:
                 new_node = matches[0]
@@ -95,7 +119,12 @@ class Graph(Graph):
             matches = self.find(value=data)
             if (not matches) or (duplicate and str(data) == '   '):
 #                 print(data, matches.nodes, Node(data).value)
-                new_node = Node(data, graph=self, metadata=metadata, duplicate=duplicate)
+                new_node = Node(
+                    data,
+                    graph=self,
+                    metadata=metadata,
+                    duplicate=duplicate
+                )
             elif matches:
                 new_node = matches[0]
 
@@ -105,6 +134,7 @@ class Graph(Graph):
             return new_node
         else:
             return self
+
 
 class Graph(Graph):
     def sample(self, n=1):
@@ -123,8 +153,12 @@ class Graph(Graph):
         for i in range(lx):
             val = x.nodes[i].value
             if 'e' not in val:
-                self.nodes[i].extend(x.nodes[i].value+str(i)+q, f'e{val}{i}'+q, duplicate=True)
+                self.nodes[i].extend(
+                    x.nodes[i].value+str(i)+q,
+                    f'e{val}{i}'+q, duplicate=True
+                )
         return self
+
 
 class Graph(Graph):
     def __getitem__(self, i):
@@ -135,12 +169,16 @@ class Graph(Graph):
 
 # semi-toroidal graphs
 
+
 class Graph(Graph):
     def AdjacencyMatrix(self, use_weights=True, weight_prop='weight'):
         matrix = np.zeros([len(self.nodes)//2+2]*2)
         for a, b in itertools.product(self.nodes, repeat=2):
             if a in b.adjacent():
-                connecting_node = list(filter(lambda x: all(y in x.grouped for y in [a, b]), self.nodes))[0]
+                connecting_node = list(filter(
+                    lambda x: all(y in x.grouped for y in [a, b]),
+                    self.nodes))[0]
+
                 if use_weights and hasattr(connecting_node, weight_prop):
                     value = getattr(connecting_node, weight_prop)
                 else:

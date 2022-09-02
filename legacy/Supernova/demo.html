@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Supernova Demo
+	</title>
+</head>
+	<body>
+
+		<div id="output" style="width: 90vw; word-wrap: break-word;">
+			Running neural network training algorithm...
+		</div>
+	
+		<script type="text/javascript" src="supernova.js"></script>
+		<script type="text/javascript">
+
+			var trainingDataInput = [0,1,2,3,4,5,6,7,8,9];
+			var trainingDataOutput = 10;
+			const output = document.getElementById("output");
+			//Multiple populations
+			//Crossover
+			create([10,1]);
+			output.innerHTML = ("<p>Beginning neural network training.</p>");
+			for(i=0;i<100;i++){
+				train.evolve.mutate(0,10,10,1);
+				for(j=0;j<population.length;j++){
+					train.evolve.assignScore(j,Math.abs(train.evolve.evaluate(j,trainingDataInput)[0]-trainingDataOutput));
+				}
+				train.evolve.iterate(0,"min",10);
+				output.innerHTML += ("<p>Iteration " + (i+1) + " complete. Neural network score: " + neuralNetworks[0].score + "</p>");
+			}
+			
+			output.innerHTML += ("<p>Neural network training complete.</p>")
+			output.innerHTML += ("<p>Finished neural network: " + JSON.stringify(neuralNetworks[0]) + "</p>");
+			console.log(neuralNetworks[0]);
+			
+		</script>
+		
+	</body>
+</html>

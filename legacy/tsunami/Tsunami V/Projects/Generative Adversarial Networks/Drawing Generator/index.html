@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>
+			GAN Drawing Generator
+		</title>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	</head>
+	<body>
+		<canvas id="inputCanvas" width="250" height="250" onmousemove="draw(event);"></canvas>
+		<canvas id="displayCanvas1" width="250" height="250"></canvas>
+		<canvas id="displayCanvas2" width="250" height="250"></canvas>
+		<canvas id="outputCanvas" width="250" height="250"></canvas>
+
+		<!--Reorganize these later -->
+		<button onclick="generate();">Generate</button>
+		<button onclick="clear();">Clear</button>
+
+		<div id="trainingData">
+			<p>Training Data</p>
+			<button onclick="addDrawing();">Add Current Drawing as Training Data</button>
+			<button onclick="addGenerated();">Add Current Generated Drawing as Training Data</button>
+			<textarea id="importTrainingData" placeholder="Training Data Import"></textarea>
+			<button onclick="trainingData = JSON.parse(document.getElementById('importTrainingData').value);">Import Training Data</button>
+			<textarea id="exportTrainingData" placeholder="Training Data Export"></textarea>
+			<button onclick="document.getElementById('exportTrainingData').value = JSON.stringify(trainingData);">Export Training Data</button>
+		</div>
+
+		<input type="text" id="iterations" placeholder="Number of Iterations"></input>
+		<input type="text" id="accuracy" placeholder="Accuracy"></input>
+		<input type="checkbox" id="regenerate"></input>
+		<button onclick="train();">Train</button>
+
+		<textarea id="importNeuralNetwork" placeholder="Neural Network Import"></textarea>
+		<button onclick="neuralNetworks = JSON.parse(document.getElementById('importNeuralNetwork').value);">Import Generative Neural Network</button>
+		<textarea id="exportNeuralNetwork" placeholder="Neural Network Export"></textarea>
+		<button onclick="document.getElementById('exportNeuralNetwork').value = JSON.stringify(neuralNetworks);">Export Generative Neural Network</button>
+
+		<select id="exportCanvas" onchange="exportCanvas();">
+			<option value="inputCtx">Input Canvas</option>
+			<option value="outputCtx">Output Canvas</option>
+		</select>
+		<select id="exportType" onchange="exportCanvas();">
+			<option value="array">Array</option>
+			<option value="rawValues">Raw Values</option>
+		</select>
+		<textarea id="exportCanvasOutput" placeholder="Canvas Export"></textarea>
+
+		<div id="brush">
+			<p>Brush</p>
+			<input id="brushSize" placeholder="Brush Size"></input>
+			<select id="pixelType" onchange="refreshDisplay();">
+				<option value="sample">Sample</option>
+				<option value="average">Average</option>
+			</select>
+			<select id="brushType">
+				<option value="brush">Brush</option>
+				<option value="eraser">Eraser</option>
+			</select>
+			<select id="brushShape">
+				<option value="circle">Circle</option>
+				<option value="square">Square</option>
+			</select>
+		</div>
+
+		<script type="text/javascript" src="../../../tsunami-v/tsunami-v.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+	</body>
+</html>

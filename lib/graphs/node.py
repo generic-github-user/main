@@ -1,15 +1,21 @@
+from graph import Graph
+
+
 class Node:
     def init(self, value, grouped=None, graph=None, metadata=None, **kwargs):
         self.value = value
         if grouped is None:
             grouped = []
-#         self.grouped = [g if type(g) is Node else Node(g, graph=graph) for g in grouped]
+#         self.grouped = [g if type(g) is Node else Node(g, graph=graph) for g
+#         in grouped]
         self.graph = graph
         if metadata:
             M = metadata[1:]
         else:
             M = None
-        self.grouped = [g if type(g) is Node else self.graph.add_node(g, metadata=M, **kwargs) for g in grouped]
+        self.grouped = [g if type(g) is Node
+                        else self.graph.add_node(g, metadata=M, **kwargs)
+                        for g in grouped]
         self.unique = True#not (type(self.value) is int)
 #         print(self.graph, self.value)
 #         if self.graph:
@@ -31,10 +37,17 @@ class Node:
 
     def adjacent(self, exclude=None):
         grouping_nodes = [x for x in self.graph.nodes if (self in x.grouped)]
-        return Graph(nodes=[n for gn in grouping_nodes for n in gn.grouped if (n is not self and (not exclude or n not in exclude.nodes))])
+        return Graph(
+            nodes=[n for gn in grouping_nodes for n in gn.grouped
+                   if (n is not self and
+                       (not exclude or n not in exclude.nodes))])
 
     def extend(self, z, w, return_new=False, return_node=False, **kwargs):
-        n = self.graph.add_node([w, self, z], return_node=return_node, **kwargs)
+        n = self.graph.add_node(
+            [w, self, z],
+            return_node=return_node,
+            **kwargs)
+
         if return_new:
             return n
         else:
