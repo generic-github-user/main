@@ -4,6 +4,12 @@
 # substitutions.yaml. It should be periodically executed on the /master branch
 # and other long-lived branches to generate updated code statistics.
 
+# build.py (and most other scripts in this repository) should be executed using
+# the pipenv environment defined by Pipfile and Pipfile.lock:
+# ```
+# pipenv run python build.py
+# ```
+
 import subprocess
 import yaml
 import json
@@ -22,9 +28,13 @@ print(f'Loading source files')
 with open('README.src.md', 'r') as f: content = f.read()
 with open(metadata_path + 'substitutions.yaml', 'r') as f: subs = yaml.safe_load(f.read())
 with open(metadata_path + 'projects.yaml', 'r') as f: projects = Box(yaml.safe_load(f.read()), default_box=True)
+
+# Process project labels
 for k, v in projects.projects.items():
     print(v)
+    # use a [hash] set to avoid duplication
     v.labels = set(v.labels)
+    # combine language metadata into set of labels
     if isinstance(v.language, list): v.labels |= set(v.language)
     elif isinstance(v.language, str) and v.language != 'undecided':
         v.labels.add(v.language)
