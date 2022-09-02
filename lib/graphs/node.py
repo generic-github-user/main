@@ -1,3 +1,5 @@
+from graph import Graph
+
 class Node:
     def init(self, value, grouped=None, graph=None, metadata=None, **kwargs):
         self.value = value
