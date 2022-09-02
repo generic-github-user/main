@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 def main [path: string] {
-		let db_path = "~/Desktop/imdb"
+		let db_path = "/home/alex/Desktop/imdb"
 		mkdir $db_path
 		echo "Processing"
 		let db = (ls $db_path --short-names).name
