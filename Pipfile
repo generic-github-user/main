@@ -7,6 +7,7 @@ name = "pypi"
 python-box = "*"
 flake8 = "*"
 pyyaml = "*"
+lark = "*"
 
 [dev-packages]
 
