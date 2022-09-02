@@ -10,6 +10,8 @@ import json
 from box import Box
 import textwrap
 
+metadata_path = './info/'
+
 # Run a shell command and return the output (i.e., stdout); assumes result is
 # UTF-8 encoded text
 def runcmd(command):
@@ -18,10 +20,10 @@ def runcmd(command):
 
 print(f'Loading source files')
 with open('README.src.md', 'r') as f: content = f.read()
-with open('substitutions.yaml', 'r') as f: subs = yaml.safe_load(f.read())
-with open('projects.yaml', 'r') as f: projects = Box(yaml.safe_load(f.read()), default_box=True)
+with open(metadata_path + 'substitutions.yaml', 'r') as f: subs = yaml.safe_load(f.read())
+with open(metadata_path + 'projects.yaml', 'r') as f: projects = Box(yaml.safe_load(f.read()), default_box=True)
 
-with open('branches.yaml', 'r') as f: branches = yaml.safe_load(f.read())
+with open(metadata_path + 'branches.yaml', 'r') as f: branches = yaml.safe_load(f.read())
 # ref https://stackoverflow.com/a/3495395
 B = {}
 for b in branches: B |= b
