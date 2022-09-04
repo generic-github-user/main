@@ -20,6 +20,13 @@ def module errors
 				def error range
 				def error type
 				def error argument
+
+def function raise : ex
+		print ex
+		call quit
+
+def function assert : p
+		if [not p] raise [errors assertion]
 def class [[hashable type T] type U]
 		dictionary <: collection
 
