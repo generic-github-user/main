@@ -4,3 +4,15 @@ def function divisible
 		info : "Returns true if b evenly divides a (i.e., a % b equals 0) and false
 		otherwise"
 		return [not [mod a b]]
+
+def class [[hashable type T] type U]
+		dictionary <: collection
+
+		int size
+
+		def mut method insert
+		def mut method remove
+		def mut method clear
+
+		def method get
+		def method contains
