@@ -1,0 +1,20 @@
+lowercase = "a" .. "z"
+uppercase = "A" .. "Z"
+letter = lowercase | uppercase
+
+nonzero = "1".."9"
+digit = nonzero | "0"
+alphanumeric = letter | digit
+natural = nonzero digit*
+
+symbol = "?"
+		| "[" | "]" | "{" | "}"
+		| "<" | ">" | "(" | ")"
+		| "," | "."
+		| ";" | ":"
+
+identifier = ( letter | "-" ) +
+form = identifier
+		| ( "[" [ form ] "]" )
+		| form ( " " form ) *
+program = form *
