@@ -5,6 +5,21 @@ def function divisible
 		otherwise"
 		return [not [mod a b]]
 
+
+def module errors
+		def class error
+				def method raise
+
+		def error access
+				def error reference
+				def error index
+				def error import
+				def error attribute
+		def error not-implemented
+		def error value
+				def error range
+				def error type
+				def error argument
 def class [[hashable type T] type U]
 		dictionary <: collection
 
