@@ -1,6 +1,7 @@
 *.out
 ydone.yaml
 todo-backup
+imdb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
