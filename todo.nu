@@ -6,16 +6,19 @@ def main [
 		if $dry { echo "(dry run)" }
 
 		let path = "/home/alex/Desktop/todo.yaml"
+		let rpath = "/home/alex/Desktop/recurring.yaml"
 		let bpath = $"(date format '%Y-%m-%d_%H-%M-%S').yaml"
 		echo $"Backing up to ($bpath)"
 		cp $path $"./todo-backup/($bpath)"
 		
 		#let todos = (open $path | from yaml)
+		#let todos = (open $path | insert recurring (open $rpath))
 		let todos = (open $path)
 		#$todos | append 
 		let output = ($todos | upsert other (
 				$todos.other | append (
-				for t in $todos.recurring.daily {
+				# for t in $todos.recurring.daily {
+				for t in (open $rpath).daily {
 						# instantiated todo item
 						let inst = $"($t) \((date format '%Y-%m-%d')\)"
 						# echo $inst
