@@ -66,3 +66,14 @@
 
     - nu-todo: >
         Nushell-based todo management for task lists serialized with YAML
+
+- lyre:
+    - main development branch for the lyre programming language
+
+    - lyre-stdlib: lyre standard library implementation
+
+    - lyre-stdlib-errors: error and exception related modules, types,
+      functions, etc. for lyre
+
+    - lyre-docs: documentation for the lyre programming language and its
+      standard library modules
