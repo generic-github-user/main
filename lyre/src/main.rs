@@ -46,3 +46,13 @@ struct Node<'a> {
     children: Vec<Node<'a>>,
     parent: Option<&'a Node<'a>>
 }
+
+impl<'a> fmt::Display for Node<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}",
+            self.content.iter()
+            .map(|t| t.to_string())
+            .collect::<Vec<String>>()
+            .join(""))
+    }
+}
