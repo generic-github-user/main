@@ -39,15 +39,15 @@ enum CharType {
     None
 }
 
-struct Node<'a> {
+struct Node {
     // content: Option<Token>,
     content: Vec<Token>,
     // children: Vec<&'a Node<'a>>,
-    children: Vec<Node<'a>>,
-    parent: Option<&'a Node<'a>>
+    children: Vec<Node>,
+    // parent: Option<&'a Node<'a>>
 }
 
-impl<'a> fmt::Display for Node<'a> {
+impl<'a> fmt::Display for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}",
             self.content.iter()
@@ -68,7 +68,7 @@ fn main () -> Result<(), Error> {
     let mut root = Node {
         content: vec![],
         children: vec![],
-        parent: None
+        // parent: None
     };
     let mut tokens = Vec::<Token>::new();
     for line in buffered.lines() {
@@ -107,8 +107,9 @@ fn main () -> Result<(), Error> {
     
     // let mut stack = Vec::<&mut Node>::new();
     // let current: Option<&Node> = None;
-    let mut current = &mut root;
     // stack.push(&mut root);
+    // let mut current = &mut root;
+    let mut stack = Vec::<usize>::new();
     for token in tokens {
         // if token.chartype == CharType::LeftSB {
         match token.chartype {
@@ -133,14 +134,16 @@ fn main () -> Result<(), Error> {
                 let mut nnode = Node {
                     content: vec![],
                     children: vec![],
-                    parent: Some(current)
+                    // parent: Some(current)
                 };
                 // current.children.push(&mut nnode);
+                stack.push(current.children.len());
                 current.children.push(nnode);
+                current = &mut nnode;
             }
 
             CharType::RightSB => {
-                //stack.pop();
+                stack.pop();
             }
 
             CharType::Alphanumeric | CharType::Symbol => {
@@ -169,6 +172,6 @@ fn main () -> Result<(), Error> {
 
     //Ok(())
     //return Ok(root.evaluate().unwrap());
-    root.evaluate();
+    //root.evaluate();
     Ok(())
 }
