@@ -58,6 +58,12 @@ impl<'a> fmt::Display for Node<'a> {
 }
 
 impl<'a> Node<'a> {
+    /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
+    /// delegated to Rust's standard library are handled here, as well as special operators like
+    /// the `def` keyword. The plan is to gradually move an increasingly large subset of this
+    /// "internal" functionality to lyre-based code; if a full compiler is ever created,
+    /// bootstrapping the entire language featureset is also a possibility.
+
     // fn evaluate(&self) -> Result<Value, Error> {
     fn evaluate(&self) -> Option<Value> {
         let mut symbols: HashMap<String, &Value> = HashMap::new();
@@ -89,6 +95,9 @@ impl<'a> Node<'a> {
 
             // return val;
         }
+        // roughly equivalent to the progn special form in Common Lisp (see
+        // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
+        // information) -- evaluates each sub-form, returning the value of the last one
         else if self.content[0].content == "prog" {
             let mut result = None;
             for node in self.children {
