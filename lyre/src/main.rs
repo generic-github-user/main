@@ -163,9 +163,11 @@ impl<'a> Node<'a> {
     }
 }
 
-struct Value<'a> {
+struct Value {
     vtype: String,
-    value: &'a Node<'a>
+    // value: &'a Node<'a>
+    value: ValueType
+}
 
 /// Used to represent primitive data types like ints and floats with direct equivalents in Rust's
 /// data model; literals from the AST can be parsed directly into variants of this enum. Compound
