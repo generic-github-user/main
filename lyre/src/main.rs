@@ -38,3 +38,11 @@ enum CharType {
     Unknown,
     None
 }
+
+struct Node<'a> {
+    // content: Option<Token>,
+    content: Vec<Token>,
+    // children: Vec<&'a Node<'a>>,
+    children: Vec<Node<'a>>,
+    parent: Option<&'a Node<'a>>
+}
