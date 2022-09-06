@@ -65,6 +65,14 @@ impl<'a> Node {
         }
         return result;
     }
+
+    fn print(&self, level: u8) -> () {
+        print!("{}", "  ".repeat(level as usize));
+        print!("{}\n", self);
+        for c in self.children.iter() {
+            c.print(level+1);
+        }
+    }
 }
 
 /// Enables the Display and ToString traits for Node structs
@@ -116,7 +124,7 @@ fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
                     content: current,
                     chartype: ptype
                 });
-                current = String::from("");
+                current = String::from(c);
             }
 
             ptype = ctype;
@@ -175,9 +183,14 @@ fn main () -> Result<(), Error> {
                     children: vec![]
                 };
                 current.children.push(nnode);
+
                 // we're adding a new bottom-level node (leaf) to the parent of the last node in
                 // the current path
-                *stack.last_mut().unwrap() += 1;
+                // if stack.len() == 0 {
+                //     stack.push(0);
+                // } else {
+                //    *stack.last_mut().unwrap() += 1;
+                // }
             }
 
             // Whitespace between tokens/forms or at the beginning of a line (i.e., indentation
@@ -198,12 +211,16 @@ fn main () -> Result<(), Error> {
 
             }
 
-            CharType::Quote | CharType::Unknown => todo!()
+            CharType::Quote | CharType::Unknown => {
+
+            }
         }
     }
 
     //Ok(())
     //return Ok(root.evaluate().unwrap());
     //root.evaluate();
+
+    root.print(0);
     Ok(())
 }
