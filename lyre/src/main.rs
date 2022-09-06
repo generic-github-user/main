@@ -54,7 +54,10 @@ struct Node {
     children: Vec<Node>,
 }
 
+/// General Node struct methods
 impl<'a> Node {
+    /// Takes a list of indices and returns the final node in the path they describe (in which each
+    /// index corresponds to a child node/subnode in the next level of the tree)
     fn get(&'a mut self, path: Vec<usize>) -> &'a mut Node {
         let mut result = self;
         for i in path {
@@ -64,6 +67,7 @@ impl<'a> Node {
     }
 }
 
+/// Enables the Display and ToString traits for Node structs
 impl<'a> fmt::Display for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}",
