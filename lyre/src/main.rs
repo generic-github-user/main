@@ -87,14 +87,26 @@ fn main () -> Result<(), Error> {
         content: vec![],
         children: vec![],
     };
+
+    // This section has a simple lexer that splits lyre source code into tokens, groups of
+    // consecutive characters with similar syntactic purposes
+
+    // A list of tokens parsed from the input program's source code
     let mut tokens = Vec::<Token>::new();
     for line in buffered.lines() {
         println!("Parsing line: {}", line.as_ref().unwrap());
+        // Stores the type of the previous character
         let mut ptype = CharType::None;
+        // Stores the type of the current character
         let mut ctype = CharType::None;
+        // The text content of the current token; incrementally grown as new characters are
+        // consumed
         let mut current: String = String::from("");
 
+        // Iterate over characters in line
         for c in line?.chars() {
+            // Categorize characters by syntactic type (refer to the CharType enum for information
+            // about specific types)
             if c.is_alphanumeric() { ctype = CharType::Alphanumeric; }
             else if c.is_whitespace() { ctype = CharType::Whitespace; }
             else if c == '[' { ctype = CharType::LeftSB; }
@@ -102,9 +114,13 @@ fn main () -> Result<(), Error> {
             else if c == '"' { ctype = CharType::Quote; }
             else { ctype = CharType::Symbol; }
 
+            // If the character type is unchanged from the previous step, append it to the current
+            // token string ...
             if ctype == ptype {
                 current += String::from(c).as_ref();
-            } else {
+            }
+            // ... otherwise, start a new token and store the current one
+            else {
                 tokens.push(Token {
                     content: current,
                     chartype: ptype
@@ -114,6 +130,7 @@ fn main () -> Result<(), Error> {
 
             ptype = ctype;
         }
+        // Insert newline character after parsing line
         tokens.push(Token { 
             content: String::from(""),
             chartype: CharType::Newline
