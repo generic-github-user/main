@@ -128,7 +128,7 @@ fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
 
             // If the character type is unchanged from the previous step, append it to the current
             // token string ...
-            if ctype == ptype {
+            if ctype == ptype && ctype != CharType::LeftSB && ctype != CharType::RightSB {
                 current += String::from(c).as_ref();
             }
             // ... otherwise, start a new token and store the current one
