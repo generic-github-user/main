@@ -132,13 +132,15 @@ fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
                 current += String::from(c).as_ref();
             }
             // ... otherwise, start a new token and store the current one
-            else if ptype != CharType::None {
-                let ntoken = Token {
-                    content: current,
-                    chartype: ptype
-                };
-                println!("Finished token {:?}", ntoken);
-                tokens.push(ntoken);
+            else {
+                if ptype != CharType::None {
+                    let ntoken = Token {
+                        content: current,
+                        chartype: ptype
+                    };
+                    println!("Finished token {:?}", ntoken);
+                    tokens.push(ntoken);
+                }
                 current = String::from(c);
             }
 
