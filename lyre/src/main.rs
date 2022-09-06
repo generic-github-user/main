@@ -202,7 +202,9 @@ enum ValueType {
 
     // Other basic types
     bool(bool),
-    char(char)
+    char(char),
+
+    Form(Node)
 }
 
 fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
@@ -278,7 +280,7 @@ fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
 }
 
 fn main () -> Result<(), Error> {
-    let path = "sample";
+    let path = "sample.ly";
     let input = File::open(path)?;
     let buffered = BufReader::new(input);
 
@@ -385,8 +387,7 @@ fn main () -> Result<(), Error> {
 
     //Ok(())
     //return Ok(root.evaluate().unwrap());
-    //root.evaluate();
-
+    root.evaluate();
     root.print(0);
     Ok(())
 }
