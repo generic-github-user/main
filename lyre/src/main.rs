@@ -115,6 +115,11 @@ impl<'a> Node<'a> {
                     print!("{}", value);
                     return Some(value);
                 },
+                "println" => {
+                    let value = rest[0].evaluate().unwrap();
+                    println!("{}", value);
+                    return Some(value);
+                },
             }
         }
 
