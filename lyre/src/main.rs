@@ -64,5 +64,45 @@ fn main () -> Result<(), Error> {
     let path = "sample";
     let input = File::open(path)?;
     let buffered = BufReader::new(input);
+
+    let mut root = Node {
+        content: vec![],
+        children: vec![],
+        parent: None
+    };
+    let mut tokens = Vec::<Token>::new();
+    for line in buffered.lines() {
+        println!("Parsing line: {}", line.as_ref().unwrap());
+        let mut ptype = CharType::None;
+        let mut ctype = CharType::None;
+        let mut current: String = String::from("");
+
+        for c in line?.chars() {
+            if c.is_alphanumeric() { ctype = CharType::Alphanumeric; }
+            else if c.is_whitespace() { ctype = CharType::Whitespace; }
+            else if c == '[' { ctype = CharType::LeftSB; }
+            else if c == ']' { ctype = CharType::RightSB; }
+            else if c == '"' { ctype = CharType::Quote; }
+            else { ctype = CharType::Symbol; }
+
+            if ctype == ptype {
+                current += String::from(c).as_ref();
+            } else {
+                tokens.push(Token {
+                    content: current,
+                    chartype: ptype
+                });
+                current = String::from("");
+            }
+
+            ptype = ctype;
+        }
+        tokens.push(Token { 
+            content: String::from(""),
+            chartype: CharType::Newline
+        });
+    }
+    println!("Parsed {} tokens", tokens.len());
+    // println!("{}", tokens);
     Ok(())
 }
