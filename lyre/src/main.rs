@@ -179,6 +179,7 @@ fn main () -> Result<(), Error> {
     let mut stack = Vec::<usize>::new();
     // stack.push(0);
     let mut indentlevel: usize = 0;
+    let mut ptoken: Option<Token> = None;
 
     for token in tokens {
         // if token.chartype == CharType::LeftSB {
@@ -192,7 +193,7 @@ fn main () -> Result<(), Error> {
 
                 let mut current = root.get(stack.clone());
                 // stack.push(current.children.len());
-                stack.push(0);
+                stack.push(current.children.len());
                 current.children.push(nnode);
             }
 
@@ -205,7 +206,7 @@ fn main () -> Result<(), Error> {
             CharType::Alphanumeric | CharType::Symbol | CharType::String => {
                 let mut current = root.get(stack.clone());
                 let nnode = Node {
-                    content: vec![token],
+                    content: vec![token.clone()],
                     children: vec![]
                 };
                 current.children.push(nnode);
@@ -222,7 +223,34 @@ fn main () -> Result<(), Error> {
             // Whitespace between tokens/forms or at the beginning of a line (i.e., indentation
             // used to denote sub-forms)
             CharType::Whitespace => {
+                if ptoken.is_some() && ptoken.unwrap().chartype == CharType::Newline {
+                    if token.content.len() > indentlevel {
+                        let mut nnode = Node {
+                            content: vec![],
+                            children: vec![],
+                        };
 
+                        let mut current = root.get(stack.clone());
+                        stack.push(current.children.len());
+                        current.children.push(nnode);
+                    } else if token.content.len() == indentlevel {
+                        let mut current = root.get(stack.clone());
+                        let nnode = Node {
+                            content: vec![token.clone()],
+                            children: vec![]
+                        };
+                        current.children.push(nnode);
+                    } else {
+                        assert!(token.content.len() < indentlevel);
+                        // let current = root.get();
+                        // stack.truncate
+                        for i in 0..(indentlevel - token.content.len()) {
+                            stack.pop();
+                        }
+                    }
+
+                    indentlevel = token.content.len();
+                }
             }
 
             CharType::Newline => {
@@ -237,6 +265,8 @@ fn main () -> Result<(), Error> {
 
             }
         }
+
+        ptoken = Some(token.clone());
     }
 
     //Ok(())
