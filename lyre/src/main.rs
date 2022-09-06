@@ -43,8 +43,13 @@ enum CharType {
     None
 }
 
+/// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
+/// tokens or other nodes, but not both
 struct Node {
+    /// The symbol corresponding to this node, if it is a leaf node
     content: Vec<Token>,
+
+    /// Sub-nodes forming the tree rooted at this node
     // children: Vec<&'a Node<'a>>,
     children: Vec<Node>,
 }
