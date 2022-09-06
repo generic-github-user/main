@@ -169,6 +169,13 @@ struct Value {
     value: ValueType
 }
 
+
+impl fmt::Display for Value {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self.value)
+    }
+}
+
 /// Used to represent primitive data types like ints and floats with direct equivalents in Rust's
 /// data model; literals from the AST can be parsed directly into variants of this enum. Compound
 /// types (lists, arrays, tuples, dictionaries, etc.) are implemented in lyre itself.
