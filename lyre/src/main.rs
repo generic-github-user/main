@@ -89,6 +89,13 @@ impl<'a> Node<'a> {
 
             // return val;
         }
+        else if self.content[0].content == "prog" {
+            let mut result = None;
+            for node in self.children {
+                result = node.evaluate();
+            }
+            return result;
+        }
         return None;
     }
 }
