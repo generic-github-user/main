@@ -15,3 +15,12 @@ impl fmt::Display for Token {
         write!(f, "{}", self.content)
     }
 }
+
+impl Token {
+    fn new(value: &str) -> Token {
+        return Token {
+            content: String::from(value),
+            chartype: CharType::Unknown
+        };
+    }
+}
