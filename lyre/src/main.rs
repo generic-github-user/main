@@ -47,6 +47,16 @@ struct Node {
     // parent: Option<&'a Node<'a>>
 }
 
+impl<'a> Node {
+    fn get(&'a mut self, path: Vec<usize>) -> &'a mut Node {
+        let mut result = self;
+        for i in path {
+            result = &mut result.children[i];
+        }
+        return result;
+    }
+}
+
 impl<'a> fmt::Display for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}",
@@ -137,9 +147,12 @@ fn main () -> Result<(), Error> {
                     // parent: Some(current)
                 };
                 // current.children.push(&mut nnode);
+                // current.children.push(nnode);
+                // current = &mut nnode;
+
+                let mut current = root.get(stack.clone());
                 stack.push(current.children.len());
                 current.children.push(nnode);
-                current = &mut nnode;
             }
 
             CharType::RightSB => {
