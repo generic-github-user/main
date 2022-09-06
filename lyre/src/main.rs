@@ -46,6 +46,7 @@ enum CharType {
 
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
+#[derive(Debug, Clone)]
 struct Node {
     /// The symbol corresponding to this node, if it is a leaf node
     content: Vec<Token>,
@@ -93,7 +94,7 @@ impl<'a> fmt::Display for Node {
     }
 }
 
-impl<'a> Node<'a> {
+impl Node {
     /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
     /// delegated to Rust's standard library are handled here, as well as special operators like
     /// the `def` keyword. The plan is to gradually move an increasingly large subset of this
@@ -107,11 +108,11 @@ impl<'a> Node<'a> {
             let def = Token::new("def");
             // let val = Error::new();
 
-            match self.children[..] {
+            match &self.children[..] {
                 [def, name, value] => {
                     let val = Value {
                         vtype: String::from("auto"),
-                        value: &value
+                        value: ValueType::Form(value.clone())
                     };
                     symbols.insert(name.to_string(), &val);
                     return Some(val);
@@ -120,7 +121,7 @@ impl<'a> Node<'a> {
                 [def, vtype, name, value] => {
                     let val = Value {
                         vtype: vtype.to_string(),
-                        value: &value
+                        value: ValueType::Form(value.clone())
                     };
                     symbols.insert(name.to_string(), &val);
                     return Some(val);
@@ -136,7 +137,7 @@ impl<'a> Node<'a> {
         // information) -- evaluates each sub-form, returning the value of the last one
         else if !self.content.is_empty() && self.content[0].content == "prog" {
             let mut result = None;
-            for node in self.children {
+            for node in self.children.iter() {
                 result = node.evaluate();
             }
             return result;
@@ -179,7 +180,7 @@ impl fmt::Display for Value {
 /// Used to represent primitive data types like ints and floats with direct equivalents in Rust's
 /// data model; literals from the AST can be parsed directly into variants of this enum. Compound
 /// types (lists, arrays, tuples, dictionaries, etc.) are implemented in lyre itself.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 enum ValueType {
     // Signed integer types
     i8(i8),
