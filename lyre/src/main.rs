@@ -10,6 +10,7 @@ struct Token {
     chartype: CharType
 }
 
+/// Allows printing of Tokens and conversion from Tokens to Strings
 impl fmt::Display for Token {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.content)
@@ -17,6 +18,7 @@ impl fmt::Display for Token {
 }
 
 impl Token {
+    /// Convenience constructor for Token instances
     fn new(value: &str) -> Token {
         return Token {
             content: String::from(value),
@@ -25,6 +27,8 @@ impl Token {
     }
 }
 
+/// Represents a category of token processed by the lexer; used in the very first stage of the
+/// parsing pipeline, which happens in parallel with token aggregation
 #[derive(PartialEq)]
 enum CharType {
     Whitespace,
