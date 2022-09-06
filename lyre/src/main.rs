@@ -186,12 +186,12 @@ fn main () -> Result<(), Error> {
         match token.chartype {
             // A left bracket ([) opens a new form ...
             CharType::LeftSB => {
-                let mut nnode = Node {
+                let nnode = Node {
                     content: vec![],
                     children: vec![],
                 };
 
-                let mut current = root.get(stack.clone());
+                let current = root.get(stack.clone());
                 // stack.push(current.children.len());
                 stack.push(current.children.len());
                 current.children.push(nnode);
@@ -204,7 +204,7 @@ fn main () -> Result<(), Error> {
 
             // An identifier or expression within a form
             CharType::Alphanumeric | CharType::Symbol | CharType::String => {
-                let mut current = root.get(stack.clone());
+                let current = root.get(stack.clone());
                 let nnode = Node {
                     content: vec![token.clone()],
                     children: vec![]
@@ -225,16 +225,16 @@ fn main () -> Result<(), Error> {
             CharType::Whitespace => {
                 if ptoken.is_some() && ptoken.unwrap().chartype == CharType::Newline {
                     if token.content.len() > indentlevel {
-                        let mut nnode = Node {
+                        let nnode = Node {
                             content: vec![],
                             children: vec![],
                         };
 
-                        let mut current = root.get(stack.clone());
+                        let current = root.get(stack.clone());
                         stack.push(current.children.len());
                         current.children.push(nnode);
                     } else if token.content.len() == indentlevel {
-                        let mut current = root.get(stack.clone());
+                        let current = root.get(stack.clone());
                         let nnode = Node {
                             content: vec![token.clone()],
                             children: vec![]
