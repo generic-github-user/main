@@ -73,7 +73,9 @@ impl<'a> Node {
 
     fn print(&self, level: u8) -> () {
         print!("{}", "  ".repeat(level as usize));
-        print!("{}\n", self);
+        let ntype = if !self.content.is_empty() { self.content[0].chartype.clone() }
+                    else { CharType::None };
+        print!("<{:?}> {}\n", ntype, self);
         for c in self.children.iter() {
             c.print(level+1);
         }
