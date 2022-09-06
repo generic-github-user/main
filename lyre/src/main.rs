@@ -104,5 +104,71 @@ fn main () -> Result<(), Error> {
     }
     println!("Parsed {} tokens", tokens.len());
     // println!("{}", tokens);
+    
+    // let mut stack = Vec::<&mut Node>::new();
+    // let current: Option<&Node> = None;
+    let mut current = &mut root;
+    // stack.push(&mut root);
+    for token in tokens {
+        // if token.chartype == CharType::LeftSB {
+        match token.chartype {
+            CharType::LeftSB => {
+                /*let mut nnode = Box::new(
+                    Node {
+                        content: vec![],
+                        children: vec![]
+                    }
+                );*/
+                /*let mut nnode = box Node {
+                    content: vec![],
+                    children: vec![]
+                };*/
+
+                //stack.last().as_mut().unwrap().children.push(nnode);
+                //current.unwrap().children.push(nnode);
+                //stack.last_mut().unwrap().children.push(&nnode);
+                //stack.push(stack.last().unwrap()
+                            //.children.last_mut().unwrap());
+
+                let mut nnode = Node {
+                    content: vec![],
+                    children: vec![],
+                    parent: Some(current)
+                };
+                // current.children.push(&mut nnode);
+                current.children.push(nnode);
+            }
+
+            CharType::RightSB => {
+                //stack.pop();
+            }
+
+            CharType::Alphanumeric | CharType::Symbol => {
+
+            }
+
+            CharType::Whitespace => {
+
+            }
+
+            CharType::Newline => {
+
+            }
+
+            CharType::String => {
+
+            }
+
+            CharType::None => {
+
+            }
+
+            CharType::Quote | CharType::Unknown => todo!()
+        }
+    }
+
+    //Ok(())
+    //return Ok(root.evaluate().unwrap());
+    root.evaluate();
     Ok(())
 }
