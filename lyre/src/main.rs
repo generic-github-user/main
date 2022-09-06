@@ -56,3 +56,13 @@ impl<'a> fmt::Display for Node<'a> {
             .join(""))
     }
 }
+
+// fn main () -> Result<Value, Error> {
+// fn main () -> Option<Value> {
+fn main () -> Result<(), Error> {
+//fn main () -> Option<Value> {
+    let path = "sample";
+    let input = File::open(path)?;
+    let buffered = BufReader::new(input);
+    Ok(())
+}
