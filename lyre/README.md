@@ -40,3 +40,29 @@ choice would look something like the following:
 ```
 print "Hello, world!"
 ```
+
+### Operators
+
+Common arithmetic operators are available using the prefix notation described
+above:
+
+```
+[print [+ 5 7]]
+[print [- 23 4]]
+[print [* 3 16]]
+[print [/ 9 3]]
+[print [** 4 4]]
+[print [% 18 5]]
+```
+
+Since each of these forms occurs on the top level of our program, we can omit
+the square brackets around each line:
+
+```
+print [+ 5 7]
+print [- 23 4]
+print [* 3 16]
+print [/ 9 3]
+print [** 4 4]
+print [% 18 5]
+```
