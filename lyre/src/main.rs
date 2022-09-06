@@ -103,7 +103,7 @@ impl<'a> Node<'a> {
     // fn evaluate(&self) -> Result<Value, Error> {
     fn evaluate(&self) -> Option<Value> {
         let mut symbols: HashMap<String, &Value> = HashMap::new();
-        if self.content[0].content == "def" {
+        if !self.content.is_empty() && self.content[0].content == "def" {
             let def = Token::new("def");
             // let val = Error::new();
 
@@ -134,7 +134,7 @@ impl<'a> Node<'a> {
         // roughly equivalent to the progn special form in Common Lisp (see
         // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
         // information) -- evaluates each sub-form, returning the value of the last one
-        else if self.content[0].content == "prog" {
+        else if !self.content.is_empty() && self.content[0].content == "prog" {
             let mut result = None;
             for node in self.children {
                 result = node.evaluate();
@@ -143,7 +143,7 @@ impl<'a> Node<'a> {
         }
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
-        else {
+        else if !self.content.is_empty() {
             let rest = &self.children[1..];
             match self.content[0].content.as_str() {
                 "print" => {
