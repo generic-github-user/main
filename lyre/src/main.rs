@@ -57,6 +57,41 @@ impl<'a> fmt::Display for Node<'a> {
     }
 }
 
+impl<'a> Node<'a> {
+    // fn evaluate(&self) -> Result<Value, Error> {
+    fn evaluate(&self) -> Option<Value> {
+        let mut symbols: HashMap<String, &Value> = HashMap::new();
+        if self.content[0].content == "def" {
+            let def = Token::new("def");
+            // let val = Error::new();
+
+            match self.children[..] {
+                [def, name, value] => {
+                    let val = Value {
+                        vtype: String::from("auto"),
+                        value: &value
+                    };
+                    symbols.insert(name.to_string(), &val);
+                    return Some(val);
+                }
+
+                [def, vtype, name, value] => {
+                    let val = Value {
+                        vtype: vtype.to_string(),
+                        value: &value
+                    };
+                    symbols.insert(name.to_string(), &val);
+                    return Some(val);
+                }
+
+                _ => todo!()
+            }
+
+            // return val;
+        }
+        return None;
+    }
+}
 
 struct Value<'a> {
     vtype: String,
