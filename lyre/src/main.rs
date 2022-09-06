@@ -9,3 +9,9 @@ struct Token {
     content: String,
     chartype: CharType
 }
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.content)
+    }
+}
