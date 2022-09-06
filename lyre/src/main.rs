@@ -24,3 +24,17 @@ impl Token {
         };
     }
 }
+
+#[derive(PartialEq)]
+enum CharType {
+    Whitespace,
+    Alphanumeric,
+    Symbol,
+    Newline,
+    LeftSB,
+    RightSB,
+    Quote,
+    String,
+    Unknown,
+    None
+}
