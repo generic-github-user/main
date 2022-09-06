@@ -93,6 +93,76 @@ impl<'a> fmt::Display for Node {
     }
 }
 
+impl<'a> Node<'a> {
+    /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
+    /// delegated to Rust's standard library are handled here, as well as special operators like
+    /// the `def` keyword. The plan is to gradually move an increasingly large subset of this
+    /// "internal" functionality to lyre-based code; if a full compiler is ever created,
+    /// bootstrapping the entire language featureset is also a possibility.
+
+    // fn evaluate(&self) -> Result<Value, Error> {
+    fn evaluate(&self) -> Option<Value> {
+        let mut symbols: HashMap<String, &Value> = HashMap::new();
+        if self.content[0].content == "def" {
+            let def = Token::new("def");
+            // let val = Error::new();
+
+            match self.children[..] {
+                [def, name, value] => {
+                    let val = Value {
+                        vtype: String::from("auto"),
+                        value: &value
+                    };
+                    symbols.insert(name.to_string(), &val);
+                    return Some(val);
+                }
+
+                [def, vtype, name, value] => {
+                    let val = Value {
+                        vtype: vtype.to_string(),
+                        value: &value
+                    };
+                    symbols.insert(name.to_string(), &val);
+                    return Some(val);
+                }
+
+                _ => todo!()
+            }
+
+            // return val;
+        }
+        // roughly equivalent to the progn special form in Common Lisp (see
+        // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
+        // information) -- evaluates each sub-form, returning the value of the last one
+        else if self.content[0].content == "prog" {
+            let mut result = None;
+            for node in self.children {
+                result = node.evaluate();
+            }
+            return result;
+        }
+        // if the first symbol isn't a keyword, interpret it as a function name that should be
+        // called with the subsequent symbols and forms as arguments
+        else {
+            let rest = &self.children[1..];
+            match self.content[0].content.as_str() {
+                "print" => {
+                    let value = rest[0].evaluate().unwrap();
+                    print!("{}", value);
+                    return Some(value);
+                },
+            }
+        }
+
+        return None;
+    }
+}
+
+struct Value<'a> {
+    vtype: String,
+    value: &'a Node<'a>
+}
+
 fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
     // This section has a simple lexer that splits lyre source code into tokens, groups of
     // consecutive characters with similar syntactic purposes
