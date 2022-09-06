@@ -40,11 +40,9 @@ enum CharType {
 }
 
 struct Node {
-    // content: Option<Token>,
     content: Vec<Token>,
     // children: Vec<&'a Node<'a>>,
     children: Vec<Node>,
-    // parent: Option<&'a Node<'a>>
 }
 
 impl<'a> Node {
@@ -67,10 +65,7 @@ impl<'a> fmt::Display for Node {
     }
 }
 
-// fn main () -> Result<Value, Error> {
-// fn main () -> Option<Value> {
 fn main () -> Result<(), Error> {
-//fn main () -> Option<Value> {
     let path = "sample";
     let input = File::open(path)?;
     let buffered = BufReader::new(input);
@@ -78,7 +73,6 @@ fn main () -> Result<(), Error> {
     let mut root = Node {
         content: vec![],
         children: vec![],
-        // parent: None
     };
     let mut tokens = Vec::<Token>::new();
     for line in buffered.lines() {
@@ -115,40 +109,15 @@ fn main () -> Result<(), Error> {
     println!("Parsed {} tokens", tokens.len());
     // println!("{}", tokens);
     
-    // let mut stack = Vec::<&mut Node>::new();
-    // let current: Option<&Node> = None;
-    // stack.push(&mut root);
-    // let mut current = &mut root;
     let mut stack = Vec::<usize>::new();
     for token in tokens {
         // if token.chartype == CharType::LeftSB {
         match token.chartype {
             CharType::LeftSB => {
-                /*let mut nnode = Box::new(
-                    Node {
-                        content: vec![],
-                        children: vec![]
-                    }
-                );*/
-                /*let mut nnode = box Node {
-                    content: vec![],
-                    children: vec![]
-                };*/
-
-                //stack.last().as_mut().unwrap().children.push(nnode);
-                //current.unwrap().children.push(nnode);
-                //stack.last_mut().unwrap().children.push(&nnode);
-                //stack.push(stack.last().unwrap()
-                            //.children.last_mut().unwrap());
-
                 let mut nnode = Node {
                     content: vec![],
                     children: vec![],
-                    // parent: Some(current)
                 };
-                // current.children.push(&mut nnode);
-                // current.children.push(nnode);
-                // current = &mut nnode;
 
                 let mut current = root.get(stack.clone());
                 stack.push(current.children.len());
