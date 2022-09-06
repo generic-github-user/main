@@ -131,20 +131,30 @@ struct Value<'a> {
     vtype: String,
     value: &'a Node<'a>
 
+/// Used to represent primitive data types like ints and floats with direct equivalents in Rust's
+/// data model; literals from the AST can be parsed directly into variants of this enum. Compound
+/// types (lists, arrays, tuples, dictionaries, etc.) are implemented in lyre itself.
 #[derive(Debug)]
 enum ValueType {
+    // Signed integer types
     i8(i8),
     i16(i16),
     i32(i32),
     i64(i64),
     i128(i128),
+
+    // Unsigned integer types
     u8(u8),
     u16(u16),
     u32(u32),
     u64(u64),
     u128(u128),
+
+    // Floating-point number types
     f32(f32),
     f64(f64),
+
+    // Other basic types
     bool(bool),
     char(char)
 }
