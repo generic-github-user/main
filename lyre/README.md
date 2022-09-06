@@ -66,3 +66,15 @@ print [/ 9 3]
 print [** 4 4]
 print [% 18 5]
 ```
+
+These operators are not particularly unique; they provide convenient aliases to
+several built-in functions:
+
+```
+print [add 5 7]
+print [sub 23 4]
+print [mul 3 16]
+print [div 9 3]
+print [pow 4 4]
+print [mod 18 5]
+```
