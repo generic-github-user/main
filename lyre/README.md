@@ -21,3 +21,22 @@ lyre programs consist exclusively of nested list-like expressions (often
 referred to as "forms" in this guide), forming a tree structure. Syntactically,
 these are space-separated expressions (either literals like numbers and
 strings, or other forms) grouped with square brackets and indentation.
+
+Generally, the first item in a form dictates what happens to the rest of its
+contents; often, it will be the name of a function that is called with the
+other item and sub-expressions as arguments. This applies to operators like
+`+`, functions like `print` (and macros), and keywords like `def`. Here's an
+example "Hello world" program:
+
+```
+echo Hello, world!
+```
+
+`echo` is a special function in lyre that does not evaluate its arguments, but
+instead captures (quotes) them as syntactic forms, which are then converted to
+strings. This is concise and helpful for experimentation, but a more robust
+choice would look something like the following:
+
+```
+print "Hello, world!"
+```
