@@ -57,6 +57,12 @@ impl<'a> fmt::Display for Node<'a> {
     }
 }
 
+
+struct Value<'a> {
+    vtype: String,
+    value: &'a Node<'a>
+}
+
 // fn main () -> Result<Value, Error> {
 // fn main () -> Option<Value> {
 fn main () -> Result<(), Error> {
