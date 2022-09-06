@@ -78,3 +78,31 @@ print [div 9 3]
 print [pow 4 4]
 print [mod 18 5]
 ```
+
+### Strings
+
+String literals can be constructed in the standard way, and can extend across
+lines:
+
+```
+reverse "I will do't:"
+
+dedent "And, for the purpose,
+				I'll anoint my sword."
+
+split "I bought an unction of a mountebank,"
+
+slice "So mortal, that but dip a knife in it,"
+
+join " " "Where it draws blood" "no cataplasm so rare,"
+
+print "Collected from all simples that have virtue"
+
+title-case "Under the moon, can save the thing from death"
+
+format "{}: {}" "That is but scratch'd withal" "I'll touch my point"
+
+"With this contagion, that, if I gall him slightly,"
+
+strip "       It may be death.      "
+```
