@@ -105,6 +105,19 @@ impl<'a> Node<'a> {
             }
             return result;
         }
+        // if the first symbol isn't a keyword, interpret it as a function name that should be
+        // called with the subsequent symbols and forms as arguments
+        else {
+            let rest = &self.children[1..];
+            match self.content[0].content.as_str() {
+                "print" => {
+                    let value = rest[0].evaluate().unwrap();
+                    print!("{}", value);
+                    return Some(value);
+                },
+            }
+        }
+
         return None;
     }
 }
