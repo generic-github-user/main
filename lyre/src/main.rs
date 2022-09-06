@@ -129,7 +129,13 @@ fn main () -> Result<(), Error> {
             }
 
             CharType::Alphanumeric | CharType::Symbol => {
-
+                let mut current = root.get(stack.clone());
+                let nnode = Node {
+                    content: vec![token],
+                    children: vec![]
+                };
+                current.children.push(nnode);
+                *stack.last_mut().unwrap() += 1;
             }
 
             CharType::Whitespace => {
