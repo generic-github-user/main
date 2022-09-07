@@ -74,10 +74,13 @@ impl<'a> Node {
 
     fn print(&self, level: u8) -> () {
         print!("{}", "  ".repeat(level as usize));
-        let ntype = if !self.children.is_empty() {
-                        self.children[0].clone().content.unwrap().chartype.clone()
+        let ntype = if self.content.is_some() {
+                        // self.children[0].clone().content.unwrap().chartype.clone()
+                        self.content.clone().unwrap().chartype
                     }
-                    else { CharType::None };
+                    else {
+                        CharType::None
+                    };
         print!("<{:?}> {}\n", ntype, self);
         for c in self.children.iter() {
             c.print(level+1);
@@ -107,7 +110,7 @@ impl Node {
     fn evaluate(&self) -> Option<Value> {
         let mut symbols: HashMap<String, &Value> = HashMap::new();
         if !self.children.is_empty() &&
-            self.children[0].clone().content.unwrap().to_string() == "def" {
+            self.children[0].clone().content == Some(Token::new("def")) {
 
             let def = Token::new("def");
             // let val = Error::new();
@@ -140,7 +143,7 @@ impl Node {
         // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
         // information) -- evaluates each sub-form, returning the value of the last one
         else if !self.children.is_empty() &&
-            self.children[0].clone().content.unwrap().to_string() == "prog" {
+            self.children[0].clone().content == Some(Token::new("prog")) {
 
             let mut result = None;
             for node in self.children.iter() {
@@ -150,7 +153,7 @@ impl Node {
         }
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
-        else if !self.children.is_empty() {
+        else if !self.children.is_empty() && self.children[0].content.is_some() {
             let rest = &self.children[1..];
             match self.children[0].clone().content.unwrap().to_string().as_str() {
                 "print" => {
