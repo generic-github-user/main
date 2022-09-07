@@ -112,6 +112,7 @@ impl Node {
         self.print(1);
 
         let mut symbols: HashMap<String, &Value> = HashMap::new();
+
         // Matches a literal node, generally a single token that represents a value; the
         // interpreter can use these nodes directly for computations, which is generally done with
         // primitive types that correspond directly to simple data types in Rust (strings,
@@ -129,6 +130,7 @@ impl Node {
                     self.content.clone().unwrap().content)
             });
         }
+
         else if !self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("def")) {
             println!("{}", "Evaluating function, class, or type definition (def keyword)");
@@ -162,6 +164,7 @@ impl Node {
 
             // return val;
         }
+
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
         else if !self.children.is_empty() && self.children[0].content.is_some() {
@@ -176,15 +179,18 @@ impl Node {
                     print!("{}", value);
                     return Some(value);
                 },
+
                 "println" => {
                     println!("{}", "Executing internal call (implementation-level)");
                     let value = rest[0].evaluate().unwrap();
                     println!("{}", value);
                     return Some(value);
                 },
+
                 _ => todo!()
             }
         }
+
         // roughly equivalent to the progn special form in Common Lisp (see
         // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
         // information) -- evaluates each sub-form, returning the value of the last one
@@ -200,6 +206,7 @@ impl Node {
             }
             return result;
         }
+
         else {
             panic!("Could not evaluate node (no pattern matched)");
         }
