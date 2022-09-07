@@ -112,7 +112,16 @@ impl Node {
         self.print(1);
 
         let mut symbols: HashMap<String, &Value> = HashMap::new();
-        if !self.children.is_empty() &&
+        if self.content.is_some() &&
+            self.content.clone().unwrap().chartype == CharType::String {
+            assert!(self.children.is_empty());
+            return Some(Value {
+                vtype: String::from("string"),
+                value: ValueType::string(
+                    self.content.clone().unwrap().content)
+            });
+        }
+        else if !self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("def")) {
 
             let def = Token::new("def");
@@ -230,6 +239,7 @@ enum ValueType {
     // Other basic types
     bool(bool),
     char(char),
+    string(String),
 
     Form(Node)
 }
