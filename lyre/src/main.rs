@@ -49,7 +49,7 @@ enum CharType {
 #[derive(Debug, Clone)]
 struct Node {
     /// The symbol corresponding to this node, if it is a leaf node
-    content: Vec<Token>,
+    content: Option<Token>,
 
     /// Sub-nodes forming the tree rooted at this node
     // children: Vec<&'a Node<'a>>,
@@ -74,7 +74,9 @@ impl<'a> Node {
 
     fn print(&self, level: u8) -> () {
         print!("{}", "  ".repeat(level as usize));
-        let ntype = if !self.content.is_empty() { self.content[0].chartype.clone() }
+        let ntype = if !self.children.is_empty() {
+                        self.children[0].clone().content.unwrap().chartype.clone()
+                    }
                     else { CharType::None };
         print!("<{:?}> {}\n", ntype, self);
         for c in self.children.iter() {
@@ -104,7 +106,9 @@ impl Node {
     // fn evaluate(&self) -> Result<Value, Error> {
     fn evaluate(&self) -> Option<Value> {
         let mut symbols: HashMap<String, &Value> = HashMap::new();
-        if !self.content.is_empty() && self.content[0].content == "def" {
+        if !self.children.is_empty() &&
+            self.children[0].clone().content.unwrap().to_string() == "def" {
+
             let def = Token::new("def");
             // let val = Error::new();
 
@@ -135,7 +139,9 @@ impl Node {
         // roughly equivalent to the progn special form in Common Lisp (see
         // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
         // information) -- evaluates each sub-form, returning the value of the last one
-        else if !self.content.is_empty() && self.content[0].content == "prog" {
+        else if !self.children.is_empty() &&
+            self.children[0].clone().content.unwrap().to_string() == "prog" {
+
             let mut result = None;
             for node in self.children.iter() {
                 result = node.evaluate();
@@ -144,9 +150,9 @@ impl Node {
         }
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
-        else if !self.content.is_empty() {
+        else if !self.children.is_empty() {
             let rest = &self.children[1..];
-            match self.content[0].content.as_str() {
+            match self.children[0].clone().content.unwrap().to_string().as_str() {
                 "print" => {
                     let value = rest[0].evaluate().unwrap();
                     print!("{}", value);
@@ -157,6 +163,7 @@ impl Node {
                     println!("{}", value);
                     return Some(value);
                 },
+                _ => todo!()
             }
         }
 
@@ -285,7 +292,7 @@ fn main () -> Result<(), Error> {
     let buffered = BufReader::new(input);
 
     let mut root = Node {
-        content: vec![],
+        content: None,
         children: vec![],
     };
     let tokens = lex(buffered).unwrap();
@@ -303,7 +310,7 @@ fn main () -> Result<(), Error> {
             // A left bracket ([) opens a new form ...
             CharType::LeftSB => {
                 let nnode = Node {
-                    content: vec![],
+                    content: None,
                     children: vec![],
                 };
 
@@ -322,7 +329,7 @@ fn main () -> Result<(), Error> {
             CharType::Alphanumeric | CharType::Symbol | CharType::String => {
                 let current = root.get(stack.clone());
                 let nnode = Node {
-                    content: vec![token.clone()],
+                    content: Some(token.clone()),
                     children: vec![]
                 };
                 current.children.push(nnode);
@@ -342,7 +349,7 @@ fn main () -> Result<(), Error> {
                 if ptoken.is_some() && ptoken.unwrap().chartype == CharType::Newline {
                     if token.content.len() > indentlevel {
                         let nnode = Node {
-                            content: vec![],
+                            content: None,
                             children: vec![],
                         };
 
@@ -352,7 +359,7 @@ fn main () -> Result<(), Error> {
                     } else if token.content.len() == indentlevel {
                         let current = root.get(stack.clone());
                         let nnode = Node {
-                            content: vec![token.clone()],
+                            content: Some(token.clone()),
                             children: vec![]
                         };
                         current.children.push(nnode);
