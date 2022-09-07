@@ -142,25 +142,10 @@ impl Node {
 
             // return val;
         }
-        // roughly equivalent to the progn special form in Common Lisp (see
-        // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
-        // information) -- evaluates each sub-form, returning the value of the last one
-        else if (!self.children.is_empty() &&
-            self.children[0].clone().content == Some(Token::new("prog")))
-            || (self.content.is_none() && !self.children.is_empty()) {
-
-            println!("{}", "Evaluating as prog form or statement list");
-
-            let mut result = None;
-            for node in self.children.iter() {
-                result = node.evaluate();
-            }
-            return result;
-        }
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
-        // else if !self.children.is_empty() && self.children[0].content.is_some() {
-        else if !self.children.is_empty() {
+        else if !self.children.is_empty() && self.children[0].content.is_some() {
+        // else if !self.children.is_empty() {
             println!("{}", "Found generic form, interpreting as function");
 
             let rest = &self.children[1..];
@@ -177,6 +162,21 @@ impl Node {
                 },
                 _ => todo!()
             }
+        }
+        // roughly equivalent to the progn special form in Common Lisp (see
+        // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
+        // information) -- evaluates each sub-form, returning the value of the last one
+        else if (!self.children.is_empty() &&
+            self.children[0].clone().content == Some(Token::new("prog")))
+            || (self.content.is_none() && !self.children.is_empty()) {
+
+            println!("{}", "Evaluating as prog form or statement list");
+
+            let mut result = None;
+            for node in self.children.iter() {
+                result = node.evaluate();
+            }
+            return result;
         }
         else {
             println!("{}", "Could not evaluate node (no pattern matched)");
