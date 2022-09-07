@@ -99,6 +99,7 @@ impl<'a> fmt::Display for Node {
     }
 }
 
+/// Provides the implementation(s) for methods on the `Node` type, most notably `Node.evaluate`
 impl Node {
     /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
     /// delegated to Rust's standard library are handled here, as well as special operators like
@@ -131,6 +132,8 @@ impl Node {
             });
         }
 
+        // handles the `def` keyword, which sets its first argument (i.e., in the current
+        // namespace) to a form consisting of all subsequent arguments
         else if !self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("def")) {
             println!("{}", "Evaluating function, class, or type definition (def keyword)");
@@ -193,7 +196,9 @@ impl Node {
 
         // roughly equivalent to the progn special form in Common Lisp (see
         // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
-        // information) -- evaluates each sub-form, returning the value of the last one
+        // information) -- evaluates each sub-form, returning the value of the last one (somewhat
+        // similarly to Rust's block return value semantics, though they are not directly
+        // applicable here because of the additional layer of abstraction)
         else if (!self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("prog")))
             || (self.content.is_none() && !self.children.is_empty()) {
@@ -207,6 +212,7 @@ impl Node {
             return result;
         }
 
+        // any other types of expressions should cause a panic
         else {
             panic!("Could not evaluate node (no pattern matched)");
         }
