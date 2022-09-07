@@ -115,6 +115,7 @@ impl Node {
         if self.content.is_some() &&
             self.content.clone().unwrap().chartype == CharType::String {
             assert!(self.children.is_empty());
+            println!("{}", "Evaluating node that represents a value: string literal");
             return Some(Value {
                 vtype: String::from("string"),
                 value: ValueType::string(
@@ -123,12 +124,14 @@ impl Node {
         }
         else if !self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("def")) {
+            println!("{}", "Evaluating function, class, or type definition (def keyword)");
 
             let def = Token::new("def");
             // let val = Error::new();
 
             match &self.children[..] {
                 [def, name, value] => {
+                    println!("{}", "Matched untyped definition, will attempt to infer type");
                     let val = Value {
                         vtype: String::from("auto"),
                         value: ValueType::Form(value.clone())
@@ -138,6 +141,7 @@ impl Node {
                 }
 
                 [def, vtype, name, value] => {
+                    println!("{}", "Matched typed definition");
                     let val = Value {
                         vtype: vtype.to_string(),
                         value: ValueType::Form(value.clone())
@@ -160,11 +164,13 @@ impl Node {
             let rest = &self.children[1..];
             match self.children[0].clone().content.unwrap().to_string().as_str() {
                 "print" => {
+                    println!("{}", "Executing internal call (implementation-level)");
                     let value = rest[0].evaluate().unwrap();
                     print!("{}", value);
                     return Some(value);
                 },
                 "println" => {
+                    println!("{}", "Executing internal call (implementation-level)");
                     let value = rest[0].evaluate().unwrap();
                     println!("{}", value);
                     return Some(value);
@@ -188,7 +194,7 @@ impl Node {
             return result;
         }
         else {
-            println!("{}", "Could not evaluate node (no pattern matched)");
+            panic!("Could not evaluate node (no pattern matched)");
         }
 
         return None;
