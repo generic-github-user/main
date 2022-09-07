@@ -112,6 +112,13 @@ impl Node {
         self.print(1);
 
         let mut symbols: HashMap<String, &Value> = HashMap::new();
+        // Matches a literal node, generally a single token that represents a value; the
+        // interpreter can use these nodes directly for computations, which is generally done with
+        // primitive types that correspond directly to simple data types in Rust (strings,
+        // integers, floats, etc. -- see ValueType for the full list).
+        //
+        // This block converts string literals into `Value`s in which `vtype == "string"` and
+        // `value` is of the enum type `ValueType::string`
         if self.content.is_some() &&
             self.content.clone().unwrap().chartype == CharType::String {
             assert!(self.children.is_empty());
