@@ -195,7 +195,12 @@ struct Value {
 
 impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:?}", self.value)
+        write!(f, "{}", match self.value.clone() {
+            ValueType::char(value) => value.to_string(),
+            ValueType::bool(value) => value.to_string(),
+            ValueType::string(value) => value,
+            _ => todo!()
+        })
     }
 }
 
