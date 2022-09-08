@@ -40,6 +40,7 @@ enum CharType {
     RightSB,
     Quote,
     String,
+    Digit,
     Unknown,
     None
 }
@@ -64,6 +65,7 @@ enum NodeType {
     Token,
     Program,
     String,
+    Integer,
     Whitespace
 }
 
@@ -142,6 +144,17 @@ impl Node {
                 vtype: String::from("string"),
                 value: ValueType::string(
                     self.content.clone().unwrap().content)
+            });
+        }
+        else if self.content.is_some() &&
+            self.content.clone().unwrap().chartype == CharType::Digit {
+            assert!(self.children.is_empty());
+            if verbose { println!("{}", "Evaluating node that represents a value: integer literal"); }
+            return Some(Value {
+                vtype: String::from("int"),
+                value: ValueType::i64(
+                    self.content.clone().unwrap().content
+                    .parse().unwrap())
             });
         }
 
@@ -402,7 +415,9 @@ fn main () -> Result<(), Error> {
             }
 
             // An identifier or expression within a form
-            CharType::Alphanumeric | CharType::Symbol | CharType::String => {
+            CharType::Alphanumeric | CharType::Symbol
+                | CharType::String | CharType::Digit => {
+
                 let current = root.get(stack.clone());
                 let nnode = Node {
                     content: Some(token.clone()),
@@ -410,6 +425,7 @@ fn main () -> Result<(), Error> {
                     nodetype: match token.chartype {
                         CharType::Alphanumeric | CharType::Symbol => NodeType::Token,
                         CharType::String => NodeType::String,
+                        CharType::Digit => NodeType::Integer,
                         _ => unreachable!()
                     }
                 };
