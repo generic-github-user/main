@@ -262,6 +262,11 @@ impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         // Unwraps ValueType enums containing actual Rust values
         write!(f, "{}", match self.value.clone() {
+            ValueType::i8(value) => value.to_string(),
+            ValueType::i16(value) => value.to_string(),
+            ValueType::i32(value) => value.to_string(),
+            ValueType::i64(value) => value.to_string(),
+            ValueType::i128(value) => value.to_string(),
             ValueType::char(value) => value.to_string(),
             ValueType::bool(value) => value.to_string(),
             ValueType::string(value) => value,
