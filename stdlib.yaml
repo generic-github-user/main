@@ -1,3 +1,21 @@
+- collection:
+  - methods:
+    - map
+  - subtypes:
+    - sequence:
+      - methods:
+        - reverse
+        - reduce
+        - join
+        - split
+      - attrs:
+      - subtypes:
+        - vector
+        - array
+    - set
+    - dictionary
+    - tuple
+    - graph
 - number
   - int
   - float
