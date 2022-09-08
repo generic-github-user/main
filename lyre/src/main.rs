@@ -259,6 +259,21 @@ struct Value {
 }
 
 
+impl Add for Value {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            vtype: self.vtype,
+            value: self.value + other.value
+        }
+    }
+}
+
+
+impl Value {
+    //fn new(
+}
 /// Enables the Display and ToString traits for Value structs (used in implementations of `print`
 /// and `println`, among other implementation-level functions that necessitate conversion of
 /// primitive types to string representations)
