@@ -228,6 +228,9 @@ impl Node {
 
                 // "add" | "+" => Value::new(rest[1].evaluate().unwrap() + rest[2].evaluate().unwrap()),
                 "add" | "+" => op_match!(+, rest, verbose),
+                "sub" | "-" => op_match!(-, rest, verbose),
+                "mul" | "*" => op_match!(*, rest, verbose),
+                "div" | "/" => op_match!(/, rest, verbose),
 
                 _ => todo!(),
                 // _ => None
@@ -283,6 +286,10 @@ macro_rules! value_impl {
     }
 }
 
+value_impl!(Add, add, +);
+value_impl!(Sub, sub, -);
+value_impl!(Mul, mul, *);
+value_impl!(Div, div, /);
 
 impl Value {
     //fn new(
