@@ -40,6 +40,7 @@ enum CharType {
     RightSB,
     Quote,
     String,
+    Letter,
     Digit,
     Unknown,
     None
@@ -320,7 +321,9 @@ fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
         for c in line?.chars() {
             // Categorize characters by syntactic type (refer to the CharType enum for information
             // about specific types)
-            if c.is_alphanumeric() { ctype = CharType::Alphanumeric; }
+            // if c.is_alphanumeric() { ctype = CharType::Alphanumeric; }
+            if c.is_digit(10) { ctype = CharType::Digit; }
+            else if c.is_alphabetic() { ctype = CharType::Letter; }
             else if c == '\n' { ctype = CharType::Newline; }
             else if c.is_whitespace() { ctype = CharType::Whitespace; }
             else if c == '[' { ctype = CharType::LeftSB; }
@@ -415,7 +418,7 @@ fn main () -> Result<(), Error> {
             }
 
             // An identifier or expression within a form
-            CharType::Alphanumeric | CharType::Symbol
+            CharType::Letter | CharType::Symbol
                 | CharType::String | CharType::Digit => {
 
                 let current = root.get(stack.clone());
@@ -423,7 +426,7 @@ fn main () -> Result<(), Error> {
                     content: Some(token.clone()),
                     children: vec![],
                     nodetype: match token.chartype {
-                        CharType::Alphanumeric | CharType::Symbol => NodeType::Token,
+                        CharType::Letter | CharType::Symbol => NodeType::Token,
                         CharType::String => NodeType::String,
                         CharType::Digit => NodeType::Integer,
                         _ => unreachable!()
@@ -488,6 +491,8 @@ fn main () -> Result<(), Error> {
             CharType::Quote | CharType::Unknown => {
 
             }
+
+            CharType::Alphanumeric => unreachable!()
         }
 
         ptoken = Some(token.clone());
