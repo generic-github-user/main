@@ -108,9 +108,11 @@ impl Node {
     /// bootstrapping the entire language featureset is also a possibility.
 
     // fn evaluate(&self) -> Result<Value, Error> {
-    fn evaluate(&self) -> Option<Value> {
-        println!("{}", "Evaluating node:");
-        self.print(1);
+    fn evaluate(&self, verbose: bool) -> Option<Value> {
+        if verbose {
+            println!("{}", "Evaluating node:");
+            self.print(1);
+        }
 
         let mut symbols: HashMap<String, &Value> = HashMap::new();
 
@@ -124,7 +126,7 @@ impl Node {
         if self.content.is_some() &&
             self.content.clone().unwrap().chartype == CharType::String {
             assert!(self.children.is_empty());
-            println!("{}", "Evaluating node that represents a value: string literal");
+            if verbose { println!("{}", "Evaluating node that represents a value: string literal"); }
             return Some(Value {
                 vtype: String::from("string"),
                 value: ValueType::string(
@@ -136,14 +138,14 @@ impl Node {
         // namespace) to a form consisting of all subsequent arguments
         else if !self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("def")) {
-            println!("{}", "Evaluating function, class, or type definition (def keyword)");
+            if verbose { println!("{}", "Evaluating function, class, or type definition (def keyword)"); }
 
             let def = Token::new("def");
             // let val = Error::new();
 
             match &self.children[..] {
                 [def, name, value] => {
-                    println!("{}", "Matched untyped definition, will attempt to infer type");
+                    if verbose { println!("{}", "Matched untyped definition, will attempt to infer type"); }
                     let val = Value {
                         vtype: String::from("auto"),
                         value: ValueType::Form(value.clone())
@@ -153,7 +155,7 @@ impl Node {
                 }
 
                 [def, vtype, name, value] => {
-                    println!("{}", "Matched typed definition");
+                    if verbose { println!("{}", "Matched typed definition"); }
                     let val = Value {
                         vtype: vtype.to_string(),
                         value: ValueType::Form(value.clone())
@@ -172,20 +174,20 @@ impl Node {
         // called with the subsequent symbols and forms as arguments
         else if !self.children.is_empty() && self.children[0].content.is_some() {
         // else if !self.children.is_empty() {
-            println!("{}", "Found generic form, interpreting as function");
+            if verbose { println!("{}", "Found generic form, interpreting as function"); }
 
             let rest = &self.children[1..];
             match self.children[0].clone().content.unwrap().to_string().as_str() {
                 "print" => {
-                    println!("{}", "Executing internal call (implementation-level)");
-                    let value = rest[0].evaluate().unwrap();
+                    if verbose { println!("{}", "Executing internal call (implementation-level)"); }
+                    let value = rest[0].evaluate(verbose).unwrap();
                     print!("{}", value);
                     return Some(value);
                 },
 
                 "println" => {
-                    println!("{}", "Executing internal call (implementation-level)");
-                    let value = rest[0].evaluate().unwrap();
+                    if verbose { println!("{}", "Executing internal call (implementation-level)"); }
+                    let value = rest[0].evaluate(verbose).unwrap();
                     println!("{}", value);
                     return Some(value);
                 },
@@ -203,11 +205,11 @@ impl Node {
             self.children[0].clone().content == Some(Token::new("prog")))
             || (self.content.is_none() && !self.children.is_empty()) {
 
-            println!("{}", "Evaluating as prog form or statement list");
+            if verbose { println!("{}", "Evaluating as prog form or statement list"); }
 
             let mut result = None;
             for node in self.children.iter() {
-                result = node.evaluate();
+                result = node.evaluate(verbose);
             }
             return result;
         }
@@ -455,7 +457,7 @@ fn main () -> Result<(), Error> {
 
     //Ok(())
     //return Ok(root.evaluate().unwrap());
-    root.evaluate();
+    root.evaluate(false);
     root.print(0);
     Ok(())
 }
