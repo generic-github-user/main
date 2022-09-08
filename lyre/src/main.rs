@@ -228,8 +228,12 @@ struct Value {
 }
 
 
+/// Enables the Display and ToString traits for Value structs (used in implementations of `print`
+/// and `println`, among other implementation-level functions that necessitate conversion of
+/// primitive types to string representations)
 impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // Unwraps ValueType enums containing actual Rust values
         write!(f, "{}", match self.value.clone() {
             ValueType::char(value) => value.to_string(),
             ValueType::bool(value) => value.to_string(),
