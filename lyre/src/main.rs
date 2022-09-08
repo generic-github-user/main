@@ -292,7 +292,8 @@ fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
             else {
                 if ptype != CharType::None {
                     let ntoken = Token {
-                        content: current,
+                        content: if ptype == CharType::String { String::from(&current[1..]) }
+                                 else { current },
                         chartype: ptype
                     };
                     println!("Finished token {:?}", ntoken);
