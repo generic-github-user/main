@@ -110,6 +110,17 @@ impl<'a> fmt::Display for Node {
     }
 }
 
+macro_rules! op_match {
+    ($op:tt) => {
+        {
+            let A = rest[0].evaluate(verbose).unwrap();
+            let B = rest[1].evaluate(verbose).unwrap();
+            if verbose { println!("{} {}", A, B); }
+            return Some(A $op B);
+        }
+    }
+}
+
 /// Provides the implementation(s) for methods on the `Node` type, most notably `Node.evaluate`
 impl Node {
     /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
@@ -216,12 +227,7 @@ impl Node {
                 },
 
                 // "add" | "+" => Value::new(rest[1].evaluate().unwrap() + rest[2].evaluate().unwrap()),
-                "add" | "+" => {
-                    let A = rest[0].evaluate(verbose).unwrap();
-                    let B = rest[1].evaluate(verbose).unwrap();
-                    if verbose { println!("{} {}", A, B); }
-                    return Some(A + B);
-                }
+                "add" | "+" => op_match!(+),
 
                 _ => todo!(),
                 // _ => None
