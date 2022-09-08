@@ -52,60 +52,60 @@ further developing or reusing components from.
 
 ## Projects
 
-- alexandria  `backup` `bookmarks` `python` `organization` `tools` `software`
-- ao  `python` `bash`
-- ascii-physics-sim  `physics` `ascii` `python` `experiments` `simulations`
-- Blender  `3d-graphics` `extensions` `python` `add-ons` `blender`
-- board  `chess` `board-games` `combinatorics` `mathematics` `simulations` `c++`
-- c2s  `experimental` `transpilers` `python` `compilers` `new-language` `c` `programming-languages`
-- CA2  `art` `c` `python` `geometry` `combinatorics` `cgol` `discrete-math` `mathematics` `cellular-automata` `simulations`
-- captcha  `experiments` `hci` `security`
-- cellular-automata-experiments  `art` `python` `geometry` `combinatorics` `cgol` `discrete-math` `mathematics` `cellular-automata` `simulations`
-- chrestomathy  `reference` `multiple` `educational` `examples` `chrestomathy`
-- clover  `ai` `optimization` `ml` `mathematics` `c++`
-- CogBench  `psychometrics` `python` `interactive` `tools` `software`
-- consequi  `python` `tasks` `organization` `productivity` `tools` `software`
-- englint  `language` `tools` `software`
-- epidemic-modelling  `python` `modelling` `dynamical-systems` `mathematics` `simulations`
-- finch  `experimental` `transpilers` `c++` `python` `compilers` `new-language` `rust` `programming-languages`
-- foldz  `art` `origami` `python` `geometry` `computational-geometry` `mathematics` `simulations`
-- fractals  `graphics` `numerical-analysis` `fractals` `python` `dynamical-systems` `mathematics`
-- generic-github-user  `profile` `meta`
-- geometry  `python` `geometry` `libraries` `mathematics` `analysis`
-- grammars  `discrete-mathematics` `linguistics` `grammars` `tools` `experiments` `combinatorics` `libraries`
-- graphs  `graph-theory` `graphs` `python` `libraries` `mathematics` `data-structures`
-- hurricane  `ai` `optimization` `ml` `libraries` `mathematics`
-- img-conv  `image-processing` `convolutional-filters` `ml` `interactive` `web` `demos` `javascript`
-- keyboard-dynamics  `simulations` `optimization` `statistics` `python` `hci` `mathematics` `analysis`
-- leetcode  `python` `programming-challenges` `algorithms` `leetcode`
-- locus  `esoteroic` `experiments` `python` `programming-languages`
-- not-python  `syntax-extensions` `python` `grammars` `experiments` `programming-languages`
-- obfuscation  `tools` `python` `security` `languages`
-- packings  `geometry` `combinatorics` `c` `mathematics` `simulations`
-- programming-puzzles  `interactive` `python` `programming-puzzles`
-- project-summary  `github` `metadata` `data-aggregation` `python` `apis`
-- punchcard  `libraries` `utilities` `data-structures` `python`
-- pythings  `metaprogramming` `tools` `utilities` `python`
-- python-experiments  `utilities` `python` `metaprogramming` `tools` `experiments` `programming-languages`
-- python-snippets  `helpers` `utilities` `python` `templates` `tools` `libraries` `programming-languages`
-- quickplot  `matplotlib` `graphs` `python` `tools` `libraries` `plotting`
-- rcas  `symbolic-computation` `cas` `libraries` `mathematics` `rust`
-- roulette-curves  `art` `python` `geometry` `mathematics` `simulations`
-- sandbox  `physics` `demos` `interactive` `experiments` `web` `simulations` `javascript`
-- self-avoiding-walks  `simulations` `python` `random-walks` `combinatorics` `mathematics` `analysis`
-- set  `organization` `tools` `software-development` `version-control` `software`
-- shelf  `utilities` `command-line` `python` `organization` `tools` `notes` `software`
-- supernova  `ai` `optimization` `ml` `libraries` `mathematics`
+- alexandria  `organization` `software` `tools` `python` `backup` `bookmarks`
+- ao  `bash` `python`
+- ascii-physics-sim  `simulations` `physics` `ascii` `python` `experiments`
+- Blender  `add-ons` `3d-graphics` `python` `blender` `extensions`
+- board  `simulations` `c++` `chess` `combinatorics` `mathematics` `board-games`
+- c2s  `programming-languages` `compilers` `c` `transpilers` `python` `new-language` `experimental`
+- CA2  `simulations` `cellular-automata` `discrete-math` `cgol` `c` `art` `python` `combinatorics` `geometry` `mathematics`
+- captcha  `hci` `security` `experiments`
+- cellular-automata-experiments  `simulations` `cellular-automata` `discrete-math` `cgol` `art` `python` `combinatorics` `geometry` `mathematics`
+- chrestomathy  `examples` `reference` `chrestomathy` `educational` `multiple`
+- clover  `ai` `c++` `ml` `mathematics` `optimization`
+- CogBench  `software` `tools` `psychometrics` `python` `interactive`
+- consequi  `organization` `productivity` `software` `tools` `python` `tasks`
+- englint  `tools` `language` `software`
+- epidemic-modelling  `modelling` `simulations` `dynamical-systems` `python` `mathematics`
+- finch  `programming-languages` `compilers` `c++` `transpilers` `python` `new-language` `experimental` `rust`
+- foldz  `simulations` `origami` `art` `python` `computational-geometry` `geometry` `mathematics`
+- fractals  `graphics` `dynamical-systems` `python` `numerical-analysis` `fractals` `mathematics`
+- generic-github-user  `meta` `profile`
+- geometry  `analysis` `python` `geometry` `mathematics` `libraries`
+- grammars  `linguistics` `discrete-mathematics` `tools` `combinatorics` `grammars` `experiments` `libraries`
+- graphs  `python` `data-structures` `graphs` `mathematics` `graph-theory` `libraries`
+- hurricane  `ai` `ml` `mathematics` `libraries` `optimization`
+- img-conv  `convolutional-filters` `image-processing` `demos` `web` `ml` `javascript` `interactive`
+- keyboard-dynamics  `simulations` `statistics` `analysis` `hci` `python` `mathematics` `optimization`
+- leetcode  `leetcode` `python` `algorithms` `programming-challenges`
+- locus  `experiments` `programming-languages` `esoteroic` `python`
+- not-python  `programming-languages` `python` `syntax-extensions` `grammars` `experiments`
+- obfuscation  `security` `tools` `python` `languages`
+- packings  `simulations` `c` `combinatorics` `geometry` `mathematics`
+- programming-puzzles  `programming-puzzles` `python` `interactive`
+- project-summary  `data-aggregation` `metadata` `python` `apis` `github`
+- punchcard  `data-structures` `utilities` `libraries` `python`
+- pythings  `tools` `utilities` `python` `metaprogramming`
+- python-experiments  `metaprogramming` `programming-languages` `tools` `python` `experiments` `utilities`
+- python-snippets  `helpers` `templates` `programming-languages` `tools` `python` `utilities` `libraries`
+- quickplot  `matplotlib` `tools` `python` `graphs` `plotting` `libraries`
+- rcas  `symbolic-computation` `cas` `mathematics` `libraries` `rust`
+- roulette-curves  `simulations` `art` `python` `geometry` `mathematics`
+- sandbox  `simulations` `demos` `physics` `web` `javascript` `interactive` `experiments`
+- self-avoiding-walks  `random-walks` `simulations` `analysis` `python` `combinatorics` `mathematics`
+- set  `organization` `software` `tools` `version-control` `software-development`
+- shelf  `organization` `notes` `software` `tools` `python` `command-line` `utilities`
+- supernova  `ai` `ml` `mathematics` `libraries` `optimization`
 - tetris-variants  `tetris` `interactive` `python` `games`
-- Time-Zone-Roles  `discord-bot` `automation` `javascript`
-- transpiler  `compilers` `transpilers` `programming-languages`
-- tsunami  `ai` `optimization` `ml` `libraries` `mathematics`
-- unicode-art  `diagrams` `graphics` `tools`
-- unmacro  `automation` `python` `editors` `macros` `experiments` `hci` `vim` `text-processing`
-- utils  `scripting` `utilities` `command-line` `python` `tools` `unix`
-- visual-computing-simulation  `computing` `python` `circuits` `interactive` `simulations`
-- wordtetris  `tetris` `python` `games` `word-games`
-- zeal  `serialization` `file-formats` `python` `markup`
+- Time-Zone-Roles  `discord-bot` `javascript` `automation`
+- transpiler  `transpilers` `programming-languages` `compilers`
+- tsunami  `ai` `ml` `mathematics` `libraries` `optimization`
+- unicode-art  `diagrams` `tools` `graphics`
+- unmacro  `text-processing` `macros` `vim` `automation` `hci` `editors` `python` `experiments`
+- utils  `scripting` `unix` `tools` `python` `command-line` `utilities`
+- visual-computing-simulation  `simulations` `circuits` `python` `interactive` `computing`
+- wordtetris  `tetris` `word-games` `python` `games`
+- zeal  `markup` `file-formats` `python` `serialization`
 
 ## Branches
 
@@ -127,32 +127,32 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=0.83 s (554.4 files/s, 67020.9 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=1.12 s (499.5 files/s, 52624.0 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 Python|131|2533|3039|8522
 HTML|45|2444|71|7937
-Markdown|55|898|0|7084
+Markdown|56|927|0|7218
 JavaScript|55|928|1233|5420
+YAML|35|118|27|3860
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
-YAML|24|118|27|1460
+D|67|159|0|690
+Rust|5|129|131|536
 Bourne Shell|3|77|102|452
 CSS|15|58|28|364
 C/C++ Header|18|87|69|324
-D|25|62|0|278
-JSON|33|0|0|254
+JSON|77|0|0|298
 INI|4|52|0|248
-Rust|3|56|39|198
 make|4|41|6|103
 XML|2|4|0|52
-TOML|5|10|3|33
+TOML|7|13|4|44
 TeX|1|6|0|18
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|458|7741|10720|36903
+SUM:|560|7943|10813|40242
 
 
 ## On Monorepos
@@ -209,13 +209,51 @@ structure into my workflow:
 ├── ~
 │   └── Desktop
 │       └── imdb
+│           ├── 1237263af252fd021c39e4734af84797
+│           ├── 174a011e42944e93aa136a219436304f
+│           ├── 18077fe85f1c839a99d1f470cfe3a726
+│           ├── 202cc07b890244230d825b77266c07c8
+│           ├── 202dfd18765fafa7b46fcce9b18ae559
+│           ├── 2718efaf801ff68c38142c94001307e3
 │           ├── 30a41dd02f9dac2c54eed9f29c61b74e
+│           ├── 3a529aff045aeab11b0b99ca3642d796
 │           ├── 44da486f348e2548cb0ebba808cd3e58
+│           ├── 45b080bd90faa20f3a9ea67d386ebc21
+│           ├── 50566a57236cf8a797dbdf15f79dd0d3
+│           ├── 505d234c3e79cf057251e07a74b45d56
+│           ├── 66047c7bdfab8acc9a4ff8d44002065b
+│           ├── 666ca194ebee90bc96d74f8fc60f8b9d
+│           ├── 6c309529288c4051f8f19c7e03e49bb0
+│           ├── 6e4a72305d476a9da6123790b6d42178
 │           ├── 6fa2bdf6566e0b534f2a017a06d7291a
+│           ├── 717eefc49e508aa2ec5df2fcb7659133
+│           ├── 74dfc2777a74e36bf8e833e04474d75a
+│           ├── 7fb001e39ca7b5a7a769282fd7c00e66
+│           ├── 803a79f5a7c9614171610cc100640d09
+│           ├── 8703d45a56c8923f8aa7f6d5bd99891f
+│           ├── 8b9febb24d6ec5adfb26f43cbaca692b
+│           ├── 8e2c9683b7c56d83b9286c81d4bc617e
+│           ├── 9101ef1949cf8e4681b10894f7b29e98
+│           ├── 9541fb197195a07ee16efee2726f7369
 │           ├── 9bb6ac5f28639ea74389138eb2300336
+│           ├── 9d3fa1c45d002e25cd8c3f7176ad1f8d
 │           ├── 9ec385d88e27cdff56d918935c0b6f2a
+│           ├── a84645b084698d53a77afd2f0b151461
 │           ├── a8e209365d530542e8d76cb0eb1ed42c
+│           ├── a980f54229c29f64f26af638935b86ed
+│           ├── b5fb0aaad8bdbc780fe403463da55484
+│           ├── b7767683b53df48b65195ce89e765423
+│           ├── c876c0e99eab9b3c29c4cf3369cb89a0
+│           ├── d942621f816a8f401aab979cc03f39cb
+│           ├── db5d1328a918ae85e6a972d28216fdbe
+│           ├── dc245e189a22509e9791c81f8f87bc82
+│           ├── dc5dbed88ed657a416f3475be970cbe5
 │           ├── e3f47a00636f6ef9cbee0f95ac3bc836
+│           ├── ee4ce05b7a886235197df3ca707d67c3
+│           ├── ef9cedc83c0831779fb8aedf890dd525
+│           ├── fc6c602b9d0394fd27f8a1bdc7b1f05b
+│           ├── fccf54ea00cefd039f49f1695b64ffbb
+│           ├── fcd208a3635ee3e164df4abea5f63999
 │           └── fe8051a085a522502282316ceb2a465c
 ├── ao
 │   ├── ao.sh
@@ -432,7 +470,6 @@ structure into my workflow:
 │       ├── 8.PNG
 │       └── 9.PNG
 ├── captcha
-├── clover
 ├── db_path
 ├── decision-tree-experiments
 │   ├── game.py
@@ -441,6 +478,7 @@ structure into my workflow:
 │   ├── README.md
 │   └── tree.py
 ├── entropy.nu
+├── fs.nu
 ├── generic-github-user
 │   ├── docs
 │   │   ├── _config.yml
@@ -669,6 +707,162 @@ structure into my workflow:
 │   │   └── requirements.txt
 │   └── zeal
 │       └── README.md
+├── lyre
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── grammar.ebnf
+│   ├── lyre
+│   ├── README.md
+│   ├── sample.ly
+│   ├── src
+│   │   └── main.rs
+│   ├── stdlib.yaml
+│   └── target
+│       ├── CACHEDIR.TAG
+│       └── debug
+│           ├── build
+│           ├── deps
+│           │   ├── liblyre-b4ebc4fb2f723299.rmeta
+│           │   ├── lyre-3eca458c841b55bb
+│           │   ├── lyre-3eca458c841b55bb.d
+│           │   └── lyre-b4ebc4fb2f723299.d
+│           ├── examples
+│           ├── incremental
+│           │   ├── lyre-2hd6xjpre8m3p
+│           │   │   ├── s-gdc9zjet9g-1jj5xfz-15ksj11qyxdc1
+│           │   │   │   ├── 104ogjzvad84rh5t.o
+│           │   │   │   ├── 118gf6zlokzg9pnh.o
+│           │   │   │   ├── 12172tavr8w950is.o
+│           │   │   │   ├── 12rm1lbv1a0v7y05.o
+│           │   │   │   ├── 13tq9cyevrgzet9w.o
+│           │   │   │   ├── 14iqamve6hzww8ou.o
+│           │   │   │   ├── 18j3m2g9xqkr7bze.o
+│           │   │   │   ├── 18trg7qjz82k16ki.o
+│           │   │   │   ├── 19zuqb30u09ry0ku.o
+│           │   │   │   ├── 1al5k5769s151abc.o
+│           │   │   │   ├── 1d3f99d56otstlww.o
+│           │   │   │   ├── 1dkju2gi6ku7h1ih.o
+│           │   │   │   ├── 1g52a8i97aqctige.o
+│           │   │   │   ├── 1j7yucgsddsn9lpv.o
+│           │   │   │   ├── 1ku8ummh82gwenwu.o
+│           │   │   │   ├── 1l7rtztexwgl1ph4.o
+│           │   │   │   ├── 1lxzyk4bindgl7r.o
+│           │   │   │   ├── 1rxzptl0txc17c9h.o
+│           │   │   │   ├── 1ubinvmsn5qdk2we.o
+│           │   │   │   ├── 1uiy9inno6ikicn6.o
+│           │   │   │   ├── 1vqu414rqohkwngq.o
+│           │   │   │   ├── 1w8q50c8pz082hlk.o
+│           │   │   │   ├── 1zc05zgu1hbobrt.o
+│           │   │   │   ├── 249jr8ayt6btc6n3.o
+│           │   │   │   ├── 26dcth1w1n2zubhm.o
+│           │   │   │   ├── 27mauxfhfrphn66m.o
+│           │   │   │   ├── 2anziwvtkwzq3ho7.o
+│           │   │   │   ├── 2b0pmu8qjncv67im.o
+│           │   │   │   ├── 2bcvkjkzuviik3aj.o
+│           │   │   │   ├── 2bq2mz9xkm5uth1x.o
+│           │   │   │   ├── 2bvk0fberl93ls4y.o
+│           │   │   │   ├── 2bxhx2vuwleyurka.o
+│           │   │   │   ├── 2d7lytv9lucf0l6l.o
+│           │   │   │   ├── 2e4hobfwkxdqrqz8.o
+│           │   │   │   ├── 2h1wivio9w2ui1wt.o
+│           │   │   │   ├── 2k0z58q37d3oc5h1.o
+│           │   │   │   ├── 2k6h5gftssnwmls7.o
+│           │   │   │   ├── 2nvjdq6uizjdzkws.o
+│           │   │   │   ├── 2pdqnh8y9hza2cpf.o
+│           │   │   │   ├── 2pnscjqbv5szex57.o
+│           │   │   │   ├── 2q5neu7mlcmcwf8g.o
+│           │   │   │   ├── 2qzw0almzca53sck.o
+│           │   │   │   ├── 2xr4d4xacpls94mc.o
+│           │   │   │   ├── 31pl5uti10iv4lo3.o
+│           │   │   │   ├── 32xmkcz9cmchisq2.o
+│           │   │   │   ├── 33xde37oh53zny1x.o
+│           │   │   │   ├── 389ahfy74oghrkvh.o
+│           │   │   │   ├── 39xbs4up1dr37f9c.o
+│           │   │   │   ├── 3a8g7in01317k186.o
+│           │   │   │   ├── 3dqfxkg40ye5jze.o
+│           │   │   │   ├── 3ebeb99qhtgffxql.o
+│           │   │   │   ├── 3fcjrnuidlyk4la1.o
+│           │   │   │   ├── 3fzpbt0mkqlrvdq5.o
+│           │   │   │   ├── 3h0747plo3zt4m4u.o
+│           │   │   │   ├── 3h5yct3k7qr0hdbd.o
+│           │   │   │   ├── 3i33cuf69ygogxrh.o
+│           │   │   │   ├── 3ixbjb2re3e5dfvl.o
+│           │   │   │   ├── 3jjozj56ni37rdth.o
+│           │   │   │   ├── 3kj31s26rejb7k87.o
+│           │   │   │   ├── 3kq2490qjoxzpqy1.o
+│           │   │   │   ├── 3m2rqqakn4qje9ag.o
+│           │   │   │   ├── 3qvbvuh0d11oji6x.o
+│           │   │   │   ├── 3rmwtbwbk716bekt.o
+│           │   │   │   ├── 3spk9lnpj2mxxauy.o
+│           │   │   │   ├── 3u692nuiogw2v1mp.o
+│           │   │   │   ├── 3vdi76qpw6lsc2me.o
+│           │   │   │   ├── 3x00g4svi1zrlsp0.o
+│           │   │   │   ├── 3yyahegba7im9tg8.o
+│           │   │   │   ├── 40v4mfkrpt6ajan7.o
+│           │   │   │   ├── 41v86t2oxcb6mvk8.o
+│           │   │   │   ├── 44uxucu76dmm4rfu.o
+│           │   │   │   ├── 46dwap8hqage7hn3.o
+│           │   │   │   ├── 46zhwfx0aj640gl1.o
+│           │   │   │   ├── 47u8t6frzcjazszj.o
+│           │   │   │   ├── 4cgidmfu3wm52j4b.o
+│           │   │   │   ├── 4cpjthref170eyew.o
+│           │   │   │   ├── 4d7v8kb4yrh5e393.o
+│           │   │   │   ├── 4euevc6vs50rhzxb.o
+│           │   │   │   ├── 4f8j3cj4ir7ybqnb.o
+│           │   │   │   ├── 4g7b9uge5ymtx24u.o
+│           │   │   │   ├── 4grhujw4pz3jz9u3.o
+│           │   │   │   ├── 4heqymnjeb8tp77b.o
+│           │   │   │   ├── 4lmm2o8ny0qg10w7.o
+│           │   │   │   ├── 4ot3dalj5s4fjct1.o
+│           │   │   │   ├── 4q95p42qd3n7nbin.o
+│           │   │   │   ├── 4qduo9sgtiz6nsie.o
+│           │   │   │   ├── 4r671d9yhdsgfduu.o
+│           │   │   │   ├── 4roih0i5r1w3bgfo.o
+│           │   │   │   ├── 4ulbi84ksus4r6v6.o
+│           │   │   │   ├── 4xrgvdssief7qbyj.o
+│           │   │   │   ├── 57dlzfn0lzy6hv1o.o
+│           │   │   │   ├── 5a72f7mgxuf8jzqo.o
+│           │   │   │   ├── 5bbqke0dbx79a4i7.o
+│           │   │   │   ├── 5cm1w9ubsuszr7ac.o
+│           │   │   │   ├── 5frcjimbo3v9gw0z.o
+│           │   │   │   ├── 6hc6380gvat2596.o
+│           │   │   │   ├── 8gfguep7z0lnn1c.o
+│           │   │   │   ├── a6aec3myq9zzvzn.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── e503o453dvezl0l.o
+│           │   │   │   ├── fj0iuvyt06r99g4.o
+│           │   │   │   ├── g4r0rlw7pdwahne.o
+│           │   │   │   ├── g7ad4i77iw6v9kq.o
+│           │   │   │   ├── hjyttmakt6tautl.o
+│           │   │   │   ├── lqdfvzu22nha8nm.o
+│           │   │   │   ├── m5b3xwlh9976tc6.o
+│           │   │   │   ├── punappza53vzytd.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── qy6mn01w8lvusac.o
+│           │   │   │   ├── swa3vsrlpori0oe.o
+│           │   │   │   ├── urywupgdx3twmk2.o
+│           │   │   │   ├── voloxvwler3tc4d.o
+│           │   │   │   ├── vymdasu6kqs0yb.o
+│           │   │   │   ├── w1ifnnpxhwi8wvz.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   ├── xgk9kgayu4e96xz.o
+│           │   │   │   ├── zakuozuk7rgv4i7.o
+│           │   │   │   └── zjn696mslkvrrj6.o
+│           │   │   └── s-gdc9zjet9g-1jj5xfz.lock
+│           │   └── lyre-2hh33w5vnc846
+│           │       ├── s-gdcafnrhwa-5moy1i.lock
+│           │       ├── s-gdcafnrhwa-5moy1i-working
+│           │       │   ├── dep-graph.bin
+│           │       │   ├── dep-graph.part.bin
+│           │       │   ├── query-cache.bin
+│           │       │   └── work-products.bin
+│           │       ├── s-gdcafs2aih-4exjmf-2mehzwvns1gqd
+│           │       │   ├── dep-graph.bin
+│           │       │   ├── query-cache.bin
+│           │       │   └── work-products.bin
+│           │       └── s-gdcafs2aih-4exjmf.lock
+│           ├── lyre
+│           └── lyre.d
 ├── mathematics
 │   ├── combinatorics
 │   │   ├── board
@@ -717,6 +911,12 @@ structure into my workflow:
 │   │       ├── CACHEDIR.TAG
 │   │       └── debug
 │   │           ├── build
+│   │           │   ├── libc-11d9cce061bf0bac
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
 │   │           │   ├── libc-3ddb04d0aebfade6
 │   │           │   │   ├── invoked.timestamp
 │   │           │   │   ├── out
@@ -727,11 +927,25 @@ structure into my workflow:
 │   │           │   │   ├── build-script-build
 │   │           │   │   ├── build_script_build-5ca1b23658d038fa
 │   │           │   │   └── build_script_build-5ca1b23658d038fa.d
+│   │           │   ├── libc-b2f44b0e5253782d
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-b2f44b0e5253782d
+│   │           │   │   └── build_script_build-b2f44b0e5253782d.d
 │   │           │   ├── proc-macro2-35827982aca1bc22
 │   │           │   │   ├── build-script-build
 │   │           │   │   ├── build_script_build-35827982aca1bc22
 │   │           │   │   └── build_script_build-35827982aca1bc22.d
 │   │           │   ├── proc-macro2-9afbe74d41b230f9
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── proc-macro2-a97b453cf96b182c
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-a97b453cf96b182c
+│   │           │   │   └── build_script_build-a97b453cf96b182c.d
+│   │           │   ├── proc-macro2-f9fc69639c12aced
 │   │           │   │   ├── invoked.timestamp
 │   │           │   │   ├── out
 │   │           │   │   ├── output
@@ -743,67 +957,139 @@ structure into my workflow:
 │   │           │   │   ├── output
 │   │           │   │   ├── root-output
 │   │           │   │   └── stderr
+│   │           │   ├── syn-51584b985333cbe6
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-51584b985333cbe6
+│   │           │   │   └── build_script_build-51584b985333cbe6.d
+│   │           │   ├── syn-8015fd8df81bb1ae
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
 │   │           │   └── syn-cfd911bb297c914e
 │   │           │       ├── build-script-build
 │   │           │       ├── build_script_build-cfd911bb297c914e
 │   │           │       └── build_script_build-cfd911bb297c914e.d
 │   │           ├── deps
+│   │           │   ├── cfg_if-87c284443f3cd509.d
 │   │           │   ├── cfg_if-a7c41022ab1352a8.d
+│   │           │   ├── cfg_if-ac68a5ec1f1c024f.d
 │   │           │   ├── cfg_if-ebf035ed12b4adf2.d
 │   │           │   ├── convert_case-a21e1662d061d9d7.d
+│   │           │   ├── convert_case-c5debd0825ed81fe.d
+│   │           │   ├── derive_more-1b9a4a19fee1a776.d
 │   │           │   ├── derive_more-5d213c49d4347e84.d
 │   │           │   ├── getrandom-0753f49186a99e32.d
+│   │           │   ├── getrandom-512c1b5dbd849f87.d
 │   │           │   ├── getrandom-9b13050138f9a077.d
+│   │           │   ├── getrandom-a3b514da7a0c92b5.d
 │   │           │   ├── libc-0c34a5e0de6cd63d.d
+│   │           │   ├── libc-50db1f5a2bbecddf.d
 │   │           │   ├── libc-882b1bc031692cda.d
+│   │           │   ├── libc-bf17264d04ed42d4.d
+│   │           │   ├── libcfg_if-87c284443f3cd509.rmeta
 │   │           │   ├── libcfg_if-a7c41022ab1352a8.rmeta
+│   │           │   ├── libcfg_if-ac68a5ec1f1c024f.rlib
+│   │           │   ├── libcfg_if-ac68a5ec1f1c024f.rmeta
 │   │           │   ├── libcfg_if-ebf035ed12b4adf2.rlib
 │   │           │   ├── libcfg_if-ebf035ed12b4adf2.rmeta
 │   │           │   ├── libconvert_case-a21e1662d061d9d7.rlib
 │   │           │   ├── libconvert_case-a21e1662d061d9d7.rmeta
+│   │           │   ├── libconvert_case-c5debd0825ed81fe.rlib
+│   │           │   ├── libconvert_case-c5debd0825ed81fe.rmeta
+│   │           │   ├── libderive_more-1b9a4a19fee1a776.so
 │   │           │   ├── libderive_more-5d213c49d4347e84.so
 │   │           │   ├── libgetrandom-0753f49186a99e32.rlib
 │   │           │   ├── libgetrandom-0753f49186a99e32.rmeta
+│   │           │   ├── libgetrandom-512c1b5dbd849f87.rlib
+│   │           │   ├── libgetrandom-512c1b5dbd849f87.rmeta
 │   │           │   ├── libgetrandom-9b13050138f9a077.rmeta
+│   │           │   ├── libgetrandom-a3b514da7a0c92b5.rmeta
 │   │           │   ├── liblibc-0c34a5e0de6cd63d.rmeta
+│   │           │   ├── liblibc-50db1f5a2bbecddf.rlib
+│   │           │   ├── liblibc-50db1f5a2bbecddf.rmeta
 │   │           │   ├── liblibc-882b1bc031692cda.rlib
 │   │           │   ├── liblibc-882b1bc031692cda.rmeta
+│   │           │   ├── liblibc-bf17264d04ed42d4.rmeta
 │   │           │   ├── libppv_lite86-3486d2fcc129b3d2.rmeta
 │   │           │   ├── libppv_lite86-77a9f6cf3f9bdde1.rlib
 │   │           │   ├── libppv_lite86-77a9f6cf3f9bdde1.rmeta
+│   │           │   ├── libppv_lite86-9587f5b069794c2e.rmeta
+│   │           │   ├── libppv_lite86-a072d2c1ed2ad0b7.rlib
+│   │           │   ├── libppv_lite86-a072d2c1ed2ad0b7.rmeta
+│   │           │   ├── libproc_macro2-b13625c46ae294d2.rlib
+│   │           │   ├── libproc_macro2-b13625c46ae294d2.rmeta
 │   │           │   ├── libproc_macro2-d36e90eb8c08b7be.rlib
 │   │           │   ├── libproc_macro2-d36e90eb8c08b7be.rmeta
+│   │           │   ├── libquote-0805a44a27965a3b.rlib
+│   │           │   ├── libquote-0805a44a27965a3b.rmeta
 │   │           │   ├── libquote-22dc3a80b57b016c.rlib
 │   │           │   ├── libquote-22dc3a80b57b016c.rmeta
 │   │           │   ├── librand-240395f1ac6b9280.rmeta
 │   │           │   ├── librand-b81b358563493acf.rlib
 │   │           │   ├── librand-b81b358563493acf.rmeta
+│   │           │   ├── librand-c16b13aeb74ef226.rmeta
 │   │           │   ├── librand_chacha-4353eebe31684a6a.rmeta
+│   │           │   ├── librand_chacha-78548682df037c69.rmeta
+│   │           │   ├── librand_chacha-8c5d2d96bc6daa6d.rlib
+│   │           │   ├── librand_chacha-8c5d2d96bc6daa6d.rmeta
 │   │           │   ├── librand_chacha-9845519f0c2a9e39.rlib
 │   │           │   ├── librand_chacha-9845519f0c2a9e39.rmeta
+│   │           │   ├── librand_core-4b7fe16e26ecf516.rlib
+│   │           │   ├── librand_core-4b7fe16e26ecf516.rmeta
 │   │           │   ├── librand_core-67bedab063a95f21.rmeta
+│   │           │   ├── librand_core-9a32099eff50d04c.rmeta
 │   │           │   ├── librand_core-a4fc4e77067a7955.rlib
 │   │           │   ├── librand_core-a4fc4e77067a7955.rmeta
+│   │           │   ├── librand-f1b0e9378acaa991.rlib
+│   │           │   ├── librand-f1b0e9378acaa991.rmeta
 │   │           │   ├── libsyn-1206085fb4d18f03.rlib
 │   │           │   ├── libsyn-1206085fb4d18f03.rmeta
+│   │           │   ├── libsyn-deb5240fa6f082d9.rlib
+│   │           │   ├── libsyn-deb5240fa6f082d9.rmeta
 │   │           │   ├── libunicode_ident-3490722f08a3328c.rlib
 │   │           │   ├── libunicode_ident-3490722f08a3328c.rmeta
+│   │           │   ├── libunicode_ident-65d4c52643c16e67.rlib
+│   │           │   ├── libunicode_ident-65d4c52643c16e67.rmeta
 │   │           │   ├── ppv_lite86-3486d2fcc129b3d2.d
 │   │           │   ├── ppv_lite86-77a9f6cf3f9bdde1.d
+│   │           │   ├── ppv_lite86-9587f5b069794c2e.d
+│   │           │   ├── ppv_lite86-a072d2c1ed2ad0b7.d
+│   │           │   ├── proc_macro2-b13625c46ae294d2.d
 │   │           │   ├── proc_macro2-d36e90eb8c08b7be.d
+│   │           │   ├── quote-0805a44a27965a3b.d
 │   │           │   ├── quote-22dc3a80b57b016c.d
 │   │           │   ├── rand-240395f1ac6b9280.d
 │   │           │   ├── rand-b81b358563493acf.d
+│   │           │   ├── rand-c16b13aeb74ef226.d
 │   │           │   ├── rand_chacha-4353eebe31684a6a.d
+│   │           │   ├── rand_chacha-78548682df037c69.d
+│   │           │   ├── rand_chacha-8c5d2d96bc6daa6d.d
 │   │           │   ├── rand_chacha-9845519f0c2a9e39.d
+│   │           │   ├── rand_core-4b7fe16e26ecf516.d
 │   │           │   ├── rand_core-67bedab063a95f21.d
+│   │           │   ├── rand_core-9a32099eff50d04c.d
 │   │           │   ├── rand_core-a4fc4e77067a7955.d
+│   │           │   ├── rand-f1b0e9378acaa991.d
 │   │           │   ├── rcas-4caa51e6c98407f7.d
+│   │           │   ├── rcas-50101094472810a7.d
 │   │           │   ├── rcas-56d585aa39c0b243.d
+│   │           │   ├── rcas-6ed8034085bf4c79.d
 │   │           │   ├── syn-1206085fb4d18f03.d
-│   │           │   └── unicode_ident-3490722f08a3328c.d
+│   │           │   ├── syn-deb5240fa6f082d9.d
+│   │           │   ├── unicode_ident-3490722f08a3328c.d
+│   │           │   └── unicode_ident-65d4c52643c16e67.d
 │   │           ├── examples
 │   │           └── incremental
+│   │               ├── rcas-1ar5kyscn4cqg
+│   │               │   ├── s-gd9ygvnnch-80lnyy.lock
+│   │               │   └── s-gd9ygvnnch-80lnyy-working
+│   │               │       └── dep-graph.part.bin
+│   │               └── rcas-360wka8gz06e5
+│   │                   ├── s-gd9yex5mcm-1sojtu6.lock
+│   │                   └── s-gd9yex5mcm-1sojtu6-working
+│   │                       └── dep-graph.part.bin
 │   └── symbolic-approximation
 │       ├── LICENSE
 │       ├── requirements.txt
@@ -895,6 +1181,122 @@ structure into my workflow:
 │   └── title.py
 ├── README.md
 ├── README.src.md
+├── rffrrr
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── src
+│   │   └── main.rs
+│   └── target
+│       ├── CACHEDIR.TAG
+│       └── debug
+│           ├── build
+│           │   ├── proc-macro2-1c69a8c40addd6a0
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-1c69a8c40addd6a0
+│           │   │   └── build_script_build-1c69a8c40addd6a0.d
+│           │   ├── proc-macro2-8638942c48739123
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── quote-2efd26ecd652084a
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-2efd26ecd652084a
+│           │   │   └── build_script_build-2efd26ecd652084a.d
+│           │   ├── quote-68cf2609ee60a0d5
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── syn-2af61a362baf0a07
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   └── syn-e7429aa395a13490
+│           │       ├── build-script-build
+│           │       ├── build_script_build-e7429aa395a13490
+│           │       └── build_script_build-e7429aa395a13490.d
+│           ├── deps
+│           │   ├── convert_case-c5debd0825ed81fe.d
+│           │   ├── derive_more-a0e1f31ad69454e9.d
+│           │   ├── libconvert_case-c5debd0825ed81fe.rlib
+│           │   ├── libconvert_case-c5debd0825ed81fe.rmeta
+│           │   ├── libderive_more-a0e1f31ad69454e9.so
+│           │   ├── libproc_macro2-6e1a381b6ad7c529.rlib
+│           │   ├── libproc_macro2-6e1a381b6ad7c529.rmeta
+│           │   ├── libquote-4cfc899579fd0937.rlib
+│           │   ├── libquote-4cfc899579fd0937.rmeta
+│           │   ├── librffrrr-37d8df2f4fcd0f56.rmeta
+│           │   ├── librffrrr-fcbc3215647cfd38.rmeta
+│           │   ├── libsyn-a0581441f3f7c4e4.rlib
+│           │   ├── libsyn-a0581441f3f7c4e4.rmeta
+│           │   ├── libunicode_ident-6f44ed9d85cf4e13.rlib
+│           │   ├── libunicode_ident-6f44ed9d85cf4e13.rmeta
+│           │   ├── proc_macro2-6e1a381b6ad7c529.d
+│           │   ├── quote-4cfc899579fd0937.d
+│           │   ├── rffrrr-37d8df2f4fcd0f56.d
+│           │   ├── rffrrr-43170ddd2ad49a10
+│           │   ├── rffrrr-43170ddd2ad49a10.d
+│           │   ├── rffrrr-5cd69a3dba6a5f1a.d
+│           │   ├── rffrrr-fcbc3215647cfd38.d
+│           │   ├── syn-a0581441f3f7c4e4.d
+│           │   └── unicode_ident-6f44ed9d85cf4e13.d
+│           ├── examples
+│           ├── incremental
+│           │   ├── rffrrr-1fk376mvayxr5
+│           │   │   ├── s-gdbx4trmip-ry1gd3-39bbx7jsdk0s8
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdbx4trmip-ry1gd3.lock
+│           │   │   ├── s-gdbx5fk9ud-uwmxxe.lock
+│           │   │   └── s-gdbx5fk9ud-uwmxxe-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── rffrrr-1nos5v8dz2f75
+│           │   │   ├── s-gdbx65xgb5-14wi24w-2soehdcgjnnxx
+│           │   │   │   ├── 1p3x4q8wrknxohyn.o
+│           │   │   │   ├── 2ydq0x3hcxevri1y.o
+│           │   │   │   ├── 3fwaqwuu4pwaguyh.o
+│           │   │   │   ├── 42su4movbip8oa8w.o
+│           │   │   │   ├── 4bjsi96e10fxwkx5.o
+│           │   │   │   ├── 4jai7z4p2vwzf1g7.o
+│           │   │   │   ├── 511basud5cnn51g7.o
+│           │   │   │   ├── 8fgls3iccueryfb.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-gdbx65xgb5-14wi24w.lock
+│           │   ├── rffrrr-2te7n3akzu5eq
+│           │   │   ├── s-gdbxdebp5i-xguzv4.lock
+│           │   │   ├── s-gdbxdebp5i-xguzv4-working
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── dep-graph.part.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdbxdggthk-1iudi9r.lock
+│           │   │   ├── s-gdbxdggthk-1iudi9r-working
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── dep-graph.part.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdbxdiwxg7-15shy1c-3enw8245uw4wd
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-gdbxdiwxg7-15shy1c.lock
+│           │   └── rffrrr-ciflmudlm0zo
+│           │       ├── s-gdbx3lch3h-1pzxeie.lock
+│           │       └── s-gdbx3lch3h-1pzxeie-working
+│           │           └── dep-graph.part.bin
+│           ├── rffrrr
+│           └── rffrrr.d
 ├── sample-3.py
 ├── sandbox
 │   ├── index.html
@@ -1067,6 +1469,19 @@ structure into my workflow:
 │   ├── 2022-09-02_13-03-34.yaml
 │   ├── 2022-09-02_13-03-58.yaml
 │   ├── 2022-09-02_13-04-41.yaml
+│   ├── 2022-09-04_13-33-02.yaml
+│   ├── 2022-09-04_16-29-35.yaml
+│   ├── 2022-09-04_16-30-00.yaml
+│   ├── 2022-09-04_16-31-15.yaml
+│   ├── 2022-09-04_16-32-41.yaml
+│   ├── 2022-09-04_16-34-35.yaml
+│   ├── 2022-09-04_16-35-08.yaml
+│   ├── 2022-09-04_16-35-43.yaml
+│   ├── 2022-09-04_16-36-37.yaml
+│   ├── 2022-09-04_16-37-15.yaml
+│   ├── 2022-09-04_16-37-26.yaml
+│   ├── 2022-09-04_16-37-28.yaml
+│   ├── 2022-09-05_10-15-55.yaml
 │   ├── todo-30-08-1661911147_21-59-07.yaml
 │   ├── todo-30-08-1661911208_22-00-08.yaml
 │   ├── todo-30-08-1661911220_22-00-20.yaml
@@ -1149,58 +1564,159 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-226 directories, 716 files
+279 directories, 1078 files
 
 ```
 
 ## History
 
 ```
-*   70ee940 (HEAD -> master, origin/nushell-testing, nushell-testing) Merge branch 'nu-todo' into nushell-testing
+*   e266c2a (HEAD -> master, origin/master, origin/lyre-impl, lyre-impl, lyre) Merge branch 'lyre-comments' into lyre-impl
 |\  
-| * 8a974b0 (origin/nu-todo, nu-todo) use absolute file paths
-| * f80e498 add --dry option for executing dry runs
-| * daf2ace add basic todo processing script with nushell
-| *   1fd2c88 (origin/nu-ocr, nu-ocr) Merge branch 'master' into nu-ocr
+| * 530d3fb (origin/lyre-comments, lyre-comments) add comments to Value implementation of fmt::Display
+| * c101afc more comments (misc.)
+| * 7998efc add some much-needed spacing
+| * 9ddb1c6 add top-level comment to string literal matching block
+* | 1b9ea12 (origin/lyre-parser, lyre-parser) fix string literal parsing
+|/  
+* c304390 (origin/lyre-interpreter, lyre-interpreter) improve evaluate method logging
+* fa5fd9c convert token nodes wrapping strings into Values containing strings
+* de70070 unwrap ValueType enum variants and convert to Strings for printing
+* 2f8d413 fix evaluation order (pattern matcher)
+* 65e851e add some logging to evaluation method
+* 3a5e283 fix None unwrapping panics
+| * 42cc7aa (refs/stash) WIP on lyre-interpreter: e6510be make node content a single (optional) token
+|/| 
+| * 5bf21c5 index on lyre-interpreter: e6510be make node content a single (optional) token
+|/  
+* e6510be make node content a single (optional) token
+* c28c6ff miscellaneous
+* 3521567 address some borrow checker complaints
+* 8d81b07 add bounds checks to form pattern matcher
+* df24467 implement Display for Value
+* b9ed56c use ValueType (enum) instead of Node (struct) for native datatypes
+*   f1fcf2e Merge branch 'lyre' into lyre-interpreter
+|\  
+| *   767125c (origin/lyre) Merge branch 'lyre-impl' into lyre
 | |\  
-| * \   4b7c024 Merge branch 'master' into nu-ocr
+| | *   6004a34 Merge branch 'lyre-interpreter' into lyre-impl
+| | |\  
+| | * \   1d8aa2d Merge branch 'lyre-parser' into lyre-impl
+| | |\ \  
+| | | * | e0cdce7 correctly handle leading whitespace
+| | | * | 9a3b7bc rename syntax sample/example snippet
+| | | * | e16f539 lex square brackets (groupings) correctly - previously could cause issues with consecutive brackets
+| | | * | 16d66ba fix unnecessarily mutable variables
+| | | * | a0c2c46 parse nesting forms via indentation (leading whitespace)
+| | | * | 40b63e2 fix some (relatively) minor lexing issues
+| | | * | 75a4009 display type of each node (incomplete)
+| | | * | e683615 misc. lexing improvements
+| | | * | 37333e9 miscellaneous
+| | | * | 6bb50eb add helper method for printing ASTs
+| | | * | 9bb8d4a move lexing code into separate function
+| | | * | 7a88941 add comments to lexer code
+| | | * | e9b054e add comments to parsing code
+| | | * | de95bb3 add doc comments to other node-related methods
+| | | * | 4473e5f add comments to Node struct
+| | | * | 687ac5f add doc comments to some custom structs/functions
+| | | * | ccc5945 process standalone symbols
+| | | * | 92d7664 remove unused code
+| | | * | 475ad6e access tree paths via index lists
+| | | * | db9ccb8 use index-based stack to avoid borrow checker issues
+| | * | | aa369f1 add Cargo.lock
+| * | | | c3b71fe (origin/lyre-docs, lyre-docs) add string literal (and string function) examples
+| * | | | 5503806 add alternative operator names
+| * | | | 243d645 add arithmetic operator examples
+| * | | | 386100e add hello world example
+| * | | | 197e947 add basic usage information
+* | | | | d3ad49b comment ValueType
+* | | | | e8771aa add ValueType enum
+* | | | | a9fbc6b evaluate println built-in function
+| |_|_|/  
+|/| | |   
+* | | | 22eb57e evaluate print function calls
+* | | | f0f344e add some doc comments to evaluate() method
+* | | | 3fb6d3d allow progn-like compound forms (evaluate to result of last sub-expression)
+* | | | 34047a6 process (function) definitions using def keyword
+* | | | c688d4d add Value struct
+| |_|/  
+|/| |   
+* | | e287042 add lyre parser base (draft)
+* | | b48a4b2 implement simple lexer to convert source into sequence of tokens
+* | | 159cdc6 read source file
+* | | bf38e11 implement Display (and implicit ToString) for Node struct
+* | | cd5f701 add Node struct
+* | | b2e52a5 add CharType enum
+* | | 3f253d6 add Token convenience constructor
+* | | 0dddb8b add fmt::Display implementation (Token struct)
+* | | 21698e2 add struct for representing tokens
+| |/  
+|/|   
+* | ec26260 add main.rs
+* | ed091a3 add Cargo.toml
+|/  
+* 0433a28 add README.md
+| * 390b061 (origin/rffrrr, rffrrr) add README.md
+| | * 540015d (origin/nu-todo, origin/nu-fs, nu-todo, nu-fs) patch script to use external recurring task list
+| | | * 1f52976 (origin/metadata, metadata) add information for lyre-related branches
+| | | * 3218117 add information about nushell-related branches
+| | | | * 667e9ee (origin/nu-ocr, nu-ocr) update gitignore
+| | | | * 8fe2a9d add options for recursive directory traversal while scanning media
+| | | | | * 521e691 (origin/lyre-stdlib-errors, lyre-stdlib-errors) add exception-related helper methods
+| | | | | * 8c61f86 add skeleton for stdlib errors module
+| | | | | * 45ade2b (origin/lyre-stdlib, lyre-stdlib) add dictionary (hash map) class skeleton
+| |_|_|_|/  
+|/| | | |   
+* | | | | 9979ca1 add basic EBNF-like grammar for lyre syntax
+* | | | | 5a6bd5c add convenience function for testing divisibility
+|/ / / /  
+* | | | e27d506 Rebuild project
+* | | | 70ee940 (origin/nushell-testing, nushell-testing) Merge branch 'nu-todo' into nushell-testing
+|\| | | 
+| * | | 8a974b0 use absolute file paths
+| * | | f80e498 add --dry option for executing dry runs
+| * | | daf2ace add basic todo processing script with nushell
+| | |/  
+| |/|   
+| * |   1fd2c88 Merge branch 'master' into nu-ocr
 | |\ \  
-| * | | d3d22bc add simple nushell script for running OCR on images
-* | | | 801c9fd add word entropy computation experiment
-* | | | 97cf5e6 add hash compression experiment (nu)
-* | | | d29b94c add simple nushell prime number generator
-|/ / /  
-| | | *   7ad5bc8 (origin/meta, meta) Merge branch 'scripts' into meta
-| | | |\  
-| | | | * e4225dd (origin/scripts, scripts) update script paths
-| | | | * d643ca3 move repo/meta scripts to new directory
+| * \ \   4b7c024 Merge branch 'master' into nu-ocr
+| |\ \ \  
+| * | | | d3d22bc add simple nushell script for running OCR on images
+* | | | | 801c9fd add word entropy computation experiment
+* | | | | 97cf5e6 add hash compression experiment (nu)
+* | | | | d29b94c add simple nushell prime number generator
+|/ / / /  
+| | | | *   7ad5bc8 (origin/meta, meta) Merge branch 'scripts' into meta
+| | | | |\  
+| | | | | * e4225dd (origin/scripts, scripts) update script paths
+| | | | | * d643ca3 move repo/meta scripts to new directory
+| | | |_|/  
+| | |/| |   
+| | | | * 7bcb566 add some miscellaneous notes about monorepo
 | | | |/  
 | | |/|   
-| | | * 7bcb566 add some miscellaneous notes about monorepo
-| | |/  
-| | * 7d6f7b5 (origin/master) add more comments to build.py
-| | * dc49f9d include project languages in tags/labels
-| | * ad2fbf6 update metadata file paths in build.py
-| | *   4761cf3 Merge branch 'master' into meta
-| | |\  
-| | * \   487ebe4 Merge branch 'metadata' into meta
+| | * | 7d6f7b5 add more comments to build.py
+| | * | dc49f9d include project languages in tags/labels
+| | * | ad2fbf6 update metadata file paths in build.py
+| | * |   4761cf3 Merge branch 'master' into meta
 | | |\ \  
-| | | * | ee66233 (metadata) move metadata files to new subdirectory
-| | | * | 94df33a (origin/metadata) add labels to new projects
+| | * \ \   487ebe4 Merge branch 'metadata' into meta
+| | |\ \ \  
+| | | | |/  
+| | | |/|   
+| | | * | ee66233 move metadata files to new subdirectory
+| | | * | 94df33a add labels to new projects
 | | | * | 59c1fee add (some) newly integrated/started projects
 | | | * | f89fef9 add abbreviations for some projects/branches
 | | | * | b8df567 add yaml-serialized list of directories with descriptions of each
 | | * | | a727435 alphebatize project and branch lists
 | |/ / /  
-| | | | *   d205d91 (refs/stash) WIP on um-docs: 424f902 add example vim macro
-| | | | |\  
-| | | | | * 8cee150 index on um-docs: 424f902 add example vim macro
-| | | | |/  
 | | | | * 424f902 (origin/um-docs, um-docs) add example vim macro
 | | | | * 6d5bdb4 (origin/unmacro, unmacro) add README
 | | | |/  
-| | | | * bb5c59d (not-python) add new parser based on (modified) python.lark grammar
-| | | | * 4752d16 (origin/not-python) add some more examples (unfinished)
+| | | | * bb5c59d (origin/not-python, not-python) add new parser based on (modified) python.lark grammar
+| | | | * 4752d16 add some more examples (unfinished)
 | | | | * a427574 add some basic extensions to grammar
 | | | | * 3df2fc9 add python3 grammar from lark examples
 | | | | * d48e721 add lark to requirements (pipenv)
