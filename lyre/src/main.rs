@@ -62,6 +62,11 @@ struct Node {
     nodetype: NodeType
 }
 
+/// Represents the "type" of an AST node (see `Node` for more information); in lyre, these almost
+/// always correspond directly to some kind of (abstract) expression, which evaluates to a `Value`.
+/// Broadly, these include literals, forms, and compound expressions. Note that several syntactic
+/// constructs may be semantically equivalent -- for example, both context-relative indentation and
+/// an opening square bracket ([) begin a new `Form`.
 #[derive(PartialEq, Debug, Clone)]
 enum NodeType {
     Form,
