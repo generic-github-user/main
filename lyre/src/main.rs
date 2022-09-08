@@ -62,14 +62,15 @@ struct Node {
     nodetype: NodeType
 }
 
-#[derive(Debug, Clone)]
+#[derive(PartialEq, Debug, Clone)]
 enum NodeType {
     Form,
     Token,
     Program,
     String,
     Integer,
-    Whitespace
+    Whitespace,
+    None
 }
 
 /// General Node struct methods
@@ -90,13 +91,7 @@ impl<'a> Node {
 
     fn print(&self, level: u8) -> () {
         print!("{}", "  ".repeat(level as usize));
-        let ntype = if self.content.is_some() {
-                        // self.children[0].clone().content.unwrap().chartype.clone()
-                        self.content.clone().unwrap().chartype
-                    }
-                    else {
-                        CharType::None
-                    };
+        let ntype = self.nodetype.clone();
         print!("<{:?}> {}\n", ntype, self);
         for c in self.children.iter() {
             c.print(level+1);
@@ -150,7 +145,7 @@ impl Node {
             });
         }
         else if self.content.is_some() &&
-            self.content.clone().unwrap().chartype == CharType::Digit {
+            self.nodetype == NodeType::Integer {
             assert!(self.children.is_empty());
             if verbose { println!("{}", "Evaluating node that represents a value: integer literal"); }
             return Some(Value {
@@ -201,9 +196,10 @@ impl Node {
         // called with the subsequent symbols and forms as arguments
         else if !self.children.is_empty() && self.children[0].content.is_some() {
         // else if !self.children.is_empty() {
-            if verbose { println!("{}", "Found generic form, interpreting as function"); }
+            if verbose { println!("{}", "Found generic form, interpreting as function call"); }
 
             let rest = &self.children[1..];
+            if verbose { println!("Operands are {:?}", rest); }
             match self.children[0].clone().content.unwrap().to_string().as_str() {
                 "print" => {
                     if verbose { println!("{}", "Executing internal call (implementation-level)"); }
@@ -220,7 +216,12 @@ impl Node {
                 },
 
                 // "add" | "+" => Value::new(rest[1].evaluate().unwrap() + rest[2].evaluate().unwrap()),
-                "add" | "+" => rest[0].evaluate(verbose).unwrap() + rest[1].evaluate(verbose).unwrap(),
+                "add" | "+" => {
+                    let A = rest[0].evaluate(verbose).unwrap();
+                    let B = rest[1].evaluate(verbose).unwrap();
+                    if verbose { println!("{} {}", A, B); }
+                    return Some(A + B);
+                }
 
                 _ => todo!(),
                 // _ => None
