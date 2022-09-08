@@ -111,11 +111,11 @@ impl<'a> fmt::Display for Node {
 }
 
 macro_rules! op_match {
-    ($op:tt) => {
+    ($op:tt, $r:ident, $v:ident) => {
         {
-            let A = rest[0].evaluate(verbose).unwrap();
-            let B = rest[1].evaluate(verbose).unwrap();
-            if verbose { println!("{} {}", A, B); }
+            let A = $r[0].evaluate($v).unwrap();
+            let B = $r[1].evaluate($v).unwrap();
+            if $v { println!("{} {}", A, B); }
             return Some(A $op B);
         }
     }
@@ -227,7 +227,7 @@ impl Node {
                 },
 
                 // "add" | "+" => Value::new(rest[1].evaluate().unwrap() + rest[2].evaluate().unwrap()),
-                "add" | "+" => op_match!(+),
+                "add" | "+" => op_match!(+, rest, verbose),
 
                 _ => todo!(),
                 // _ => None
