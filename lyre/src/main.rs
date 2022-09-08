@@ -268,14 +268,17 @@ struct Value {
     value: ValueType
 }
 
+macro_rules! value_impl {
+    ($trait:ident, $func:ident, $op:tt) => {
+        impl $trait for Value {
+            type Output = Self;
 
-impl Add for Value {
-    type Output = Self;
-
-    fn add(self, other: Self) -> Self {
-        Self {
-            vtype: self.vtype,
-            value: self.value + other.value
+            fn $func(self, other: Self) -> Self {
+                Self {
+                    vtype: self.vtype,
+                    value: self.value $op other.value
+                }
+            }
         }
     }
 }
