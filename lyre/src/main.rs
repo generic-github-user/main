@@ -20,10 +20,10 @@ impl fmt::Display for Token {
 
 impl Token {
     /// Convenience constructor for Token instances
-    fn new(value: &str) -> Token {
+    fn new(value: &str, t: CharType) -> Token {
         return Token {
             content: String::from(value),
-            chartype: CharType::Unknown
+            chartype: t
         };
     }
 }
@@ -162,10 +162,10 @@ impl Node {
         // handles the `def` keyword, which sets its first argument (i.e., in the current
         // namespace) to a form consisting of all subsequent arguments
         else if !self.children.is_empty() &&
-            self.children[0].clone().content == Some(Token::new("def")) {
+            self.children[0].clone().content == Some(Token::new("def", CharType::Letter)) {
             if verbose { println!("{}", "Evaluating function, class, or type definition (def keyword)"); }
 
-            let def = Token::new("def");
+            let def = Token::new("def", CharType::Letter);
             // let val = Error::new();
 
             match &self.children[..] {
@@ -227,7 +227,7 @@ impl Node {
         // similarly to Rust's block return value semantics, though they are not directly
         // applicable here because of the additional layer of abstraction)
         else if (!self.children.is_empty() &&
-            self.children[0].clone().content == Some(Token::new("prog")))
+            self.children[0].clone().content == Some(Token::new("prog", CharType::Letter)))
             || (self.content.is_none() && !self.children.is_empty()) {
 
             if verbose { println!("{}", "Evaluating as prog form or statement list"); }
@@ -241,7 +241,9 @@ impl Node {
 
         // any other types of expressions should cause a panic
         else {
-            panic!("Could not evaluate node (no pattern matched)");
+            println!("Could not evaluate node (no pattern matched)");
+            self.print(1);
+            panic!();
         }
 
         return None;
@@ -505,7 +507,7 @@ fn main () -> Result<(), Error> {
 
     //Ok(())
     //return Ok(root.evaluate().unwrap());
-    root.evaluate(false);
     root.print(0);
+    root.evaluate(false);
     Ok(())
 }
