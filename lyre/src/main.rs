@@ -342,6 +342,7 @@ fn main () -> Result<(), Error> {
     let mut root = Node {
         content: None,
         children: vec![],
+        nodetype: NodeType::Program
     };
     let tokens = lex(buffered).unwrap();
     
@@ -360,6 +361,7 @@ fn main () -> Result<(), Error> {
                 let nnode = Node {
                     content: None,
                     children: vec![],
+                    nodetype: NodeType::Form
                 };
 
                 let current = root.get(stack.clone());
@@ -378,7 +380,12 @@ fn main () -> Result<(), Error> {
                 let current = root.get(stack.clone());
                 let nnode = Node {
                     content: Some(token.clone()),
-                    children: vec![]
+                    children: vec![],
+                    nodetype: match token.chartype {
+                        CharType::Alphanumeric | CharType::Symbol => NodeType::Token,
+                        CharType::String => NodeType::String,
+                        _ => unreachable!()
+                    }
                 };
                 current.children.push(nnode);
 
@@ -396,19 +403,23 @@ fn main () -> Result<(), Error> {
             CharType::Whitespace => {
                 if ptoken.is_some() && ptoken.unwrap().chartype == CharType::Newline {
                     if token.content.len() > indentlevel {
+                        // TODO: abstract this out into a function
                         let nnode = Node {
                             content: None,
                             children: vec![],
+                            nodetype: NodeType::Form
                         };
 
                         let current = root.get(stack.clone());
                         stack.push(current.children.len());
                         current.children.push(nnode);
                     } else if token.content.len() == indentlevel {
+                        // TODO: abstract this out into a function
                         let current = root.get(stack.clone());
                         let nnode = Node {
                             content: Some(token.clone()),
-                            children: vec![]
+                            children: vec![],
+                            nodetype: NodeType::Whitespace
                         };
                         current.children.push(nnode);
                     } else {
