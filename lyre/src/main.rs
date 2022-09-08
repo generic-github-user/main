@@ -54,6 +54,17 @@ struct Node {
     /// Sub-nodes forming the tree rooted at this node
     // children: Vec<&'a Node<'a>>,
     children: Vec<Node>,
+
+    nodetype: NodeType
+}
+
+#[derive(Debug, Clone)]
+enum NodeType {
+    Form,
+    Token,
+    Program,
+    String,
+    Whitespace
 }
 
 /// General Node struct methods
