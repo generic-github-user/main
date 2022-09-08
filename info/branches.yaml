@@ -77,3 +77,18 @@
 
     - lyre-docs: documentation for the lyre programming language and its
       standard library modules
+
+    - lyre-impl:
+        - a reference implementation of lyre in Rust
+
+        - lyre-comments: improving comment coverage of lyre implementations
+          (specifically, the Rust-based lexer/parser and interpreter modules)
+
+        - lyre-parser: one of the two major components of the lyre reference
+          implementation; converts raw source code into an AST or intermediate
+          representation suitable for further processing and evaluation by the
+          interpreter (see `/lyre-interpreter`)
+
+        - lyre-interpreter: a simple (?) interpreter for the lyre programming
+          language, built for the Rust reference implementation rooted in
+          `/lyre-impl`
