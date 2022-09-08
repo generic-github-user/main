@@ -99,6 +99,7 @@ impl<'a> fmt::Display for Node {
     }
 }
 
+/// Provides the implementation(s) for methods on the `Node` type, most notably `Node.evaluate`
 impl Node {
     /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
     /// delegated to Rust's standard library are handled here, as well as special operators like
@@ -112,6 +113,14 @@ impl Node {
         self.print(1);
 
         let mut symbols: HashMap<String, &Value> = HashMap::new();
+
+        // Matches a literal node, generally a single token that represents a value; the
+        // interpreter can use these nodes directly for computations, which is generally done with
+        // primitive types that correspond directly to simple data types in Rust (strings,
+        // integers, floats, etc. -- see ValueType for the full list).
+        //
+        // This block converts string literals into `Value`s in which `vtype == "string"` and
+        // `value` is of the enum type `ValueType::string`
         if self.content.is_some() &&
             self.content.clone().unwrap().chartype == CharType::String {
             assert!(self.children.is_empty());
@@ -122,6 +131,9 @@ impl Node {
                     self.content.clone().unwrap().content)
             });
         }
+
+        // handles the `def` keyword, which sets its first argument (i.e., in the current
+        // namespace) to a form consisting of all subsequent arguments
         else if !self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("def")) {
             println!("{}", "Evaluating function, class, or type definition (def keyword)");
@@ -155,6 +167,7 @@ impl Node {
 
             // return val;
         }
+
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
         else if !self.children.is_empty() && self.children[0].content.is_some() {
@@ -169,18 +182,23 @@ impl Node {
                     print!("{}", value);
                     return Some(value);
                 },
+
                 "println" => {
                     println!("{}", "Executing internal call (implementation-level)");
                     let value = rest[0].evaluate().unwrap();
                     println!("{}", value);
                     return Some(value);
                 },
+
                 _ => todo!()
             }
         }
+
         // roughly equivalent to the progn special form in Common Lisp (see
         // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
-        // information) -- evaluates each sub-form, returning the value of the last one
+        // information) -- evaluates each sub-form, returning the value of the last one (somewhat
+        // similarly to Rust's block return value semantics, though they are not directly
+        // applicable here because of the additional layer of abstraction)
         else if (!self.children.is_empty() &&
             self.children[0].clone().content == Some(Token::new("prog")))
             || (self.content.is_none() && !self.children.is_empty()) {
@@ -193,6 +211,8 @@ impl Node {
             }
             return result;
         }
+
+        // any other types of expressions should cause a panic
         else {
             panic!("Could not evaluate node (no pattern matched)");
         }
@@ -208,8 +228,12 @@ struct Value {
 }
 
 
+/// Enables the Display and ToString traits for Value structs (used in implementations of `print`
+/// and `println`, among other implementation-level functions that necessitate conversion of
+/// primitive types to string representations)
 impl fmt::Display for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // Unwraps ValueType enums containing actual Rust values
         write!(f, "{}", match self.value.clone() {
             ValueType::char(value) => value.to_string(),
             ValueType::bool(value) => value.to_string(),
