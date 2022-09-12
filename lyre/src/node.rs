@@ -106,7 +106,9 @@ impl Node {
         //
         // This block converts string literals into `Value`s in which `vtype == "string"` and
         // `value` is of the enum type `ValueType::string`
-        if self.content.is_some() && self.content.clone().unwrap().chartype == CharType::String {
+        if self.content.is_some() &&
+            self.content.clone().unwrap().chartype == CharType::String {
+
             assert!(self.children.is_empty());
             if verbose { println!("{}", "Evaluating node that represents a value: string literal"); }
             return Some(Value {
@@ -115,7 +117,9 @@ impl Node {
                     self.content.clone().unwrap().content)
             });
         }
-        else if self.content.is_some() && self.nodetype == NodeType::Integer {
+        else if self.content.is_some() &&
+            self.nodetype == NodeType::Integer {
+
             assert!(self.children.is_empty());
             if verbose { println!("{}", "Evaluating node that represents a value: integer literal"); }
             return Some(Value {
@@ -128,12 +132,19 @@ impl Node {
 
         // handles the `def` keyword, which sets its first argument (i.e., in the current
         // namespace) to a form consisting of all subsequent arguments
-        else if !self.children.is_empty() && self.children[0].clone().content == Some(Token::new("def", CharType::Letter)) {
-            if verbose { println!("{}", "Evaluating function, class, or type definition (def keyword)"); }
+        else if !self.children.is_empty() &&
+            self.children[0].clone().content == Some(Token::new("def", CharType::Letter)) {
+
+            if verbose {
+                println!("{}", "Evaluating function, class, or type definition (def keyword)");
+            }
 
             match &self.children[..] {
                 [_, name, value] => {
-                    if verbose { println!("{}", "Matched untyped definition, will attempt to infer type"); }
+                    if verbose {
+                        println!("{}", "Matched untyped definition, will attempt to infer type");
+                    }
+
                     let val = Value {
                         vtype: String::from("auto"),
                         value: ValueType::Form(value.clone())
@@ -160,7 +171,9 @@ impl Node {
 
         // if the first symbol isn't a keyword, interpret it as a function name that should be
         // called with the subsequent symbols and forms as arguments
-        else if !self.children.is_empty() && self.children[0].content.is_some() {
+        else if !self.children.is_empty() &&
+                self.children[0].content.is_some() {
+
         // else if !self.children.is_empty() {
             if verbose { println!("{}", "Found generic form, interpreting as function call"); }
 

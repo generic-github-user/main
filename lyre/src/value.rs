@@ -113,11 +113,11 @@ macro_rules! valuetype_impl {
             fn $func(self, other: Self) -> Self {
                 // ValueType
                 match (self, other) {
-                    (ValueType::i8(value), ValueType::i8(other))  => ValueType::i8(value $op other),
-                    (ValueType::i16(value), ValueType::i16(other))  => ValueType::i16(value $op other),
-                    (ValueType::i32(value), ValueType::i32(other))  => ValueType::i32(value $op other),
-                    (ValueType::i64(value), ValueType::i64(other))  => ValueType::i64(value $op other),
-                    (ValueType::i128(value), ValueType::i128(other))  => ValueType::i128(value $op other),
+                    (ValueType::i8(value), ValueType::i8(other)) => ValueType::i8(value $op other),
+                    (ValueType::i16(value), ValueType::i16(other)) => ValueType::i16(value $op other),
+                    (ValueType::i32(value), ValueType::i32(other)) => ValueType::i32(value $op other),
+                    (ValueType::i64(value), ValueType::i64(other)) => ValueType::i64(value $op other),
+                    (ValueType::i128(value), ValueType::i128(other)) => ValueType::i128(value $op other),
                     _ => panic!()
                 }
             }
@@ -136,11 +136,16 @@ impl Pow<ValueType> for ValueType {
 
     fn pow(self, other: Self) -> Self {
         match (self, other) {
-            (ValueType::i8(value), ValueType::i8(other))  => ValueType::i8(value.pow(other.try_into().unwrap())),
-            (ValueType::i16(value), ValueType::i16(other))  => ValueType::i16(value.pow(other.try_into().unwrap())),
-            (ValueType::i32(value), ValueType::i32(other))  => ValueType::i32(value.pow(other.try_into().unwrap())),
-            (ValueType::i64(value), ValueType::i64(other))  => ValueType::i64(value.pow(other.try_into().unwrap())),
-            (ValueType::i128(value), ValueType::i128(other))  => ValueType::i128(value.pow(other.try_into().unwrap())),
+            (ValueType::i8(value), ValueType::i8(other)) =>
+                ValueType::i8(value.pow(other.try_into().unwrap())),
+            (ValueType::i16(value), ValueType::i16(other)) =>
+                ValueType::i16(value.pow(other.try_into().unwrap())),
+            (ValueType::i32(value), ValueType::i32(other)) =>
+                ValueType::i32(value.pow(other.try_into().unwrap())),
+            (ValueType::i64(value), ValueType::i64(other)) =>
+                ValueType::i64(value.pow(other.try_into().unwrap())),
+            (ValueType::i128(value), ValueType::i128(other)) =>
+                ValueType::i128(value.pow(other.try_into().unwrap())),
             _ => panic!()
         }
     }
