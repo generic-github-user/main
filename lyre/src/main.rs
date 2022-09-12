@@ -29,8 +29,8 @@ fn main () -> Result<(), Error> {
     let input = File::open(path)?;
     let buffered = BufReader::new(input);
 
-    let tokens = lex(buffered).unwrap();
-    let root = parse(tokens);
+    let tokens = lex(buffered, false).unwrap();
+    let root = parse(tokens, false);
 
     //Ok(())
     //return Ok(root.evaluate().unwrap());
