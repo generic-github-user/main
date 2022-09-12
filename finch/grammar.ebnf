@@ -1,0 +1,54 @@
+(* This is a very tentative grammar for Finch, intended to specify its main
+syntactic constructs, keywords, etc.; it will be somewhat limited compared to
+Finch's actual usage due to features such as metaprogramming support, but
+should nevertheless provide a helpful starting point for writing a reference
+parser implementation and other basic tooling. *)
+
+lowercase = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
+		| "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s"
+		| "t" | "u" | "v" | "w" | "x" | "y" | "z" ;
+uppercase = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
+		| "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S"
+		| "T" | "U" | "V" | "W" | "X" | "Y" | "Z" ;
+letter = lowercase | uppercase;
+
+nonzero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+digit = nonzero | "0";
+
+punctuation = "!" | "(" | ")" | "-" | "_" | ";" | ":"
+		| "'" | '"' | "`" | "," | "." | "/" | "?";
+symbol = "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+";
+
+character = letter | digit | punctuation | symbol
+
+natural = nonzero, { digit };
+integer = "0" | [ "-" ], natural;
+float = [ "-" ], [ natural ], ".", { digit };
+number = integer | float;
+
+string = "'", { character }, "'";
+
+literal = number | string;
+
+binary_operator = "+" | "-" | "*" | "/" | "**" | "." | ".." | "@" | "#"
+		| "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="
+		| "|" | "&" | "^" | "<<" | ">>"
+unary_operator = "!"
+operator = unary_operator | binary_operator
+
+expression = (unary_operator, expression)
+		| (expression, binary_operator, expression)
+		| call
+		| index
+		| identifier
+		| tuple
+		| array
+		| (number, expression)
+identifier = letter, { letter | digit | "_" }
+		| "(", { identifier [ " ", identifier ] }, ")";
+
+tuple = "(", { expression [ " ", expression ] }, ")"
+array = "[", { expression [ " ", expression ] }, "]"
+
+call = identifier, tuple;
+index = expression, array;

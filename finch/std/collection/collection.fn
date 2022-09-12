@@ -1,0 +1,5 @@
+type collection (T)
+		info: "A generic collection type; `sequence` should be used for
+		collections that must be ordered (i.e., indexable)."
+
+		constructor fn new ()
