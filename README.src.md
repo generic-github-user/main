@@ -33,27 +33,21 @@ replacement for any existing standards; for example, the current Finch design
 plan includes a fairly substantial runtime, so a compact and fully compiled
 language like Rust might be a better choice for embedded applications.
 
-**Note**: the master/main branch is pretty boring at the moment since the language is in a very early development phase, where core features are being designed, implemented, tested, and documented; I encourage anyone whose interest was piqued by the above description to take a look at some of the other [branches](https://github.com/generic-github-user/finch/branches).
-
-*Credit to [@RaineDelay](https://github.com/RaineDelay) for the language name suggestion*
-
 ## Contents
 
-- [finch](#finch)
-  * [Contents](#contents)
-  * [Branches](#branches)
-  * [Statistics](#statistics)
+[[toc]]
 
 ## Branches
 
 - `master`: The main branch, where stable versions of Finch will be tagged and released from (though most likely not until several months from now)
 - `parser`: The reference implementation of the Finch parser, which is meant to conform (more or less) to the grammar outlined on the `specification` branch
 - `specification`: Grammars, diagrams, natural language descriptions, and other materials outlining my vision for Finch that will (ideally) guide development of the parser and runtime
+- `stdlib`: The Finch standard library, modeled loosely after those of Python and Rust (as well as some *de facto* standards like NumPy that are consistent and stable enough to be considered part of the language for most purposes)
 - `cpp-runtime`: A dynamic C++-based reference implementation of Finch, the development of which is helping establish reasonable goals for metaprogramming support, optimization, etc.
 - `meta`: Information about this Git/GitHub repository, particularly that which is not applicable to the language itself
 - `dev`: A multipurpose development/staging branch where nearly complete features will be merged prior to integration into the main codebase (on `master`; i.e., the stable line)
 - `grammar`: A draft grammar for Finch written in [extended Backus–Naur form](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) (newer iterations of the language necessitate a context-sensitive language, but most of the constructs can still be represented in EBNF)
-- `stdlib`: The Finch standard library, which is in (very) early development; it is modeled loosely after those of Python and Rust (as well as some *de facto* standards like NumPy that are consistent and stable enough to be considered part of the language for most purposes)
+- `stdlib`: The Finch standard library, which is in (very) early development
 		- `std-docs`: Tools for processing documentation (comments, examples, etc.) and generating markup
 		- `std-collection`: Type-generic collections, objects that group other objects; planned submodules include support for arrays, hash tables, linked lists, sets, trees, graphs, and other structures
 		- `std-error`: Errors and exceptions; items in this module generally terminate execution since they arise in situations where the process cannot safely recover from whatever has gone awry
@@ -63,11 +57,4 @@ language like Rust might be a better choice for embedded applications.
 
 ## Statistics
 
-
-cloc|github.com/AlDanial/cloc v 1.82  T=0.02 s (52.5 files/s, 2731.4 lines/s)
---- | ---
-
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-Markdown|1|8|0|44
---------|--------|--------|--------|--------
+[[stats]]
