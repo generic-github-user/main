@@ -1,9 +1,23 @@
+#define FMT_HEADER_ONLY
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
+
+#include "include/fmt/core.h"
+#include "include/fmt/format.h"
 
 using namespace std;
+
+const vector<string> operators = {
+		"+", "-", "*", "/", "%", "**",
+		"==", "!+", "<", "<=", ">", ">=",
+		"&", "|", "<<", ">>",
+		"..", "+-"
+};
+const string symbols = "()[]<>{}!@#$%^&*`~,.;:-_=+";
 
 // Returns true if a <= x <= b and false otherwise (used for concisely
 // categorizing ASCII character ranges)
@@ -21,6 +35,10 @@ enum nodetype {
 		letter,
 		digit,
 
+		token,
+		whitespace,
+		comment,
+
 		// "Literal" types for primitives (mainly numbers, strings, booleans)
 		integer,
 		float_,
@@ -31,8 +49,9 @@ enum nodetype {
 		// expression; excludes special cases like statements used as expressions).
 		// Most of these are composable.
 		identifier,
-		tuple_,
 		symbol,
+
+		tuple_,
 		operator_,
 		operation,
 		call,
@@ -43,8 +62,35 @@ enum nodetype {
 		// specific scope
 		assignment,
 		statement,
-		block
+		block,
+		root,
+		unmatched
 };
+
+const vector<string> nodetype_strings = {
+		"letter",
+		"digit",
+		"token",
+		"whitespace",
+		"comment",
+		"integer",
+		"float",
+		"number",
+		"string",
+		"identifier",
+		"symbol",
+		"tuple",
+		"operator",
+		"operation",
+		"call",
+		"expression",
+		"assignment",
+		"statement",
+		"block",
+		"root",
+		"unmatched"
+};
+
 
 //template <class T>
 
@@ -57,10 +103,114 @@ class Node {
 		string typestring;
 		nodetype type;
 		//T value;
-		char value;
+		//char value;
+		string value;
+		string text;
+
+		string file;
+		int line;
+		int column;
 
 		vector<Node> subnodes;
 		Node* parent;
 
-		Node (nodetype t, char v) : type(t), value(v) { }
+		Node (nodetype t, string v, Node* p) : type(t), value(v), parent(p) { }
+		Node (nodetype t) : type(t) { }
+
+		Node* add(nodetype t, string v) {
+				subnodes.push_back(Node(t, v, this));
+				return this;
+		}
+
+		bool is_expression () {
+				return (type == integer || type == float_ ||
+								type == string_ || type == operation);
+		}
+
+		void print (int depth=0) {
+				//cout << typestring;
+				fmt::print("[{}] {} \n", typestring, text);
+				for (Node n : subnodes) {
+						fmt::print("{: >{}}", "", depth*2);
+						n.print(depth + 1);
+				}
+				//cout << '\n';
+		}
 };
+
+void lexchar(Node* base, Node* prev, char c) {
+		// overview of lexing rules:
+		// - if in a comment, absorb the character
+		// - if the immediate context is a numeric type, subsequent digits are
+		// assumed to be part of it
+		// - a similar rule is observed for chunks of whitespace
+		// - identifiers need to start with a non-digit to differentiate them
+		// from numbers or coefficient notation
+
+		string cs = std::string(1, c);
+		Node* nn;
+		nodetype current_type = unmatched;
+
+		// determine primary category of current character
+		if (inrange(c, 'a', 'z')) { current_type = nodetype::letter; }
+		else if (inrange(c, '0', '9')) { current_type = nodetype::digit; }
+		else if (std::string("\t ").find(c)) { current_type = whitespace; }
+		else if (symbols.find(c)) { current_type = symbol; }
+
+		if (prev -> type == current_type) {
+				prev -> text += c;
+		} else {
+				nn = new Node(current_type, cs, base);
+				base -> subnodes.push_back(*nn);
+		}
+}
+
+// Process a single character, assumed to be immediately after the char that
+// was most recently integrated into the parse tree (ignoring newlines)
+void parsetoken (vector<Node*>* context, Node* t) {
+		Node* current = context -> back();
+
+		// TODO: check that we're using pointers to nodes where
+		// appropriate rather than passing by value (particularly
+		// when modifying them...)
+
+		// opening a new tuple form adds another context layer...
+		if (t->value == "(") {
+				cout << "Opened tuple\n";
+				cout << "Adding node\n";
+				context -> push_back(current -> add(tuple_, ""));
+		}
+		// ...and closing it removes one
+		if (t->value == ")") {
+				cout << "Closed tuple\n";
+				context -> pop_back();
+				current = current -> parent;
+		}
+
+}
+
+int main() {
+		Node astroot = Node(root);
+		astroot.subnodes.push_back(Node(token, "", &astroot));
+		vector<Node*> context = { &astroot };
+		// TODO: create a secondary tree marking "spans" of text (e.g., lines) that
+		// may contain parts of different nodes
+
+		string line;
+		ifstream src;
+
+		src.open("example.fn");
+		if (src.is_open()) {
+				while (getline(src, line)) {
+						std::cout << line << '\n';
+						for (char& c : line) if (c)
+								lexchar(&astroot, &astroot.subnodes.back(), c);
+				}
+				for (Node& n : astroot.subnodes) parsetoken(&context, &n);
+		}
+		else cout << "could not open file";
+
+		astroot.print();
+
+		return 0;
+}
