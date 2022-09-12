@@ -13,6 +13,8 @@ mod source;
 use lexer::lex;
 use parser::parse;
 
+use node::Language;
+
 fn main () -> Result<(), Error> {
     let path = "sample.ly";
     let input = File::open(path)?;
@@ -21,10 +23,13 @@ fn main () -> Result<(), Error> {
     let tokens = lex(buffered, false).unwrap();
     let root = parse(tokens, false);
 
+    println!("{}", root.transpile(Language::C));
+
     //Ok(())
     //return Ok(root.evaluate().unwrap());
     root.print(0);
     let mut symbols = HashMap::new();
     root.evaluate(&mut symbols, false);
+
     Ok(())
 }

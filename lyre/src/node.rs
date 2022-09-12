@@ -7,6 +7,7 @@ use super::chartype::CharType;
 use super::value::{Value, ValueType};
 
 use num_traits::Pow;
+use indoc::indoc;
 
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
@@ -80,26 +81,37 @@ macro_rules! op_match {
     }
 }
 
-enum Language {
+#[derive(Copy, Clone)]
+pub enum Language {
     C
 }
 
 
 /// Provides the implementation(s) for methods on the `Node` type, most notably `Node.evaluate`
 impl Node {
-    pub fn transpile(&self, format: Language) -> String {
+    pub fn transpile(&self, format: Language, verbose: bool) -> String {
         match format {
             Language::C => {
                 match self.nodetype {
                     NodeType::Program => {
-                        return String::from("
+                        // TODO: revise this to handle cases with non-linear execution
+                        let body = self.children.iter().map(|node| node.transpile(format, verbose))
+                            .collect::<Vec<String>>().join("\n");
+                        return ["int main() {", body.as_str(), "}"].join(" ");
+                        /*
+                        return String::from(indoc! { format!(r#"
                             int main() {
-
+                                {}
                             }
-                        ");
+                        "#, body)});
+                        */
                     }
 
-                    _ => todo!()
+                    _ => {
+                        // println!("{}", self);
+                        self.print(0);
+                        todo!()
+                    }
                 }
             }
         }
