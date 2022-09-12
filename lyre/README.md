@@ -7,6 +7,22 @@ was to create a language that is as elegant, expressive, and generic as lisp
 but less verbose and easier to write code that is stylistically compatible with
 multiple programming paradigms.
 
+## Installation
+
+At the moment, lyre is in an early development phase and the recommended way to
+use the reference interpretation is by cloning this repository and building the
+binary application with Cargo, Rust's pacakage manager.
+
+Currently, the following requirements are listed in `Cargo.toml`:
+
+```
+num-traits = "0.2.15"
+```
+
+Cargo should be able to install these automatically prior to build. `cargo
+build` and/or `cargo run` can then be used to build and execute the lyre
+interpreter.
+
 ## Usage
 
 ### Introduction
