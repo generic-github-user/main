@@ -139,3 +139,17 @@ arguments and use the resulting values).
 [println [get num]]
 [println num]
 ```
+
+Calls to `set` also act as expressions, returning the value they were passed:
+
+```
+[println [set num 42]]
+```
+
+Variable types can be explicitly annotated:
+
+```
+[set [int a] 77]
+[set [string b] "a short string"]
+[set [float c] 3.14]
+```
