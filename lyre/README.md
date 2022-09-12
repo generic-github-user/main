@@ -204,3 +204,27 @@ class Point
 		def new [x' y' -> Point]
 				Point [x x'] [y y']
 ```
+
+
+If we want to print a human-readable summary of the data in a `Point` instance,
+we should implement `to-string`:
+
+```
+class Point
+		float x
+		float y
+
+		def new [x' y' -> Point]
+				Point [x x'] [y y']
+
+		def to-string self
+				format "({}, {})" x y
+```
+
+This is the method that will be invoked whenever we need to coerce a `Point` to
+a `string` -- so we can now use `Point`s as arguments to `print`, `println`,
+`format`, and other string-adjacent functions:
+
+```
+[println "The Point: {}" ]
+```
