@@ -8,6 +8,7 @@ mod node;
 mod value;
 mod lexer;
 mod parser;
+mod source;
 
 use lexer::lex;
 use parser::parse;
