@@ -36,3 +36,12 @@ language like Rust might be a better choice for embedded applications.
 **Note**: the master/main branch is pretty boring at the moment since the language is in a very early development phase, where core features are being designed, implemented, tested, and documented; I encourage anyone whose interest was piqued by the above description to take a look at some of the other [branches](https://github.com/generic-github-user/finch/branches).
 
 *Credit to [@RaineDelay](https://github.com/RaineDelay) for the language name suggestion*
+
+
+## Branches
+
+- `master`: The main branch, where stable versions of Finch will be tagged and released from (though most likely not until several months from now)
+- `parser`: The reference implementation of the Finch parser, which is meant to conform (more or less) to the grammar outlined on the `specification` branch
+- `specification`: Grammars, diagrams, natural language descriptions, and other materials outlining my vision for Finch that will (ideally) guide development of the parser and runtime
+- `stdlib`: The Finch standard library, modeled loosely after those of Python and Rust (as well as some *de facto* standards like NumPy that are consistent and stable enough to be considered part of the language for most purposes)
+>>>>>>> specification
