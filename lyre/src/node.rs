@@ -69,10 +69,10 @@ pub enum NodeType {
 }
 
 macro_rules! op_match {
-    ($op:tt, $r:ident, $v:ident) => {
+    ($op:tt, $r:ident, $v:ident, $s:ident) => {
         {
-            let A = $r[0].evaluate($v).unwrap();
-            let B = $r[1].evaluate($v).unwrap();
+            let A = $r[0].evaluate($s, $v).unwrap();
+            let B = $r[1].evaluate($s, $v).unwrap();
             if $v { println!("{} {}", A, B); }
             return Some(A $op B);
         }
@@ -89,13 +89,14 @@ impl Node {
     /// bootstrapping the entire language featureset is also a possibility.
 
     // fn evaluate(&self) -> Result<Value, Error> {
-    pub fn evaluate(&self, verbose: bool) -> Option<Value> {
+    pub fn evaluate(&self, symbols: &mut HashMap<String, Value>, verbose: bool) -> Option<Value> {
         if verbose {
             println!("{}", "Evaluating node:");
             self.print(1);
         }
 
-        let mut symbols: HashMap<String, &Value> = HashMap::new();
+        // let mut symbols: HashMap<String, &Value> = HashMap::new();
+        // let mut symbols = symbols.clone();
 
         // Matches a literal node, generally a single token that represents a value; the
         // interpreter can use these nodes directly for computations, which is generally done with
@@ -139,8 +140,8 @@ impl Node {
                         vtype: String::from("auto"),
                         value: ValueType::Form(value.clone())
                     };
-                    symbols.insert(name.to_string(), &val);
-                    return Some(val);
+                    symbols.insert(name.to_string(), val.clone());
+                    return Some(val.clone());
                 }
 
                 [def, vtype, name, value] => {
@@ -149,8 +150,8 @@ impl Node {
                         vtype: vtype.to_string(),
                         value: ValueType::Form(value.clone())
                     };
-                    symbols.insert(name.to_string(), &val);
-                    return Some(val);
+                    symbols.insert(name.to_string(), val.clone());
+                    return Some(val.clone());
                 }
 
                 _ => todo!()
@@ -170,23 +171,23 @@ impl Node {
             match self.children[0].clone().content.unwrap().to_string().as_str() {
                 "print" => {
                     if verbose { println!("{}", "Executing internal call (implementation-level)"); }
-                    let value = rest[0].evaluate(verbose).unwrap();
+                    let value = rest[0].evaluate(symbols, verbose).unwrap();
                     print!("{}", value);
                     return Some(value);
                 },
 
                 "println" => {
                     if verbose { println!("{}", "Executing internal call (implementation-level)"); }
-                    let value = rest[0].evaluate(verbose).unwrap();
+                    let value = rest[0].evaluate(symbols, verbose).unwrap();
                     println!("{}", value);
                     return Some(value);
                 },
 
                 // "add" | "+" => Value::new(rest[1].evaluate().unwrap() + rest[2].evaluate().unwrap()),
-                "add" | "+" => op_match!(+, rest, verbose),
-                "sub" | "-" => op_match!(-, rest, verbose),
-                "mul" | "*" => op_match!(*, rest, verbose),
-                "div" | "/" => op_match!(/, rest, verbose),
+                "add" | "+" => op_match!(+, rest, verbose, symbols),
+                "sub" | "-" => op_match!(-, rest, verbose, symbols),
+                "mul" | "*" => op_match!(*, rest, verbose, symbols),
+                "div" | "/" => op_match!(/, rest, verbose, symbols),
 
                 name => {
                     let target = symbols.get(&String::from(name));
@@ -196,7 +197,7 @@ impl Node {
                         Some(tval) => {
                             match tval.value.clone() {
                                 ValueType::Form(body) => {
-                                    return body.evaluate(verbose);
+                                    return body.evaluate(symbols, verbose);
                                 },
                                 _ => panic!("Cannot execute a non-Form type as a function; aborting")
                             }
@@ -223,7 +224,7 @@ impl Node {
 
             let mut result = None;
             for node in self.children.iter() {
-                result = node.evaluate(verbose);
+                result = node.evaluate(symbols, verbose);
             }
             return result;
         }

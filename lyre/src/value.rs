@@ -3,6 +3,7 @@ use std::ops::{Add, Sub, Mul, Div};
 
 use super::node::Node;
 
+#[derive(Clone)]
 pub struct Value {
     pub vtype: String,
     // value: &'a Node<'a>

@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{BufReader, BufRead, Error};
 use std::fmt;
-
+use std::collections::HashMap;
 
 // use token::Token;
 // use crate::token;
@@ -35,6 +35,7 @@ fn main () -> Result<(), Error> {
     //Ok(())
     //return Ok(root.evaluate().unwrap());
     root.print(0);
-    root.evaluate(false);
+    let mut symbols = HashMap::new();
+    root.evaluate(&mut symbols, false);
     Ok(())
 }
