@@ -1,5 +1,5 @@
 use std::fmt;
-use std::ops::{Add, Sub, Mul, Div};
+use std::ops::{Add, Sub, Mul, Div, Rem};
 use num_traits::pow::Pow;
 
 use super::node::Node;
@@ -30,6 +30,7 @@ value_impl!(Add, add, +);
 value_impl!(Sub, sub, -);
 value_impl!(Mul, mul, *);
 value_impl!(Div, div, /);
+value_impl!(Rem, rem, %);
 
 impl Pow<Value> for Value {
     type Output = Self;
@@ -128,6 +129,7 @@ valuetype_impl!(Add, add, +);
 valuetype_impl!(Sub, sub, -);
 valuetype_impl!(Mul, mul, *);
 valuetype_impl!(Div, div, /);
+valuetype_impl!(Rem, rem, %);
 
 impl Pow<ValueType> for ValueType {
     type Output = Self;

@@ -190,6 +190,7 @@ impl Node {
                 "sub" | "-" => op_match!(-, rest, verbose, symbols),
                 "mul" | "*" => op_match!(*, rest, verbose, symbols),
                 "div" | "/" => op_match!(/, rest, verbose, symbols),
+                "mod" | "%" => op_match!(%, rest, verbose, symbols),
                 "pow" | "**" => {
                     let A = rest[0].evaluate(symbols, verbose).unwrap();
                     let B = rest[1].evaluate(symbols, verbose).unwrap();
