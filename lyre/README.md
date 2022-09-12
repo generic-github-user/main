@@ -172,6 +172,16 @@ Warnings can be suppressed with the `ikwiad` ("I know what I am doing") macro:
 ```
 [ikwiad unset unset]
 ```
+
+### Error Handling
+
+lyre borrows from Rust's error-handling philosophy; there are two broad
+categories of error, those which the program can recover from and those from
+which it cannot. The latter is an exceptional state, often understood to be a
+programmer error, and generally prompts an immediate exit from the thread of
+execution. lyre provides various primitives, functions, and interfaces to
+represent both and facilities for extending these.
+
 ### Classes
 
 #### Example: Point
