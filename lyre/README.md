@@ -122,3 +122,20 @@ format "{}: {}" "That is but scratch'd withal" "I'll touch my point"
 
 strip "       It may be death.      "
 ```
+
+### Variables
+
+lyre includes the `set` keyword to assign a variable in the current scope:
+
+```
+[set num 42]
+```
+
+We can use `get` to retrieve the value of a symbol, though this is usually not
+necessary (unless explicitly indicated otherwise, function calls evaluate their
+arguments and use the resulting values).
+
+```
+[println [get num]]
+[println num]
+```
