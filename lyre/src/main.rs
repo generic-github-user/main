@@ -1,27 +1,15 @@
 use std::fs::File;
-use std::io::{BufReader, BufRead, Error};
-use std::fmt;
+use std::io::{BufReader, Error};
 use std::collections::HashMap;
 
-// use token::Token;
-// use crate::token;
-
 mod token;
-use token::Token;
-
 mod chartype;
-use chartype::CharType;
-
 mod node;
-use node::{Node, NodeType};
-
 mod value;
-use value::Value;
-
 mod lexer;
-use lexer::lex;
-
 mod parser;
+
+use lexer::lex;
 use parser::parse;
 
 fn main () -> Result<(), Error> {
