@@ -1,0 +1,71 @@
+// This is a very tentative grammar for Finch, intended to specify its main
+// syntactic constructs, keywords, etc.; it will be somewhat limited compared
+// to Finch's actual usage due to features such as metaprogramming support, but
+// should nevertheless provide a helpful starting point for writing a reference
+// parser implementation and other basic tooling.
+
+LOWERCASE: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
+		| "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s"
+		| "t" | "u" | "v" | "w" | "x" | "y" | "z" 
+UPPERCASE: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
+		| "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S"
+		| "T" | "U" | "V" | "W" | "X" | "Y" | "Z" 
+LETTER: LOWERCASE | UPPERCASE
+
+NONZERO: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+DIGIT: NONZERO | "0"
+
+BRACKET: "[" | "]"
+PUNCTUATION: "!" | "(" | ")" | BRACKET | "-" | "_" | ";" | ":"
+		| "`" | "," | "." | "/" | "\\" | "?" | "<" | ">"
+SYMBOL: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
+
+QUOTEMARK: "'" | "\""
+CHARACTER: LETTER | DIGIT | PUNCTUATION | SYMBOL | " " | QUOTEMARK
+
+NATURAL: NONZERO DIGIT*
+INTEGER: "0" | [ "-" ] NATURAL
+FLOAT: [ "-" ] NATURAL? "." DIGIT+
+NUMBER: INTEGER | FLOAT
+
+STRING: "'" (LETTER | DIGIT | PUNCTUATION | SYMBOL | " ")* "'"
+		| "\"" (LETTER | DIGIT | PUNCTUATION | SYMBOL | " ")* "\""
+
+literal: NUMBER | STRING
+
+!binary_operator: "+" | "-" | "*" | "/" | "**" | ".." | "." | "@" | "#"
+		| "==" | "!=" | "~" | "!~" | ">" | ">=" | "<" | "<="
+		| "|" | "&" | "^" | "<<" | ">>" | "%" | "+-" | "->" | ".="
+// TODO: assignment/func application operator (combined)
+
+!unary_operator: "!"
+operator: unary_operator | binary_operator
+
+// value: literal
+
+range: expression? ".." expression?
+dot: expression? "." IDENTIFIER
+
+expression: (unary_operator expression)
+		| (expression " "? binary_operator " "? expression) -> binary_operation
+		| call
+		| index
+		| IDENTIFIER
+		| tuple
+		| array
+		//| (NUMBER expression) -> juxtaposition
+		| NUMBER | STRING
+		//| range | dot
+
+IDENTIFIER: LETTER ( LETTER | DIGIT | "_" )*
+		//| "(" ( identifier [ " " identifier ] )+ ")"
+		//| operator
+
+		//range
+
+//tuple: "(" ( expression [ " " expression ] )+ ")"
+tuple: "(" expression? (" " expression)* ")"
+array: "[" ( expression [ " " expression ] )+ "]"
+
+call: IDENTIFIER tuple | expression tuple
+index: expression array

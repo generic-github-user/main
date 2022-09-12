@@ -1,0 +1,8 @@
+std
+		info: "The Finch standard library; includes useful types and functions for
+		mathematics, collections and iteration, documentation, testing, error
+		handling, I/O, randomization, data structures, and more.
+
+		Note that this library is currently a rough draft since the Finch syntax
+		has not been finalized (and is being informed partially by the needs of
+		the standard library)."
