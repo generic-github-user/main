@@ -67,16 +67,15 @@ pub enum NodeType {
     String,
     Integer,
     Whitespace,
-    None
 }
 
 macro_rules! op_match {
     ($op:tt, $r:ident, $v:ident, $s:ident) => {
         {
-            let A = $r[0].evaluate($s, $v).unwrap();
-            let B = $r[1].evaluate($s, $v).unwrap();
-            if $v { println!("{} {}", A, B); }
-            return Some(A $op B);
+            let a = $r[0].evaluate($s, $v).unwrap();
+            let b = $r[1].evaluate($s, $v).unwrap();
+            if $v { println!("{} {}", a, b); }
+            return Some(a $op b);
         }
     }
 }
@@ -132,11 +131,8 @@ impl Node {
         else if !self.children.is_empty() && self.children[0].clone().content == Some(Token::new("def", CharType::Letter)) {
             if verbose { println!("{}", "Evaluating function, class, or type definition (def keyword)"); }
 
-            let def = Token::new("def", CharType::Letter);
-            // let val = Error::new();
-
             match &self.children[..] {
-                [def, name, value] => {
+                [_, name, value] => {
                     if verbose { println!("{}", "Matched untyped definition, will attempt to infer type"); }
                     let val = Value {
                         vtype: String::from("auto"),
@@ -146,7 +142,7 @@ impl Node {
                     return Some(val.clone());
                 }
 
-                [def, vtype, name, value] => {
+                [_, vtype, name, value] => {
                     if verbose { println!("{}", "Matched typed definition"); }
                     let val = Value {
                         vtype: vtype.to_string(),
@@ -192,10 +188,10 @@ impl Node {
                 "div" | "/" => op_match!(/, rest, verbose, symbols),
                 "mod" | "%" => op_match!(%, rest, verbose, symbols),
                 "pow" | "**" => {
-                    let A = rest[0].evaluate(symbols, verbose).unwrap();
-                    let B = rest[1].evaluate(symbols, verbose).unwrap();
-                    if verbose { println!("{} {}", A, B); }
-                    return Some(A.pow(B));
+                    let a = rest[0].evaluate(symbols, verbose).unwrap();
+                    let b = rest[1].evaluate(symbols, verbose).unwrap();
+                    if verbose { println!("{} {}", a, b); }
+                    return Some(a.pow(b));
                 }
 
                 "set" => {
