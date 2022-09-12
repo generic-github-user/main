@@ -6,6 +6,8 @@ use super::token::Token;
 use super::chartype::CharType;
 use super::value::{Value, ValueType};
 
+use num_traits::Pow;
+
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
 #[derive(Debug, Clone)]
@@ -188,6 +190,12 @@ impl Node {
                 "sub" | "-" => op_match!(-, rest, verbose, symbols),
                 "mul" | "*" => op_match!(*, rest, verbose, symbols),
                 "div" | "/" => op_match!(/, rest, verbose, symbols),
+                "pow" | "**" => {
+                    let A = rest[0].evaluate(symbols, verbose).unwrap();
+                    let B = rest[1].evaluate(symbols, verbose).unwrap();
+                    if verbose { println!("{} {}", A, B); }
+                    return Some(A.pow(B));
+                }
 
                 "set" => {
                     let name = rest[0].to_string();
