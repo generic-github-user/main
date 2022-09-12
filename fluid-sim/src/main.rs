@@ -15,24 +15,37 @@ impl Point {
     }
 }
 
+struct Particle {
+    pos: Point,
+    velocity: Point,
+    mass: f64
+}
+
 fn main() {
     let mut rng = rand::thread_rng();
-    let mut points = vec![];
+    let mut particles = vec![];
     for _i in 0..100 {
-        points.push(Point::new(
-            rng.gen_range(0.0..10.0),
-            rng.gen_range(0.0..10.0),
-        ));
+        particles.push(Particle {
+            pos: Point::new(
+                rng.gen_range(0.0..10.0),
+                rng.gen_range(0.0..10.0),
+            ),
+            velocity: Point::new(
+                rng.gen_range(0.0..10.0),
+                rng.gen_range(0.0..10.0),
+            ),
+            mass: 1.0
+        });
     }
 
     let res = 20;
 
     for _i in 0..100 {
         let mut grid = Array2::<bool>::from_elem((res, res), false);
-        for p in points.iter() {
+        for p in particles.iter() {
             grid[[
-                (p.x.round() as usize).clamp(0, res-1),
-                (p.y.round() as usize).clamp(0, res-1)]]= true;
+                (p.pos.x.round() as usize).clamp(0, res-1),
+                (p.pos.y.round() as usize).clamp(0, res-1)]]= true;
         }
         // for ((x, y), value) in grid.indexed_iter() {
         for row in grid.axis_iter(Axis(0)) {
