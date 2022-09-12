@@ -196,6 +196,17 @@ impl Node {
                     symbols.insert(name, value.clone());
                     return Some(value);
                 }
+
+                "get" => {
+                    let name = rest[0].to_string();
+                    if verbose { println!("Getting name {} (in current scope)", name); }
+                    return match symbols.get(&String::from(name)) {
+                        // Some(value) => Some((*value.clone()).clone()),
+                        Some(value) => Some(value.clone()),
+                        None => panic!("undefined")
+                    };
+                }
+
                 name => {
                     let target = symbols.get(&String::from(name));
                     // if target.type != "function"
@@ -215,6 +226,16 @@ impl Node {
 
                 _ => todo!(),
                 // _ => None
+            };
+        }
+
+        else if self.children.is_empty() && self.content.is_some() {
+            let name = self.to_string();
+            if verbose { println!("Getting name {} (in current scope)", name); }
+            return match symbols.get(&String::from(name)) {
+                // Some(value) => Some((*value.clone()).clone()),
+                Some(value) => Some(value.clone()),
+                None => panic!("undefined")
             };
         }
 

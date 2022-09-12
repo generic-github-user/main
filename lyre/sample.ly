@@ -3,6 +3,7 @@
 [println [+ 5 2]]
 
 [set x 22]
+[println [get x]]
 [println x]
 
 [
