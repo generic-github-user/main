@@ -1,9 +1,9 @@
-use derive_more::{Add, Div};
+use derive_more::{Add, AddAssign, Div};
 use rand::Rng;
 use std::{thread, time::Duration};
 use ndarray::{Array2, Axis};
 
-#[derive(Add, Div)]
+#[derive(Add, AddAssign, Div, Clone, Copy)]
 struct Point {
     x: f64,
     y: f64
@@ -31,8 +31,8 @@ fn main() {
                 rng.gen_range(0.0..10.0),
             ),
             velocity: Point::new(
-                rng.gen_range(0.0..10.0),
-                rng.gen_range(0.0..10.0),
+                rng.gen_range(-1.0..1.0),
+                rng.gen_range(-1.0..1.0),
             ),
             mass: 1.0
         });
@@ -42,7 +42,8 @@ fn main() {
 
     for _i in 0..100 {
         let mut grid = Array2::<bool>::from_elem((res, res), false);
-        for p in particles.iter() {
+        for p in particles.iter_mut() {
+            p.pos += p.velocity;
             grid[[
                 (p.pos.x.round() as usize).clamp(0, res-1),
                 (p.pos.y.round() as usize).clamp(0, res-1)]]= true;
