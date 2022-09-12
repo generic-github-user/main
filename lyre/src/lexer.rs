@@ -4,14 +4,15 @@ use std::io::{BufReader, BufRead, Error};
 use super::token::Token;
 use super::chartype::CharType;
 
-pub fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
+pub fn lex(buffer: BufReader<File>, verbose: bool) -> Result<Vec<Token>, Error> {
     // This section has a simple lexer that splits lyre source code into tokens, groups of
     // consecutive characters with similar syntactic purposes
 
     // A list of tokens parsed from the input program's source code
     let mut tokens = Vec::<Token>::new();
     for line in buffer.lines() {
-        println!("Parsing line: {}", line.as_ref().unwrap());
+        if verbose { println!("Parsing line: {}", line.as_ref().unwrap()); }
+
         // Stores the type of the previous character
         let mut ptype = CharType::None;
         // Stores the type of the current character
@@ -37,7 +38,7 @@ pub fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
             if ptype == CharType::String && c != '"' {
                 ctype = CharType::String;
             }
-            println!("Lexing character {} as {:?}", c, ctype);
+            if verbose { println!("Lexing character {} as {:?}", c, ctype); }
 
             // If the character type is unchanged from the previous step, append it to the current
             // token string ...
@@ -52,7 +53,7 @@ pub fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
                                  else { current },
                         chartype: ptype
                     };
-                    println!("Finished token {:?}", ntoken);
+                    if verbose { println!("Finished token {:?}", ntoken); }
                     tokens.push(ntoken);
                 }
                 current = String::from(c);
@@ -65,7 +66,7 @@ pub fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
             content: current,
             chartype: ptype
         };
-        println!("Finished token {:?}", ntoken);
+        if verbose { println!("Finished token {:?}", ntoken); }
         tokens.push(ntoken);
 
         // Insert newline character after parsing line
@@ -74,7 +75,7 @@ pub fn lex(buffer: BufReader<File>) -> Result<Vec<Token>, Error> {
             chartype: CharType::Newline
         });
     }
-    println!("Parsed {} tokens", tokens.len());
+    if verbose { println!("Parsed {} tokens", tokens.len()); }
     // println!("{}", tokens);
     Ok(tokens)
 }
