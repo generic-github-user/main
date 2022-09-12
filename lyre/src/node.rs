@@ -188,6 +188,23 @@ impl Node {
                 "mul" | "*" => op_match!(*, rest, verbose),
                 "div" | "/" => op_match!(/, rest, verbose),
 
+                name => {
+                    let target = symbols.get(&String::from(name));
+                    // if target.type != "function"
+                    match target {
+                        // Some(tval) => tval.value.evaluate()
+                        Some(tval) => {
+                            match tval.value.clone() {
+                                ValueType::Form(body) => {
+                                    return body.evaluate(verbose);
+                                },
+                                _ => panic!("Cannot execute a non-Form type as a function; aborting")
+                            }
+                        },
+                        None => panic!("undefined")
+                    }
+                }
+
                 _ => todo!(),
                 // _ => None
             };
