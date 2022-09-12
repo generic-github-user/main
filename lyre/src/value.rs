@@ -31,6 +31,17 @@ value_impl!(Sub, sub, -);
 value_impl!(Mul, mul, *);
 value_impl!(Div, div, /);
 
+impl Pow<Value> for Value {
+    type Output = Self;
+
+    fn pow(self, other: Self) -> Self {
+        Self {
+            vtype: self.vtype,
+            value: self.value.pow(other.value)
+        }
+    }
+}
+
 impl Value {
     //fn new(
 }
