@@ -193,3 +193,14 @@ class Point
 		float x
 		float y
 ```
+
+... and a simple constructor function:
+
+```
+class Point
+		float x
+		float y
+
+		def new [x' y' -> Point]
+				Point [x x'] [y y']
+```
