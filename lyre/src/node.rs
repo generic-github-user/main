@@ -189,6 +189,13 @@ impl Node {
                 "mul" | "*" => op_match!(*, rest, verbose, symbols),
                 "div" | "/" => op_match!(/, rest, verbose, symbols),
 
+                "set" => {
+                    let name = rest[0].to_string();
+                    if verbose { println!("Setting name {} (in current scope)", name); }
+                    let value = rest[1].evaluate(symbols, verbose).unwrap();
+                    symbols.insert(name, value.clone());
+                    return Some(value);
+                }
                 name => {
                     let target = symbols.get(&String::from(name));
                     // if target.type != "function"
