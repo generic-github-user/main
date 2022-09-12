@@ -11,23 +11,8 @@ use std::ops::{Add, Sub, Mul, Div};
 mod token;
 use token::Token;
 
-/// Represents a category of token processed by the lexer; used in the very first stage of the
-/// parsing pipeline, which happens in parallel with token aggregation
-#[derive(PartialEq, Debug, Clone)]
-enum CharType {
-    Whitespace,
-    Alphanumeric,
-    Symbol,
-    Newline,
-    LeftSB,
-    RightSB,
-    Quote,
-    String,
-    Letter,
-    Digit,
-    Unknown,
-    None
-}
+mod chartype;
+use chartype::CharType;
 
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
