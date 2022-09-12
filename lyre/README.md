@@ -153,3 +153,22 @@ Variable types can be explicitly annotated:
 [set [string b] "a short string"]
 [set [float c] 3.14]
 ```
+
+`unset` removes a variable from a namespace:
+
+```
+[unset num]
+```
+
+We're all adults here; though lyre will typically warn you if you attempt to do
+something extremely misguided:
+
+```
+[unset unset]
+```
+
+Warnings can be suppressed with the `ikwiad` ("I know what I am doing") macro:
+
+```
+[ikwiad unset unset]
+```
