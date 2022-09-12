@@ -1,7 +1,10 @@
 use std::fmt;
+use std::collections::HashMap;
+
 use super::token::Token;
 // use super::nodetype::NodeType;
 use super::chartype::CharType;
+use super::value::{Value, ValueType};
 
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
