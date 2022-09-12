@@ -80,9 +80,31 @@ macro_rules! op_match {
     }
 }
 
+enum Language {
+    C
+}
+
 
 /// Provides the implementation(s) for methods on the `Node` type, most notably `Node.evaluate`
 impl Node {
+    pub fn transpile(&self, format: Language) -> String {
+        match format {
+            Language::C => {
+                match self.nodetype {
+                    NodeType::Program => {
+                        return String::from("
+                            int main() {
+
+                            }
+                        ");
+                    }
+
+                    _ => todo!()
+                }
+            }
+        }
+    }
+
     /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
     /// delegated to Rust's standard library are handled here, as well as special operators like
     /// the `def` keyword. The plan is to gradually move an increasingly large subset of this
