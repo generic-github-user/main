@@ -172,3 +172,14 @@ Warnings can be suppressed with the `ikwiad` ("I know what I am doing") macro:
 ```
 [ikwiad unset unset]
 ```
+### Classes
+
+#### Example: Point
+
+Let's define a simple point class:
+
+```
+class Point
+		float x
+		float y
+```
