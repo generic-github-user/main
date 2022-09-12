@@ -1,5 +1,6 @@
 use std::fmt;
 use std::ops::{Add, Sub, Mul, Div};
+use num_traits::pow::Pow;
 
 use super::node::Node;
 
@@ -116,3 +117,18 @@ valuetype_impl!(Add, add, +);
 valuetype_impl!(Sub, sub, -);
 valuetype_impl!(Mul, mul, *);
 valuetype_impl!(Div, div, /);
+
+impl Pow<ValueType> for ValueType {
+    type Output = Self;
+
+    fn pow(self, other: Self) -> Self {
+        match (self, other) {
+            (ValueType::i8(value), ValueType::i8(other))  => ValueType::i8(value.pow(other.try_into().unwrap())),
+            (ValueType::i16(value), ValueType::i16(other))  => ValueType::i16(value.pow(other.try_into().unwrap())),
+            (ValueType::i32(value), ValueType::i32(other))  => ValueType::i32(value.pow(other.try_into().unwrap())),
+            (ValueType::i64(value), ValueType::i64(other))  => ValueType::i64(value.pow(other.try_into().unwrap())),
+            (ValueType::i128(value), ValueType::i128(other))  => ValueType::i128(value.pow(other.try_into().unwrap())),
+            _ => panic!()
+        }
+    }
+}

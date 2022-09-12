@@ -6,6 +6,10 @@
 [println [get x]]
 [println x]
 
+[println [** 5 3]]
+
+[def cube x [** x 3]]
+
 [
 	quote
 	for-x
