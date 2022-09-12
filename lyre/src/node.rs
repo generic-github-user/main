@@ -1,6 +1,7 @@
 use std::fmt;
 use super::token::Token;
 // use super::nodetype::NodeType;
+use super::chartype::CharType;
 
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
@@ -64,3 +65,156 @@ pub enum NodeType {
     None
 }
 
+macro_rules! op_match {
+    ($op:tt, $r:ident, $v:ident) => {
+        {
+            let A = $r[0].evaluate($v).unwrap();
+            let B = $r[1].evaluate($v).unwrap();
+            if $v { println!("{} {}", A, B); }
+            return Some(A $op B);
+        }
+    }
+}
+
+
+/// Provides the implementation(s) for methods on the `Node` type, most notably `Node.evaluate`
+impl Node {
+    /// Recursively evaluates an AST node, (possibly) returning a `Value`. Some built-ins that are
+    /// delegated to Rust's standard library are handled here, as well as special operators like
+    /// the `def` keyword. The plan is to gradually move an increasingly large subset of this
+    /// "internal" functionality to lyre-based code; if a full compiler is ever created,
+    /// bootstrapping the entire language featureset is also a possibility.
+
+    // fn evaluate(&self) -> Result<Value, Error> {
+    pub fn evaluate(&self, verbose: bool) -> Option<Value> {
+        if verbose {
+            println!("{}", "Evaluating node:");
+            self.print(1);
+        }
+
+        let mut symbols: HashMap<String, &Value> = HashMap::new();
+
+        // Matches a literal node, generally a single token that represents a value; the
+        // interpreter can use these nodes directly for computations, which is generally done with
+        // primitive types that correspond directly to simple data types in Rust (strings,
+        // integers, floats, etc. -- see ValueType for the full list).
+        //
+        // This block converts string literals into `Value`s in which `vtype == "string"` and
+        // `value` is of the enum type `ValueType::string`
+        if self.content.is_some() && self.content.clone().unwrap().chartype == CharType::String {
+            assert!(self.children.is_empty());
+            if verbose { println!("{}", "Evaluating node that represents a value: string literal"); }
+            return Some(Value {
+                vtype: String::from("string"),
+                value: ValueType::string(
+                    self.content.clone().unwrap().content)
+            });
+        }
+        else if self.content.is_some() && self.nodetype == NodeType::Integer {
+            assert!(self.children.is_empty());
+            if verbose { println!("{}", "Evaluating node that represents a value: integer literal"); }
+            return Some(Value {
+                vtype: String::from("int"),
+                value: ValueType::i64(
+                    self.content.clone().unwrap().content
+                    .parse().unwrap())
+            });
+        }
+
+        // handles the `def` keyword, which sets its first argument (i.e., in the current
+        // namespace) to a form consisting of all subsequent arguments
+        else if !self.children.is_empty() && self.children[0].clone().content == Some(Token::new("def", CharType::Letter)) {
+            if verbose { println!("{}", "Evaluating function, class, or type definition (def keyword)"); }
+
+            let def = Token::new("def", CharType::Letter);
+            // let val = Error::new();
+
+            match &self.children[..] {
+                [def, name, value] => {
+                    if verbose { println!("{}", "Matched untyped definition, will attempt to infer type"); }
+                    let val = Value {
+                        vtype: String::from("auto"),
+                        value: ValueType::Form(value.clone())
+                    };
+                    symbols.insert(name.to_string(), &val);
+                    return Some(val);
+                }
+
+                [def, vtype, name, value] => {
+                    if verbose { println!("{}", "Matched typed definition"); }
+                    let val = Value {
+                        vtype: vtype.to_string(),
+                        value: ValueType::Form(value.clone())
+                    };
+                    symbols.insert(name.to_string(), &val);
+                    return Some(val);
+                }
+
+                _ => todo!()
+            }
+
+            // return val;
+        }
+
+        // if the first symbol isn't a keyword, interpret it as a function name that should be
+        // called with the subsequent symbols and forms as arguments
+        else if !self.children.is_empty() && self.children[0].content.is_some() {
+        // else if !self.children.is_empty() {
+            if verbose { println!("{}", "Found generic form, interpreting as function call"); }
+
+            let rest = &self.children[1..];
+            if verbose { println!("Operands are {:?}", rest); }
+            match self.children[0].clone().content.unwrap().to_string().as_str() {
+                "print" => {
+                    if verbose { println!("{}", "Executing internal call (implementation-level)"); }
+                    let value = rest[0].evaluate(verbose).unwrap();
+                    print!("{}", value);
+                    return Some(value);
+                },
+
+                "println" => {
+                    if verbose { println!("{}", "Executing internal call (implementation-level)"); }
+                    let value = rest[0].evaluate(verbose).unwrap();
+                    println!("{}", value);
+                    return Some(value);
+                },
+
+                // "add" | "+" => Value::new(rest[1].evaluate().unwrap() + rest[2].evaluate().unwrap()),
+                "add" | "+" => op_match!(+, rest, verbose),
+                "sub" | "-" => op_match!(-, rest, verbose),
+                "mul" | "*" => op_match!(*, rest, verbose),
+                "div" | "/" => op_match!(/, rest, verbose),
+
+                _ => todo!(),
+                // _ => None
+            };
+        }
+
+        // roughly equivalent to the progn special form in Common Lisp (see
+        // https://www.gnu.org/software/emacs/manual/html_node/eintr/progn.html for more
+        // information) -- evaluates each sub-form, returning the value of the last one (somewhat
+        // similarly to Rust's block return value semantics, though they are not directly
+        // applicable here because of the additional layer of abstraction)
+        else if (!self.children.is_empty() &&
+            self.children[0].clone().content == Some(Token::new("prog", CharType::Letter)))
+            || (self.content.is_none() && !self.children.is_empty()) {
+
+            if verbose { println!("{}", "Evaluating as prog form or statement list"); }
+
+            let mut result = None;
+            for node in self.children.iter() {
+                result = node.evaluate(verbose);
+            }
+            return result;
+        }
+
+        // any other types of expressions should cause a panic
+        else {
+            println!("Could not evaluate node (no pattern matched)");
+            self.print(1);
+            panic!();
+        }
+
+        return None;
+    }
+}
