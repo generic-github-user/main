@@ -30,9 +30,9 @@
 
 print(list("abc" @ "def"))
 
-//f = 2.sqrt().sqrt().sqrt()
+# f = 2.sqrt().sqrt().sqrt()
 
-// g = f (**^3) 2
+# g = f (**^3) 2
 
 g == 2
 
@@ -40,14 +40,16 @@ int.sqrt.inverse == x -> x ** 2
 
 number.sqrt == x -> x ** .5
 
-//"this is some text"[0..4 * 2]
+# "this is some text"[0..4 * 2]
 
-// ::set /\ sequence.split
+#  ::set /\ sequence.split
 
-//"he" + 4"l" + 8"o"
+# "he" + 4"l" + 8"o"
 
 "a".."z"
 
-// "a".."z"[0..100 * 3] .= .map
+#  "a".."z"[0..100 * 3] .= .map
 
-//1..100.filter(x -> (x % 2..x.sqrt()).all()).map(string)
+# 1..100.filter(x -> (x % 2..x.sqrt()).all()).map(string)
+
+"test"
