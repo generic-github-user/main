@@ -9,6 +9,8 @@ def parse(tokens: list[Token]) -> Node:
     stack = [tree]
     current = tree
     depth = 0
+    indentlevel = 0
+    indentexpr = '    '
     for token in tokens:
         current = stack[-1]
         depth = len(stack)
@@ -34,7 +36,7 @@ def parse(tokens: list[Token]) -> Node:
                                 depth=depth
                             )
                             current[-1] = nnode_inner
-                            stack.append(nnode_inner)
+                            # stack.append(nnode_inner)
 
                         current.add(nnode)
                         stack.append(nnode)
@@ -60,6 +62,9 @@ def parse(tokens: list[Token]) -> Node:
                                      "^", "|", "&", "!", "~",
                                      "->", ".", "..", "@", "+-"]:
                     # current.add(Operator([token]))
+                    if not current.children:
+                        # raise SyntaxError(stack)
+                        raise SyntaxError
                     nnode = Operation(
                         [current[-1], Operator([token], depth=depth)],
                         # op=Operator([token])
@@ -79,7 +84,23 @@ def parse(tokens: list[Token]) -> Node:
                     stack.pop()
 
             case CharType.Whitespace:
-                pass
+                if token.content.startswith('\n'):
+                    indent = len(token.content)
+                    if isinstance(current, Block):
+                        if indent > indentlevel:
+                            nnode = Block()
+                            current.add(nnode)
+                            stack.append(nnode)
+                        elif indent < indentlevel:
+                            assert (indentlevel - indent) // len(indentexpr) < len(stack)
+                            for i in range((indentlevel - indent) // len(indentexpr)):
+                                stack.pop()
+                        else:
+                            assert indent == indentlevel
+                        indentlevel = indent
+                # not needed, just to indicate that other whitespace is ignored
+                else:
+                    pass
 
             case CharType.Newline:
                 if isinstance(current, Comment):

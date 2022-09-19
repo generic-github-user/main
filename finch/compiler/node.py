@@ -39,6 +39,8 @@ class Node:
     def __str__(self):
         return self.to_string(0)
 
+    __repr__ = __str__
+
 
 class Expression(Node):
     def __init__(self, *args, **kwargs):

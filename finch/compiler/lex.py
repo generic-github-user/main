@@ -15,8 +15,8 @@ def lex(source: str) -> list[Token]:
             chartype = CharType.Digit
         elif c in string.whitespace:
             chartype = CharType.Whitespace
-        elif c == '\n':
-            chartype = CharType.Newline
+        # elif c == '\n':
+        #    chartype = CharType.Newline
         elif c == '"':
             chartype = CharType.Quote
         elif c in string.punctuation:
