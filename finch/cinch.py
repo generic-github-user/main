@@ -228,6 +228,19 @@ for token in tokens:
                     nnode = Comment()
                     current.add(nnode)
                     stack.append(nnode)
+
+            if token.content in ["+", "-", "*", "**", "/", "//", "%",
+                                 "<", "<=", ">", ">=", "==", "!=",
+                                 "^", "|", "&", "!", "~",
+                                 "->", ".", "..", "@", "+-"]:
+                # current.add(Operator([token]))
+                nnode = Operation(
+                    [current[-1], Operator([token], depth=depth)],
+                    # op=Operator([token])
+                    depth=depth
+                )
+                current[-1] = nnode
+                stack.append(nnode)
         case _:
             print(tree)
             print(token)
