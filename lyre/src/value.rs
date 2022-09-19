@@ -4,7 +4,7 @@ use num_traits::pow::Pow;
 
 use super::node::Node;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Value {
     pub vtype: String,
     // value: &'a Node<'a>
@@ -68,7 +68,10 @@ impl fmt::Display for Value {
             ValueType::bool(value) => value.to_string(),
             // make_stringifier!(bool)
             ValueType::string(value) => value,
-            _ => todo!()
+            _ => {
+                println!("{:?}", self);
+                todo!()
+            }
         })
     }
 }

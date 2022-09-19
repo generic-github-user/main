@@ -136,6 +136,7 @@ impl Node {
             // let val = Error::new();
 
             match &self.children[..] {
+                /*
                 [def, name, value] => {
                     if verbose { println!("{}", "Matched untyped definition, will attempt to infer type"); }
                     let val = Value {
@@ -145,18 +146,26 @@ impl Node {
                     symbols.insert(name.to_string(), val.clone());
                     return Some(val.clone());
                 }
+                */
 
-                [def, vtype, name, value] => {
-                    if verbose { println!("{}", "Matched typed definition"); }
+                [def, name, value @ ..] => {
+                    if verbose { println!("Matched typed definition for name {}", name); }
                     let val = Value {
-                        vtype: vtype.to_string(),
-                        value: ValueType::Form(value.clone())
+                        vtype: "function".to_string(),
+                        value: ValueType::Form(Node {
+                            content: None,
+                            nodetype: NodeType::Form,
+                            children: value.clone().to_vec()
+                        })
                     };
                     symbols.insert(name.to_string(), val.clone());
                     return Some(val.clone());
                 }
 
-                _ => todo!()
+                _ => {
+                    self.print(0);
+                    todo!()
+                }
             }
 
             // return val;
@@ -225,10 +234,10 @@ impl Node {
                                 ValueType::Form(body) => {
                                     return body.evaluate(symbols, verbose);
                                 },
-                                _ => panic!("Cannot execute a non-Form type as a function; aborting")
+                                _ => panic!("Cannot execute a non-Form type ({:?}) as a function; aborting", tval.vtype)
                             }
                         },
-                        None => panic!("undefined")
+                        None => panic!("undefined: {}", name)
                     }
                 }
 
@@ -240,10 +249,10 @@ impl Node {
         else if self.children.is_empty() && self.content.is_some() {
             let name = self.to_string();
             if verbose { println!("Getting name {} (in current scope)", name); }
-            return match symbols.get(&String::from(name)) {
+            return match symbols.get(&String::from(name.clone())) {
                 // Some(value) => Some((*value.clone()).clone()),
                 Some(value) => Some(value.clone()),
-                None => panic!("undefined")
+                None => panic!("undefined: {}", name)
             };
         }
 

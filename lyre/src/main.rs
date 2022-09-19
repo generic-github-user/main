@@ -24,6 +24,6 @@ fn main () -> Result<(), Error> {
     //return Ok(root.evaluate().unwrap());
     root.print(0);
     let mut symbols = HashMap::new();
-    root.evaluate(&mut symbols, false);
+    root.evaluate(&mut symbols, true);
     Ok(())
 }
