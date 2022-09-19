@@ -42,7 +42,7 @@ def parse(tokens: list[Token]) -> Node:
                             current[-1] = nnode_inner
                             # stack.append(nnode_inner)
 
-                        current.add(nnode)
+                        # current.add(nnode)
                         stack.append(nnode)
 
                     case ")":
@@ -92,19 +92,23 @@ def parse(tokens: list[Token]) -> Node:
 
             case CharType.Whitespace:
                 if token.content.startswith('\n'):
-                    indent = len(token.content)
+                    # indent = len(token.content[1:])
+                    indent = len(token.content.replace('\n', ''))
+                    print(f'Indent level: {indent}')
                     if isinstance(current, Block):
                         if indent > indentlevel:
+                            print('Found implied INDENT token')
                             nnode = Block()
                             current.add(nnode)
                             stack.append(nnode)
                         elif indent < indentlevel:
                             assert (indentlevel - indent) // len(indentexpr) < len(stack)
+                            print('Found implied DEDENT token')
                             for i in range((indentlevel - indent) // len(indentexpr)):
                                 stack.pop()
                         else:
                             assert indent == indentlevel
-                        indentlevel = indent
+                    indentlevel = indent
                 # not needed, just to indicate that other whitespace is ignored
                 else:
                     pass
