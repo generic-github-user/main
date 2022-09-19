@@ -27,6 +27,12 @@ class Node:
     def __setitem__(self, i, value):
         self.children[i] = value
 
+    def __eq__(self, other):
+        return all(
+            self.type == other.type,
+            all(a == b for a, b in zip(self.children, other.children))
+        )
+
     def text(self):
         return ''.join(c.text() for c in self.children)
 
