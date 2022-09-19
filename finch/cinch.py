@@ -19,6 +19,10 @@ class Token:
 
     def text(self): return self.content
 
+    def print(self, depth=0):
+        # print('  '*depth + type(self).__name__)
+        print('  '*depth + self.content)
+
     def to_string(self, depth=0):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.content}'
 
@@ -41,6 +45,11 @@ class Node:
 
         self.depth = depth
         self.type = type(self).__name__
+
+    def print(self, depth=0):
+        print('  '*depth + str(self.type))
+        for n in self.children:
+            n.print(depth+1)
 
     def add(self, node):
         self.children.append(node)
@@ -224,6 +233,14 @@ for token in tokens:
                 case ")":
                     stack.pop()
 
+                case "[":
+                    nnode = Array()
+                    current.add(nnode)
+                    stack.append(nnode)
+
+                case "]":
+                    stack.pop()
+
                 case "#":
                     nnode = Comment()
                     current.add(nnode)
@@ -263,4 +280,5 @@ for token in tokens:
             print(tree)
             print(token)
             raise SyntaxError
-print(tree)
+# print(tree)
+tree.print()
