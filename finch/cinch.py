@@ -287,3 +287,5 @@ def parse(tokens: list[Token]) -> Node:
 tree = parse(tokens)
 # print(tree)
 tree.print()
+
+
