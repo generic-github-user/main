@@ -26,14 +26,28 @@ class Token:
 
 
 class Node:
-    def __init__(self, nodetype, parent=None, depth=0, root=None):
-        self.type = nodetype
+    def __init__(self, children=None, parent=None, depth=0, root=None):
+        # self.type = nodetype
 
         self.root = root if root else self
         self.parent = parent
-        self.children = []
+
+        if children is None:
+            children = []
+        self.children = children
 
         self.depth = depth
+        self.type = type(self).__name__
+
+    def add(self, node):
+        self.children.append(node)
+        return self
+
+    def __getitem__(self, i):
+        return self.children[i]
+
+    def __setitem__(self, i, value):
+        self.children[i] = value
 
     def text(self):
         return ''.join(c.text() for c in self.children)
