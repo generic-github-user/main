@@ -92,3 +92,18 @@
         - lyre-interpreter: a simple (?) interpreter for the lyre programming
           language, built for the Rust reference implementation rooted in
           `/lyre-impl`
+
+- finch:
+    - root branch for the finch programming language (not necessarily stable)
+
+    - finch-compiler: a compiler for finch integrating a custom parser with
+      low-level code generation; the goal is to eventually produce a
+      self-compiling compiler via bootstrapping (currently targeting a C/gcc
+      backend, but this is subject to change)
+
+    - finch-compiler-parser: Python-based parser for the new finch compiler;
+      currently uses a bottom-up strategy that rewrites the parser context as
+      new tokens are processed
+
+    - finch-compiler-testing: verifying the correctness of finch parser and
+      compiler implementations via unit testing, integration testing, etc.
