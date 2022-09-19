@@ -1,4 +1,4 @@
-from token import Token
+from ftoken import Token
 from node import Node, Block, String, Tuple, Array, Call, Expression, Comment,\
                 Operation, Operator, Int, Float, Symbol
 from chartype import CharType
