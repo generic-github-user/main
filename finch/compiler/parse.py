@@ -4,6 +4,7 @@ from node import Node, Block, String, Tuple, Array, Call, Expression, Comment,\
 from chartype import CharType
 
 
+# TODO: make parser recursive?
 def parse(tokens: list[Token]) -> Node:
     tree = Block()
     stack = [tree]
@@ -15,6 +16,9 @@ def parse(tokens: list[Token]) -> Node:
         current = stack[-1]
         depth = len(stack)
         if isinstance(current, String) and token.type != CharType.Quote:
+            current.add(token)
+            continue
+        if isinstance(current, Comment) and '\n' not in token.content:
             current.add(token)
             continue
         match token.type:
@@ -102,9 +106,13 @@ def parse(tokens: list[Token]) -> Node:
                 else:
                     pass
 
-            case CharType.Newline:
-                if isinstance(current, Comment):
-                    stack.pop()
+                if '\n' in token.content:
+                    if isinstance(current, Comment):
+                        stack.pop()
+
+            # case CharType.Newline:
+            #    if isinstance(current, Comment):
+            #        stack.pop()
 
             case _:
                 print(tree)
