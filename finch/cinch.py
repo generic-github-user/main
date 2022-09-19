@@ -179,6 +179,14 @@ class Operator(Node):
         super().__init__(*args, **kwargs)
 
 
+class Comment(Node):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def print(self, depth=0):
+        print("  "*depth + "[Comment elided]")
+
+
 tree = Block()
 stack = [tree]
 current = tree
@@ -215,6 +223,11 @@ for token in tokens:
 
                 case ")":
                     stack.pop()
+
+                case "#":
+                    nnode = Comment()
+                    current.add(nnode)
+                    stack.append(nnode)
         case _:
             print(tree)
             print(token)
