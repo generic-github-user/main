@@ -1,3 +1,8 @@
+fn fibonacci (int n)
+    result = [0, 1]
+
+    return result
+
 123
 
 123.456
@@ -15,6 +20,8 @@
 7 ** 3
 
 (4 % 1) + 36
+
+4 % 1 + 36
 
 "hello" & " world"
 
