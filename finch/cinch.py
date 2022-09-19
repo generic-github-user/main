@@ -186,7 +186,17 @@ depth = 0
 for token in tokens:
     current = stack[-1]
     depth = len(stack)
+    if isinstance(current, String) and token.type != CharType.Quote:
+        current.add(token)
+        continue
     match token.type:
+        case CharType.Quote:
+            if isinstance(current, String):
+                stack.pop()
+            else:
+                nnode = String()
+                current.add(nnode)
+                stack.append(nnode)
 
         case _:
             print(tree)
