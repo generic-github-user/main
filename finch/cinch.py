@@ -9,14 +9,20 @@ class ArgumentError(Exception):
 
 
 class Token:
-    def __init__(self, content, parent=None):
+    def __init__(self, content, ctype, parent=None):
         self.parent = parent
         self.content = content
+        self.type = ctype
+
+        self.line = 0
+        self.column = 0
 
     def text(self): return self.content
 
     def __str__(self):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.content}'
+
+    __repr__ = __str__
 
 
 class Node:
@@ -68,3 +74,9 @@ for c in source:
         chartype = CharType.Punctuation
     else:
         raise SyntaxError(f'Unknown character type: {c}')
+
+    if not tokens or chartype != tokens[-1].type:
+        tokens.append(Token(c, chartype))
+    else:
+        tokens[-1].content += c
+print(tokens)
