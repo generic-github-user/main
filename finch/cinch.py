@@ -241,6 +241,24 @@ for token in tokens:
                 )
                 current[-1] = nnode
                 stack.append(nnode)
+
+        case CharType.Letter:
+            current.add(Symbol([token]))
+            if isinstance(current, Operation):
+                stack.pop()
+
+        case CharType.Digit:
+            current.add(Int([token], depth=depth))
+            if isinstance(current, Operation):
+                stack.pop()
+
+        case CharType.Whitespace:
+            pass
+
+        case CharType.Newline:
+            if isinstance(current, Comment):
+                stack.pop()
+
         case _:
             print(tree)
             print(token)
