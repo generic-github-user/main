@@ -198,6 +198,23 @@ for token in tokens:
                 current.add(nnode)
                 stack.append(nnode)
 
+        case CharType.Punctuation:
+            match token.content:
+                case "(":
+                    nnode = Tuple()
+                    if isinstance(current[-1], Expression):
+                        nnode_inner = Call(
+                            [current[-1], nnode],
+                            depth=depth
+                        )
+                        current[-1] = nnode_inner
+                        stack.append(nnode_inner)
+
+                    current.add(nnode)
+                    stack.append(nnode)
+
+                case ")":
+                    stack.pop()
         case _:
             print(tree)
             print(token)
