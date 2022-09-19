@@ -24,7 +24,9 @@ def lex(source: str) -> list[Token]:
         else:
             raise SyntaxError(f'Unknown character type: {c}')
 
-        if not tokens or chartype != tokens[-1].type:
+        if not tokens or\
+                chartype != tokens[-1].type or\
+                c in '()':
             tokens.append(Token(c, chartype, line=line, column=col))
         else:
             tokens[-1].content += c

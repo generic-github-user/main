@@ -61,21 +61,24 @@ def parse(tokens: list[Token]) -> Node:
                         current.add(nnode)
                         stack.append(nnode)
 
-                if token.content in ["+", "-", "*", "**", "/", "//", "%",
-                                     "<", "<=", ">", ">=", "==", "!=",
-                                     "^", "|", "&", "!", "~",
-                                     "->", ".", "..", "@", "+-"]:
-                    # current.add(Operator([token]))
-                    if not current.children:
-                        # raise SyntaxError(stack)
-                        raise SyntaxError
-                    nnode = Operation(
-                        [current[-1], Operator([token], depth=depth)],
-                        # op=Operator([token])
-                        depth=depth
-                    )
-                    current[-1] = nnode
-                    stack.append(nnode)
+                    case _:
+                        if token.content in ["+", "-", "*", "**", "/", "//", "%",
+                                             "<", "<=", ">", ">=", "==", "!=",
+                                             "^", "|", "&", "!", "~", ">>", "<<",
+                                             "->", ".", "..", "@", "+-", "="]:
+                            # current.add(Operator([token]))
+                            if not current.children:
+                                # raise SyntaxError(stack)
+                                raise SyntaxError
+                            nnode = Operation(
+                                [current[-1], Operator([token], depth=depth)],
+                                # op=Operator([token])
+                                depth=depth
+                            )
+                            current[-1] = nnode
+                            stack.append(nnode)
+                        else:
+                            raise SyntaxError(token)
 
             case CharType.Letter:
                 current.add(Symbol([token]))
