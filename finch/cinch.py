@@ -1,5 +1,7 @@
 import sys
 import pathlib
+# import ascii
+import string
 
 
 class ArgumentError(Exception):
@@ -50,3 +52,28 @@ if len(sys.argv) < 2:
 path = pathlib.Path(sys.argv[1])
 print(f'Loading source from {path}')
 source = path.read_text()
+
+
+class CharType:
+    Letter = 0
+    Digit = 1
+    Whitespace = 2
+    Newline = 3
+    Punctuation = 4
+
+
+tokens = []
+for c in source:
+    chartype = None
+    if c in string.ascii_letters:
+        chartype = CharType.Letter
+    elif c in string.digits:
+        chartype = CharType.Digit
+    elif c in string.whitespace:
+        chartype = CharType.Whitespace
+    elif c == '\n':
+        chartype = CharType.Newline
+    elif c in string.punctuation:
+        chartype = CharType.Punctuation
+    else:
+        raise SyntaxError(f'Unknown character type: {c}')
