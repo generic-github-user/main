@@ -1,5 +1,5 @@
 import string
-from token import Token
+from ftoken import Token
 from chartype import CharType
 
 
@@ -34,6 +34,7 @@ def lex(source: str) -> list[Token]:
             line += 1
             col = 0
     # print(tokens)
+    return tokens
 
 
 # class NodeType:
