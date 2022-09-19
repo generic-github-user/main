@@ -80,6 +80,8 @@ class Symbol(Expression):
 class Operation(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # assert len(self.children) == 3, self
+        # self.left, self.op, self.right = self.children
 
 
 class Call(Expression):
@@ -95,6 +97,9 @@ class String(Literal):
 class Block(Node):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def canonical(self):
+        return '\n'.join(x.canonical() for x in self.children)
 
 
 class Operator(Node):
