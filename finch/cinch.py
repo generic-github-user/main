@@ -139,6 +139,21 @@ class Float(Literal):
         super().__init__(*args, **kwargs)
 
 
+class Tuple(Expression):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Array(Expression):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Symbol(Expression):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 class Operation(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
