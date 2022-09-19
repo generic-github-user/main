@@ -178,3 +178,18 @@ class Operator(Node):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+
+tree = Block()
+stack = [tree]
+current = tree
+depth = 0
+for token in tokens:
+    current = stack[-1]
+    depth = len(stack)
+    match token.type:
+
+        case _:
+            print(tree)
+            print(token)
+            raise SyntaxError
+print(tree)
