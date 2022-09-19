@@ -78,9 +78,12 @@ class CharType:
     Whitespace = 2
     Newline = 3
     Punctuation = 4
+    Quote = 5
 
 
 tokens = []
+line = 0
+col = 0
 for c in source:
     chartype = None
     if c in string.ascii_letters:
@@ -91,16 +94,23 @@ for c in source:
         chartype = CharType.Whitespace
     elif c == '\n':
         chartype = CharType.Newline
+    elif c == '"':
+        chartype = CharType.Quote
     elif c in string.punctuation:
         chartype = CharType.Punctuation
     else:
         raise SyntaxError(f'Unknown character type: {c}')
 
     if not tokens or chartype != tokens[-1].type:
-        tokens.append(Token(c, chartype))
+        tokens.append(Token(c, chartype, line=line, column=col))
     else:
         tokens[-1].content += c
-print(tokens)
+
+    col += 1
+    if c == '\n':
+        line += 1
+        col = 0
+# print(tokens)
 
 
 # class NodeType:
