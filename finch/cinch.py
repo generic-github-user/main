@@ -9,18 +9,21 @@ class ArgumentError(Exception):
 
 
 class Token:
-    def __init__(self, content, ctype, parent=None):
+    def __init__(self, content, ctype, parent=None, line=0, column=0):
         self.parent = parent
         self.content = content
         self.type = ctype
 
-        self.line = 0
-        self.column = 0
+        self.line = line
+        self.column = column
 
     def text(self): return self.content
 
-    def __str__(self):
+    def to_string(self, depth=0):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.content}'
+
+    def __str__(self):
+        return self.to_string(0)
 
     __repr__ = __str__
 
@@ -52,10 +55,14 @@ class Node:
     def text(self):
         return ''.join(c.text() for c in self.children)
 
-    def __str__(self):
+    def to_string(self, depth=0):
         return f'Node <{self.type}> ({self.depth})' +\
                '\n' +\
-               '\n'.join('  '*self.depth + str(n) for n in self.children)
+               '\n'.join('  '*depth + n.to_string(depth+1)
+                         for n in self.children)
+
+    def __str__(self):
+        return self.to_string(0)
 
 
 if len(sys.argv) < 2:
