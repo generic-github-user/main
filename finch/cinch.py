@@ -80,3 +80,34 @@ for c in source:
     else:
         tokens[-1].content += c
 print(tokens)
+
+
+# class NodeType:
+#    Int = 0
+#    Float = 1
+#    String = 2
+
+
+class Expression(Node):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Literal(Expression):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Int(Literal):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Float(Literal):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class String(Literal):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
