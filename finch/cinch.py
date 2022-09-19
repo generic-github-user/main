@@ -139,6 +139,27 @@ class Float(Literal):
         super().__init__(*args, **kwargs)
 
 
+class Operation(Expression):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Call(Expression):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 class String(Literal):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+
+class Block(Node):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class Operator(Node):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
