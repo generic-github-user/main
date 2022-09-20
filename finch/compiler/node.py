@@ -62,15 +62,24 @@ class Int(Literal):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def compile(self):
+        return self[0].content
+
 
 class Float(Literal):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def compile(self):
+        return self[0].content
+
 
 class Tuple(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def compile(self):
+        return ", ".join(x.compile() for x in self.children)
 
 
 class Array(Expression):
@@ -81,6 +90,9 @@ class Array(Expression):
 class Symbol(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def compile(self):
+        return self[0].content
 
 
 class Operation(Expression):
