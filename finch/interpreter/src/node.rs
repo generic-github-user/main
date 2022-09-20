@@ -69,3 +69,9 @@ pub enum NodeType {
     Whitespace,
     None
 }
+
+impl Node {
+    pub fn evaluate(self, symbols: &mut HashMap<String, Value>, verbose: bool) -> Option<Value> {
+        return None;
+    }
+}
