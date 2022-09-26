@@ -1,5 +1,6 @@
 use std::fmt;
 use std::collections::HashMap;
+use std::error::Error;
 
 use super::token::Token;
 // use super::nodetype::NodeType;
@@ -60,19 +61,33 @@ impl<'a> fmt::Display for Node {
 #[derive(PartialEq, Debug, Clone)]
 pub enum NodeType {
     Block,
-    Token,
     Program,
     String,
-    Integer,
-    Whitespace,
-    None
 }
 
 impl Node {
-    pub fn evaluate(&self) -> Option<Value> {
-        // match self.children[0] {
-
-        // }
-        return None;
+    pub fn evaluate(&self) -> Result<Value, String> {
+        match self.nodetype {
+            NodeType::Program | NodeType::Block => {
+                match self.children[0].nodetype {
+                    NodeType::String => {
+                        match self.children[0].to_string().as_str() {
+                            "echo" => {
+                                return Ok(Value{
+                                    value: self.children[1..].iter().map(|x| x.to_string())
+                                    .collect::<Vec<String>>().join(" ")
+                                })
+                            }
+                            _ => {
+                                return Err(format!("Invalid command name").to_string())
+                            }
+                        }
+                    }
+                    _ => todo!()
+                }
+            }
+            _ => todo!()
+        }
+        return Ok(Value { value: "".to_string() });
     }
 }
