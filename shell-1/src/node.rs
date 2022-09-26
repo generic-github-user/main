@@ -82,6 +82,15 @@ impl Node {
                                 return Ok(Value { value: self.children[1].content.clone().unwrap().content
                                     .chars().rev().collect() })
                             }
+                            "replace" => {
+                                return Ok(Value {
+                                    value: self.children[1].content.clone().unwrap().content
+                                        .replace(
+                                            self.children[2].content.clone().unwrap().content.as_str(),
+                                            self.children[3].content.clone().unwrap().content.as_str()
+                                        )
+                                });
+                            }
                             _ => {
                                 return Err(format!("Invalid command name").to_string())
                             }
