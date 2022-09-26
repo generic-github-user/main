@@ -6,8 +6,6 @@ pub enum CharType {
     Alphanumeric,
     Symbol,
     Newline,
-    LeftSB,
-    RightSB,
     Quote,
     String,
     Letter,

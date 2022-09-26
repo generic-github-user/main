@@ -59,7 +59,7 @@ impl<'a> fmt::Display for Node {
 
 #[derive(PartialEq, Debug, Clone)]
 pub enum NodeType {
-    Form,
+    Block,
     Token,
     Program,
     String,

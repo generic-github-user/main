@@ -30,8 +30,6 @@ pub fn lex(source: String, verbose: bool) -> Result<Vec<Token>, Error> {
             else if c.is_alphabetic() { ctype = CharType::Letter; }
             else if c == '\n' { ctype = CharType::Newline; }
             else if c.is_whitespace() { ctype = CharType::Whitespace; }
-            else if c == '[' { ctype = CharType::LeftSB; }
-            else if c == ']' { ctype = CharType::RightSB; }
             else if c == '"' && ptype != CharType::String { ctype = CharType::String; }
             else { ctype = CharType::Symbol; }
 
@@ -42,7 +40,7 @@ pub fn lex(source: String, verbose: bool) -> Result<Vec<Token>, Error> {
 
             // If the character type is unchanged from the previous step, append it to the current
             // token string ...
-            if ctype == ptype && ctype != CharType::LeftSB && ctype != CharType::RightSB {
+            if ctype == ptype && ctype != CharType::Symbol {
                 current += String::from(c).as_ref();
             }
             // ... otherwise, start a new token and store the current one
