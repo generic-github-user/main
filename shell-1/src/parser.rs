@@ -43,7 +43,7 @@ pub fn parse(tokens: Vec<Token>, verbose: bool) -> Node {
                     "}" => {
                         stack.pop();
                     },
-                    _ => todo!()
+                    _ => todo!("{:?}", token.content)
                 }
             }
             CharType::Newline | CharType::Whitespace | CharType::None => (),
