@@ -78,6 +78,10 @@ impl Node {
                                     .collect::<Vec<String>>().join(" ")
                                 })
                             }
+                            "rev" => {
+                                return Ok(Value { value: self.children[1].content.clone().unwrap().content
+                                    .chars().rev().collect() })
+                            }
                             _ => {
                                 return Err(format!("Invalid command name").to_string())
                             }
