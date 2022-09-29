@@ -23,7 +23,7 @@ pub fn parse(tokens: Vec<Token>, verbose: bool) -> Node {
     let mut root = Node {
         content: None,
         children: vec![],
-        nodetype: NodeType::Program
+        nodetype: NodeType::Block
     };
     for token in tokens {
         match token.chartype {

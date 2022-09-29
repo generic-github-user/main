@@ -61,14 +61,13 @@ impl<'a> fmt::Display for Node {
 #[derive(PartialEq, Debug, Clone)]
 pub enum NodeType {
     Block,
-    Program,
     String,
 }
 
 impl Node {
     pub fn evaluate(&self) -> Result<Value, String> {
         match self.nodetype {
-            NodeType::Program | NodeType::Block => {
+            NodeType::Block => {
                 match self.children[0].nodetype {
                     NodeType::String => {
                         match self.children[0].to_string().as_str() {
