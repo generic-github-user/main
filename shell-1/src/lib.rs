@@ -14,4 +14,9 @@ mod tests {
     use super::node::{Node, NodeType};
     use super::value::Value;
 
+    #[test]
+    fn lex_empty() {
+        let result = lex("".to_string(), false);
+        assert_eq!(result.unwrap(), vec![]);
+    }
 }
