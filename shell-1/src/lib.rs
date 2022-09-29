@@ -65,4 +65,14 @@ mod tests {
             nodetype: NodeType::Program
         });
     }
+
+    #[test]
+    fn eval_empty() {
+        let result = Node {
+            content: None,
+            children: vec![],
+            nodetype: NodeType::Program
+        }.evaluate();
+        assert_eq!(result.unwrap(), Value { value: String::new() });
+    }
 }
