@@ -3,7 +3,7 @@ use std::ops::{Add, Sub, Mul, Div};
 
 use super::node::Node;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Value {
     pub value: String
 }

@@ -9,7 +9,7 @@ use super::value::Value;
 
 /// An AST node (more accurately, a [sub]tree); generally, these nodes will either be a sequence of
 /// tokens or other nodes, but not both
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Node {
     /// The symbol corresponding to this node, if it is a leaf node
     pub content: Option<Token>,
@@ -58,7 +58,7 @@ impl<'a> fmt::Display for Node {
     }
 }
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(PartialEq, Eq, Debug, Clone)]
 pub enum NodeType {
     Block,
     Program,
