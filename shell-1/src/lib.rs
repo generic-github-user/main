@@ -55,4 +55,14 @@ mod tests {
             }
         ]);
     }
+
+    #[test]
+    fn parse_empty() {
+        let result = parse(vec![], false);
+        assert_eq!(result, Node {
+            content: None,
+            children: vec![],
+            nodetype: NodeType::Program
+        });
+    }
 }
