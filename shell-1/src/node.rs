@@ -91,6 +91,16 @@ impl Node {
                                         )
                                 });
                             }
+                            "range" => {
+                                let args: Vec<String> = self.children.iter().map(
+                                    |x| x.content.clone().unwrap().content).collect();
+                                return Ok(Value {
+                                    value: (args[1].parse::<i16>().unwrap()..
+                                            args[2].parse::<i16>().unwrap())
+                                        .map(|x| x.to_string())
+                                        .collect::<Vec<String>>().join(" ")
+                                });
+                            }
                             _ => {
                                 return Err(format!("Invalid command name").to_string())
                             }
@@ -101,6 +111,6 @@ impl Node {
             }
             _ => todo!()
         }
-        return Ok(Value { value: "".to_string() });
+        // return Ok(Value { value: "".to_string() });
     }
 }
