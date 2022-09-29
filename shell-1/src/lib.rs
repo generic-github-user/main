@@ -98,4 +98,13 @@ mod tests {
         }.evaluate();
         assert_eq!(result.unwrap(), Value { value: "54321".to_string() });
     }
+
+    #[test]
+    fn full_echo() {
+        assert_eq!(
+            parse(lex("echo Hello world".to_string(), false)
+                .unwrap(), false).evaluate().unwrap(),
+            Value { value: "Hello world".to_string() }
+        );
+    }
 }
