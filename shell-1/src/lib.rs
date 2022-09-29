@@ -75,4 +75,27 @@ mod tests {
         }.evaluate();
         assert_eq!(result.unwrap(), Value { value: String::new() });
     }
+
+    #[test]
+    fn eval_reverse() {
+        let result = Node {
+            content: None,
+            children: vec![
+                Node {
+                    content: Some(Token { content: "reverse".to_string(),
+                                     chartype: CharType::String }),
+                    children: vec![],
+                    nodetype: NodeType::String
+                },
+                Node {
+                    content: Some(Token { content: "12345".to_string(),
+                                     chartype: CharType::String }),
+                    children: vec![],
+                    nodetype: NodeType::String
+                }
+            ],
+            nodetype: NodeType::Program
+        }.evaluate();
+        assert_eq!(result.unwrap(), Value { value: "54321".to_string() });
+    }
 }
