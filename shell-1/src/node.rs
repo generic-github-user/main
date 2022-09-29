@@ -1,6 +1,7 @@
 use std::fmt;
 use std::collections::HashMap;
 use std::error::Error;
+use std::fs;
 
 use super::token::Token;
 // use super::nodetype::NodeType;
@@ -98,6 +99,16 @@ impl Node {
                                             args[2].parse::<i16>().unwrap())
                                         .map(|x| x.to_string())
                                         .collect::<Vec<String>>().join(" ")
+                                });
+                            }
+                            "ls" => {
+                                let args: Vec<String> = self.children.iter().map(
+                                    |x| x.content.clone().unwrap().content).collect();
+                                // https://stackoverflow.com/a/26084812
+                                let paths = fs::read_dir(args[1].clone()).unwrap();
+                                return Ok(Value {
+                                    value: paths.map(|x| x.unwrap().file_name().to_str().unwrap().to_string())
+                                        .collect::<Vec<String>>().join("\n")
                                 });
                             }
                             _ => {
