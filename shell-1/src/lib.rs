@@ -19,4 +19,13 @@ mod tests {
         let result = lex("".to_string(), false);
         assert_eq!(result.unwrap(), vec![]);
     }
+
+    #[test]
+    fn lex_token() {
+        let result = lex("echo".to_string(), false);
+        assert_eq!(result.unwrap(), vec![Token {
+            content: "echo".to_string(),
+            chartype: CharType::String
+        }]);
+    }
 }
