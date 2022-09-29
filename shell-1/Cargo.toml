@@ -1,7 +1,15 @@
 [package]
-name = "shell-1"
+name = "shell1"
 version = "0.1.0"
 edition = "2021"
+
+[lib]
+name = "shell1_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "shell1_bin"
+path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

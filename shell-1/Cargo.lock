@@ -248,7 +248,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "shell-1"
+name = "shell1"
 version = "0.1.0"
 dependencies = [
  "chrono",

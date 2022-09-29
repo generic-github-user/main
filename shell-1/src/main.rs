@@ -16,6 +16,9 @@ use lexer::lex;
 use parser::parse;
 use node::Node;
 
+// mod lib;
+// use lib::test;
+
 #[derive(Parser, Debug)]
 #[clap(version, about)]
 struct Args {
