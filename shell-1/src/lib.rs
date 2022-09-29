@@ -28,4 +28,31 @@ mod tests {
             chartype: CharType::String
         }]);
     }
+
+    #[test]
+    fn lex_args() {
+        let result = lex("echo Hello world".to_string(), false);
+        assert_eq!(result.unwrap(), vec![
+            Token {
+                content: "echo".to_string(),
+                chartype: CharType::String
+            },
+            Token {
+                content: " ".to_string(),
+                chartype: CharType::Whitespace
+            },
+            Token {
+                content: "Hello".to_string(),
+                chartype: CharType::String
+            },
+            Token {
+                content: " ".to_string(),
+                chartype: CharType::Whitespace
+            },
+            Token {
+                content: "world".to_string(),
+                chartype: CharType::String
+            }
+        ]);
+    }
 }
