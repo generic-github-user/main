@@ -1,0 +1,9 @@
+""
+A module for basic web-related functionality that can be extended to fit the
+needs of your project. Current development plan includes a
+[Dominate](https://github.com/Knio/dominate)-like interface for concise HTML
+construction, styling, basic interaction, and related functionality.
+Eventually, more advanced features suitable for developing web applications may
+be included (though it might turn out that these are better left to external
+modules).
+""

@@ -1,0 +1,18 @@
+"A Python-like generic dictionary implemented using a hash map (hash table)
+with [quadratic probing](https://en.wikipedia.org/wiki/Quadratic_probing) for
+hash collision resolution; access is generally near-constant time. This type is
+generic over T (the key type) and U (the value type); naturally, T must be
+hashable.
+
+Heterogeneous data types can be used for either the keys or values using
+various compiler/interpreter features specified by Finch. It is nevertheless a
+good idea, both for reasons of clarity and optimization, to narrow types down
+as much as possible using type bounds/constraints and composite types (e.g., if
+you know your values will only be ints or floats)."
+
+import(
+		std.hashing
+		std.collection.array
+)
+
+type std.collection.dictionary (hashable T, U)

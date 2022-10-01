@@ -1,0 +1,62 @@
+fn fibonacci (int n)
+    result = [0, 1]
+
+    return result
+
+123
+
+123.456
+
+.789
+
+1 + 2
+
+3 - 4
+
+5 * 6
+
+7 / 8
+
+7 ** 3
+
+(4 % 1) + 36
+
+4 % 1 + 36
+
+"hello" & " world"
+
+"lorem ipsum dolor sit amet".split(" ")
+
+67 ^ 3
+
+22 >> 4
+
+92 << 5
+
+8 +- 7
+
+print(list("abc" @ "def"))
+
+# f = 2.sqrt().sqrt().sqrt()
+
+# g = f (**^3) 2
+
+g == 2
+
+int.sqrt.inverse == x -> x ** 2
+
+number.sqrt == x -> x ** .5
+
+# "this is some text"[0..4 * 2]
+
+#  ::set /\ sequence.split
+
+# "he" + 4"l" + 8"o"
+
+"a".."z"
+
+#  "a".."z"[0..100 * 3] .= .map
+
+# 1..100.filter(x -> (x % 2..x.sqrt()).all()).map(string)
+
+"test"

@@ -52,60 +52,60 @@ further developing or reusing components from.
 
 ## Projects
 
-- alexandria  `organization` `software` `tools` `python` `backup` `bookmarks`
+- alexandria  `organization` `software` `python` `backup` `tools` `bookmarks`
 - ao  `bash` `python`
-- ascii-physics-sim  `simulations` `physics` `ascii` `python` `experiments`
-- Blender  `add-ons` `3d-graphics` `python` `blender` `extensions`
-- board  `simulations` `c++` `chess` `combinatorics` `mathematics` `board-games`
-- c2s  `programming-languages` `compilers` `c` `transpilers` `python` `new-language` `experimental`
-- CA2  `simulations` `cellular-automata` `discrete-math` `cgol` `c` `art` `python` `combinatorics` `geometry` `mathematics`
-- captcha  `hci` `security` `experiments`
-- cellular-automata-experiments  `simulations` `cellular-automata` `discrete-math` `cgol` `art` `python` `combinatorics` `geometry` `mathematics`
-- chrestomathy  `examples` `reference` `chrestomathy` `educational` `multiple`
-- clover  `ai` `c++` `ml` `mathematics` `optimization`
-- CogBench  `software` `tools` `psychometrics` `python` `interactive`
-- consequi  `organization` `productivity` `software` `tools` `python` `tasks`
-- englint  `tools` `language` `software`
-- epidemic-modelling  `modelling` `simulations` `dynamical-systems` `python` `mathematics`
-- finch  `programming-languages` `compilers` `c++` `transpilers` `python` `new-language` `experimental` `rust`
-- foldz  `simulations` `origami` `art` `python` `computational-geometry` `geometry` `mathematics`
-- fractals  `graphics` `dynamical-systems` `python` `numerical-analysis` `fractals` `mathematics`
+- ascii-physics-sim  `simulations` `physics` `experiments` `python` `ascii`
+- Blender  `extensions` `python` `3d-graphics` `blender` `add-ons`
+- board  `simulations` `combinatorics` `board-games` `c++` `mathematics` `chess`
+- c2s  `transpilers` `python` `new-language` `compilers` `experimental` `c` `programming-languages`
+- CA2  `simulations` `cellular-automata` `art` `discrete-math` `python` `mathematics` `geometry` `cgol` `c` `combinatorics`
+- captcha  `hci` `experiments` `security`
+- cellular-automata-experiments  `simulations` `cellular-automata` `art` `discrete-math` `python` `mathematics` `geometry` `cgol` `combinatorics`
+- chrestomathy  `examples` `chrestomathy` `educational` `multiple` `reference`
+- clover  `ai` `ml` `c++` `optimization` `mathematics`
+- CogBench  `psychometrics` `software` `interactive` `python` `tools`
+- consequi  `organization` `tasks` `software` `python` `tools` `productivity`
+- englint  `software` `language` `tools`
+- epidemic-modelling  `modelling` `simulations` `python` `mathematics` `dynamical-systems`
+- finch  `transpilers` `c++` `python` `new-language` `compilers` `experimental` `rust` `programming-languages`
+- foldz  `simulations` `art` `origami` `python` `computational-geometry` `mathematics` `geometry`
+- fractals  `graphics` `python` `mathematics` `fractals` `dynamical-systems` `numerical-analysis`
 - generic-github-user  `meta` `profile`
-- geometry  `analysis` `python` `geometry` `mathematics` `libraries`
-- grammars  `linguistics` `discrete-mathematics` `tools` `combinatorics` `grammars` `experiments` `libraries`
-- graphs  `python` `data-structures` `graphs` `mathematics` `graph-theory` `libraries`
-- hurricane  `ai` `ml` `mathematics` `libraries` `optimization`
-- img-conv  `convolutional-filters` `image-processing` `demos` `web` `ml` `javascript` `interactive`
-- keyboard-dynamics  `simulations` `statistics` `analysis` `hci` `python` `mathematics` `optimization`
-- leetcode  `leetcode` `python` `algorithms` `programming-challenges`
-- locus  `experiments` `programming-languages` `esoteroic` `python`
-- not-python  `programming-languages` `python` `syntax-extensions` `grammars` `experiments`
-- obfuscation  `security` `tools` `python` `languages`
-- packings  `simulations` `c` `combinatorics` `geometry` `mathematics`
-- programming-puzzles  `programming-puzzles` `python` `interactive`
-- project-summary  `data-aggregation` `metadata` `python` `apis` `github`
+- geometry  `analysis` `python` `mathematics` `geometry` `libraries`
+- grammars  `grammars` `linguistics` `discrete-mathematics` `experiments` `tools` `libraries` `combinatorics`
+- graphs  `graphs` `data-structures` `python` `mathematics` `libraries` `graph-theory`
+- hurricane  `ai` `ml` `optimization` `mathematics` `libraries`
+- img-conv  `demos` `ml` `convolutional-filters` `javascript` `image-processing` `interactive` `web`
+- keyboard-dynamics  `hci` `simulations` `analysis` `python` `optimization` `mathematics` `statistics`
+- leetcode  `algorithms` `programming-challenges` `leetcode` `python`
+- locus  `python` `programming-languages` `experiments` `esoteroic`
+- not-python  `grammars` `experiments` `python` `programming-languages` `syntax-extensions`
+- obfuscation  `languages` `python` `security` `tools`
+- packings  `simulations` `mathematics` `geometry` `c` `combinatorics`
+- programming-puzzles  `programming-puzzles` `interactive` `python`
+- project-summary  `apis` `python` `github` `data-aggregation` `metadata`
 - punchcard  `data-structures` `utilities` `libraries` `python`
-- pythings  `tools` `utilities` `python` `metaprogramming`
-- python-experiments  `metaprogramming` `programming-languages` `tools` `python` `experiments` `utilities`
-- python-snippets  `helpers` `templates` `programming-languages` `tools` `python` `utilities` `libraries`
-- quickplot  `matplotlib` `tools` `python` `graphs` `plotting` `libraries`
-- rcas  `symbolic-computation` `cas` `mathematics` `libraries` `rust`
-- roulette-curves  `simulations` `art` `python` `geometry` `mathematics`
-- sandbox  `simulations` `demos` `physics` `web` `javascript` `interactive` `experiments`
-- self-avoiding-walks  `random-walks` `simulations` `analysis` `python` `combinatorics` `mathematics`
-- set  `organization` `software` `tools` `version-control` `software-development`
-- shelf  `organization` `notes` `software` `tools` `python` `command-line` `utilities`
-- supernova  `ai` `ml` `mathematics` `libraries` `optimization`
-- tetris-variants  `tetris` `interactive` `python` `games`
-- Time-Zone-Roles  `discord-bot` `javascript` `automation`
-- transpiler  `transpilers` `programming-languages` `compilers`
-- tsunami  `ai` `ml` `mathematics` `libraries` `optimization`
-- unicode-art  `diagrams` `tools` `graphics`
-- unmacro  `text-processing` `macros` `vim` `automation` `hci` `editors` `python` `experiments`
-- utils  `scripting` `unix` `tools` `python` `command-line` `utilities`
-- visual-computing-simulation  `simulations` `circuits` `python` `interactive` `computing`
-- wordtetris  `tetris` `word-games` `python` `games`
-- zeal  `markup` `file-formats` `python` `serialization`
+- pythings  `utilities` `metaprogramming` `python` `tools`
+- python-experiments  `utilities` `metaprogramming` `experiments` `python` `tools` `programming-languages`
+- python-snippets  `utilities` `helpers` `python` `templates` `libraries` `tools` `programming-languages`
+- quickplot  `graphs` `matplotlib` `python` `tools` `libraries` `plotting`
+- rcas  `cas` `symbolic-computation` `mathematics` `libraries` `rust`
+- roulette-curves  `simulations` `art` `python` `mathematics` `geometry`
+- sandbox  `simulations` `demos` `javascript` `physics` `interactive` `experiments` `web`
+- self-avoiding-walks  `simulations` `analysis` `python` `mathematics` `combinatorics` `random-walks`
+- set  `organization` `software` `software-development` `tools` `version-control`
+- shelf  `utilities` `organization` `command-line` `software` `python` `tools` `notes`
+- supernova  `ai` `ml` `optimization` `mathematics` `libraries`
+- tetris-variants  `games` `tetris` `interactive` `python`
+- Time-Zone-Roles  `javascript` `automation` `discord-bot`
+- transpiler  `compilers` `transpilers` `programming-languages`
+- tsunami  `ai` `ml` `optimization` `mathematics` `libraries`
+- unicode-art  `graphics` `diagrams` `tools`
+- unmacro  `hci` `vim` `automation` `experiments` `python` `text-processing` `macros` `editors`
+- utils  `utilities` `scripting` `command-line` `python` `unix` `tools`
+- visual-computing-simulation  `simulations` `computing` `interactive` `python` `circuits`
+- wordtetris  `games` `tetris` `word-games` `python`
+- zeal  `serialization` `markup` `file-formats` `python`
 
 ## Branches
 
@@ -127,32 +127,33 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=1.12 s (499.5 files/s, 52624.0 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=1.11 s (598.2 files/s, 54986.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|131|2533|3039|8522
+Python|133|2558|3052|8599
 HTML|45|2444|71|7937
-Markdown|56|927|0|7218
+Markdown|60|965|0|7887
 JavaScript|55|928|1233|5420
-YAML|35|118|27|3860
+YAML|34|118|27|3835
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
-D|67|159|0|690
-Rust|5|129|131|536
+D|120|286|0|1355
+Rust|6|130|133|543
 Bourne Shell|3|77|102|452
 CSS|15|58|28|364
+JSON|119|0|0|340
 C/C++ Header|18|87|69|324
-JSON|77|0|0|298
 INI|4|52|0|248
+C++|2|56|44|201
 make|4|41|6|103
 XML|2|4|0|52
-TOML|7|13|4|44
+TOML|7|13|4|43
 TeX|1|6|0|18
 vim script|2|10|13|15
 --------|--------|--------|--------|--------
-SUM:|560|7943|10813|40242
+SUM:|663|8190|10872|41877
 
 
 ## On Monorepos
@@ -477,7 +478,35 @@ structure into my workflow:
 │   ├── node.py
 │   ├── README.md
 │   └── tree.py
+├── el
+│   ├── Cargo.toml
+│   ├── sample
+│   └── src
+│       └── main.rs
 ├── entropy.nu
+├── finch
+│   ├── build.py
+│   ├── docs
+│   │   └── finch.md
+│   ├── example.fn
+│   ├── grammar.ebnf
+│   ├── interpreter.cpp
+│   ├── README.md
+│   ├── README.src.md
+│   ├── runtime.cpp
+│   ├── std
+│   │   ├── collection
+│   │   │   ├── collection.fn
+│   │   │   └── dictionary.fn
+│   │   ├── error.fn
+│   │   ├── std.fn
+│   │   ├── warning.fn
+│   │   └── web.fn
+│   └── transpiler
+│       ├── example.fn
+│       ├── grammar.lark
+│       ├── parser.py
+│       └── README.md
 ├── fs.nu
 ├── generic-github-user
 │   ├── docs
@@ -716,20 +745,265 @@ structure into my workflow:
 │   ├── sample.ly
 │   ├── src
 │   │   └── main.rs
-│   ├── stdlib.yaml
 │   └── target
 │       ├── CACHEDIR.TAG
 │       └── debug
 │           ├── build
+│           │   ├── num-traits-5abbfb2879ee1585
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   │   ├── probe0.ll
+│           │   │   │   ├── probe1.ll
+│           │   │   │   ├── probe2.ll
+│           │   │   │   ├── probe3.ll
+│           │   │   │   ├── probe4.ll
+│           │   │   │   ├── probe5.ll
+│           │   │   │   ├── probe6.ll
+│           │   │   │   └── probe7.ll
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   └── num-traits-9c8d32d561b6d7b0
+│           │       ├── build-script-build
+│           │       ├── build_script_build-9c8d32d561b6d7b0
+│           │       └── build_script_build-9c8d32d561b6d7b0.d
 │           ├── deps
+│           │   ├── autocfg-b100abef6c63027d.d
+│           │   ├── libautocfg-b100abef6c63027d.rlib
+│           │   ├── libautocfg-b100abef6c63027d.rmeta
 │           │   ├── liblyre-b4ebc4fb2f723299.rmeta
+│           │   ├── liblyre-e80e4019af99be90.rmeta
+│           │   ├── libnum_traits-926957117fac6d63.rmeta
+│           │   ├── libnum_traits-b1e9610ca7bd1eec.rlib
+│           │   ├── libnum_traits-b1e9610ca7bd1eec.rmeta
+│           │   ├── lyre-19347aa3e19fb131
+│           │   ├── lyre-19347aa3e19fb131.d
 │           │   ├── lyre-3eca458c841b55bb
 │           │   ├── lyre-3eca458c841b55bb.d
-│           │   └── lyre-b4ebc4fb2f723299.d
+│           │   ├── lyre-5c8fe7d177760abc
+│           │   ├── lyre-5c8fe7d177760abc.d
+│           │   ├── lyre-b4ebc4fb2f723299.d
+│           │   ├── lyre-e80e4019af99be90.d
+│           │   ├── num_traits-926957117fac6d63.d
+│           │   └── num_traits-b1e9610ca7bd1eec.d
 │           ├── examples
 │           ├── incremental
+│           │   ├── lyre-1qczrx1wls87s
+│           │   │   ├── s-gdh2euyf6s-1yr1rh0-3a80dqiunblsu
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-gdh2euyf6s-1yr1rh0.lock
+│           │   ├── lyre-2fh5tlj58te0
+│           │   │   ├── s-gdgyh7xacs-e8buii-1f4tw1q14s5qi
+│           │   │   │   ├── 115apsnm6q1vzqz3.o
+│           │   │   │   ├── 13h9jusp9ecsy189.o
+│           │   │   │   ├── 13vu1gx6ldt06112.o
+│           │   │   │   ├── 14v3ubao8r2onjtn.o
+│           │   │   │   ├── 184nqullhtsbe9rw.o
+│           │   │   │   ├── 1a0fwsm30xlrb12.o
+│           │   │   │   ├── 1ab1veovfg32gzy5.o
+│           │   │   │   ├── 1ch28exfi60ngjj1.o
+│           │   │   │   ├── 1eefy0sctq64vj1a.o
+│           │   │   │   ├── 1ne6301zvpp3gyxa.o
+│           │   │   │   ├── 1qksg86qsx3x8i64.o
+│           │   │   │   ├── 1ui9c2xxabli3fs.o
+│           │   │   │   ├── 1usxmt2dxtliyl6q.o
+│           │   │   │   ├── 1uuluruxx2rsz31y.o
+│           │   │   │   ├── 1x2vk1kbtkyly7as.o
+│           │   │   │   ├── 1xs6a0k0otyhzy2v.o
+│           │   │   │   ├── 25ienhc20d4johzj.o
+│           │   │   │   ├── 26qk410h0zr93fi8.o
+│           │   │   │   ├── 2844o1wk2ml5szw3.o
+│           │   │   │   ├── 2a45f03utriescew.o
+│           │   │   │   ├── 2bo9a64ze76faaz4.o
+│           │   │   │   ├── 2dq3tdioe3feor6j.o
+│           │   │   │   ├── 2f51imvzi2uif54l.o
+│           │   │   │   ├── 2hhcv8vmf9j6m65u.o
+│           │   │   │   ├── 2n6jr5gt0ab6pjpa.o
+│           │   │   │   ├── 2ncddgh22ixkxt81.o
+│           │   │   │   ├── 2o5ebtifjtpuq1tu.o
+│           │   │   │   ├── 2oph92p1vj9jae5g.o
+│           │   │   │   ├── 2qactuix67vi80r3.o
+│           │   │   │   ├── 2r3v61sb3lzag3fi.o
+│           │   │   │   ├── 2seucccupi4a3ukl.o
+│           │   │   │   ├── 2vemkkrjjhsap5by.o
+│           │   │   │   ├── 33mz02i1b23bd5vj.o
+│           │   │   │   ├── 33ylsiusvzl2a5nu.o
+│           │   │   │   ├── 354ha37io7p49q0a.o
+│           │   │   │   ├── 35ozojok38c94yy2.o
+│           │   │   │   ├── 3bt52kzztqj8srll.o
+│           │   │   │   ├── 3byl3noguj5jf1k2.o
+│           │   │   │   ├── 3f2w2muwfytzwyan.o
+│           │   │   │   ├── 3f368zqs7yy80nnj.o
+│           │   │   │   ├── 3hvqw4qqshu74al0.o
+│           │   │   │   ├── 3kfpsw48rais1yuk.o
+│           │   │   │   ├── 3rx4jwufmspf086j.o
+│           │   │   │   ├── 3sf57b42kkvh31rw.o
+│           │   │   │   ├── 3tz9dt1xhhe1ctv9.o
+│           │   │   │   ├── 3ub3bliwhru08e2r.o
+│           │   │   │   ├── 3v24bx6li7sxuall.o
+│           │   │   │   ├── 3w8kn0msh574xs3k.o
+│           │   │   │   ├── 41ydgpwspi93nu8v.o
+│           │   │   │   ├── 47fghanpm7akvbal.o
+│           │   │   │   ├── 4ci2ok289nkx6o4j.o
+│           │   │   │   ├── 4hsa8pnpxk8e1nsm.o
+│           │   │   │   ├── 4lxqncxvldnja1jh.o
+│           │   │   │   ├── 4olhyak0p8hk9jwz.o
+│           │   │   │   ├── 4pap8z2rd5vnkrao.o
+│           │   │   │   ├── 4pd91ol98ing5l2b.o
+│           │   │   │   ├── 4pgedbmq625aw5ge.o
+│           │   │   │   ├── 4pmgzvvwidhuiuwp.o
+│           │   │   │   ├── 4qv33rpb2k5wvijo.o
+│           │   │   │   ├── 4rszlmi9kzqjnito.o
+│           │   │   │   ├── 4sfhl24e13c4seoy.o
+│           │   │   │   ├── 4zvpddq02tsn4obz.o
+│           │   │   │   ├── 50wk4jtntz4sjs8a.o
+│           │   │   │   ├── 518gj3uvg6iqdpos.o
+│           │   │   │   ├── 51su7snfz8w9grg0.o
+│           │   │   │   ├── 53bcup7swill2kv9.o
+│           │   │   │   ├── 553hageifxkraytw.o
+│           │   │   │   ├── 55xltx713slls0w3.o
+│           │   │   │   ├── 56thdtyypt6epgl9.o
+│           │   │   │   ├── 57o88mc84wwtdghy.o
+│           │   │   │   ├── 5blpqj7vvekw8mpm.o
+│           │   │   │   ├── 5cj98m8cnw4vgqyp.o
+│           │   │   │   ├── 5dfehf7s8u3q4blz.o
+│           │   │   │   ├── 5eezghnd5vom0wyz.o
+│           │   │   │   ├── 5ejhvpa3k5eg5my0.o
+│           │   │   │   ├── 5ek86lmt0my4thz4.o
+│           │   │   │   ├── 5f7qokn4pgztznny.o
+│           │   │   │   ├── 5fa5lr2vowd5z8nf.o
+│           │   │   │   ├── a1cbptahhaisz3n.o
+│           │   │   │   ├── bxw9o6oaycyd2j5.o
+│           │   │   │   ├── clajd35ci99x3fe.o
+│           │   │   │   ├── cr3l87n8l2pp7ue.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── f4t7edxt4gs25lh.o
+│           │   │   │   ├── hiz9x5jmmkh0ajx.o
+│           │   │   │   ├── pcbbuhf2dmpl4nb.o
+│           │   │   │   ├── pl226lodv1nzmh8.o
+│           │   │   │   ├── pxzk9ac3zntnxgz.o
+│           │   │   │   ├── q7z9phxglzrc6kj.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── r3d3ejv987d9lmc.o
+│           │   │   │   ├── s3oikuota0c6t97.o
+│           │   │   │   ├── sujl18ogwqyt7ez.o
+│           │   │   │   ├── t5aqzarb390azo0.o
+│           │   │   │   ├── ue4aaarx0s2pxdy.o
+│           │   │   │   ├── vc30v4rlkdb37jb.o
+│           │   │   │   ├── wemhe6bsgpmvhwc.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   ├── xf1dxn3xtr0qxot.o
+│           │   │   │   ├── zpv8ivenvcpy7rn.o
+│           │   │   │   └── zwlqa7re3gwhnle.o
+│           │   │   ├── s-gdgyh7xacs-e8buii.lock
+│           │   │   ├── s-gdgyiqjdt9-xu6g9v.lock
+│           │   │   └── s-gdgyiqjdt9-xu6g9v-working
+│           │   │       ├── 115apsnm6q1vzqz3.o
+│           │   │       ├── 13h9jusp9ecsy189.o
+│           │   │       ├── 13vu1gx6ldt06112.o
+│           │   │       ├── 14v3ubao8r2onjtn.o
+│           │   │       ├── 184nqullhtsbe9rw.o
+│           │   │       ├── 1a0fwsm30xlrb12.o
+│           │   │       ├── 1ab1veovfg32gzy5.o
+│           │   │       ├── 1ch28exfi60ngjj1.o
+│           │   │       ├── 1eefy0sctq64vj1a.o
+│           │   │       ├── 1ne6301zvpp3gyxa.o
+│           │   │       ├── 1qksg86qsx3x8i64.o
+│           │   │       ├── 1ui9c2xxabli3fs.o
+│           │   │       ├── 1usxmt2dxtliyl6q.o
+│           │   │       ├── 1uuluruxx2rsz31y.o
+│           │   │       ├── 1x2vk1kbtkyly7as.o
+│           │   │       ├── 1xs6a0k0otyhzy2v.o
+│           │   │       ├── 25ienhc20d4johzj.o
+│           │   │       ├── 26qk410h0zr93fi8.o
+│           │   │       ├── 2844o1wk2ml5szw3.o
+│           │   │       ├── 2a45f03utriescew.o
+│           │   │       ├── 2bo9a64ze76faaz4.o
+│           │   │       ├── 2dq3tdioe3feor6j.o
+│           │   │       ├── 2f51imvzi2uif54l.o
+│           │   │       ├── 2hhcv8vmf9j6m65u.o
+│           │   │       ├── 2n6jr5gt0ab6pjpa.o
+│           │   │       ├── 2ncddgh22ixkxt81.o
+│           │   │       ├── 2o5ebtifjtpuq1tu.o
+│           │   │       ├── 2oph92p1vj9jae5g.o
+│           │   │       ├── 2qactuix67vi80r3.o
+│           │   │       ├── 2r3v61sb3lzag3fi.o
+│           │   │       ├── 2seucccupi4a3ukl.o
+│           │   │       ├── 2vemkkrjjhsap5by.o
+│           │   │       ├── 33mz02i1b23bd5vj.o
+│           │   │       ├── 33ylsiusvzl2a5nu.o
+│           │   │       ├── 354ha37io7p49q0a.o
+│           │   │       ├── 35ozojok38c94yy2.o
+│           │   │       ├── 3bt52kzztqj8srll.o
+│           │   │       ├── 3byl3noguj5jf1k2.o
+│           │   │       ├── 3f2w2muwfytzwyan.o
+│           │   │       ├── 3f368zqs7yy80nnj.o
+│           │   │       ├── 3hvqw4qqshu74al0.o
+│           │   │       ├── 3kfpsw48rais1yuk.o
+│           │   │       ├── 3rx4jwufmspf086j.o
+│           │   │       ├── 3sf57b42kkvh31rw.o
+│           │   │       ├── 3tz9dt1xhhe1ctv9.o
+│           │   │       ├── 3ub3bliwhru08e2r.o
+│           │   │       ├── 3v24bx6li7sxuall.o
+│           │   │       ├── 3w8kn0msh574xs3k.o
+│           │   │       ├── 41ydgpwspi93nu8v.o
+│           │   │       ├── 47fghanpm7akvbal.o
+│           │   │       ├── 4ci2ok289nkx6o4j.o
+│           │   │       ├── 4hsa8pnpxk8e1nsm.o
+│           │   │       ├── 4lxqncxvldnja1jh.o
+│           │   │       ├── 4olhyak0p8hk9jwz.o
+│           │   │       ├── 4pap8z2rd5vnkrao.o
+│           │   │       ├── 4pd91ol98ing5l2b.o
+│           │   │       ├── 4pgedbmq625aw5ge.o
+│           │   │       ├── 4pmgzvvwidhuiuwp.o
+│           │   │       ├── 4qv33rpb2k5wvijo.o
+│           │   │       ├── 4rszlmi9kzqjnito.o
+│           │   │       ├── 4sfhl24e13c4seoy.o
+│           │   │       ├── 4zvpddq02tsn4obz.o
+│           │   │       ├── 50wk4jtntz4sjs8a.o
+│           │   │       ├── 518gj3uvg6iqdpos.o
+│           │   │       ├── 51su7snfz8w9grg0.o
+│           │   │       ├── 53bcup7swill2kv9.o
+│           │   │       ├── 553hageifxkraytw.o
+│           │   │       ├── 55xltx713slls0w3.o
+│           │   │       ├── 56thdtyypt6epgl9.o
+│           │   │       ├── 57o88mc84wwtdghy.o
+│           │   │       ├── 5blpqj7vvekw8mpm.o
+│           │   │       ├── 5cj98m8cnw4vgqyp.o
+│           │   │       ├── 5dfehf7s8u3q4blz.o
+│           │   │       ├── 5eezghnd5vom0wyz.o
+│           │   │       ├── 5ejhvpa3k5eg5my0.o
+│           │   │       ├── 5ek86lmt0my4thz4.o
+│           │   │       ├── 5f7qokn4pgztznny.o
+│           │   │       ├── 5fa5lr2vowd5z8nf.o
+│           │   │       ├── a1cbptahhaisz3n.o
+│           │   │       ├── bxw9o6oaycyd2j5.o
+│           │   │       ├── clajd35ci99x3fe.o
+│           │   │       ├── cr3l87n8l2pp7ue.o
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── f4t7edxt4gs25lh.o
+│           │   │       ├── hiz9x5jmmkh0ajx.o
+│           │   │       ├── pcbbuhf2dmpl4nb.o
+│           │   │       ├── pl226lodv1nzmh8.o
+│           │   │       ├── pxzk9ac3zntnxgz.o
+│           │   │       ├── q7z9phxglzrc6kj.o
+│           │   │       ├── query-cache.bin
+│           │   │       ├── r3d3ejv987d9lmc.o
+│           │   │       ├── s3oikuota0c6t97.o
+│           │   │       ├── sujl18ogwqyt7ez.o
+│           │   │       ├── t5aqzarb390azo0.o
+│           │   │       ├── ue4aaarx0s2pxdy.o
+│           │   │       ├── vc30v4rlkdb37jb.o
+│           │   │       ├── wemhe6bsgpmvhwc.o
+│           │   │       ├── work-products.bin
+│           │   │       ├── xf1dxn3xtr0qxot.o
+│           │   │       ├── zpv8ivenvcpy7rn.o
+│           │   │       └── zwlqa7re3gwhnle.o
 │           │   ├── lyre-2hd6xjpre8m3p
-│           │   │   ├── s-gdc9zjet9g-1jj5xfz-15ksj11qyxdc1
+│           │   │   ├── s-gdgx7vtm4p-tjqqus-223tait4nugb2
 │           │   │   │   ├── 104ogjzvad84rh5t.o
 │           │   │   │   ├── 118gf6zlokzg9pnh.o
 │           │   │   │   ├── 12172tavr8w950is.o
@@ -748,12 +1022,16 @@ structure into my workflow:
 │           │   │   │   ├── 1l7rtztexwgl1ph4.o
 │           │   │   │   ├── 1lxzyk4bindgl7r.o
 │           │   │   │   ├── 1rxzptl0txc17c9h.o
+│           │   │   │   ├── 1sik60au0wttsotq.o
+│           │   │   │   ├── 1splbnhgwto4ngwl.o
 │           │   │   │   ├── 1ubinvmsn5qdk2we.o
 │           │   │   │   ├── 1uiy9inno6ikicn6.o
 │           │   │   │   ├── 1vqu414rqohkwngq.o
 │           │   │   │   ├── 1w8q50c8pz082hlk.o
+│           │   │   │   ├── 1w9ydqk6cir6m57g.o
 │           │   │   │   ├── 1zc05zgu1hbobrt.o
 │           │   │   │   ├── 249jr8ayt6btc6n3.o
+│           │   │   │   ├── 26d2esnwtylnekk9.o
 │           │   │   │   ├── 26dcth1w1n2zubhm.o
 │           │   │   │   ├── 27mauxfhfrphn66m.o
 │           │   │   │   ├── 2anziwvtkwzq3ho7.o
@@ -766,7 +1044,6 @@ structure into my workflow:
 │           │   │   │   ├── 2e4hobfwkxdqrqz8.o
 │           │   │   │   ├── 2h1wivio9w2ui1wt.o
 │           │   │   │   ├── 2k0z58q37d3oc5h1.o
-│           │   │   │   ├── 2k6h5gftssnwmls7.o
 │           │   │   │   ├── 2nvjdq6uizjdzkws.o
 │           │   │   │   ├── 2pdqnh8y9hza2cpf.o
 │           │   │   │   ├── 2pnscjqbv5szex57.o
@@ -814,13 +1091,16 @@ structure into my workflow:
 │           │   │   │   ├── 4heqymnjeb8tp77b.o
 │           │   │   │   ├── 4lmm2o8ny0qg10w7.o
 │           │   │   │   ├── 4ot3dalj5s4fjct1.o
+│           │   │   │   ├── 4oxt19yccazjvhn8.o
 │           │   │   │   ├── 4q95p42qd3n7nbin.o
 │           │   │   │   ├── 4qduo9sgtiz6nsie.o
 │           │   │   │   ├── 4r671d9yhdsgfduu.o
 │           │   │   │   ├── 4roih0i5r1w3bgfo.o
 │           │   │   │   ├── 4ulbi84ksus4r6v6.o
 │           │   │   │   ├── 4xrgvdssief7qbyj.o
+│           │   │   │   ├── 50yhsbfba8dc7wqu.o
 │           │   │   │   ├── 57dlzfn0lzy6hv1o.o
+│           │   │   │   ├── 57y7o6dsjm48wda7.o
 │           │   │   │   ├── 5a72f7mgxuf8jzqo.o
 │           │   │   │   ├── 5bbqke0dbx79a4i7.o
 │           │   │   │   ├── 5cm1w9ubsuszr7ac.o
@@ -834,6 +1114,7 @@ structure into my workflow:
 │           │   │   │   ├── g4r0rlw7pdwahne.o
 │           │   │   │   ├── g7ad4i77iw6v9kq.o
 │           │   │   │   ├── hjyttmakt6tautl.o
+│           │   │   │   ├── k45fjr0zl8zlcrb.o
 │           │   │   │   ├── lqdfvzu22nha8nm.o
 │           │   │   │   ├── m5b3xwlh9976tc6.o
 │           │   │   │   ├── punappza53vzytd.o
@@ -846,21 +1127,148 @@ structure into my workflow:
 │           │   │   │   ├── w1ifnnpxhwi8wvz.o
 │           │   │   │   ├── work-products.bin
 │           │   │   │   ├── xgk9kgayu4e96xz.o
+│           │   │   │   ├── xybwhaglieynsll.o
 │           │   │   │   ├── zakuozuk7rgv4i7.o
 │           │   │   │   └── zjn696mslkvrrj6.o
-│           │   │   └── s-gdc9zjet9g-1jj5xfz.lock
-│           │   └── lyre-2hh33w5vnc846
-│           │       ├── s-gdcafnrhwa-5moy1i.lock
-│           │       ├── s-gdcafnrhwa-5moy1i-working
+│           │   │   └── s-gdgx7vtm4p-tjqqus.lock
+│           │   ├── lyre-2hh33w5vnc846
+│           │   │   ├── s-gdgx6qxz6i-q0lc41-1dclfj8zx7dpn
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdgx6qxz6i-q0lc41.lock
+│           │   │   ├── s-gdgxdccprk-10gffmp.lock
+│           │   │   └── s-gdgxdccprk-10gffmp-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   └── lyre-3qfe7coxep54w
+│           │       ├── s-gdgxk0kysz-z4wtwh-1q01rn05oue9b
+│           │       │   ├── 12xho06rpxvrntdi.o
+│           │       │   ├── 16dx86t4dp1t37q0.o
+│           │       │   ├── 16vwdu8vtm85updc.o
+│           │       │   ├── 16w46osfia9q4ed7.o
+│           │       │   ├── 16zriwqlaei4531r.o
+│           │       │   ├── 18ksr8gyof5i9iyn.o
+│           │       │   ├── 1a6s6g7a5icvbu43.o
+│           │       │   ├── 1ak156zxo25wmcab.o
+│           │       │   ├── 1ccrfugt1t0iv7hq.o
+│           │       │   ├── 1fsxlw5nd5sn660e.o
+│           │       │   ├── 1k8yjlh4t0tt5l41.o
+│           │       │   ├── 1lowcehk9bmnysxk.o
+│           │       │   ├── 1p92rsa2cs2swcg1.o
+│           │       │   ├── 1q3t7nxyu3lx7nan.o
+│           │       │   ├── 1q6x4tb8h9ch7hke.o
+│           │       │   ├── 1qios3mlu2p4hp73.o
+│           │       │   ├── 1qr9fm6teqmevhlw.o
+│           │       │   ├── 1s2xz0fp43qqgm7g.o
+│           │       │   ├── 1tihtnuzyn13n50r.o
+│           │       │   ├── 1tkzevjonbfh4qrv.o
+│           │       │   ├── 1tu54kvhe93i9iwm.o
+│           │       │   ├── 1usicp24srnc8egj.o
+│           │       │   ├── 1v5umwo8976fliv3.o
+│           │       │   ├── 1vrzq11dsab2h3tx.o
+│           │       │   ├── 1wthybd35eaqajk0.o
+│           │       │   ├── 1xi77uxto7nfwh21.o
+│           │       │   ├── 1zhgjlt466uxcrpp.o
+│           │       │   ├── 21zkreenmet463ks.o
+│           │       │   ├── 226wnoao5nq20cv3.o
+│           │       │   ├── 23t1chxsh2wppygx.o
+│           │       │   ├── 25o6xxic4mz44wzl.o
+│           │       │   ├── 276853pkh6tkdawo.o
+│           │       │   ├── 286hfha493wbezlq.o
+│           │       │   ├── 28c27l1xcyrgrioe.o
+│           │       │   ├── 2afcaukzdbrlvpeh.o
+│           │       │   ├── 2hfkdibr3srunfru.o
+│           │       │   ├── 2l3p6qug9wsdlx1l.o
+│           │       │   ├── 2lr68wikofahhtgx.o
+│           │       │   ├── 2o3jwrinterhe1ze.o
+│           │       │   ├── 2rfrol4pf8etv2xa.o
+│           │       │   ├── 2sv3sh82d6ul4xzs.o
+│           │       │   ├── 2tstmxn6h0wug5um.o
+│           │       │   ├── 2v03lfi3o904chlk.o
+│           │       │   ├── 2w7wahwpp2lsodt5.o
+│           │       │   ├── 2wa2hn64bsn5rpmc.o
+│           │       │   ├── 2wzcq8l84y73ryum.o
+│           │       │   ├── 2zxfksec5j9nuzy2.o
+│           │       │   ├── 317q00ag7nnfldg5.o
+│           │       │   ├── 32nute70cey41lu2.o
+│           │       │   ├── 35bcf5rv7k0z272g.o
+│           │       │   ├── 368av2hr8s64hlub.o
+│           │       │   ├── 36tpfjpdxwm0adw7.o
+│           │       │   ├── 37nocuj51m83ofte.o
+│           │       │   ├── 39m0en7ery1f34jv.o
+│           │       │   ├── 39uygftfvwf96ht9.o
+│           │       │   ├── 3a5fkcpakuc8m2gh.o
+│           │       │   ├── 3ckhjr2un5tnvjx4.o
+│           │       │   ├── 3g8z1omojdpaws68.o
+│           │       │   ├── 3jrynrvzr1y8hc3l.o
+│           │       │   ├── 3lm4p32nj7ybqu3u.o
+│           │       │   ├── 3oo8qsmpcosu0h6t.o
+│           │       │   ├── 3s1cp6nklas8fz3z.o
+│           │       │   ├── 3u21g0kwh7dxnvm3.o
+│           │       │   ├── 3uyh9fmt2l84bf44.o
+│           │       │   ├── 3we6gbnj2m2blzs9.o
+│           │       │   ├── 3x7n6gr8g3xbimn5.o
+│           │       │   ├── 40r8587s6er0swh.o
+│           │       │   ├── 40x2ek2fk65smna.o
+│           │       │   ├── 4128d5oibwpa33xs.o
+│           │       │   ├── 41dzs8eqc6ybzwd5.o
+│           │       │   ├── 41uafgmmvfm1ls2t.o
+│           │       │   ├── 42u51grm6loex893.o
+│           │       │   ├── 444xgqknyyq339h6.o
+│           │       │   ├── 465xninu35a4lz7j.o
+│           │       │   ├── 48rqongqkro67zt0.o
+│           │       │   ├── 4c7dytqi2h85ut10.o
+│           │       │   ├── 4cj3t96md0s67p8y.o
+│           │       │   ├── 4dlitvn339edf5hv.o
+│           │       │   ├── 4e5kpl0ghpgrqm5m.o
+│           │       │   ├── 4e7xrfz55g8lpdh3.o
+│           │       │   ├── 4f69ljt5whnxlgcp.o
+│           │       │   ├── 4fh9q8d9eo2yowbf.o
+│           │       │   ├── 4gc0x3nean4fxd4g.o
+│           │       │   ├── 4jfbgh71rhf0w8cc.o
+│           │       │   ├── 4nr52tmufmg4o4i9.o
+│           │       │   ├── 4s9m7oy4z6i3ythw.o
+│           │       │   ├── 4w77r5ycok0km4l6.o
+│           │       │   ├── 51206m1cki5qpcab.o
+│           │       │   ├── 52yzwyfsk9q80417.o
+│           │       │   ├── 535ibyxs9fw7ld6x.o
+│           │       │   ├── 53gum03fw6bh8cij.o
+│           │       │   ├── 53jyrb16ydblf8wt.o
+│           │       │   ├── 53yepmhe4y63j6l1.o
+│           │       │   ├── 54puxr6wlh4vxnwv.o
+│           │       │   ├── 560uojx3im5qooxt.o
+│           │       │   ├── 568yroh8zo0bwtv8.o
+│           │       │   ├── 56c7cs86u4qjxnbh.o
+│           │       │   ├── 57o7lve1sw43heur.o
+│           │       │   ├── 5d9s3zkl780o3p1s.o
+│           │       │   ├── 5egi2sxk6ozdjocq.o
+│           │       │   ├── 5f2m633wv2znzbaa.o
+│           │       │   ├── 9i3aohxhpbwmi5.o
+│           │       │   ├── ac9ub3dzweh3nfy.o
+│           │       │   ├── c54cvi126b204kb.o
+│           │       │   ├── cs48uon1szu1wza.o
+│           │       │   ├── cz5v8dm5xsixqex.o
 │           │       │   ├── dep-graph.bin
-│           │       │   ├── dep-graph.part.bin
+│           │       │   ├── gimfag2l8e498lz.o
+│           │       │   ├── hexh7gyp4zngylu.o
+│           │       │   ├── hwbxs0fuetle0xb.o
+│           │       │   ├── ing5qqqjf3k75ga.o
+│           │       │   ├── kmx9f68iy6p2cxy.o
+│           │       │   ├── m3lny5jpztm4vu5.o
+│           │       │   ├── nz1hfbhnetasp76.o
+│           │       │   ├── qa79ogyaq5k0ea5.o
 │           │       │   ├── query-cache.bin
-│           │       │   └── work-products.bin
-│           │       ├── s-gdcafs2aih-4exjmf-2mehzwvns1gqd
-│           │       │   ├── dep-graph.bin
-│           │       │   ├── query-cache.bin
-│           │       │   └── work-products.bin
-│           │       └── s-gdcafs2aih-4exjmf.lock
+│           │       │   ├── s8lteh7r8rzioid.o
+│           │       │   ├── tbzh2cpj78bq1fg.o
+│           │       │   ├── us1qfgob8uwlvkr.o
+│           │       │   ├── v8qggngbm4shzwd.o
+│           │       │   ├── woao8vj9cp5gp3h.o
+│           │       │   ├── work-products.bin
+│           │       │   └── zpwm9atinvjyyd1.o
+│           │       └── s-gdgxk0kysz-z4wtwh.lock
 │           ├── lyre
 │           └── lyre.d
 ├── mathematics
@@ -1182,8 +1590,6 @@ structure into my workflow:
 ├── README.md
 ├── README.src.md
 ├── rffrrr
-│   ├── Cargo.lock
-│   ├── Cargo.toml
 │   ├── src
 │   │   └── main.rs
 │   └── target
@@ -1360,6 +1766,315 @@ structure into my workflow:
 │   │   └── README.md
 │   ├── fire-sim
 │   │   └── simulation.py
+│   ├── fluid-sim
+│   │   └── target
+│   │       ├── CACHEDIR.TAG
+│   │       └── debug
+│   │           ├── build
+│   │           │   ├── libc-06ac331ace17f261
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── libc-875143ba2a651140
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-875143ba2a651140
+│   │           │   │   └── build_script_build-875143ba2a651140.d
+│   │           │   ├── num-integer-abfda74001a7f38d
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   │   ├── probe0.ll
+│   │           │   │   │   └── probe1.ll
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── num-integer-f6658b24f92e4bc4
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-f6658b24f92e4bc4
+│   │           │   │   └── build_script_build-f6658b24f92e4bc4.d
+│   │           │   ├── num-traits-36faa667a20672c6
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-36faa667a20672c6
+│   │           │   │   └── build_script_build-36faa667a20672c6.d
+│   │           │   ├── num-traits-637819b6e124e5df
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   │   ├── probe0.ll
+│   │           │   │   │   ├── probe1.ll
+│   │           │   │   │   ├── probe2.ll
+│   │           │   │   │   ├── probe3.ll
+│   │           │   │   │   ├── probe4.ll
+│   │           │   │   │   ├── probe5.ll
+│   │           │   │   │   └── probe6.ll
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── proc-macro2-1c69a8c40addd6a0
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-1c69a8c40addd6a0
+│   │           │   │   └── build_script_build-1c69a8c40addd6a0.d
+│   │           │   ├── proc-macro2-8638942c48739123
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── quote-2efd26ecd652084a
+│   │           │   │   ├── build-script-build
+│   │           │   │   ├── build_script_build-2efd26ecd652084a
+│   │           │   │   └── build_script_build-2efd26ecd652084a.d
+│   │           │   ├── quote-68cf2609ee60a0d5
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   ├── syn-2af61a362baf0a07
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   └── syn-e7429aa395a13490
+│   │           │       ├── build-script-build
+│   │           │       ├── build_script_build-e7429aa395a13490
+│   │           │       └── build_script_build-e7429aa395a13490.d
+│   │           ├── deps
+│   │           │   ├── autocfg-b100abef6c63027d.d
+│   │           │   ├── cfg_if-87c284443f3cd509.d
+│   │           │   ├── cfg_if-ac68a5ec1f1c024f.d
+│   │           │   ├── convert_case-c5debd0825ed81fe.d
+│   │           │   ├── derive_more-a0e1f31ad69454e9.d
+│   │           │   ├── fluid_sim-42697136c42e63d6.d
+│   │           │   ├── fluid_sim-43482d1c548f9044
+│   │           │   ├── fluid_sim-43482d1c548f9044.d
+│   │           │   ├── fluid_sim-6ef74a01df26cdb3
+│   │           │   ├── fluid_sim-6ef74a01df26cdb3.d
+│   │           │   ├── fluid_sim-90f8b4b0348f9cc9.d
+│   │           │   ├── fluid_sim-a4a24015ba0bd6f3.d
+│   │           │   ├── fluid_sim-f4580b0e8f6d8272.d
+│   │           │   ├── getrandom-07242aedf5a3f93f.d
+│   │           │   ├── getrandom-55aa11d92774ed3b.d
+│   │           │   ├── libautocfg-b100abef6c63027d.rlib
+│   │           │   ├── libautocfg-b100abef6c63027d.rmeta
+│   │           │   ├── libc-5dd8808432f3a428.d
+│   │           │   ├── libc-dadc43429530f2e4.d
+│   │           │   ├── libcfg_if-87c284443f3cd509.rmeta
+│   │           │   ├── libcfg_if-ac68a5ec1f1c024f.rlib
+│   │           │   ├── libcfg_if-ac68a5ec1f1c024f.rmeta
+│   │           │   ├── libconvert_case-c5debd0825ed81fe.rlib
+│   │           │   ├── libconvert_case-c5debd0825ed81fe.rmeta
+│   │           │   ├── libderive_more-a0e1f31ad69454e9.so
+│   │           │   ├── libfluid_sim-42697136c42e63d6.rmeta
+│   │           │   ├── libfluid_sim-90f8b4b0348f9cc9.rmeta
+│   │           │   ├── libfluid_sim-a4a24015ba0bd6f3.rmeta
+│   │           │   ├── libgetrandom-07242aedf5a3f93f.rlib
+│   │           │   ├── libgetrandom-07242aedf5a3f93f.rmeta
+│   │           │   ├── libgetrandom-55aa11d92774ed3b.rmeta
+│   │           │   ├── liblibc-5dd8808432f3a428.rmeta
+│   │           │   ├── liblibc-dadc43429530f2e4.rlib
+│   │           │   ├── liblibc-dadc43429530f2e4.rmeta
+│   │           │   ├── libmatrixmultiply-12ba2c84a755e504.rmeta
+│   │           │   ├── libmatrixmultiply-d704bbf1cb485e71.rlib
+│   │           │   ├── libmatrixmultiply-d704bbf1cb485e71.rmeta
+│   │           │   ├── libndarray-9228684b46aef485.rmeta
+│   │           │   ├── libndarray-9e13b7b08c68437a.rlib
+│   │           │   ├── libndarray-9e13b7b08c68437a.rmeta
+│   │           │   ├── libnum_complex-99ba5c55c967eda6.rlib
+│   │           │   ├── libnum_complex-99ba5c55c967eda6.rmeta
+│   │           │   ├── libnum_complex-adc33a02f024f977.rmeta
+│   │           │   ├── libnum_integer-1387b828f1b6a719.rlib
+│   │           │   ├── libnum_integer-1387b828f1b6a719.rmeta
+│   │           │   ├── libnum_integer-df908011da35cb6c.rmeta
+│   │           │   ├── libnum_traits-264c93d619ae3723.rlib
+│   │           │   ├── libnum_traits-264c93d619ae3723.rmeta
+│   │           │   ├── libnum_traits-b165a1d848692f58.rmeta
+│   │           │   ├── libppv_lite86-9587f5b069794c2e.rmeta
+│   │           │   ├── libppv_lite86-a072d2c1ed2ad0b7.rlib
+│   │           │   ├── libppv_lite86-a072d2c1ed2ad0b7.rmeta
+│   │           │   ├── libproc_macro2-6e1a381b6ad7c529.rlib
+│   │           │   ├── libproc_macro2-6e1a381b6ad7c529.rmeta
+│   │           │   ├── libquote-4cfc899579fd0937.rlib
+│   │           │   ├── libquote-4cfc899579fd0937.rmeta
+│   │           │   ├── librand-0c2ec3adb8bd914f.rlib
+│   │           │   ├── librand-0c2ec3adb8bd914f.rmeta
+│   │           │   ├── librand-63b67c7f688fc2a9.rmeta
+│   │           │   ├── librand_chacha-4a4dcb9b94157c16.rmeta
+│   │           │   ├── librand_chacha-66ccf2ef99fd90eb.rlib
+│   │           │   ├── librand_chacha-66ccf2ef99fd90eb.rmeta
+│   │           │   ├── librand_core-36d1481205c326e6.rlib
+│   │           │   ├── librand_core-36d1481205c326e6.rmeta
+│   │           │   ├── librand_core-edbe0b71301fbbec.rmeta
+│   │           │   ├── librawpointer-10a0c8ade1cdcb96.rlib
+│   │           │   ├── librawpointer-10a0c8ade1cdcb96.rmeta
+│   │           │   ├── librawpointer-b7968bdd949e21e7.rmeta
+│   │           │   ├── libsyn-a0581441f3f7c4e4.rlib
+│   │           │   ├── libsyn-a0581441f3f7c4e4.rmeta
+│   │           │   ├── libunicode_ident-6f44ed9d85cf4e13.rlib
+│   │           │   ├── libunicode_ident-6f44ed9d85cf4e13.rmeta
+│   │           │   ├── matrixmultiply-12ba2c84a755e504.d
+│   │           │   ├── matrixmultiply-d704bbf1cb485e71.d
+│   │           │   ├── ndarray-9228684b46aef485.d
+│   │           │   ├── ndarray-9e13b7b08c68437a.d
+│   │           │   ├── num_complex-99ba5c55c967eda6.d
+│   │           │   ├── num_complex-adc33a02f024f977.d
+│   │           │   ├── num_integer-1387b828f1b6a719.d
+│   │           │   ├── num_integer-df908011da35cb6c.d
+│   │           │   ├── num_traits-264c93d619ae3723.d
+│   │           │   ├── num_traits-b165a1d848692f58.d
+│   │           │   ├── ppv_lite86-9587f5b069794c2e.d
+│   │           │   ├── ppv_lite86-a072d2c1ed2ad0b7.d
+│   │           │   ├── proc_macro2-6e1a381b6ad7c529.d
+│   │           │   ├── quote-4cfc899579fd0937.d
+│   │           │   ├── rand-0c2ec3adb8bd914f.d
+│   │           │   ├── rand-63b67c7f688fc2a9.d
+│   │           │   ├── rand_chacha-4a4dcb9b94157c16.d
+│   │           │   ├── rand_chacha-66ccf2ef99fd90eb.d
+│   │           │   ├── rand_core-36d1481205c326e6.d
+│   │           │   ├── rand_core-edbe0b71301fbbec.d
+│   │           │   ├── rawpointer-10a0c8ade1cdcb96.d
+│   │           │   ├── rawpointer-b7968bdd949e21e7.d
+│   │           │   ├── syn-a0581441f3f7c4e4.d
+│   │           │   └── unicode_ident-6f44ed9d85cf4e13.d
+│   │           ├── examples
+│   │           ├── fluid-sim
+│   │           ├── fluid-sim.d
+│   │           └── incremental
+│   │               ├── fluid_sim-11ic5af1t6k1t
+│   │               │   ├── s-gdgyo0t66z-1rxo13z-2rirm76xogwuv
+│   │               │   │   ├── dep-graph.bin
+│   │               │   │   ├── query-cache.bin
+│   │               │   │   └── work-products.bin
+│   │               │   ├── s-gdgyo0t66z-1rxo13z.lock
+│   │               │   ├── s-gdgyoy2hhy-z2w5lc.lock
+│   │               │   └── s-gdgyoy2hhy-z2w5lc-working
+│   │               │       ├── dep-graph.bin
+│   │               │       ├── dep-graph.part.bin
+│   │               │       ├── query-cache.bin
+│   │               │       └── work-products.bin
+│   │               ├── fluid_sim-13ti93zgwfsu2
+│   │               │   ├── s-gdgys0jtdu-1nrcb1v.lock
+│   │               │   └── s-gdgys0jtdu-1nrcb1v-working
+│   │               │       └── dep-graph.part.bin
+│   │               ├── fluid_sim-2dufp3kwynvzc
+│   │               │   ├── s-gdh1ol5htl-113isyy-3aoshh1w3u9t0
+│   │               │   │   ├── dep-graph.bin
+│   │               │   │   ├── query-cache.bin
+│   │               │   │   └── work-products.bin
+│   │               │   └── s-gdh1ol5htl-113isyy.lock
+│   │               ├── fluid_sim-m0zcag02m1ab
+│   │               │   ├── s-gdh1om1drf-12sugmg-1jlhuo15g8soj
+│   │               │   │   ├── 122n520zf67g6gfz.o
+│   │               │   │   ├── 165xbko8ykz9l5y.o
+│   │               │   │   ├── 198namnhb5kjcqes.o
+│   │               │   │   ├── 1abxb2ao6xix2o36.o
+│   │               │   │   ├── 1f0zmbidvyp6t68j.o
+│   │               │   │   ├── 1h7k80b12ymzduma.o
+│   │               │   │   ├── 1hrf64il1v7yholi.o
+│   │               │   │   ├── 1jma0wxbf94faq78.o
+│   │               │   │   ├── 1ma4m1r9o2wwottf.o
+│   │               │   │   ├── 1ovusthpmhoq8q3q.o
+│   │               │   │   ├── 1tl5enko4yer4rru.o
+│   │               │   │   ├── 1wz2nhzayyx7eojv.o
+│   │               │   │   ├── 21nl0n0a7wgvmd7k.o
+│   │               │   │   ├── 248rrk2cfk3sfd7.o
+│   │               │   │   ├── 28guqocp82j6rstu.o
+│   │               │   │   ├── 2b9voejvfh0qnp8a.o
+│   │               │   │   ├── 2bfvogcbbulk1vnc.o
+│   │               │   │   ├── 2d0yejxfaz7uw68b.o
+│   │               │   │   ├── 2dunnqb88f7njfuo.o
+│   │               │   │   ├── 2fuf8abhy4kmr3zm.o
+│   │               │   │   ├── 2gpohxc8pzkuxxnk.o
+│   │               │   │   ├── 2q8a1yed6xsofl0y.o
+│   │               │   │   ├── 2ugdlnvt6h043ny7.o
+│   │               │   │   ├── 312hns1pxz3h63y.o
+│   │               │   │   ├── 353l696g6i37qeg0.o
+│   │               │   │   ├── 366tz3wm0eg7j5zm.o
+│   │               │   │   ├── 37l72vp2iksr2raa.o
+│   │               │   │   ├── 3966i47k8sttdkts.o
+│   │               │   │   ├── 39p2a9wi51ne75ic.o
+│   │               │   │   ├── 3ezvv1zvw1v2bnbr.o
+│   │               │   │   ├── 3hd5ywu7t4aetw5e.o
+│   │               │   │   ├── 3k3pqqx3124q2u4.o
+│   │               │   │   ├── 3lyfyvj3kvq6rny8.o
+│   │               │   │   ├── 3oxfuhz4zef042tx.o
+│   │               │   │   ├── 3pj0t1a47xw4wxyc.o
+│   │               │   │   ├── 3q1368cnzy5o386j.o
+│   │               │   │   ├── 3witulp6j27ambta.o
+│   │               │   │   ├── 3y43psu98jtz8ith.o
+│   │               │   │   ├── 3zw1v7w2oyce2dkt.o
+│   │               │   │   ├── 40wvg667xededp6z.o
+│   │               │   │   ├── 42np38u8vjh0heo1.o
+│   │               │   │   ├── 44bduwymr84p7u67.o
+│   │               │   │   ├── 44cw9dpk2kncoaw3.o
+│   │               │   │   ├── 45pwqjpo5w3bahez.o
+│   │               │   │   ├── 47ac6hv3yaynb6b2.o
+│   │               │   │   ├── 47i8jb66rnh4euny.o
+│   │               │   │   ├── 4bbbuby0ubceyr4t.o
+│   │               │   │   ├── 4horzvqc7pu141y.o
+│   │               │   │   ├── 4ke4jqa29uvc728p.o
+│   │               │   │   ├── 4l1ru3xdqwoqtng2.o
+│   │               │   │   ├── 4nrd3x7nnghj937p.o
+│   │               │   │   ├── 4t3pwjr6c8gr7d48.o
+│   │               │   │   ├── 4xwmr12w7hr7hec7.o
+│   │               │   │   ├── 4xxt7c2bljmqu2u5.o
+│   │               │   │   ├── 510yttk608hej10m.o
+│   │               │   │   ├── 53sxuxd1mwlhj4kx.o
+│   │               │   │   ├── 540ooo4623d9r97z.o
+│   │               │   │   ├── 54k4t8zcy7hav1zj.o
+│   │               │   │   ├── 55l4um6ycnn68dwm.o
+│   │               │   │   ├── 5bmj9eegu5knc2z.o
+│   │               │   │   ├── 5e3wlzus8oipfyg0.o
+│   │               │   │   ├── 6tc5mijbfcbq0w3.o
+│   │               │   │   ├── 7bxdd8ojfmb4dga.o
+│   │               │   │   ├── 85m9rm3vwambcz8.o
+│   │               │   │   ├── 95hl4sgpwmvfcq2.o
+│   │               │   │   ├── d0zpd8sfswr9w89.o
+│   │               │   │   ├── d82a68yri62b2sf.o
+│   │               │   │   ├── dep-graph.bin
+│   │               │   │   ├── ojm7hejozeg30lo.o
+│   │               │   │   ├── query-cache.bin
+│   │               │   │   ├── ri7fhr3tjzoypwt.o
+│   │               │   │   ├── ruy4ao11dffqat0.o
+│   │               │   │   ├── rwjlw1zkhfgyss0.o
+│   │               │   │   ├── u3r17tuybwac9xo.o
+│   │               │   │   ├── ui6rhd6aesiijh2.o
+│   │               │   │   ├── uq2g5ie5dp8fw2f.o
+│   │               │   │   ├── vxnf8z8oe8l6tqn.o
+│   │               │   │   ├── wm9tvhha4hwipai.o
+│   │               │   │   ├── work-products.bin
+│   │               │   │   ├── x0dzak7apec946k.o
+│   │               │   │   ├── xj3f6dz1r4djhge.o
+│   │               │   │   ├── yyfypfl0cmk93wf.o
+│   │               │   │   └── zdlah5bqjt2jat8.o
+│   │               │   └── s-gdh1om1drf-12sugmg.lock
+│   │               ├── fluid_sim-p71drdgx5lv6
+│   │               │   ├── s-gdgywbvplu-12zhfxr.lock
+│   │               │   ├── s-gdgywbvplu-12zhfxr-working
+│   │               │   │   ├── dep-graph.bin
+│   │               │   │   ├── dep-graph.part.bin
+│   │               │   │   ├── query-cache.bin
+│   │               │   │   └── work-products.bin
+│   │               │   ├── s-gdgywhmrvi-mxgl5p-2a58hw1wx3176
+│   │               │   │   ├── dep-graph.bin
+│   │               │   │   ├── query-cache.bin
+│   │               │   │   └── work-products.bin
+│   │               │   └── s-gdgywhmrvi-mxgl5p.lock
+│   │               └── fluid_sim-rwafn8z3m53v
+│   │                   ├── s-gdgynn0lqi-ffi2uh-ix8qo50hgy93
+│   │                   │   ├── 1zp4fzezxme7dc5j.o
+│   │                   │   ├── 2ieviqgsizxontx2.o
+│   │                   │   ├── 463gl6oygpyj6obl.o
+│   │                   │   ├── 5gbfh9an9is8pf75.o
+│   │                   │   ├── dep-graph.bin
+│   │                   │   ├── el27fnrd4qh8som.o
+│   │                   │   ├── ibuf2qsepm95y4k.o
+│   │                   │   ├── klusbh4u37jemck.o
+│   │                   │   ├── lsmhkvqeht0rwgc.o
+│   │                   │   ├── query-cache.bin
+│   │                   │   └── work-products.bin
+│   │                   └── s-gdgynn0lqi-ffi2uh.lock
 │   ├── foldz
 │   │   ├── CONTRIBUTING.md
 │   │   ├── docker-compose.yml
@@ -1564,189 +2279,393 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-279 directories, 1078 files
+335 directories, 1736 files
 
 ```
 
 ## History
 
 ```
-*   e266c2a (HEAD -> master, origin/master, origin/lyre-impl, lyre-impl, lyre) Merge branch 'lyre-comments' into lyre-impl
+*   05a1f90 (HEAD -> master, origin/master) Merge branch 'finch'
 |\  
-| * 530d3fb (origin/lyre-comments, lyre-comments) add comments to Value implementation of fmt::Display
-| * c101afc more comments (misc.)
-| * 7998efc add some much-needed spacing
-| * 9ddb1c6 add top-level comment to string literal matching block
-* | 1b9ea12 (origin/lyre-parser, lyre-parser) fix string literal parsing
-|/  
-* c304390 (origin/lyre-interpreter, lyre-interpreter) improve evaluate method logging
-* fa5fd9c convert token nodes wrapping strings into Values containing strings
-* de70070 unwrap ValueType enum variants and convert to Strings for printing
-* 2f8d413 fix evaluation order (pattern matcher)
-* 65e851e add some logging to evaluation method
-* 3a5e283 fix None unwrapping panics
-| * 42cc7aa (refs/stash) WIP on lyre-interpreter: e6510be make node content a single (optional) token
-|/| 
-| * 5bf21c5 index on lyre-interpreter: e6510be make node content a single (optional) token
-|/  
-* e6510be make node content a single (optional) token
-* c28c6ff miscellaneous
-* 3521567 address some borrow checker complaints
-* 8d81b07 add bounds checks to form pattern matcher
-* df24467 implement Display for Value
-* b9ed56c use ValueType (enum) instead of Node (struct) for native datatypes
-*   f1fcf2e Merge branch 'lyre' into lyre-interpreter
-|\  
-| *   767125c (origin/lyre) Merge branch 'lyre-impl' into lyre
+| *   74a98a7 (origin/finch, finch) Add 'finch/' from commit '619eb998622fea85c120fffe7356b7ac67843de6'
 | |\  
-| | *   6004a34 Merge branch 'lyre-interpreter' into lyre-impl
+| | *   619eb99 Merge branch 'transpiler-python' into repo-merging
 | | |\  
-| | * \   1d8aa2d Merge branch 'lyre-parser' into lyre-impl
+| | | * bf2a5ab add more examples for testing
+| | | * 08cf83a add misc. method/function skeletons
+| | | * 519b20c add method for converting tokens in parse tree/AST to Python source strings
+| | | * 32ecafd add helper methods for Node class
+| | | * c9a76cf add Node class for representing generic AST nodes of parsed Finch programs
+| | | * 82e6d45 add class for representing tokens in AST (parsed by Lark)
+| | | * 3988e3c misc. tweaks to grammar
+| | | * dd3e404 add lark tree parser (using LALR algorithm)
+| | | * e008c05 create parser.py
+| | | * dcea534 add overview of compilation process
+| | | * 0061b20 add summary of transpiler branch goals
+| | | * 13b9169 add arithmetic operation examples for transpiler testing
+| | | * eed14f7 convert some rules to terminals (strings)
+| | | * 4ff3c75 fix some lark grammar syntax issues
+| | | * fa2c5b6 convert grammar specification to format compatible with lark
+| | * |   442c979 Merge branch 'std-web' into repo-merging
 | | |\ \  
-| | | * | e0cdce7 correctly handle leading whitespace
-| | | * | 9a3b7bc rename syntax sample/example snippet
-| | | * | e16f539 lex square brackets (groupings) correctly - previously could cause issues with consecutive brackets
-| | | * | 16d66ba fix unnecessarily mutable variables
-| | | * | a0c2c46 parse nesting forms via indentation (leading whitespace)
-| | | * | 40b63e2 fix some (relatively) minor lexing issues
-| | | * | 75a4009 display type of each node (incomplete)
-| | | * | e683615 misc. lexing improvements
-| | | * | 37333e9 miscellaneous
-| | | * | 6bb50eb add helper method for printing ASTs
-| | | * | 9bb8d4a move lexing code into separate function
-| | | * | 7a88941 add comments to lexer code
-| | | * | e9b054e add comments to parsing code
-| | | * | de95bb3 add doc comments to other node-related methods
-| | | * | 4473e5f add comments to Node struct
-| | | * | 687ac5f add doc comments to some custom structs/functions
-| | | * | ccc5945 process standalone symbols
-| | | * | 92d7664 remove unused code
-| | | * | 475ad6e access tree paths via index lists
-| | | * | db9ccb8 use index-based stack to avoid borrow checker issues
-| | * | | aa369f1 add Cargo.lock
-| * | | | c3b71fe (origin/lyre-docs, lyre-docs) add string literal (and string function) examples
-| * | | | 5503806 add alternative operator names
-| * | | | 243d645 add arithmetic operator examples
-| * | | | 386100e add hello world example
-| * | | | 197e947 add basic usage information
-* | | | | d3ad49b comment ValueType
-* | | | | e8771aa add ValueType enum
-* | | | | a9fbc6b evaluate println built-in function
-| |_|_|/  
-|/| | |   
-* | | | 22eb57e evaluate print function calls
-* | | | f0f344e add some doc comments to evaluate() method
-* | | | 3fb6d3d allow progn-like compound forms (evaluate to result of last sub-expression)
-* | | | 34047a6 process (function) definitions using def keyword
-* | | | c688d4d add Value struct
-| |_|/  
-|/| |   
-* | | e287042 add lyre parser base (draft)
-* | | b48a4b2 implement simple lexer to convert source into sequence of tokens
-* | | 159cdc6 read source file
-* | | bf38e11 implement Display (and implicit ToString) for Node struct
-* | | cd5f701 add Node struct
-* | | b2e52a5 add CharType enum
-* | | 3f253d6 add Token convenience constructor
-* | | 0dddb8b add fmt::Display implementation (Token struct)
-* | | 21698e2 add struct for representing tokens
-| |/  
-|/|   
-* | ec26260 add main.rs
-* | ed091a3 add Cargo.toml
-|/  
-* 0433a28 add README.md
-| * 390b061 (origin/rffrrr, rffrrr) add README.md
-| | * 540015d (origin/nu-todo, origin/nu-fs, nu-todo, nu-fs) patch script to use external recurring task list
-| | | * 1f52976 (origin/metadata, metadata) add information for lyre-related branches
-| | | * 3218117 add information about nushell-related branches
-| | | | * 667e9ee (origin/nu-ocr, nu-ocr) update gitignore
-| | | | * 8fe2a9d add options for recursive directory traversal while scanning media
-| | | | | * 521e691 (origin/lyre-stdlib-errors, lyre-stdlib-errors) add exception-related helper methods
-| | | | | * 8c61f86 add skeleton for stdlib errors module
-| | | | | * 45ade2b (origin/lyre-stdlib, lyre-stdlib) add dictionary (hash map) class skeleton
+| | | * | 1c197ed add high-level overview of web module
+| | | * |   e9508f0 Merge branch 'meta' into std-web
+| | | |\ \  
+| | * | \ \   7f24ef6 Merge branch 'std-dictionary' into repo-merging
+| | |\ \ \ \  
+| | | * | | | ad9d83e add base for dictionary module/type
+| | | * | | |   7ed7ed2 Merge branch 'meta' into std-dictionary (for .gitignore)
+| | | |\ \ \ \  
+| | | | * | | | 240410b add gitignore
+| | | | * | | | 182ba85 generate table of contents and code statistics
+| | | | | |/ /  
+| | | | |/| |   
+| | | * | | | 10c9528 add collection module base
+| | | | |/ /  
+| | | |/| |   
+| | * | | |   a95bc30 Merge branch 'book' into repo-merging
+| | |\ \ \ \  
+| | | * | | | 6d27e35 add section about basic numeric types
+| | | * | | |   f21872a Merge branch 'meta' into documentation
+| | | |\ \ \ \  
+| | | | | |/ /  
+| | | | |/| |   
+| | | | * | | ec8c607 add summaries of new stdlib branches
+| | | | * | | aea48d7 add descriptions of some new(er) branches
+| | | * | | | 6865212 add intro section of manual
+| | | | |_|/  
+| | | |/| |   
+| | * | | |   3387816 Merge branch 'cpp-parser' into repo-merging
+| | |\ \ \ \  
+| | | * | | | e8aa858 use fmt library to display (nested) AST nodes
+| | | * | | | f6fe6c5 helper method for adding subnodes; make context stack a vector of references
+| | | * | | | 2ee943a fix name conflict
+| | | * | | | 2e9bb97 fix various structural issues with current parser
+| | | * | | | 37f684b create separate lexing function for simplicity and efficiency
+| | | * | | | ca85d94 add comments to parsechar
+| | | * | | | 00df526 fix segfault introduced in 965e09
+| | | * | | |   62a676d Merge branch 'cpp-runtime' into cpp-parser
+| | | |\ \ \ \  
+| | | * | | | | 965e098 process tuple forms (nodes grouped with parentheses)
+| | | * | | | | 5734e9b minor refactoring
+| | | * | | | | cda4f4f handle some common tokens
+| | | * | | | | 55b2f85 add basic token categorization
+| | | * | | | | 60d239f add more node types; add more node (class) properties
+| | | * | | | | 31cd948 add helper methods to Node class
+| | | * | | | | 6285d93 add parser base
+| | * | | | | |   956b97a Merge branch 'std-error' into repo-merging
+| | |\ \ \ \ \ \  
+| | | * \ \ \ \ \   5d6a45f Merge branch 'std-warning' into std-error
+| | | |\ \ \ \ \ \  
+| | | | * | | | | | fe26240 add skeleton for parser style warnings
+| | | | * | | | | | 98a26a3 add templates for infinite loop/recursion warnings
+| | | | * | | | | | 1255040 add depreciation warning template
+| | | | * | | | | | 87bd7e1 add base for warning type
+| | | * | | | | | | de4f66e add skeleton for filesystem-related errors
+| | | * | | | | | | 005aee3 add value exception templates
+| | | * | | | | | | 8895cb6 add some basic access error types
+| | | * | | | | | | 67e9a96 add template for a basic assertion error
+| | | |/ / / / / /  
+| | | * | | | | / 7e85759 add base for error type
+| | | | |_|_|_|/  
+| | | |/| | | |   
+| | * | | | | | 0e0e793 Merge branch 'stdlib' into repo-merging
+| | |\| | | | | 
+| | | * | | | | c92678d add wrapper for standard library types and functions
+| | * | | | | |   20f17d4 Merge branch 'cpp-interpreter' into repo-merging
+| | |\ \ \ \ \ \  
+| | | * | | | | | 9727be4 add helper function to traverse scope list, search for name/identifier
+| | | * | | | | | 63e5c93 add class to (tentatively) represent actual objects/values during execution (as opposed to syntactic structures)
+| | | * | | | | | 9cd347c add virtual functions to represent attributes of Node subtypes
+| | | * | | | | | 0013998 add interpreter boilerplate code (with declarations taken from runtime.cpp)
+| | | | |_|/ / /  
+| | | |/| | | |   
+| | | * | | | | c2d2216 add some comments to inside of nodetype enum
+| | | * | | | | 89b0c16 add comments to top-level items
+| | | | |/ / /  
+| | | |/| | |   
+| | | * | | | 6a26b13 add base class for AST nodes
+| | | * | | | 56ed202 create draft of nodetype enum
+| | | | |/ /  
+| | | |/| |   
+| | * | | |   838398c Merge branch 'specification' into repo-merging
+| | |\ \ \ \  
+| | | * | | | f7eb2c6 add grammar rules for operations and common expressions
+| | | * | | | 1f1c10f add description of string and numeric literals
+| | | * | | | 35cf064 add (some) other ASCII characters
+| | | * | | | e7a8ebb add ASCII alphabet
+| | | * | | | d73b318 add grammar.ebnf
+| | | | |_|/  
+| | | |/| |   
+| | | * | | 7d85b80 add summary of branches in repository
+| | | |/ /  
+| | * | | 058099e Update README.md
+| | * | | f7bc926 add note about main branch
+| | |/ /  
+| | * / bf57c17 discuss potential applications of Finch
+| | |/  
+| | * 6c37f55 add disclaimer about language development status
+| | * f768c45 add README.md
+| | *   32c9d09 (origin/lyre-impl, lyre-impl) Merge branch 'lyre-code-style' into lyre-impl
+| | |\  
+| | | * 7b58c17 (origin/lyre-code-style, lyre-code-style) improve readability/layout of some code
+| | | * 4ccd493 address (some) compiler warnings in node.rs
+| | | * e6c9efc (origin/lyre-arith, lyre-arith) support modulo (remainder) operator
+| | * | 8033638 add Source struct
+| | |/  
+| | * b467664 (origin/lyre-tests, origin/lyre-interpreter, lyre-tests, lyre-interpreter) add power operator (**) for numeric values
+| | * 98248fc implement exponentiation operator for Value
+| | * 6d862d7 implement exponentiation operator for ValueType
+| | * 114ae1c remove unused imports from main.rs
+| | * 6727d62 handle variable access (by name)
+| | * b45fdf6 handle variable assignment
+| | * b039f42 pass symbol table to Node.evaluate when recursively interpreting AST nodes
+| | * dab78af handle general function calls (i.e., not builtins)
+| | * 8706d42 add some more testing examples
+| | * 3b83e5d (origin/lyre-parser, lyre-parser) add helper function for entering a new (nested) form/subnode
+| | * 3d1f694 add simple logging to parser function
+| | * 3df513e add verbose (logging) flag to lexing function
+| | * b5b3892 move parsing code into separate function (and corresponding module)
+| | * e359b7f (origin/lyre-restructuring, lyre-restructuring) move lexing function to separate module
+| | * 3d61b87 move Value struct and ValueType enum to their own module
+| | * adf15aa move (parts of) Node struct implementation to appropriate module
+| | * 5db2fbe move Node struct and NodeType enum to node module
+| | * 7905f3b move CharType enum to new module
+| | * 40760f2 move Token struct into separate module
+| | * ceecb12 fix cargo errors
+| | | *   87d138c (refs/stash) WIP on lyre-docs: c56e2ed add installation section to README
+| | | |\  
+| | | | * 0cca67d index on lyre-docs: c56e2ed add installation section to README
+| | | |/  
+| | | * c56e2ed (origin/lyre-docs, lyre-docs) add installation section to README
+| | | | * 52690fd (origin/lyre-spec, lyre-spec) add details about compound form syntax
+| | | | * cfd5cff add general definition of forms (expressions) that comprise a program
+| | | | * 8b8e2ef add specification.md
+| | | | | * 44615f9 (origin/rust-fluid-sim, rust-fluid-sim) move fluid sim files to simulations subdirectory
+| | | | | * 14e77b2 update particle position based on velocity vector
+| | | | | * 31de0b5 add Particle struct that stores additional information
+| | | | | * 4d823c6 render ASCII representation of points in simulation
+| | | | | * 1437f4a randomly generate set of points to initialize simulation
+| | | | | * c3c5c50 add point struct (and constructor function)
+| | | | | * 2f7b8b8 import relevant crates
+| | | | | * 3adc403 add Cargo files
 | |_|_|_|/  
 |/| | | |   
-* | | | | 9979ca1 add basic EBNF-like grammar for lyre syntax
-* | | | | 5a6bd5c add convenience function for testing divisibility
-|/ / / /  
-* | | | e27d506 Rebuild project
-* | | | 70ee940 (origin/nushell-testing, nushell-testing) Merge branch 'nu-todo' into nushell-testing
-|\| | | 
-| * | | 8a974b0 use absolute file paths
-| * | | f80e498 add --dry option for executing dry runs
-| * | | daf2ace add basic todo processing script with nushell
-| | |/  
-| |/|   
-| * |   1fd2c88 Merge branch 'master' into nu-ocr
-| |\ \  
-| * \ \   4b7c024 Merge branch 'master' into nu-ocr
-| |\ \ \  
-| * | | | d3d22bc add simple nushell script for running OCR on images
-* | | | | 801c9fd add word entropy computation experiment
-* | | | | 97cf5e6 add hash compression experiment (nu)
-* | | | | d29b94c add simple nushell prime number generator
-|/ / / /  
-| | | | *   7ad5bc8 (origin/meta, meta) Merge branch 'scripts' into meta
-| | | | |\  
-| | | | | * e4225dd (origin/scripts, scripts) update script paths
-| | | | | * d643ca3 move repo/meta scripts to new directory
+| | | | | * bea094d (origin/lyre-comments, lyre-comments) add summary comment to NodeType enum
 | | | |_|/  
 | | |/| |   
-| | | | * 7bcb566 add some miscellaneous notes about monorepo
-| | | |/  
-| | |/|   
-| | * | 7d6f7b5 add more comments to build.py
-| | * | dc49f9d include project languages in tags/labels
-| | * | ad2fbf6 update metadata file paths in build.py
-| | * |   4761cf3 Merge branch 'master' into meta
-| | |\ \  
-| | * \ \   487ebe4 Merge branch 'metadata' into meta
+| | * | | 64c8abc generate implementations of other basic arithmetic operators
+| | * | | 319a6cb add macro for generating Value struct operator implementations
+| | * | | 6cfca0b fix scoping issue with local variables and macro call
+| | * | | 0d024c0 add declarative macro to construct operator match arm(s)
+| | * | | f23d537 fix evaluation of addition operator
+| | * | | 27d7b40 use a declarative macro to generate implementations of other operators
+| | * | | aea49ce impl Add for Value
+| | * | | e6a442e implement Add for ValueType (int types only thus far)
+| | * | | 2619163 specify token type in calls to constructor
+| | * | | 3d3bdd3 handle string conversion of integer types
+| | * | | 9eb00fa update lexer to handle digit sequences
+| | * | | b81dbce handle integer literal tokens in node evaluation code
+| | * | |   910336f Merge branch 'lyre-parser' into lyre-interpreter
 | | |\ \ \  
-| | | | |/  
-| | | |/|   
-| | | * | ee66233 move metadata files to new subdirectory
-| | | * | 94df33a add labels to new projects
-| | | * | 59c1fee add (some) newly integrated/started projects
-| | | * | f89fef9 add abbreviations for some projects/branches
-| | | * | b8df567 add yaml-serialized list of directories with descriptions of each
-| | * | | a727435 alphebatize project and branch lists
-| |/ / /  
-| | | | * 424f902 (origin/um-docs, um-docs) add example vim macro
-| | | | * 6d5bdb4 (origin/unmacro, unmacro) add README
-| | | |/  
-| | | | * bb5c59d (origin/not-python, not-python) add new parser based on (modified) python.lark grammar
-| | | | * 4752d16 add some more examples (unfinished)
-| | | | * a427574 add some basic extensions to grammar
-| | | | * 3df2fc9 add python3 grammar from lark examples
-| | | | * d48e721 add lark to requirements (pipenv)
-| | | | * 5b78981 remove or defer some other incompatible syntax
-| | | | * 85c6236 make [most] separator/expression patterns lark-compatible
-| | | | | * 1e40f7d (origin/np-docs, np-docs) add README.md
-| | | | |/  
-| | | | * d920ac5 make grammar [more] compatible with lark parser
-| | | | * 256865e add simple lark parsing script
-| | | | * c1224cf add PEG grammar for Python programming language from https://docs.python.org/3/reference/grammar.html
-| | | |/  
-| | | | * 7d51ea1 (origin/e22-cleanup, e22-cleanup) improve code style (flake8 guidelines)
-| | | | *   0144a5c Merge branch 'graphs' into e22-cleanup
-| | | | |\  
-| | | | | * 7db4d4c (origin/graphs, graphs) improve code style (node.py)
-| | | | | * a66bd60 improve code style (graph.py)
-| | | | | * 053a238 add missing import statements
-| | | | |/  
-| | | |/|   
-| | | * | c1ee395 Merge branch 'caesium'
-| | |/| | 
-| |/| | | 
-| | | * | eb0420e (origin/caesium, caesium) remove vendored chart.js source code
-| * | | | 0c51023 (origin/rcas, rcas) Rebuild project
-| * | | |   cc0c4b6 Merge branch 'legacy'
-| |\ \ \ \  
-| | * \ \ \   d16c8b1 (origin/legacy, legacy) Merge branch 'legacy-nn-2' into legacy
+| | | * | | 27a8a22 update parser code to use new NodeType enum
+| | | * | | f414958 add enum to represent AST node types
+| | * | | | 4a45ad5 add "verbose" flag to evaluate method for Node struct
+| |/ / / /  
+|/| | | |   
+| | | | | * 7defa4a (origin/metadata, metadata) add information about new lyre language project branches
+| | | | | * 1f52976 add information for lyre-related branches
+| | | | | * 3218117 add information about nushell-related branches
+| | | | | | * 4c2666b (origin/rffrrr, rffrrr) add cargo metadata files
+| | | | | | * 390b061 add README.md
+| | | | | | | * 5ebe841 (origin/stdlib, stdlib) add (some) collection types
+| | | | | | | * f585250 add primitive types
+| |_|_|_|_|_|/  
+|/| | | | | |   
+* | | | | | | faa89fa (origin/aug-esolang, aug-esolang) Rebuild project
+| |_|_|/ / /  
+|/| | | | |   
+* | | | | |   e266c2a (origin/lyre, lyre) Merge branch 'lyre-comments' into lyre-impl
+|\ \ \ \ \ \  
+| |_|/ / / /  
+|/| | | | |   
+| * | | | | 530d3fb add comments to Value implementation of fmt::Display
+| * | | | | c101afc more comments (misc.)
+| * | | | | 7998efc add some much-needed spacing
+| * | | | | 9ddb1c6 add top-level comment to string literal matching block
+* | | | | | 1b9ea12 fix string literal parsing
+|/ / / / /  
+* | | | | c304390 improve evaluate method logging
+* | | | | fa5fd9c convert token nodes wrapping strings into Values containing strings
+* | | | | de70070 unwrap ValueType enum variants and convert to Strings for printing
+* | | | | 2f8d413 fix evaluation order (pattern matcher)
+* | | | | 65e851e add some logging to evaluation method
+* | | | | 3a5e283 fix None unwrapping panics
+* | | | | e6510be make node content a single (optional) token
+* | | | | c28c6ff miscellaneous
+* | | | | 3521567 address some borrow checker complaints
+* | | | | 8d81b07 add bounds checks to form pattern matcher
+* | | | | df24467 implement Display for Value
+* | | | | b9ed56c use ValueType (enum) instead of Node (struct) for native datatypes
+* | | | |   f1fcf2e Merge branch 'lyre' into lyre-interpreter
+|\ \ \ \ \  
+| * \ \ \ \   767125c Merge branch 'lyre-impl' into lyre
+| |\ \ \ \ \  
+| | |_|/ / /  
+| |/| | | |   
+| | * | | |   6004a34 Merge branch 'lyre-interpreter' into lyre-impl
 | | |\ \ \ \  
-| | | * \ \ \   6c72e0b (origin/legacy-nn-2, legacy-nn-2) Add 'legacy/hurricane/' from commit '311e9fca9450327ad146a75b17abf811902b0c7d'
-| | | |\ \ \ \  
+| | * \ \ \ \   1d8aa2d Merge branch 'lyre-parser' into lyre-impl
+| | |\ \ \ \ \  
+| | | * | | | | e0cdce7 correctly handle leading whitespace
+| | | * | | | | 9a3b7bc rename syntax sample/example snippet
+| | | * | | | | e16f539 lex square brackets (groupings) correctly - previously could cause issues with consecutive brackets
+| | | * | | | | 16d66ba fix unnecessarily mutable variables
+| | | * | | | | a0c2c46 parse nesting forms via indentation (leading whitespace)
+| | | * | | | | 40b63e2 fix some (relatively) minor lexing issues
+| | | * | | | | 75a4009 display type of each node (incomplete)
+| | | * | | | | e683615 misc. lexing improvements
+| | | * | | | | 37333e9 miscellaneous
+| | | * | | | | 6bb50eb add helper method for printing ASTs
+| | | * | | | | 9bb8d4a move lexing code into separate function
+| | | * | | | | 7a88941 add comments to lexer code
+| | | * | | | | e9b054e add comments to parsing code
+| | | * | | | | de95bb3 add doc comments to other node-related methods
+| | | * | | | | 4473e5f add comments to Node struct
+| | | * | | | | 687ac5f add doc comments to some custom structs/functions
+| | | * | | | | ccc5945 process standalone symbols
+| | | * | | | | 92d7664 remove unused code
+| | | * | | | | 475ad6e access tree paths via index lists
+| | | * | | | | db9ccb8 use index-based stack to avoid borrow checker issues
+| | * | | | | | aa369f1 add Cargo.lock
+| * | | | | | | c3b71fe add string literal (and string function) examples
+| * | | | | | | 5503806 add alternative operator names
+| * | | | | | | 243d645 add arithmetic operator examples
+| * | | | | | | 386100e add hello world example
+| * | | | | | | 197e947 add basic usage information
+* | | | | | | | d3ad49b comment ValueType
+* | | | | | | | e8771aa add ValueType enum
+* | | | | | | | a9fbc6b evaluate println built-in function
+| |_|_|/ / / /  
+|/| | | | | |   
+* | | | | | | 22eb57e evaluate print function calls
+* | | | | | | f0f344e add some doc comments to evaluate() method
+* | | | | | | 3fb6d3d allow progn-like compound forms (evaluate to result of last sub-expression)
+* | | | | | | 34047a6 process (function) definitions using def keyword
+* | | | | | | c688d4d add Value struct
+| |_|/ / / /  
+|/| | | | |   
+* | | | | | e287042 add lyre parser base (draft)
+* | | | | | b48a4b2 implement simple lexer to convert source into sequence of tokens
+* | | | | | 159cdc6 read source file
+* | | | | | bf38e11 implement Display (and implicit ToString) for Node struct
+* | | | | | cd5f701 add Node struct
+* | | | | | b2e52a5 add CharType enum
+* | | | | | 3f253d6 add Token convenience constructor
+* | | | | | 0dddb8b add fmt::Display implementation (Token struct)
+* | | | | | 21698e2 add struct for representing tokens
+| |/ / / /  
+|/| | | |   
+* | | | | ec26260 add main.rs
+* | | | | ed091a3 add Cargo.toml
+|/ / / /  
+* | | | 0433a28 add README.md
+| | | | * 540015d (origin/nu-todo, origin/nu-fs, nu-todo, nu-fs) patch script to use external recurring task list
+| | | | | * 667e9ee (origin/nu-ocr, nu-ocr) update gitignore
+| | | | | * 8fe2a9d add options for recursive directory traversal while scanning media
+| | | | | | * 521e691 (origin/lyre-stdlib-errors, lyre-stdlib-errors) add exception-related helper methods
+| | | | | | * 8c61f86 add skeleton for stdlib errors module
+| | | | | | * 45ade2b (origin/lyre-stdlib, lyre-stdlib) add dictionary (hash map) class skeleton
+| |_|_|_|_|/  
+|/| | | | |   
+* | | | | | 9979ca1 add basic EBNF-like grammar for lyre syntax
+* | | | | | 5a6bd5c add convenience function for testing divisibility
+| |_|/ / /  
+|/| | | |   
+* | | | | e27d506 Rebuild project
+* | | | |   70ee940 (origin/nushell-testing, nushell-testing) Merge branch 'nu-todo' into nushell-testing
+|\ \ \ \ \  
+| | |_|/ /  
+| |/| | |   
+| * | | | 8a974b0 use absolute file paths
+| * | | | f80e498 add --dry option for executing dry runs
+| * | | | daf2ace add basic todo processing script with nushell
+| | |_|/  
+| |/| |   
+| * | |   1fd2c88 Merge branch 'master' into nu-ocr
+| |\ \ \  
+| * \ \ \   4b7c024 Merge branch 'master' into nu-ocr
+| |\ \ \ \  
+| * | | | | d3d22bc add simple nushell script for running OCR on images
+* | | | | | 801c9fd add word entropy computation experiment
+* | | | | | 97cf5e6 add hash compression experiment (nu)
+* | | | | | d29b94c add simple nushell prime number generator
+|/ / / / /  
+| | | | | *   7ad5bc8 (origin/meta, meta) Merge branch 'scripts' into meta
+| | | | | |\  
+| | | | | | * e4225dd (origin/scripts, scripts) update script paths
+| | | | | | * d643ca3 move repo/meta scripts to new directory
+| | | |_|_|/  
+| | |/| | |   
+| | | | | * 7bcb566 add some miscellaneous notes about monorepo
+| | | |_|/  
+| | |/| |   
+| | * | | 7d6f7b5 add more comments to build.py
+| | * | | dc49f9d include project languages in tags/labels
+| | * | | ad2fbf6 update metadata file paths in build.py
+| | * | |   4761cf3 Merge branch 'master' into meta
+| | |\ \ \  
+| | * \ \ \   487ebe4 Merge branch 'metadata' into meta
+| | |\ \ \ \  
+| | | | |_|/  
+| | | |/| |   
+| | | * | | ee66233 move metadata files to new subdirectory
+| | | * | | 94df33a add labels to new projects
+| | | * | | 59c1fee add (some) newly integrated/started projects
+| | | * | | f89fef9 add abbreviations for some projects/branches
+| | | * | | b8df567 add yaml-serialized list of directories with descriptions of each
+| | * | | | a727435 alphebatize project and branch lists
+| |/ / / /  
+| | | | | * 424f902 (origin/um-docs, um-docs) add example vim macro
+| | | | | * 6d5bdb4 (origin/unmacro, unmacro) add README
+| | | | |/  
+| | | |/|   
+| | | | | * bb5c59d (origin/not-python, not-python) add new parser based on (modified) python.lark grammar
+| | | | | * 4752d16 add some more examples (unfinished)
+| | | | | * a427574 add some basic extensions to grammar
+| | | | | * 3df2fc9 add python3 grammar from lark examples
+| | | | | * d48e721 add lark to requirements (pipenv)
+| | | | | * 5b78981 remove or defer some other incompatible syntax
+| | | | | * 85c6236 make [most] separator/expression patterns lark-compatible
+| | | | | | * 1e40f7d (origin/np-docs, np-docs) add README.md
+| | | | | |/  
+| | | | | * d920ac5 make grammar [more] compatible with lark parser
+| | | | | * 256865e add simple lark parsing script
+| | | | | * c1224cf add PEG grammar for Python programming language from https://docs.python.org/3/reference/grammar.html
+| | | | |/  
+| | | |/|   
+| | | | | * 7d51ea1 (origin/e22-cleanup, e22-cleanup) improve code style (flake8 guidelines)
+| | | | | *   0144a5c Merge branch 'graphs' into e22-cleanup
+| | | | | |\  
+| | | | | | * 7db4d4c (origin/graphs, graphs) improve code style (node.py)
+| | | | | | * a66bd60 improve code style (graph.py)
+| | | | | | * 053a238 add missing import statements
+| | | | |_|/  
+| | | |/| |   
+| | | * | | c1ee395 Merge branch 'caesium'
+| | |/| | | 
+| |/| | | | 
+| | | * | | eb0420e (origin/caesium, caesium) remove vendored chart.js source code
+| * | | | | 0c51023 (origin/rcas, rcas) Rebuild project
+| * | | | |   cc0c4b6 Merge branch 'legacy'
+| |\ \ \ \ \  
+| | * \ \ \ \   d16c8b1 (origin/legacy, legacy) Merge branch 'legacy-nn-2' into legacy
+| | |\ \ \ \ \  
+| | | * \ \ \ \   6c72e0b (origin/legacy-nn-2, legacy-nn-2) Add 'legacy/hurricane/' from commit '311e9fca9450327ad146a75b17abf811902b0c7d'
+| | | |\ \ \ \ \  
+| | | | |_|_|/ /  
+| | | |/| | | |   
 | | | | * | | | 311e9fc Create LICENSE
 | | | | * | | | 40d2f5e Initial commit
 | | | |  / / /  
