@@ -30,6 +30,5 @@ fn main () -> Result<(), Error> {
     root.print(0);
     let mut symbols = HashMap::new();
     root.evaluate(&mut symbols, false);
-
     Ok(())
 }

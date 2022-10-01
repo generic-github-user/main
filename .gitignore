@@ -1,6 +1,8 @@
 *.out
 ydone.yaml
 todo-backup
+primes.txt
+~
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
