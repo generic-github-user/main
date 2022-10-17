@@ -1,21 +1,21 @@
 import pickle
+import yaml
+
 import datetime
 import re
 import time
 import os
+from pathlib import Path
 import dateparser
 import tarfile
+from box import Box
 
 dbpath = os.path.expanduser('~/Desktop/todo.pickle')
 todopath = os.path.expanduser('~/Desktop/.todo')
-lists = {
-    'main': todopath,
-    'complete': '~/Desktop/todos/complete.todo',
-    'recur': '~/Desktop/todos/recurring.todo',
-    'hold': '~/Desktop/todos/waiting.todo'
-}
+lists = Box(yaml.load(Path('config.yaml').read_text()))
 for k, v in lists.items():
-    lists[k] = os.path.expanduser(v)
+    # lists[k] = os.path.expanduser(v)
+    lists[k] = Path(lists.base) + Path(lists[k])
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
