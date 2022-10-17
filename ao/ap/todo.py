@@ -138,6 +138,10 @@ def updatelist(tlist, path):
         else:
             data.append(s)
 
+    if lists.git_commit:
+        print('Committing updated todo files to git repository')
+        os.system('git commit -m "Update todo list"')
+
 
 # Update the todo list(s) by parsing their members and comparing to the stored
 # state (in a similar manner to file tracking, we can infer when entries are
