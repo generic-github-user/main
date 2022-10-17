@@ -71,8 +71,7 @@ except FileNotFoundError:
     data = []
 
 
-def updatelist(tlist, path):
-    print(f'Parsing todo list {tlist} at {path}')
+def parse_todos(path):
     try:
         with open(path, 'r') as tfile:
             lines = [line for line in tfile.readlines()
@@ -88,28 +87,34 @@ def updatelist(tlist, path):
             snapshot.done = True
             snapshot.donetime = time.time()
             line = line.replace('--', '')
-        w = line.split()
-        for i, tag in enumerate(w):
+        words = line.split()
+        for i, tag in enumerate(words):
             if tag is None:
                 continue
 
             if tag.startswith('#'):
                 snapshot.tags.append(tag[1:])
-                w[i] = None
+                words[i] = None
                 continue
+
             if tag.startswith(('-t', '-time')):
-                snapshot.time = dateparser.parse(w[i+1])
-                w[i:i+2] = [None] * 2
+                snapshot.time = dateparser.parse(words[i+1])
+                words[i:i+2] = [None] * 2
 
         if 'raw' not in snapshot.tags:
             snapshot.importance = line.count('*')
             line = line.replace('*', '')
 
-        snapshot.content = ' '.join(filter(None, w))
+        snapshot.content = ' '.join(filter(None, words))
         snapshot.location = path
         snapshot.line = ln
 
         newstate.append(snapshot)
+
+
+def updatelist(tlist, path):
+    print(f'Parsing todo list {tlist} at {path}')
+    newstate = parse_todos(path)
 
     print('Updating todo item metadata')
     for s in newstate:
