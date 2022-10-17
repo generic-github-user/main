@@ -17,6 +17,7 @@ lists = {
 for k, v in lists.items():
     lists[k] = os.path.expanduser(v)
 
+
 # Represents a task or entry in a todo list, possibly with several sub-tasks
 class todo:
     # Initialize a new todo item
@@ -30,7 +31,11 @@ class todo:
         self.source = None
         self.created = time.time()
         self.importance = 0
-        self.line = None # This might be used in the future but for now is just somewhat redundant metadata; if we incorporate positional context when analyzing lists we may as well be writing an entire version control system
+        # This might be used in the future but for now is just somewhat
+        # redundant metadata; if we incorporate positional context when
+        # analyzing lists we may as well be writing an entire version control
+        # system
+        self.line = None
         self.location = ''
         self.time = None
         self.duration = None
@@ -42,7 +47,8 @@ class todo:
     def toraw(self):
         # don't blame me, blame whoever decided that overloading the
         # multiplication operator was okay
-        return self.content + ' ' + ' '.join('#'+t for t in self.tags) +  ' --' * self.done
+        return self.content + ' ' + ' '.join('#'+t for t in self.tags)\
+            + ' --' * self.done
 
     # Generate a string summarizing this instance
     def __str__(self):
@@ -50,31 +56,35 @@ class todo:
         inner = "\n\t".join(inner)
         return f'todo {{ {inner} }}'
 
+
 try:
     with open(dbpath, 'rb') as f:
         data = pickle.load(f)
 except FileNotFoundError:
     data = []
 
+
 def updatelist(tlist, path):
     print(f'Parsing todo list {tlist} at {path}')
     try:
         with open(path, 'r') as tfile:
-            lines = [l for l in tfile.readlines() if l not in ['', '\n']]
+            lines = [line for line in tfile.readlines()
+                     if line not in ['', '\n']]
     except FileNotFoundError:
         lines = []
 
     newstate = []
-    for ln, l in enumerate(lines):
-        snapshot = todo(l)
+    for ln, line in enumerate(lines):
+        snapshot = todo(line)
 
-        if '--' in l:
+        if '--' in line:
             snapshot.done = True
             snapshot.donetime = time.time()
-            l = l.replace('--', '')
-        w = l.split()
+            line = line.replace('--', '')
+        w = line.split()
         for i, tag in enumerate(w):
-            if tag is None: continue
+            if tag is None:
+                continue
 
             if tag.startswith('#'):
                 snapshot.tags.append(tag[1:])
@@ -85,8 +95,8 @@ def updatelist(tlist, path):
                 w[i:i+2] = [None] * 2
 
         if 'raw' not in snapshot.tags:
-            snapshot.importance = l.count('*')
-            l = l.replace('*', '')
+            snapshot.importance = line.count('*')
+            line = line.replace('*', '')
 
         snapshot.content = ' '.join(filter(None, w))
         snapshot.location = path
@@ -94,16 +104,19 @@ def updatelist(tlist, path):
 
         newstate.append(snapshot)
 
-    print(f'Updating todo item metadata')
+    print('Updating todo item metadata')
     for s in newstate:
-        if 'onhold' in s.tags: s.location = lists['hold']
-        if s.done: s.location = lists['complete']
+        if 'onhold' in s.tags:
+            s.location = lists['hold']
+        if s.done:
+            s.location = lists['complete']
 
     print(f'Reconciling {len(data)} items')
     pool = list(filter(lambda x: x.location == path, data))
     # for now we assume no duplicates (up to content and date equivalence)
     for s in newstate:
-        matches = list(filter(lambda x: x.content == s.content and x.time == s.time, pool))
+        matches = list(filter(lambda x: x.content == s.content
+                              and x.time == s.time, pool))
         if matches:
             if path == lists['main']:
                 assert len(matches) == 1, f'Duplicates for: {s}'
@@ -113,11 +126,13 @@ def updatelist(tlist, path):
         else:
             data.append(s)
 
+
 # Update the todo list(s) by parsing their members and comparing to the stored
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
-    backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/archive-{time.time_ns()}.tar.gz')
+    backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/\
+                                    archive-{time.time_ns()}.tar.gz')
     print(f'Backing up todo list and database to {backuppath}')
     with tarfile.open(backuppath, 'w:gz') as tarball:
         for path in set([dbpath, todopath] + list(lists.values())):
@@ -135,13 +150,15 @@ def update():
             tfile.write(''.join(z.raw for z in sorted(
                 filter(lambda x: x.location == path, data),
                 key=lambda y: (
-                    #(0 if 'raw' in y.tags else -y.content.count('*')),
+                    # (0 if 'raw' in y.tags else -y.content.count('*')),
                     -y.importance,
-                    datetime.timedelta.max if y.time is None else datetime.datetime.now()-y.time,
+                    (datetime.timedelta.max if y.time is None
+                        else datetime.datetime.now()-y.time),
                     y.content.casefold()
                 ))))
 
     with open(dbpath, 'wb') as f:
         pickle.dump(data, f)
+
 
 update()
