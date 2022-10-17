@@ -10,6 +10,13 @@ import dateparser
 import tarfile
 from box import Box
 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--dry-run', action='store_true',
+                    help='Executes a "dry run"; will simulate updating \
+                    the todo list but won\'t actually modify any files')
+args = parser.parse_args()
+
 dbpath = os.path.expanduser('~/Desktop/todo.pickle')
 todopath = os.path.expanduser('~/Desktop/.todo')
 lists = Box(yaml.load(Path('config.yaml').read_text()))
@@ -136,10 +143,11 @@ def update():
     print(f'Backing up todo list and database to {backuppath}')
     with tarfile.open(backuppath, 'w:gz') as tarball:
         for path in set([dbpath, todopath] + list(lists.values())):
-            try:
-                tarball.add(path)
-            except FileNotFoundError as ex:
-                print(ex)
+            if not args.dry_run:
+                try:
+                    tarball.add(path)
+                except FileNotFoundError as ex:
+                    print(ex)
 
     for tlist, path in lists.items():
         updatelist(tlist, path)
@@ -147,18 +155,20 @@ def update():
     for tlist, path in lists.items():
         print(f'Writing output to list {tlist} at {path}')
         with open(path, 'w') as tfile:
-            tfile.write(''.join(z.raw for z in sorted(
-                filter(lambda x: x.location == path, data),
-                key=lambda y: (
-                    # (0 if 'raw' in y.tags else -y.content.count('*')),
-                    -y.importance,
-                    (datetime.timedelta.max if y.time is None
-                        else datetime.datetime.now()-y.time),
-                    y.content.casefold()
-                ))))
+            if not args.dry_run:
+                tfile.write(''.join(z.raw for z in sorted(
+                    filter(lambda x: x.location == path, data),
+                    key=lambda y: (
+                        # (0 if 'raw' in y.tags else -y.content.count('*')),
+                        -y.importance,
+                        (datetime.timedelta.max if y.time is None
+                            else datetime.datetime.now()-y.time),
+                        y.content.casefold()
+                    ))))
 
-    with open(dbpath, 'wb') as f:
-        pickle.dump(data, f)
+    if not args.dry_run:
+        with open(dbpath, 'wb') as f:
+            pickle.dump(data, f)
 
 
 update()
