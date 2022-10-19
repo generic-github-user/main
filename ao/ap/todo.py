@@ -1,5 +1,6 @@
 import pickle
 import yaml
+import json
 
 import datetime
 import re
@@ -149,7 +150,9 @@ def update_list(tlist, path):
 
     for item in data:
         if not any(a.content == item.content #and a.time == item.time
-                   for a in newstate):
+                   for a in newstate)\
+                and item.location == config.paths.main\
+                and path == config.paths.main:
             print(f'No matching item in new state: {item.content}')
             # breakpoint()
             item.done = True
@@ -207,6 +210,10 @@ def update():
     if not args.dry_run:
         with open(db_path, 'wb') as f:
             pickle.dump(data, f)
+        # with open('debug.yaml', 'w') as f:
+            # yaml.dump(data, f)
+        with open('debug.json', 'w') as f:
+            json.dump(data, f, indent=4)
 
 
 update()
