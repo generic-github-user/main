@@ -20,11 +20,11 @@ print(args)
 
 todopath = os.path.expanduser('~/Desktop/.todo')
 lists = Box(yaml.safe_load(Path('config.yaml').read_text()))
+lists.base = Path(lists.base_path).expanduser()
 for k, v in lists.paths.items():
     # lists[k] = os.path.expanduser(v)
-    if k != 'base':
-        lists.paths[k] = (Path(lists.paths.base) / Path(lists.paths[k])).expanduser()
-dbpath = Path(lists.paths.base).expanduser() / 'todo.pickle'
+    lists.paths[k] = (Path(lists.base) / Path(lists.paths[k])).expanduser()
+dbpath = lists.base / 'todo.pickle'
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -146,7 +146,7 @@ def updatelist(tlist, path):
 
     if lists.git_commit and not args.dry_run:
         print('Committing updated todo files to git repository')
-        os.chdir(Path(lists.paths.base).expanduser())
+        os.chdir(lists.base)
         os.system(f'git add {path}')
         os.system('git commit -m "Update todo list"')
 
@@ -155,7 +155,7 @@ def updatelist(tlist, path):
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
-    backup_dir = Path(lists.paths.base).expanduser() / 'todo-backup'
+    backup_dir = lists.base / 'todo-backup'
     backup_dir.mkdir(exist_ok=True)
     backuppath = backup_dir / f'archive-{time.time_ns()}.tar.gz'
     print(f'Backing up todo list and database to {backuppath}')
@@ -169,23 +169,21 @@ def update():
                     print(ex)
 
     for tlist, path in lists.paths.items():
-        if tlist != 'base':
-            updatelist(tlist, Path(path))
+        updatelist(tlist, Path(path))
 
     for tlist, path in lists.paths.items():
         print(f'Writing output to list {tlist} at {path}')
-        if tlist != 'base':
-            if not args.dry_run:
-                with open(path, 'w') as tfile:
-                    tfile.write(''.join(z.raw for z in sorted(
-                        filter(lambda x: x.location == path, data),
-                        key=lambda y: (
-                            # (0 if 'raw' in y.tags else -y.content.count('*')),
-                            -y.importance,
-                            (datetime.timedelta.max if y.time is None
-                                else datetime.datetime.now()-y.time),
-                            y.content.casefold()
-                        ))))
+        if not args.dry_run:
+            with open(path, 'w') as tfile:
+                tfile.write(''.join(z.raw for z in sorted(
+                    filter(lambda x: x.location == path, data),
+                    key=lambda y: (
+                        # (0 if 'raw' in y.tags else -y.content.count('*')),
+                        -y.importance,
+                        (datetime.timedelta.max if y.time is None
+                            else datetime.datetime.now()-y.time),
+                        y.content.casefold()
+                    ))))
 
     if not args.dry_run:
         with open(dbpath, 'wb') as f:
