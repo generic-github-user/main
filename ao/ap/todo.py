@@ -146,15 +146,15 @@ def update_list(tlist, path):
             data.append(s)
 
     for item in data:
+        if not any(a.content == item.content for a in newstate):
+            item.done = True
+            item.donetime = time.time()
+
+    for item in data:
         for x, y in config.replacements.items():
             if y.lower() not in item.content.lower():
                 item.content = item.content.replace(x, y)
 
-    if config.git_commit and not args.dry_run:
-        print('Committing updated todo files to git repository')
-        os.chdir(config.base)
-        os.system(f'git add {path}')
-        os.system('git commit -m "Update todo list"')
 
 
 # Update the todo list(s) by parsing their members and comparing to the stored
@@ -190,6 +190,12 @@ def update():
                             else datetime.datetime.now()-y.time),
                         y.content.casefold()
                     ))))
+
+        if config.git_commit and not args.dry_run:
+            print('Committing updated todo files to git repository')
+            os.chdir(config.base)
+            os.system(f'git add {path}')
+            os.system('git commit -m "Update todo list"')
 
     if not args.dry_run:
         with open(db_path, 'wb') as f:
