@@ -85,6 +85,7 @@ def parse_todos(path):
 
     newstate = []
     for ln, line in enumerate(lines):
+        print(f'Parsing line: {line}')
         snapshot = todo(line)
 
         if config.complete_symbol in line:
@@ -119,6 +120,7 @@ def parse_todos(path):
 
 
 def update_list(tlist, path):
+    print(f'Updating todo list {tlist} ({path})')
     print(f'Parsing todo list {tlist} at {path}')
     newstate = parse_todos(path)
 
@@ -148,10 +150,11 @@ def update_list(tlist, path):
     for item in data:
         if not any(a.content == item.content #and a.time == item.time
                    for a in newstate):
-            print(item.content)
+            print(f'No matching item in new state: {item.content}')
+            # breakpoint()
             item.done = True
             item.donetime = time.time()
-            # item.location = config.paths.complete
+            item.location = config.paths.complete
 
     for item in data:
         for x, y in config.replacements.items():
@@ -200,6 +203,7 @@ def update():
             os.system(f'git add {path}')
             os.system('git commit -m "Update todo list"')
 
+    print(f'Persisting database ({db_path})')
     if not args.dry_run:
         with open(db_path, 'wb') as f:
             pickle.dump(data, f)
