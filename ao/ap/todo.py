@@ -16,6 +16,7 @@ parser.add_argument('--dry-run', action='store_true',
                     help='Executes a "dry run"; will simulate updating \
                     the todo list but won\'t actually modify any files')
 args = parser.parse_args()
+print(args)
 
 todopath = os.path.expanduser('~/Desktop/.todo')
 lists = Box(yaml.safe_load(Path('config.yaml').read_text()))
@@ -61,7 +62,8 @@ class todo:
     # Generate a string summarizing this instance
     def __str__(self):
         inner = [f'"{self.content}"', f'<{self.tags}>']
-        inner = "\n\t".join(inner)
+        # inner = "\n\t".join(inner)
+        inner = " ".join(inner)
         return f'todo {{ {inner} }}'
 
 
@@ -74,7 +76,7 @@ except FileNotFoundError:
 
 def parse_todos(path):
     try:
-        with open(path, 'r') as tfile:
+        with open(path.expanduser(), 'r') as tfile:
             lines = [line for line in tfile.readlines()
                      if line not in ['', '\n']]
     except FileNotFoundError:
@@ -111,6 +113,7 @@ def parse_todos(path):
         snapshot.line = ln
 
         newstate.append(snapshot)
+        print(snapshot)
     return newstate
 
 
@@ -121,9 +124,9 @@ def updatelist(tlist, path):
     print('Updating todo item metadata')
     for s in newstate:
         if 'onhold' in s.tags:
-            s.location = lists['hold']
+            s.location = lists.paths['hold']
         if s.done:
-            s.location = lists['complete']
+            s.location = lists.paths['complete']
 
     print(f'Reconciling {len(data)} items')
     pool = list(filter(lambda x: x.location == path, data))
@@ -143,6 +146,7 @@ def updatelist(tlist, path):
 
     if lists.git_commit and not args.dry_run:
         print('Committing updated todo files to git repository')
+        os.chdir(Path(lists.paths.base).expanduser())
         os.system('git commit -m "Update todo list"')
 
 
@@ -154,17 +158,18 @@ def update():
     backup_dir.mkdir(exist_ok=True)
     backuppath = backup_dir / f'archive-{time.time_ns()}.tar.gz'
     print(f'Backing up todo list and database to {backuppath}')
-    with tarfile.open(backuppath, 'w:gz') as tarball:
-        for path in set([dbpath, todopath] + list(lists.paths.values())):
-            print(path)
-            if not args.dry_run:
+    if not args.dry_run:
+        with tarfile.open(backuppath, 'w:gz') as tarball:
+            for path in set([dbpath, todopath] + list(lists.paths.values())):
+                print(path)
                 try:
                     tarball.add(path)
                 except FileNotFoundError as ex:
                     print(ex)
 
     for tlist, path in lists.paths.items():
-        updatelist(tlist, path)
+        if tlist != 'base':
+            updatelist(tlist, Path(path))
 
     for tlist, path in lists.paths.items():
         print(f'Writing output to list {tlist} at {path}')
