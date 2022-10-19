@@ -107,6 +107,11 @@ def parse_todos(path):
                 snapshot.time = dateparser.parse(words[i+1])
                 words[i:i+2] = [None] * 2
 
+            if tag == '-cc':
+                snapshot.location = config.paths.cancelled
+                words[i] = ''
+                continue
+
         if 'raw' not in snapshot.tags:
             snapshot.importance = line.count('*')
             line = line.replace('*', '')
