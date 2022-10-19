@@ -146,9 +146,12 @@ def update_list(tlist, path):
             data.append(s)
 
     for item in data:
-        if not any(a.content == item.content for a in newstate):
+        if not any(a.content == item.content #and a.time == item.time
+                   for a in newstate):
+            print(item.content)
             item.done = True
             item.donetime = time.time()
+            # item.location = config.paths.complete
 
     for item in data:
         for x, y in config.replacements.items():
@@ -181,7 +184,7 @@ def update():
         print(f'Writing output to list {tlist} at {path}')
         if not args.dry_run:
             with open(path, 'w') as tfile:
-                tfile.write(''.join(z.raw for z in sorted(
+                tfile.write('\n'.join(z.content for z in sorted(
                     filter(lambda x: x.location == path, data),
                     key=lambda y: (
                         # (0 if 'raw' in y.tags else -y.content.count('*')),
