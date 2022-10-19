@@ -19,12 +19,12 @@ args = parser.parse_args()
 print(args)
 
 todo_path = os.path.expanduser('~/Desktop/.todo')
-lists = Box(yaml.safe_load(Path('config.yaml').read_text()))
-lists.base = Path(lists.base_path).expanduser()
-for k, v in lists.paths.items():
-    # lists[k] = os.path.expanduser(v)
-    lists.paths[k] = (Path(lists.base) / Path(lists.paths[k])).expanduser()
-db_path = lists.base / 'todo.pickle'
+config = Box(yaml.safe_load(Path('config.yaml').read_text()))
+config.base = Path(config.base_path).expanduser()
+for k, v in config.paths.items():
+    # config[k] = os.path.expanduser(v)
+    config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
+db_path = config.base / 'todo.pickle'
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -57,13 +57,13 @@ class todo:
         # don't blame me, blame whoever decided that overloading the
         # multiplication operator was okay
         return self.content + ' ' + ' '.join('#'+t for t in self.tags)\
-            + ' --' * self.done
+            + f' {config.complete_symbol}' * self.done
 
     # Generate a string summarizing this instance
     def __str__(self):
         inner = [f'"{self.content}"', f'<{self.tags}>']
         # inner = "\n\t".join(inner)
-        inner = " ".join(inner)
+        inner = ' '.join(inner)
         return f'todo {{ {inner} }}'
 
 
@@ -86,10 +86,10 @@ def parse_todos(path):
     for ln, line in enumerate(lines):
         snapshot = todo(line)
 
-        if '--' in line:
+        if config.complete_symbol in line:
             snapshot.done = True
             snapshot.donetime = time.time()
-            line = line.replace('--', '')
+            line = line.replace(config.complete_symbol, '')
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
@@ -124,9 +124,9 @@ def update_list(tlist, path):
     print('Updating todo item metadata')
     for s in newstate:
         if 'onhold' in s.tags:
-            s.location = lists.paths['hold']
+            s.location = config.paths.hold
         if s.done:
-            s.location = lists.paths['complete']
+            s.location = config.paths.complete
 
     print(f'Reconciling {len(data)} items')
     pool = list(filter(lambda x: x.location == path, data))
@@ -136,7 +136,7 @@ def update_list(tlist, path):
         matches = list(filter(lambda x: x.content == s.content
                               and x.time == s.time, pool))
         if matches:
-            # if path == lists.paths['main']:
+            # if path == config.paths['main']:
                 # assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
@@ -144,9 +144,9 @@ def update_list(tlist, path):
         else:
             data.append(s)
 
-    if lists.git_commit and not args.dry_run:
+    if config.git_commit and not args.dry_run:
         print('Committing updated todo files to git repository')
-        os.chdir(lists.base)
+        os.chdir(config.base)
         os.system(f'git add {path}')
         os.system('git commit -m "Update todo list"')
 
@@ -155,23 +155,23 @@ def update_list(tlist, path):
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
-    backup_dir = lists.base / 'todo-backup'
+    backup_dir = config.base / 'todo-backup'
     backup_dir.mkdir(exist_ok=True)
     backup_path = backup_dir / f'archive-{time.time_ns()}.tar.gz'
     print(f'Backing up todo list and database to {backup_path}')
     if not args.dry_run:
         with tarfile.open(backup_path, 'w:gz') as tarball:
-            for path in set([db_path, todo_path] + list(lists.paths.values())):
+            for path in set([db_path, todo_path] + list(config.paths.values())):
                 print(path)
                 try:
                     tarball.add(path)
                 except FileNotFoundError as ex:
                     print(ex)
 
-    for tlist, path in lists.paths.items():
+    for tlist, path in config.paths.items():
         update_list(tlist, Path(path))
 
-    for tlist, path in lists.paths.items():
+    for tlist, path in config.paths.items():
         print(f'Writing output to list {tlist} at {path}')
         if not args.dry_run:
             with open(path, 'w') as tfile:
