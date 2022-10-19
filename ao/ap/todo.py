@@ -18,13 +18,13 @@ parser.add_argument('--dry-run', action='store_true',
 args = parser.parse_args()
 print(args)
 
-todopath = os.path.expanduser('~/Desktop/.todo')
+todo_path = os.path.expanduser('~/Desktop/.todo')
 lists = Box(yaml.safe_load(Path('config.yaml').read_text()))
 lists.base = Path(lists.base_path).expanduser()
 for k, v in lists.paths.items():
     # lists[k] = os.path.expanduser(v)
     lists.paths[k] = (Path(lists.base) / Path(lists.paths[k])).expanduser()
-dbpath = lists.base / 'todo.pickle'
+db_path = lists.base / 'todo.pickle'
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -68,7 +68,7 @@ class todo:
 
 
 try:
-    with open(dbpath, 'rb') as f:
+    with open(db_path, 'rb') as f:
         data = pickle.load(f)
 except FileNotFoundError:
     data = []
@@ -117,7 +117,7 @@ def parse_todos(path):
     return newstate
 
 
-def updatelist(tlist, path):
+def update_list(tlist, path):
     print(f'Parsing todo list {tlist} at {path}')
     newstate = parse_todos(path)
 
@@ -157,11 +157,11 @@ def updatelist(tlist, path):
 def update():
     backup_dir = lists.base / 'todo-backup'
     backup_dir.mkdir(exist_ok=True)
-    backuppath = backup_dir / f'archive-{time.time_ns()}.tar.gz'
-    print(f'Backing up todo list and database to {backuppath}')
+    backup_path = backup_dir / f'archive-{time.time_ns()}.tar.gz'
+    print(f'Backing up todo list and database to {backup_path}')
     if not args.dry_run:
-        with tarfile.open(backuppath, 'w:gz') as tarball:
-            for path in set([dbpath, todopath] + list(lists.paths.values())):
+        with tarfile.open(backup_path, 'w:gz') as tarball:
+            for path in set([db_path, todo_path] + list(lists.paths.values())):
                 print(path)
                 try:
                     tarball.add(path)
@@ -169,7 +169,7 @@ def update():
                     print(ex)
 
     for tlist, path in lists.paths.items():
-        updatelist(tlist, Path(path))
+        update_list(tlist, Path(path))
 
     for tlist, path in lists.paths.items():
         print(f'Writing output to list {tlist} at {path}')
@@ -186,7 +186,7 @@ def update():
                     ))))
 
     if not args.dry_run:
-        with open(dbpath, 'wb') as f:
+        with open(db_path, 'wb') as f:
             pickle.dump(data, f)
 
 
