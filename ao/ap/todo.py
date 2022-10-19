@@ -23,8 +23,8 @@ lists = Box(yaml.safe_load(Path('config.yaml').read_text()))
 for k, v in lists.paths.items():
     # lists[k] = os.path.expanduser(v)
     if k != 'base':
-        lists.paths[k] = Path(lists.paths.base) / Path(lists.paths[k])
-dbpath = Path(lists.paths.base) / 'todo.pickle'
+        lists.paths[k] = (Path(lists.paths.base) / Path(lists.paths[k])).expanduser()
+dbpath = Path(lists.paths.base).expanduser() / 'todo.pickle'
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -136,8 +136,8 @@ def updatelist(tlist, path):
         matches = list(filter(lambda x: x.content == s.content
                               and x.time == s.time, pool))
         if matches:
-            if path == lists.paths['main']:
-                assert len(matches) == 1, f'Duplicates for: {s}'
+            # if path == lists.paths['main']:
+                # assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
             matches[0].location = s.location
@@ -147,6 +147,7 @@ def updatelist(tlist, path):
     if lists.git_commit and not args.dry_run:
         print('Committing updated todo files to git repository')
         os.chdir(Path(lists.paths.base).expanduser())
+        os.system(f'git add {path}')
         os.system('git commit -m "Update todo list"')
 
 
