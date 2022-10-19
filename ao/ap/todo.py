@@ -25,6 +25,7 @@ for k, v in config.paths.items():
     # config[k] = os.path.expanduser(v)
     config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
 db_path = config.base / 'todo.pickle'
+config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -143,6 +144,11 @@ def update_list(tlist, path):
             matches[0].location = s.location
         else:
             data.append(s)
+
+    for item in data:
+        for x, y in config.replacements.items():
+            if y.lower() not in item.content.lower():
+                item.content = item.content.replace(x, y)
 
     if config.git_commit and not args.dry_run:
         print('Committing updated todo files to git repository')
