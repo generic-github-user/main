@@ -84,7 +84,7 @@ def parse_todos(path):
     except FileNotFoundError:
         lines = []
 
-    newstate = []
+    new_state = []
     for ln, line in enumerate(lines):
         print(f'Parsing line: {line}')
         snapshot = todo(line)
@@ -106,10 +106,12 @@ def parse_todos(path):
             if tag.startswith(('-t', '-time')):
                 snapshot.time = dateparser.parse(words[i+1])
                 words[i:i+2] = [None] * 2
+                continue
 
             if tag == '-cc':
                 snapshot.location = config.paths.cancelled
-                words[i] = ''
+                # TODO: refactor this to improve separation of concerns
+                words[i] = None
                 continue
 
         if 'raw' not in snapshot.tags:
@@ -120,42 +122,42 @@ def parse_todos(path):
         snapshot.location = path
         snapshot.line = ln
 
-        newstate.append(snapshot)
+        new_state.append(snapshot)
         print(snapshot)
-    return newstate
+    return new_state
 
 
-def update_list(tlist, path):
-    print(f'Updating todo list {tlist} ({path})')
-    print(f'Parsing todo list {tlist} at {path}')
-    newstate = parse_todos(path)
+def update_list(todo_list, path):
+    print(f'Updating todo list {todo_list} ({path})')
+    print(f'Parsing todo list {todo_list} at {path}')
+    new_state = parse_todos(path)
 
     print('Updating todo item metadata')
-    for s in newstate:
-        if 'onhold' in s.tags:
-            s.location = config.paths.hold
-        if s.done:
-            s.location = config.paths.complete
+    for item in new_state:
+        if 'onhold' in item.tags:
+            item.location = config.paths.hold
+        if item.done:
+            item.location = config.paths.complete
 
     print(f'Reconciling {len(data)} items')
     pool = list(filter(lambda x: x.location == path, data))
     # for now we assume no duplicates (up to content and date equivalence)
-    for s in newstate:
-        print(s)
-        matches = list(filter(lambda x: x.content == s.content
-                              and x.time == s.time, pool))
+    for item in new_state:
+        print(item)
+        matches = list(filter(lambda x: x.content == item.content
+                              and x.time == item.time, pool))
         if matches:
             # if path == config.paths['main']:
-                # assert len(matches) == 1, f'Duplicates for: {s}'
-            matches[0].snapshots.append(s)
-            matches[0].raw = s.raw
-            matches[0].location = s.location
+                # assert len(matches) == 1, f'Duplicates for: {item}'
+            matches[0].snapshots.append(item)
+            matches[0].raw = item.raw
+            matches[0].location = item.location
         else:
-            data.append(s)
+            data.append(item)
 
     for item in data:
         if not any(a.content == item.content #and a.time == item.time
-                   for a in newstate)\
+                   for a in new_state)\
                 and item.location == config.paths.main\
                 and path == config.paths.main:
             print(f'No matching item in new state: {item.content}')
@@ -188,11 +190,11 @@ def update():
                 except FileNotFoundError as ex:
                     print(ex)
 
-    for tlist, path in config.paths.items():
-        update_list(tlist, Path(path))
+    for todo_list, path in config.paths.items():
+        update_list(todo_list, Path(path))
 
-    for tlist, path in config.paths.items():
-        print(f'Writing output to list {tlist} at {path}')
+    for todo_list, path in config.paths.items():
+        print(f'Writing output to list {todo_list} at {path}')
         if not args.dry_run:
             with open(path, 'w') as tfile:
                 tfile.write('\n'.join(z.content for z in sorted(
