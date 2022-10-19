@@ -17,12 +17,13 @@ parser.add_argument('--dry-run', action='store_true',
                     the todo list but won\'t actually modify any files')
 args = parser.parse_args()
 
-dbpath = os.path.expanduser('~/Desktop/todo.pickle')
 todopath = os.path.expanduser('~/Desktop/.todo')
-lists = Box(yaml.load(Path('config.yaml').read_text()))
-for k, v in lists.items():
+lists = Box(yaml.safe_load(Path('config.yaml').read_text()))
+for k, v in lists.paths.items():
     # lists[k] = os.path.expanduser(v)
-    lists[k] = Path(lists.base) + Path(lists[k])
+    if k != 'base':
+        lists.paths[k] = Path(lists.paths.base) / Path(lists.paths[k])
+dbpath = Path(lists.paths.base) / 'todo.pickle'
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -110,6 +111,7 @@ def parse_todos(path):
         snapshot.line = ln
 
         newstate.append(snapshot)
+    return newstate
 
 
 def updatelist(tlist, path):
@@ -127,10 +129,11 @@ def updatelist(tlist, path):
     pool = list(filter(lambda x: x.location == path, data))
     # for now we assume no duplicates (up to content and date equivalence)
     for s in newstate:
+        print(s)
         matches = list(filter(lambda x: x.content == s.content
                               and x.time == s.time, pool))
         if matches:
-            if path == lists['main']:
+            if path == lists.paths['main']:
                 assert len(matches) == 1, f'Duplicates for: {s}'
             matches[0].snapshots.append(s)
             matches[0].raw = s.raw
@@ -138,7 +141,7 @@ def updatelist(tlist, path):
         else:
             data.append(s)
 
-    if lists.git_commit:
+    if lists.git_commit and not args.dry_run:
         print('Committing updated todo files to git repository')
         os.system('git commit -m "Update todo list"')
 
@@ -147,33 +150,36 @@ def updatelist(tlist, path):
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
-    backuppath = os.path.expanduser(f'~/Desktop/ao/ap/todo-backup/\
-                                    archive-{time.time_ns()}.tar.gz')
+    backup_dir = Path(lists.paths.base).expanduser() / 'todo-backup'
+    backup_dir.mkdir(exist_ok=True)
+    backuppath = backup_dir / f'archive-{time.time_ns()}.tar.gz'
     print(f'Backing up todo list and database to {backuppath}')
     with tarfile.open(backuppath, 'w:gz') as tarball:
-        for path in set([dbpath, todopath] + list(lists.values())):
+        for path in set([dbpath, todopath] + list(lists.paths.values())):
+            print(path)
             if not args.dry_run:
                 try:
                     tarball.add(path)
                 except FileNotFoundError as ex:
                     print(ex)
 
-    for tlist, path in lists.items():
+    for tlist, path in lists.paths.items():
         updatelist(tlist, path)
 
-    for tlist, path in lists.items():
+    for tlist, path in lists.paths.items():
         print(f'Writing output to list {tlist} at {path}')
-        with open(path, 'w') as tfile:
+        if tlist != 'base':
             if not args.dry_run:
-                tfile.write(''.join(z.raw for z in sorted(
-                    filter(lambda x: x.location == path, data),
-                    key=lambda y: (
-                        # (0 if 'raw' in y.tags else -y.content.count('*')),
-                        -y.importance,
-                        (datetime.timedelta.max if y.time is None
-                            else datetime.datetime.now()-y.time),
-                        y.content.casefold()
-                    ))))
+                with open(path, 'w') as tfile:
+                    tfile.write(''.join(z.raw for z in sorted(
+                        filter(lambda x: x.location == path, data),
+                        key=lambda y: (
+                            # (0 if 'raw' in y.tags else -y.content.count('*')),
+                            -y.importance,
+                            (datetime.timedelta.max if y.time is None
+                                else datetime.datetime.now()-y.time),
+                            y.content.casefold()
+                        ))))
 
     if not args.dry_run:
         with open(dbpath, 'wb') as f:
