@@ -20,6 +20,23 @@ parser.add_argument('--flush', action='store_true')
 args = parser.parse_args()
 print(args)
 
+
+class List:
+    def __init__(self, items=None):
+        if items is None:
+            items = []
+        self.items = items
+
+    def map(self, f): return List(map(f, self.items))
+    def all(self, p): return all(p(i) for i in self.items)
+    def any(self, p): return any(p(i) for i in self.items)
+    def none(self, p): return not self.any(p)
+
+    def len(self): return len(self.items)
+    def __iter__(self): return self.items.__iter__()
+    def append(self, x): return self.items.append(x)
+
+
 todo_path = os.path.expanduser('~/Desktop/.todo')
 config = Box(yaml.safe_load(Path('config.yaml').read_text()))
 config.base = Path(config.base_path).expanduser()
