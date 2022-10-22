@@ -85,6 +85,11 @@ except FileNotFoundError:
     data = []
 
 
+# Opens the todo list file at `path`, parses its entries (one per line), and
+# returns a plain list of `todo` objects corresponding to the items in the
+# source -- these are the "snapshots" processed by update_list, which attempts
+# to infer the temporal relationship between the current and saved states and
+# modify the list accordingly
 def parse_todos(path):
     try:
         with open(path.expanduser(), 'r') as tfile:
@@ -97,6 +102,7 @@ def parse_todos(path):
     for ln, line in enumerate(lines):
         print(f'Parsing line: {line}')
         snapshot = todo(line)
+        snapshot.location = path
 
         if config.complete_symbol in line:
             snapshot.done = True
@@ -118,6 +124,7 @@ def parse_todos(path):
                 continue
 
             if tag == '-cc':
+            # if tag.startswith('-cc'):
                 snapshot.location = config.paths.cancelled
                 # TODO: refactor this to improve separation of concerns
                 words[i] = None
@@ -128,7 +135,6 @@ def parse_todos(path):
             line = line.replace('*', '')
 
         snapshot.content = ' '.join(filter(None, words))
-        snapshot.location = path
         snapshot.line = ln
 
         new_state.append(snapshot)
@@ -143,22 +149,26 @@ def update_list(todo_list, path):
 
     print('Updating todo item metadata')
     for item in new_state:
+        # Some tags and todo item attributes should cause the representation of
+        # the task to be moved to a different list
         if 'onhold' in item.tags:
             item.location = config.paths.hold
         if item.done:
             item.location = config.paths.complete
 
+    # Compare parsed todo list data with previous state and update accordingly
     print(f'Reconciling {len(data)} items')
     pool = list(filter(lambda x: x.location == path, data))
     # for now we assume no duplicates (up to content and date equivalence)
     for item in new_state:
         print(item)
-        matches = list(filter(lambda x: x.content == item.content
-                              and x.time == item.time, pool))
+        matches = list(filter(lambda x: x.content == item.content,
+                              # and x.time == item.time, pool))
+                              pool))
         if matches:
             # if path == config.paths['main']:
                 # assert len(matches) == 1, f'Duplicates for: {item}'
-            matches[0].snapshots.append(item)
+            # matches[0].snapshots.append(item)
             matches[0].raw = item.raw
             matches[0].location = item.location
         else:
@@ -175,6 +185,7 @@ def update_list(todo_list, path):
             item.donetime = time.time()
             item.location = config.paths.complete
 
+    # Substitute abbreviations listed in config file with their expanded forms
     for item in data:
         for x, y in config.replacements.items():
             if y.lower() not in item.content.lower():
@@ -226,10 +237,10 @@ def update():
     if not args.dry_run:
         with open(db_path, 'wb') as f:
             pickle.dump(data, f)
-        # with open('debug.yaml', 'w') as f:
-            # yaml.dump(data, f)
-        with open('debug.json', 'w') as f:
-            json.dump(data, f, indent=4)
+        with open('debug.yaml', 'w') as f:
+            yaml.dump(data[:5], f)
+        # with open('debug.json', 'w') as f:
+            # json.dump(data, f, indent=4)
 
 
 update()
