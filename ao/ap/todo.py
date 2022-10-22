@@ -27,26 +27,49 @@ class List:
             items = []
         self.items = items
 
-    def map(self, f): return List(map(f, self.items))
-    def filter(self, p): return List(list(filter(p, self.items)))
+    def map(self, f):
+        return List(map(f, self.items))
+
+    def filter(self, p):
+        return List(list(filter(p, self.items)))
+
     def filter_by(self, attr, value):
         return self.filter(lambda x: getattr(x, attr) == value)
-    def remove(self, *args): return self.filter(lambda x: x not in args)
-    def get(self, attr): return self.map(lambda x: getattr(x, attr))
-    def sorted(self, f): return List(list(sorted(self.items, key=f)))
 
-    def all(self, p): return all(p(i) for i in self.items)
-    def any(self, p): return any(p(i) for i in self.items)
-    def none(self, p): return not self.any(p)
+    def remove(self, *args):
+        return self.filter(lambda x: x not in args)
 
-    def len(self): return len(self.items)
-    def append(self, x): return self.items.append(x)
+    def get(self, attr):
+        return self.map(lambda x: getattr(x, attr))
+
+    def sorted(self, f):
+        return List(list(sorted(self.items, key=f)))
+
+    def all(self, p):
+        return all(p(i) for i in self.items)
+
+    def any(self, p):
+        return any(p(i) for i in self.items)
+
+    def none(self, p):
+        return not self.any(p)
+
+    def len(self):
+        return len(self.items)
+
+    def append(self, x):
+        return self.items.append(x)
 
     def join(self, s): return s.join(self.items)
 
-    def __iter__(self): return self.items.__iter__()
-    def __len__(self): return self.len()
-    def __getitem__(self, i): return self.items[i]
+    def __iter__(self):
+        return self.items.__iter__()
+
+    def __len__(self):
+        return self.len()
+
+    def __getitem__(self, i):
+        return self.items[i]
 
 
 todo_path = os.path.expanduser('~/Desktop/.todo')
@@ -152,7 +175,6 @@ def parse_todos(path):
                 continue
 
             if tag == '-cc':
-            # if tag.startswith('-cc'):
                 snapshot.location = config.paths.cancelled
                 # TODO: refactor this to improve separation of concerns
                 words[i] = None
@@ -192,10 +214,10 @@ def update_list(todo_list, path):
         print(item)
         # matches = pool.filter(lambda x: x.content == item.content,
         matches = pool.filter_by('content', item.content)
-                              # and x.time == item.time, pool))
+        # and x.time == item.time, pool
         if matches:
             # if path == config.paths['main']:
-                # assert len(matches) == 1, f'Duplicates for: {item}'
+            #    assert len(matches) == 1, f'Duplicates for: {item}'
             # matches[0].snapshots.append(item)
             matches[0].raw = item.raw
             matches[0].location = item.location
@@ -204,7 +226,7 @@ def update_list(todo_list, path):
 
     for item in data:
         # if not any(a.content == item.content #and a.time == item.time
-                   # for a in new_state)\
+        # for a in new_state)\
         if all(new_state.none(lambda a: a.content == item.content),
                 item.location == config.paths.main,
                 path == config.paths.main):
@@ -219,7 +241,6 @@ def update_list(todo_list, path):
         for x, y in config.replacements.items():
             if y.lower() not in item.content.lower():
                 item.content = item.content.replace(x, y)
-
 
 
 # Update the todo list(s) by parsing their members and comparing to the stored
