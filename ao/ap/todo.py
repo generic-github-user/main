@@ -27,9 +27,12 @@ class List:
             items = []
         self.items = items
 
+    """Applies `f` to each element in this list, returning a new list"""
     def map(self, f):
         return List(map(f, self.items))
 
+    """Returns a new list containing only the elements in this list for which
+    the predicate `p` is true"""
     def filter(self, p):
         return List(list(filter(p, self.items)))
 
@@ -45,12 +48,18 @@ class List:
     def sorted(self, f):
         return List(list(sorted(self.items, key=f)))
 
+    """Returns true if and only if the predicate `p` is true for every element
+    in the list"""
     def all(self, p):
         return all(p(i) for i in self.items)
 
+    """Returns true if and only if the predicate `p` is true for at least one
+    element in the list"""
     def any(self, p):
         return any(p(i) for i in self.items)
 
+    """Returns true if and only if the predicate `p` is false for every element
+    in the list, or (equivalently) true for no elements"""
     def none(self, p):
         return not self.any(p)
 
@@ -60,7 +69,12 @@ class List:
     def append(self, x):
         return self.items.append(x)
 
-    def join(self, s): return s.join(self.items)
+    """Combine the elements of the list in order, returning a string; if the
+    given delimiter has length m and this list has length n, the resulting
+    string will be m*(n-1) characters longer than the concatenation of the
+    string representations of all the elements in the list"""
+    def join(self, s):
+        return s.join(self.items)
 
     def __iter__(self):
         return self.items.__iter__()
