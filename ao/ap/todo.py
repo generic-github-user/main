@@ -28,13 +28,25 @@ class List:
         self.items = items
 
     def map(self, f): return List(map(f, self.items))
+    def filter(self, p): return List(list(filter(p, self.items)))
+    def filter_by(self, attr, value):
+        return self.filter(lambda x: getattr(x, attr) == value)
+    def remove(self, *args): return self.filter(lambda x: x not in args)
+    def get(self, attr): return self.map(lambda x: getattr(x, attr))
+    def sorted(self, f): return List(list(sorted(self.items, key=f)))
+
     def all(self, p): return all(p(i) for i in self.items)
     def any(self, p): return any(p(i) for i in self.items)
     def none(self, p): return not self.any(p)
 
     def len(self): return len(self.items)
-    def __iter__(self): return self.items.__iter__()
     def append(self, x): return self.items.append(x)
+
+    def join(self, s): return s.join(self.items)
+
+    def __iter__(self): return self.items.__iter__()
+    def __len__(self): return self.len()
+    def __getitem__(self, i): return self.items[i]
 
 
 todo_path = os.path.expanduser('~/Desktop/.todo')
