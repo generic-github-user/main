@@ -16,6 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--dry-run', action='store_true',
                     help='Executes a "dry run"; will simulate updating \
                     the todo list but won\'t actually modify any files')
+parser.add_argument('--flush', action='store_true')
 args = parser.parse_args()
 print(args)
 
@@ -27,6 +28,14 @@ for k, v in config.paths.items():
     config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
 db_path = config.base / 'todo.pickle'
 config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
+
+if args.flush:
+    archive_dir = config.base / Path('old')
+    archive_dir.mkdir(exist_ok=True)
+    config.paths.complete.rename(archive_dir / config.paths.complete)
+    config.paths.cancelled.rename(archive_dir / config.paths.cancelled)
+    db_path.rename(archive_dir / db_path)
+    quit()
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
