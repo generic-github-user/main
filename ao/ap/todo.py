@@ -241,9 +241,9 @@ def update_list(todo_list, path):
     for item in data:
         # if not any(a.content == item.content #and a.time == item.time
         # for a in new_state)\
-        if all(new_state.none(lambda a: a.content == item.content),
+        if all([new_state.none(lambda a: a.content == item.content),
                 item.location == config.paths.main,
-                path == config.paths.main):
+                path == config.paths.main]):
             print(f'No matching item in new state: {item.content}')
             # breakpoint()
             item.done = True
@@ -257,22 +257,42 @@ def update_list(todo_list, path):
                 item.content = item.content.replace(x, y)
 
 
-# Update the todo list(s) by parsing their members and comparing to the stored
-# state (in a similar manner to file tracking, we can infer when entries are
-# added, removed, or modified)
-def update():
+def save_list(path):
+    with open(path, 'w') as tfile:
+        tfile.write(
+            data.filter(lambda x: x.location == path)
+                .sorted(lambda y: (
+                    # (0 if 'raw' in y.tags else -y.content.count('*')),
+                    -y.importance,
+                    (datetime.timedelta.max if y.time is None
+                        else datetime.datetime.now()-y.time),
+                    y.content.casefold()
+                ))
+                .get('content')
+                .join('\n'))
+
+
+def backup_lists():
     backup_dir = config.base / 'todo-backup'
     backup_dir.mkdir(exist_ok=True)
     backup_path = backup_dir / f'archive-{time.time_ns()}.tar.gz'
     print(f'Backing up todo list and database to {backup_path}')
+
+    with tarfile.open(backup_path, 'w:gz') as tarball:
+        for path in set([db_path, todo_path] + list(config.paths.values())):
+            print(path)
+            try:
+                tarball.add(path)
+            except FileNotFoundError as ex:
+                print(ex)
+
+
+# Update the todo list(s) by parsing their members and comparing to the stored
+# state (in a similar manner to file tracking, we can infer when entries are
+# added, removed, or modified)
+def update():
     if not args.dry_run:
-        with tarfile.open(backup_path, 'w:gz') as tarball:
-            for path in set([db_path, todo_path] + list(config.paths.values())):
-                print(path)
-                try:
-                    tarball.add(path)
-                except FileNotFoundError as ex:
-                    print(ex)
+        backup_lists()
 
     for todo_list, path in config.paths.items():
         update_list(todo_list, Path(path))
@@ -280,18 +300,7 @@ def update():
     for todo_list, path in config.paths.items():
         print(f'Writing output to list {todo_list} at {path}')
         if not args.dry_run:
-            with open(path, 'w') as tfile:
-                tfile.write(
-                    data.filter(lambda x: x.location == path)
-                        .sorted(lambda y: (
-                            # (0 if 'raw' in y.tags else -y.content.count('*')),
-                            -y.importance,
-                            (datetime.timedelta.max if y.time is None
-                                else datetime.datetime.now()-y.time),
-                            y.content.casefold()
-                        ))
-                        .get('content')
-                        .join('\n'))
+            save_list(path)
 
         if config.git_commit and not args.dry_run:
             print('Committing updated todo files to git repository')
