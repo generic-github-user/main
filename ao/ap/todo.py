@@ -109,9 +109,9 @@ class todo:
 
 try:
     with open(db_path, 'rb') as f:
-        data = pickle.load(f)
+        data = List(pickle.load(f))
 except FileNotFoundError:
-    data = []
+    data = List()
 
 
 # Opens the todo list file at `path`, parses its entries (one per line), and
@@ -122,12 +122,11 @@ except FileNotFoundError:
 def parse_todos(path):
     try:
         with open(path.expanduser(), 'r') as tfile:
-            lines = [line for line in tfile.readlines()
-                     if line not in ['', '\n']]
+            lines = List(tfile.readlines()).remove('', '\n')
     except FileNotFoundError:
-        lines = []
+        lines = List()
 
-    new_state = []
+    new_state = List()
     for ln, line in enumerate(lines):
         print(f'Parsing line: {line}')
         snapshot = todo(line)
@@ -187,13 +186,13 @@ def update_list(todo_list, path):
 
     # Compare parsed todo list data with previous state and update accordingly
     print(f'Reconciling {len(data)} items')
-    pool = list(filter(lambda x: x.location == path, data))
+    pool = data.filter(lambda x: x.location == path)
     # for now we assume no duplicates (up to content and date equivalence)
     for item in new_state:
         print(item)
-        matches = list(filter(lambda x: x.content == item.content,
+        # matches = pool.filter(lambda x: x.content == item.content,
+        matches = pool.filter_by('content', item.content)
                               # and x.time == item.time, pool))
-                              pool))
         if matches:
             # if path == config.paths['main']:
                 # assert len(matches) == 1, f'Duplicates for: {item}'
@@ -204,10 +203,11 @@ def update_list(todo_list, path):
             data.append(item)
 
     for item in data:
-        if not any(a.content == item.content #and a.time == item.time
-                   for a in new_state)\
-                and item.location == config.paths.main\
-                and path == config.paths.main:
+        # if not any(a.content == item.content #and a.time == item.time
+                   # for a in new_state)\
+        if all(new_state.none(lambda a: a.content == item.content),
+                item.location == config.paths.main,
+                path == config.paths.main):
             print(f'No matching item in new state: {item.content}')
             # breakpoint()
             item.done = True
@@ -246,15 +246,17 @@ def update():
         print(f'Writing output to list {todo_list} at {path}')
         if not args.dry_run:
             with open(path, 'w') as tfile:
-                tfile.write('\n'.join(z.content for z in sorted(
-                    filter(lambda x: x.location == path, data),
-                    key=lambda y: (
-                        # (0 if 'raw' in y.tags else -y.content.count('*')),
-                        -y.importance,
-                        (datetime.timedelta.max if y.time is None
-                            else datetime.datetime.now()-y.time),
-                        y.content.casefold()
-                    ))))
+                tfile.write(
+                    data.filter(lambda x: x.location == path)
+                        .sorted(lambda y: (
+                            # (0 if 'raw' in y.tags else -y.content.count('*')),
+                            -y.importance,
+                            (datetime.timedelta.max if y.time is None
+                                else datetime.datetime.now()-y.time),
+                            y.content.casefold()
+                        ))
+                        .get('content')
+                        .join('\n'))
 
         if config.git_commit and not args.dry_run:
             print('Committing updated todo files to git repository')
