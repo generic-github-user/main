@@ -104,6 +104,7 @@ for k, v in config.paths.items():
     # config[k] = os.path.expanduser(v)
     config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
 db_path = config.base / 'todo.pickle'
+log_path = config.base / config.log
 config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
 
 if args.flush:
@@ -149,7 +150,7 @@ class todo:
 
     # Generate a string summarizing this instance
     def __str__(self):
-        inner = [f'"{self.content}"', f'<{self.tags}>']
+        inner = [f'"{self.raw}"', f'<{self.tags}>']
         # inner = "\n\t".join(inner)
         inner = ' '.join(inner)
         return f'todo {{ {inner} }}'
@@ -184,6 +185,8 @@ def parse_todos(path):
             snapshot.done = True
             snapshot.donetime = time.time()
             line = line.replace(config.complete_symbol, '')
+            with open(log_path, 'a') as logfile:
+                logfile.write(f'{datetime.datetime.now()} found completed task: {snapshot}\n')
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
@@ -250,6 +253,8 @@ def update_list(todo_list, path):
             matches[0].location = item.location
         else:
             data.append(item)
+            with open(log_path, 'a') as logfile:
+                logfile.write(f'{datetime.datetime.now()} found new task: {item}\n')
 
     for item in data:
         # if not any(a.content == item.content #and a.time == item.time
