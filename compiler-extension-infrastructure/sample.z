@@ -1,0 +1,48 @@
+filters: {
+	infer_types,
+	types: {
+		strings,
+		booleans,
+		uint,
+		list,
+		set,
+		range
+	},
+	syntax: {
+		ranges,
+		lambdas,
+		doc_comments,
+    decorators
+	},
+	negative_indices,
+	implicit_return,
+	implicit_block,
+	keywords: {
+		fn,
+		pub
+	},
+  macros: {
+    typecase
+  },
+	refinement_types,
+	generics,
+	methods: {
+		list: print,
+		iterator: {
+			filter,
+			map
+		},
+		len,
+		to_string
+	},
+	for_in,
+	plain_conditions,
+	semantics: {
+		function_overloading,
+		implicit_dereference
+	},
+	lint: {
+		style
+	}
+}
+
