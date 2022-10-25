@@ -31,6 +31,7 @@ for k, v in config.paths.items():
     config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
 db_path = config.base / 'todo.pickle'
 log_path = config.base / config.log
+log_level = 0
 config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
 
 if args.flush:
@@ -40,6 +41,13 @@ if args.flush:
     config.paths.cancelled.rename(archive_dir / config.paths.cancelled)
     db_path.rename(archive_dir / db_path)
     quit()
+
+
+def log(content):
+    content = '  ' * log_level + content
+    print(content)
+    with open(log_path, 'a') as logfile:
+        logfile.write(f'{datetime.datetime.now()} {content}\n')
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -145,8 +153,7 @@ def parse_todos(path):
             snapshot.done = True
             snapshot.donetime = time.time()
             line = line.replace(config.complete_symbol, '')
-            with open(log_path, 'a') as logfile:
-                logfile.write(f'{datetime.datetime.now()} found completed task: {snapshot}\n')
+            log(f'found completed task: {snapshot}')
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
@@ -213,8 +220,7 @@ def update_list(todo_list, path):
             matches[0].location = item.location
         else:
             data.append(item)
-            with open(log_path, 'a') as logfile:
-                logfile.write(f'{datetime.datetime.now()} found new task: {item}\n')
+            log(f'found new task: {item}')
 
     for item in data:
         # if not any(a.content == item.content #and a.time == item.time
