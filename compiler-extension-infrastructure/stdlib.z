@@ -1,0 +1,11 @@
+fn map<T, V> (values: Iterator<T>, f: T -> V) -> Iterator<V> {
+    return Iterator {
+        next: () => f(values.next())
+    }
+}
+
+// "indexed map": like .map, but takes a function with two inputs: the index of
+// each element and the element itself
+fn imap<T, V> (values: Iterator<T>, f: (uint, T) -> V) -> Iterator<V> {
+    return values.enumerate().map(f)
+}
