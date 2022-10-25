@@ -1,3 +1,13 @@
+"""
+A simple wrapper class for several built-in Python sequence types designed to
+facilitate method chaining and functional programming patterns. In many cases,
+this class' methods simply pass calls to standard global functions on iterators
+included in Python (e.g., `map` and `filter`). There are currently some
+efficiency concerns, namely in cases where I have temporarily avoided headaches
+by converting iterators directly to lists; I plan to refactor these later to
+improve style and efficiency at the potential cost of a slightly more
+complicated interface (and more involved internals).
+"""
 class List:
     """Creates a new list containing the elements from the Python list `items`
     (i.e., wrapping it)"""
