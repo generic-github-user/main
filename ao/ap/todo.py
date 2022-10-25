@@ -324,7 +324,8 @@ def update():
             print('Committing updated todo files to git repository')
             os.chdir(config.base)
             os.system(f'git add {path}')
-            os.system('git commit -m "Update todo list"')
+    # os.chdir(config.base)
+    os.system('git commit -m "Update todo list"')
 
     print(f'Persisting database ({db_path})')
     if not args.dry_run:
