@@ -44,3 +44,29 @@ fn fold<T> (values: Iterator<T>, f: (T, T -> T)) {
 fn fold_right<T> (values: Iterator<T>, f: (T, T -> T)) {
     return reduce_right(values, f, values.first())
 }
+
+fn sum(values: Collection<T: Add>) {
+    return values.fold(a, b => a + b)
+}
+
+fn max<T: Order>(a: T, b: T) {
+    return a > b ? a : b
+}
+fn min<T: Order>(a: T, b: T) {
+    return a < b ? a : b
+}
+
+fn max(values) {
+    return values.fold(max)
+}
+fn min(values) {
+    return values.fold(min)
+}
+
+// TODO: check that these are properly optimized (can be interleaved with max/min finding)
+fn argmax<T: Iterator> (values) {
+    return values.index(values.max())
+}
+fn argmin<T: Iterator> (values) {
+    return values.index(values.min())
+}
