@@ -29,3 +29,18 @@ fn compose<T> (fs : Sequence<T -> T>) -> (T -> T) {
 fn iterate_func<T> (f : T -> T, n: uint) -> (T -> T) {
     return repeat(f, n).compose()
 }
+
+fn reduce<T> ((values: Iterator<T>), f: (T, T -> T), init: T) {
+    values.each(v => init = f(init, v))
+    return init
+}
+fn reduce_right<T> ((values: Iterator<T>), f: (T, T -> T), init: T) {
+    values.each_right(v => init = f(init, v))
+    return init
+}
+fn fold<T> (values: Iterator<T>, f: (T, T -> T)) {
+    return reduce(values, f, values.first())
+}
+fn fold_right<T> (values: Iterator<T>, f: (T, T -> T)) {
+    return reduce_right(values, f, values.first())
+}
