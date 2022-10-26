@@ -70,3 +70,30 @@ fn argmax<T: Iterator> (values) {
 fn argmin<T: Iterator> (values) {
     return values.index(values.min())
 }
+
+
+// A counter or multiset, similar to the one provided in Python
+type Counter<T: Hash> {
+    items: HashMap<T, uint>
+
+    pub fn new (self, values: Collection<T>) {
+        values.each(self.add)
+        return self
+    }
+
+    pub fn add (self, x: T) {
+        // if self.items.contains(x)
+        match self.items.get(x) {
+            Some(count) => count++
+            None => self.items.insert(x, 0)
+        }
+        return self
+    }
+
+    pub fn to (self, t: type) -> t {
+        match t {
+            HashMap => self.items
+            Set => Set.new(self.items.keys)
+        }
+    }
+}
