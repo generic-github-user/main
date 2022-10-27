@@ -84,6 +84,31 @@ fn enumerate<T: Sequence, V> (values: T<V>) -> Sequence<(uint, V)> {
 }
 
 
+// Combines the provided iterators into a single iterator of tuples (see
+// https://en.wikipedia.org/wiki/Zipping_(computer_science))
+fn zip<T, V> (a: Sequence<T>, b: Sequence<V>) -> Sequence<(T, V)> {
+    return Iterator {
+        next: () => (a.next(), b.next())
+    }
+}
+
+// Combines a sequence of sequences into an iterator over sequences where
+// element j of input i is located at element i of element j of the output.
+// Currently can only handle a single inner type (T) -- it should be fairly
+// trivial to extend it once compile-time type value interfacing is available.
+//
+// This function is modelled loosely after https://stackoverflow.com/a/55292215
+// (more compact, if we can get it to compile!). In the future, it should be
+// possible to integrate parts of the Rust standard library into code developed
+// with this framework (since one of the primary goals is interoperability).
+fn zip<T> (values: Sequence<Sequence<T>>) -> Sequence<Tuple<T>> {
+    // perhaps there is a nicer way to do this using .reduce and somehow
+    // flattening each item in the result...
+    return Iterator {
+        next: () => values.map(.next)
+    }
+}
+
 // A generic iterator trait, modelled after Rust's. An iterator must provide at
 // least the `next` method, which (as the name implies) returns the next
 // element in the sequence. Iterators can be finite or infinite; one special
@@ -108,6 +133,80 @@ fn cycle<T> (values: Sequence<T>) -> Iterator<T> {
 fn replace<T> (values: Collection<T>, a: T, b: T) -> Collection<T> {
     return values.map(x => x == a ? b : x)
 }
+
+fn Add<T> (a: T, b: T) {
+    return match T {
+        // can we make this more generic (perhaps add some construct for
+        // distributivity? or define by indices, i.e. c[i] = a[i] + b[i])
+        Iterator => zip(a, b).map(ai, bi => ai + bi)
+        String => String.cat(a, b)
+        Number => a + b
+
+        _ => raise error.notimplemented
+    }
+}
+
+fn Eq<T> (a: T, b: T) {
+    return match T {
+        Iterator => zip(a, b).map(ai, bi => ai == bi).all()
+        Number => a + b
+        _ => raise error.notimplemented
+    }
+}
+
+
+fn flatten(values: Collection<T | Collection>) {
+    result = values.type.new()
+    values.map(v => typecase {
+        T: result.append(v)
+        Collection: result.extend(flatten(v))
+    })
+    return result
+}
+flatten.tests {
+    test.catch(flatten(1), error.type)
+    test(flatten([42]) == [42])
+    test(flatten([]) == [])
+    test(flatten([[1, 2], 3, [[4, 5], [6, 7]]]) == [1, 2, 3, 4, 5, 6, 7])
+    test(flatten(Set.new()) == Set.new())
+}
+
+fn Set.union<T> (a: Set<T>, b: Set<T>) ->
+    c: (Set<T> where size >= max(a.size, b.size)) {
+
+}
+fn Set.union<T> (sets: Seq<Set<T>>) -> Set<T> {
+    return sets.fold(.union)
+}
+
+// Returns a new set containing only the elements contained in both sets `a`
+// and `b`
+fn Set.intersection<T> (a: Set<T>, b: Set<T>) ->
+    c: (Set<T> where size <= min(a.size, b.size)) {
+    return a.filter(b.contains(it))
+}
+fn Set.union<T> (sets: Seq<Set<T>>) -> Set<T> {
+    return sets.fold(.intersection)
+}
+
+fn Set.power_set<T> (set: Set<T>) ->
+    Iterator<Set<T>; length == 2 ** set.size> {
+    if set.size >= 16 : warn "The length of the output is exponential in the
+    size of the input; an input this large is likely to take a very long time
+    to complete. Consider testing with compiler flags for automatic process
+    interruption to avoid indefinite program execution."
+
+
+}
+
+
+fn Iterator.product<T, V> (a: Iterator<T>, b: Iterator<V>) ->
+    Iterator<(T, V); length == a.length * b.length> {
+    // return Iterator { }
+    return Iterator.chain(a.map(ai => b.map(bi => (ai, bi))))
+}
+
+println(Sequence.methods)
 
 // A counter or multiset, similar to the one provided in Python
 type Counter<T: Hash> {
