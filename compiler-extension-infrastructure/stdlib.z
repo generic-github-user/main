@@ -281,10 +281,39 @@ type Counter<T: Hash> {
         return self
     }
 
+    // Converts to the specified type, `t`. Not guaranteed to preserve all
+    // information from the `Counter` instance it is called on. In the case of
+    // `t == HashMap`, no new object is constructed, so the user must be
+    // careful with mutability.
+    // 
+    // This function will usually be handled (e.g., by expanding its possible
+    // execution paths into static templates) at compile time, but is included
+    // for ease of development and because I find the "types as values" pattern
+    // very pleasant.
     pub fn to (self, t: type) -> t {
         match t {
             HashMap => self.items
-            Set => Set.new(self.items.keys)
+            Set => Set<T>.new(self.items.keys)
+            Vec => Vec<T>.new()
+
+            _ => {
+                // this will be used as a sample for some extremely cursed AST
+                // introspection ideas I want to experiment with; I think
+                // `this` could be used to refer to the current scope (not
+                // entirely sure of the semantics yet). a better way to handle
+                // this may be using a specialized macro for matching types
+                // (like typecase in Common Lisp), though they would be
+                // functionally equivalent (this is more in the Python
+                // reflection style but it can be trivially converted to a
+                // compile-time AST manipulation since the patterns used in the
+                // match statement never change)
+
+                let valid_types = indent(this.patterns.exclude('_)
+                    .map(p => "- " + p.to_string())
+                    .join("\n"))
+                raise error.argument("Cannot convert from a {self.type} to a
+                    {t}; `t` must be one of the following: \n{valid_types}")
+            }
         }
     }
 }
