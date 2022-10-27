@@ -49,16 +49,34 @@ fn sum(values: Collection<T: Add>) {
     return values.fold(a, b => a + b)
 }
 
+// Simple binary maximum operator; returns whichever of its arguments is
+// greater (`T` must be comparable via `>`). If equal, the first argument will
+// be returned (this may matter for inputs that are equivalent according to
+// `Eq` but correspond to different objects in memory).
 fn max<T: Order>(a: T, b: T) {
     return a > b ? a : b
 }
+// Simple binary minimum operator; returns whichever of its arguments is
+// smaller (`T` must be comparable via `<`). If equal, the first argument will
+// be returned (this may matter for inputs that are equivalent according to
+// `Eq` but correspond to different objects in memory).
 fn min<T: Order>(a: T, b: T) {
     return a < b ? a : b
 }
 
+// Extends `max` to a collection of values; will fail if used on an empty
+// collection. Worst case is linear time in the length of the input. As with
+// `max(T, T)`, caution is needed when the elements of the input are `==` but
+// not identical. Since we are folding from the first element onward, it will
+// be the one returned if all the elements of `values` are equal.
 fn max(values) {
     return values.fold(max)
 }
+// Extends `min` to a collection of values; will fail if used on an empty
+// collection. Worst case is linear time in the length of the input. As with
+// `min(T, T)`, caution is needed when the elements of the input are `==` but
+// not identical. Since we are folding from the first element onward, it will
+// be the one returned if all the elements of `values` are equal.
 fn min(values) {
     return values.fold(min)
 }
