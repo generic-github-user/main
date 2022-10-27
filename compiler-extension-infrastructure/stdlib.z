@@ -259,6 +259,28 @@ type Counter<T: Hash> {
     }
 }
 
+
+trait PartialEq {}
+
+trait Eq {
+    tags : { symmetric, transitive, reflexive }
+    pub fn eq <T> (a: T, b: T) -> bool
+    optional pub fn neq <T> (a: T, b: T) -> bool
+    eq(x, y) == !neq(x, y)
+}
+
+// interpret refinement types as subtypes?
+// e.g., T: Vec
+// "subclassing" functions?
+
+linalg.dot <T: Number> (a: Vec<T>, b: Vec<T>) where a.length == b.length
+    -> Vec<T; .length == a.length == b.length> {
+    complexity { time: O(n) }
+
+    // return (a * b).sum()
+    return zip(a, b).map(T.mul).sum()
+}
+
 pub mut fn Sequence.shuffle <T> (values: Sequence<T>) ->
     Sequence<T; .length == values.length> {
     complexity { time: O(n) }
@@ -278,3 +300,8 @@ pub fn Sequence.shuffled <T> (values: Sequence<T>) ->
 }
 // Sequence.shuffled = cloner(Sequence.shuffle)
 
+
+@memoize
+pub fn math.factorial (x : Number) -> Number {
+    range(1, x+1).product()
+}
