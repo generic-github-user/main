@@ -9,15 +9,17 @@ INT: NONZERO (DIGIT*)
 FLOAT: (DIGIT+) "." (DIGIT*)
 NUMBER: INT | FLOAT
 STRING: "\"" (LETTER | DIGIT | " ")* "\""
-LITERAL: STRING | FLOAT | INT
+literal: STRING | FLOAT | INT
 
 operator: "+" | "-" | "*" | "/" | "**" | "%"
              | "||" | "&&" | "|" | "&" | "^"
              | "==" | "!=" | "<" | "<=" | ">" | ">="
+             | "=>" | "." | ".."
 bin_op: expression operator expression
 unary_op: operator expression
 operation: bin_op | unary_op
 expression: literal | IDENTIFIER | array | call | index
+            | lfunc | init
 grouping: "(" expression ")"
 
 list: ((expression ",")* expression)?
@@ -25,12 +27,26 @@ array: "[" list "]"
 index: expression array
 tuple: "(" list ")"
 call: expression tuple
+pair: IDENTIFIER ":" expression
 
 struct_dec: "struct" block
-function_dec: IDENTIFIER IDENTIFIER tuple block
+function_dec: (IDENTIFIER IDENTIFIER tuple block)
+                | ("fn" IDENTIFIER type_param?\
+                "(" ((IDENTIFIER ":" type ",")* IDENTIFIER ":" type)? ")"\
+                "->" type block)
 declaration: function_dec | struct_dec
 
-statement: (("break" | expression) ";") | declaration
+return: "return" expression
+statement: (("break" | return | expression) ";") | declaration
 block: "{" (statement+) "}"
 program: (statement | block)+
 // comment: 
+start: program
+
+type_param: "<" list ">"
+type: (IDENTIFIER type_param?) | (type "->" type) | ("(" type ")")
+init: type "{" ((pair* ",") pair)? "}"
+lfunc: (tuple | IDENTIFIER) "=>" (expression | block)
+
+%import common.WS
+%ignore WS
