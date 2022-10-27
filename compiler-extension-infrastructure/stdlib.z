@@ -30,44 +30,44 @@ fn iterate_func<T> (f : T -> T, n: uint) -> (T -> T) {
     return repeat(f, n).compose()
 }
 
-fn reduce<T> ((values: Iterator<T>), f: (T, T -> T), init: T) {
+fn reduce<T> (values: Iterator<T>, f: (T, T -> T), init: T) -> T {
     values.each(v => init = f(init, v))
     return init
 }
-fn reduce_right<T> ((values: Iterator<T>), f: (T, T -> T), init: T) {
+fn reduce_right<T> (values: Iterator<T>, f: (T, T -> T), init: T) -> T {
     values.each_right(v => init = f(init, v))
     return init
 }
-fn fold<T> (values: Iterator<T>, f: (T, T -> T)) {
+fn fold<T> (values: Iterator<T>, f: (T, T -> T)) -> Option<T> {
     return reduce(values, f, values.first())
 }
-fn fold_right<T> (values: Iterator<T>, f: (T, T -> T)) {
+fn fold_right<T> (values: Iterator<T>, f: (T, T -> T)) -> Option<T> {
     return reduce_right(values, f, values.first())
 }
 
-fn sum(values: Collection<T: Add>) {
+fn sum(values: Collection<T: Add>) -> T {
     return values.fold(a, b => a + b)
 }
 
-fn max<T: Order>(a: T, b: T) {
+fn max<T: Order>(a: T, b: T) -> T {
     return a > b ? a : b
 }
-fn min<T: Order>(a: T, b: T) {
+fn min<T: Order>(a: T, b: T) -> T {
     return a < b ? a : b
 }
 
-fn max(values) {
+fn max(values) -> T {
     return values.fold(max)
 }
-fn min(values) {
+fn min(values) -> T {
     return values.fold(min)
 }
 
 // TODO: check that these are properly optimized (can be interleaved with max/min finding)
-fn argmax<T: Iterator> (values) {
+fn argmax<T: Iterator> (values: T) -> uint {
     return values.index(values.max())
 }
-fn argmin<T: Iterator> (values) {
+fn argmin<T: Iterator> (values: T) -> uint {
     return values.index(values.min())
 }
 
@@ -76,12 +76,12 @@ fn argmin<T: Iterator> (values) {
 type Counter<T: Hash> {
     items: HashMap<T, uint>
 
-    pub fn new (self, values: Collection<T>) {
+    pub fn new (self: Counter<T>, values: Collection<T>) -> Counter<T> {
         values.each(self.add)
         return self
     }
 
-    pub fn add (self, x: T) {
+    pub fn add (self: Counter<T>, x: T) -> Counter<T> {
         // if self.items.contains(x)
         match self.items.get(x) {
             Some(count) => count++
@@ -90,7 +90,7 @@ type Counter<T: Hash> {
         return self
     }
 
-    pub fn to (self, t: type) -> t {
+    pub fn to (self: Counter<T>, t: type) -> t {
         match t {
             HashMap => self.items
             Set => Set.new(self.items.keys)
