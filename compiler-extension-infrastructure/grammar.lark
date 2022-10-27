@@ -16,7 +16,9 @@ IDENTIFIER: LETTER (LETTER | NUMBER | "_")*
 INT: NONZERO (DIGIT*) | "0"
 FLOAT: (DIGIT+) "." (DIGIT*)
 NUMBER: INT | FLOAT
-STRING: "\"" (LETTER | DIGIT | " ")* "\""
+// STRING: "\"" (LETTER | DIGIT | " ")* "\""
+// STRING: ESCAPED_STRING
+STRING: /".*"/ms
 literal: STRING | FLOAT | INT
 
 operator: "+" | "-" | "*" | "/" | "**" | "%"
@@ -27,7 +29,7 @@ bin_op: expression operator expression
 unary_op: operator expression
 operation: bin_op | unary_op
 expression: literal | IDENTIFIER | array | call | index | operation
-            | lfunc | init | ternary
+            | lfunc | init | ternary | tuple | statement
 grouping: "(" expression ")"
 
 list: ((expression ",")* expression)?
@@ -39,33 +41,60 @@ pair: IDENTIFIER ":" expression
 
 struct_dec: "struct" block
 function_dec: (IDENTIFIER IDENTIFIER tuple block)
-                | ("pub"? "fn" IDENTIFIER type_param?\
-                "(" ((IDENTIFIER ":" type ",")* IDENTIFIER ":" type)? ")"\
-                "->" type block)
+                | (fn_signature block)
 declaration: function_dec | struct_dec
-    | type_dec
+    | type_dec | trait_dec
 
 return: "return" expression
 // statement: (("break" | return | expression) ";") | declaration
 statement: "break" | return | expression | declaration
-            | match
-block: "{" (statement+) "}"
+            | match | if_stmt | raise_stmt | warn_stmt
+            | complexity_marker
+block: "{" (statement*) "}"
 program: (statement | block)+
 // comment: "//" CHARACTER*
 start: program
 
-type_param: "<" ((type ",") | type)+ ">"
+
+
+type_param: "<" ((type ",") | type)+ (";" expression)* ">"
+typed_name: IDENTIFIER ":" type
 type: (IDENTIFIER type_param?) | (type "->" type)
         | ("(" type ")") | tuple | (type ":" IDENTIFIER)
+        | (type "|" type)
+        | expression
+        | dependent_type
+where_clause: "where" expression
+dependent_type: type where_clause
+
+raise_stmt: "raise" expression
+warn_stmt: "warn" expression
+// if_stmt: "if" expression block
+if_stmt: "if" expression ":"? (block | statement)
+
 init: type "{" ((pair ",")* pair)? "}"
 lfunc: (tuple | IDENTIFIER | expression) "=>" (expression | block)
 ternary: expression "?" expression ":" expression
 type_dec: "type" type type_block
 type_block: "{" ((IDENTIFIER ":" type) | function_dec)* "}"
-match: "match" expression "{" lfunc* "}"
+type_list: "(" ((IDENTIFIER ":" type ",")* IDENTIFIER ":" type)? ")"
+fn_signature: "pub"? "mut"? "fn" (IDENTIFIER | expression) type_param?\
+                (type_list | type) where_clause?\
+                "->" (type | typed_name)
+trait_dec: "trait" type "{" ("optional"? fn_signature)* "}"
+
+pair_block: "{" pair* "}"
+complexity_marker: "complexity" pair_block
+
+// would this be easier (or better) to do with a dedicated macro?
+pattern: "_" | tuple | IDENTIFIER | expression
+match_arm: pattern "=>" (expression | block)
+match: ("match" | "typecase") expression "{" match_arm* "}"
 
 %import common.WS
 %ignore WS
 
 COMMENT: "//" /[^\n]/*
 %ignore COMMENT
+
+%import common.ESCAPED_STRING
