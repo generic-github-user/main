@@ -11,3 +11,26 @@ NUMBER: INT | FLOAT
 STRING: "\"" (LETTER | DIGIT | " ")* "\""
 LITERAL: STRING | FLOAT | INT
 
+operator: "+" | "-" | "*" | "/" | "**" | "%"
+             | "||" | "&&" | "|" | "&" | "^"
+             | "==" | "!=" | "<" | "<=" | ">" | ">="
+bin_op: expression operator expression
+unary_op: operator expression
+operation: bin_op | unary_op
+expression: literal | IDENTIFIER | array | call | index
+grouping: "(" expression ")"
+
+list: ((expression ",")* expression)?
+array: "[" list "]"
+index: expression array
+tuple: "(" list ")"
+call: expression tuple
+
+struct_dec: "struct" block
+function_dec: IDENTIFIER IDENTIFIER tuple block
+declaration: function_dec | struct_dec
+
+statement: (("break" | expression) ";") | declaration
+block: "{" (statement+) "}"
+program: (statement | block)+
+// comment: 
