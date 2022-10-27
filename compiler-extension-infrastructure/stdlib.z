@@ -234,8 +234,10 @@ fn memoize (f: (in: *(Any: Hash)) -> (out: Any), limit: uint)
     -> (*Any -> Any) {
 
     return Object {
-        cache: HashMap<in, out> = HashMap.new(),
-        call: (in -> out) = (inputs: in) => {
+        // TODO: can we reinterpret ":" as an operator?
+        (cache: HashMap<in, out>) : HashMap.new()
+
+        (call: (in -> out)) : (inputs: in) => {
             assert cache.size <= limit
             match cache.get(inputs) {
                 Some(value) => value.x
@@ -322,17 +324,17 @@ type Counter<T: Hash> {
 trait PartialEq {}
 
 trait Eq {
-    tags : { symmetric, transitive, reflexive }
+    // tags : { symmetric, transitive, reflexive }
     pub fn eq <T> (a: T, b: T) -> bool
     optional pub fn neq <T> (a: T, b: T) -> bool
-    eq(x, y) == !neq(x, y)
+    // eq(x, y) == !neq(x, y)
 }
 
 // interpret refinement types as subtypes?
 // e.g., T: Vec
 // "subclassing" functions?
 
-fn linalg.dot <T: Number> (a: Vec<T>, b: Vec<T>) where a.length == b.length
+pub fn linalg.dot <T: Number> (a: Vec<T>, b: Vec<T>) where a.length == b.length
     -> Vec<T; .length == a.length == b.length> {
     complexity { time: O(n) }
 

@@ -24,12 +24,13 @@ literal: STRING | FLOAT | INT
 operator: "+" | "-" | "*" | "/" | "**" | "%"
              | "||" | "&&" | "|" | "&" | "^"
              | "==" | "!=" | "<" | "<=" | ">" | ">="
-             | "=>" | "." | ".." | "="
+             | "=>" | "." | ".." | "=" | "!"
 bin_op: expression operator expression
 unary_op: operator expression
 operation: bin_op | unary_op
 expression: literal | IDENTIFIER | array | call | index | operation
             | lambda_func | init | ternary | tuple | statement
+            | quote | braced_group
 grouping: "(" expression ")"
 
 list: ((expression ",")* expression)?
@@ -37,7 +38,7 @@ array: "[" list "]"
 index: expression array
 tuple: "(" list? ")"
 call: expression tuple
-pair: IDENTIFIER ":" expression
+pair: (IDENTIFIER | typed_name) ":" expression
 
 struct_declaration: "struct" block
 function_declaration: (IDENTIFIER IDENTIFIER tuple block)
@@ -51,7 +52,9 @@ statement: "break" | return | expression | declaration
             | match | if_stmt | raise_stmt | warn_stmt | let_stmt
             | complexity_marker
 block: "{" (statement*) "}"
-program: (statement | block)+
+    | "{" ((statement | pair)*) "}"
+// program: (statement | block)+
+program: form*
 // comment: "//" CHARACTER*
 start: program
 
@@ -59,6 +62,7 @@ start: program
 
 type_param: "<" ((type ",") | type)+ (";" expression)* ">"
 typed_name: IDENTIFIER ":" type
+        | "(" typed_name ")"
 type: (IDENTIFIER type_param?)
         | (type "->" type)
         | ("(" type ")") | tuple | (type ":" IDENTIFIER)
@@ -77,8 +81,9 @@ warn_stmt: "warn" expression
 if_stmt: "if" expression ":"? (block | statement)
 let_stmt: "let" (IDENTIFIER | typed_name) "=" expression
 
-init: type "{" ((pair ",")* pair)? "}"
+init: type "{" ((pair ","?)* pair)? "}"
 lambda_func: (tuple | IDENTIFIER | expression | type_list) "=>" (expression | block)
+braced_group: "{" ((expression ","?)* expression)? "}"
 ternary: expression "?" expression ":" expression
 type_declaration: "type" type type_block
 type_block: "{" (typed_name | function_declaration)* "}"
@@ -86,7 +91,12 @@ type_list: "(" ((typed_name ",")* typed_name)? ")"
 fn_signature: "pub"? "mut"? "fn" (IDENTIFIER | expression) type_param?\
                 (type_list | type) where_clause?\
                 "->" (type | typed_name)
-trait_declaration: "trait" type "{" ("optional"? fn_signature)* "}"
+trait_declaration: "trait" type\
+    "{" (("optional"? fn_signature) | statement | expression)* "}"
+memo: "@" expression form
+
+form: statement | block | expression | pattern | declaration | memo
+quote: "'" form
 
 pair_block: "{" pair* "}"
 complexity_marker: "complexity" pair_block
