@@ -1,0 +1,99 @@
+fn map<T, V> (values: Iterator<T>, f: T -> V) -> Iterator<V> {
+    return Iterator {
+        next: () => f(values.next())
+    }
+}
+
+// "indexed map": like .map, but takes a function with two inputs: the index of
+// each element and the element itself
+fn imap<T, V> (values: Iterator<T>, f: (uint, T) -> V) -> Iterator<V> {
+    return values.enumerate().map(f)
+}
+
+// Returns the
+// [composition](https://en.wikipedia.org/wiki/Function_composition) of f and
+// g, such that h(x) = f(g(x)) for all x (note that the input here may in fact
+// be several values). A variant of this function exists for repeated
+// composition over a sequence of functions.
+fn compose<T, U, V> (f: T -> U, g: U -> V) -> (T -> V) {
+    return x => f(g(x))
+}
+fn compose<T> (fs : Sequence<T -> T>) -> (T -> T) {
+    return fs.fold(compose)
+}
+
+// looping as a method on blocks of code?
+// representations of closures/scoping?
+
+// See https://en.wikipedia.org/wiki/Iterated_function.
+fn iterate_func<T> (f : T -> T, n: uint) -> (T -> T) {
+    return repeat(f, n).compose()
+}
+
+fn reduce<T> ((values: Iterator<T>), f: (T, T -> T), init: T) {
+    values.each(v => init = f(init, v))
+    return init
+}
+fn reduce_right<T> ((values: Iterator<T>), f: (T, T -> T), init: T) {
+    values.each_right(v => init = f(init, v))
+    return init
+}
+fn fold<T> (values: Iterator<T>, f: (T, T -> T)) {
+    return reduce(values, f, values.first())
+}
+fn fold_right<T> (values: Iterator<T>, f: (T, T -> T)) {
+    return reduce_right(values, f, values.first())
+}
+
+fn sum(values: Collection<T: Add>) {
+    return values.fold(a, b => a + b)
+}
+
+fn max<T: Order>(a: T, b: T) {
+    return a > b ? a : b
+}
+fn min<T: Order>(a: T, b: T) {
+    return a < b ? a : b
+}
+
+fn max(values) {
+    return values.fold(max)
+}
+fn min(values) {
+    return values.fold(min)
+}
+
+// TODO: check that these are properly optimized (can be interleaved with max/min finding)
+fn argmax<T: Iterator> (values) {
+    return values.index(values.max())
+}
+fn argmin<T: Iterator> (values) {
+    return values.index(values.min())
+}
+
+
+// A counter or multiset, similar to the one provided in Python
+type Counter<T: Hash> {
+    items: HashMap<T, uint>
+
+    pub fn new (self, values: Collection<T>) {
+        values.each(self.add)
+        return self
+    }
+
+    pub fn add (self, x: T) {
+        // if self.items.contains(x)
+        match self.items.get(x) {
+            Some(count) => count++
+            None => self.items.insert(x, 0)
+        }
+        return self
+    }
+
+    pub fn to (self, t: type) -> t {
+        match t {
+            HashMap => self.items
+            Set => Set.new(self.items.keys)
+        }
+    }
+}
