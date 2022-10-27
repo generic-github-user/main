@@ -18,7 +18,7 @@ FLOAT: (DIGIT+) "." (DIGIT*)
 NUMBER: INT | FLOAT
 // STRING: "\"" (LETTER | DIGIT | " ")* "\""
 // STRING: ESCAPED_STRING
-STRING: /".*"/ms
+STRING: /".*?"/ms
 literal: STRING | FLOAT | INT
 
 operator: "+" | "-" | "*" | "/" | "**" | "%"
@@ -29,7 +29,7 @@ bin_op: expression operator expression
 unary_op: operator expression
 operation: bin_op | unary_op
 expression: literal | IDENTIFIER | array | call | index | operation
-            | lfunc | init | ternary | tuple | statement
+            | lambda_func | init | ternary | tuple | statement
 grouping: "(" expression ")"
 
 list: ((expression ",")* expression)?
@@ -39,16 +39,16 @@ tuple: "(" list? ")"
 call: expression tuple
 pair: IDENTIFIER ":" expression
 
-struct_dec: "struct" block
-function_dec: (IDENTIFIER IDENTIFIER tuple block)
+struct_declaration: "struct" block
+function_declaration: (IDENTIFIER IDENTIFIER tuple block)
                 | (fn_signature block)
-declaration: function_dec | struct_dec
-    | type_dec | trait_dec
+declaration: function_declaration | struct_declaration
+    | type_declaration | trait_declaration
 
 return: "return" expression
 // statement: (("break" | return | expression) ";") | declaration
 statement: "break" | return | expression | declaration
-            | match | if_stmt | raise_stmt | warn_stmt
+            | match | if_stmt | raise_stmt | warn_stmt | let_stmt
             | complexity_marker
 block: "{" (statement*) "}"
 program: (statement | block)+
@@ -59,11 +59,15 @@ start: program
 
 type_param: "<" ((type ",") | type)+ (";" expression)* ">"
 typed_name: IDENTIFIER ":" type
-type: (IDENTIFIER type_param?) | (type "->" type)
+type: (IDENTIFIER type_param?)
+        | (type "->" type)
         | ("(" type ")") | tuple | (type ":" IDENTIFIER)
         | (type "|" type)
         | expression
         | dependent_type
+        | "*" type
+        // currently used as a temporary hack for trait bounds
+        | typed_name
 where_clause: "where" expression
 dependent_type: type where_clause
 
@@ -71,17 +75,18 @@ raise_stmt: "raise" expression
 warn_stmt: "warn" expression
 // if_stmt: "if" expression block
 if_stmt: "if" expression ":"? (block | statement)
+let_stmt: "let" (IDENTIFIER | typed_name) "=" expression
 
 init: type "{" ((pair ",")* pair)? "}"
-lfunc: (tuple | IDENTIFIER | expression) "=>" (expression | block)
+lambda_func: (tuple | IDENTIFIER | expression | type_list) "=>" (expression | block)
 ternary: expression "?" expression ":" expression
-type_dec: "type" type type_block
-type_block: "{" ((IDENTIFIER ":" type) | function_dec)* "}"
-type_list: "(" ((IDENTIFIER ":" type ",")* IDENTIFIER ":" type)? ")"
+type_declaration: "type" type type_block
+type_block: "{" (typed_name | function_declaration)* "}"
+type_list: "(" ((typed_name ",")* typed_name)? ")"
 fn_signature: "pub"? "mut"? "fn" (IDENTIFIER | expression) type_param?\
                 (type_list | type) where_clause?\
                 "->" (type | typed_name)
-trait_dec: "trait" type "{" ("optional"? fn_signature)* "}"
+trait_declaration: "trait" type "{" ("optional"? fn_signature)* "}"
 
 pair_block: "{" pair* "}"
 complexity_marker: "complexity" pair_block
