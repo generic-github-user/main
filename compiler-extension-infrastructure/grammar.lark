@@ -4,8 +4,16 @@ LETTER: LOWERCASE | UPPERCASE
 NONZERO: "1".."9"
 DIGIT: NONZERO | "0"
 
-IDENTIFIER: LETTER (LETTER | NUMBER)*
-INT: NONZERO (DIGIT*)
+BRACKET: "[" | "]"
+PUNCTUATION: "!" | "(" | ")" | BRACKET | "-" | "_" | ";" | ":"
+		| "`" | "," | "." | "/" | "\\" | "?" | "<" | ">"
+SYMBOL: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
+
+QUOTEMARK: "'" | "\""
+CHARACTER: LETTER | DIGIT | PUNCTUATION | SYMBOL | " " | QUOTEMARK
+
+IDENTIFIER: LETTER (LETTER | NUMBER | "_")*
+INT: NONZERO (DIGIT*) | "0"
 FLOAT: (DIGIT+) "." (DIGIT*)
 NUMBER: INT | FLOAT
 STRING: "\"" (LETTER | DIGIT | " ")* "\""
@@ -14,39 +22,50 @@ literal: STRING | FLOAT | INT
 operator: "+" | "-" | "*" | "/" | "**" | "%"
              | "||" | "&&" | "|" | "&" | "^"
              | "==" | "!=" | "<" | "<=" | ">" | ">="
-             | "=>" | "." | ".."
+             | "=>" | "." | ".." | "="
 bin_op: expression operator expression
 unary_op: operator expression
 operation: bin_op | unary_op
-expression: literal | IDENTIFIER | array | call | index
-            | lfunc | init
+expression: literal | IDENTIFIER | array | call | index | operation
+            | lfunc | init | ternary
 grouping: "(" expression ")"
 
 list: ((expression ",")* expression)?
 array: "[" list "]"
 index: expression array
-tuple: "(" list ")"
+tuple: "(" list? ")"
 call: expression tuple
 pair: IDENTIFIER ":" expression
 
 struct_dec: "struct" block
 function_dec: (IDENTIFIER IDENTIFIER tuple block)
-                | ("fn" IDENTIFIER type_param?\
+                | ("pub"? "fn" IDENTIFIER type_param?\
                 "(" ((IDENTIFIER ":" type ",")* IDENTIFIER ":" type)? ")"\
                 "->" type block)
 declaration: function_dec | struct_dec
+    | type_dec
 
 return: "return" expression
-statement: (("break" | return | expression) ";") | declaration
+// statement: (("break" | return | expression) ";") | declaration
+statement: "break" | return | expression | declaration
+            | match
 block: "{" (statement+) "}"
 program: (statement | block)+
-// comment: 
+// comment: "//" CHARACTER*
 start: program
 
-type_param: "<" list ">"
-type: (IDENTIFIER type_param?) | (type "->" type) | ("(" type ")")
-init: type "{" ((pair* ",") pair)? "}"
-lfunc: (tuple | IDENTIFIER) "=>" (expression | block)
+type_param: "<" ((type ",") | type)+ ">"
+type: (IDENTIFIER type_param?) | (type "->" type)
+        | ("(" type ")") | tuple | (type ":" IDENTIFIER)
+init: type "{" ((pair ",")* pair)? "}"
+lfunc: (tuple | IDENTIFIER | expression) "=>" (expression | block)
+ternary: expression "?" expression ":" expression
+type_dec: "type" type type_block
+type_block: "{" ((IDENTIFIER ":" type) | function_dec)* "}"
+match: "match" expression "{" lfunc* "}"
 
 %import common.WS
 %ignore WS
+
+COMMENT: "//" /[^\n]/*
+%ignore COMMENT
