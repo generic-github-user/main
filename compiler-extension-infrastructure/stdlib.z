@@ -258,3 +258,23 @@ type Counter<T: Hash> {
         }
     }
 }
+
+pub mut fn Sequence.shuffle <T> (values: Sequence<T>) ->
+    Sequence<T; .length == values.length> {
+    complexity { time: O(n) }
+
+    ((n-1)..1).each(i => {
+        let j = random.int(0, i+1)
+        values.swap(i, j)
+    })
+    return values
+}
+
+pub fn Sequence.shuffled <T> (values: Sequence<T>) ->
+    Sequence<T; .length == values.length> {
+    complexity { time: O(n) }
+
+    return values.clone().shuffle()
+}
+// Sequence.shuffled = cloner(Sequence.shuffle)
+
