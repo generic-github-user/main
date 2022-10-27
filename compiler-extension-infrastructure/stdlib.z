@@ -88,7 +88,7 @@ fn min(values) -> T {
 // 
 // TODO: check that these are properly optimized (can likely be interleaved
 // with max/min finding)
-fn argmax <T: Iterator> (values) -> uint {
+fn argmax <T: Order> (values: Sequence<T>) -> uint {
     complexity { time: O(n) }
     return values.index(values.max())
 }
@@ -96,7 +96,7 @@ fn argmax <T: Iterator> (values) -> uint {
 // interface for accessing such a collection, like an Iterator). The elements
 // of `values` must be comparable (that is, its inner type must implement
 // `Order`). Returns `None` on an empty collection.
-fn argmin <T: Iterator> (values) -> uint {
+fn argmin <T: Order> (values: Sequence<T>) -> uint {
     complexity { time: O(n) }
     return values.index(values.min())
 }
@@ -154,7 +154,7 @@ trait Iterator<T> {
 fn cycle<T> (values: Sequence<T>) -> Iterator<T> {
     return Iterator {
         next: () => match values.next() {
-            Some(value) => Some(value),
+            Some(value) => Some(value)
             None => values.clone().next()
         }
     }
@@ -164,7 +164,7 @@ fn replace<T> (values: Collection<T>, a: T, b: T) -> Collection<T> {
     return values.map(x => x == a ? b : x)
 }
 
-fn Add<T> (a: T, b: T) {
+fn Add<T> (a: T, b: T) -> T {
     return match T {
         // can we make this more generic (perhaps add some construct for
         // distributivity? or define by indices, i.e. c[i] = a[i] + b[i])
@@ -176,7 +176,7 @@ fn Add<T> (a: T, b: T) {
     }
 }
 
-fn Eq<T> (a: T, b: T) {
+fn Eq<T> (a: T, b: T) -> bool {
     return match T {
         Iterator => zip(a, b).map(ai, bi => ai == bi).all()
         Number => a + b
@@ -185,11 +185,11 @@ fn Eq<T> (a: T, b: T) {
 }
 
 
-fn flatten(values: Collection<T | Collection>) {
+fn flatten(values: Collection<T | Collection>) -> Collection<T> {
     result = values.type.new()
-    values.map(v => typecase {
-        T: result.append(v)
-        Collection: result.extend(flatten(v))
+    values.map(v => typecase v {
+        T => result.append(v)
+        Collection => result.extend(flatten(v))
     })
     return result
 }
@@ -215,7 +215,7 @@ fn Set.intersection<T> (a: Set<T>, b: Set<T>) ->
     c: (Set<T> where size <= min(a.size, b.size)) {
     return a.filter(b.contains(it))
 }
-fn Set.union<T> (sets: Seq<Set<T>>) -> Set<T> {
+fn Set.intersection<T> (sets: Seq<Set<T>>) -> Set<T> {
     return sets.fold(.intersection)
 }
 
@@ -332,7 +332,7 @@ trait Eq {
 // e.g., T: Vec
 // "subclassing" functions?
 
-linalg.dot <T: Number> (a: Vec<T>, b: Vec<T>) where a.length == b.length
+fn linalg.dot <T: Number> (a: Vec<T>, b: Vec<T>) where a.length == b.length
     -> Vec<T; .length == a.length == b.length> {
     complexity { time: O(n) }
 
