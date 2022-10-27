@@ -81,11 +81,23 @@ fn min(values) {
     return values.fold(min)
 }
 
-// TODO: check that these are properly optimized (can be interleaved with max/min finding)
-fn argmax<T: Iterator> (values) {
+// Returns the index of the largest element in an ordered collection (or
+// interface for accessing such a collection, like an Iterator). The elements
+// of `values` must be comparable (that is, its inner type must implement
+// `Order`). Returns `None` on an empty collection.
+// 
+// TODO: check that these are properly optimized (can likely be interleaved
+// with max/min finding)
+fn argmax <T: Iterator> (values) {
+    complexity { time: O(n) }
     return values.index(values.max())
 }
-fn argmin<T: Iterator> (values) {
+// Returns the index of the smallest element in an ordered collection (or
+// interface for accessing such a collection, like an Iterator). The elements
+// of `values` must be comparable (that is, its inner type must implement
+// `Order`). Returns `None` on an empty collection.
+fn argmin <T: Iterator> (values) {
+    complexity { time: O(n) }
     return values.index(values.min())
 }
 
