@@ -1,0 +1,6 @@
+path = sys.args[0]
+content = fs.open(path).read_text()
+[f"{content.lines().len()} lines",
+ f"{content.split(' ').len()} words",
+ f"{content.len()} characters"
+].map(println)
