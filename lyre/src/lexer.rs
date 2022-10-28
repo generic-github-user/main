@@ -4,14 +4,14 @@ use std::io::{BufReader, BufRead, Error};
 use super::token::Token;
 use super::chartype::CharType;
 
-pub fn lex(buffer: BufReader<File>, verbose: bool) -> Result<Vec<Token>, Error> {
+pub fn lex(source: String, verbose: bool) -> Result<Vec<Token>, Error> {
     // This section has a simple lexer that splits lyre source code into tokens, groups of
     // consecutive characters with similar syntactic purposes
 
     // A list of tokens parsed from the input program's source code
     let mut tokens = Vec::<Token>::new();
-    for line in buffer.lines() {
-        if verbose { println!("Parsing line: {}", line.as_ref().unwrap()); }
+    for line in source.lines() {
+        if verbose { println!("Parsing line: {}", line); }
 
         // Stores the type of the previous character
         let mut ptype = CharType::None;
@@ -22,7 +22,7 @@ pub fn lex(buffer: BufReader<File>, verbose: bool) -> Result<Vec<Token>, Error> 
         let mut current: String = String::from("");
 
         // Iterate over characters in line
-        for c in line?.chars() {
+        for c in line.chars() {
             // Categorize characters by syntactic type (refer to the CharType enum for information
             // about specific types)
             // if c.is_alphanumeric() { ctype = CharType::Alphanumeric; }
