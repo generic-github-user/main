@@ -7,6 +7,22 @@ was to create a language that is as elegant, expressive, and generic as lisp
 but less verbose and easier to write code that is stylistically compatible with
 multiple programming paradigms.
 
+## Installation
+
+At the moment, lyre is in an early development phase and the recommended way to
+use the reference interpretation is by cloning this repository and building the
+binary application with Cargo, Rust's pacakage manager.
+
+Currently, the following requirements are listed in `Cargo.toml`:
+
+```
+num-traits = "0.2.15"
+```
+
+Cargo should be able to install these automatically prior to build. `cargo
+build` and/or `cargo run` can then be used to build and execute the lyre
+interpreter.
+
 ## Usage
 
 ### Introduction
@@ -105,4 +121,110 @@ format "{}: {}" "That is but scratch'd withal" "I'll touch my point"
 "With this contagion, that, if I gall him slightly,"
 
 strip "       It may be death.      "
+```
+
+### Variables
+
+lyre includes the `set` keyword to assign a variable in the current scope:
+
+```
+[set num 42]
+```
+
+We can use `get` to retrieve the value of a symbol, though this is usually not
+necessary (unless explicitly indicated otherwise, function calls evaluate their
+arguments and use the resulting values).
+
+```
+[println [get num]]
+[println num]
+```
+
+Calls to `set` also act as expressions, returning the value they were passed:
+
+```
+[println [set num 42]]
+```
+
+Variable types can be explicitly annotated:
+
+```
+[set [int a] 77]
+[set [string b] "a short string"]
+[set [float c] 3.14]
+```
+
+`unset` removes a variable from a namespace:
+
+```
+[unset num]
+```
+
+We're all adults here; though lyre will typically warn you if you attempt to do
+something extremely misguided:
+
+```
+[unset unset]
+```
+
+Warnings can be suppressed with the `ikwiad` ("I know what I am doing") macro:
+
+```
+[ikwiad unset unset]
+```
+
+### Error Handling
+
+lyre borrows from Rust's error-handling philosophy; there are two broad
+categories of error, those which the program can recover from and those from
+which it cannot. The latter is an exceptional state, often understood to be a
+programmer error, and generally prompts an immediate exit from the thread of
+execution. lyre provides various primitives, functions, and interfaces to
+represent both and facilities for extending these.
+
+### Classes
+
+#### Example: Point
+
+Let's define a simple point class:
+
+```
+class Point
+		float x
+		float y
+```
+
+... and a simple constructor function:
+
+```
+class Point
+		float x
+		float y
+
+		def new [x' y' -> Point]
+				Point [x x'] [y y']
+```
+
+
+If we want to print a human-readable summary of the data in a `Point` instance,
+we should implement `to-string`:
+
+```
+class Point
+		float x
+		float y
+
+		def new [x' y' -> Point]
+				Point [x x'] [y y']
+
+		def to-string self
+				format "({}, {})" x y
+```
+
+This is the method that will be invoked whenever we need to coerce a `Point` to
+a `string` -- so we can now use `Point`s as arguments to `print`, `println`,
+`format`, and other string-adjacent functions:
+
+```
+[println "The Point: {}" ]
 ```
