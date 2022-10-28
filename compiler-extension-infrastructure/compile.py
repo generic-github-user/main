@@ -4,6 +4,7 @@ import pathlib
 # TODO: make diagram of type system(s) and related abstractions
 # language/framework in which assignment is an assertion of equality?
 
+
 class Token:
     def __init__(self, source, parent=None):
         self.parent = parent
@@ -17,6 +18,7 @@ class Token:
     def __str__(self):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
 
+
 class Node:
     def __init__(self, source, parent=None, depth=0, root=None):
         self.parent = parent
@@ -28,10 +30,12 @@ class Node:
         self.type = self.source.data
         self.depth = depth
         for c in self.source.children:
-            #print(c)
-            if isinstance(c, lark.Tree): self.children.append(
-                    Node(c, self, self.depth+1, root=self.root if self.root else self))
-            elif c is None: self.children.append(c)
+            if isinstance(c, lark.Tree):
+                self.children.append(
+                    Node(c, self, self.depth+1,
+                         root=self.root if self.root else self))
+            elif c is None:
+                self.children.append(c)
             else:
                 assert isinstance(c, lark.Token), c
                 self.children.append(Token(c))
@@ -40,7 +44,9 @@ class Node:
         return ''.join(c.text() for c in self.children)
 
     def __str__(self):
-        return f'Node <{self.type}> ({self.depth})' + '\n' + '\n'.join('  '*self.depth + str(n) for n in self.children)
+        return f'Node <{self.type}> ({self.depth})' + '\n' +\
+            '\n'.join('  '*self.depth + str(n) for n in self.children)
+
 
 grammar = pathlib.Path('grammar.lark').read_text()
 parser = lark.Lark(grammar)
