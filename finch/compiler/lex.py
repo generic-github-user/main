@@ -15,8 +15,8 @@ def lex(source: str) -> list[Token]:
             chartype = CharType.Digit
         elif c in string.whitespace:
             chartype = CharType.Whitespace
-        elif c == '\n':
-            chartype = CharType.Newline
+        # elif c == '\n':
+        #    chartype = CharType.Newline
         elif c == '"':
             chartype = CharType.Quote
         elif c in string.punctuation:
@@ -24,7 +24,9 @@ def lex(source: str) -> list[Token]:
         else:
             raise SyntaxError(f'Unknown character type: {c}')
 
-        if not tokens or chartype != tokens[-1].type:
+        if not tokens or\
+                chartype != tokens[-1].type or\
+                c in '()':
             tokens.append(Token(c, chartype, line=line, column=col))
         else:
             tokens[-1].content += c

@@ -1,13 +1,15 @@
-fn fibonacci (int n)
-    result = [0, 1]
+block
+    subblock
 
+fn fibonacci (int n)
+    result = [0 1]
     return result
 
 123
 
 123.456
 
-.789
+0.789
 
 1 + 2
 
@@ -35,7 +37,7 @@ fn fibonacci (int n)
 
 8 +- 7
 
-print(list("abc" @ "def"))
+# print(list("abc" @ "def"))
 
 # f = 2.sqrt().sqrt().sqrt()
 
@@ -43,9 +45,9 @@ print(list("abc" @ "def"))
 
 g == 2
 
-int.sqrt.inverse == x -> x ** 2
+# int.sqrt.inverse == x -> x ** 2
 
-number.sqrt == x -> x ** .5
+# number.sqrt == x -> x ** .5
 
 # "this is some text"[0..4 * 2]
 
@@ -59,4 +61,8 @@ number.sqrt == x -> x ** .5
 
 # 1..100.filter(x -> (x % 2..x.sqrt()).all()).map(string)
 
-"test"
+# "test"
+
+println(sqrt(sqrt(2)))
+
+42 + 3 + 4 + 5

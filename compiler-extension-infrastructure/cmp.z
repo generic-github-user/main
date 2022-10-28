@@ -1,0 +1,51 @@
+// Simple binary maximum operator; returns whichever of its arguments is
+// greater (`T` must be comparable via `>`). If equal, the first argument will
+// be returned (this may matter for inputs that are equivalent according to
+// `Eq` but correspond to different objects in memory).
+fn max<T: Order>(a: T, b: T) -> T {
+    return a > b ? a : b
+}
+// Simple binary minimum operator; returns whichever of its arguments is
+// smaller (`T` must be comparable via `<`). If equal, the first argument will
+// be returned (this may matter for inputs that are equivalent according to
+// `Eq` but correspond to different objects in memory).
+fn min<T: Order>(a: T, b: T) -> T {
+    return a < b ? a : b
+}
+
+// Extends `max` to a collection of values; will fail if used on an empty
+// collection. Worst case is linear time in the length of the input. As with
+// `max(T, T)`, caution is needed when the elements of the input are `==` but
+// not identical. Since we are folding from the first element onward, it will
+// be the one returned if all the elements of `values` are equal.
+fn max(values) -> T {
+    return values.fold(max)
+}
+// Extends `min` to a collection of values; will fail if used on an empty
+// collection. Worst case is linear time in the length of the input. As with
+// `min(T, T)`, caution is needed when the elements of the input are `==` but
+// not identical. Since we are folding from the first element onward, it will
+// be the one returned if all the elements of `values` are equal.
+fn min(values) -> T {
+    return values.fold(min)
+}
+
+// Returns the index of the largest element in an ordered collection (or
+// interface for accessing such a collection, like an Iterator). The elements
+// of `values` must be comparable (that is, its inner type must implement
+// `Order`). Returns `None` on an empty collection.
+// 
+// TODO: check that these are properly optimized (can likely be interleaved
+// with max/min finding)
+fn argmax <T: Order> (values: Sequence<T>) -> uint {
+    complexity { time: O(n) }
+    return values.index(values.max())
+}
+// Returns the index of the smallest element in an ordered collection (or
+// interface for accessing such a collection, like an Iterator). The elements
+// of `values` must be comparable (that is, its inner type must implement
+// `Order`). Returns `None` on an empty collection.
+fn argmin <T: Order> (values: Sequence<T>) -> uint {
+    complexity { time: O(n) }
+    return values.index(values.min())
+}

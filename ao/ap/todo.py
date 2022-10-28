@@ -9,7 +9,13 @@ import os
 from pathlib import Path
 import dateparser
 import tarfile
+
 from box import Box
+# from ...lib.pylist import List
+# from main.lib.pylist import List
+# from main.lib import pylist
+from lib.pylist import List
+# print(pylist.List)
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -17,93 +23,20 @@ parser.add_argument('--dry-run', action='store_true',
                     help='Executes a "dry run"; will simulate updating \
                     the todo list but won\'t actually modify any files')
 parser.add_argument('--flush', action='store_true')
+parser.add_argument('--config', type=str)
 args = parser.parse_args()
 print(args)
 
 
-class List:
-    """Creates a new list containing the elements from the Python list `items`
-    (i.e., wrapping it)"""
-    def __init__(self, items=None):
-        if items is None:
-            items = []
-        self.items = items
-
-    """Applies `f` to each element in this list, returning a new list"""
-    def map(self, f):
-        return List(map(f, self.items))
-
-    """Returns a new list containing only the elements in this list for which
-    the predicate `p` is true"""
-    def filter(self, p):
-        return List(list(filter(p, self.items)))
-
-    """Returns a new list containing elements for which the attribute `attr` is
-    equal to `value`"""
-    def filter_by(self, attr, value):
-        return self.filter(lambda x: getattr(x, attr) == value)
-
-    """Removes items equal to any of the arguments, returning a new list"""
-    def remove(self, *args):
-        return self.filter(lambda x: x not in args)
-
-    """Returns a new list constructed by accessing the `attr` attribute of each
-    item in this list"""
-    def get(self, attr):
-        return self.map(lambda x: getattr(x, attr))
-
-    """Returns a new list sorted using the comparison function `f`, which
-    should take as input two elements of the input list"""
-    def sorted(self, f):
-        return List(list(sorted(self.items, key=f)))
-
-    """Returns true if and only if the predicate `p` is true for every element
-    in the list"""
-    def all(self, p):
-        return all(p(i) for i in self.items)
-
-    """Returns true if and only if the predicate `p` is true for at least one
-    element in the list"""
-    def any(self, p):
-        return any(p(i) for i in self.items)
-
-    """Returns true if and only if the predicate `p` is false for every element
-    in the list, or (equivalently) true for no elements"""
-    def none(self, p):
-        return not self.any(p)
-
-    """Returns an integer representing the length of this list"""
-    def len(self):
-        return len(self.items)
-
-    """Adds a new element to this list (modifying it in place)"""
-    def append(self, x):
-        return self.items.append(x)
-
-    """Combine the elements of the list in order, returning a string; if the
-    given delimiter has length m and this list has length n, the resulting
-    string will be m*(n-1) characters longer than the concatenation of the
-    string representations of all the elements in the list"""
-    def join(self, s):
-        return s.join(self.items)
-
-    def __iter__(self):
-        return self.items.__iter__()
-
-    def __len__(self):
-        return self.len()
-
-    def __getitem__(self, i):
-        return self.items[i]
-
-
 todo_path = os.path.expanduser('~/Desktop/.todo')
-config = Box(yaml.safe_load(Path('config.yaml').read_text()))
+config = Box(yaml.safe_load(Path(args.config).read_text()))
 config.base = Path(config.base_path).expanduser()
 for k, v in config.paths.items():
     # config[k] = os.path.expanduser(v)
     config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
 db_path = config.base / 'todo.pickle'
+log_path = config.base / config.log
+log_level = 0
 config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
 
 if args.flush:
@@ -115,27 +48,68 @@ if args.flush:
     quit()
 
 
+def log(content):
+    content = '  ' * log_level + content
+    print(content)
+    with open(log_path, 'a') as logfile:
+        logfile.write(f'{datetime.datetime.now()} {content}\n')
+
+
 # Represents a task or entry in a todo list, possibly with several sub-tasks
 class todo:
     # Initialize a new todo item
     def __init__(self, raw, content=''):
+        # The original text from which this todo item was parsed
         self.raw = raw
+
+        # The "text" or content of the todo item (excludes tags and other
+        # metadata/markup)
         self.content = content
+
+        # A boolean flag indicating whether the corresponding task is complete
         self.done = False
+
+        # A timestamp indicating when this item was marked as complete
+        # (actually reflects the first occasion on which the script was rerun
+        # after the file was modified)
         self.donetime = None
+
+        # A (chronologically ordered) set of "snapshots" reflecting every
+        # processed todo item that was considered a match to the "canonical"
+        # version of the task in the database (currently unused for efficiency
+        # reasons)
         self.snapshots = []
+
+        # Tags used to mark various properties about the task (item) -- these
+        # are sometimes further processed into special attributes like
+        # todo.done and todo.duration
         self.tags = []
+
+        # unused
         self.source = None
+
+        # The time at which the todo instance representing this item was first
+        # created
         self.created = time.time()
         self.importance = 0
+
         # This might be used in the future but for now is just somewhat
         # redundant metadata; if we incorporate positional context when
         # analyzing lists we may as well be writing an entire version control
         # system
         self.line = None
+
+        # The file (specific todo list) in which the item currently resides;
+        # this is often modified during processing so that when the lists are
+        # rewritten the item is moved to a new file
         self.location = ''
         self.time = None
         self.duration = None
+
+        # Nested tasks/children of this item; currently unused due to parsing
+        # limitations (the eventual goal is to integrate the zeal markup
+        # parser, though the block indentation parser might be factored out
+        # into a separate module)
         self.sub = []
         self.parent = None
 
@@ -149,7 +123,7 @@ class todo:
 
     # Generate a string summarizing this instance
     def __str__(self):
-        inner = [f'"{self.content}"', f'<{self.tags}>']
+        inner = [f'"{self.raw}"', f'<{self.tags}>']
         # inner = "\n\t".join(inner)
         inner = ' '.join(inner)
         return f'todo {{ {inner} }}'
@@ -184,6 +158,7 @@ def parse_todos(path):
             snapshot.done = True
             snapshot.donetime = time.time()
             line = line.replace(config.complete_symbol, '')
+            log(f'found completed task: {snapshot}')
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
@@ -250,6 +225,7 @@ def update_list(todo_list, path):
             matches[0].location = item.location
         else:
             data.append(item)
+            log(f'found new task: {item}')
 
     for item in data:
         # if not any(a.content == item.content #and a.time == item.time
@@ -319,7 +295,8 @@ def update():
             print('Committing updated todo files to git repository')
             os.chdir(config.base)
             os.system(f'git add {path}')
-            os.system('git commit -m "Update todo list"')
+    # os.chdir(config.base)
+    os.system('git commit -m "Update todo list"')
 
     print(f'Persisting database ({db_path})')
     if not args.dry_run:

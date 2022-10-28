@@ -1,0 +1,115 @@
+LOWERCASE: "a".."z"
+UPPERCASE: "A".."Z"
+LETTER: LOWERCASE | UPPERCASE
+NONZERO: "1".."9"
+DIGIT: NONZERO | "0"
+
+BRACKET: "[" | "]"
+PUNCTUATION: "!" | "(" | ")" | BRACKET | "-" | "_" | ";" | ":"
+		| "`" | "," | "." | "/" | "\\" | "?" | "<" | ">"
+SYMBOL: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
+
+QUOTEMARK: "'" | "\""
+CHARACTER: LETTER | DIGIT | PUNCTUATION | SYMBOL | " " | QUOTEMARK
+
+IDENTIFIER: LETTER (LETTER | NUMBER | "_")*
+INT: NONZERO (DIGIT*) | "0"
+FLOAT: (DIGIT+) "." (DIGIT*)
+NUMBER: INT | FLOAT
+// STRING: "\"" (LETTER | DIGIT | " ")* "\""
+// STRING: ESCAPED_STRING
+STRING: /".*?"/ms
+literal: STRING | FLOAT | INT
+
+OPERATOR: "+" | "-" | "*" | "/" | "**" | "%"
+             | "||" | "&&" | "|" | "&" | "^"
+             | "==" | "!=" | "<" | "<=" | ">" | ">="
+             | "=>" | "." | ".." | "=" | "!"
+bin_op: expression OPERATOR expression
+unary_op: OPERATOR expression
+operation: bin_op | unary_op
+expression: literal | IDENTIFIER | array | call | index | operation
+            | lambda_func | init | ternary | tuple | statement
+            | quote | braced_group
+grouping: "(" expression ")"
+
+list: ((expression ",")* expression)?
+array: "[" list "]"
+index: expression array
+tuple: "(" list? ")"
+call: expression tuple
+pair: (IDENTIFIER | typed_name) ":" expression
+
+struct_declaration: "struct" block
+function_declaration: (IDENTIFIER IDENTIFIER tuple block)
+                | (fn_signature block)
+declaration: function_declaration | struct_declaration
+    | type_declaration | trait_declaration
+
+return: "return" expression
+// statement: (("break" | return | expression) ";") | declaration
+statement: "break" | return | expression | declaration
+            | match | if_stmt | raise_stmt | warn_stmt | let_stmt
+            | complexity_marker
+block: "{" (statement*) "}"
+    | "{" ((statement | pair)*) "}"
+// program: (statement | block)+
+program: form*
+// comment: "//" CHARACTER*
+start: program
+
+
+
+type_param: "<" ((type ",") | type)+ (";" expression)* ">"
+typed_name: IDENTIFIER ":" type
+        | "(" typed_name ")"
+type: (IDENTIFIER type_param?)
+        | (type "->" type) -> mapping_type
+        | ("(" type ")") | tuple | (type ":" IDENTIFIER)
+        | (type "|" type)
+        | expression
+        | dependent_type
+        | "*" type
+        // currently used as a temporary hack for trait bounds
+        | typed_name
+where_clause: "where" expression
+dependent_type: type where_clause
+
+raise_stmt: "raise" expression
+warn_stmt: "warn" expression
+// if_stmt: "if" expression block
+if_stmt: "if" expression ":"? (block | statement)
+let_stmt: "let" (IDENTIFIER | typed_name) "=" expression
+
+init: type "{" ((pair ","?)* pair)? "}"
+lambda_func: (tuple | IDENTIFIER | expression | type_list) "=>" (expression | block)
+braced_group: "{" ((expression ","?)* expression)? "}"
+ternary: expression "?" expression ":" expression
+type_declaration: "type" type type_block
+type_block: "{" (typed_name | function_declaration)* "}"
+type_list: "(" ((typed_name ",")* typed_name)? ")"
+fn_signature: "pub"? "mut"? "fn" (IDENTIFIER | expression) type_param?\
+                (type_list | type) where_clause?\
+                "->" (type | typed_name)
+trait_declaration: "trait" type\
+    "{" (("optional"? fn_signature) | statement | expression)* "}"
+memo: "@" expression form
+
+form: statement | block | expression | pattern | declaration | memo
+quote: "'" form
+
+pair_block: "{" pair* "}"
+complexity_marker: "complexity" pair_block
+
+// would this be easier (or better) to do with a dedicated macro?
+pattern: "_" | tuple | IDENTIFIER | expression
+match_arm: pattern "=>" (expression | block)
+match: ("match" | "typecase") expression "{" match_arm* "}"
+
+%import common.WS
+%ignore WS
+
+COMMENT: "//" /[^\n]/*
+%ignore COMMENT
+
+%import common.ESCAPED_STRING

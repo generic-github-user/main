@@ -1,0 +1,69 @@
+LOWERCASE: "a".."z"
+UPPERCASE: "A".."Z"
+LETTER: LOWERCASE | UPPERCASE
+NONZERO: "1".."9"
+DIGIT: NONZERO | "0"
+
+BRACKET: "[" | "]"
+PUNCTUATION: "!" | "(" | ")" | BRACKET | "-" | "_" | ";" | ":"
+		| "`" | "," | "." | "/" | "\\" | "?" | "<" | ">"
+SYMBOL: "~" | "@" | "#" | "$" | "%" | "^" | "&" | "*" | "=" | "+"
+
+QUOTEMARK: "'" | "\""
+CHARACTER: LETTER | DIGIT | PUNCTUATION | SYMBOL | " " | QUOTEMARK
+
+IDENTIFIER: LETTER (LETTER | NUMBER | "_")*
+INT: NONZERO (DIGIT*) | "0"
+FLOAT: (DIGIT+) "." (DIGIT*)
+NUMBER: INT | FLOAT
+STRING: "\"" (LETTER | DIGIT | " ")* "\""
+literal: STRING | FLOAT | INT
+
+operator: "+" | "-" | "*" | "/" | "**" | "%"
+             | "||" | "&&" | "|" | "&" | "^"
+             | "==" | "!=" | "<" | "<=" | ">" | ">="
+             | "=>" | "." | ".." | "="
+bin_op: expression operator expression
+unary_op: operator expression
+operation: bin_op | unary_op
+expression: literal | IDENTIFIER | array | call | index | operation
+            | lfunc | init | ternary | type
+grouping: "(" expression ")"
+
+list: ((form ",")* form)?
+array: "[" list "]"
+index: expression array
+tuple: "(" list? ")"
+call: expression tuple
+pair: IDENTIFIER ":" expression
+
+struct_dec: "struct" block
+function_dec: (IDENTIFIER IDENTIFIER tuple block)
+                | ("pub"? "fn" IDENTIFIER type_param?\
+                tuple "->" type block)
+declaration: function_dec | struct_dec
+    | type_dec
+
+return: "return" expression
+statement: "break" | return | expression | declaration
+            | match
+block: "{" (statement+) "}"
+program: (statement | block)+
+start: program
+
+type_param: "<" list ">"
+type: (IDENTIFIER type_param?) | (type "->" type)
+        | ("(" type ")") | tuple | (type ":" IDENTIFIER)
+init: type "{" ((pair ",")* pair)? "}"
+lfunc: (tuple | IDENTIFIER | expression) "=>" (expression | block)
+ternary: expression "?" expression ":" expression
+type_dec: "type" type type_block
+type_block: "{" ((IDENTIFIER ":" type) | function_dec)* "}"
+match: "match" expression "{" lfunc* "}"
+form: block | statement | expression | pair
+
+%import common.WS
+%ignore WS
+
+COMMENT: "//" /[^\n]/*
+%ignore COMMENT

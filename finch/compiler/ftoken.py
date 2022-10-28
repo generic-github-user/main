@@ -16,6 +16,12 @@ class Token:
     def to_string(self, depth=0):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.content}'
 
+    def __eq__(self, other):
+        return all(
+            self.content == other.content,
+            self.type == other.type
+        )
+
     def __str__(self):
         return self.to_string(0)
 

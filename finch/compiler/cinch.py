@@ -20,5 +20,5 @@ tokens = lex(source)
 tree = parse(tokens)
 # print(tree)
 tree.print()
-
+print(tree.compile())
 

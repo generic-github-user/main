@@ -1,0 +1,94 @@
+fn replace<T> (values: Collection<T>, a: T, b: T) -> Collection<T> {
+    return values.map(x => x == a ? b : x)
+}
+
+fn Add<T> (a: T, b: T) -> T {
+    return match T {
+        // can we make this more generic (perhaps add some construct for
+        // distributivity? or define by indices, i.e. c[i] = a[i] + b[i])
+        Iterator => zip(a, b).map(ai, bi => ai + bi)
+        String => String.cat(a, b)
+        Number => a + b
+
+        _ => raise error.notimplemented
+    }
+}
+
+fn Eq<T> (a: T, b: T) -> bool {
+    return match T {
+        Iterator => zip(a, b).map(ai, bi => ai == bi).all()
+        Number => a + b
+        _ => raise error.notimplemented
+    }
+}
+
+
+fn flatten(values: Collection<T | Collection>) -> Collection<T> {
+    result = values.type.new()
+    values.map(v => typecase v {
+        T => result.append(v)
+        Collection => result.extend(flatten(v))
+    })
+    return result
+}
+flatten.tests {
+    test.catch(flatten(1), error.type)
+    test(flatten([42]) == [42])
+    test(flatten([]) == [])
+    test(flatten([[1, 2], 3, [[4, 5], [6, 7]]]) == [1, 2, 3, 4, 5, 6, 7])
+    test(flatten(Set.new()) == Set.new())
+}
+
+fn Iterator.product<T, V> (a: Iterator<T>, b: Iterator<V>) ->
+    Iterator<(T, V); length == a.length * b.length> {
+    // return Iterator { }
+    return Iterator.chain(a.map(ai => b.map(bi => (ai, bi))))
+}
+
+println(Sequence.methods)
+
+trait PartialEq {}
+
+trait Eq {
+    // tags : { symmetric, transitive, reflexive }
+    pub fn eq <T> (a: T, b: T) -> bool
+    optional pub fn neq <T> (a: T, b: T) -> bool
+    // eq(x, y) == !neq(x, y)
+}
+
+// interpret refinement types as subtypes?
+// e.g., T: Vec
+// "subclassing" functions?
+
+pub fn linalg.dot <T: Number> (a: Vec<T>, b: Vec<T>) where a.length == b.length
+    -> Vec<T; .length == a.length == b.length> {
+    complexity { time: O(n) }
+
+    // return (a * b).sum()
+    return zip(a, b).map(T.mul).sum()
+}
+
+pub mut fn Sequence.shuffle <T> (values: Sequence<T>) ->
+    Sequence<T; .length == values.length> {
+    complexity { time: O(n) }
+
+    ((n-1)..1).each(i => {
+        let j = random.int(0, i+1)
+        values.swap(i, j)
+    })
+    return values
+}
+
+pub fn Sequence.shuffled <T> (values: Sequence<T>) ->
+    Sequence<T; .length == values.length> {
+    complexity { time: O(n) }
+
+    return values.clone().shuffle()
+}
+// Sequence.shuffled = cloner(Sequence.shuffle)
+
+
+@memoize
+pub fn math.factorial (x : Number) -> Number {
+    range(1, x+1).product()
+}
