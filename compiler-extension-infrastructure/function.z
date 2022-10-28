@@ -1,0 +1,19 @@
+// Returns the
+// [composition](https://en.wikipedia.org/wiki/Function_composition) of f and
+// g, such that h(x) = f(g(x)) for all x (note that the input here may in fact
+// be several values). A variant of this function exists for repeated
+// composition over a sequence of functions.
+fn compose<T, U, V> (f: T -> U, g: U -> V) -> (T -> V) {
+    return x => f(g(x))
+}
+fn compose<T> (fs : Sequence<T -> T>) -> (T -> T) {
+    return fs.fold(compose)
+}
+
+// looping as a method on blocks of code?
+// representations of closures/scoping?
+
+// See https://en.wikipedia.org/wiki/Iterated_function.
+fn iterate_func<T> (f : T -> T, n: uint) -> (T -> T) {
+    return repeat(f, n).compose()
+}

@@ -1,0 +1,27 @@
+// to what extent can this be handled at the compiler level?
+fn memoize (f: (in: *(Any: Hash)) -> (out: Any), limit: uint)
+    -> (*Any -> Any) {
+
+    return Object {
+        // TODO: can we reinterpret ":" as an operator?
+        (cache: HashMap<in, out>) : HashMap.new()
+
+        (call: (in -> out)) : (inputs: in) => {
+            assert cache.size <= limit
+            match cache.get(inputs) {
+                Some(value) => value.x
+                None => {
+                    output = f(inputs)
+                    if cache.size == limit {
+                        cache.remove(cache.min_by(.count))
+                    }
+                    cache.insert(inputs, Object {
+                        x: output,
+                        count: 1
+                    })
+                    return output.x
+                }
+            }
+        }
+    }
+}
