@@ -27,6 +27,12 @@ class Node:
     def __setitem__(self, i, value):
         self.children[i] = value
 
+    def __eq__(self, other):
+        return all(
+            self.type == other.type,
+            all(a == b for a, b in zip(self.children, other.children))
+        )
+
     def text(self):
         return ''.join(c.text() for c in self.children)
 
@@ -38,6 +44,8 @@ class Node:
 
     def __str__(self):
         return self.to_string(0)
+
+    __repr__ = __str__
 
 
 class Expression(Node):
@@ -54,15 +62,24 @@ class Int(Literal):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def compile(self):
+        return self[0].content
+
 
 class Float(Literal):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def compile(self):
+        return self[0].content
+
 
 class Tuple(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def compile(self):
+        return ", ".join(x.compile() for x in self.children)
 
 
 class Array(Expression):
@@ -74,10 +91,15 @@ class Symbol(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def compile(self):
+        return self[0].content
+
 
 class Operation(Expression):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # assert len(self.children) == 3, self
+        # self.left, self.op, self.right = self.children
 
 
 class Call(Expression):
@@ -93,6 +115,9 @@ class String(Literal):
 class Block(Node):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def canonical(self):
+        return '\n'.join(x.canonical() for x in self.children)
 
 
 class Operator(Node):
