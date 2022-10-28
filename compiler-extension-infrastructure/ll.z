@@ -1,0 +1,61 @@
+module linked_list {
+	filters: {
+		keywords: {
+			module,
+			pub,
+			type,
+			expand
+		},
+		syntax: {
+			lambdas,
+			doc_comments
+		},
+		generics
+	}
+
+  /// A generic linked list data type over `T`; useful for situations in which
+  /// very efficient (constant time) insertion/removal of items by reference is
+  /// desirable
+	pub type ll<T> {
+		head: Option<llnode<T>>
+
+		/// Returns the first node in this linked list if it exists and None otherwise
+		pub fn Option<llnode<T>*> first(self) {
+			return self.head
+		}
+
+		/// Returns the last node in this linked list if it exists and None otherwise
+		pub fn Option<llnode<T>*> last(self) {
+			return self.last()
+		}
+
+		pub fn iterator<T> iter(self) {
+			return Iterator {
+				pointer = self.head,
+				next = (iself => iself.pointer = iself.pointer.next)
+			}
+		}
+
+		// derive!()
+		// for f in ['map'] {
+		expand for f in iterator.{map, reduce, contains, min, max} {
+			quote {
+				pub fn $f(self, $(f.args)) {
+					return self.iter().$f($(f.args))
+				}
+			}
+		}
+	}
+
+	type llnode<T> {
+		data: T,
+		next: llnode<T>*
+
+		pub fn llnode<T>* last(self) {
+			return match self.next {
+				None => self,
+				Some(node: llnode<T>*) => node.last()
+			}
+		}
+	}
+}
