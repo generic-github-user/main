@@ -1,0 +1,27 @@
+fn Set.union<T> (a: Set<T>, b: Set<T>) ->
+    c: (Set<T> where size >= max(a.size, b.size)) {
+
+}
+fn Set.union<T> (sets: Seq<Set<T>>) -> Set<T> {
+    return sets.fold(.union)
+}
+
+// Returns a new set containing only the elements contained in both sets `a`
+// and `b`
+fn Set.intersection<T> (a: Set<T>, b: Set<T>) ->
+    c: (Set<T> where size <= min(a.size, b.size)) {
+    return a.filter(b.contains(it))
+}
+fn Set.intersection<T> (sets: Seq<Set<T>>) -> Set<T> {
+    return sets.fold(.intersection)
+}
+
+fn Set.power_set<T> (set: Set<T>) ->
+    Iterator<Set<T>; length == 2 ** set.size> {
+    if set.size >= 16 : warn "The length of the output is exponential in the
+    size of the input; an input this large is likely to take a very long time
+    to complete. Consider testing with compiler flags for automatic process
+    interruption to avoid indefinite program execution."
+
+
+}
