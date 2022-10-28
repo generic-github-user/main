@@ -1,0 +1,31 @@
+println("Hello world")
+println("Hello " + "world")
+println(["Hello", "world"].join(" "))
+println("Hello world".to_uppercase())
+println("Hello world".to_lowercase())
+println("Hello world".reverse())
+
+// cursed
+echo(Hello world)
+// very cursed
+2 * 'println()
+
+"Hello, world!".{
+    substrings,
+    subsets,
+    permutations
+}()
+    .map(x => x.first(5).map(println),
+        2 * 'println())
+
+[substrings, subsets, permutations].map(f =>
+    f("Hello, world!").first(5).map(println), println(), println())
+
+println("Hello world{*",.?!"}")
+// if you use this in production code, you should go to prison
+2'println
+
+for f in String.methods {
+    let s = "Hello, world"
+    println("{f}: {s} -> {f(s)}")
+}
