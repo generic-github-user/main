@@ -52,60 +52,60 @@ further developing or reusing components from.
 
 ## Projects
 
-- alexandria  `organization` `software` `python` `backup` `tools` `bookmarks`
+- alexandria  `backup` `organization` `python` `tools` `software` `bookmarks`
 - ao  `bash` `python`
-- ascii-physics-sim  `simulations` `physics` `experiments` `python` `ascii`
-- Blender  `extensions` `python` `3d-graphics` `blender` `add-ons`
-- board  `simulations` `combinatorics` `board-games` `c++` `mathematics` `chess`
-- c2s  `transpilers` `python` `new-language` `compilers` `experimental` `c` `programming-languages`
-- CA2  `simulations` `cellular-automata` `art` `discrete-math` `python` `mathematics` `geometry` `cgol` `c` `combinatorics`
-- captcha  `hci` `experiments` `security`
-- cellular-automata-experiments  `simulations` `cellular-automata` `art` `discrete-math` `python` `mathematics` `geometry` `cgol` `combinatorics`
-- chrestomathy  `examples` `chrestomathy` `educational` `multiple` `reference`
-- clover  `ai` `ml` `c++` `optimization` `mathematics`
-- CogBench  `psychometrics` `software` `interactive` `python` `tools`
-- consequi  `organization` `tasks` `software` `python` `tools` `productivity`
-- englint  `software` `language` `tools`
-- epidemic-modelling  `modelling` `simulations` `python` `mathematics` `dynamical-systems`
-- finch  `transpilers` `c++` `python` `new-language` `compilers` `experimental` `rust` `programming-languages`
-- foldz  `simulations` `art` `origami` `python` `computational-geometry` `mathematics` `geometry`
-- fractals  `graphics` `python` `mathematics` `fractals` `dynamical-systems` `numerical-analysis`
+- ascii-physics-sim  `experiments` `python` `physics` `simulations` `ascii`
+- Blender  `python` `extensions` `blender` `add-ons` `3d-graphics`
+- board  `board-games` `combinatorics` `c++` `simulations` `mathematics` `chess`
+- c2s  `python` `programming-languages` `transpilers` `new-language` `compilers` `c` `experimental`
+- CA2  `python` `art` `combinatorics` `simulations` `geometry` `discrete-math` `c` `cellular-automata` `mathematics` `cgol`
+- captcha  `experiments` `security` `hci`
+- cellular-automata-experiments  `python` `art` `combinatorics` `simulations` `geometry` `discrete-math` `cellular-automata` `mathematics` `cgol`
+- chrestomathy  `examples` `multiple` `reference` `educational` `chrestomathy`
+- clover  `ml` `c++` `optimization` `ai` `mathematics`
+- CogBench  `python` `tools` `software` `interactive` `psychometrics`
+- consequi  `organization` `python` `tools` `software` `productivity` `tasks`
+- englint  `language` `tools` `software`
+- epidemic-modelling  `modelling` `python` `simulations` `dynamical-systems` `mathematics`
+- finch  `python` `programming-languages` `transpilers` `new-language` `c++` `compilers` `rust` `experimental`
+- foldz  `python` `art` `simulations` `geometry` `origami` `computational-geometry` `mathematics`
+- fractals  `python` `numerical-analysis` `fractals` `dynamical-systems` `mathematics` `graphics`
 - generic-github-user  `meta` `profile`
-- geometry  `analysis` `python` `mathematics` `geometry` `libraries`
-- grammars  `grammars` `linguistics` `discrete-mathematics` `experiments` `tools` `libraries` `combinatorics`
-- graphs  `graphs` `data-structures` `python` `mathematics` `libraries` `graph-theory`
-- hurricane  `ai` `ml` `optimization` `mathematics` `libraries`
-- img-conv  `demos` `ml` `convolutional-filters` `javascript` `image-processing` `interactive` `web`
-- keyboard-dynamics  `hci` `simulations` `analysis` `python` `optimization` `mathematics` `statistics`
-- leetcode  `algorithms` `programming-challenges` `leetcode` `python`
-- locus  `python` `programming-languages` `experiments` `esoteroic`
-- not-python  `grammars` `experiments` `python` `programming-languages` `syntax-extensions`
-- obfuscation  `languages` `python` `security` `tools`
-- packings  `simulations` `mathematics` `geometry` `c` `combinatorics`
-- programming-puzzles  `programming-puzzles` `interactive` `python`
-- project-summary  `apis` `python` `github` `data-aggregation` `metadata`
-- punchcard  `data-structures` `utilities` `libraries` `python`
-- pythings  `utilities` `metaprogramming` `python` `tools`
-- python-experiments  `utilities` `metaprogramming` `experiments` `python` `tools` `programming-languages`
-- python-snippets  `utilities` `helpers` `python` `templates` `libraries` `tools` `programming-languages`
-- quickplot  `graphs` `matplotlib` `python` `tools` `libraries` `plotting`
-- rcas  `cas` `symbolic-computation` `mathematics` `libraries` `rust`
-- roulette-curves  `simulations` `art` `python` `mathematics` `geometry`
-- sandbox  `simulations` `demos` `javascript` `physics` `interactive` `experiments` `web`
-- self-avoiding-walks  `simulations` `analysis` `python` `mathematics` `combinatorics` `random-walks`
-- set  `organization` `software` `software-development` `tools` `version-control`
-- shelf  `utilities` `organization` `command-line` `software` `python` `tools` `notes`
-- supernova  `ai` `ml` `optimization` `mathematics` `libraries`
-- tetris-variants  `games` `tetris` `interactive` `python`
-- Time-Zone-Roles  `javascript` `automation` `discord-bot`
-- transpiler  `compilers` `transpilers` `programming-languages`
-- tsunami  `ai` `ml` `optimization` `mathematics` `libraries`
-- unicode-art  `graphics` `diagrams` `tools`
-- unmacro  `hci` `vim` `automation` `experiments` `python` `text-processing` `macros` `editors`
-- utils  `utilities` `scripting` `command-line` `python` `unix` `tools`
-- visual-computing-simulation  `simulations` `computing` `interactive` `python` `circuits`
-- wordtetris  `games` `tetris` `word-games` `python`
-- zeal  `serialization` `markup` `file-formats` `python`
+- geometry  `libraries` `analysis` `python` `geometry` `mathematics`
+- grammars  `libraries` `experiments` `combinatorics` `tools` `discrete-mathematics` `grammars` `linguistics`
+- graphs  `libraries` `python` `graph-theory` `data-structures` `graphs` `mathematics`
+- hurricane  `libraries` `ml` `optimization` `ai` `mathematics`
+- img-conv  `ml` `image-processing` `interactive` `demos` `web` `convolutional-filters` `javascript`
+- keyboard-dynamics  `analysis` `python` `simulations` `statistics` `optimization` `hci` `mathematics`
+- leetcode  `algorithms` `python` `programming-challenges` `leetcode`
+- locus  `experiments` `python` `programming-languages` `esoteroic`
+- not-python  `syntax-extensions` `experiments` `python` `programming-languages` `grammars`
+- obfuscation  `tools` `security` `python` `languages`
+- packings  `combinatorics` `simulations` `geometry` `c` `mathematics`
+- programming-puzzles  `programming-puzzles` `python` `interactive`
+- project-summary  `python` `github` `data-aggregation` `metadata` `apis`
+- punchcard  `libraries` `python` `utilities` `data-structures`
+- pythings  `tools` `metaprogramming` `python` `utilities`
+- python-experiments  `experiments` `python` `programming-languages` `utilities` `tools` `metaprogramming`
+- python-snippets  `libraries` `templates` `python` `programming-languages` `utilities` `tools` `helpers`
+- quickplot  `libraries` `python` `matplotlib` `tools` `plotting` `graphs`
+- rcas  `libraries` `cas` `symbolic-computation` `rust` `mathematics`
+- roulette-curves  `python` `art` `simulations` `geometry` `mathematics`
+- sandbox  `experiments` `physics` `interactive` `simulations` `demos` `web` `javascript`
+- self-avoiding-walks  `random-walks` `analysis` `python` `combinatorics` `simulations` `mathematics`
+- set  `organization` `tools` `software` `version-control` `software-development`
+- shelf  `organization` `python` `utilities` `notes` `tools` `software` `command-line`
+- supernova  `libraries` `ml` `optimization` `ai` `mathematics`
+- tetris-variants  `games` `interactive` `python` `tetris`
+- Time-Zone-Roles  `discord-bot` `automation` `javascript`
+- transpiler  `compilers` `programming-languages` `transpilers`
+- tsunami  `libraries` `ml` `optimization` `ai` `mathematics`
+- unicode-art  `diagrams` `tools` `graphics`
+- unmacro  `vim` `experiments` `automation` `python` `macros` `editors` `hci` `text-processing`
+- utils  `python` `scripting` `utilities` `tools` `unix` `command-line`
+- visual-computing-simulation  `python` `circuits` `interactive` `simulations` `computing`
+- wordtetris  `games` `python` `word-games` `tetris`
+- zeal  `file-formats` `python` `markup` `serialization`
 
 ## Branches
 
@@ -127,33 +127,35 @@ further developing or reusing components from.
 ## Statistics
 
 
-cloc|github.com/AlDanial/cloc v 1.82  T=1.11 s (598.2 files/s, 54986.6 lines/s)
+cloc|github.com/AlDanial/cloc v 1.82  T=1.56 s (712.1 files/s, 42299.6 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Python|133|2558|3052|8599
+Python|145|2722|3180|9060
+Markdown|62|976|0|8884
 HTML|45|2444|71|7937
-Markdown|60|965|0|7887
 JavaScript|55|928|1233|5420
-YAML|34|118|27|3835
+YAML|35|118|28|3851
+D|324|740|0|3223
 Jupyter Notebook|13|0|5687|2134
 C|20|357|403|2007
-D|120|286|0|1355
-Rust|6|130|133|543
+Rust|22|217|216|1070
+JSON|327|0|0|548
 Bourne Shell|3|77|102|452
 CSS|15|58|28|364
-JSON|119|0|0|340
 C/C++ Header|18|87|69|324
 INI|4|52|0|248
 C++|2|56|44|201
 make|4|41|6|103
+TOML|10|19|7|64
 XML|2|4|0|52
-TOML|7|13|4|43
+Assembly|1|0|0|24
 TeX|1|6|0|18
 vim script|2|10|13|15
+Lisp|1|0|0|1
 --------|--------|--------|--------|--------
-SUM:|663|8190|10872|41877
+SUM:|1111|8912|11087|46000
 
 
 ## On Monorepos
@@ -207,6 +209,7 @@ structure into my workflow:
 
 ```
 .
+├── ;
 ├── ~
 │   └── Desktop
 │       └── imdb
@@ -260,12 +263,22 @@ structure into my workflow:
 │   ├── ao.sh
 │   ├── ap
 │   │   ├── ap.py
+│   │   ├── config.py
+│   │   ├── config.yaml
 │   │   ├── files.py
+│   │   ├── __init__.py
+│   │   ├── old
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-310.pyc
+│   │   │   └── todo.cpython-310.pyc
 │   │   ├── README.md
 │   │   ├── todo.py
 │   │   └── utils.py
 │   ├── command_docs.md
 │   ├── docinfo.json
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-310.pyc
 │   ├── README.md
 │   ├── README.src.md
 │   ├── todo
@@ -273,6 +286,11 @@ structure into my workflow:
 │   │   ├── todo_ft.vim
 │   │   └── todo.vim
 │   └── utodo.sh
+├── a.out
+├── assembly-experiments
+│   └── square.s
+├── august
+│   └── input.py
 ├── build.py
 ├── ca2
 │   ├── abbrs.txt
@@ -471,6 +489,248 @@ structure into my workflow:
 │       ├── 8.PNG
 │       └── 9.PNG
 ├── captcha
+├── clpg
+│   └── clpg.lisp
+├── compiler-extension-infrastructure
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── cmp.z
+│   ├── compile.py
+│   ├── counter.z
+│   ├── eng.lark
+│   ├── function.z
+│   ├── grammar.lark
+│   ├── grammar.pest
+│   ├── iterator.z
+│   ├── ll.z
+│   ├── memoize.z
+│   ├── README.md
+│   ├── revised-grammar.lark
+│   ├── sample.z
+│   ├── set.z
+│   ├── src
+│   │   └── main.rs
+│   ├── stdlib.z
+│   ├── target
+│   │   ├── CACHEDIR.TAG
+│   │   └── debug
+│   │       ├── build
+│   │       │   ├── proc-macro2-00e264a5df0578a8
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── proc-macro2-4b11612d3687959c
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── proc-macro2-52315564f79632c8
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-52315564f79632c8
+│   │       │   │   └── build_script_build-52315564f79632c8.d
+│   │       │   ├── proc-macro2-ea228cd548991f68
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-ea228cd548991f68
+│   │       │   │   └── build_script_build-ea228cd548991f68.d
+│   │       │   ├── quote-2efd26ecd652084a
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-2efd26ecd652084a
+│   │       │   │   └── build_script_build-2efd26ecd652084a.d
+│   │       │   ├── quote-68cf2609ee60a0d5
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── quote-6f32dcb50911c370
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── quote-8d91d231e165eab2
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-8d91d231e165eab2
+│   │       │   │   └── build_script_build-8d91d231e165eab2.d
+│   │       │   ├── syn-273e18d78bfbe586
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-273e18d78bfbe586
+│   │       │   │   └── build_script_build-273e18d78bfbe586.d
+│   │       │   ├── syn-2826024f53009638
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── syn-9856b28b6d459714
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-9856b28b6d459714
+│   │       │   │   └── build_script_build-9856b28b6d459714.d
+│   │       │   ├── syn-fa04c63228b423ed
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── thiserror-3287fd6b4b6a46aa
+│   │       │   │   ├── invoked.timestamp
+│   │       │   │   ├── out
+│   │       │   │   │   ├── libthiserror_build.rmeta
+│   │       │   │   │   └── probe.rs
+│   │       │   │   ├── output
+│   │       │   │   ├── root-output
+│   │       │   │   └── stderr
+│   │       │   ├── thiserror-3b7a0f0931da5897
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-3b7a0f0931da5897
+│   │       │   │   └── build_script_build-3b7a0f0931da5897.d
+│   │       │   ├── thiserror-753754b24b4b88c7
+│   │       │   │   ├── build-script-build
+│   │       │   │   ├── build_script_build-753754b24b4b88c7
+│   │       │   │   └── build_script_build-753754b24b4b88c7.d
+│   │       │   └── thiserror-8c5d831d6426ced9
+│   │       │       ├── invoked.timestamp
+│   │       │       ├── out
+│   │       │       │   └── probe.rs
+│   │       │       ├── output
+│   │       │       ├── root-output
+│   │       │       └── stderr
+│   │       ├── deps
+│   │       │   ├── compiler_extension_infrastructure-0963afaeefba993c.d
+│   │       │   ├── compiler_extension_infrastructure-16cd8d5583592f90.d
+│   │       │   ├── compiler_extension_infrastructure-6150a98d79024ac6.d
+│   │       │   ├── compiler_extension_infrastructure-a5c0f4f3a37a5111.d
+│   │       │   ├── compiler_extension_infrastructure-e8be47fb8cc341d5.d
+│   │       │   ├── compiler_extension_infrastructure-f72ae4de0f0301b7.d
+│   │       │   ├── libcompiler_extension_infrastructure-0963afaeefba993c.rmeta
+│   │       │   ├── libcompiler_extension_infrastructure-16cd8d5583592f90.rmeta
+│   │       │   ├── libcompiler_extension_infrastructure-6150a98d79024ac6.rmeta
+│   │       │   ├── libcompiler_extension_infrastructure-a5c0f4f3a37a5111.rmeta
+│   │       │   ├── libcompiler_extension_infrastructure-e8be47fb8cc341d5.rmeta
+│   │       │   ├── libcompiler_extension_infrastructure-f72ae4de0f0301b7.rmeta
+│   │       │   ├── libonce_cell-0d685235a31f27f7.rlib
+│   │       │   ├── libonce_cell-0d685235a31f27f7.rmeta
+│   │       │   ├── libonce_cell-32c8d89871b7ecb5.rlib
+│   │       │   ├── libonce_cell-32c8d89871b7ecb5.rmeta
+│   │       │   ├── libpest-3a7c2ce4a6aa5c62.rlib
+│   │       │   ├── libpest-3a7c2ce4a6aa5c62.rmeta
+│   │       │   ├── libpest-435fc2c21a9acfb4.rlib
+│   │       │   ├── libpest-435fc2c21a9acfb4.rmeta
+│   │       │   ├── libpest-4e80bf00777f5db5.rmeta
+│   │       │   ├── libpest_derive-4eec61f43b278a42.so
+│   │       │   ├── libpest_derive-96ed52a61ad495e9.so
+│   │       │   ├── libpest-f1ea230eacc46be2.rmeta
+│   │       │   ├── libpest_generator-e8cf2711260ef22b.rlib
+│   │       │   ├── libpest_generator-e8cf2711260ef22b.rmeta
+│   │       │   ├── libpest_generator-ea5321a48575bc44.rlib
+│   │       │   ├── libpest_generator-ea5321a48575bc44.rmeta
+│   │       │   ├── libpest_meta-007a2d2093b4ed02.rlib
+│   │       │   ├── libpest_meta-007a2d2093b4ed02.rmeta
+│   │       │   ├── libpest_meta-7bf1e5614c60d8f0.rlib
+│   │       │   ├── libpest_meta-7bf1e5614c60d8f0.rmeta
+│   │       │   ├── libproc_macro2-0d4d5ec3016b73aa.rlib
+│   │       │   ├── libproc_macro2-0d4d5ec3016b73aa.rmeta
+│   │       │   ├── libproc_macro2-1af62450dcf11fe8.rlib
+│   │       │   ├── libproc_macro2-1af62450dcf11fe8.rmeta
+│   │       │   ├── libquote-2302df77fd6b8693.rlib
+│   │       │   ├── libquote-2302df77fd6b8693.rmeta
+│   │       │   ├── libquote-424fde2f7d4271e1.rlib
+│   │       │   ├── libquote-424fde2f7d4271e1.rmeta
+│   │       │   ├── libsyn-718f8d146fa9f6ec.rlib
+│   │       │   ├── libsyn-718f8d146fa9f6ec.rmeta
+│   │       │   ├── libsyn-89d2fc0377b5711f.rlib
+│   │       │   ├── libsyn-89d2fc0377b5711f.rmeta
+│   │       │   ├── libthiserror-205f11390df00a56.rmeta
+│   │       │   ├── libthiserror-7cd08ce7182bfb06.rlib
+│   │       │   ├── libthiserror-7cd08ce7182bfb06.rmeta
+│   │       │   ├── libthiserror-8d14335a4f38fac8.rlib
+│   │       │   ├── libthiserror-8d14335a4f38fac8.rmeta
+│   │       │   ├── libthiserror-e3ea122752bb9f55.rmeta
+│   │       │   ├── libthiserror_impl-c6d4a7aa262edcec.so
+│   │       │   ├── libthiserror_impl-fbe41c0908ee6f9e.so
+│   │       │   ├── libucd_trie-15a668c518445701.rmeta
+│   │       │   ├── libucd_trie-35656e8952945778.rlib
+│   │       │   ├── libucd_trie-35656e8952945778.rmeta
+│   │       │   ├── libucd_trie-ab612a571d6ac15e.rlib
+│   │       │   ├── libucd_trie-ab612a571d6ac15e.rmeta
+│   │       │   ├── libucd_trie-e2f06f5d4e4c6097.rmeta
+│   │       │   ├── libunicode_ident-376fce9245292684.rlib
+│   │       │   ├── libunicode_ident-376fce9245292684.rmeta
+│   │       │   ├── libunicode_ident-4f26ae5bfa30ad8f.rlib
+│   │       │   ├── libunicode_ident-4f26ae5bfa30ad8f.rmeta
+│   │       │   ├── once_cell-0d685235a31f27f7.d
+│   │       │   ├── once_cell-32c8d89871b7ecb5.d
+│   │       │   ├── pest-3a7c2ce4a6aa5c62.d
+│   │       │   ├── pest-435fc2c21a9acfb4.d
+│   │       │   ├── pest-4e80bf00777f5db5.d
+│   │       │   ├── pest_derive-4eec61f43b278a42.d
+│   │       │   ├── pest_derive-96ed52a61ad495e9.d
+│   │       │   ├── pest-f1ea230eacc46be2.d
+│   │       │   ├── pest_generator-e8cf2711260ef22b.d
+│   │       │   ├── pest_generator-ea5321a48575bc44.d
+│   │       │   ├── pest_meta-007a2d2093b4ed02.d
+│   │       │   ├── pest_meta-7bf1e5614c60d8f0.d
+│   │       │   ├── proc_macro2-0d4d5ec3016b73aa.d
+│   │       │   ├── proc_macro2-1af62450dcf11fe8.d
+│   │       │   ├── quote-2302df77fd6b8693.d
+│   │       │   ├── quote-424fde2f7d4271e1.d
+│   │       │   ├── syn-718f8d146fa9f6ec.d
+│   │       │   ├── syn-89d2fc0377b5711f.d
+│   │       │   ├── thiserror-205f11390df00a56.d
+│   │       │   ├── thiserror-7cd08ce7182bfb06.d
+│   │       │   ├── thiserror-8d14335a4f38fac8.d
+│   │       │   ├── thiserror-e3ea122752bb9f55.d
+│   │       │   ├── thiserror_impl-c6d4a7aa262edcec.d
+│   │       │   ├── thiserror_impl-fbe41c0908ee6f9e.d
+│   │       │   ├── ucd_trie-15a668c518445701.d
+│   │       │   ├── ucd_trie-35656e8952945778.d
+│   │       │   ├── ucd_trie-ab612a571d6ac15e.d
+│   │       │   ├── ucd_trie-e2f06f5d4e4c6097.d
+│   │       │   ├── unicode_ident-376fce9245292684.d
+│   │       │   └── unicode_ident-4f26ae5bfa30ad8f.d
+│   │       ├── examples
+│   │       └── incremental
+│   │           ├── compiler_extension_infrastructure-2h9ks0kt2kuri
+│   │           │   ├── s-geulrf58su-1h8q8b3-3osil6k9wjogx
+│   │           │   │   ├── dep-graph.bin
+│   │           │   │   ├── query-cache.bin
+│   │           │   │   └── work-products.bin
+│   │           │   └── s-geulrf58su-1h8q8b3.lock
+│   │           ├── compiler_extension_infrastructure-3d07ctuplipod
+│   │           │   ├── s-geulrf670g-1j63pyr.lock
+│   │           │   └── s-geulrf670g-1j63pyr-vi44mtpjz9pg
+│   │           │       ├── dep-graph.bin
+│   │           │       ├── query-cache.bin
+│   │           │       └── work-products.bin
+│   │           ├── compiler_extension_infrastructure-4r25vg4d8qjx
+│   │           │   ├── s-geuksvtmgt-1wlgnmb-1be85txvoc664
+│   │           │   │   ├── dep-graph.bin
+│   │           │   │   ├── query-cache.bin
+│   │           │   │   └── work-products.bin
+│   │           │   └── s-geuksvtmgt-1wlgnmb.lock
+│   │           ├── compiler_extension_infrastructure-d21cf0tzwjpc
+│   │           │   ├── s-geuksvko78-wcjemi-3d10vqayk1t89
+│   │           │   │   ├── dep-graph.bin
+│   │           │   │   ├── query-cache.bin
+│   │           │   │   └── work-products.bin
+│   │           │   └── s-geuksvko78-wcjemi.lock
+│   │           ├── compiler_extension_infrastructure-y1bj69994c4j
+│   │           │   ├── s-geulrf6768-133wolh-hbjf808yslpe
+│   │           │   │   ├── dep-graph.bin
+│   │           │   │   ├── query-cache.bin
+│   │           │   │   └── work-products.bin
+│   │           │   └── s-geulrf6768-133wolh.lock
+│   │           └── compiler_extension_infrastructure-yxy55ggc0qf0
+│   │               ├── s-geuksvtmg9-14twz34-3i1tcohxzaipd
+│   │               │   ├── dep-graph.bin
+│   │               │   ├── query-cache.bin
+│   │               │   └── work-products.bin
+│   │               └── s-geuksvtmg9-14twz34.lock
+│   └── wc.z
+├── complexity.md
 ├── db_path
 ├── decision-tree-experiments
 │   ├── game.py
@@ -486,10 +746,89 @@ structure into my workflow:
 ├── entropy.nu
 ├── finch
 │   ├── build.py
+│   ├── compiler
+│   │   ├── chartype.py
+│   │   ├── cinch.py
+│   │   ├── compiler-tests.py
+│   │   ├── ftoken.py
+│   │   ├── lex.py
+│   │   ├── node.py
+│   │   └── parse.py
 │   ├── docs
 │   │   └── finch.md
 │   ├── example.fn
 │   ├── grammar.ebnf
+│   ├── interpreter
+│   │   └── target
+│   │       ├── CACHEDIR.TAG
+│   │       └── debug
+│   │           ├── build
+│   │           │   ├── num-traits-5abbfb2879ee1585
+│   │           │   │   ├── invoked.timestamp
+│   │           │   │   ├── out
+│   │           │   │   │   ├── probe0.ll
+│   │           │   │   │   ├── probe1.ll
+│   │           │   │   │   ├── probe2.ll
+│   │           │   │   │   ├── probe3.ll
+│   │           │   │   │   ├── probe4.ll
+│   │           │   │   │   ├── probe5.ll
+│   │           │   │   │   ├── probe6.ll
+│   │           │   │   │   └── probe7.ll
+│   │           │   │   ├── output
+│   │           │   │   ├── root-output
+│   │           │   │   └── stderr
+│   │           │   └── num-traits-9c8d32d561b6d7b0
+│   │           │       ├── build-script-build
+│   │           │       ├── build_script_build-9c8d32d561b6d7b0
+│   │           │       └── build_script_build-9c8d32d561b6d7b0.d
+│   │           ├── deps
+│   │           │   ├── autocfg-b100abef6c63027d.d
+│   │           │   ├── interpreter-0a2f6e678c3263af.d
+│   │           │   ├── interpreter-0a8f7ee191d2e976
+│   │           │   ├── interpreter-0a8f7ee191d2e976.d
+│   │           │   ├── interpreter-4ab11dfe8834d1bb.d
+│   │           │   ├── libautocfg-b100abef6c63027d.rlib
+│   │           │   ├── libautocfg-b100abef6c63027d.rmeta
+│   │           │   ├── libinterpreter-0a2f6e678c3263af.rmeta
+│   │           │   ├── libinterpreter-4ab11dfe8834d1bb.rmeta
+│   │           │   ├── libnum_traits-926957117fac6d63.rmeta
+│   │           │   └── num_traits-926957117fac6d63.d
+│   │           ├── examples
+│   │           ├── incremental
+│   │           │   ├── interpreter-28zh77l90fhxf
+│   │           │   │   ├── s-gdqi9w3a2i-145lr8p-235gr9vcmbqmi
+│   │           │   │   │   ├── 10a33zt45qv08lrh.o
+│   │           │   │   │   ├── 178b8qve5wxygata.o
+│   │           │   │   │   ├── 1l7rzdno4nqs23et.o
+│   │           │   │   │   ├── 1wxxjlbnyxuaruw7.o
+│   │           │   │   │   ├── 2357r35uqwvr9i12.o
+│   │           │   │   │   ├── 2aj4t6m4lihwmniw.o
+│   │           │   │   │   ├── 2ih0vxohb8z0dz3s.o
+│   │           │   │   │   ├── 42bx5f03rmbdqsl2.o
+│   │           │   │   │   ├── dep-graph.bin
+│   │           │   │   │   ├── query-cache.bin
+│   │           │   │   │   └── work-products.bin
+│   │           │   │   └── s-gdqi9w3a2i-145lr8p.lock
+│   │           │   ├── interpreter-3gbgwee47oqdz
+│   │           │   │   ├── s-gdqibekcs4-1c8u5hf-30b0tmbxx82a8
+│   │           │   │   │   ├── dep-graph.bin
+│   │           │   │   │   ├── query-cache.bin
+│   │           │   │   │   └── work-products.bin
+│   │           │   │   ├── s-gdqibekcs4-1c8u5hf.lock
+│   │           │   │   ├── s-gdqicd32cx-17orqks.lock
+│   │           │   │   └── s-gdqicd32cx-17orqks-working
+│   │           │   │       ├── dep-graph.bin
+│   │           │   │       ├── dep-graph.part.bin
+│   │           │   │       ├── query-cache.bin
+│   │           │   │       └── work-products.bin
+│   │           │   └── interpreter-w7apxyp6un3i
+│   │           │       ├── s-gdqimodhr6-srbfpp-195sdp083xu3c
+│   │           │       │   ├── dep-graph.bin
+│   │           │       │   ├── query-cache.bin
+│   │           │       │   └── work-products.bin
+│   │           │       └── s-gdqimodhr6-srbfpp.lock
+│   │           ├── interpreter
+│   │           └── interpreter.d
 │   ├── interpreter.cpp
 │   ├── README.md
 │   ├── README.src.md
@@ -507,6 +846,10 @@ structure into my workflow:
 │       ├── grammar.lark
 │       ├── parser.py
 │       └── README.md
+├── fs
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
 ├── fs.nu
 ├── generic-github-user
 │   ├── docs
@@ -583,6 +926,7 @@ structure into my workflow:
 │   ├── projects.yaml
 │   ├── substitutions.yaml
 │   └── tree.yaml
+├── __init__.py
 ├── keyboard-dynamics
 │   ├── keyboard.py
 │   ├── LICENSE
@@ -715,6 +1059,7 @@ structure into my workflow:
 │   │   ├── node.py
 │   │   ├── randomgraph.py
 │   │   └── randomizer.py
+│   ├── __init__.py
 │   ├── micronotes
 │   │   ├── demo.html
 │   │   ├── LICENSE
@@ -726,6 +1071,7 @@ structure into my workflow:
 │   │       └── 3.png
 │   ├── punchcard
 │   │   └── dataclass.py
+│   ├── pylist.py
 │   ├── pythings
 │   │   ├── build.py
 │   │   ├── pythings.py
@@ -739,12 +1085,20 @@ structure into my workflow:
 ├── lyre
 │   ├── Cargo.lock
 │   ├── Cargo.toml
+│   ├── etc.ly
 │   ├── grammar.ebnf
 │   ├── lyre
 │   ├── README.md
 │   ├── sample.ly
 │   ├── src
-│   │   └── main.rs
+│   │   ├── chartype.rs
+│   │   ├── lexer.rs
+│   │   ├── main.rs
+│   │   ├── node.rs
+│   │   ├── parser.rs
+│   │   ├── source.rs
+│   │   ├── token.rs
+│   │   └── value.rs
 │   └── target
 │       ├── CACHEDIR.TAG
 │       └── debug
@@ -763,245 +1117,258 @@ structure into my workflow:
 │           │   │   ├── output
 │           │   │   ├── root-output
 │           │   │   └── stderr
-│           │   └── num-traits-9c8d32d561b6d7b0
+│           │   ├── num-traits-9c8d32d561b6d7b0
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-9c8d32d561b6d7b0
+│           │   │   └── build_script_build-9c8d32d561b6d7b0.d
+│           │   ├── num-traits-ac24a135de7b51b6
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   │   ├── probe0.ll
+│           │   │   │   ├── probe1.ll
+│           │   │   │   ├── probe2.ll
+│           │   │   │   ├── probe3.ll
+│           │   │   │   ├── probe4.ll
+│           │   │   │   ├── probe5.ll
+│           │   │   │   ├── probe6.ll
+│           │   │   │   └── probe7.ll
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   └── num-traits-b624e440b0bede59
 │           │       ├── build-script-build
-│           │       ├── build_script_build-9c8d32d561b6d7b0
-│           │       └── build_script_build-9c8d32d561b6d7b0.d
+│           │       ├── build_script_build-b624e440b0bede59
+│           │       └── build_script_build-b624e440b0bede59.d
 │           ├── deps
+│           │   ├── autocfg-5788d3b0c0ad14fb.d
 │           │   ├── autocfg-b100abef6c63027d.d
+│           │   ├── indoc-5369a40d7123c6ef.d
+│           │   ├── indoc-67bf51601b642e66.d
+│           │   ├── libautocfg-5788d3b0c0ad14fb.rlib
+│           │   ├── libautocfg-5788d3b0c0ad14fb.rmeta
 │           │   ├── libautocfg-b100abef6c63027d.rlib
 │           │   ├── libautocfg-b100abef6c63027d.rmeta
+│           │   ├── libindoc-5369a40d7123c6ef.so
+│           │   ├── libindoc-67bf51601b642e66.so
+│           │   ├── liblyre-1a1169312dc8d25d.rmeta
+│           │   ├── liblyre-55898cb5cb699331.rmeta
+│           │   ├── liblyre-61b2d7fe46594441.rmeta
 │           │   ├── liblyre-b4ebc4fb2f723299.rmeta
+│           │   ├── liblyre-beac77cfd88802a8.rmeta
+│           │   ├── liblyre-bf40a0d05bc60775.rmeta
 │           │   ├── liblyre-e80e4019af99be90.rmeta
+│           │   ├── libnum_traits-7108a4925dc5891c.rmeta
 │           │   ├── libnum_traits-926957117fac6d63.rmeta
 │           │   ├── libnum_traits-b1e9610ca7bd1eec.rlib
 │           │   ├── libnum_traits-b1e9610ca7bd1eec.rmeta
 │           │   ├── lyre-19347aa3e19fb131
 │           │   ├── lyre-19347aa3e19fb131.d
+│           │   ├── lyre-1a1169312dc8d25d.d
+│           │   ├── lyre-2b53d2ea5b114f1d
+│           │   ├── lyre-2b53d2ea5b114f1d.d
 │           │   ├── lyre-3eca458c841b55bb
 │           │   ├── lyre-3eca458c841b55bb.d
+│           │   ├── lyre-55898cb5cb699331.d
 │           │   ├── lyre-5c8fe7d177760abc
 │           │   ├── lyre-5c8fe7d177760abc.d
+│           │   ├── lyre-61b2d7fe46594441.d
 │           │   ├── lyre-b4ebc4fb2f723299.d
+│           │   ├── lyre-beac77cfd88802a8.d
+│           │   ├── lyre-bf40a0d05bc60775.d
 │           │   ├── lyre-e80e4019af99be90.d
+│           │   ├── num_traits-7108a4925dc5891c.d
 │           │   ├── num_traits-926957117fac6d63.d
 │           │   └── num_traits-b1e9610ca7bd1eec.d
 │           ├── examples
 │           ├── incremental
-│           │   ├── lyre-1qczrx1wls87s
-│           │   │   ├── s-gdh2euyf6s-1yr1rh0-3a80dqiunblsu
+│           │   ├── lyre-10liiizoebl09
+│           │   │   ├── s-ge1vjgmf9e-1vvmj1m-2x732d3y64jne
+│           │   │   │   ├── 139cdd7rq984xiiz.o
+│           │   │   │   ├── 188wp6pdz2ajddst.o
+│           │   │   │   ├── 1bw5xtkz81jwc9s6.o
+│           │   │   │   ├── 1cnecmlsfb7m24gx.o
+│           │   │   │   ├── 1d4m93knr9encfq0.o
+│           │   │   │   ├── 1e7ufary5dh9qm86.o
+│           │   │   │   ├── 1eju6wmmpurzbh1o.o
+│           │   │   │   ├── 1g2rspfikxn3m1g0.o
+│           │   │   │   ├── 1hgeb47docqvlsne.o
+│           │   │   │   ├── 1hsg3exw2ft24vdx.o
+│           │   │   │   ├── 1ip8qifmosur5ek0.o
+│           │   │   │   ├── 1kxxgp698rzi4hah.o
+│           │   │   │   ├── 1lhx7r065ww3ey3a.o
+│           │   │   │   ├── 1oqsmatyqpg6ffoe.o
+│           │   │   │   ├── 1qj15sd6c4j0uals.o
+│           │   │   │   ├── 1rptiz4ltbafxq5m.o
+│           │   │   │   ├── 1rzb04shbstcr6df.o
+│           │   │   │   ├── 1sfq0yrk9rjzh8j6.o
+│           │   │   │   ├── 1sxv2yqhcfe890u4.o
+│           │   │   │   ├── 1u66ngzz942mgf0.o
+│           │   │   │   ├── 1u7ckrbdxmrgngee.o
+│           │   │   │   ├── 209fc341sql1ujq2.o
+│           │   │   │   ├── 20t74t0hbhzrwghu.o
+│           │   │   │   ├── 21s7yt84ppds8aiu.o
+│           │   │   │   ├── 24l37zyfb34gxnxi.o
+│           │   │   │   ├── 25idvyvuyfw9rmr5.o
+│           │   │   │   ├── 26igykfcod2gz2ne.o
+│           │   │   │   ├── 28mbzd2okkomr64m.o
+│           │   │   │   ├── 296yr8dehacdfydd.o
+│           │   │   │   ├── 2cqlv8fx0oaqvlap.o
+│           │   │   │   ├── 2fou6879ici86e0b.o
+│           │   │   │   ├── 2jzc6ezdcmij8k43.o
+│           │   │   │   ├── 2mbqas2l3saz0nka.o
+│           │   │   │   ├── 2nbskox01rnbkwt3.o
+│           │   │   │   ├── 2odiv5bn5cx4pa78.o
+│           │   │   │   ├── 2p775hlfba5b6awo.o
+│           │   │   │   ├── 2re4h3zhifsshrmp.o
+│           │   │   │   ├── 2rg8ru3joy77hu18.o
+│           │   │   │   ├── 2sevb71wyffrf97h.o
+│           │   │   │   ├── 2sn6m08erisvxc4i.o
+│           │   │   │   ├── 2zog6xhx9juf9kwg.o
+│           │   │   │   ├── 31csp0zwg2uock7n.o
+│           │   │   │   ├── 31f0rie95u781qzf.o
+│           │   │   │   ├── 3358by7ybyicwqkh.o
+│           │   │   │   ├── 33mnwyp3nn2kpv2g.o
+│           │   │   │   ├── 34s0n3cn9f33ufi9.o
+│           │   │   │   ├── 35avpv16fi26kobu.o
+│           │   │   │   ├── 35oxcv8vot41x9ig.o
+│           │   │   │   ├── 3a2gxvgjvs5wada7.o
+│           │   │   │   ├── 3b244awfwjkbrrkv.o
+│           │   │   │   ├── 3f2uwc2npu8bb2dq.o
+│           │   │   │   ├── 3hsvnl84xy4taalu.o
+│           │   │   │   ├── 3ipaxq1jec9kzhv8.o
+│           │   │   │   ├── 3m7ksm6fjddghqek.o
+│           │   │   │   ├── 3mquk2t04lluyok5.o
+│           │   │   │   ├── 3n97fpm8ojgh8ts0.o
+│           │   │   │   ├── 3ouvnvz0usmr4fdo.o
+│           │   │   │   ├── 3pclwllfcx00lspi.o
+│           │   │   │   ├── 3pjuqq7qjrouw6wm.o
+│           │   │   │   ├── 3qe2lvb99wyg8lae.o
+│           │   │   │   ├── 3r55zwkfc34hk1eb.o
+│           │   │   │   ├── 3x6tn1sji16nd8aj.o
+│           │   │   │   ├── 3ycr9t0esyvzqe9t.o
+│           │   │   │   ├── 3yucgohb5t585tuv.o
+│           │   │   │   ├── 41pddi5fyrrl25pd.o
+│           │   │   │   ├── 44jntujiojs7suxq.o
+│           │   │   │   ├── 46dgskkswt9gv5ih.o
+│           │   │   │   ├── 48bovwsrh5ox40v7.o
+│           │   │   │   ├── 49h4kohyuga7key1.o
+│           │   │   │   ├── 49m92rld1x9zpwj5.o
+│           │   │   │   ├── 4ch66v90tq25gkgh.o
+│           │   │   │   ├── 4geiw5u5ganlexao.o
+│           │   │   │   ├── 4ir71v7ly1nb70wt.o
+│           │   │   │   ├── 4k7q3edd1eaej9g7.o
+│           │   │   │   ├── 4ka66fn5eejz0gdf.o
+│           │   │   │   ├── 4kjbbd4k1wkpe1q7.o
+│           │   │   │   ├── 4nwoc9k3vf6hx6fl.o
+│           │   │   │   ├── 4ofjmiruihyjscff.o
+│           │   │   │   ├── 4ofpkn5apykctpqi.o
+│           │   │   │   ├── 4rc50f9l4pq3bw25.o
+│           │   │   │   ├── 4sgi7m4uazsvq51e.o
+│           │   │   │   ├── 4vx4jxnmq8sa0lqs.o
+│           │   │   │   ├── 4w01z3wy4doduct8.o
+│           │   │   │   ├── 4w3hvru84787a9lg.o
+│           │   │   │   ├── 4wnyqmt414tn834r.o
+│           │   │   │   ├── 50tbg9ydcyp2h4lz.o
+│           │   │   │   ├── 51nqqwq6c25otjpq.o
+│           │   │   │   ├── 51zb2kok713ohpiz.o
+│           │   │   │   ├── 57jip88znyp1mzp1.o
+│           │   │   │   ├── 586ebwy1qg2a76d1.o
+│           │   │   │   ├── 59l0tvhlfk2z51ut.o
+│           │   │   │   ├── 5c1xztdams7mej2r.o
+│           │   │   │   ├── 5eghg6nnpfwbsy2s.o
+│           │   │   │   ├── 6d64mmdj29an207.o
+│           │   │   │   ├── 87wppwog72t0859.o
+│           │   │   │   ├── 8gidcxweqcybnfk.o
+│           │   │   │   ├── 951avy9eagyoiu0.o
+│           │   │   │   ├── 9u60znv7449i0lm.o
+│           │   │   │   ├── a2pymm9z6gwwzsl.o
+│           │   │   │   ├── delu9ttpj30neq1.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── efwzqoj75uybfn4.o
+│           │   │   │   ├── fkzyckcq0o418y1.o
+│           │   │   │   ├── hvdly25awfjaa1s.o
+│           │   │   │   ├── ibod1bzpm0dva97.o
+│           │   │   │   ├── ivf2emggt29a7lh.o
+│           │   │   │   ├── mvmo7txz9ooyo2q.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── r3p19zby3zcs1m9.o
+│           │   │   │   ├── rn9g1p7naitj9da.o
+│           │   │   │   ├── sgavom5wiw866eb.o
+│           │   │   │   ├── vjnvt2oqdcz5ige.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   ├── x7bvoyl7a96i7gr.o
+│           │   │   │   ├── xhdtliuw4fighrn.o
+│           │   │   │   ├── z7bk9ciukb0fmh2.o
+│           │   │   │   └── zsi55cfd5ccp8ru.o
+│           │   │   └── s-ge1vjgmf9e-1vvmj1m.lock
+│           │   ├── lyre-1f3u5311trsm2
+│           │   │   ├── s-ge1rx5zn0r-64qnn3.lock
+│           │   │   ├── s-ge1rx5zn0r-64qnn3-u33s30nhlqx4
 │           │   │   │   ├── dep-graph.bin
 │           │   │   │   ├── query-cache.bin
 │           │   │   │   └── work-products.bin
-│           │   │   └── s-gdh2euyf6s-1yr1rh0.lock
-│           │   ├── lyre-2fh5tlj58te0
-│           │   │   ├── s-gdgyh7xacs-e8buii-1f4tw1q14s5qi
-│           │   │   │   ├── 115apsnm6q1vzqz3.o
-│           │   │   │   ├── 13h9jusp9ecsy189.o
-│           │   │   │   ├── 13vu1gx6ldt06112.o
-│           │   │   │   ├── 14v3ubao8r2onjtn.o
-│           │   │   │   ├── 184nqullhtsbe9rw.o
-│           │   │   │   ├── 1a0fwsm30xlrb12.o
-│           │   │   │   ├── 1ab1veovfg32gzy5.o
-│           │   │   │   ├── 1ch28exfi60ngjj1.o
-│           │   │   │   ├── 1eefy0sctq64vj1a.o
-│           │   │   │   ├── 1ne6301zvpp3gyxa.o
-│           │   │   │   ├── 1qksg86qsx3x8i64.o
-│           │   │   │   ├── 1ui9c2xxabli3fs.o
-│           │   │   │   ├── 1usxmt2dxtliyl6q.o
-│           │   │   │   ├── 1uuluruxx2rsz31y.o
-│           │   │   │   ├── 1x2vk1kbtkyly7as.o
-│           │   │   │   ├── 1xs6a0k0otyhzy2v.o
-│           │   │   │   ├── 25ienhc20d4johzj.o
-│           │   │   │   ├── 26qk410h0zr93fi8.o
-│           │   │   │   ├── 2844o1wk2ml5szw3.o
-│           │   │   │   ├── 2a45f03utriescew.o
-│           │   │   │   ├── 2bo9a64ze76faaz4.o
-│           │   │   │   ├── 2dq3tdioe3feor6j.o
-│           │   │   │   ├── 2f51imvzi2uif54l.o
-│           │   │   │   ├── 2hhcv8vmf9j6m65u.o
-│           │   │   │   ├── 2n6jr5gt0ab6pjpa.o
-│           │   │   │   ├── 2ncddgh22ixkxt81.o
-│           │   │   │   ├── 2o5ebtifjtpuq1tu.o
-│           │   │   │   ├── 2oph92p1vj9jae5g.o
-│           │   │   │   ├── 2qactuix67vi80r3.o
-│           │   │   │   ├── 2r3v61sb3lzag3fi.o
-│           │   │   │   ├── 2seucccupi4a3ukl.o
-│           │   │   │   ├── 2vemkkrjjhsap5by.o
-│           │   │   │   ├── 33mz02i1b23bd5vj.o
-│           │   │   │   ├── 33ylsiusvzl2a5nu.o
-│           │   │   │   ├── 354ha37io7p49q0a.o
-│           │   │   │   ├── 35ozojok38c94yy2.o
-│           │   │   │   ├── 3bt52kzztqj8srll.o
-│           │   │   │   ├── 3byl3noguj5jf1k2.o
-│           │   │   │   ├── 3f2w2muwfytzwyan.o
-│           │   │   │   ├── 3f368zqs7yy80nnj.o
-│           │   │   │   ├── 3hvqw4qqshu74al0.o
-│           │   │   │   ├── 3kfpsw48rais1yuk.o
-│           │   │   │   ├── 3rx4jwufmspf086j.o
-│           │   │   │   ├── 3sf57b42kkvh31rw.o
-│           │   │   │   ├── 3tz9dt1xhhe1ctv9.o
-│           │   │   │   ├── 3ub3bliwhru08e2r.o
-│           │   │   │   ├── 3v24bx6li7sxuall.o
-│           │   │   │   ├── 3w8kn0msh574xs3k.o
-│           │   │   │   ├── 41ydgpwspi93nu8v.o
-│           │   │   │   ├── 47fghanpm7akvbal.o
-│           │   │   │   ├── 4ci2ok289nkx6o4j.o
-│           │   │   │   ├── 4hsa8pnpxk8e1nsm.o
-│           │   │   │   ├── 4lxqncxvldnja1jh.o
-│           │   │   │   ├── 4olhyak0p8hk9jwz.o
-│           │   │   │   ├── 4pap8z2rd5vnkrao.o
-│           │   │   │   ├── 4pd91ol98ing5l2b.o
-│           │   │   │   ├── 4pgedbmq625aw5ge.o
-│           │   │   │   ├── 4pmgzvvwidhuiuwp.o
-│           │   │   │   ├── 4qv33rpb2k5wvijo.o
-│           │   │   │   ├── 4rszlmi9kzqjnito.o
-│           │   │   │   ├── 4sfhl24e13c4seoy.o
-│           │   │   │   ├── 4zvpddq02tsn4obz.o
-│           │   │   │   ├── 50wk4jtntz4sjs8a.o
-│           │   │   │   ├── 518gj3uvg6iqdpos.o
-│           │   │   │   ├── 51su7snfz8w9grg0.o
-│           │   │   │   ├── 53bcup7swill2kv9.o
-│           │   │   │   ├── 553hageifxkraytw.o
-│           │   │   │   ├── 55xltx713slls0w3.o
-│           │   │   │   ├── 56thdtyypt6epgl9.o
-│           │   │   │   ├── 57o88mc84wwtdghy.o
-│           │   │   │   ├── 5blpqj7vvekw8mpm.o
-│           │   │   │   ├── 5cj98m8cnw4vgqyp.o
-│           │   │   │   ├── 5dfehf7s8u3q4blz.o
-│           │   │   │   ├── 5eezghnd5vom0wyz.o
-│           │   │   │   ├── 5ejhvpa3k5eg5my0.o
-│           │   │   │   ├── 5ek86lmt0my4thz4.o
-│           │   │   │   ├── 5f7qokn4pgztznny.o
-│           │   │   │   ├── 5fa5lr2vowd5z8nf.o
-│           │   │   │   ├── a1cbptahhaisz3n.o
-│           │   │   │   ├── bxw9o6oaycyd2j5.o
-│           │   │   │   ├── clajd35ci99x3fe.o
-│           │   │   │   ├── cr3l87n8l2pp7ue.o
-│           │   │   │   ├── dep-graph.bin
-│           │   │   │   ├── f4t7edxt4gs25lh.o
-│           │   │   │   ├── hiz9x5jmmkh0ajx.o
-│           │   │   │   ├── pcbbuhf2dmpl4nb.o
-│           │   │   │   ├── pl226lodv1nzmh8.o
-│           │   │   │   ├── pxzk9ac3zntnxgz.o
-│           │   │   │   ├── q7z9phxglzrc6kj.o
-│           │   │   │   ├── query-cache.bin
-│           │   │   │   ├── r3d3ejv987d9lmc.o
-│           │   │   │   ├── s3oikuota0c6t97.o
-│           │   │   │   ├── sujl18ogwqyt7ez.o
-│           │   │   │   ├── t5aqzarb390azo0.o
-│           │   │   │   ├── ue4aaarx0s2pxdy.o
-│           │   │   │   ├── vc30v4rlkdb37jb.o
-│           │   │   │   ├── wemhe6bsgpmvhwc.o
-│           │   │   │   ├── work-products.bin
-│           │   │   │   ├── xf1dxn3xtr0qxot.o
-│           │   │   │   ├── zpv8ivenvcpy7rn.o
-│           │   │   │   └── zwlqa7re3gwhnle.o
-│           │   │   ├── s-gdgyh7xacs-e8buii.lock
-│           │   │   ├── s-gdgyiqjdt9-xu6g9v.lock
-│           │   │   └── s-gdgyiqjdt9-xu6g9v-working
-│           │   │       ├── 115apsnm6q1vzqz3.o
-│           │   │       ├── 13h9jusp9ecsy189.o
-│           │   │       ├── 13vu1gx6ldt06112.o
-│           │   │       ├── 14v3ubao8r2onjtn.o
-│           │   │       ├── 184nqullhtsbe9rw.o
-│           │   │       ├── 1a0fwsm30xlrb12.o
-│           │   │       ├── 1ab1veovfg32gzy5.o
-│           │   │       ├── 1ch28exfi60ngjj1.o
-│           │   │       ├── 1eefy0sctq64vj1a.o
-│           │   │       ├── 1ne6301zvpp3gyxa.o
-│           │   │       ├── 1qksg86qsx3x8i64.o
-│           │   │       ├── 1ui9c2xxabli3fs.o
-│           │   │       ├── 1usxmt2dxtliyl6q.o
-│           │   │       ├── 1uuluruxx2rsz31y.o
-│           │   │       ├── 1x2vk1kbtkyly7as.o
-│           │   │       ├── 1xs6a0k0otyhzy2v.o
-│           │   │       ├── 25ienhc20d4johzj.o
-│           │   │       ├── 26qk410h0zr93fi8.o
-│           │   │       ├── 2844o1wk2ml5szw3.o
-│           │   │       ├── 2a45f03utriescew.o
-│           │   │       ├── 2bo9a64ze76faaz4.o
-│           │   │       ├── 2dq3tdioe3feor6j.o
-│           │   │       ├── 2f51imvzi2uif54l.o
-│           │   │       ├── 2hhcv8vmf9j6m65u.o
-│           │   │       ├── 2n6jr5gt0ab6pjpa.o
-│           │   │       ├── 2ncddgh22ixkxt81.o
-│           │   │       ├── 2o5ebtifjtpuq1tu.o
-│           │   │       ├── 2oph92p1vj9jae5g.o
-│           │   │       ├── 2qactuix67vi80r3.o
-│           │   │       ├── 2r3v61sb3lzag3fi.o
-│           │   │       ├── 2seucccupi4a3ukl.o
-│           │   │       ├── 2vemkkrjjhsap5by.o
-│           │   │       ├── 33mz02i1b23bd5vj.o
-│           │   │       ├── 33ylsiusvzl2a5nu.o
-│           │   │       ├── 354ha37io7p49q0a.o
-│           │   │       ├── 35ozojok38c94yy2.o
-│           │   │       ├── 3bt52kzztqj8srll.o
-│           │   │       ├── 3byl3noguj5jf1k2.o
-│           │   │       ├── 3f2w2muwfytzwyan.o
-│           │   │       ├── 3f368zqs7yy80nnj.o
-│           │   │       ├── 3hvqw4qqshu74al0.o
-│           │   │       ├── 3kfpsw48rais1yuk.o
-│           │   │       ├── 3rx4jwufmspf086j.o
-│           │   │       ├── 3sf57b42kkvh31rw.o
-│           │   │       ├── 3tz9dt1xhhe1ctv9.o
-│           │   │       ├── 3ub3bliwhru08e2r.o
-│           │   │       ├── 3v24bx6li7sxuall.o
-│           │   │       ├── 3w8kn0msh574xs3k.o
-│           │   │       ├── 41ydgpwspi93nu8v.o
-│           │   │       ├── 47fghanpm7akvbal.o
-│           │   │       ├── 4ci2ok289nkx6o4j.o
-│           │   │       ├── 4hsa8pnpxk8e1nsm.o
-│           │   │       ├── 4lxqncxvldnja1jh.o
-│           │   │       ├── 4olhyak0p8hk9jwz.o
-│           │   │       ├── 4pap8z2rd5vnkrao.o
-│           │   │       ├── 4pd91ol98ing5l2b.o
-│           │   │       ├── 4pgedbmq625aw5ge.o
-│           │   │       ├── 4pmgzvvwidhuiuwp.o
-│           │   │       ├── 4qv33rpb2k5wvijo.o
-│           │   │       ├── 4rszlmi9kzqjnito.o
-│           │   │       ├── 4sfhl24e13c4seoy.o
-│           │   │       ├── 4zvpddq02tsn4obz.o
-│           │   │       ├── 50wk4jtntz4sjs8a.o
-│           │   │       ├── 518gj3uvg6iqdpos.o
-│           │   │       ├── 51su7snfz8w9grg0.o
-│           │   │       ├── 53bcup7swill2kv9.o
-│           │   │       ├── 553hageifxkraytw.o
-│           │   │       ├── 55xltx713slls0w3.o
-│           │   │       ├── 56thdtyypt6epgl9.o
-│           │   │       ├── 57o88mc84wwtdghy.o
-│           │   │       ├── 5blpqj7vvekw8mpm.o
-│           │   │       ├── 5cj98m8cnw4vgqyp.o
-│           │   │       ├── 5dfehf7s8u3q4blz.o
-│           │   │       ├── 5eezghnd5vom0wyz.o
-│           │   │       ├── 5ejhvpa3k5eg5my0.o
-│           │   │       ├── 5ek86lmt0my4thz4.o
-│           │   │       ├── 5f7qokn4pgztznny.o
-│           │   │       ├── 5fa5lr2vowd5z8nf.o
-│           │   │       ├── a1cbptahhaisz3n.o
-│           │   │       ├── bxw9o6oaycyd2j5.o
-│           │   │       ├── clajd35ci99x3fe.o
-│           │   │       ├── cr3l87n8l2pp7ue.o
+│           │   │   ├── s-ge1s4k9yd1-16ot4v2.lock
+│           │   │   └── s-ge1s4k9yd1-16ot4v2-working
 │           │   │       ├── dep-graph.bin
 │           │   │       ├── dep-graph.part.bin
-│           │   │       ├── f4t7edxt4gs25lh.o
-│           │   │       ├── hiz9x5jmmkh0ajx.o
-│           │   │       ├── pcbbuhf2dmpl4nb.o
-│           │   │       ├── pl226lodv1nzmh8.o
-│           │   │       ├── pxzk9ac3zntnxgz.o
-│           │   │       ├── q7z9phxglzrc6kj.o
 │           │   │       ├── query-cache.bin
-│           │   │       ├── r3d3ejv987d9lmc.o
-│           │   │       ├── s3oikuota0c6t97.o
-│           │   │       ├── sujl18ogwqyt7ez.o
-│           │   │       ├── t5aqzarb390azo0.o
-│           │   │       ├── ue4aaarx0s2pxdy.o
-│           │   │       ├── vc30v4rlkdb37jb.o
-│           │   │       ├── wemhe6bsgpmvhwc.o
-│           │   │       ├── work-products.bin
-│           │   │       ├── xf1dxn3xtr0qxot.o
-│           │   │       ├── zpv8ivenvcpy7rn.o
-│           │   │       └── zwlqa7re3gwhnle.o
+│           │   │       └── work-products.bin
+│           │   ├── lyre-1qczrx1wls87s
+│           │   │   ├── s-ge1v63x05d-2l8jsy-2parfsw2vyaja
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge1v63x05d-2l8jsy.lock
+│           │   ├── lyre-20rdfg41vw7go
+│           │   │   ├── s-ge1rx5zn1u-13d2hfs-1xzocdf57r3x3
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-ge1rx5zn1u-13d2hfs.lock
+│           │   │   ├── s-ge1s4k9yor-14h8ila.lock
+│           │   │   └── s-ge1s4k9yor-14h8ila-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── lyre-2ao0e08no6yat
+│           │   │   ├── s-ge1vjfi664-nrvjdb-3r9bu5r4zkk23
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge1vjfi664-nrvjdb.lock
+│           │   ├── lyre-2dmo7sdr4dji4
+│           │   │   ├── s-ge1vjfi685-2jrkaw-1xexs7zr2ha4q
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge1vjfi685-2jrkaw.lock
+│           │   ├── lyre-2fh5tlj58te0
+│           │   │   ├── s-ge1rx6s9h2-l04s0l-197yu5q8in7jw
+│           │   │   │   ├── 13h9jusp9ecsy189.o
+│           │   │   │   ├── 1ch28exfi60ngjj1.o
+│           │   │   │   ├── 1poo9i2bl18nd35z.o
+│           │   │   │   ├── 2qactuix67vi80r3.o
+│           │   │   │   ├── 354ha37io7p49q0a.o
+│           │   │   │   ├── 35ozojok38c94yy2.o
+│           │   │   │   ├── 4olhyak0p8hk9jwz.o
+│           │   │   │   ├── 51su7snfz8w9grg0.o
+│           │   │   │   ├── 553hageifxkraytw.o
+│           │   │   │   ├── 5ek86lmt0my4thz4.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── q96ukkkziy0cdjq.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── r3d3ejv987d9lmc.o
+│           │   │   │   ├── t5aqzarb390azo0.o
+│           │   │   │   ├── vc30v4rlkdb37jb.o
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge1rx6s9h2-l04s0l.lock
+│           │   ├── lyre-2ft1fl069034t
+│           │   │   ├── s-ge1vjffc9d-1ioisyk-3hadoxy7c0k9h
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge1vjffc9d-1ioisyk.lock
 │           │   ├── lyre-2hd6xjpre8m3p
 │           │   │   ├── s-gdgx7vtm4p-tjqqus-223tait4nugb2
 │           │   │   │   ├── 104ogjzvad84rh5t.o
@@ -1137,14 +1504,15 @@ structure into my workflow:
 │           │   │   │   ├── query-cache.bin
 │           │   │   │   └── work-products.bin
 │           │   │   ├── s-gdgx6qxz6i-q0lc41.lock
-│           │   │   ├── s-gdgxdccprk-10gffmp.lock
-│           │   │   └── s-gdgxdccprk-10gffmp-working
+│           │   │   ├── s-gdog4tsqtm-19l52xz.lock
+│           │   │   └── s-gdog4tsqtm-19l52xz-working
 │           │   │       ├── dep-graph.bin
 │           │   │       ├── dep-graph.part.bin
 │           │   │       ├── query-cache.bin
 │           │   │       └── work-products.bin
 │           │   └── lyre-3qfe7coxep54w
-│           │       ├── s-gdgxk0kysz-z4wtwh-1q01rn05oue9b
+│           │       ├── s-gdojve6l90-1ivdyuk.lock
+│           │       ├── s-gdojve6l90-1ivdyuk-mhyzxragknew
 │           │       │   ├── 12xho06rpxvrntdi.o
 │           │       │   ├── 16dx86t4dp1t37q0.o
 │           │       │   ├── 16vwdu8vtm85updc.o
@@ -1258,6 +1626,7 @@ structure into my workflow:
 │           │       │   ├── ing5qqqjf3k75ga.o
 │           │       │   ├── kmx9f68iy6p2cxy.o
 │           │       │   ├── m3lny5jpztm4vu5.o
+│           │       │   ├── m6u73jffg0n04sz.o
 │           │       │   ├── nz1hfbhnetasp76.o
 │           │       │   ├── qa79ogyaq5k0ea5.o
 │           │       │   ├── query-cache.bin
@@ -1268,7 +1637,133 @@ structure into my workflow:
 │           │       │   ├── woao8vj9cp5gp3h.o
 │           │       │   ├── work-products.bin
 │           │       │   └── zpwm9atinvjyyd1.o
-│           │       └── s-gdgxk0kysz-z4wtwh.lock
+│           │       ├── s-ge1s4nsqxo-17s3fkr.lock
+│           │       └── s-ge1s4nsqxo-17s3fkr-working
+│           │           ├── 12xho06rpxvrntdi.o
+│           │           ├── 16dx86t4dp1t37q0.o
+│           │           ├── 16vwdu8vtm85updc.o
+│           │           ├── 16w46osfia9q4ed7.o
+│           │           ├── 16zriwqlaei4531r.o
+│           │           ├── 18ksr8gyof5i9iyn.o
+│           │           ├── 1a6s6g7a5icvbu43.o
+│           │           ├── 1ak156zxo25wmcab.o
+│           │           ├── 1ccrfugt1t0iv7hq.o
+│           │           ├── 1fsxlw5nd5sn660e.o
+│           │           ├── 1k8yjlh4t0tt5l41.o
+│           │           ├── 1lowcehk9bmnysxk.o
+│           │           ├── 1p92rsa2cs2swcg1.o
+│           │           ├── 1q3t7nxyu3lx7nan.o
+│           │           ├── 1q6x4tb8h9ch7hke.o
+│           │           ├── 1qios3mlu2p4hp73.o
+│           │           ├── 1qr9fm6teqmevhlw.o
+│           │           ├── 1s2xz0fp43qqgm7g.o
+│           │           ├── 1tihtnuzyn13n50r.o
+│           │           ├── 1tkzevjonbfh4qrv.o
+│           │           ├── 1tu54kvhe93i9iwm.o
+│           │           ├── 1usicp24srnc8egj.o
+│           │           ├── 1v5umwo8976fliv3.o
+│           │           ├── 1vrzq11dsab2h3tx.o
+│           │           ├── 1wthybd35eaqajk0.o
+│           │           ├── 1xi77uxto7nfwh21.o
+│           │           ├── 1zhgjlt466uxcrpp.o
+│           │           ├── 21zkreenmet463ks.o
+│           │           ├── 226wnoao5nq20cv3.o
+│           │           ├── 23t1chxsh2wppygx.o
+│           │           ├── 25o6xxic4mz44wzl.o
+│           │           ├── 276853pkh6tkdawo.o
+│           │           ├── 286hfha493wbezlq.o
+│           │           ├── 28c27l1xcyrgrioe.o
+│           │           ├── 2afcaukzdbrlvpeh.o
+│           │           ├── 2hfkdibr3srunfru.o
+│           │           ├── 2l3p6qug9wsdlx1l.o
+│           │           ├── 2lr68wikofahhtgx.o
+│           │           ├── 2o3jwrinterhe1ze.o
+│           │           ├── 2rfrol4pf8etv2xa.o
+│           │           ├── 2sv3sh82d6ul4xzs.o
+│           │           ├── 2tstmxn6h0wug5um.o
+│           │           ├── 2v03lfi3o904chlk.o
+│           │           ├── 2w7wahwpp2lsodt5.o
+│           │           ├── 2wa2hn64bsn5rpmc.o
+│           │           ├── 2wzcq8l84y73ryum.o
+│           │           ├── 2zxfksec5j9nuzy2.o
+│           │           ├── 317q00ag7nnfldg5.o
+│           │           ├── 32nute70cey41lu2.o
+│           │           ├── 35bcf5rv7k0z272g.o
+│           │           ├── 368av2hr8s64hlub.o
+│           │           ├── 36tpfjpdxwm0adw7.o
+│           │           ├── 37nocuj51m83ofte.o
+│           │           ├── 39m0en7ery1f34jv.o
+│           │           ├── 39uygftfvwf96ht9.o
+│           │           ├── 3a5fkcpakuc8m2gh.o
+│           │           ├── 3ckhjr2un5tnvjx4.o
+│           │           ├── 3g8z1omojdpaws68.o
+│           │           ├── 3jrynrvzr1y8hc3l.o
+│           │           ├── 3lm4p32nj7ybqu3u.o
+│           │           ├── 3oo8qsmpcosu0h6t.o
+│           │           ├── 3s1cp6nklas8fz3z.o
+│           │           ├── 3u21g0kwh7dxnvm3.o
+│           │           ├── 3uyh9fmt2l84bf44.o
+│           │           ├── 3we6gbnj2m2blzs9.o
+│           │           ├── 3x7n6gr8g3xbimn5.o
+│           │           ├── 40r8587s6er0swh.o
+│           │           ├── 40x2ek2fk65smna.o
+│           │           ├── 4128d5oibwpa33xs.o
+│           │           ├── 41dzs8eqc6ybzwd5.o
+│           │           ├── 41uafgmmvfm1ls2t.o
+│           │           ├── 42u51grm6loex893.o
+│           │           ├── 444xgqknyyq339h6.o
+│           │           ├── 465xninu35a4lz7j.o
+│           │           ├── 48rqongqkro67zt0.o
+│           │           ├── 4c7dytqi2h85ut10.o
+│           │           ├── 4cj3t96md0s67p8y.o
+│           │           ├── 4dlitvn339edf5hv.o
+│           │           ├── 4e5kpl0ghpgrqm5m.o
+│           │           ├── 4e7xrfz55g8lpdh3.o
+│           │           ├── 4f69ljt5whnxlgcp.o
+│           │           ├── 4fh9q8d9eo2yowbf.o
+│           │           ├── 4gc0x3nean4fxd4g.o
+│           │           ├── 4jfbgh71rhf0w8cc.o
+│           │           ├── 4nr52tmufmg4o4i9.o
+│           │           ├── 4s9m7oy4z6i3ythw.o
+│           │           ├── 4w77r5ycok0km4l6.o
+│           │           ├── 51206m1cki5qpcab.o
+│           │           ├── 52yzwyfsk9q80417.o
+│           │           ├── 535ibyxs9fw7ld6x.o
+│           │           ├── 53gum03fw6bh8cij.o
+│           │           ├── 53jyrb16ydblf8wt.o
+│           │           ├── 53yepmhe4y63j6l1.o
+│           │           ├── 54puxr6wlh4vxnwv.o
+│           │           ├── 560uojx3im5qooxt.o
+│           │           ├── 568yroh8zo0bwtv8.o
+│           │           ├── 56c7cs86u4qjxnbh.o
+│           │           ├── 57o7lve1sw43heur.o
+│           │           ├── 5d9s3zkl780o3p1s.o
+│           │           ├── 5egi2sxk6ozdjocq.o
+│           │           ├── 5f2m633wv2znzbaa.o
+│           │           ├── 9i3aohxhpbwmi5.o
+│           │           ├── ac9ub3dzweh3nfy.o
+│           │           ├── c54cvi126b204kb.o
+│           │           ├── cs48uon1szu1wza.o
+│           │           ├── cz5v8dm5xsixqex.o
+│           │           ├── dep-graph.bin
+│           │           ├── dep-graph.part.bin
+│           │           ├── gimfag2l8e498lz.o
+│           │           ├── hexh7gyp4zngylu.o
+│           │           ├── hwbxs0fuetle0xb.o
+│           │           ├── ing5qqqjf3k75ga.o
+│           │           ├── kmx9f68iy6p2cxy.o
+│           │           ├── m3lny5jpztm4vu5.o
+│           │           ├── m6u73jffg0n04sz.o
+│           │           ├── nz1hfbhnetasp76.o
+│           │           ├── qa79ogyaq5k0ea5.o
+│           │           ├── query-cache.bin
+│           │           ├── s8lteh7r8rzioid.o
+│           │           ├── tbzh2cpj78bq1fg.o
+│           │           ├── us1qfgob8uwlvkr.o
+│           │           ├── v8qggngbm4shzwd.o
+│           │           ├── woao8vj9cp5gp3h.o
+│           │           ├── work-products.bin
+│           │           └── zpwm9atinvjyyd1.o
 │           ├── lyre
 │           └── lyre.d
 ├── mathematics
@@ -1543,6 +2038,7 @@ structure into my workflow:
 │   ├── macros.txt
 │   ├── np2.py
 │   └── sample.py
+├── numerals.py
 ├── ocr.nu
 ├── Pipfile
 ├── Pipfile.lock
@@ -1708,6 +2204,1341 @@ structure into my workflow:
 │   ├── index.html
 │   ├── main.js
 │   └── styles.css
+├── shell-1
+│   ├── Cargo.lock
+│   ├── Cargo.toml
+│   ├── src
+│   │   ├── chartype.rs
+│   │   ├── example
+│   │   ├── lexer.rs
+│   │   ├── main.rs
+│   │   ├── node.rs
+│   │   ├── parser.rs
+│   │   ├── token.rs
+│   │   └── value.rs
+│   └── target
+│       ├── CACHEDIR.TAG
+│       └── debug
+│           ├── build
+│           │   ├── indexmap-4b46f743e81d1bc3
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-4b46f743e81d1bc3
+│           │   │   └── build_script_build-4b46f743e81d1bc3.d
+│           │   ├── indexmap-bd65182873537185
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── indexmap-d3e0b43209b5d4a6
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── indexmap-ddea76206d6b4269
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-ddea76206d6b4269
+│           │   │   └── build_script_build-ddea76206d6b4269.d
+│           │   ├── libc-364e0fd14cc5d839
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── libc-378d6fbb4488d4b2
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── libc-6e659bfc8bc8e175
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-6e659bfc8bc8e175
+│           │   │   └── build_script_build-6e659bfc8bc8e175.d
+│           │   ├── libc-959e8218c2666244
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-959e8218c2666244
+│           │   │   └── build_script_build-959e8218c2666244.d
+│           │   ├── num-integer-543c02bab078a47b
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   │   ├── probe0.ll
+│           │   │   │   └── probe1.ll
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── num-integer-abfda74001a7f38d
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   │   ├── probe0.ll
+│           │   │   │   └── probe1.ll
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── num-integer-df5c830331d1e419
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-df5c830331d1e419
+│           │   │   └── build_script_build-df5c830331d1e419.d
+│           │   ├── num-integer-f6658b24f92e4bc4
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-f6658b24f92e4bc4
+│           │   │   └── build_script_build-f6658b24f92e4bc4.d
+│           │   ├── num-traits-31ee71c35db83592
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-31ee71c35db83592
+│           │   │   └── build_script_build-31ee71c35db83592.d
+│           │   ├── num-traits-650e38e9bd739d94
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-650e38e9bd739d94
+│           │   │   └── build_script_build-650e38e9bd739d94.d
+│           │   ├── num-traits-676664cb729c055d
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   │   ├── probe0.ll
+│           │   │   │   ├── probe1.ll
+│           │   │   │   ├── probe2.ll
+│           │   │   │   ├── probe3.ll
+│           │   │   │   ├── probe4.ll
+│           │   │   │   ├── probe5.ll
+│           │   │   │   └── probe6.ll
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── num-traits-85034bd872b0575f
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   │   ├── probe0.ll
+│           │   │   │   ├── probe1.ll
+│           │   │   │   ├── probe2.ll
+│           │   │   │   ├── probe3.ll
+│           │   │   │   ├── probe4.ll
+│           │   │   │   ├── probe5.ll
+│           │   │   │   └── probe6.ll
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro2-02c8ef32fff32df0
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro2-28ffd85e36fb08d3
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-28ffd85e36fb08d3
+│           │   │   └── build_script_build-28ffd85e36fb08d3.d
+│           │   ├── proc-macro2-6aff067ac1a4a836
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-6aff067ac1a4a836
+│           │   │   └── build_script_build-6aff067ac1a4a836.d
+│           │   ├── proc-macro2-6dffc3ae869dc7ba
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro-error-32ec833bc48d3f46
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro-error-42b872e6ce4d7279
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro-error-835051a2e0e7bdf1
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-835051a2e0e7bdf1
+│           │   │   └── build_script_build-835051a2e0e7bdf1.d
+│           │   ├── proc-macro-error-attr-141c40050a3b2432
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-141c40050a3b2432
+│           │   │   └── build_script_build-141c40050a3b2432.d
+│           │   ├── proc-macro-error-attr-561d8cb2f40b629a
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-561d8cb2f40b629a
+│           │   │   └── build_script_build-561d8cb2f40b629a.d
+│           │   ├── proc-macro-error-attr-6c41143cf48e6636
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro-error-attr-f84be75d9b76e698
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── proc-macro-error-bf867b6b6ab72d26
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-bf867b6b6ab72d26
+│           │   │   └── build_script_build-bf867b6b6ab72d26.d
+│           │   ├── quote-2efd26ecd652084a
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-2efd26ecd652084a
+│           │   │   └── build_script_build-2efd26ecd652084a.d
+│           │   ├── quote-68cf2609ee60a0d5
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── quote-6f32dcb50911c370
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── quote-8d91d231e165eab2
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-8d91d231e165eab2
+│           │   │   └── build_script_build-8d91d231e165eab2.d
+│           │   ├── syn-8ea003a385801de7
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-8ea003a385801de7
+│           │   │   └── build_script_build-8ea003a385801de7.d
+│           │   ├── syn-b344d8b922ba9b03
+│           │   │   ├── invoked.timestamp
+│           │   │   ├── out
+│           │   │   ├── output
+│           │   │   ├── root-output
+│           │   │   └── stderr
+│           │   ├── syn-c4d8f8ac2cf2335a
+│           │   │   ├── build-script-build
+│           │   │   ├── build_script_build-c4d8f8ac2cf2335a
+│           │   │   └── build_script_build-c4d8f8ac2cf2335a.d
+│           │   └── syn-f946646e4862212d
+│           │       ├── invoked.timestamp
+│           │       ├── out
+│           │       ├── output
+│           │       ├── root-output
+│           │       └── stderr
+│           ├── deps
+│           │   ├── atty-690b33c19033059b.d
+│           │   ├── atty-8a639c86d55fe68e.d
+│           │   ├── atty-bae3de0919887704.d
+│           │   ├── autocfg-5788d3b0c0ad14fb.d
+│           │   ├── autocfg-b100abef6c63027d.d
+│           │   ├── bitflags-9280358d7a21f5fd.d
+│           │   ├── bitflags-d2bffce99b529bb6.d
+│           │   ├── bitflags-f75283d3dcd3daad.d
+│           │   ├── chrono-243b1e64445baeb0.d
+│           │   ├── chrono-67c7f0ca89b9e2f3.d
+│           │   ├── chrono-d7f94d7dcdb43cd0.d
+│           │   ├── clap-0c158f5db3bcbb72.d
+│           │   ├── clap-a1c88240f9a7c477.d
+│           │   ├── clap-c4546c608328799a.d
+│           │   ├── clap_derive-2c998a99ed6f19d6.d
+│           │   ├── clap_derive-88a8ca1349afbdd5.d
+│           │   ├── clap-eec4903f59eb8fee.d
+│           │   ├── clap-f47e1d29391e8034.d
+│           │   ├── clap_lex-95d19219ccf5e277.d
+│           │   ├── clap_lex-be47293aad1ed919.d
+│           │   ├── clap_lex-f4fb3c2bb92af2a7.d
+│           │   ├── hashbrown-8530c7a6551a7498.d
+│           │   ├── hashbrown-e8da42539229d35d.d
+│           │   ├── hashbrown-f2f8dbc2b4c88354.d
+│           │   ├── heck-0ab27207d64089ce.d
+│           │   ├── heck-9e7a19df27fc9ca0.d
+│           │   ├── iana_time_zone-3a770e7885c8ff5a.d
+│           │   ├── iana_time_zone-46a9308488c9d52e.d
+│           │   ├── iana_time_zone-a04c822baea86c88.d
+│           │   ├── indexmap-17336cb9e02c7895.d
+│           │   ├── indexmap-1762463341268b86.d
+│           │   ├── indexmap-a5efaf4497cc9cf6.d
+│           │   ├── libatty-690b33c19033059b.rmeta
+│           │   ├── libatty-8a639c86d55fe68e.rmeta
+│           │   ├── libatty-bae3de0919887704.rlib
+│           │   ├── libatty-bae3de0919887704.rmeta
+│           │   ├── libautocfg-5788d3b0c0ad14fb.rlib
+│           │   ├── libautocfg-5788d3b0c0ad14fb.rmeta
+│           │   ├── libautocfg-b100abef6c63027d.rlib
+│           │   ├── libautocfg-b100abef6c63027d.rmeta
+│           │   ├── libbitflags-9280358d7a21f5fd.rlib
+│           │   ├── libbitflags-9280358d7a21f5fd.rmeta
+│           │   ├── libbitflags-d2bffce99b529bb6.rmeta
+│           │   ├── libbitflags-f75283d3dcd3daad.rmeta
+│           │   ├── libc-3c3c044c8e296e3a.d
+│           │   ├── libc-669b8cfb79387d4a.d
+│           │   ├── libc-89c17724a8f2c949.d
+│           │   ├── libchrono-243b1e64445baeb0.rlib
+│           │   ├── libchrono-243b1e64445baeb0.rmeta
+│           │   ├── libchrono-67c7f0ca89b9e2f3.rmeta
+│           │   ├── libchrono-d7f94d7dcdb43cd0.rmeta
+│           │   ├── libclap-0c158f5db3bcbb72.rmeta
+│           │   ├── libclap-a1c88240f9a7c477.rmeta
+│           │   ├── libclap-c4546c608328799a.rmeta
+│           │   ├── libclap_derive-2c998a99ed6f19d6.so
+│           │   ├── libclap_derive-88a8ca1349afbdd5.so
+│           │   ├── libclap-eec4903f59eb8fee.rmeta
+│           │   ├── libclap-f47e1d29391e8034.rlib
+│           │   ├── libclap-f47e1d29391e8034.rmeta
+│           │   ├── libclap_lex-95d19219ccf5e277.rlib
+│           │   ├── libclap_lex-95d19219ccf5e277.rmeta
+│           │   ├── libclap_lex-be47293aad1ed919.rmeta
+│           │   ├── libclap_lex-f4fb3c2bb92af2a7.rmeta
+│           │   ├── libhashbrown-8530c7a6551a7498.rmeta
+│           │   ├── libhashbrown-e8da42539229d35d.rmeta
+│           │   ├── libhashbrown-f2f8dbc2b4c88354.rlib
+│           │   ├── libhashbrown-f2f8dbc2b4c88354.rmeta
+│           │   ├── libheck-0ab27207d64089ce.rlib
+│           │   ├── libheck-0ab27207d64089ce.rmeta
+│           │   ├── libheck-9e7a19df27fc9ca0.rlib
+│           │   ├── libheck-9e7a19df27fc9ca0.rmeta
+│           │   ├── libiana_time_zone-3a770e7885c8ff5a.rlib
+│           │   ├── libiana_time_zone-3a770e7885c8ff5a.rmeta
+│           │   ├── libiana_time_zone-46a9308488c9d52e.rmeta
+│           │   ├── libiana_time_zone-a04c822baea86c88.rmeta
+│           │   ├── libindexmap-17336cb9e02c7895.rlib
+│           │   ├── libindexmap-17336cb9e02c7895.rmeta
+│           │   ├── libindexmap-1762463341268b86.rmeta
+│           │   ├── libindexmap-a5efaf4497cc9cf6.rmeta
+│           │   ├── liblibc-3c3c044c8e296e3a.rmeta
+│           │   ├── liblibc-669b8cfb79387d4a.rmeta
+│           │   ├── liblibc-89c17724a8f2c949.rlib
+│           │   ├── liblibc-89c17724a8f2c949.rmeta
+│           │   ├── libnum_integer-161f332163b8be8f.rmeta
+│           │   ├── libnum_integer-6e9d75fc51b9feae.rmeta
+│           │   ├── libnum_integer-d3d4d24bbcf51242.rlib
+│           │   ├── libnum_integer-d3d4d24bbcf51242.rmeta
+│           │   ├── libnum_traits-00fbef46866528e8.rmeta
+│           │   ├── libnum_traits-9ddb5d0f7711e83e.rmeta
+│           │   ├── libnum_traits-fcf269193e3b4460.rlib
+│           │   ├── libnum_traits-fcf269193e3b4460.rmeta
+│           │   ├── libonce_cell-0d685235a31f27f7.rlib
+│           │   ├── libonce_cell-0d685235a31f27f7.rmeta
+│           │   ├── libonce_cell-1c629b3468adc905.rmeta
+│           │   ├── libonce_cell-470f834f108b4a40.rmeta
+│           │   ├── libos_str_bytes-0ef31d4f9c928388.rmeta
+│           │   ├── libos_str_bytes-89be0787bc0642dd.rmeta
+│           │   ├── libos_str_bytes-cebb438db92b5017.rlib
+│           │   ├── libos_str_bytes-cebb438db92b5017.rmeta
+│           │   ├── libproc_macro2-4581559f6680e9b2.rlib
+│           │   ├── libproc_macro2-4581559f6680e9b2.rmeta
+│           │   ├── libproc_macro2-f63e352b538ce783.rlib
+│           │   ├── libproc_macro2-f63e352b538ce783.rmeta
+│           │   ├── libproc_macro_error-ad314e778424709e.rlib
+│           │   ├── libproc_macro_error-ad314e778424709e.rmeta
+│           │   ├── libproc_macro_error_attr-45040802ad226f1b.so
+│           │   ├── libproc_macro_error_attr-e7bc21ea3141d77c.so
+│           │   ├── libproc_macro_error-c55a2ddc499b7790.rlib
+│           │   ├── libproc_macro_error-c55a2ddc499b7790.rmeta
+│           │   ├── libquote-0414c045cf7e97f8.rlib
+│           │   ├── libquote-0414c045cf7e97f8.rmeta
+│           │   ├── libquote-3f407cca2cafb17f.rlib
+│           │   ├── libquote-3f407cca2cafb17f.rmeta
+│           │   ├── libshell_1-0bd6415ac6d6c7ae.rmeta
+│           │   ├── libshell1-143a5a9ecdad3885.rmeta
+│           │   ├── libshell1-272151370ce48e1c.rmeta
+│           │   ├── libshell_1-3389687a452fddce.rmeta
+│           │   ├── libshell_1-451b63887ac2903e.rmeta
+│           │   ├── libshell_1-46637b8a61b09a30.rmeta
+│           │   ├── libshell_1-635a3a5f28ef8d9a.rmeta
+│           │   ├── libshell1-67d1bb10b534bc7d.rlib
+│           │   ├── libshell1-67d1bb10b534bc7d.rmeta
+│           │   ├── libshell_1-6d45fc7f9923d4be.rmeta
+│           │   ├── libshell_1-6d597ae88cc5064a.rmeta
+│           │   ├── libshell_1-72d4b7d3d016a407.rmeta
+│           │   ├── libshell1-8eae53842bdfc35c.rmeta
+│           │   ├── libshell_1-992c835f62efd737.rmeta
+│           │   ├── libshell_1-a622402bb48509d2.rmeta
+│           │   ├── libshell_1-ad3c68def1c29a93.rmeta
+│           │   ├── libshell1-b513862312ded936.rmeta
+│           │   ├── libshell_1-bc2469bb875815df.rmeta
+│           │   ├── libshell1_bin-66888edf0c457d21.rmeta
+│           │   ├── libshell1_bin-6bb9c856c5cde64b.rmeta
+│           │   ├── libshell1_bin-a6068e808dde61eb.rmeta
+│           │   ├── libshell_1-c899eec69b3c0102.rmeta
+│           │   ├── libshell_1-cd60d49de17e3a99.rmeta
+│           │   ├── libshell_1-d50663c00ddebd76.rmeta
+│           │   ├── libshell_1-df538a855cff0409.rmeta
+│           │   ├── libshell_1-e75a0c28fea7c4b0.rmeta
+│           │   ├── libshell1-ecf61e06593975e8.rmeta
+│           │   ├── libshell1-f984b3f298e529ae.rmeta
+│           │   ├── libshell_1-fa9033d616a5801a.rmeta
+│           │   ├── libshell1_lib-4799cde4dc145bfb.rmeta
+│           │   ├── libshell1_lib-51afdfd80922857c.rlib
+│           │   ├── libshell1_lib-51afdfd80922857c.rmeta
+│           │   ├── libshell1_lib-9623d290828b2d57.rmeta
+│           │   ├── libshell1_lib-d3bfd0057736abf6.rmeta
+│           │   ├── libstrsim-95324a042c633895.rmeta
+│           │   ├── libstrsim-9fea78dc9a0dd35b.rmeta
+│           │   ├── libstrsim-e8a7455d35d02c94.rlib
+│           │   ├── libstrsim-e8a7455d35d02c94.rmeta
+│           │   ├── libsyn-1b48b669f57001f7.rlib
+│           │   ├── libsyn-1b48b669f57001f7.rmeta
+│           │   ├── libsyn-bb4ceb98d757e150.rlib
+│           │   ├── libsyn-bb4ceb98d757e150.rmeta
+│           │   ├── libtermcolor-44e4ede5a96e9edb.rlib
+│           │   ├── libtermcolor-44e4ede5a96e9edb.rmeta
+│           │   ├── libtermcolor-782c0de44506176a.rmeta
+│           │   ├── libtermcolor-df705ef4c44b12f4.rmeta
+│           │   ├── libtextwrap-4f508c8aedfd7283.rmeta
+│           │   ├── libtextwrap-6a23f0fc9cbe10a7.rmeta
+│           │   ├── libtextwrap-ee91495ca9d0d1b5.rlib
+│           │   ├── libtextwrap-ee91495ca9d0d1b5.rmeta
+│           │   ├── libtime-562647887e67d50a.rlib
+│           │   ├── libtime-562647887e67d50a.rmeta
+│           │   ├── libtime-db986e088a37e0e1.rmeta
+│           │   ├── libtime-eaa79b939e732582.rmeta
+│           │   ├── libunicode_ident-0ffae4fba3cf9146.rlib
+│           │   ├── libunicode_ident-0ffae4fba3cf9146.rmeta
+│           │   ├── libunicode_ident-4a202261a0f1e7b8.rlib
+│           │   ├── libunicode_ident-4a202261a0f1e7b8.rmeta
+│           │   ├── libversion_check-b0a25aae839793cb.rlib
+│           │   ├── libversion_check-b0a25aae839793cb.rmeta
+│           │   ├── libversion_check-bf6ae18cbaff31d1.rlib
+│           │   ├── libversion_check-bf6ae18cbaff31d1.rmeta
+│           │   ├── num_integer-161f332163b8be8f.d
+│           │   ├── num_integer-6e9d75fc51b9feae.d
+│           │   ├── num_integer-d3d4d24bbcf51242.d
+│           │   ├── num_traits-00fbef46866528e8.d
+│           │   ├── num_traits-9ddb5d0f7711e83e.d
+│           │   ├── num_traits-fcf269193e3b4460.d
+│           │   ├── once_cell-0d685235a31f27f7.d
+│           │   ├── once_cell-1c629b3468adc905.d
+│           │   ├── once_cell-470f834f108b4a40.d
+│           │   ├── os_str_bytes-0ef31d4f9c928388.d
+│           │   ├── os_str_bytes-89be0787bc0642dd.d
+│           │   ├── os_str_bytes-cebb438db92b5017.d
+│           │   ├── proc_macro2-4581559f6680e9b2.d
+│           │   ├── proc_macro2-f63e352b538ce783.d
+│           │   ├── proc_macro_error-ad314e778424709e.d
+│           │   ├── proc_macro_error_attr-45040802ad226f1b.d
+│           │   ├── proc_macro_error_attr-e7bc21ea3141d77c.d
+│           │   ├── proc_macro_error-c55a2ddc499b7790.d
+│           │   ├── quote-0414c045cf7e97f8.d
+│           │   ├── quote-3f407cca2cafb17f.d
+│           │   ├── shell_1-0bd6415ac6d6c7ae.d
+│           │   ├── shell1-143a5a9ecdad3885.d
+│           │   ├── shell1-1487a905c994eef9.d
+│           │   ├── shell1-2093455c952bb7ed
+│           │   ├── shell1-2093455c952bb7ed.d
+│           │   ├── shell1-272151370ce48e1c.d
+│           │   ├── shell_1-3389687a452fddce.d
+│           │   ├── shell_1-3503bc4f2ce0fd16
+│           │   ├── shell_1-3503bc4f2ce0fd16.d
+│           │   ├── shell_1-3c106aa70c4615a4
+│           │   ├── shell_1-3c106aa70c4615a4.d
+│           │   ├── shell_1-451b63887ac2903e.d
+│           │   ├── shell_1-46637b8a61b09a30.d
+│           │   ├── shell1-4c4f199cb10555dc.d
+│           │   ├── shell_1-635a3a5f28ef8d9a.d
+│           │   ├── shell1-67d1bb10b534bc7d.d
+│           │   ├── shell_1-6d45fc7f9923d4be.d
+│           │   ├── shell_1-6d597ae88cc5064a.d
+│           │   ├── shell_1-72d4b7d3d016a407.d
+│           │   ├── shell1-75e91d8bccc54808.d
+│           │   ├── shell1-78b5b1761600663c.d
+│           │   ├── shell1-8b6ae026f8b96a80
+│           │   ├── shell1-8b6ae026f8b96a80.d
+│           │   ├── shell1-8eae53842bdfc35c.d
+│           │   ├── shell_1-992c835f62efd737.d
+│           │   ├── shell1-9e84d5b645102a83.d
+│           │   ├── shell_1-a622402bb48509d2.d
+│           │   ├── shell_1-ad3c68def1c29a93.d
+│           │   ├── shell1-b513862312ded936.d
+│           │   ├── shell_1-bc2469bb875815df.d
+│           │   ├── shell1_bin-66888edf0c457d21.d
+│           │   ├── shell1_bin-6bb9c856c5cde64b.d
+│           │   ├── shell1_bin-8223ec631f63bb26
+│           │   ├── shell1_bin-8223ec631f63bb26.d
+│           │   ├── shell1_bin-98056f04b4adf348
+│           │   ├── shell1_bin-98056f04b4adf348.d
+│           │   ├── shell1_bin-a6068e808dde61eb.d
+│           │   ├── shell_1-c899eec69b3c0102.d
+│           │   ├── shell_1-cd60d49de17e3a99.d
+│           │   ├── shell1-d4de5eefab1ef859
+│           │   ├── shell1-d4de5eefab1ef859.d
+│           │   ├── shell_1-d50663c00ddebd76.d
+│           │   ├── shell_1-df538a855cff0409.d
+│           │   ├── shell_1-e75a0c28fea7c4b0.d
+│           │   ├── shell1-ecf61e06593975e8.d
+│           │   ├── shell1-f984b3f298e529ae.d
+│           │   ├── shell_1-fa64a8fd5d6ee9fe
+│           │   ├── shell_1-fa64a8fd5d6ee9fe.d
+│           │   ├── shell_1-fa9033d616a5801a.d
+│           │   ├── shell1_lib-4799cde4dc145bfb.d
+│           │   ├── shell1_lib-51afdfd80922857c.d
+│           │   ├── shell1_lib-9623d290828b2d57.d
+│           │   ├── shell1_lib-d3bfd0057736abf6.d
+│           │   ├── shell1_lib-e243bf3f7c57068b
+│           │   ├── shell1_lib-e243bf3f7c57068b.d
+│           │   ├── strsim-95324a042c633895.d
+│           │   ├── strsim-9fea78dc9a0dd35b.d
+│           │   ├── strsim-e8a7455d35d02c94.d
+│           │   ├── syn-1b48b669f57001f7.d
+│           │   ├── syn-bb4ceb98d757e150.d
+│           │   ├── termcolor-44e4ede5a96e9edb.d
+│           │   ├── termcolor-782c0de44506176a.d
+│           │   ├── termcolor-df705ef4c44b12f4.d
+│           │   ├── textwrap-4f508c8aedfd7283.d
+│           │   ├── textwrap-6a23f0fc9cbe10a7.d
+│           │   ├── textwrap-ee91495ca9d0d1b5.d
+│           │   ├── time-562647887e67d50a.d
+│           │   ├── time-db986e088a37e0e1.d
+│           │   ├── time-eaa79b939e732582.d
+│           │   ├── unicode_ident-0ffae4fba3cf9146.d
+│           │   ├── unicode_ident-4a202261a0f1e7b8.d
+│           │   ├── version_check-b0a25aae839793cb.d
+│           │   └── version_check-bf6ae18cbaff31d1.d
+│           ├── examples
+│           ├── incremental
+│           │   ├── shell_1-14hy2qzcj1a5p
+│           │   │   ├── s-ge0glb4xi9-ctlyit-14w1ixmx2l5yv
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge0glb4xi9-ctlyit.lock
+│           │   ├── shell1-16m3dhqxwsr0l
+│           │   │   ├── s-ge07te4uy6-edykms-292bfwghrr71z
+│           │   │   │   ├── 3www9lvgyy4yvumf.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07te4uy6-edykms.lock
+│           │   ├── shell_1-17o93lz3aud7r
+│           │   │   ├── s-gdw918r48q-pvav00-1tdozdzwj17gp
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdw918r48q-pvav00.lock
+│           │   │   ├── s-gdwpz1r6fh-zg7cxa.lock
+│           │   │   └── s-gdwpz1r6fh-zg7cxa-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell1-1jptukj27mpxv
+│           │   │   ├── s-ge07t30h91-80hw9u-2ndj186qvo41s
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07t30h91-80hw9u.lock
+│           │   ├── shell_1-1ngdw6pmkt6f3
+│           │   │   ├── s-gdwq25bnh9-2kspue-2jnluan4fz323
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdwq25bnh9-2kspue.lock
+│           │   │   ├── s-gdwq2midas-qo6zta.lock
+│           │   │   └── s-gdwq2midas-qo6zta-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell1-1ppfy85o80f42
+│           │   │   ├── s-ge07t30wgh-jamu66-43vuw0b2y0f8
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07t30wgh-jamu66.lock
+│           │   ├── shell_1-1q5hkdt7omm8t
+│           │   │   ├── s-gdwq26hfzp-i6gqlk-1prw3ndrrao63
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdwq26hfzp-i6gqlk.lock
+│           │   │   ├── s-gdwq2mmn0i-1l513zi.lock
+│           │   │   └── s-gdwq2mmn0i-1l513zi-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell_1-1qc3wydr4j7wc
+│           │   │   ├── s-gdw4sgq5uy-1uk3lnp-21ag1ral6944n
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdw4sgq5uy-1uk3lnp.lock
+│           │   │   ├── s-gdw4w4p785-1jqdtgq.lock
+│           │   │   └── s-gdw4w4p785-1jqdtgq-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell_1-1ssh9jfpnse3p
+│           │   │   ├── s-ge07c6kt93-1woprl5-2gpvz3na033ul
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07c6kt93-1woprl5.lock
+│           │   ├── shell1-1tbwyyfcpwa1v
+│           │   │   ├── s-ge07m4hpdv-1bjyvvq-1faf4ckggkeu8
+│           │   │   │   ├── 10rbnle28jgdiood.o
+│           │   │   │   ├── 1351ptexh77s7s5x.o
+│           │   │   │   ├── 16llrlofqnr2ssh4.o
+│           │   │   │   ├── 18y5kftsrdlwuzhu.o
+│           │   │   │   ├── 1ba46v8qv5qftl40.o
+│           │   │   │   ├── 1e6znbm358g89ny.o
+│           │   │   │   ├── 1kdnfl2ogxza8o1h.o
+│           │   │   │   ├── 1l5k0z9q70uub44z.o
+│           │   │   │   ├── 1lqieoucbzbga322.o
+│           │   │   │   ├── 1lyr8xqsc58b8r8q.o
+│           │   │   │   ├── 1n7rueed5krt9dux.o
+│           │   │   │   ├── 1uegb675r3hdy2mb.o
+│           │   │   │   ├── 1wgtetlozpbl5roi.o
+│           │   │   │   ├── 1zur2xwollv6sl34.o
+│           │   │   │   ├── 22jgwb9adi3ra4j1.o
+│           │   │   │   ├── 22x7rskx6xywdug0.o
+│           │   │   │   ├── 27zz8rd3u1b1qdev.o
+│           │   │   │   ├── 295kiwnn5wwa1tfg.o
+│           │   │   │   ├── 29vymdjerlpi3y7.o
+│           │   │   │   ├── 2cy20l8gtlwuzsa3.o
+│           │   │   │   ├── 2e534y32d9zu7neh.o
+│           │   │   │   ├── 2e5kvv6qvn5oknuz.o
+│           │   │   │   ├── 2hadzayvfr2s58ba.o
+│           │   │   │   ├── 2htq2b81bjtn5yqg.o
+│           │   │   │   ├── 2ipyzy4cfmetx34d.o
+│           │   │   │   ├── 2j174doa3haq19f6.o
+│           │   │   │   ├── 2j9l5oujr3xuy44o.o
+│           │   │   │   ├── 2pqcxe0gcf63p8bz.o
+│           │   │   │   ├── 2tr18uppyrrb5me2.o
+│           │   │   │   ├── 2txmwxcbybq92dwf.o
+│           │   │   │   ├── 2uvsc6sq8stkz70j.o
+│           │   │   │   ├── 2wzmz6v8bv22qbf6.o
+│           │   │   │   ├── 2zslos7bqy1bl5it.o
+│           │   │   │   ├── 304p4ddkjwj1rbdf.o
+│           │   │   │   ├── 31dpzu1p8ynx0nib.o
+│           │   │   │   ├── 31hsx8pgnwroorri.o
+│           │   │   │   ├── 37gwr57embumst21.o
+│           │   │   │   ├── 37wg99bqxmesas82.o
+│           │   │   │   ├── 38jcvmkw249zrcgb.o
+│           │   │   │   ├── 39hzq841jckapqn9.o
+│           │   │   │   ├── 3bod205qgmgv4f0w.o
+│           │   │   │   ├── 3chx025z129al8s.o
+│           │   │   │   ├── 3jzk2d4wnbmcztxe.o
+│           │   │   │   ├── 3nc3r7n0ovp4gu8k.o
+│           │   │   │   ├── 3w9r1oushkibet67.o
+│           │   │   │   ├── 3y0mh84qar359iwc.o
+│           │   │   │   ├── 41ftq3bqzdeauywz.o
+│           │   │   │   ├── 484r8oitioh26g74.o
+│           │   │   │   ├── 49iggjafx960nz72.o
+│           │   │   │   ├── 4c73sktzy3zua5aq.o
+│           │   │   │   ├── 4d5dlg3suzyvozab.o
+│           │   │   │   ├── 4k9g5h9j99igar5h.o
+│           │   │   │   ├── 4kkg3zgvdi4g6zgs.o
+│           │   │   │   ├── 4sj8nitaf1saopvl.o
+│           │   │   │   ├── 4xmalc9gok4vk53k.o
+│           │   │   │   ├── 523rm65fzzzx3tcv.o
+│           │   │   │   ├── 532rsrraah4rfj0o.o
+│           │   │   │   ├── 58bgq6obnonng8xj.o
+│           │   │   │   ├── 58gybat3wr7t807.o
+│           │   │   │   ├── 59a8lt8lup6q31pn.o
+│           │   │   │   ├── 59owiua0z1uh4wf3.o
+│           │   │   │   ├── 5b2qpiqj0p4pcnx4.o
+│           │   │   │   ├── 5fbum2s3z0ul0mzn.o
+│           │   │   │   ├── 5fwng20y51sg1p5u.o
+│           │   │   │   ├── 5g684jloru7lkhx7.o
+│           │   │   │   ├── 7skcez2en9r8qgj.o
+│           │   │   │   ├── 8t1s3hqe05lf20b.o
+│           │   │   │   ├── bfjpx1xprpfbp5a.o
+│           │   │   │   ├── c1lj6xm4r7un64a.o
+│           │   │   │   ├── cxrv79zehs9d2e6.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── fgvsck3lelus90m.o
+│           │   │   │   ├── hsrr0y7u28680fb.o
+│           │   │   │   ├── imshe90y3dwtsnv.o
+│           │   │   │   ├── jbzaxgbjd2e4mb4.o
+│           │   │   │   ├── lezdqtngzphh85b.o
+│           │   │   │   ├── p4ple4dxb735bap.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── slhavyy4h23uply.o
+│           │   │   │   ├── to5d6dpypk9wpy5.o
+│           │   │   │   ├── v1c2aawt9ypjmd0.o
+│           │   │   │   ├── w2ard7p2kbvtjff.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   └── xku5zeeahdcda4r.o
+│           │   │   └── s-ge07m4hpdv-1bjyvvq.lock
+│           │   ├── shell_1-20gmbft1wp2qe
+│           │   │   ├── s-ge0glb4xi9-8d23go-2fnl8jiiem58f
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge0glb4xi9-8d23go.lock
+│           │   ├── shell_1-21fwvhxpdy51l
+│           │   │   ├── s-ge07c69hao-1ixl4k5-5grlflp38jb7
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07c69hao-1ixl4k5.lock
+│           │   ├── shell_1-261ybdd2qfxed
+│           │   │   ├── s-gdw4sgtain-1sie9hj-3k3s9m0jm9bgt
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdw4sgtain-1sie9hj.lock
+│           │   │   ├── s-gdw4w4ofk5-1nqvco7.lock
+│           │   │   └── s-gdw4w4ofk5-1nqvco7-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell_1-2aygiqloyirb0
+│           │   │   ├── s-ge0glh8gqg-mob7ga-3m93p6i57ko6b
+│           │   │   │   ├── 12u3nxklkghp87ix.o
+│           │   │   │   ├── 132vzwatx1mlt99p.o
+│           │   │   │   ├── 170s1xlfy4mpajiw.o
+│           │   │   │   ├── 1akiu03mauyjztmw.o
+│           │   │   │   ├── 1dp8bxgm0epyexfk.o
+│           │   │   │   ├── 1h0svgqjr1mvbyw1.o
+│           │   │   │   ├── 1hnme8a0ix7i39vm.o
+│           │   │   │   ├── 1j55elhynilgbm9k.o
+│           │   │   │   ├── 1qr85a99fnojyzht.o
+│           │   │   │   ├── 1s5rzdk55jtgsuhb.o
+│           │   │   │   ├── 1wu9to3epvr4szq5.o
+│           │   │   │   ├── 27q69jnmpcr521w2.o
+│           │   │   │   ├── 2iwemc7wm6gyzmdx.o
+│           │   │   │   ├── 2j8hnrgouibkwvvk.o
+│           │   │   │   ├── 2jwo92xvl64zr8ix.o
+│           │   │   │   ├── 2kw2il4dp4bawvuv.o
+│           │   │   │   ├── 2n8io0abtuhm9gan.o
+│           │   │   │   ├── 2oc5ip0x7pglhvjn.o
+│           │   │   │   ├── 2px5kktuavsjqvw2.o
+│           │   │   │   ├── 2qw8u188v3mm0cot.o
+│           │   │   │   ├── 2qz3lr7h4f6clkre.o
+│           │   │   │   ├── 2v5rtqb6y5wtvdyz.o
+│           │   │   │   ├── 2yx8ewdsltdrbdyt.o
+│           │   │   │   ├── 309u9c43fwcor47d.o
+│           │   │   │   ├── 34jd7wrcwoy16wir.o
+│           │   │   │   ├── 36wujyz48c0wyxta.o
+│           │   │   │   ├── 37uyu6f9v2vpcfyv.o
+│           │   │   │   ├── 3b3pet31zj9zq5dc.o
+│           │   │   │   ├── 3b5gzanadh2w9p0e.o
+│           │   │   │   ├── 3c997wu7fjvxsv1m.o
+│           │   │   │   ├── 3er2b194xrynb7nh.o
+│           │   │   │   ├── 3g99dg75qapfq2w2.o
+│           │   │   │   ├── 3ggfr8097ss9cbhq.o
+│           │   │   │   ├── 3gk9lha8l82lo3gd.o
+│           │   │   │   ├── 3gwyiqjs8176g8do.o
+│           │   │   │   ├── 3h4731edw7t7gyj.o
+│           │   │   │   ├── 3hd4pq2yywfj08r5.o
+│           │   │   │   ├── 3i1ezc6iubosgxkp.o
+│           │   │   │   ├── 3l7vsefm6n2i0453.o
+│           │   │   │   ├── 3ndxv06gf8nb582m.o
+│           │   │   │   ├── 3oq1cielp0sa8zvb.o
+│           │   │   │   ├── 3pkmthkk9gow74h6.o
+│           │   │   │   ├── 3xcoe8yv17hipqea.o
+│           │   │   │   ├── 40si0yqipgg9brcz.o
+│           │   │   │   ├── 41jbd7dbkqcphoe8.o
+│           │   │   │   ├── 449q4oj0fu3nvkp9.o
+│           │   │   │   ├── 44k3ljc2xigcb564.o
+│           │   │   │   ├── 45u7pvz27ffcjebn.o
+│           │   │   │   ├── 46njeibyrigm59p2.o
+│           │   │   │   ├── 47bjijtmfsfxe2e.o
+│           │   │   │   ├── 4924ai37dk7ylup7.o
+│           │   │   │   ├── 4d8fuhmp0o7j683.o
+│           │   │   │   ├── 4dbj78tt1l1uyod2.o
+│           │   │   │   ├── 4hythoai34bj9zdq.o
+│           │   │   │   ├── 4iftxxxa5cjq443n.o
+│           │   │   │   ├── 4iuas3vdcu892bfc.o
+│           │   │   │   ├── 4iyqblx81bjakxo1.o
+│           │   │   │   ├── 4ozfhdjjanru1w3g.o
+│           │   │   │   ├── 4pkvybdc01rjs4wl.o
+│           │   │   │   ├── 4ppz3hjgbsaoi8hq.o
+│           │   │   │   ├── 4qtl9lwubpckhq7.o
+│           │   │   │   ├── 4u74q82gzbayvmu.o
+│           │   │   │   ├── 4v9ubri182gf6lvk.o
+│           │   │   │   ├── 4w8chznomscgaj8w.o
+│           │   │   │   ├── 4xaw4rbpslyqrtrg.o
+│           │   │   │   ├── 53ev8e2mp430vgqo.o
+│           │   │   │   ├── 56o9zyp901zpqhec.o
+│           │   │   │   ├── 57guphumk546rbl1.o
+│           │   │   │   ├── 587c2g5jeudlqjgm.o
+│           │   │   │   ├── 5ezxh9avqjtcib7a.o
+│           │   │   │   ├── 5gelw3bjwe0habjf.o
+│           │   │   │   ├── 784jqkxxxkdb1kk.o
+│           │   │   │   ├── 8ncupg1yy7722tk.o
+│           │   │   │   ├── dcijag8vvm3hesf.o
+│           │   │   │   ├── de9045cmfphaz34.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── enrjm0tuq2vcr2d.o
+│           │   │   │   ├── f4vd6ub4kqtu8xp.o
+│           │   │   │   ├── g9s4ognb7f1t4ab.o
+│           │   │   │   ├── kstxssip866mfly.o
+│           │   │   │   ├── n0w5im4a8ygrwzq.o
+│           │   │   │   ├── p52jn2khq7kmqx6.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── r9x68m01vizhjil.o
+│           │   │   │   ├── usdrnl3g6dw3ble.o
+│           │   │   │   ├── uzp6lf8oxrozpm1.o
+│           │   │   │   ├── vbhbxjco77mqpip.o
+│           │   │   │   ├── wn54bh7ooh8hvi7.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   ├── wtr3a7jvzczzd1f.o
+│           │   │   │   └── xb0hu58jude5cvc.o
+│           │   │   └── s-ge0glh8gqg-mob7ga.lock
+│           │   ├── shell_1-2gaw0801itfwi
+│           │   │   ├── s-gdw4spswy0-ljxefz-2umdcvjbiraxj
+│           │   │   │   ├── 1630i6sbseb634uu.o
+│           │   │   │   ├── 17iuw2rowgomd704.o
+│           │   │   │   ├── 19x1e4z6764jwo2j.o
+│           │   │   │   ├── 1ezanm6cxwnnsxem.o
+│           │   │   │   ├── 1f7yelpo8vsyb7l3.o
+│           │   │   │   ├── 1y0n0abust055wyo.o
+│           │   │   │   ├── 27yzehrbwkrxb2v9.o
+│           │   │   │   ├── 2a2f6al6nq6zfe6j.o
+│           │   │   │   ├── 2qru2pcblafqke5a.o
+│           │   │   │   ├── 2vtj1kdzykkin3no.o
+│           │   │   │   ├── 31vnms79j9xh8jhq.o
+│           │   │   │   ├── 3cw1b3roamn1sxzh.o
+│           │   │   │   ├── 3mjpf2nas2bh8fhl.o
+│           │   │   │   ├── 3xja9jagquqe4vkh.o
+│           │   │   │   ├── 4bwqwpk6hlt6d5ov.o
+│           │   │   │   ├── 4h61pq8f2686j62m.o
+│           │   │   │   ├── 4hlxk9thy1pkw2xl.o
+│           │   │   │   ├── 4kmo6zs9mjps7som.o
+│           │   │   │   ├── 4l4nfozvspjyqd61.o
+│           │   │   │   ├── 4l5w3cku4e8w9tch.o
+│           │   │   │   ├── 4t8yy5w0gwt751wb.o
+│           │   │   │   ├── 4usprajiziku9f2p.o
+│           │   │   │   ├── 4yi1fr32jb9mxdkm.o
+│           │   │   │   ├── 546wav351bsbxmua.o
+│           │   │   │   ├── 8kdrmef4z7grhvz.o
+│           │   │   │   ├── 9m3pm62wtm67a6m.o
+│           │   │   │   ├── a0eikjy58xzh2z.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── hur2wxd9nb6q0u0.o
+│           │   │   │   ├── j7btquojh8jko2z.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── work-products.bin
+│           │   │   │   └── yizzw047zz3uqde.o
+│           │   │   └── s-gdw4spswy0-ljxefz.lock
+│           │   ├── shell1-2nhnn27a6sscw
+│           │   │   ├── s-ge07t2zbs1-1p8hkrx-1fbo10py7ycck
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07t2zbs1-1p8hkrx.lock
+│           │   ├── shell_1-2otu9gju8lipu
+│           │   │   ├── s-ge07c6gyaa-1w264uu-1d80lve11bcsf
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07c6gyaa-1w264uu.lock
+│           │   ├── shell_1-2r6sl6uwtwxzz
+│           │   │   ├── s-ge07c6e47j-1i47b34-ecvyef7yxfcc
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07c6e47j-1i47b34.lock
+│           │   ├── shell_1-2vb2d8cvmneo5
+│           │   │   ├── s-gdw918l6ny-b9biha-3u66i11f4dad4
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdw918l6ny-b9biha.lock
+│           │   │   ├── s-gdwpz1s2qj-18irw0d.lock
+│           │   │   └── s-gdwpz1s2qj-18irw0d-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell1-2ylq556wayna4
+│           │   │   ├── s-ge07t30fo3-1l3l998-153n8f7tc3v6h
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07t30fo3-1l3l998.lock
+│           │   ├── shell1-3309pfz1y1ts8
+│           │   │   ├── s-ge07gnps9a-w4gyd7.lock
+│           │   │   └── s-ge07gnps9a-w4gyd7-working
+│           │   │       └── dep-graph.part.bin
+│           │   ├── shell1-34wicwr14c7z3
+│           │   │   ├── s-ge07te5u4a-1oa13dl-1rbuphinnay57
+│           │   │   │   ├── 189csve2ge4csuxl.o
+│           │   │   │   ├── 1ifb7j54mc1qb9c8.o
+│           │   │   │   ├── 3w5nvi1bk0n6lsdq.o
+│           │   │   │   ├── 40icvst3vea6mx1t.o
+│           │   │   │   ├── 4aoo19w2dmssr9gn.o
+│           │   │   │   ├── 4whj0wvjd77nracc.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07te5u4a-1oa13dl.lock
+│           │   ├── shell_1-3akkl46e4gnj7
+│           │   │   ├── s-gdw918l9pi-1bypbos-emafuurs7ljn
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdw918l9pi-1bypbos.lock
+│           │   │   ├── s-gdwpz1s2oh-83hc1k.lock
+│           │   │   └── s-gdwpz1s2oh-83hc1k-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell1-3l11w7jvz6v5l
+│           │   │   ├── s-ge07te4uy6-172k0fo-1ojqumukukxtp
+│           │   │   │   ├── 11yvpihkkao5thdl.o
+│           │   │   │   ├── 20h1r023vcoyewsu.o
+│           │   │   │   ├── 2yj05x6axr65alra.o
+│           │   │   │   ├── 39dn7c2xjmd2cib2.o
+│           │   │   │   ├── 4c62ah19k9u08sea.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── eso27ejt0vvbnz4.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── work-products.bin
+│           │   │   │   └── wzbtdimuxf1d3ew.o
+│           │   │   └── s-ge07te4uy6-172k0fo.lock
+│           │   ├── shell1-3n7q70yt82ems
+│           │   │   ├── s-ge07gmbucl-k999h.lock
+│           │   │   └── s-ge07gmbucl-k999h-working
+│           │   │       └── dep-graph.part.bin
+│           │   ├── shell_1-3ornagm82jan1
+│           │   │   ├── s-gdw919v5vm-a9x5nb-1ln056tcee264
+│           │   │   │   ├── 1fj5l3u91tx3lkg9.o
+│           │   │   │   ├── 1gmado9f9513hyry.o
+│           │   │   │   ├── 1h4tg9l8oh683aag.o
+│           │   │   │   ├── 1k1lxygyugpo9iu5.o
+│           │   │   │   ├── 1nrvwerm31qlytqc.o
+│           │   │   │   ├── 1o214g82p2lslct0.o
+│           │   │   │   ├── 1rzr6tq1eqs279v0.o
+│           │   │   │   ├── 1uk61djghtqvhpjl.o
+│           │   │   │   ├── 1uownnzun98kwhzx.o
+│           │   │   │   ├── 1vbybiuuezn7wt0.o
+│           │   │   │   ├── 20wzle3nque0yoh2.o
+│           │   │   │   ├── 23ke1lpq0qhh3t7i.o
+│           │   │   │   ├── 2501mxeswf73cqwd.o
+│           │   │   │   ├── 25j7rj76zfqhzgv3.o
+│           │   │   │   ├── 2avrdc3yre5y026.o
+│           │   │   │   ├── 2e6qe2c3bxenxxsu.o
+│           │   │   │   ├── 2ggezlnx7gqhmjqa.o
+│           │   │   │   ├── 2gs5lzzhtumi3qso.o
+│           │   │   │   ├── 2p5z29vvsj0766yu.o
+│           │   │   │   ├── 2psi4pbn05uk9qr8.o
+│           │   │   │   ├── 2ttzi1tcqecvpqnz.o
+│           │   │   │   ├── 2twmz8jrjogycup0.o
+│           │   │   │   ├── 2uay7zm7d8itqjcq.o
+│           │   │   │   ├── 2xv4oshjxwvsfgty.o
+│           │   │   │   ├── 2zpjy85doojygs13.o
+│           │   │   │   ├── 30g53tj0av9jyzwe.o
+│           │   │   │   ├── 323x95f6zp3ysig8.o
+│           │   │   │   ├── 33gbtee7c62dpjx2.o
+│           │   │   │   ├── 38dlg9pxdqlbqsxd.o
+│           │   │   │   ├── 38kq6mmb37lkw48g.o
+│           │   │   │   ├── 3b8506kq643fhpbd.o
+│           │   │   │   ├── 3dgfbtpediftyq4l.o
+│           │   │   │   ├── 3f30hrdd7mi6azn4.o
+│           │   │   │   ├── 3flirjngvvmya218.o
+│           │   │   │   ├── 3i9e07a9iculz68r.o
+│           │   │   │   ├── 3kuvrnvbabykoz9x.o
+│           │   │   │   ├── 3mbt5xsj4xijlglt.o
+│           │   │   │   ├── 3pl6hmmoyhq8ber8.o
+│           │   │   │   ├── 3spybczfuvvwz9n4.o
+│           │   │   │   ├── 3vbomirwzexrnj19.o
+│           │   │   │   ├── 41zvprruerg25a74.o
+│           │   │   │   ├── 48swrtkdn6w853vm.o
+│           │   │   │   ├── 4a3s0w0z4258ba2a.o
+│           │   │   │   ├── 4dtxvadk6wsncrxe.o
+│           │   │   │   ├── 4f8wojyxfe6y3oiy.o
+│           │   │   │   ├── 4fx3tc1m1qeht2ye.o
+│           │   │   │   ├── 4kxgp6zvfr0fsman.o
+│           │   │   │   ├── 4ogg9ghe5gwgyd0j.o
+│           │   │   │   ├── 4ph1jrx0iqsktdl.o
+│           │   │   │   ├── 4szkaws59e2qsmd4.o
+│           │   │   │   ├── 4w5ylgftubk9fb8j.o
+│           │   │   │   ├── 4zlrz9zaoaisg32m.o
+│           │   │   │   ├── 50h80jifedtc6zhf.o
+│           │   │   │   ├── 5339n9l95ghxopqn.o
+│           │   │   │   ├── 54kyaic0rmcsir9o.o
+│           │   │   │   ├── 54w0xyjbcpzba6yu.o
+│           │   │   │   ├── 56adn187w8jjp04p.o
+│           │   │   │   ├── 58mt8czbng3c1bbe.o
+│           │   │   │   ├── 5asdn2r875izixyr.o
+│           │   │   │   ├── 5bkops8ctqkb6q9y.o
+│           │   │   │   ├── 5ddmczke4w8ux4ga.o
+│           │   │   │   ├── 5dp49ij8dkgiz7go.o
+│           │   │   │   ├── 5eb5rvb95iuywo4n.o
+│           │   │   │   ├── bzwzo9kiem8zzfo.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── eem5kzqdv7jmpgp.o
+│           │   │   │   ├── eil1yr9n5shz14f.o
+│           │   │   │   ├── iw3cs74egd1sbgq.o
+│           │   │   │   ├── l3mo5l8wv2oh1v6.o
+│           │   │   │   ├── luh5mlbamorkhpq.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-gdw919v5vm-a9x5nb.lock
+│           │   ├── shell_1-3u5f4sfp5w55t
+│           │   │   ├── s-ge0glb86c1-1ynd0wz-25r1uxng4iwcx
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge0glb86c1-1ynd0wz.lock
+│           │   ├── shell1-3vgo2lconvz5z
+│           │   │   ├── s-ge07t30w94-1e30yuj-3d1j0s65jq4pr
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07t30w94-1e30yuj.lock
+│           │   ├── shell_1-59l6taihruiv
+│           │   │   ├── s-ge07c6kt1b-zwogj7-2ca491ptjdxav
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07c6kt1b-zwogj7.lock
+│           │   ├── shell1-6lq3t9hh8osy
+│           │   │   ├── s-ge07t2yddz-lwyzqm-1pmpid2pwksxq
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07t2yddz-lwyzqm.lock
+│           │   ├── shell1_bin-1vu8yrizlh8bw
+│           │   │   ├── s-ge09oqk892-91j4bl-3sth0h1bk1vg1
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge09oqk892-91j4bl.lock
+│           │   ├── shell1_bin-2pu9dfx15r5xq
+│           │   │   ├── s-ge09oqg5vv-8mpojr-2va5nf5wa4jqj
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge09oqg5vv-8mpojr.lock
+│           │   ├── shell1_bin-380a74gzocbyn
+│           │   │   ├── s-ge09oqg4pr-mqiwg3-25ginz5cdlo9z
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge09oqg4pr-mqiwg3.lock
+│           │   ├── shell1_bin-3hycsa0yzobs0
+│           │   │   ├── s-ge09orihep-164u5gv-3n0wm7376xfs7
+│           │   │   │   ├── 11ydz0negp0ykrj6.o
+│           │   │   │   ├── 24znms5vc47le105.o
+│           │   │   │   ├── 2pz35e26mpjuijjj.o
+│           │   │   │   ├── 3v45c1i326nsxbe4.o
+│           │   │   │   ├── 43c76r3g270g99yw.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── klf8dpvqmbaioef.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge09orihep-164u5gv.lock
+│           │   ├── shell1_bin-3vymzjof26bjv
+│           │   │   ├── s-ge083ltp9r-1b92lbr-35euygm1ee4zs
+│           │   │   │   ├── 14m8oe4l3wo06p4o.o
+│           │   │   │   ├── 18eskknlnosluzss.o
+│           │   │   │   ├── 18ii86gbj80yv01h.o
+│           │   │   │   ├── 1akcqfw962bbegl8.o
+│           │   │   │   ├── 1awgwpp0ol7dtueg.o
+│           │   │   │   ├── 1czfgjkccv8l6ulx.o
+│           │   │   │   ├── 1dw9hur3ccw67nnm.o
+│           │   │   │   ├── 1k8lowtvq5whsdg.o
+│           │   │   │   ├── 1phmtydv0z8kqzxm.o
+│           │   │   │   ├── 1r7clwh9qxvaty9m.o
+│           │   │   │   ├── 1v9lyqgrfp1g7e5o.o
+│           │   │   │   ├── 24sq3p7mo16fesak.o
+│           │   │   │   ├── 2etaxd8vu2brh96f.o
+│           │   │   │   ├── 2hjgi5ya3k5fpgd6.o
+│           │   │   │   ├── 2ks6ufzv5aqppjj1.o
+│           │   │   │   ├── 2og5tg1aq589zr1n.o
+│           │   │   │   ├── 2qmvg4iy54nz0sbc.o
+│           │   │   │   ├── 2xkjpeyziypupt38.o
+│           │   │   │   ├── 2yrtlpawow5sng59.o
+│           │   │   │   ├── 2zhwtaboka6r7ma3.o
+│           │   │   │   ├── 3311sl4szt6vewa9.o
+│           │   │   │   ├── 34f27bglolfrccx9.o
+│           │   │   │   ├── 35vyvlh2v66e7nos.o
+│           │   │   │   ├── 36hlea1w7aoh9vvv.o
+│           │   │   │   ├── 37hw1xu3jhz30oe0.o
+│           │   │   │   ├── 3exkbtbxpp0z7t5i.o
+│           │   │   │   ├── 3f34xf70zmrek3ar.o
+│           │   │   │   ├── 3fyoya0gx0h8wq4b.o
+│           │   │   │   ├── 3g967to5jlbfmqo0.o
+│           │   │   │   ├── 3gg47hgyey6yjcws.o
+│           │   │   │   ├── 3gmjjsxhdus84m26.o
+│           │   │   │   ├── 3gvf1kwad2y6ur5j.o
+│           │   │   │   ├── 3jriw73egze0zsxm.o
+│           │   │   │   ├── 3p9u7cgjl0zmdptl.o
+│           │   │   │   ├── 3r0a0oelga4pb91u.o
+│           │   │   │   ├── 3s2a91vhbata51s7.o
+│           │   │   │   ├── 3syrqv0ht7d1zu6h.o
+│           │   │   │   ├── 3uw8k5ujumvg9y90.o
+│           │   │   │   ├── 3wcp5k8hm485jcrg.o
+│           │   │   │   ├── 44a576mrds41hff9.o
+│           │   │   │   ├── 4ex1kyyxy50ay81k.o
+│           │   │   │   ├── 4g3kpjnszrbcra9c.o
+│           │   │   │   ├── 4g7hojk5zqzfnypg.o
+│           │   │   │   ├── 4gog8ue25ak0wi7r.o
+│           │   │   │   ├── 4hrr7xxuwfm2uek.o
+│           │   │   │   ├── 4jvegqgu3qmairu5.o
+│           │   │   │   ├── 4l91yvgsh8k6mx3v.o
+│           │   │   │   ├── 4ltl28924utq23cj.o
+│           │   │   │   ├── 4og1ul0c3okj2kd4.o
+│           │   │   │   ├── 4p3qeofhmlw0e5tz.o
+│           │   │   │   ├── 4qs3eamhk9map2lg.o
+│           │   │   │   ├── 4sg6q7p8oirkfk4p.o
+│           │   │   │   ├── 4sieltc8yr7cr1rp.o
+│           │   │   │   ├── 4xg3zgpem4vcnv5q.o
+│           │   │   │   ├── 4xvmn4dvq6gg2reg.o
+│           │   │   │   ├── 4z8itk9rrj142hyg.o
+│           │   │   │   ├── 50bh9kcpzgh5chmp.o
+│           │   │   │   ├── 51awh8qja09zkpd.o
+│           │   │   │   ├── 51n8kucfvjv2lmt3.o
+│           │   │   │   ├── 541har1qtsrwavy3.o
+│           │   │   │   ├── 59bmohs4eeuzhxis.o
+│           │   │   │   ├── 5a57yuqao6upg6fw.o
+│           │   │   │   ├── 5a7u2rrgd0r3s989.o
+│           │   │   │   ├── 5cd87exxlft4yk0i.o
+│           │   │   │   ├── 5cj0dit73v4dz09x.o
+│           │   │   │   ├── 5fknvmsrd9bk3b42.o
+│           │   │   │   ├── 5fqv79j94m7i3tvy.o
+│           │   │   │   ├── 8nad751jyxi70zs.o
+│           │   │   │   ├── c80i4a8rb1f9toq.o
+│           │   │   │   ├── d308qalomusd326.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── evd74typ4ugfj0q.o
+│           │   │   │   ├── fh4q1wdg2i8kc30.o
+│           │   │   │   ├── gjnit2enx9y8s02.o
+│           │   │   │   ├── i6krlxa94yj1ys7.o
+│           │   │   │   ├── iuqscdtxjzjce35.o
+│           │   │   │   ├── lax11kmly38s0xl.o
+│           │   │   │   ├── m5egdj8vqypgmei.o
+│           │   │   │   ├── q7brh8u5qc1u87y.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── rb941g9u6cce4ne.o
+│           │   │   │   ├── tc3oof9cxgukgbe.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   └── x29bbh020nnxqfx.o
+│           │   │   └── s-ge083ltp9r-1b92lbr.lock
+│           │   ├── shell1-c5ptl9l8ffll
+│           │   │   ├── s-ge07gnqj8u-fv9flz.lock
+│           │   │   └── s-ge07gnqj8u-fv9flz-working
+│           │   │       └── dep-graph.part.bin
+│           │   ├── shell_1-ifs964xr5uqi
+│           │   │   ├── s-ge07c6gyaa-1raxeyj-jzlao5sexkzh
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge07c6gyaa-1raxeyj.lock
+│           │   ├── shell1_lib-1pc1f55dnm25s
+│           │   │   ├── s-ge09orgkxu-1jgdvkx-ey7m5tz1gyh1
+│           │   │   │   ├── 124bnj55cv88enng.o
+│           │   │   │   ├── 12b3mldoujzhi1na.o
+│           │   │   │   ├── 13x3a1acc1iyd588.o
+│           │   │   │   ├── 14df0tx5fmpzoy6d.o
+│           │   │   │   ├── 16knkoba77g2w463.o
+│           │   │   │   ├── 1ckd3q3pf9lakbsc.o
+│           │   │   │   ├── 1cq9pjbakpyku4x0.o
+│           │   │   │   ├── 1ev012svht2195rf.o
+│           │   │   │   ├── 1kz69g78sj9vgvmh.o
+│           │   │   │   ├── 1leodmi1ofh7n68w.o
+│           │   │   │   ├── 1qfbxyuddytz9aep.o
+│           │   │   │   ├── 1wfkz8oze68jgazf.o
+│           │   │   │   ├── 2472zpvbmyv90zdc.o
+│           │   │   │   ├── 2hk6yk23ab6drafo.o
+│           │   │   │   ├── 2nabafc4uljfrdnc.o
+│           │   │   │   ├── 2za9aqqgm7951jt.o
+│           │   │   │   ├── 2zc0f8nfbfmduffo.o
+│           │   │   │   ├── 2zctr3vjwuxs3f71.o
+│           │   │   │   ├── 36pok453rrh5vqbx.o
+│           │   │   │   ├── 3a1p1poanfra6kyy.o
+│           │   │   │   ├── 3eefnby192zoodih.o
+│           │   │   │   ├── 3i13jxy7htmm56yn.o
+│           │   │   │   ├── 3jjd9c62pekgxcg9.o
+│           │   │   │   ├── 3ka3cyucjtnxmfwb.o
+│           │   │   │   ├── 3kxj8ucg4rt3w46y.o
+│           │   │   │   ├── 3t1x8pkg8h2lfz4d.o
+│           │   │   │   ├── 3u7p8qxayuutjlt1.o
+│           │   │   │   ├── 3xnk7wemxenai5d0.o
+│           │   │   │   ├── 3y1hnzh2sqyp29an.o
+│           │   │   │   ├── 48dsyorje5byavni.o
+│           │   │   │   ├── 4hkh3gusamj3ddjo.o
+│           │   │   │   ├── 4jtfp1pip4fswh0u.o
+│           │   │   │   ├── 4p2rpoawe5n9mfgb.o
+│           │   │   │   ├── 4pdsl1bo4ddp3kqs.o
+│           │   │   │   ├── 4uydd10gshehay6i.o
+│           │   │   │   ├── 508n7zrioyaceoc1.o
+│           │   │   │   ├── 537bwsc86aay1aiw.o
+│           │   │   │   ├── 55fu8iwsup22kkjt.o
+│           │   │   │   ├── 5akh969rzydkujw7.o
+│           │   │   │   ├── 5b66vp8y4frnrpea.o
+│           │   │   │   ├── 8w5ozqovs0fwwa0.o
+│           │   │   │   ├── 963odbi7epcm5yo.o
+│           │   │   │   ├── clrad2hf50k1fdh.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── niqudv6qx19bfjw.o
+│           │   │   │   ├── pugkgb6rgggmy9p.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── ry1o00f655ewqlx.o
+│           │   │   │   ├── tb9k0pmym1285gf.o
+│           │   │   │   ├── tpckbw563uaybpe.o
+│           │   │   │   ├── uiqlfg2rxjgthch.o
+│           │   │   │   ├── vgz503wc0l19025.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   ├── xsiezlap47oaqni.o
+│           │   │   │   └── zmy8y97hr249m88.o
+│           │   │   └── s-ge09orgkxu-1jgdvkx.lock
+│           │   ├── shell1_lib-97p6obyztz2m
+│           │   │   ├── s-ge09oqfbr5-126hs9y-5ej9d0bumeh
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge09oqfbr5-126hs9y.lock
+│           │   ├── shell1_lib-xbckrygjrmyp
+│           │   │   ├── s-ge09orgl7n-1kdo65y-2rkqc9zzytrix
+│           │   │   │   ├── 119m0qx1qeu6l9vg.o
+│           │   │   │   ├── 17vpy84lt871aqhc.o
+│           │   │   │   ├── 1afjh4kjzgsug4ng.o
+│           │   │   │   ├── 1avfjtt0k94yarpg.o
+│           │   │   │   ├── 1fh13f5xp0vcrr2g.o
+│           │   │   │   ├── 1jo5f4m2jhw3p3kg.o
+│           │   │   │   ├── 1mog0ockljeowqy1.o
+│           │   │   │   ├── 1oqx9ba60i5q5lqm.o
+│           │   │   │   ├── 1pqpf2lwi0x385qf.o
+│           │   │   │   ├── 1u14j4brxk80idjq.o
+│           │   │   │   ├── 1uka3rmpp9uxkffj.o
+│           │   │   │   ├── 1xmukqiwh85wjvtz.o
+│           │   │   │   ├── 2175jpvqhqhesla2.o
+│           │   │   │   ├── 22eenxp3an1kpnzn.o
+│           │   │   │   ├── 23sk0ia36tzgg6ow.o
+│           │   │   │   ├── 25rau3w1r0a3poez.o
+│           │   │   │   ├── 25zmn9bggyt5p01w.o
+│           │   │   │   ├── 2bidwdqf3tb3r8u5.o
+│           │   │   │   ├── 2fboqidtpl6n8ixa.o
+│           │   │   │   ├── 2gtcrv0q72yi5c23.o
+│           │   │   │   ├── 2iad1wegnhel34yl.o
+│           │   │   │   ├── 2mym2iumnlu83nm2.o
+│           │   │   │   ├── 2n489ogju3fdk88h.o
+│           │   │   │   ├── 2pzmrpyw1e7yx52x.o
+│           │   │   │   ├── 2zrncu19hx18tn6r.o
+│           │   │   │   ├── 30d1vdx185nmiriv.o
+│           │   │   │   ├── 33j8eifp6xj7bpuj.o
+│           │   │   │   ├── 35s2wczoh00cbbrb.o
+│           │   │   │   ├── 39g7ybtbwohfcmsg.o
+│           │   │   │   ├── 39m9keugx9aqmiz2.o
+│           │   │   │   ├── 3aivgqdw63xzvz8w.o
+│           │   │   │   ├── 3b7b881k093w50gh.o
+│           │   │   │   ├── 3e2t5ommjkhz5uq6.o
+│           │   │   │   ├── 3e84s666id60yh5v.o
+│           │   │   │   ├── 3fk3c2wr4jf5acv3.o
+│           │   │   │   ├── 3h3iaqh8srst2p5b.o
+│           │   │   │   ├── 3nu5hlc5vaotxq0x.o
+│           │   │   │   ├── 3s1kmeakdcfgj8qq.o
+│           │   │   │   ├── 3wgphq1ky1oezjzz.o
+│           │   │   │   ├── 3wkaf8nw8q6yitbf.o
+│           │   │   │   ├── 3xrb9ifjebquuc49.o
+│           │   │   │   ├── 40iub3sugqqn4fzp.o
+│           │   │   │   ├── 450bt4rjrs5w3mbt.o
+│           │   │   │   ├── 45fr92jf8353dye5.o
+│           │   │   │   ├── 45nqfh05zrsjiysv.o
+│           │   │   │   ├── 47og3x3ublg67w9m.o
+│           │   │   │   ├── 48chat1750wk3bgw.o
+│           │   │   │   ├── 4a90nt5l52vj4vul.o
+│           │   │   │   ├── 4aypepfhoyb1hasz.o
+│           │   │   │   ├── 4ccukav2xkg11tqq.o
+│           │   │   │   ├── 4d71hbiapn4oi1tm.o
+│           │   │   │   ├── 4dembpiv8nvql860.o
+│           │   │   │   ├── 4gafm9nhe5b4p3wp.o
+│           │   │   │   ├── 4hqf3qe762ouvove.o
+│           │   │   │   ├── 4j3a7m2qa2zrbkwx.o
+│           │   │   │   ├── 4og6a497llc1qc.o
+│           │   │   │   ├── 4potf9pvhvp4sm2m.o
+│           │   │   │   ├── 4pr36jthbfb1qxha.o
+│           │   │   │   ├── 4sp0zdkjp3edy6ey.o
+│           │   │   │   ├── 4t2hhzdwn29wx8vo.o
+│           │   │   │   ├── 4ynlb4nipds7ivan.o
+│           │   │   │   ├── 531rfrfhb7k7viyq.o
+│           │   │   │   ├── 53zjmksahwjrhiqh.o
+│           │   │   │   ├── 55az0o7mbkyubyv6.o
+│           │   │   │   ├── 572mtyp3hpgbyo91.o
+│           │   │   │   ├── 5783rwhgkin1b54a.o
+│           │   │   │   ├── 579gh7kw1xffej6y.o
+│           │   │   │   ├── 586dxtckmqzq8eow.o
+│           │   │   │   ├── 58m4nl2ywn3uow5j.o
+│           │   │   │   ├── 58nzb0b8m6cgnexu.o
+│           │   │   │   ├── 5adrca9ftjfqratn.o
+│           │   │   │   ├── 5bxsznd3txipkcr1.o
+│           │   │   │   ├── 5cvlq42sfhfv8yvw.o
+│           │   │   │   ├── 6npupchobsdnmze.o
+│           │   │   │   ├── 6v6bo1cgfsejhpr.o
+│           │   │   │   ├── 75754cdvgn7qlro.o
+│           │   │   │   ├── 8kz0ti5y6tjaonu.o
+│           │   │   │   ├── 8lu6sz1c91ysxh9.o
+│           │   │   │   ├── 8rj3iqrafa0pgyv.o
+│           │   │   │   ├── 9a5rag0w8ad54jt.o
+│           │   │   │   ├── amv895zbvh9tal9.o
+│           │   │   │   ├── b3kf6gn1504kvwr.o
+│           │   │   │   ├── bnr3cmjfobbtv9j.o
+│           │   │   │   ├── c2ji3tenf0la32l.o
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── g2i2frdgflmde1x.o
+│           │   │   │   ├── gy0tr8o404yjqey.o
+│           │   │   │   ├── j2m7tmdec45x0x5.o
+│           │   │   │   ├── k9jopdh0vwqml4r.o
+│           │   │   │   ├── l9osrip3w24jntk.o
+│           │   │   │   ├── lyzjgnspoy4vojl.o
+│           │   │   │   ├── okyfvftaen4hets.o
+│           │   │   │   ├── q9y65ske4ys0wny.o
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   ├── r1vqbojnz3te3ux.o
+│           │   │   │   ├── r2pyap14k9tj24v.o
+│           │   │   │   ├── r4srz50zpq58vtv.o
+│           │   │   │   ├── tfa2bzfi6sl5npp.o
+│           │   │   │   ├── tsttg7qkeqt59h8.o
+│           │   │   │   ├── work-products.bin
+│           │   │   │   ├── y7ctz184ggom2h1.o
+│           │   │   │   └── z9j8jjhrtgt1a2j.o
+│           │   │   └── s-ge09orgl7n-1kdo65y.lock
+│           │   ├── shell1_lib-z0hpqbs2d3ko
+│           │   │   ├── s-ge09oqj081-1uzjhr5.lock
+│           │   │   └── s-ge09oqj081-1uzjhr5-r3xiix40jl9q
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell1_lib-zlsdpkuyfmcm
+│           │   │   ├── s-ge09oqfbr4-130nzql-1qn7rt22z33r4
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   └── s-ge09oqfbr4-130nzql.lock
+│           │   ├── shell1-mn5tn2ilvfxk
+│           │   │   ├── s-ge07gmbudv-1izmf0a.lock
+│           │   │   └── s-ge07gmbudv-1izmf0a-working
+│           │   │       └── dep-graph.part.bin
+│           │   ├── shell_1-pgjr7loc5g9t
+│           │   │   ├── s-gdwq25bnhf-sct1fk-1yob6ce933i5s
+│           │   │   │   ├── dep-graph.bin
+│           │   │   │   ├── query-cache.bin
+│           │   │   │   └── work-products.bin
+│           │   │   ├── s-gdwq25bnhf-sct1fk.lock
+│           │   │   ├── s-gdwq2midau-2007ji.lock
+│           │   │   └── s-gdwq2midau-2007ji-working
+│           │   │       ├── dep-graph.bin
+│           │   │       ├── dep-graph.part.bin
+│           │   │       ├── query-cache.bin
+│           │   │       └── work-products.bin
+│           │   ├── shell1-rctyhbiiue9g
+│           │   │   ├── s-ge07gnqi0k-sn3e67.lock
+│           │   │   └── s-ge07gnqi0k-sn3e67-working
+│           │   │       └── dep-graph.part.bin
+│           │   └── shell_1-rcywyngd2y9q
+│           │       ├── s-gdw4sgq3xf-1pkrgl-2sxeswiahue49
+│           │       │   ├── dep-graph.bin
+│           │       │   ├── query-cache.bin
+│           │       │   └── work-products.bin
+│           │       ├── s-gdw4sgq3xf-1pkrgl.lock
+│           │       ├── s-gdw4w4p5mp-yp4qha.lock
+│           │       └── s-gdw4w4p5mp-yp4qha-working
+│           │           ├── dep-graph.bin
+│           │           ├── dep-graph.part.bin
+│           │           ├── query-cache.bin
+│           │           └── work-products.bin
+│           ├── libshell1.d
+│           ├── libshell1_lib.d
+│           ├── libshell1_lib.rlib
+│           ├── libshell1.rlib
+│           ├── shell-1
+│           ├── shell1
+│           ├── shell1_bin
+│           ├── shell1_bin.d
+│           ├── shell-1.d
+│           └── shell1.d
 ├── simulations
 │   ├── attractors
 │   │   ├── 00_attractor.ipynb
@@ -2279,384 +4110,620 @@ structure into my workflow:
 ├── yaml_json.py
 └── ydone.yaml
 
-335 directories, 1736 files
+585 directories, 3315 files
 
 ```
 
 ## History
 
 ```
-*   05a1f90 (HEAD -> master, origin/master) Merge branch 'finch'
+*   7ba6c15 (HEAD -> master) Merge branch 'comp-ext-infrastructure'
 |\  
-| *   74a98a7 (origin/finch, finch) Add 'finch/' from commit '619eb998622fea85c120fffe7356b7ac67843de6'
-| |\  
-| | *   619eb99 Merge branch 'transpiler-python' into repo-merging
-| | |\  
-| | | * bf2a5ab add more examples for testing
-| | | * 08cf83a add misc. method/function skeletons
-| | | * 519b20c add method for converting tokens in parse tree/AST to Python source strings
-| | | * 32ecafd add helper methods for Node class
-| | | * c9a76cf add Node class for representing generic AST nodes of parsed Finch programs
-| | | * 82e6d45 add class for representing tokens in AST (parsed by Lark)
-| | | * 3988e3c misc. tweaks to grammar
-| | | * dd3e404 add lark tree parser (using LALR algorithm)
-| | | * e008c05 create parser.py
-| | | * dcea534 add overview of compilation process
-| | | * 0061b20 add summary of transpiler branch goals
-| | | * 13b9169 add arithmetic operation examples for transpiler testing
-| | | * eed14f7 convert some rules to terminals (strings)
-| | | * 4ff3c75 fix some lark grammar syntax issues
-| | | * fa2c5b6 convert grammar specification to format compatible with lark
-| | * |   442c979 Merge branch 'std-web' into repo-merging
-| | |\ \  
-| | | * | 1c197ed add high-level overview of web module
-| | | * |   e9508f0 Merge branch 'meta' into std-web
-| | | |\ \  
-| | * | \ \   7f24ef6 Merge branch 'std-dictionary' into repo-merging
-| | |\ \ \ \  
-| | | * | | | ad9d83e add base for dictionary module/type
-| | | * | | |   7ed7ed2 Merge branch 'meta' into std-dictionary (for .gitignore)
-| | | |\ \ \ \  
-| | | | * | | | 240410b add gitignore
-| | | | * | | | 182ba85 generate table of contents and code statistics
-| | | | | |/ /  
-| | | | |/| |   
-| | | * | | | 10c9528 add collection module base
-| | | | |/ /  
-| | | |/| |   
-| | * | | |   a95bc30 Merge branch 'book' into repo-merging
-| | |\ \ \ \  
-| | | * | | | 6d27e35 add section about basic numeric types
-| | | * | | |   f21872a Merge branch 'meta' into documentation
-| | | |\ \ \ \  
-| | | | | |/ /  
-| | | | |/| |   
-| | | | * | | ec8c607 add summaries of new stdlib branches
-| | | | * | | aea48d7 add descriptions of some new(er) branches
-| | | * | | | 6865212 add intro section of manual
-| | | | |_|/  
-| | | |/| |   
-| | * | | |   3387816 Merge branch 'cpp-parser' into repo-merging
-| | |\ \ \ \  
-| | | * | | | e8aa858 use fmt library to display (nested) AST nodes
-| | | * | | | f6fe6c5 helper method for adding subnodes; make context stack a vector of references
-| | | * | | | 2ee943a fix name conflict
-| | | * | | | 2e9bb97 fix various structural issues with current parser
-| | | * | | | 37f684b create separate lexing function for simplicity and efficiency
-| | | * | | | ca85d94 add comments to parsechar
-| | | * | | | 00df526 fix segfault introduced in 965e09
-| | | * | | |   62a676d Merge branch 'cpp-runtime' into cpp-parser
-| | | |\ \ \ \  
-| | | * | | | | 965e098 process tuple forms (nodes grouped with parentheses)
-| | | * | | | | 5734e9b minor refactoring
-| | | * | | | | cda4f4f handle some common tokens
-| | | * | | | | 55b2f85 add basic token categorization
-| | | * | | | | 60d239f add more node types; add more node (class) properties
-| | | * | | | | 31cd948 add helper methods to Node class
-| | | * | | | | 6285d93 add parser base
-| | * | | | | |   956b97a Merge branch 'std-error' into repo-merging
-| | |\ \ \ \ \ \  
-| | | * \ \ \ \ \   5d6a45f Merge branch 'std-warning' into std-error
-| | | |\ \ \ \ \ \  
-| | | | * | | | | | fe26240 add skeleton for parser style warnings
-| | | | * | | | | | 98a26a3 add templates for infinite loop/recursion warnings
-| | | | * | | | | | 1255040 add depreciation warning template
-| | | | * | | | | | 87bd7e1 add base for warning type
-| | | * | | | | | | de4f66e add skeleton for filesystem-related errors
-| | | * | | | | | | 005aee3 add value exception templates
-| | | * | | | | | | 8895cb6 add some basic access error types
-| | | * | | | | | | 67e9a96 add template for a basic assertion error
-| | | |/ / / / / /  
-| | | * | | | | / 7e85759 add base for error type
-| | | | |_|_|_|/  
-| | | |/| | | |   
-| | * | | | | | 0e0e793 Merge branch 'stdlib' into repo-merging
-| | |\| | | | | 
-| | | * | | | | c92678d add wrapper for standard library types and functions
-| | * | | | | |   20f17d4 Merge branch 'cpp-interpreter' into repo-merging
-| | |\ \ \ \ \ \  
-| | | * | | | | | 9727be4 add helper function to traverse scope list, search for name/identifier
-| | | * | | | | | 63e5c93 add class to (tentatively) represent actual objects/values during execution (as opposed to syntactic structures)
-| | | * | | | | | 9cd347c add virtual functions to represent attributes of Node subtypes
-| | | * | | | | | 0013998 add interpreter boilerplate code (with declarations taken from runtime.cpp)
-| | | | |_|/ / /  
-| | | |/| | | |   
-| | | * | | | | c2d2216 add some comments to inside of nodetype enum
-| | | * | | | | 89b0c16 add comments to top-level items
-| | | | |/ / /  
-| | | |/| | |   
-| | | * | | | 6a26b13 add base class for AST nodes
-| | | * | | | 56ed202 create draft of nodetype enum
-| | | | |/ /  
-| | | |/| |   
-| | * | | |   838398c Merge branch 'specification' into repo-merging
-| | |\ \ \ \  
-| | | * | | | f7eb2c6 add grammar rules for operations and common expressions
-| | | * | | | 1f1c10f add description of string and numeric literals
-| | | * | | | 35cf064 add (some) other ASCII characters
-| | | * | | | e7a8ebb add ASCII alphabet
-| | | * | | | d73b318 add grammar.ebnf
-| | | | |_|/  
-| | | |/| |   
-| | | * | | 7d85b80 add summary of branches in repository
-| | | |/ /  
-| | * | | 058099e Update README.md
-| | * | | f7bc926 add note about main branch
-| | |/ /  
-| | * / bf57c17 discuss potential applications of Finch
+* \   73ff7a6 (origin/master) Merge branch 'ap-todo'
+|\ \  
+| | | * a3315af (refs/stash) WIP on cei-py: cb15479 fix style issues (compile.py)
+| | |/| 
+| | | * 7483486 index on cei-py: cb15479 fix style issues (compile.py)
 | | |/  
-| | * 6c37f55 add disclaimer about language development status
-| | * f768c45 add README.md
-| | *   32c9d09 (origin/lyre-impl, lyre-impl) Merge branch 'lyre-code-style' into lyre-impl
+| | * cb15479 (origin/cei-py, comp-ext-infrastructure, cei-py) fix style issues (compile.py)
+| | * e7aa738 add Node and Token wrapper classes
+| | *   1cf50f0 Merge branch 'cei-lib' into cei-py
 | | |\  
-| | | * 7b58c17 (origin/lyre-code-style, lyre-code-style) improve readability/layout of some code
-| | | * 4ccd493 address (some) compiler warnings in node.rs
-| | | * e6c9efc (origin/lyre-arith, lyre-arith) support modulo (remainder) operator
-| | * | 8033638 add Source struct
-| | |/  
-| | * b467664 (origin/lyre-tests, origin/lyre-interpreter, lyre-tests, lyre-interpreter) add power operator (**) for numeric values
-| | * 98248fc implement exponentiation operator for Value
-| | * 6d862d7 implement exponentiation operator for ValueType
-| | * 114ae1c remove unused imports from main.rs
-| | * 6727d62 handle variable access (by name)
-| | * b45fdf6 handle variable assignment
-| | * b039f42 pass symbol table to Node.evaluate when recursively interpreting AST nodes
-| | * dab78af handle general function calls (i.e., not builtins)
-| | * 8706d42 add some more testing examples
-| | * 3b83e5d (origin/lyre-parser, lyre-parser) add helper function for entering a new (nested) form/subnode
-| | * 3d1f694 add simple logging to parser function
-| | * 3df513e add verbose (logging) flag to lexing function
-| | * b5b3892 move parsing code into separate function (and corresponding module)
-| | * e359b7f (origin/lyre-restructuring, lyre-restructuring) move lexing function to separate module
-| | * 3d61b87 move Value struct and ValueType enum to their own module
-| | * adf15aa move (parts of) Node struct implementation to appropriate module
-| | * 5db2fbe move Node struct and NodeType enum to node module
-| | * 7905f3b move CharType enum to new module
-| | * 40760f2 move Token struct into separate module
-| | * ceecb12 fix cargo errors
-| | | *   87d138c (refs/stash) WIP on lyre-docs: c56e2ed add installation section to README
+| | | * ee0f3fa (cei-lib) add draft of linked list module
+| | | *   4b94113 (origin/cei-lib) Merge branch 'lyre-transpiler' into cei-lib
 | | | |\  
-| | | | * 0cca67d index on lyre-docs: c56e2ed add installation section to README
-| | | |/  
-| | | * c56e2ed (origin/lyre-docs, lyre-docs) add installation section to README
-| | | | * 52690fd (origin/lyre-spec, lyre-spec) add details about compound form syntax
-| | | | * cfd5cff add general definition of forms (expressions) that comprise a program
-| | | | * 8b8e2ef add specification.md
-| | | | | * 44615f9 (origin/rust-fluid-sim, rust-fluid-sim) move fluid sim files to simulations subdirectory
-| | | | | * 14e77b2 update particle position based on velocity vector
-| | | | | * 31de0b5 add Particle struct that stores additional information
-| | | | | * 4d823c6 render ASCII representation of points in simulation
-| | | | | * 1437f4a randomly generate set of points to initialize simulation
-| | | | | * c3c5c50 add point struct (and constructor function)
-| | | | | * 2f7b8b8 import relevant crates
-| | | | | * 3adc403 add Cargo files
+| | | | * 6030d33 (origin/lyre-transpiler, origin/lyre-interpreter, lyre-transpiler, lyre-interpreter) update lex function to take a String as input
+| | | | *   0c295ec Merge branch 'master' into lyre-transpiler
+| | | | |\  
 | |_|_|_|/  
 |/| | | |   
-| | | | | * bea094d (origin/lyre-comments, lyre-comments) add summary comment to NodeType enum
-| | | |_|/  
-| | |/| |   
-| | * | | 64c8abc generate implementations of other basic arithmetic operators
-| | * | | 319a6cb add macro for generating Value struct operator implementations
-| | * | | 6cfca0b fix scoping issue with local variables and macro call
-| | * | | 0d024c0 add declarative macro to construct operator match arm(s)
-| | * | | f23d537 fix evaluation of addition operator
-| | * | | 27d7b40 use a declarative macro to generate implementations of other operators
-| | * | | aea49ce impl Add for Value
-| | * | | e6a442e implement Add for ValueType (int types only thus far)
-| | * | | 2619163 specify token type in calls to constructor
-| | * | | 3d3bdd3 handle string conversion of integer types
-| | * | | 9eb00fa update lexer to handle digit sequences
-| | * | | b81dbce handle integer literal tokens in node evaluation code
-| | * | |   910336f Merge branch 'lyre-parser' into lyre-interpreter
-| | |\ \ \  
-| | | * | | 27a8a22 update parser code to use new NodeType enum
-| | | * | | f414958 add enum to represent AST node types
-| | * | | | 4a45ad5 add "verbose" flag to evaluate method for Node struct
-| |/ / / /  
-|/| | | |   
-| | | | | * 7defa4a (origin/metadata, metadata) add information about new lyre language project branches
-| | | | | * 1f52976 add information for lyre-related branches
-| | | | | * 3218117 add information about nushell-related branches
-| | | | | | * 4c2666b (origin/rffrrr, rffrrr) add cargo metadata files
-| | | | | | * 390b061 add README.md
-| | | | | | | * 5ebe841 (origin/stdlib, stdlib) add (some) collection types
-| | | | | | | * f585250 add primitive types
-| |_|_|_|_|_|/  
-|/| | | | | |   
-* | | | | | | faa89fa (origin/aug-esolang, aug-esolang) Rebuild project
-| |_|_|/ / /  
-|/| | | | |   
-* | | | | |   e266c2a (origin/lyre, lyre) Merge branch 'lyre-comments' into lyre-impl
-|\ \ \ \ \ \  
-| |_|/ / / /  
-|/| | | | |   
-| * | | | | 530d3fb add comments to Value implementation of fmt::Display
-| * | | | | c101afc more comments (misc.)
-| * | | | | 7998efc add some much-needed spacing
-| * | | | | 9ddb1c6 add top-level comment to string literal matching block
-* | | | | | 1b9ea12 fix string literal parsing
-|/ / / / /  
-* | | | | c304390 improve evaluate method logging
-* | | | | fa5fd9c convert token nodes wrapping strings into Values containing strings
-* | | | | de70070 unwrap ValueType enum variants and convert to Strings for printing
-* | | | | 2f8d413 fix evaluation order (pattern matcher)
-* | | | | 65e851e add some logging to evaluation method
-* | | | | 3a5e283 fix None unwrapping panics
-* | | | | e6510be make node content a single (optional) token
-* | | | | c28c6ff miscellaneous
-* | | | | 3521567 address some borrow checker complaints
-* | | | | 8d81b07 add bounds checks to form pattern matcher
-* | | | | df24467 implement Display for Value
-* | | | | b9ed56c use ValueType (enum) instead of Node (struct) for native datatypes
-* | | | |   f1fcf2e Merge branch 'lyre' into lyre-interpreter
-|\ \ \ \ \  
-| * \ \ \ \   767125c Merge branch 'lyre-impl' into lyre
-| |\ \ \ \ \  
-| | |_|/ / /  
-| |/| | | |   
-| | * | | |   6004a34 Merge branch 'lyre-interpreter' into lyre-impl
+| | | | *   38677a2 Merge branch 'lyre' into lyre-transpiler
+| | | | |\  
+| | | | | * 060b8d8 (origin/lyre, lyre) update .gitignore
+| | | | * | 0727e9b transpile Program-type nodes to C code
+| | | | * | 24f63b7 add base for transpile method
+| | | | * |   32c9d09 (origin/lyre-impl, lyre-impl) Merge branch 'lyre-code-style' into lyre-impl
+| | | | |\ \  
+| | | | | * | 7b58c17 (origin/lyre-code-style, lyre-code-style) improve readability/layout of some code
+| | | | | * | 4ccd493 address (some) compiler warnings in node.rs
+| | | | | * | e6c9efc (origin/lyre-arith, lyre-arith) support modulo (remainder) operator
+| | | | * | | 8033638 add Source struct
+| | | | |/ /  
+| | | * | | 56a0e22 split stdlib.z into several files/modules
+| | * | | |   9704d7c Merge branch 'finch-compiler-codegen' into cei-py
 | | |\ \ \ \  
-| | * \ \ \ \   1d8aa2d Merge branch 'lyre-parser' into lyre-impl
-| | |\ \ \ \ \  
-| | | * | | | | e0cdce7 correctly handle leading whitespace
-| | | * | | | | 9a3b7bc rename syntax sample/example snippet
-| | | * | | | | e16f539 lex square brackets (groupings) correctly - previously could cause issues with consecutive brackets
-| | | * | | | | 16d66ba fix unnecessarily mutable variables
-| | | * | | | | a0c2c46 parse nesting forms via indentation (leading whitespace)
-| | | * | | | | 40b63e2 fix some (relatively) minor lexing issues
-| | | * | | | | 75a4009 display type of each node (incomplete)
-| | | * | | | | e683615 misc. lexing improvements
-| | | * | | | | 37333e9 miscellaneous
-| | | * | | | | 6bb50eb add helper method for printing ASTs
-| | | * | | | | 9bb8d4a move lexing code into separate function
-| | | * | | | | 7a88941 add comments to lexer code
-| | | * | | | | e9b054e add comments to parsing code
-| | | * | | | | de95bb3 add doc comments to other node-related methods
-| | | * | | | | 4473e5f add comments to Node struct
-| | | * | | | | 687ac5f add doc comments to some custom structs/functions
-| | | * | | | | ccc5945 process standalone symbols
-| | | * | | | | 92d7664 remove unused code
-| | | * | | | | 475ad6e access tree paths via index lists
-| | | * | | | | db9ccb8 use index-based stack to avoid borrow checker issues
-| | * | | | | | aa369f1 add Cargo.lock
-| * | | | | | | c3b71fe add string literal (and string function) examples
-| * | | | | | | 5503806 add alternative operator names
-| * | | | | | | 243d645 add arithmetic operator examples
-| * | | | | | | 386100e add hello world example
-| * | | | | | | 197e947 add basic usage information
-* | | | | | | | d3ad49b comment ValueType
-* | | | | | | | e8771aa add ValueType enum
-* | | | | | | | a9fbc6b evaluate println built-in function
-| |_|_|/ / / /  
-|/| | | | | |   
-* | | | | | | 22eb57e evaluate print function calls
-* | | | | | | f0f344e add some doc comments to evaluate() method
-* | | | | | | 3fb6d3d allow progn-like compound forms (evaluate to result of last sub-expression)
-* | | | | | | 34047a6 process (function) definitions using def keyword
-* | | | | | | c688d4d add Value struct
-| |_|/ / / /  
-|/| | | | |   
-* | | | | | e287042 add lyre parser base (draft)
-* | | | | | b48a4b2 implement simple lexer to convert source into sequence of tokens
-* | | | | | 159cdc6 read source file
-* | | | | | bf38e11 implement Display (and implicit ToString) for Node struct
-* | | | | | cd5f701 add Node struct
-* | | | | | b2e52a5 add CharType enum
-* | | | | | 3f253d6 add Token convenience constructor
-* | | | | | 0dddb8b add fmt::Display implementation (Token struct)
-* | | | | | 21698e2 add struct for representing tokens
-| |/ / / /  
-|/| | | |   
-* | | | | ec26260 add main.rs
-* | | | | ed091a3 add Cargo.toml
-|/ / / /  
-* | | | 0433a28 add README.md
-| | | | * 540015d (origin/nu-todo, origin/nu-fs, nu-todo, nu-fs) patch script to use external recurring task list
-| | | | | * 667e9ee (origin/nu-ocr, nu-ocr) update gitignore
-| | | | | * 8fe2a9d add options for recursive directory traversal while scanning media
-| | | | | | * 521e691 (origin/lyre-stdlib-errors, lyre-stdlib-errors) add exception-related helper methods
-| | | | | | * 8c61f86 add skeleton for stdlib errors module
-| | | | | | * 45ade2b (origin/lyre-stdlib, lyre-stdlib) add dictionary (hash map) class skeleton
-| |_|_|_|_|/  
-|/| | | | |   
-* | | | | | 9979ca1 add basic EBNF-like grammar for lyre syntax
-* | | | | | 5a6bd5c add convenience function for testing divisibility
-| |_|/ / /  
-|/| | | |   
-* | | | | e27d506 Rebuild project
-* | | | |   70ee940 (origin/nushell-testing, nushell-testing) Merge branch 'nu-todo' into nushell-testing
-|\ \ \ \ \  
-| | |_|/ /  
-| |/| | |   
-| * | | | 8a974b0 use absolute file paths
-| * | | | f80e498 add --dry option for executing dry runs
-| * | | | daf2ace add basic todo processing script with nushell
-| | |_|/  
-| |/| |   
-| * | |   1fd2c88 Merge branch 'master' into nu-ocr
-| |\ \ \  
-| * \ \ \   4b7c024 Merge branch 'master' into nu-ocr
-| |\ \ \ \  
-| * | | | | d3d22bc add simple nushell script for running OCR on images
-* | | | | | 801c9fd add word entropy computation experiment
-* | | | | | 97cf5e6 add hash compression experiment (nu)
-* | | | | | d29b94c add simple nushell prime number generator
-|/ / / / /  
-| | | | | *   7ad5bc8 (origin/meta, meta) Merge branch 'scripts' into meta
-| | | | | |\  
-| | | | | | * e4225dd (origin/scripts, scripts) update script paths
-| | | | | | * d643ca3 move repo/meta scripts to new directory
+| | | |/ / /  
+| | |/| | |   
+| | | * | | 626035a (origin/finch-compiler-codegen, finch-compiler-codegen) handle basic expression compilation (targeting C)
+| | * | | | de0da1a make some small QOL changes to grammar
+| | * | | | f2b4a0f make grammar and stdlib.z draft completely compatible
+| | * | | | 52546cb clean up grammar
+| | * | | | f042b63 various improvements to grammar
+| | * | | | b47389c make syntax of stdlib.z draft more consistent
+| | * | | |   fb382c0 Merge branch 'cei-lib' into cei-py
+| | |\ \ \ \  
+| | | * | | | a153e06 (origin/cei-lib-docs, cei-lib-docs) improve Counter.to method (and add documentation)
+| | | * | | | e96574e add comments to argmin and argmax
+| | | * | | | c46339d add comments to min/max functions
+| | | * | | | f4c34f2 misc.
+| | | * | | | 8b65d64 add methods for shuffling sequences (via Fisher-Yates)
+| | | * | | | 4f6193b add example of higher-order function for memoization
+| | | * | | | d522894 miscellaneous
+| | | * | | | 3ec6c46 add more tools for iterators
+| | * | | | | 7df9870 add simplified version of grammar
+| | * | | | | 9c5b6c8 update stdlib.z to match new grammar
+| | * | | | | a60893d more grammar improvements
+| | * | | | | 09e524a update grammar to more closely match sample code (stdlib.z)
+| | * | | | | 56646fb add simple parser base
+| | * | | | | c021e87 Merge branch 'cei-lib' into cei-py
+| | |\| | | | 
+| | | * | | | 9ed4dab add counter class
+| | | * | | | fcb280c add some functions for working with number-like values
+| | | * | | | 293272d implement fold/reduce
+| | | * | | | 9ce3c58 add function composition and iteration HOFs
+| | | * | | | 31b0d5b add "map" higher-order functions over iterators (draft)
+| | * | | | | 11a3982 add PEG rules for several C-like language constructs
+| | * | | | | dd06743 add lark grammar with common terminals
+| | |/ / / /  
+| | | | | | * 792a3fe (origin/cei-examples, cei-examples) add "hello world" experiments
 | | | |_|_|/  
 | | |/| | |   
-| | | | | * 7bcb566 add some miscellaneous notes about monorepo
-| | | |_|/  
-| | |/| |   
-| | * | | 7d6f7b5 add more comments to build.py
-| | * | | dc49f9d include project languages in tags/labels
-| | * | | ad2fbf6 update metadata file paths in build.py
-| | * | |   4761cf3 Merge branch 'master' into meta
-| | |\ \ \  
-| | * \ \ \   487ebe4 Merge branch 'metadata' into meta
+| | * | | | f0f95f4 (origin/comp-ext-infrastructure, cei-docs) add simple code sample (palindrome testing)
+| | * | | | f6a955e add set of planned code filters
+| | * | | |   8891e2a Merge branch 'ap-todo' into comp-ext-infrastructure
 | | |\ \ \ \  
-| | | | |_|/  
-| | | |/| |   
-| | | * | | ee66233 move metadata files to new subdirectory
-| | | * | | 94df33a add labels to new projects
-| | | * | | 59c1fee add (some) newly integrated/started projects
-| | | * | | f89fef9 add abbreviations for some projects/branches
-| | | * | | b8df567 add yaml-serialized list of directories with descriptions of each
-| | * | | | a727435 alphebatize project and branch lists
+| | | * | | | 275d249 (origin/ap-todo, ap-todo) fix relative import issue
+| | | * | | | 0b6118b add dedicated logging function
+| | | * | | | 607193a fix spacing in todo.py
+| | | * | | |   ab9993e Merge branch 'pylist' into ap-todo
+| | | |\ \ \ \  
+| | | | * | | | 45616ac (origin/pylist, pylist) add high-level overview of List class
+| | | | * | | | 796f79f move List class to separate module
+| | |_|/ / / /  
+| |/| | | | |   
+| | | * | | | 2766665 add comments to todo class attributes
+| | | * | | | f01d9ed make single commit for all file modifications
+| | | * | | | d724c59 add some basic logging functionality
+| | |/ / / /  
+| |/| | | |   
+| * | | | | c43451d (ap-todo-testing) add docstrings to other List methods
+| * | | | | df5fc52 fix pyramid(s) of doom
+| * | | | | e548cb4 add docstrings to some List class methods
+| * | | | | 9966415 improve flake8 compliance
+| * | | | | dba4382 refactor todo.py using new List class
+| * | | | | 87ea8f8 add methods to List class
+| * | | | | 4f67ec6 add List helper class
+| * | | | | 45afd9d add some comments, etc.
+| * | | | | c292e5b add --flush flag for resetting stored state and auxiliary todo lists
+| * | | | | 85ef4f0 miscellaneous
+| * | | | | 3237dbd handle cancelled tasks (should be removed but not marked as completed)
+| * | | | | f205ecf fix bug with deleted item detection
+| * | | | | 3149afb improve logging
+| * | | | | 6023ff5 tweak content handling/todo item equivalence test
+| * | | | | 4725b65 handle deleted todo list items
+| * | | | | 675e4a1 handle simple replacements in todo list items
+| * | | | | e85f23c (origin/ao, ao) more refactoring
+| * | | | | cb8271a make use of underscores more consistent
+| * | | | | 96de210 clean up base path (directory) handling
+| * | | | | 045fe65 fix minor issues with git and DB integration
+| * | | | | 6a177da more bug fixes
+| * | | | | 1dd2a90 fix various path issues
+| * | | | | e9c7d6f update pipenv requirements
+| * | | | | 1bd8df4 automatically commit to version control as secondary backup
+| * | | | | d9e132b refactor parts of todo processing script
+| * | | | | 6cf4548 add command line argument parser and --dry-run option
+| * | | | | 0d1d0a4 load todo source file paths from YAML config file
+| * | | | | 0fb6d52 fix some (superficial) code style issues
+| * | | | | 1698fa6 make flake8 happy
+| | * | | | 55c46b8 add mermaid diagram displaying framework organization
+| | * | | | 4bf96de add README.md
 | |/ / / /  
-| | | | | * 424f902 (origin/um-docs, um-docs) add example vim macro
-| | | | | * 6d5bdb4 (origin/unmacro, unmacro) add README
-| | | | |/  
-| | | |/|   
-| | | | | * bb5c59d (origin/not-python, not-python) add new parser based on (modified) python.lark grammar
-| | | | | * 4752d16 add some more examples (unfinished)
-| | | | | * a427574 add some basic extensions to grammar
-| | | | | * 3df2fc9 add python3 grammar from lark examples
-| | | | | * d48e721 add lark to requirements (pipenv)
-| | | | | * 5b78981 remove or defer some other incompatible syntax
-| | | | | * 85c6236 make [most] separator/expression patterns lark-compatible
-| | | | | | * 1e40f7d (origin/np-docs, np-docs) add README.md
-| | | | | |/  
-| | | | | * d920ac5 make grammar [more] compatible with lark parser
-| | | | | * 256865e add simple lark parsing script
-| | | | | * c1224cf add PEG grammar for Python programming language from https://docs.python.org/3/reference/grammar.html
-| | | | |/  
-| | | |/|   
-| | | | | * 7d51ea1 (origin/e22-cleanup, e22-cleanup) improve code style (flake8 guidelines)
-| | | | | *   0144a5c Merge branch 'graphs' into e22-cleanup
+|/| | | |   
+| | | | | * 868b294 (origin/shell-1, shell-1) add (draft) ls command
+| | | | | * 1a773ef remove superfluous Program variant of NodeType enum
+| | | | | * 118edbc add bash-like range command
+| |_|_|_|/  
+|/| | | |   
+| | | | | * f685d91 (origin/sh1-docs, sh1-docs) add README.md
+| |_|_|_|/  
+|/| | | |   
+| | | | | * 06ad984 (origin/sh1-testing, sh1-testing) add elementary integration test for echo command
+| | | | | * 453b8e6 add evaluation test for reverse command
+| | | | | * b4f552a add updated Cargo files
+| | | | | * 520be04 derive Eq trait for some other types
+| | | | | * 4492d39 test evaluation of empty node
+| | | | | * 4b99ee1 add test for parsing of empty string
+| | | | | * 994f743 test lexer on simple command/function call with arguments
+| | | | | * 4f27fe4 test lexing of single token
+| | | | | * a678739 test lexer/scanner on empty input string
+| | | | | * c47b37c add tests module
+| |_|_|_|/  
+|/| | | |   
+* | | | | be31f09 (fs, clpg, asm-exp) parse command-line arguments
+* | | | | ea940a1 add substring replacement command
+* | | | | 5af455c add command for string reversal
+* | | | | 44eb41d implement simple context-free parser
+* | | | | e6deb32 implement simple evaluation function
+* | | | | 17884bc clean up lexer character categories
+* | | | | 724b200 implement simple REPL
+* | | | | ac9550e modify lexer to work directly on string inputs
+* | | | | bae6f7f add boilerplate code for AST node struct
+* | | | | fabadae add simple Value struct
+* | | | | 7ebd447 add parser base code
+* | | | | 6ab2e4d add main.rs
+* | | | | 7773335 add cargo files
+* | | | | d53dabc clone some useful modules from lyre parser
+|/ / / /  
+| | | | * 6edfd10 (origin/finch-interpreter, finch-interpreter) get project into a state where it compiles
+| | | | * 1e6bbef add other useful components from lyre interpreter
+| | | | * 8fac05c initialize Rust project (binary)
+| |_|_|/  
+|/| | |   
+| | | | * 705aa2d (august) update pipenv metadata
+| | | | * 7b4779f Add 'august/' from commit '84f6740fb2fa66998b2a0110a3256b01e5897ee9'
+| |_|_|/| 
+|/| | | | 
+| | | | *   84f6740 Merge branch 'web' into dev
+| | | | |\  
+| | | | | * 8988304 more assorted tweaks and fixes
+| | | | | * 555dd79 aggregate domains by frequency
+| | | | | * d47ce52 misc
+| | | | | * 07113cb use hash set to check status of page fetching
+| | | | | * af97924 improve crawler function (prioritize targets, etc.)
+| | | | | * 03de984 use Box module to improve readability of scraping code
+| | | | | *   bd4080c Merge branch 'dev' into web
 | | | | | |\  
-| | | | | | * 7db4d4c (origin/graphs, graphs) improve code style (node.py)
-| | | | | | * a66bd60 improve code style (graph.py)
-| | | | | | * 053a238 add missing import statements
+| | | | | * | ac4dccb add basic web crawling function
+| | | | * | | eee2bb8 various improvements to catalog()
+| | | | * | | 6dade2f add helper function for moving part of database to another file
+| | | | | |/  
+| | | | |/|   
+| | | | * | 63f8c12 add basic system/device monitoring and logging
+| | | | * | dc8c012 add file cataloging code from ao/ap project
+| | | | * | 8a8be2d add boilerplate code from ao/ap and other projects
+| | | | * | d48be59 add file hashing utility function
+| | | | |/  
+| | | | * 865a349 add README.md
+* | | |   f11d79c (numerals, main-private) Merge branch 'finch'
+|\ \ \ \  
+* \ \ \ \   cfa0a08 Merge branch 'lyre'
+|\ \ \ \ \  
+| | |_|_|/  
+| |/| | |   
+| * | | | a296fee fix (?) some issues with function definitions
+| | |_|/  
+| |/| |   
+| * | | b467664 (origin/lyre-tests, lyre-tests) add power operator (**) for numeric values
+| * | | 98248fc implement exponentiation operator for Value
+| * | | 6d862d7 implement exponentiation operator for ValueType
+| * | | 114ae1c remove unused imports from main.rs
+| * | | 6727d62 handle variable access (by name)
+| * | | b45fdf6 handle variable assignment
+| * | | b039f42 pass symbol table to Node.evaluate when recursively interpreting AST nodes
+| * | | dab78af handle general function calls (i.e., not builtins)
+| * | | 8706d42 add some more testing examples
+| * | | 3b83e5d (origin/lyre-parser, lyre-parser) add helper function for entering a new (nested) form/subnode
+| * | | 3d1f694 add simple logging to parser function
+| * | | 3df513e add verbose (logging) flag to lexing function
+| * | | b5b3892 move parsing code into separate function (and corresponding module)
+| * | | e359b7f (origin/lyre-restructuring, lyre-restructuring) move lexing function to separate module
+| * | | 3d61b87 move Value struct and ValueType enum to their own module
+| * | | adf15aa move (parts of) Node struct implementation to appropriate module
+| * | | 5db2fbe move Node struct and NodeType enum to node module
+| * | | 7905f3b move CharType enum to new module
+| * | | 40760f2 move Token struct into separate module
+| * | | ceecb12 fix cargo errors
+* | | | c4929fc Rebuild project
+* | | |   05a1f90 Merge branch 'finch'
+|\ \ \ \  
+| | | | | * 3040194 (origin/finch-compiler-testing, finch-compiler-testing) misc. test fixes
+| | | | |/  
+| | | | * 8f9e3a3 (origin/finch-compiler-parser, origin/finch-compiler, finch-compiler-validation, finch-compiler-parser, finch-compiler) fix dedent parsing
+| | | | * cb2cd9d fix issues with expression parsing
+| | | | * e7dbe56 add __eq__ magic methods to Node and Token classes
+| | | | * e015647 fix comment parsing bug
+| | | | * 1579c21 misc.
+| | | | * 21e14d4 parse source code indentation
+| | | |/  
+| | | * 798c013 (origin/finch, finch) misc.
+| | | * 5b76076 move compiler-related scripts to subdirectory
+| | | * ed5c976 add simple tests for parsing of literal values (strings, numbers, etc.)
+| | | * 74b1406 fix issues caused by project reorganization
+| | | * 053f4bd restructure compiler subproject into independent modules
+| | | * 455c64a commit merge
+| | | * cd77e83 move parsing code into a function
+| | | * e02f97a miscellaneous
+| | | * 22255cf parse other literals/simple expressions
+| | | * 0633fb8 parse binary operations (expressions)
+| | | * e9dd0ac parse comment lines
+| | | * 3712f7a parse tuples/groupings
+| | | * fc417f2 parse string literals
+| | | * cd097b8 use new comment syntax
+| | | * 5345c3c add parser base
+| | | * b3cf637 more expression types
+| | | * b6373fc add some other Node subclass templates
+| | | * a75994e store token location metadata during parsing
+| | | * 473e4b9 misc. Token and Node class improvements
+| | | * 210a17b add convenience methods to Node class, etc.
+| | | * 0fd692e add templates for some Node subclasses representing syntax literals
+| | | * 16d25e1 implement (very) simple lexer
+| | | * 9d13868 adapt Token and Node classes for custom parser
+| | | * bc230b4 classify basic character types
+| | | * 839dc11 add Node and Token class bases (borrowed from c2s)
+| | | * 4f3cf75 read content of source file
+| | |/  
+| |/|   
+| * |   74a98a7 Add 'finch/' from commit '619eb998622fea85c120fffe7356b7ac67843de6'
+| |\ \  
+| | * \   619eb99 Merge branch 'transpiler-python' into repo-merging
+| | |\ \  
+| | | * | bf2a5ab add more examples for testing
+| | | * | 08cf83a add misc. method/function skeletons
+| | | * | 519b20c add method for converting tokens in parse tree/AST to Python source strings
+| | | * | 32ecafd add helper methods for Node class
+| | | * | c9a76cf add Node class for representing generic AST nodes of parsed Finch programs
+| | | * | 82e6d45 add class for representing tokens in AST (parsed by Lark)
+| | | * | 3988e3c misc. tweaks to grammar
+| | | * | dd3e404 add lark tree parser (using LALR algorithm)
+| | | * | e008c05 create parser.py
+| | | * | dcea534 add overview of compilation process
+| | | * | 0061b20 add summary of transpiler branch goals
+| | | * | 13b9169 add arithmetic operation examples for transpiler testing
+| | | * | eed14f7 convert some rules to terminals (strings)
+| | | * | 4ff3c75 fix some lark grammar syntax issues
+| | | * | fa2c5b6 convert grammar specification to format compatible with lark
+| | * | |   442c979 Merge branch 'std-web' into repo-merging
+| | |\ \ \  
+| | | * | | 1c197ed add high-level overview of web module
+| | | * | |   e9508f0 Merge branch 'meta' into std-web
+| | | |\ \ \  
+| | * | \ \ \   7f24ef6 Merge branch 'std-dictionary' into repo-merging
+| | |\ \ \ \ \  
+| | | * | | | | ad9d83e add base for dictionary module/type
+| | | * | | | |   7ed7ed2 Merge branch 'meta' into std-dictionary (for .gitignore)
+| | | |\ \ \ \ \  
+| | | | * | | | | 240410b add gitignore
+| | | | * | | | | 182ba85 generate table of contents and code statistics
+| | | | | |/ / /  
+| | | | |/| | |   
+| | | * | | | | 10c9528 add collection module base
+| | | | |/ / /  
+| | | |/| | |   
+| | * | | | |   a95bc30 Merge branch 'book' into repo-merging
+| | |\ \ \ \ \  
+| | | * | | | | 6d27e35 add section about basic numeric types
+| | | * | | | |   f21872a Merge branch 'meta' into documentation
+| | | |\ \ \ \ \  
+| | | | | |/ / /  
+| | | | |/| | |   
+| | | | * | | | ec8c607 add summaries of new stdlib branches
+| | | | * | | | aea48d7 add descriptions of some new(er) branches
+| | | * | | | | 6865212 add intro section of manual
+| | | | |_|/ /  
+| | | |/| | |   
+| | * | | | |   3387816 Merge branch 'cpp-parser' into repo-merging
+| | |\ \ \ \ \  
+| | | * | | | | e8aa858 use fmt library to display (nested) AST nodes
+| | | * | | | | f6fe6c5 helper method for adding subnodes; make context stack a vector of references
+| | | * | | | | 2ee943a fix name conflict
+| | | * | | | | 2e9bb97 fix various structural issues with current parser
+| | | * | | | | 37f684b create separate lexing function for simplicity and efficiency
+| | | * | | | | ca85d94 add comments to parsechar
+| | | * | | | | 00df526 fix segfault introduced in 965e09
+| | | * | | | |   62a676d Merge branch 'cpp-runtime' into cpp-parser
+| | | |\ \ \ \ \  
+| | | * | | | | | 965e098 process tuple forms (nodes grouped with parentheses)
+| | | * | | | | | 5734e9b minor refactoring
+| | | * | | | | | cda4f4f handle some common tokens
+| | | * | | | | | 55b2f85 add basic token categorization
+| | | * | | | | | 60d239f add more node types; add more node (class) properties
+| | | * | | | | | 31cd948 add helper methods to Node class
+| | | * | | | | | 6285d93 add parser base
+| | * | | | | | |   956b97a Merge branch 'std-error' into repo-merging
+| | |\ \ \ \ \ \ \  
+| | | * \ \ \ \ \ \   5d6a45f Merge branch 'std-warning' into std-error
+| | | |\ \ \ \ \ \ \  
+| | | | * | | | | | | fe26240 add skeleton for parser style warnings
+| | | | * | | | | | | 98a26a3 add templates for infinite loop/recursion warnings
+| | | | * | | | | | | 1255040 add depreciation warning template
+| | | | * | | | | | | 87bd7e1 add base for warning type
+| | | * | | | | | | | de4f66e add skeleton for filesystem-related errors
+| | | * | | | | | | | 005aee3 add value exception templates
+| | | * | | | | | | | 8895cb6 add some basic access error types
+| | | * | | | | | | | 67e9a96 add template for a basic assertion error
+| | | |/ / / / / / /  
+| | | * | | | | / / 7e85759 add base for error type
+| | | | |_|_|_|/ /  
+| | | |/| | | | |   
+| | * | | | | | | 0e0e793 Merge branch 'stdlib' into repo-merging
+| | |\| | | | | | 
+| | | * | | | | | c92678d add wrapper for standard library types and functions
+| | * | | | | | |   20f17d4 Merge branch 'cpp-interpreter' into repo-merging
+| | |\ \ \ \ \ \ \  
+| | | * | | | | | | 9727be4 add helper function to traverse scope list, search for name/identifier
+| | | * | | | | | | 63e5c93 add class to (tentatively) represent actual objects/values during execution (as opposed to syntactic structures)
+| | | * | | | | | | 9cd347c add virtual functions to represent attributes of Node subtypes
+| | | * | | | | | | 0013998 add interpreter boilerplate code (with declarations taken from runtime.cpp)
+| | | | |_|/ / / /  
+| | | |/| | | | |   
+| | | * | | | | | c2d2216 add some comments to inside of nodetype enum
+| | | * | | | | | 89b0c16 add comments to top-level items
+| | | | |/ / / /  
+| | | |/| | | |   
+| | | * | | | | 6a26b13 add base class for AST nodes
+| | | * | | | | 56ed202 create draft of nodetype enum
+| | | | |/ / /  
+| | | |/| | |   
+| | * | | | |   838398c Merge branch 'specification' into repo-merging
+| | |\ \ \ \ \  
+| | | * | | | | f7eb2c6 add grammar rules for operations and common expressions
+| | | * | | | | 1f1c10f add description of string and numeric literals
+| | | * | | | | 35cf064 add (some) other ASCII characters
+| | | * | | | | e7a8ebb add ASCII alphabet
+| | | * | | | | d73b318 add grammar.ebnf
+| | | | |_|/ /  
+| | | |/| | |   
+| | | * | | | 7d85b80 add summary of branches in repository
+| | | |/ / /  
+| | * | | | 058099e Update README.md
+| | * | | | f7bc926 add note about main branch
+| | |/ / /  
+| | * / / bf57c17 discuss potential applications of Finch
+| | |/ /  
+| | * | 6c37f55 add disclaimer about language development status
+| | * | f768c45 add README.md
+| |  /  
+| | | * 7a30790 (origin/metadata, metadata) add information about finch-related branches
+| | | * 7defa4a add information about new lyre language project branches
+| | | * 1f52976 add information for lyre-related branches
+| | | * 3218117 add information about nushell-related branches
+| | | | * c0554a9 (origin/lyre-docs, lyre-docs) add information about to-string interface
+| | | | * f0b3621 add constructor example
+| | | | * 55fcf81 add error handling overview
+| | | | * 6b5b568 add class definition example
+| | | | * c12ccfc add unset examples
+| | | | * 0117df0 add more variable (set) examples
+| | | | * b1b4e9b add example of variable assignment and access
+| | | | *   88b43da Merge branch 'lyre-spec' into lyre-docs
+| | | | |\  
+| | | | | * 52690fd (origin/lyre-spec, lyre-spec) add details about compound form syntax
+| | | | | * cfd5cff add general definition of forms (expressions) that comprise a program
+| | | | | * 8b8e2ef add specification.md
+| | | | * | c56e2ed add installation section to README
+| | | | | | * 1e3a54f (origin/caesium, caesium) reflow README.md
+| | | | | | | * 44615f9 (origin/rust-fluid-sim, rust-fluid-sim) move fluid sim files to simulations subdirectory
+| | | | | | | * 14e77b2 update particle position based on velocity vector
+| | | | | | | * 31de0b5 add Particle struct that stores additional information
+| | | | | | | * 4d823c6 render ASCII representation of points in simulation
+| | | | | | | * 1437f4a randomly generate set of points to initialize simulation
+| | | | | | | * c3c5c50 add point struct (and constructor function)
+| | | | | | | * 2f7b8b8 import relevant crates
+| | | | | | | * 3adc403 add Cargo files
+| |_|_|_|_|_|/  
+|/| | | | | |   
+| | | | | | | * bea094d (origin/lyre-comments, lyre-comments) add summary comment to NodeType enum
+| | | |_|_|_|/  
+| | |/| | | |   
+| | * | | | | 64c8abc generate implementations of other basic arithmetic operators
+| | * | | | | 319a6cb add macro for generating Value struct operator implementations
+| | * | | | | 6cfca0b fix scoping issue with local variables and macro call
+| | * | | | | 0d024c0 add declarative macro to construct operator match arm(s)
+| | * | | | | f23d537 fix evaluation of addition operator
+| | * | | | | 27d7b40 use a declarative macro to generate implementations of other operators
+| | * | | | | aea49ce impl Add for Value
+| | * | | | | e6a442e implement Add for ValueType (int types only thus far)
+| | * | | | | 2619163 specify token type in calls to constructor
+| | * | | | | 3d3bdd3 handle string conversion of integer types
+| | * | | | | 9eb00fa update lexer to handle digit sequences
+| | * | | | | b81dbce handle integer literal tokens in node evaluation code
+| | * | | | |   910336f Merge branch 'lyre-parser' into lyre-interpreter
+| | |\ \ \ \ \  
+| | | * | | | | 27a8a22 update parser code to use new NodeType enum
+| | | * | | | | f414958 add enum to represent AST node types
+| | * | | | | | 4a45ad5 add "verbose" flag to evaluate method for Node struct
+| |/ / / / / /  
+|/| | | | | |   
+| | | | | | | * 4c2666b (origin/rffrrr, rffrrr) add cargo metadata files
+| | | | | | | * 390b061 add README.md
+| | | | | | | | * 5ebe841 (origin/stdlib, stdlib) add (some) collection types
+| | | | | | | | * f585250 add primitive types
+| |_|_|_|_|_|_|/  
+|/| | | | | | |   
+* | | | | | | | faa89fa (origin/aug-esolang, aug-esolang) Rebuild project
+| |_|_|_|/ / /  
+|/| | | | | |   
+* | | | | | |   e266c2a Merge branch 'lyre-comments' into lyre-impl
+|\ \ \ \ \ \ \  
+| |_|/ / / / /  
+|/| | | | | |   
+| * | | | | | 530d3fb add comments to Value implementation of fmt::Display
+| * | | | | | c101afc more comments (misc.)
+| * | | | | | 7998efc add some much-needed spacing
+| * | | | | | 9ddb1c6 add top-level comment to string literal matching block
+* | | | | | | 1b9ea12 fix string literal parsing
+|/ / / / / /  
+* | | | | | c304390 improve evaluate method logging
+* | | | | | fa5fd9c convert token nodes wrapping strings into Values containing strings
+* | | | | | de70070 unwrap ValueType enum variants and convert to Strings for printing
+* | | | | | 2f8d413 fix evaluation order (pattern matcher)
+* | | | | | 65e851e add some logging to evaluation method
+* | | | | | 3a5e283 fix None unwrapping panics
+* | | | | | e6510be make node content a single (optional) token
+* | | | | | c28c6ff miscellaneous
+* | | | | | 3521567 address some borrow checker complaints
+* | | | | | 8d81b07 add bounds checks to form pattern matcher
+* | | | | | df24467 implement Display for Value
+* | | | | | b9ed56c use ValueType (enum) instead of Node (struct) for native datatypes
+* | | | | |   f1fcf2e Merge branch 'lyre' into lyre-interpreter
+|\ \ \ \ \ \  
+| * \ \ \ \ \   767125c Merge branch 'lyre-impl' into lyre
+| |\ \ \ \ \ \  
+| | |_|_|/ / /  
+| |/| | | | |   
+| | * | | | |   6004a34 Merge branch 'lyre-interpreter' into lyre-impl
+| | |\ \ \ \ \  
+| | * \ \ \ \ \   1d8aa2d Merge branch 'lyre-parser' into lyre-impl
+| | |\ \ \ \ \ \  
+| | | * | | | | | e0cdce7 correctly handle leading whitespace
+| | | * | | | | | 9a3b7bc rename syntax sample/example snippet
+| | | * | | | | | e16f539 lex square brackets (groupings) correctly - previously could cause issues with consecutive brackets
+| | | * | | | | | 16d66ba fix unnecessarily mutable variables
+| | | * | | | | | a0c2c46 parse nesting forms via indentation (leading whitespace)
+| | | * | | | | | 40b63e2 fix some (relatively) minor lexing issues
+| | | * | | | | | 75a4009 display type of each node (incomplete)
+| | | * | | | | | e683615 misc. lexing improvements
+| | | * | | | | | 37333e9 miscellaneous
+| | | * | | | | | 6bb50eb add helper method for printing ASTs
+| | | * | | | | | 9bb8d4a move lexing code into separate function
+| | | * | | | | | 7a88941 add comments to lexer code
+| | | * | | | | | e9b054e add comments to parsing code
+| | | * | | | | | de95bb3 add doc comments to other node-related methods
+| | | * | | | | | 4473e5f add comments to Node struct
+| | | * | | | | | 687ac5f add doc comments to some custom structs/functions
+| | | * | | | | | ccc5945 process standalone symbols
+| | | * | | | | | 92d7664 remove unused code
+| | | * | | | | | 475ad6e access tree paths via index lists
+| | | * | | | | | db9ccb8 use index-based stack to avoid borrow checker issues
+| | * | | | | | | aa369f1 add Cargo.lock
+| * | | | | | | | c3b71fe add string literal (and string function) examples
+| * | | | | | | | 5503806 add alternative operator names
+| * | | | | | | | 243d645 add arithmetic operator examples
+| * | | | | | | | 386100e add hello world example
+| * | | | | | | | 197e947 add basic usage information
+* | | | | | | | | d3ad49b comment ValueType
+* | | | | | | | | e8771aa add ValueType enum
+* | | | | | | | | a9fbc6b evaluate println built-in function
+| |_|_|/ / / / /  
+|/| | | | | | |   
+* | | | | | | | 22eb57e evaluate print function calls
+* | | | | | | | f0f344e add some doc comments to evaluate() method
+* | | | | | | | 3fb6d3d allow progn-like compound forms (evaluate to result of last sub-expression)
+* | | | | | | | 34047a6 process (function) definitions using def keyword
+* | | | | | | | c688d4d add Value struct
+| |_|/ / / / /  
+|/| | | | | |   
+* | | | | | | e287042 add lyre parser base (draft)
+* | | | | | | b48a4b2 implement simple lexer to convert source into sequence of tokens
+* | | | | | | 159cdc6 read source file
+* | | | | | | bf38e11 implement Display (and implicit ToString) for Node struct
+* | | | | | | cd5f701 add Node struct
+* | | | | | | b2e52a5 add CharType enum
+* | | | | | | 3f253d6 add Token convenience constructor
+* | | | | | | 0dddb8b add fmt::Display implementation (Token struct)
+* | | | | | | 21698e2 add struct for representing tokens
+| |/ / / / /  
+|/| | | | |   
+* | | | | | ec26260 add main.rs
+* | | | | | ed091a3 add Cargo.toml
+|/ / / / /  
+* | | | | 0433a28 add README.md
+| | | | | * 540015d (origin/nu-todo, origin/nu-fs, nu-todo, nu-fs) patch script to use external recurring task list
+| | | | | | * 667e9ee (origin/nu-ocr, nu-ocr) update gitignore
+| | | | | | * 8fe2a9d add options for recursive directory traversal while scanning media
+| | | | | | | * 521e691 (origin/lyre-stdlib-errors, lyre-stdlib-errors) add exception-related helper methods
+| | | | | | | * 8c61f86 add skeleton for stdlib errors module
+| | | | | | | * 45ade2b (origin/lyre-stdlib, lyre-stdlib) add dictionary (hash map) class skeleton
+| |_|_|_|_|_|/  
+|/| | | | | |   
+* | | | | | | 9979ca1 add basic EBNF-like grammar for lyre syntax
+* | | | | | | 5a6bd5c add convenience function for testing divisibility
+| |_|_|/ / /  
+|/| | | | |   
+* | | | | | e27d506 Rebuild project
+* | | | | |   70ee940 (origin/nushell-testing, nushell-testing) Merge branch 'nu-todo' into nushell-testing
+|\ \ \ \ \ \  
+| | |_|_|/ /  
+| |/| | | |   
+| * | | | | 8a974b0 use absolute file paths
+| * | | | | f80e498 add --dry option for executing dry runs
+| * | | | | daf2ace add basic todo processing script with nushell
+| | |_|_|/  
+| |/| | |   
+| * | | |   1fd2c88 Merge branch 'master' into nu-ocr
+| |\ \ \ \  
+| * \ \ \ \   4b7c024 Merge branch 'master' into nu-ocr
+| |\ \ \ \ \  
+| * | | | | | d3d22bc add simple nushell script for running OCR on images
+* | | | | | | 801c9fd add word entropy computation experiment
+* | | | | | | 97cf5e6 add hash compression experiment (nu)
+* | | | | | | d29b94c add simple nushell prime number generator
+|/ / / / / /  
+| | | | | | *   7ad5bc8 (origin/meta, meta) Merge branch 'scripts' into meta
+| | | | | | |\  
+| | | | | | | * e4225dd (origin/scripts, scripts) update script paths
+| | | | | | | * d643ca3 move repo/meta scripts to new directory
+| | | |_|_|_|/  
+| | |/| | | |   
+| | | | | | * 7bcb566 add some miscellaneous notes about monorepo
+| | | |_|_|/  
+| | |/| | |   
+| | * | | | 7d6f7b5 add more comments to build.py
+| | * | | | dc49f9d include project languages in tags/labels
+| | * | | | ad2fbf6 update metadata file paths in build.py
+| | * | | |   4761cf3 Merge branch 'master' into meta
+| | |\ \ \ \  
+| | * \ \ \ \   487ebe4 Merge branch 'metadata' into meta
+| | |\ \ \ \ \  
+| | | | |_|/ /  
+| | | |/| | |   
+| | | * | | | ee66233 move metadata files to new subdirectory
+| | | * | | | 94df33a add labels to new projects
+| | | * | | | 59c1fee add (some) newly integrated/started projects
+| | | * | | | f89fef9 add abbreviations for some projects/branches
+| | | * | | | b8df567 add yaml-serialized list of directories with descriptions of each
+| | * | | | | a727435 alphebatize project and branch lists
+| |/ / / / /  
+| | | | | | * 424f902 (origin/um-docs, um-docs) add example vim macro
+| | | | | | * 6d5bdb4 (origin/unmacro, unmacro) add README
 | | | | |_|/  
 | | | |/| |   
-| | | * | | c1ee395 Merge branch 'caesium'
-| | |/| | | 
-| |/| | | | 
-| | | * | | eb0420e (origin/caesium, caesium) remove vendored chart.js source code
+| | | | | | * bb5c59d (origin/not-python, not-python) add new parser based on (modified) python.lark grammar
+| | | | | | * 4752d16 add some more examples (unfinished)
+| | | | | | * a427574 add some basic extensions to grammar
+| | | | | | * 3df2fc9 add python3 grammar from lark examples
+| | | | | | * d48e721 add lark to requirements (pipenv)
+| | | | | | * 5b78981 remove or defer some other incompatible syntax
+| | | | | | * 85c6236 make [most] separator/expression patterns lark-compatible
+| | | | | | | * 1e40f7d (origin/np-docs, np-docs) add README.md
+| | | | | | |/  
+| | | | | | * d920ac5 make grammar [more] compatible with lark parser
+| | | | | | * 256865e add simple lark parsing script
+| | | | | | * c1224cf add PEG grammar for Python programming language from https://docs.python.org/3/reference/grammar.html
+| | | | |_|/  
+| | | |/| |   
+| | | | | | * 7d51ea1 (origin/e22-cleanup, e22-cleanup) improve code style (flake8 guidelines)
+| | | | | | *   0144a5c Merge branch 'graphs' into e22-cleanup
+| | | | | | |\  
+| | | | | | | * 7db4d4c (origin/graphs, graphs) improve code style (node.py)
+| | | | | | | * a66bd60 improve code style (graph.py)
+| | | | | | | * 053a238 add missing import statements
+| | | | |_|_|/  
+| | | |/| | |   
+| | | * | | | c1ee395 Merge branch 'caesium'
+| | |/| | | | 
+| |/| | |/ /  
+| | | |/| |   
+| | | * | | eb0420e remove vendored chart.js source code
 | * | | | | 0c51023 (origin/rcas, rcas) Rebuild project
 | * | | | |   cc0c4b6 Merge branch 'legacy'
 | |\ \ \ \ \  
@@ -3770,7 +5837,7 @@ structure into my workflow:
 | * | | | | | | | | | bc22647 Rebuild project
 | * | | | | | | | | | 740f9e2 Merge branch 'ao'
 |/| | | | | | | | | | 
-| * | | | | | | | | |   c4e401d (origin/ao, ao) Add 'ao/' from commit '94f741b542116f4daa0b0e32129d217e6a455a61'
+| * | | | | | | | | |   c4e401d Add 'ao/' from commit '94f741b542116f4daa0b0e32129d217e6a455a61'
 | |\ \ \ \ \ \ \ \ \ \  
 | | |/ / / / / / / / /  
 | |/| | | | | | | | |   
