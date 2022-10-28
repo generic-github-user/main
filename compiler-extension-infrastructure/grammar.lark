@@ -21,12 +21,12 @@ NUMBER: INT | FLOAT
 STRING: /".*?"/ms
 literal: STRING | FLOAT | INT
 
-operator: "+" | "-" | "*" | "/" | "**" | "%"
+OPERATOR: "+" | "-" | "*" | "/" | "**" | "%"
              | "||" | "&&" | "|" | "&" | "^"
              | "==" | "!=" | "<" | "<=" | ">" | ">="
              | "=>" | "." | ".." | "=" | "!"
-bin_op: expression operator expression
-unary_op: operator expression
+bin_op: expression OPERATOR expression
+unary_op: OPERATOR expression
 operation: bin_op | unary_op
 expression: literal | IDENTIFIER | array | call | index | operation
             | lambda_func | init | ternary | tuple | statement
@@ -64,7 +64,7 @@ type_param: "<" ((type ",") | type)+ (";" expression)* ">"
 typed_name: IDENTIFIER ":" type
         | "(" typed_name ")"
 type: (IDENTIFIER type_param?)
-        | (type "->" type)
+        | (type "->" type) -> mapping_type
         | ("(" type ")") | tuple | (type ":" IDENTIFIER)
         | (type "|" type)
         | expression
