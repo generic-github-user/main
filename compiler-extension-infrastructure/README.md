@@ -16,6 +16,19 @@ development, and is not yet fit for any real-world application; nevertheless, I
 encourage anyone who is interested to download and play with the components I
 have built so far.
 
+In terms of development philosophy, the main difference between this project
+and most of my other programming language adjacent projects is that it aims to
+work with existing systems in new and interesting ways rather than replacing
+them entirely. In this way it is quite similar to Carbon or Zig: it becomes
+trivial to work with legacy code without knowing how it was implemented because
+the toolset can act as a bridge between the semantics and implementations of
+code written in each language. It is also designed for developers who possess a
+reasonable level of familiarity with the design and architecture of computer
+systems (particularly compilers, the memory model, and the semantics of
+programming languages) and want to interact with them via powerful abstractions
+(sophisticated type systems, metaprogramming tools, etc.) instead of completely
+hiding low-level details (removing the "sharp edges", so to speak).
+
 This diagram summarizes the role of the framework in the preprocessing,
 compilation, and build processes:
 
