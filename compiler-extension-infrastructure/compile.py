@@ -3,6 +3,7 @@ import pathlib
 import sys
 from lib.pylist import List
 from functools import reduce
+import textwrap
 
 # TODO: make diagram of type system(s) and related abstractions
 # language/framework in which assignment is an assertion of equality?
@@ -111,12 +112,18 @@ def resolve_names(node, namespace):
     if node.type == 'IDENTIFIER':
         print(f'Dereferencing name {node.value}')
         if node.value not in namespace:
-            print(f'Compiler error: {node.value} not defined when used at line {node.line}; make sure that name is defined and in scope.')
-            quit()
+            raise_error('name', f"""Compiler error: {node.value} not defined
+                        when used at line {node.line}; make sure that name is
+                        defined and in scope.""")
         # breakpoint()
         return namespace[node.value]
     # self.children.map(lambda x : x.infer_types())
     return node
+
+
+def raise_error(etype, message):
+    print(f'Compiler error ({etype} error): {textwrap.dedent(message)}')
+    quit()
 
 
 class Node:
@@ -221,14 +228,18 @@ class Node:
         if self.type == 'call':
             if self.f.vtype != 'function':
                 print(self.f, self.f.vtype)
-                print(f'Compile error: {self.f} is not a function; defined at line {None}: \n\n{self.f.definition}')
+                raise_error('type', f"""{self.f} is not a function; defined at
+                line {None}: \n\n{self.f.definition}""")
             if self.f.arity != len(self.args):
-                print(f'Compile error (arity mismatch): function call at line {None} has {len(self.args)} arguments, but function `{self.f.name}` takes {self.f.arity} arguments; `{self.f.name}` has signature: {self.f.signature}')
-                quit()
+                raise_error('argument', f"""function call at line {None} has
+                {len(self.args)} arguments, but function `{self.f.name}` takes
+                {self.f.arity} arguments; `{self.f.name}` has signature:
+                {self.f.signature}""")
             for x, y in zip(self.f.args, self.args):
                 if x.argtype != y.vtype:
-                    print(f'Compile error (argument error): argument {y} in function call at line {None} has invalid type `{y.vtype}`; `{self.f.name}` has signature: {self.f.signature}')
-                    quit()
+                    raise_error('argument', f"""argument {y} in function call
+                    at line {None} has invalid type `{y.vtype}`;
+                    `{self.f.name}` has signature: {self.f.signature}""")
 
             self.vtype = self.f.return_type
 
