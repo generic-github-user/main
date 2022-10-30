@@ -233,6 +233,40 @@ class Node:
         self.children.map(lambda x : x.infer_types())
 
         return self
+
+    def emit_code(self):
+        match self.type:
+            case 'program':
+                body = self.children.map(Node.emit_code).join('\n')
+                return '\n'.join(['int main () {', body, '}'])
+            case 'start' | 'block' | 'form':
+                return self.children.map(Node.emit_code).join('\n')
+            case 'statement':
+                return f'{self.children[0].emit_code()};'
+            case 'expression' | 'declaration' | 'operation' | 'literal':
+                return self.children.map(Node.emit_code).join('')
+            case 'return':
+                return f'return {self.arg.emit_code()}'
+            case 'function_declaration':
+                return f'{self.return_type.emit_code()} {self.name.emit_code()} () {self.body.emit_code()}'
+            case 'type':
+                return ''
+            case 'tuple':
+                return self.children.map(Node.emit_code).join(', ')
+            case 'list':
+                return self.children.map(Node.emit_code).join(', ')
+            case 'call':
+                return f'{self.f.emit_code()}({self.args.emit_code()})'
+            case 'bin_op':
+                return List([
+                    self.left, self.op, self.right
+                ]).map(Node.emit_code).join(' ')
+            case 'INT':
+                return self.value
+            case _:
+                if isinstance(self, Token):
+                    return self.emit_code()
+                raise NotImplementedError(self)
 parser = lark.Lark(grammar)
 
 tree = Node(parser.parse(pathlib.Path('stdlib.z').read_text()))
