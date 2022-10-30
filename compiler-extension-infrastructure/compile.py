@@ -87,6 +87,13 @@ def lift_outer(a, b):
     return lifter
 
 
+def label_assignments(node):
+    if node.type == 'bin_op' and node.op == '=':
+        return Node(type_='assignment', children=[node.left, node.right],
+                    names=node.names)
+    return node
+
+
 def range_filter(node):
     """This filter handles desugaring of the ".." syntax, which is modelled
     loosely after Rust's. The operator is transformed into a call to the
@@ -122,12 +129,15 @@ def resolve_names(node, namespace):
                                     definition=node, body=node.body,
                                     parent=node.parent)
         return node
+
     if node.type in ['start', 'program', 'form', 'block', 'statement',
                      'call', 'expression', 'declaration', 'expression']:
         # TODO: rework this to be functional (match style of rest of code)
         node.children = node.children.map(lambda x: x.resolve_names(namespace))
+
     if node.type == 'function_declaration':
         node.body = node.body.resolve_names(namespace)
+
     if node.type == 'IDENTIFIER':
         print(f'Dereferencing name {node.value}')
         if node.value not in namespace:
@@ -218,6 +228,8 @@ class Node:
                 # self.items = self.children[0].items
             case 'bin_op':
                 self.left, self.op, self.right = self.children
+            case 'assignment':
+                self.left, self.right = self.children
 
     def map(self, f: Callable[Node, Node],
             preserve_children: bool = False) -> Node:
@@ -239,7 +251,7 @@ class Node:
         return ''.join(c.text() for c in self.children)
 
     def __str__(self) -> str:
-        return f'Node <{self.type}> ({self.depth})' + '\n' +\
+        return f'Node <{self.type} ~ {self.vtype}> ({self.depth})' + '\n' +\
             '\n'.join('  '*self.depth + str(n) for n in self.children)
 
     # def validate(self):
@@ -269,6 +281,10 @@ class Node:
 
         self.children.map(lambda x: x.infer_types())
 
+        if self.type in ['literal', 'expression']:
+            assert self.children.len() == 1
+            self.vtype = self.children[0].vtype
+
         return self
 
     def emit_code(self) -> str:
@@ -288,8 +304,11 @@ class Node:
                 body = self.children.map(Node.emit_code).join('\n')
                 return '\n'.join(['int main () {', body, '}'])
 
-            case 'start' | 'block' | 'form':
+            case 'start' | 'form':
                 return self.children.map(Node.emit_code).join('\n')
+
+            case 'block':
+                return '{\n' + self.children.map(Node.emit_code).join('\n') + '\n}'
 
             case 'statement':
                 return f'{self.children[0].emit_code()};'
@@ -335,6 +354,10 @@ class Node:
                 # called on number/string literals, but this should be handled
                 # during the rewriting stage)
                 return self.value
+
+            case 'assignment':
+                assert self.right.vtype is not None
+                return textwrap.dedent(f'{self.right.vtype} {self.left.emit_code()} = {self.right.emit_code()}')
 
             case _:
                 if isinstance(self, Token):
@@ -434,6 +457,7 @@ print(tree)
 tree.infer_types()
 # tree = tree.map_each([lift_tuples, range_filter,
 # lift_nodetype('expression', 'literal')])
+tree = tree.map(label_assignments)
 print(tree)
 # breakpoint()
 print(tree.emit_code())
