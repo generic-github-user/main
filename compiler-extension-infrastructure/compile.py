@@ -25,6 +25,23 @@ class Token:
     def __str__(self):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
 
+    def infer_types(self):
+        match self.type:
+            case 'INT':
+                self.vtype = 'int'
+            case 'FLOAT':
+                self.vtype = 'float'
+
+    def emit_code(self):
+        return self.value
+
+    def map(self, f):
+        return f(self)
+
+    def __eq__(self, other):
+        if isinstance(other, str):
+            return self.value == other
+        return self == other
 
 
 def range_filter(node):
