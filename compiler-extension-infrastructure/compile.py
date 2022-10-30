@@ -87,6 +87,16 @@ def lift_outer(a, b):
 
 
 def range_filter(node):
+    """This filter handles desugaring of the ".." syntax, which is modelled
+    loosely after Rust's. The operator is transformed into a call to the
+    `range` function, which returns a particular kind of iterator. If the
+    traits system and/or iterator trait/type are not used in the compilation
+    process, it can be further rewritten into a standalone loop.
+
+    This filter is also used as an example of a generic filter in `README.md`,
+    and is helpful for demonstrating the purpose of the compiler extension
+    infrastructure project."""
+
     # if isinstance(node, Node):
         # print(node.type, node.op == '..')
     if node.type == 'bin_op' and node.op == '..':
@@ -101,6 +111,10 @@ def range_filter(node):
 
 
 def resolve_names(node, namespace):
+    """Replaces identifiers in particular kinds of locations ("evaluation
+    contexts") with references to their values. This should generally happen
+    before type inference is attempted."""
+
     if node.type == 'function_declaration':
         namespace[node.name] = Node(type_='function', vtype='function',
                                     return_type=node.return_type,
@@ -252,8 +266,18 @@ class Node:
         return self
 
     def emit_code(self) -> str:
+        """Generates semantically equivalent code for the target
+        platform/compiler (not guaranteed to be formatted or comply with
+                           typical style conventions). Currently, only C is
+        supported. This method works recursively on a "C-like" syntax tree and
+        is analogous to the inverse function of that represented by the parser.
+        It is assumed that by now, all higher-level constructs have been
+        "lowered" to canonical forms appropriate for the target; if this is not
+        the case, an error may be thrown here or when the generated code is
+        passed off to gcc/g++ for translation to an object file."""
         match self.type:
             case 'program':
+                # TODO: handle outer function generation using tree rewriting
                 body = self.children.map(Node.emit_code).join('\n')
                 return '\n'.join(['int main () {', body, '}'])
             case 'start' | 'block' | 'form':
@@ -261,6 +285,9 @@ class Node:
             case 'statement':
                 return f'{self.children[0].emit_code()};'
             case 'expression' | 'declaration' | 'operation' | 'literal':
+                # this is a hotfix to handle "wrapped" AST nodes; a single form
+                # in the source code can sometimes produce several nested
+                # statement, expression, block, etc. nodes
                 return self.children.map(Node.emit_code).join('')
             case 'return':
                 return f'return {self.arg.emit_code()}'
@@ -275,10 +302,17 @@ class Node:
             case 'call':
                 return f'{self.f.emit_code()}({self.args.emit_code()})'
             case 'bin_op':
+                # prior to this translation, nonstandard operators like ".."
+                # must have been lowered; in the future an error will be thrown
+                # if they are present in the input tree
                 return List([
                     self.left, self.op, self.right
                 ]).map(Node.emit_code).join(' ')
             case 'INT':
+                # one of the few lucky cases where the parse output is always
+                # (?) equivaent to its native form (an exception may be methods
+                # called on number/string literals, but this should be handled
+                # during the rewriting stage)
                 return self.value
             case _:
                 if isinstance(self, Token):
