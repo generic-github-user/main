@@ -84,6 +84,16 @@ def lift_outer(a, b):
 
 
 def range_filter(node):
+    """This filter handles desugaring of the ".." syntax, which is modelled
+    loosely after Rust's. The operator is transformed into a call to the
+    `range` function, which returns a particular kind of iterator. If the
+    traits system and/or iterator trait/type are not used in the compilation
+    process, it can be further rewritten into a standalone loop.
+
+    This filter is also used as an example of a generic filter in `README.md`,
+    and is helpful for demonstrating the purpose of the compiler extension
+    infrastructure project."""
+
     # if isinstance(node, Node):
         # print(node.type, node.op == '..')
     if node.type == 'bin_op' and node.op == '..':
@@ -98,6 +108,10 @@ def range_filter(node):
 
 
 def resolve_names(node, namespace):
+    """Replaces identifiers in particular kinds of locations ("evaluation
+    contexts") with references to their values. This should generally happen
+    before type inference is attempted."""
+
     if node.type == 'function_declaration':
         namespace[node.name] = Node(type_='function', vtype='function',
                                     return_type=node.return_type,
