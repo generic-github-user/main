@@ -97,19 +97,35 @@ def resolve_names(node, namespace):
 
 class Node:
     def __init__(self, source=None, parent=None, depth=0, root=None,
-                 children=None, type_=None):
+                 children=None, type_=None, vtype=None, names=None, **kwargs):
         self.parent = parent
         self.root = root if root else self
+        self.depth = depth
 
         if children is None:
             children = List()
+        elif isinstance(children, list):
+            children = List(children)
         self.children = children
+        for node in self.children:
+            if node.parent is None:
+                node.parent = self
+                node.depth = self.depth + 1
+
+        self.type = type_
         self.source = source
+
+        self.vtype = vtype
+
+        if names is None:
+            # names = dict()
+            assert parent is not None, self
+            names = parent.names
+        self.names = names
 
         if self.source is not None:
             self.meta = self.source.meta
             self.type = self.source.data
-            self.depth = depth
             for c in self.source.children:
                 if isinstance(c, lark.Tree):
                     self.children.append(
