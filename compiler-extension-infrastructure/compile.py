@@ -200,23 +200,31 @@ class Node:
             names = parent.names
         self.names = names
 
-        if self.source is not None:
-            self.meta = self.source.meta
-            self.type = self.source.data
-            for c in self.source.children:
-                if isinstance(c, lark.Tree):
-                    self.children.append(
-                        Node(c, self, self.depth+1,
-                             root=self.root if self.root else self))
-                elif c is None:
-                    self.children.append(c)
-                else:
-                    assert isinstance(c, lark.Token), c
-                    self.children.append(Token(c))
-
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+
+    def from_lark(source: lark.Tree, *args, **kwargs):
+        # self = Node.__init__(source=source, *args, **kwargs)
+        self = Node(source=source, *args, **kwargs)
+
+        self.meta = self.source.meta
+        self.type = self.source.data
+        for c in self.source.children:
+            if isinstance(c, lark.Tree):
+                self.children.append(
+                    Node.from_lark(c, parent=self, depth=self.depth+1,
+                         root=self.root if self.root else self))
+            elif c is None:
+                self.children.append(c)
+            else:
+                assert isinstance(c, lark.Token), c
+                self.children.append(Token(c))
+        self.update_attrs()
+
+        return self
+
+    def update_attrs(self):
         for attr in 'arg name arguments signature type_params\
                 arguments return_type f args left right op'.split():
             setattr(self, attr, None)
@@ -488,8 +496,8 @@ grammar_path = 'compiler-extension-infrastructure/grammar.lark'
 grammar = pathlib.Path(grammar_path).read_text()
 parser = lark.Lark(grammar)
 
-tree = Node(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
-            names=dict())
+tree = Node.from_lark(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
+                      names=dict())
 # print(tree.pretty())
 
 print(tree)
