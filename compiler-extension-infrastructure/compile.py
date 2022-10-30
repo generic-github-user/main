@@ -209,8 +209,30 @@ class Node:
         return f'Node <{self.type}> ({self.depth})' + '\n' +\
             '\n'.join('  '*self.depth + str(n) for n in self.children)
 
+    # def validate(self):
 
-grammar = pathlib.Path('grammar.lark').read_text()
+    def resolve_names(self, namespace=None):
+        # return self.map(lambda n : resolve_names(n, self.names))
+        return resolve_names(self, self.names)
+
+    def infer_types(self):
+        if self.type == 'call':
+            if self.f.vtype != 'function':
+                print(self.f, self.f.vtype)
+                print(f'Compile error: {self.f} is not a function; defined at line {None}: \n\n{self.f.definition}')
+            if self.f.arity != len(self.args):
+                print(f'Compile error (arity mismatch): function call at line {None} has {len(self.args)} arguments, but function `{self.f.name}` takes {self.f.arity} arguments; `{self.f.name}` has signature: {self.f.signature}')
+                quit()
+            for x, y in zip(self.f.args, self.args):
+                if x.argtype != y.vtype:
+                    print(f'Compile error (argument error): argument {y} in function call at line {None} has invalid type `{y.vtype}`; `{self.f.name}` has signature: {self.f.signature}')
+                    quit()
+
+            self.vtype = self.f.return_type
+
+        self.children.map(lambda x : x.infer_types())
+
+        return self
 parser = lark.Lark(grammar)
 
 tree = Node(parser.parse(pathlib.Path('stdlib.z').read_text()))
