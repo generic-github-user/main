@@ -106,4 +106,77 @@ type Vec<T> : Collection {
             capacity: init_capacity
         }
     }
+
+    // Deallocates the buffer associated with this vector
+    pub mut fn free (self) -> None {
+        self.data.free()
+        self.{length, capacity} = 0
+        return None
+    }
+
+    pub fn iter (self) -> Iterator<Option<T>; .length == self.length> {
+        return Iterator {
+            index: 0
+            next: () => {
+                return
+                    if index < self.length : Some(self[index++])
+                    else : None
+            }
+        }
+    }
+
+    pub mut fn push (self, value: T) -> Vec<T; length == self.length + 1> {
+        complexity { time: O(1) }
+
+        if (self.capacity - self.length) < 16 {
+            let new_capacity = self.capacity + 128
+            self.data = realloc(self.data, new_capacity)
+            self.capacity = new_capacity
+        }
+        self[self.length ++] = value
+        return self
+    }
+
+    pub mut fn pop (self) -> Option<T> {
+        complexity { time: O(1) }
+
+        if self.length > 0 : return Some(self[-- self.length])
+        else : return None
+    }
+
+    pub mut fn empty (self) -> Vec<T> {
+        complexity { time: O(1) }
+        self.length = 0
+        self
+    }
+
+    pub mut fn remove (self, i: uint) -> Vec<T> {
+        complexity { time: O(n) }
+        let value = self[i]
+        range(i, self.length).each(j => {
+            self[j] = self[j + 1]
+        })
+        self.length --
+        value
+    }
+
+    pub fn cast (self, Q<.size == T.size>) -> Vec<Q> {
+        complexity { time: O(1) }
+        return Vec {
+            data: self.data.cast(Array<Q>)
+            length: self.length
+            capacity: self.capacity
+        }
+    }
+
+    pub fn len (self) -> uint {
+        complexity { time: O(1) }
+        self.length
+    }
+
+    // may or may not be based on
+    // https://doc.rust-lang.org/src/alloc/vec/mod.rs.html#1961
+    pub fn is_empty (self) -> bool {
+        self.len() == 0
+    }
 }
