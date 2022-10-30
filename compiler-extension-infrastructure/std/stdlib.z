@@ -92,3 +92,18 @@ pub fn Sequence.shuffled <T> (values: Sequence<T>) ->
 pub fn math.factorial (x : Number) -> Number {
     range(1, x+1).product()
 }
+
+
+type Vec<T> : Collection {
+    data: Array<T; data.length == length>
+    length: uint
+    capacity: uint >= length
+
+    pub fn new (init_capacity:uint=128) -> Vec<T> {
+        return Vec {
+            data: malloc(init_capacity * T.size).cast(Array<T>)
+            length: 0
+            capacity: init_capacity
+        }
+    }
+}
