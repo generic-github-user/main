@@ -262,8 +262,18 @@ class Node:
         return self
 
     def emit_code(self):
+        """Generates semantically equivalent code for the target
+        platform/compiler (not guaranteed to be formatted or comply with
+                           typical style conventions). Currently, only C is
+        supported. This method works recursively on a "C-like" syntax tree and
+        is analogous to the inverse function of that represented by the parser.
+        It is assumed that by now, all higher-level constructs have been
+        "lowered" to canonical forms appropriate for the target; if this is not
+        the case, an error may be thrown here or when the generated code is
+        passed off to gcc/g++ for translation to an object file."""
         match self.type:
             case 'program':
+                # TODO: handle outer function generation using tree rewriting
                 body = self.children.map(Node.emit_code).join('\n')
                 return '\n'.join(['int main () {', body, '}'])
             case 'start' | 'block' | 'form':
@@ -271,6 +281,9 @@ class Node:
             case 'statement':
                 return f'{self.children[0].emit_code()};'
             case 'expression' | 'declaration' | 'operation' | 'literal':
+                # this is a hotfix to handle "wrapped" AST nodes; a single form
+                # in the source code can sometimes produce several nested
+                # statement, expression, block, etc. nodes
                 return self.children.map(Node.emit_code).join('')
             case 'return':
                 return f'return {self.arg.emit_code()}'
@@ -285,10 +298,17 @@ class Node:
             case 'call':
                 return f'{self.f.emit_code()}({self.args.emit_code()})'
             case 'bin_op':
+                # prior to this translation, nonstandard operators like ".."
+                # must have been lowered; in the future an error will be thrown
+                # if they are present in the input tree
                 return List([
                     self.left, self.op, self.right
                 ]).map(Node.emit_code).join(' ')
             case 'INT':
+                # one of the few lucky cases where the parse output is always
+                # (?) equivaent to its native form (an exception may be methods
+                # called on number/string literals, but this should be handled
+                # during the rewriting stage)
                 return self.value
             case _:
                 if isinstance(self, Token):
