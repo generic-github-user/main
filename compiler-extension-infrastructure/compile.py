@@ -135,17 +135,16 @@ def resolve_names(node, namespace):
                                     return_type=node.return_type,
                                     definition=node, body=node.body,
                                     parent=node.parent)
-        return node
+        return node.with_attr('body', node.body.resolve_names(namespace))
 
     if node.type in ['start', 'program', 'form', 'block', 'statement',
                      'call', 'expression', 'declaration', 'expression']:
+        print(f'Resolving names in {node.type}')
         return node.with_attr('children',
                               node.children.map(lambda x: x.resolve_names(namespace)))
 
-    if node.type == 'function_declaration':
-        return node.with_attr('body', node.body.resolve_names(namespace))
-
     if node.type in ['operation', 'tuple']:
+        print(f'Resolving names in {node.type}')
         return node.with_attr('children',
                               node.children.map(lambda x: x.resolve_names(namespace)))
 
@@ -202,6 +201,8 @@ class Node:
 
         for k, v in kwargs.items():
             setattr(self, k, v)
+
+        self.update_attrs()
 
 
     def from_lark(source: lark.Tree, *args, **kwargs):
@@ -312,7 +313,7 @@ class Node:
                     raise_error('type', f"""{self.f} is not a function; defined at
                     line {None}: \n\n{self.f.definition}""")
                 except AttributeError as ex:
-                    print(ex, '\n', self)
+                    print(ex, '\n', self, '\n', self.f)
                     quit()
 
             if self.f.arity != len(self.args):
