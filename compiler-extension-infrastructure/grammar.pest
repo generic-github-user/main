@@ -1,0 +1,34 @@
+identifier = { LETTER ~ (LETTER | NUMBER)* }
+int = { ASCII_NONZERO_DIGIT ~ (ASCII_DIGIT*) }
+float = { (ASCII_DIGIT+) ~ "." ~ (ASCII_DIGIT*) }
+string = { "\"" ~ (LETTER | NUMBER | " ")* ~ "\"" }
+literal = { string | float | int }
+
+operator = { "+" | "-" | "*" | "/" | "**" | "%" |
+             "||" | "&&" | "|" | "&" | "^" |
+             "==" | "!=" | "<" | "<=" | ">" | ">=" }
+bin_op = { expression ~ operator ~ expression }
+unary_op = { operator ~ expression }
+operation = { bin_op | unary_op }
+expression = { literal | identifier | array | call | index }
+grouping = { "(" ~ expression ~ ")" }
+
+list = { ((expression ~ ",")* ~ expression)? }
+array = { "[" ~ list ~ "]" }
+index = { expression ~ array }
+tuple = { "(" ~ list ~ ")" }
+call = { expression ~ tuple }
+
+struct_dec = { "struct" ~ block }
+function_dec = { identifier{2} ~ tuple ~ block }
+declaration = { function_dec | struct_dec }
+
+statement = { (("break" | expression) ~ ";") | declaration }
+block = { "{" ~ (statement+) ~ "}" }
+program = { (statement | block)+ }
+// comment = 
+// main = {
+    // SOI ~
+    // program ~
+    // EOI
+// }
