@@ -20,25 +20,30 @@ class Token:
 
 
 class Node:
-    def __init__(self, source, parent=None, depth=0, root=None):
+    def __init__(self, source=None, parent=None, depth=0, root=None,
+                 children=None, type_=None):
         self.parent = parent
         self.root = root if root else self
-        self.children = []
+
+        if children is None:
+            children = List()
+        self.children = children
         self.source = source
 
-        self.meta = self.source.meta
-        self.type = self.source.data
-        self.depth = depth
-        for c in self.source.children:
-            if isinstance(c, lark.Tree):
-                self.children.append(
-                    Node(c, self, self.depth+1,
-                         root=self.root if self.root else self))
-            elif c is None:
-                self.children.append(c)
-            else:
-                assert isinstance(c, lark.Token), c
-                self.children.append(Token(c))
+        if self.source is not None:
+            self.meta = self.source.meta
+            self.type = self.source.data
+            self.depth = depth
+            for c in self.source.children:
+                if isinstance(c, lark.Tree):
+                    self.children.append(
+                        Node(c, self, self.depth+1,
+                             root=self.root if self.root else self))
+                elif c is None:
+                    self.children.append(c)
+                else:
+                    assert isinstance(c, lark.Token), c
+                    self.children.append(Token(c))
 
     def text(self):
         return ''.join(c.text() for c in self.children)
