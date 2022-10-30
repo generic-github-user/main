@@ -106,6 +106,8 @@ def resolve_names(node, namespace):
                      'call', 'expression', 'declaration', 'expression']:
         # TODO: rework this to be functional (match style of rest of code)
         node.children = node.children.map(lambda x : x.resolve_names(namespace))
+    if node.type == 'function_declaration':
+        node.body = node.body.resolve_names(namespace)
     if node.type == 'IDENTIFIER':
         print(f'Dereferencing name {node.value}')
         if node.value not in namespace:
@@ -267,8 +269,27 @@ class Node:
                 if isinstance(self, Token):
                     return self.emit_code()
                 raise NotImplementedError(self)
+
+
+class IRNode:
+    pass
+
+
+grammar = pathlib.Path('compiler-extension-infrastructure/grammar.lark').read_text()
 parser = lark.Lark(grammar)
 
-tree = Node(parser.parse(pathlib.Path('stdlib.z').read_text()))
+tree = Node(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
+            names=dict())
 # print(tree.pretty())
+
 print(tree)
+tree = tree.map(lift_tuples).map(range_filter)
+tree = tree.map(lift_outer('expression', 'IDENTIFIER'))
+tree = tree.resolve_names()
+print(tree)
+tree.infer_types()
+# tree = tree.map_each([lift_tuples, range_filter,
+                      # lift_nodetype('expression', 'literal')])
+print(tree)
+# breakpoint()
+print(tree.emit_code())
