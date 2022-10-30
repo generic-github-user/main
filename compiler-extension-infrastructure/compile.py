@@ -94,6 +94,10 @@ def label_assignments(node):
     return node
 
 
+# def implicit_return(node):
+    # if node.type == 'function':
+
+
 def range_filter(node):
     """This filter handles desugaring of the ".." syntax, which is modelled
     loosely after Rust's. The operator is transformed into a call to the
@@ -137,6 +141,9 @@ def resolve_names(node, namespace):
 
     if node.type == 'function_declaration':
         node.body = node.body.resolve_names(namespace)
+
+    if node.type in ['operation', 'tuple']:
+        node.children = node.children.map(lambda x: x.resolve_names(namespace))
 
     if node.type == 'IDENTIFIER':
         print(f'Dereferencing name {node.value}')
