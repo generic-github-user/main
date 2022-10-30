@@ -73,6 +73,25 @@ def range_filter(node):
             Node(type_='tuple', depth=node.depth+1, children=[
                 node.left, node.right])
         ], depth=node.depth)
+
+def resolve_names(node, namespace):
+    if node.type == 'function_declaration':
+        namespace[node.name] = Node(type_='function', vtype='function',
+                                    return_type=node.return_type,
+                                    definition=node, body=node.body, parent=node.parent)
+        return node
+    if node.type in ['start', 'program', 'form', 'block', 'statement',
+                     'call', 'expression', 'declaration', 'expression']:
+        # TODO: rework this to be functional (match style of rest of code)
+        node.children = node.children.map(lambda x : x.resolve_names(namespace))
+    if node.type == 'IDENTIFIER':
+        print(f'Dereferencing name {node.value}')
+        if node.value not in namespace:
+            print(f'Compiler error: {node.value} not defined when used at line {node.line}; make sure that name is defined and in scope.')
+            quit()
+        # breakpoint()
+        return namespace[node.value]
+    # self.children.map(lambda x : x.infer_types())
     return node
 
 
