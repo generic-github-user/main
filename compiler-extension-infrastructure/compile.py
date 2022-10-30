@@ -221,22 +221,33 @@ class Node:
                 assert self.children.len() == 1, self
                 self.arg = self.children[0]
             case 'fn_signature':
-                self.name, self.type_params,\
-                    self.arguments, self.return_type = self.children
+                self.alias_children('name type_params arguments return_type',
+                                    'name arguments return_type')
             case 'function_declaration':
                 self.signature, self.body = self.children
-                self.name, self.type_params,\
-                    self.arguments, self.return_type = self.signature.children
+                self.alias_children('name type_params arguments return_type',
+                                    'name arguments return_type',
+                                    target=self.signature)
             case 'call':
-                self.f, self.args = self.children
+                self.alias_children('f args')
             case 'list' | 'tuple':
                 self.items = self.children
             # case 'tuple':
                 # self.items = self.children[0].items
             case 'bin_op':
-                self.left, self.op, self.right = self.children
+                self.alias_children('left op right')
             case 'assignment':
-                self.left, self.right = self.children
+                self.alias_children('left right')
+
+    def alias_children(self, *args, target=None):
+        if target is None:
+            target = self
+        args = List(args).map(lambda x: x.split() if isinstance(x, str) else x)
+        matches = args.filter(lambda x: len(x) == target.children.len())
+        assert matches.len() > 0, f"At least one alias group must have as many elements as this node has children; got {args}, while node has children {target.children}"
+        assert matches.len() == 1
+        for name, node in zip(matches[0], target.children):
+            setattr(self, name, node)
 
     def map(self, f: Callable[Node, Node],
             preserve_children: bool = False) -> Node:
@@ -459,12 +470,12 @@ tree = Node(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
 print(tree)
 tree = tree.map(lift_tuples).map(range_filter)
 tree = tree.map(lift_outer('expression', 'IDENTIFIER'))
+tree = tree.map(label_assignments)
 tree = tree.resolve_names()
 print(tree)
 tree.infer_types()
 # tree = tree.map_each([lift_tuples, range_filter,
 # lift_nodetype('expression', 'literal')])
-tree = tree.map(label_assignments)
 print(tree)
 # breakpoint()
 print(tree.emit_code())
