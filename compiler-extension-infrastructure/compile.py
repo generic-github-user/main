@@ -102,6 +102,30 @@ class Node:
                     assert isinstance(c, lark.Token), c
                     self.children.append(Token(c))
 
+        for attr in 'arg name arguments signature type_params\
+                arguments return_type f args left right op'.split():
+            setattr(self, attr, None)
+
+        # should we separate the AST representation from the IR?
+        match self.type:
+            case 'return':
+                assert self.children.len() == 1, self
+                self.arg = self.children[0]
+            case 'fn_signature':
+                self.name, self.type_params,\
+                    self.arguments, self.return_type = self.children
+            case 'function_declaration':
+                self.signature, self.body = self.children
+                self.name, self.type_params,\
+                    self.arguments, self.return_type = self.signature.children
+            case 'call':
+                self.f, self.args = self.children
+            case 'list' | 'tuple':
+                self.items = self.children
+            # case 'tuple':
+                # self.items = self.children[0].items
+            case 'bin_op':
+                self.left, self.op, self.right = self.children
     def text(self):
         return ''.join(c.text() for c in self.children)
 
