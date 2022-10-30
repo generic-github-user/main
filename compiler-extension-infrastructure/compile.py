@@ -1,5 +1,8 @@
 import lark
 import pathlib
+import sys
+from lib.pylist import List
+from functools import reduce
 
 # TODO: make diagram of type system(s) and related abstractions
 # language/framework in which assignment is an assertion of equality?
@@ -13,6 +16,8 @@ class Token:
         self.type = type_
         self.value = value
 
+        self.vtype = None
+
         self.line = line
         self.column = column
         if self.source is not None:
@@ -24,6 +29,9 @@ class Token:
 
     def __str__(self):
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
+
+    def resolve_names(self, namespace):
+        return resolve_names(self, namespace)
 
     def infer_types(self):
         match self.type:
@@ -37,6 +45,9 @@ class Token:
 
     def map(self, f):
         return f(self)
+
+    def __hash__(self):
+        return hash(self.value)
 
     def __eq__(self, other):
         if isinstance(other, str):
@@ -62,6 +73,15 @@ def lift_nodetype(a, b):
     return lifter
 
 
+def lift_outer(a, b):
+    def lifter(node):
+        if node.type == a and node.children[0].type == b:
+            assert node.children.len() == 1
+            return node.children[0]
+        return node
+    return lifter
+
+
 def range_filter(node):
     # if isinstance(node, Node):
         # print(node.type, node.op == '..')
@@ -71,8 +91,10 @@ def range_filter(node):
         return Node(type_='call', children=[
             Token(type_='IDENTIFIER', value='range'),
             Node(type_='tuple', depth=node.depth+1, children=[
-                node.left, node.right])
-        ], depth=node.depth)
+                node.left, node.right], parent=node.parent)
+        ], depth=node.depth, parent=node.parent)
+    return node
+
 
 def resolve_names(node, namespace):
     if node.type == 'function_declaration':
@@ -136,6 +158,9 @@ class Node:
                 else:
                     assert isinstance(c, lark.Token), c
                     self.children.append(Token(c))
+
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
         for attr in 'arg name arguments signature type_params\
                 arguments return_type f args left right op'.split():
