@@ -44,6 +44,24 @@ class Token:
         return self == other
 
 
+def lift_tuples(node):
+    if (node.type == 'tuple' and
+            node.children.len() == 1 and
+            node.children[0].type == 'list'):
+        node.children = node.children[0].children
+    return node
+
+
+def lift_nodetype(a, b):
+    def lifter(node):
+        if (node.type == a and
+                node.children.len() == 1 and
+                node.children[0].type == b):
+            node.children = node.children[0].children
+        return node
+    return lifter
+
+
 def range_filter(node):
     # if isinstance(node, Node):
         # print(node.type, node.op == '..')
