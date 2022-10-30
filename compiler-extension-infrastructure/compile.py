@@ -28,6 +28,7 @@ class Token:
             for attr in 'type value line column'.split():
                 setattr(self, attr, getattr(self.source, attr))
                 self.length = len(self.source)
+        self.data_attrs = set()
 
     def text(self) -> str:
         return self.value
@@ -58,6 +59,8 @@ class Token:
         if isinstance(other, str):
             return self.value == other
         return self == other
+
+    __repr__ = __str__
 
 
 def lift_tuples(node):
@@ -136,21 +139,23 @@ def resolve_names(node, namespace):
 
     if node.type in ['start', 'program', 'form', 'block', 'statement',
                      'call', 'expression', 'declaration', 'expression']:
-        # TODO: rework this to be functional (match style of rest of code)
-        node.children = node.children.map(lambda x: x.resolve_names(namespace))
+        return node.with_attr('children',
+                              node.children.map(lambda x: x.resolve_names(namespace)))
 
     if node.type == 'function_declaration':
-        node.body = node.body.resolve_names(namespace)
+        return node.with_attr('body', node.body.resolve_names(namespace))
 
     if node.type in ['operation', 'tuple']:
-        node.children = node.children.map(lambda x: x.resolve_names(namespace))
+        return node.with_attr('children',
+                              node.children.map(lambda x: x.resolve_names(namespace)))
 
     if node.type == 'IDENTIFIER':
+        assert isinstance(node, Token)
         print(f'Dereferencing name {node.value}')
         if node.value not in namespace:
-            raise_error('name', f"""Compiler error: {node.value} not defined
-                        when used at line {node.line}; make sure that name is
-                        defined and in scope.""")
+            raise_error('name resolution', f"""\
+                        {node.value} not defined when used at line {node.line};
+                        make sure that name is defined and in scope.""")
         # breakpoint()
         return namespace[node.value]
     # self.children.map(lambda x : x.infer_types())
@@ -158,7 +163,8 @@ def resolve_names(node, namespace):
 
 
 def raise_error(etype, message):
-    print(f'Compiler error ({etype} error): {textwrap.dedent(message)}')
+    wrapped = textwrap.dedent(message).replace("\n", " ")
+    print(f'Compiler error ({etype} error): {wrapped}')
     quit()
 
 
@@ -215,11 +221,12 @@ class Node:
                 arguments return_type f args left right op'.split():
             setattr(self, attr, None)
 
+        self.data_attrs = set()
         # should we separate the AST representation from the IR?
         match self.type:
             case 'return':
                 assert self.children.len() == 1, self
-                self.arg = self.children[0]
+                self.alias_children('arg')
             case 'fn_signature':
                 self.alias_children('name type_params arguments return_type',
                                     'name arguments return_type')
@@ -244,10 +251,11 @@ class Node:
             target = self
         args = List(args).map(lambda x: x.split() if isinstance(x, str) else x)
         matches = args.filter(lambda x: len(x) == target.children.len())
-        assert matches.len() > 0, f"At least one alias group must have as many elements as this node has children; got {args}, while node has children {target.children}"
+        assert matches.len() > 0, f"At least one alias group must have as many elements as this node has children; got {args}, while node has children {target.children}; target is\n{target}"
         assert matches.len() == 1
         for name, node in zip(matches[0], target.children):
             setattr(self, name, node)
+            self.data_attrs.add(name)
 
     def map(self, f: Callable[Node, Node],
             preserve_children: bool = False) -> Node:
@@ -278,30 +286,46 @@ class Node:
         # return self.map(lambda n : resolve_names(n, self.names))
         return resolve_names(self, self.names)
 
+    def clone(self) -> Node:
+        return Node(**{attr: getattr(self, attr) for attr in
+                       set(['parent', 'depth', 'source', 'names',
+                            'children', 'type', 'vtype']) | self.data_attrs})
+
+    def with_attr(self, k, v) -> Node:
+        nnode = self.clone()
+        setattr(nnode, k, v)
+        return nnode
+
     def infer_types(self) -> Node:
         if self.type == 'call':
             if self.f.vtype != 'function':
                 print(self.f, self.f.vtype)
-                raise_error('type', f"""{self.f} is not a function; defined at
-                line {None}: \n\n{self.f.definition}""")
+                try:
+                    raise_error('type', f"""{self.f} is not a function; defined at
+                    line {None}: \n\n{self.f.definition}""")
+                except AttributeError as ex:
+                    print(ex, '\n', self)
+                    quit()
+
             if self.f.arity != len(self.args):
                 raise_error('argument', f"""function call at line {None} has
                 {len(self.args)} arguments, but function `{self.f.name}` takes
                 {self.f.arity} arguments; `{self.f.name}` has signature:
                 {self.f.signature}""")
+
             for x, y in zip(self.f.args, self.args):
                 if x.argtype != y.vtype:
                     raise_error('argument', f"""argument {y} in function call
                     at line {None} has invalid type `{y.vtype}`;
                     `{self.f.name}` has signature: {self.f.signature}""")
 
-            self.vtype = self.f.return_type
+            return self.with_attr('vtype', self.f.return_type)
 
         self.children.map(lambda x: x.infer_types())
 
         if self.type in ['literal', 'expression']:
             assert self.children.len() == 1
-            self.vtype = self.children[0].vtype
+            return self.with_attr('vtype',  self.children[0].vtype)
 
         return self
 
@@ -455,6 +479,7 @@ class Node:
             print("  "*depth + "[Comment elided]")
 
 
+
 class IRNode:
     pass
 
@@ -473,7 +498,8 @@ tree = tree.map(lift_outer('expression', 'IDENTIFIER'))
 tree = tree.map(label_assignments)
 tree = tree.resolve_names()
 print(tree)
-tree.infer_types()
+tree = tree.infer_types()
+print(tree)
 # tree = tree.map_each([lift_tuples, range_filter,
 # lift_nodetype('expression', 'literal')])
 print(tree)
