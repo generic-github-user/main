@@ -12,8 +12,9 @@ from typing import Callable, Union
 
 
 class Token:
-    def __init__(self, source:lark.Token=None, parent:Node=None,
-                 type_:str=None, value:str=None, line:int=None, column:int=None):
+    def __init__(self, source: lark.Token = None, parent: Node = None,
+                 type_: str = None, value: str = None, line: int = None,
+                 column: int = None):
         self.parent = parent
         self.source = source
         self.type = type_
@@ -98,7 +99,7 @@ def range_filter(node):
     infrastructure project."""
 
     # if isinstance(node, Node):
-        # print(node.type, node.op == '..')
+    #     print(node.type, node.op == '..')
     if node.type == 'bin_op' and node.op == '..':
         # we could also use string interpolation in combination with a parser
         # call, but this way is conceptually cleaner
@@ -118,12 +119,13 @@ def resolve_names(node, namespace):
     if node.type == 'function_declaration':
         namespace[node.name] = Node(type_='function', vtype='function',
                                     return_type=node.return_type,
-                                    definition=node, body=node.body, parent=node.parent)
+                                    definition=node, body=node.body,
+                                    parent=node.parent)
         return node
     if node.type in ['start', 'program', 'form', 'block', 'statement',
                      'call', 'expression', 'declaration', 'expression']:
         # TODO: rework this to be functional (match style of rest of code)
-        node.children = node.children.map(lambda x : x.resolve_names(namespace))
+        node.children = node.children.map(lambda x: x.resolve_names(namespace))
     if node.type == 'function_declaration':
         node.body = node.body.resolve_names(namespace)
     if node.type == 'IDENTIFIER':
@@ -144,9 +146,12 @@ def raise_error(etype, message):
 
 
 class Node:
-    def __init__(self, source:lark.Tree=None, parent:Node=None, depth:int=0, root:Node=None,
-                 children:Union[list[Node], List[Node]]=None, type_:str=None,
-                 vtype:str=None, names:dict[str, Node]=None, **kwargs):
+    def __init__(self, source: lark.Tree = None, parent: Node = None,
+                 depth: int = 0, root: Node = None,
+                 children: Union[list[Node], List[Node]] = None,
+                 type_: str = None, vtype: str = None,
+                 names: dict[str, Node] = None, **kwargs):
+
         self.parent: Node = parent
         self.root: Node = root if root else self
         self.depth: int = depth
@@ -214,19 +219,20 @@ class Node:
             case 'bin_op':
                 self.left, self.op, self.right = self.children
 
-    def map(self, f:Callable[Node, Node], preserve_children:bool=False) -> Node:
+    def map(self, f: Callable[Node, Node],
+            preserve_children: bool = False) -> Node:
         result = f(self)
         # if not preserve_children:
         # why did this work without the check before?
         if isinstance(result, Node):
-            result.children = result.children.map(lambda x : x.map(f))
+            result.children = result.children.map(lambda x: x.map(f))
             for node in result.children:
                 if node.parent is None:
                     node.parent = result
         # print(self)
         return result
 
-    def map_each(self, fs:list[Callable[Node, Node]]) -> Node:
+    def map_each(self, fs: list[Callable[Node, Node]]) -> Node:
         return reduce(lambda a, b: b(a), fs, self)
 
     def text(self) -> str:
@@ -238,7 +244,7 @@ class Node:
 
     # def validate(self):
 
-    def resolve_names(self, namespace:dict[str, Node]=None) -> Node:
+    def resolve_names(self, namespace: dict[str, Node] = None) -> Node:
         # return self.map(lambda n : resolve_names(n, self.names))
         return resolve_names(self, self.names)
 
@@ -261,7 +267,7 @@ class Node:
 
             self.vtype = self.f.return_type
 
-        self.children.map(lambda x : x.infer_types())
+        self.children.map(lambda x: x.infer_types())
 
         return self
 
@@ -275,32 +281,46 @@ class Node:
         "lowered" to canonical forms appropriate for the target; if this is not
         the case, an error may be thrown here or when the generated code is
         passed off to gcc/g++ for translation to an object file."""
+
         match self.type:
             case 'program':
                 # TODO: handle outer function generation using tree rewriting
                 body = self.children.map(Node.emit_code).join('\n')
                 return '\n'.join(['int main () {', body, '}'])
+
             case 'start' | 'block' | 'form':
                 return self.children.map(Node.emit_code).join('\n')
+
             case 'statement':
                 return f'{self.children[0].emit_code()};'
+
             case 'expression' | 'declaration' | 'operation' | 'literal':
                 # this is a hotfix to handle "wrapped" AST nodes; a single form
                 # in the source code can sometimes produce several nested
                 # statement, expression, block, etc. nodes
                 return self.children.map(Node.emit_code).join('')
+
             case 'return':
                 return f'return {self.arg.emit_code()}'
+
             case 'function_declaration':
-                return f'{self.return_type.emit_code()} {self.name.emit_code()} () {self.body.emit_code()}'
+                return List([self.return_type.emit_code(),
+                             self.name.emit_code(),
+                             '()',
+                             self.body.emit_code()]).join(' ')
+
             case 'type':
                 return ''
+
             case 'tuple':
                 return self.children.map(Node.emit_code).join(', ')
+
             case 'list':
                 return self.children.map(Node.emit_code).join(', ')
+
             case 'call':
                 return f'{self.f.emit_code()}({self.args.emit_code()})'
+
             case 'bin_op':
                 # prior to this translation, nonstandard operators like ".."
                 # must have been lowered; in the future an error will be thrown
@@ -308,12 +328,14 @@ class Node:
                 return List([
                     self.left, self.op, self.right
                 ]).map(Node.emit_code).join(' ')
+
             case 'INT':
                 # one of the few lucky cases where the parse output is always
                 # (?) equivaent to its native form (an exception may be methods
                 # called on number/string literals, but this should be handled
                 # during the rewriting stage)
                 return self.value
+
             case _:
                 if isinstance(self, Token):
                     return self.emit_code()
@@ -323,11 +345,9 @@ class Node:
         def __init__(self, *args, **kwargs):
             Node.__init__(*args, **kwargs)
 
-
     class Literal(Expression):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-
 
     class Int(Literal):
         def __init__(self, *args, **kwargs):
@@ -336,14 +356,12 @@ class Node:
         def compile(self):
             return self[0].content
 
-
     class Float(Literal):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
         def compile(self):
             return self[0].content
-
 
     class Tuple(Expression):
         def __init__(self, *args, **kwargs):
@@ -352,11 +370,9 @@ class Node:
         def compile(self):
             return ", ".join(x.compile() for x in self.children)
 
-
     class Array(Expression):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-
 
     class Symbol(Expression):
         def __init__(self, *args, **kwargs):
@@ -365,23 +381,19 @@ class Node:
         def compile(self):
             return self[0].content
 
-
     class Operation(Expression):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             # assert len(self.children) == 3, self
             # self.left, self.op, self.right = self.children
 
-
     class Call(Expression):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
-
     class String(Literal):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-
 
     class Block:
         def __init__(self, *args, **kwargs):
@@ -390,11 +402,9 @@ class Node:
         def canonical(self):
             return '\n'.join(x.canonical() for x in self.children)
 
-
     class Operator:
         def __init__(self, *args, **kwargs):
             Node.__init__(*args, **kwargs)
-
 
     class Comment:
         def __init__(self, *args, **kwargs):
@@ -403,11 +413,13 @@ class Node:
         def print(self, depth=0):
             print("  "*depth + "[Comment elided]")
 
+
 class IRNode:
     pass
 
 
-grammar = pathlib.Path('compiler-extension-infrastructure/grammar.lark').read_text()
+grammar_path = 'compiler-extension-infrastructure/grammar.lark'
+grammar = pathlib.Path(grammar_path).read_text()
 parser = lark.Lark(grammar)
 
 tree = Node(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
@@ -421,7 +433,7 @@ tree = tree.resolve_names()
 print(tree)
 tree.infer_types()
 # tree = tree.map_each([lift_tuples, range_filter,
-                      # lift_nodetype('expression', 'literal')])
+# lift_nodetype('expression', 'literal')])
 print(tree)
 # breakpoint()
 print(tree.emit_code())
