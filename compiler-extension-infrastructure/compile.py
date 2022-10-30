@@ -52,13 +52,16 @@ class Token:
     def map(self, f) -> Token:
         return f(self)
 
+    def with_attr(self, k, v) -> Token:
+        return self
+
     def __hash__(self) -> int:
         return hash(self.value)
 
     def __eq__(self, other) -> bool:
         if isinstance(other, str):
             return self.value == other
-        return self == other
+        return self.value == other.value
 
     __repr__ = __str__
 
@@ -131,11 +134,25 @@ def resolve_names(node, namespace):
     before type inference is attempted."""
 
     if node.type == 'function_declaration':
-        namespace[node.name] = Node(type_='function', vtype='function',
-                                    return_type=node.return_type,
-                                    definition=node, body=node.body,
-                                    parent=node.parent)
-        return node.with_attr('body', node.body.resolve_names(namespace))
+        assert hasattr(node, 'signature') and node.signature is not None
+        assert hasattr(node.signature, 'arguments') and\
+            node.signature.arguments is not None
+        fnode = Node(type_='function', vtype='function',
+                     return_type=node.return_type,
+                     definition=node,
+                     name=node.signature.name,
+                     signature=node.signature,
+                     body=node.body,
+                     arguments=node.signature.arguments,
+                     arity=node.signature.arguments.children.len(),
+                     parent=node.parent)
+        namespace[node.name] = fnode
+        for p in fnode.arguments.children:
+            namespace[p.name] = None
+        # breakpoint()
+        result = node.with_attr('body', node.body.resolve_names(namespace))
+        fnode.arguments.children.map(lambda x: namespace.pop(x.name))
+        return result
 
     if node.type in ['start', 'program', 'form', 'block', 'statement',
                      'call', 'expression', 'declaration', 'expression']:
@@ -143,10 +160,13 @@ def resolve_names(node, namespace):
         return node.with_attr('children',
                               node.children.map(lambda x: x.resolve_names(namespace)))
 
-    if node.type in ['operation', 'tuple']:
+    if node.type in ['operation', 'tuple', 'bin_op', 'literal']:
         print(f'Resolving names in {node.type}')
         return node.with_attr('children',
                               node.children.map(lambda x: x.resolve_names(namespace)))
+
+    if node.type in ['OPERATOR', 'STRING', 'INT']:
+        return node
 
     if node.type == 'IDENTIFIER':
         assert isinstance(node, Token)
@@ -157,8 +177,10 @@ def resolve_names(node, namespace):
                         make sure that name is defined and in scope.""")
         # breakpoint()
         return namespace[node.value]
+
+    raise NotImplementedError(node.type)
     # self.children.map(lambda x : x.infer_types())
-    return node
+    # return node
 
 
 def raise_error(etype, message):
@@ -172,7 +194,7 @@ class Node:
                  depth: int = 0, root: Node = None,
                  children: Union[list[Node], List[Node]] = None,
                  type_: str = None, vtype: str = None,
-                 names: dict[str, Node] = None, **kwargs):
+                 names: dict[str, Node] = None, update: bool = True, **kwargs):
 
         self.parent: Node = parent
         self.root: Node = root if root else self
@@ -201,8 +223,8 @@ class Node:
 
         for k, v in kwargs.items():
             setattr(self, k, v)
-
-        self.update_attrs()
+        if update:
+            self.update_attrs()
 
 
     def from_lark(source: lark.Tree, *args, **kwargs):
@@ -226,9 +248,9 @@ class Node:
         return self
 
     def update_attrs(self):
-        for attr in 'arg name arguments signature type_params\
-                arguments return_type f args left right op'.split():
-            setattr(self, attr, None)
+        # for attr in 'arg name arguments signature type_params\
+                # arguments return_type f args left right op'.split():
+            # setattr(self, attr, None)
 
         self.data_attrs = set()
         # should we separate the AST representation from the IR?
@@ -240,7 +262,7 @@ class Node:
                 self.alias_children('name type_params arguments return_type',
                                     'name arguments return_type')
             case 'function_declaration':
-                self.signature, self.body = self.children
+                self.alias_children('signature body')
                 self.alias_children('name type_params arguments return_type',
                                     'name arguments return_type',
                                     target=self.signature)
@@ -254,6 +276,8 @@ class Node:
                 self.alias_children('left op right')
             case 'assignment':
                 self.alias_children('left right')
+            case 'typed_name':
+                self.alias_children('name ptype')
 
     def alias_children(self, *args, target=None):
         if target is None:
@@ -262,7 +286,11 @@ class Node:
         matches = args.filter(lambda x: len(x) == target.children.len())
         assert matches.len() > 0, f"At least one alias group must have as many elements as this node has children; got {args}, while node has children {target.children}; target is\n{target}"
         assert matches.len() == 1
+        if target == self:
+            setattr(self, 'child_aliases', matches[0])
         for name, node in zip(matches[0], target.children):
+            if hasattr(self, name):
+                print(f'Warning: overwriting existing attribute "{name}" with value {getattr(self, name)} (new value is {node}) -- this may not be the intended behavior. Use `update=False` to suppress this update.')
             setattr(self, name, node)
             self.data_attrs.add(name)
 
@@ -272,10 +300,8 @@ class Node:
         # if not preserve_children:
         # why did this work without the check before?
         if isinstance(result, Node):
-            result.children = result.children.map(lambda x: x.map(f))
-            for node in result.children:
-                if node.parent is None:
-                    node.parent = result
+            result = result.with_attr('children',
+                                      result.children.map(lambda x: x.map(f)))
         # print(self)
         return result
 
@@ -293,16 +319,23 @@ class Node:
 
     def resolve_names(self, namespace: dict[str, Node] = None) -> Node:
         # return self.map(lambda n : resolve_names(n, self.names))
-        return resolve_names(self, self.names)
+        return resolve_names(self, self.names if namespace is None else namespace)
 
-    def clone(self) -> Node:
+    def clone(self, *args, **kwargs) -> Node:
         return Node(**{attr: getattr(self, attr) for attr in
                        set(['parent', 'depth', 'source', 'names',
-                            'children', 'type', 'vtype']) | self.data_attrs})
+                            'children', 'type', 'vtype']) | self.data_attrs},
+                    **kwargs)
 
-    def with_attr(self, k, v) -> Node:
-        nnode = self.clone()
+    def with_attr(self, k, v, update: bool = True,
+                  propagate: bool = True) -> Node:
+        nnode = self.clone(update=update)
+        if propagate and k != 'children':
+            assert isinstance(v, (Node, Token)), f'{k}, {v}'
+            self.children[self.child_aliases.index(k)] = v
         setattr(nnode, k, v)
+        if update:
+            nnode.update_attrs()
         return nnode
 
     def infer_types(self) -> Node:
@@ -316,17 +349,18 @@ class Node:
                     print(ex, '\n', self, '\n', self.f)
                     quit()
 
-            if self.f.arity != len(self.args):
+            if self.f.arity != len(self.args.children):
                 raise_error('argument', f"""function call at line {None} has
                 {len(self.args)} arguments, but function `{self.f.name}` takes
                 {self.f.arity} arguments; `{self.f.name}` has signature:
                 {self.f.signature}""")
 
-            for x, y in zip(self.f.args, self.args):
-                if x.argtype != y.vtype:
-                    raise_error('argument', f"""argument {y} in function call
-                    at line {None} has invalid type `{y.vtype}`;
-                    `{self.f.name}` has signature: {self.f.signature}""")
+            for x, y in zip(self.f.arguments.children, self.args.children):
+                if x.ptype != y.vtype:
+                    raise_error('argument', f"""
+                    argument {y.source.meta} (for parameter {x.name.value}) in function
+                    call at line {None} has invalid type `{y.vtype}`;
+                    `{self.f.name.value}` has signature: {self.f.signature}""")
 
             return self.with_attr('vtype', self.f.return_type)
 
@@ -501,16 +535,14 @@ tree = Node.from_lark(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
                       names=dict())
 # print(tree.pretty())
 
-print(tree)
 tree = tree.map(lift_tuples).map(range_filter)
 tree = tree.map(lift_outer('expression', 'IDENTIFIER'))
 tree = tree.map(label_assignments)
 tree = tree.resolve_names()
 print(tree)
+# breakpoint()
 tree = tree.infer_types()
-print(tree)
 # tree = tree.map_each([lift_tuples, range_filter,
 # lift_nodetype('expression', 'literal')])
-print(tree)
 # breakpoint()
-print(tree.emit_code())
+# print(tree.emit_code())
