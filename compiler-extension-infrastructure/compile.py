@@ -5,6 +5,7 @@ import sys
 from lib.pylist import List
 from functools import reduce
 import textwrap
+from typing import Callable, Union
 
 # TODO: make diagram of type system(s) and related abstractions
 # language/framework in which assignment is an assertion of equality?
@@ -129,11 +130,12 @@ def raise_error(etype, message):
 
 
 class Node:
-    def __init__(self, source=None, parent=None, depth=0, root=None,
-                 children=None, type_=None, vtype=None, names=None, **kwargs):
-        self.parent = parent
-        self.root = root if root else self
-        self.depth = depth
+    def __init__(self, source:lark.Tree=None, parent:Node=None, depth:int=0, root:Node=None,
+                 children:Union[list[Node], List[Node]]=None, type_:str=None,
+                 vtype:str=None, names:dict[str, Node]=None, **kwargs):
+        self.parent: Node = parent
+        self.root: Node = root if root else self
+        self.depth: int = depth
 
         if children is None:
             children = List()
@@ -145,10 +147,10 @@ class Node:
                 node.parent = self
                 node.depth = self.depth + 1
 
-        self.type = type_
-        self.source = source
+        self.type: str = type_
+        self.source: lark.Tree = source
 
-        self.vtype = vtype
+        self.vtype: str = vtype
 
         if names is None:
             # names = dict()
@@ -198,7 +200,7 @@ class Node:
             case 'bin_op':
                 self.left, self.op, self.right = self.children
 
-    def map(self, f, preserve_children=False):
+    def map(self, f:Callable[Node, Node], preserve_children:bool=False) -> Node:
         result = f(self)
         # if not preserve_children:
         # why did this work without the check before?
@@ -210,23 +212,23 @@ class Node:
         # print(self)
         return result
 
-    def map_each(self, fs):
+    def map_each(self, fs:list[Callable[Node, Node]]) -> Node:
         return reduce(lambda a, b: b(a), fs, self)
 
-    def text(self):
+    def text(self) -> str:
         return ''.join(c.text() for c in self.children)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Node <{self.type}> ({self.depth})' + '\n' +\
             '\n'.join('  '*self.depth + str(n) for n in self.children)
 
     # def validate(self):
 
-    def resolve_names(self, namespace=None):
+    def resolve_names(self, namespace:dict[str, Node]=None) -> Node:
         # return self.map(lambda n : resolve_names(n, self.names))
         return resolve_names(self, self.names)
 
-    def infer_types(self):
+    def infer_types(self) -> Node:
         if self.type == 'call':
             if self.f.vtype != 'function':
                 print(self.f, self.f.vtype)
@@ -249,7 +251,7 @@ class Node:
 
         return self
 
-    def emit_code(self):
+    def emit_code(self) -> str:
         match self.type:
             case 'program':
                 body = self.children.map(Node.emit_code).join('\n')
