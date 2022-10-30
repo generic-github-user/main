@@ -26,6 +26,21 @@ class Token:
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
 
 
+
+def range_filter(node):
+    # if isinstance(node, Node):
+        # print(node.type, node.op == '..')
+    if node.type == 'bin_op' and node.op == '..':
+        # we could also use string interpolation in combination with a parser
+        # call, but this way is conceptually cleaner
+        return Node(type_='call', children=[
+            Token(type_='IDENTIFIER', value='range'),
+            Node(type_='tuple', depth=node.depth+1, children=[
+                node.left, node.right])
+        ], depth=node.depth)
+    return node
+
+
 class Node:
     def __init__(self, source=None, parent=None, depth=0, root=None,
                  children=None, type_=None):
