@@ -1,3 +1,4 @@
+from __future__ import annotations
 import lark
 import pathlib
 import sys
@@ -10,8 +11,8 @@ import textwrap
 
 
 class Token:
-    def __init__(self, source=None, parent=None,
-                 type_=None, value=None, line=None, column=None):
+    def __init__(self, source:lark.Token=None, parent:Node=None,
+                 type_:str=None, value:str=None, line:int=None, column:int=None):
         self.parent = parent
         self.source = source
         self.type = type_
@@ -26,9 +27,10 @@ class Token:
                 setattr(self, attr, getattr(self.source, attr))
                 self.length = len(self.source)
 
-    def text(self): return self.value
+    def text(self) -> str:
+        return self.value
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
 
     def resolve_names(self, namespace):
@@ -41,16 +43,16 @@ class Token:
             case 'FLOAT':
                 self.vtype = 'float'
 
-    def emit_code(self):
+    def emit_code(self) -> str:
         return self.value
 
-    def map(self, f):
+    def map(self, f) -> Token:
         return f(self)
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(self.value)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if isinstance(other, str):
             return self.value == other
         return self == other
