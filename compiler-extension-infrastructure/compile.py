@@ -145,6 +145,22 @@ class Node:
                 # self.items = self.children[0].items
             case 'bin_op':
                 self.left, self.op, self.right = self.children
+
+    def map(self, f, preserve_children=False):
+        result = f(self)
+        # if not preserve_children:
+        # why did this work without the check before?
+        if isinstance(result, Node):
+            result.children = result.children.map(lambda x : x.map(f))
+            for node in result.children:
+                if node.parent is None:
+                    node.parent = result
+        # print(self)
+        return result
+
+    def map_each(self, fs):
+        return reduce(lambda a, b: b(a), fs, self)
+
     def text(self):
         return ''.join(c.text() for c in self.children)
 
