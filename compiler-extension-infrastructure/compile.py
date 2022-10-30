@@ -285,6 +285,89 @@ class Node:
                     return self.emit_code()
                 raise NotImplementedError(self)
 
+    class Expression:
+        def __init__(self, *args, **kwargs):
+            Node.__init__(*args, **kwargs)
+
+
+    class Literal(Expression):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+
+    class Int(Literal):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def compile(self):
+            return self[0].content
+
+
+    class Float(Literal):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def compile(self):
+            return self[0].content
+
+
+    class Tuple(Expression):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def compile(self):
+            return ", ".join(x.compile() for x in self.children)
+
+
+    class Array(Expression):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+
+    class Symbol(Expression):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def compile(self):
+            return self[0].content
+
+
+    class Operation(Expression):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            # assert len(self.children) == 3, self
+            # self.left, self.op, self.right = self.children
+
+
+    class Call(Expression):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+
+    class String(Literal):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+
+    class Block:
+        def __init__(self, *args, **kwargs):
+            Node.__init__(*args, **kwargs)
+
+        def canonical(self):
+            return '\n'.join(x.canonical() for x in self.children)
+
+
+    class Operator:
+        def __init__(self, *args, **kwargs):
+            Node.__init__(*args, **kwargs)
+
+
+    class Comment:
+        def __init__(self, *args, **kwargs):
+            Node.__init__(*args, **kwargs)
+
+        def print(self, depth=0):
+            print("  "*depth + "[Comment elided]")
 
 class IRNode:
     pass
