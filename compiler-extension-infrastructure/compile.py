@@ -6,12 +6,19 @@ import pathlib
 
 
 class Token:
-    def __init__(self, source, parent=None):
+    def __init__(self, source=None, parent=None,
+                 type_=None, value=None, line=None, column=None):
         self.parent = parent
         self.source = source
-        for attr in 'type value line column'.split():
-            setattr(self, attr, getattr(self.source, attr))
-            self.length = len(self.source)
+        self.type = type_
+        self.value = value
+
+        self.line = line
+        self.column = column
+        if self.source is not None:
+            for attr in 'type value line column'.split():
+                setattr(self, attr, getattr(self.source, attr))
+                self.length = len(self.source)
 
     def text(self): return self.value
 
