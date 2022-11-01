@@ -81,3 +81,12 @@ Option array_cast (Array* self, Type Q) {
     result -> data = self -> data;
     return Some(result);
 }
+
+struct Vec {
+    unsigned int length;
+    unsigned int capacity;
+    unsigned int max_capacity;
+    Array data;
+    Option (*vec_expand) (struct Vec* self);
+};
+typedef struct Vec Vec;
