@@ -149,3 +149,12 @@ Option vec_push (Vec* self, void* value) {
     self -> data.data[self -> length ++] = value;
     return Some(self);
 }
+
+Option vec_pop (Vec self) {
+    if (self.length > 0) {
+        return Some(self.data.data[-- self.length]);
+    }
+    else {
+        return None;
+    }
+}
