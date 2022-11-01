@@ -110,3 +110,26 @@ Option vec_free (Vec self) {
     self.capacity = 0;
     return None;
 }
+struct vec_iter {
+    Vec source;
+    unsigned int index;
+    Option (*next) ();
+};
+typedef struct vec_iter vec_iter;
+
+Option vec_iter_next (vec_iter self) {
+    if (self.index < self.source.length) {
+        uint i = self.index ++;
+        return Some(self.source.data.data[i]);
+    } else {
+        return None;
+    }
+}
+
+vec_iter iter (Vec self) {
+    return (vec_iter) {
+        self,
+        0,
+        &vec_iter_next
+    };
+}
