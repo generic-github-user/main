@@ -90,3 +90,23 @@ struct Vec {
     Option (*vec_expand) (struct Vec* self);
 };
 typedef struct Vec Vec;
+
+
+Option vec_expand (Vec* self);
+Option vec_new (unsigned int init_capacity, Type T) {
+    return Some(& (Vec) {
+        0,
+        init_capacity,
+        1 << 16,
+        new_array(init_capacity, T),
+        &vec_expand
+    });
+}
+
+// Deallocates the buffer associated with this vector
+Option vec_free (Vec self) {
+    self.data.free(&self.data);
+    self.length = 0;
+    self.capacity = 0;
+    return None;
+}
