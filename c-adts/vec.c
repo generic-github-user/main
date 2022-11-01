@@ -158,3 +158,18 @@ Option vec_pop (Vec self) {
         return None;
     }
 }
+
+Vec* vec_empty (Vec* self) {
+    self -> length = 0;
+    self -> capacity = 0;
+    return self;
+}
+
+Option vec_remove (Vec self, unsigned int i) {
+    void* value = self.data.data[i];
+    for (uint j = i; j < self.length; j++) {
+        self.data.data[j] = self.data.data[j + 1];
+    }
+    self.length --;
+    return Some(value);
+}
