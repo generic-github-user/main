@@ -18,6 +18,36 @@ void raise (Exception E) {
     printf("%s\n", E.message);
 }
 
+struct Result {
+    void* value;
+    Exception* error;
+    bool is_ok;
+    bool is_err;
+};
+typedef struct Result Result;
+Result Ok (void* value);
+Result Error (Exception* ex);
+void* unwrap_ (Result self);
+void* unwrap ();
+
+Result Ok (void* value) {
+    return (Result) { value, NULL, 1, 0 };
+}
+Result Error (Exception* ex) {
+    return (Result) { NULL, ex, 1, 0 };
+}
+
+void* unwrap_ (Result self) {
+    if (self.is_err)
+        raise(exception("Attempted to unwrap an Error variant of a Result"));
+    else
+        return self.value;
+}
+void* unwrap () {
+    Result self = *((Result*) self_);
+    return unwrap_(self);
+}
+
 typedef unsigned int bool;
 struct Option {
     void* value;
