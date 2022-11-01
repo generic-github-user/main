@@ -133,3 +133,19 @@ vec_iter iter (Vec self) {
         &vec_iter_next
     };
 }
+
+Option vec_expand (Vec* self) {
+    uint new_capacity = self -> capacity + 128;
+    self -> data.data = realloc(self -> data.data, new_capacity);
+    self -> capacity = new_capacity;
+    return Some(self);
+}
+
+Option vec_push (Vec* self, void* value) {
+    if ((self -> capacity) - (self -> length) < 16) {
+        Option result = self -> vec_expand(self);
+        if (is_none(result)) { return None; }
+    }
+    self -> data.data[self -> length ++] = value;
+    return Some(self);
+}
