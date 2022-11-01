@@ -1,6 +1,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+struct Exception {
+    char* message;
+};
+typedef struct Exception Exception;
+Exception exception (char* message);
+
+Exception exception (char* message) {
+    return (Exception) {
+        message
+    };
+}
+
+void raise (Exception E);
+void raise (Exception E) {
+    printf("%s\n", E.message);
+}
+
 typedef unsigned int bool;
 struct Option {
     void* value;
