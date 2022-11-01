@@ -24,3 +24,13 @@ struct Type {
 };
 typedef struct Type Type;
 typedef unsigned int uint;
+
+struct Array {
+    unsigned int size;
+    unsigned int real_size;
+    Option (*free) (struct Array* self);
+    Option (*cast) (struct Array* self, Type Q);
+    void** data;
+    Type T;
+};
+typedef struct Array Array;
