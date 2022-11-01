@@ -17,3 +17,10 @@ Option Some (void* value) {
         value, 1, &is_none
     };
 }
+
+struct Type {
+    char* name;
+    unsigned int size;
+};
+typedef struct Type Type;
+typedef unsigned int uint;
