@@ -1,5 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+typedef unsigned int bool;
+typedef unsigned int uint;
+typedef char* String;
+
+struct Type {
+    char* name;
+    unsigned int size;
+};
+typedef struct Type Type;
+Type type_new (char* name, uint size);
+
+Type type_new (char* name, uint size) {
+    return (Type) { name, size };
+}
 
 struct Exception {
     char* message;
