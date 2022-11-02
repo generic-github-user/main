@@ -25,15 +25,15 @@ struct Result {
     bool is_err;
 };
 typedef struct Result Result;
-Result Ok (void* value);
-Result Error (Exception* ex);
+Result Ok (const void* value);
+Result Error (const Exception* ex);
 void* unwrap_ (Result self);
 void* unwrap ();
 
-Result Ok (void* value) {
+Result Ok (const void* value) {
     return (Result) { value, NULL, 1, 0 };
 }
-Result Error (Exception* ex) {
+Result Error (const Exception* ex) {
     return (Result) { NULL, ex, 1, 0 };
 }
 
@@ -48,22 +48,57 @@ void* unwrap () {
     return unwrap_(self);
 }
 
-typedef unsigned int bool;
 struct Option {
     void* value;
     bool is_some;
     bool (*is_none) (struct Option self);
+    bool (*is_none_) ();
+    uint (*unwrap_uint) (struct Option self);
 };
 typedef struct Option Option;
-Option None = { NULL, 0 };
+bool is_some (Option self) {
+    return self.is_some;
+}
+bool is_none (Option self);
+bool is_none_ ();
+Option Some (void* value);
+uint unwrap_uint (Option self);
+
+// will eventually return a Result<Option::Some<T>> (some restructuring of OOP
+// type interface is needed before then)
+Option Some (void* value) {
+    Option* thing = malloc(sizeof(Option));
+    init_self((void*) thing);
+    *thing = ((Option) {
+        value, 1,
+        &is_none,
+        &is_none_,
+        &unwrap_uint
+    });
+    return *thing;
+}
+uint unwrap_uint (Option self) {
+    // awful
+    init_self((void*) &self);
+    if (self.is_none_())
+        raise(exception("Attempted to unwrap a None variant of an Option"));
+    return *((uint*) self.value);
+}
+
+Option None;
+Option none () {
+    init_self((void*) &None);
+    return None;
+}
 bool is_none (Option self) {
     return !self.is_some;
 }
-Option Some (void* value) {
-    return (Option) {
-        value, 1, &is_none
-    };
+bool is_none_ () {
+    return is_none(*((Option*) self_));
 }
+Option None = { NULL, 0, is_none, is_none_, unwrap_uint };
+
+// (void* (*h) (void*)) cursed_compose () { }
 
 struct Type {
     char* name;
