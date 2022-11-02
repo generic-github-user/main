@@ -18,21 +18,47 @@ Type type_new (char* name, uint size) {
     return (Type) { name, size };
 }
 
+// horrible OOP hack for method chaining without repeatedly passing "self" to
+// method calls. I will one day pay dearly for my hubris
+static void* self_;
+const void* init_self (const void* self) {
+    self_ = self;
+    return self;
+}
+
+struct Method {
+
+};
+typedef struct Method Method;
+
+struct Class {
+    String name;
+    Method* method;
+    Type type;
+};
+
 struct Exception {
     char* message;
 };
 typedef struct Exception Exception;
-Exception exception (char* message);
+Exception exception (const char* message);
+Exception* exception_alloc (const char* message);
 
-Exception exception (char* message) {
+Exception exception (const char* message) {
     return (Exception) {
         message
     };
+}
+Exception* exception_alloc (const char* message) {
+    Exception* ex = malloc(sizeof(Exception));
+    *ex = exception(message);
+    return ex;
 }
 
 void raise (Exception E);
 void raise (Exception E) {
     printf("%s\n", E.message);
+    exit(1);
 }
 
 struct Result {
@@ -117,12 +143,6 @@ Option None = { NULL, 0, is_none, is_none_, unwrap_uint };
 
 // (void* (*h) (void*)) cursed_compose () { }
 
-struct Type {
-    char* name;
-    unsigned int size;
-};
-typedef struct Type Type;
-typedef unsigned int uint;
 
 struct Array {
     unsigned int size;
