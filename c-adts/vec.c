@@ -258,3 +258,56 @@ Vec* iter_collect (Iterator iter) {
     }
     return result;
 }
+
+struct range {
+    uint a;
+    uint b;
+    Iterator (*iter) ();
+};
+typedef struct range range;
+
+typedef struct range_iter {
+    uint i;
+    range source;
+    Option (*next) (struct range_iter*);
+} range_iter;
+
+void* allocate_uint (uint x) {
+    uint* y = malloc(sizeof(uint));
+    *y = x;
+    return (void*) y;
+}
+
+Option range_next (range_iter* iter) {
+    uint current = iter -> i;
+    if ((iter -> i ++) < (iter -> source.b))
+        return Some(allocate_uint(current));
+    else { return None; }
+}
+
+Iterator range_iter_new (range R) {
+    range_iter* r_iter = malloc(sizeof(range_iter));
+    *r_iter = (range_iter) { R.a, R, range_next };
+    /* return (Iterator) {
+        (void*) r_iter,
+        range_next,
+        (Type) { 4 }
+    }; */
+    Iterator outer = iter_new(r_iter, range_next, (Type) { "uint", 4 });
+    // TODO: do this automatically in the iterator constructor
+    init_self((void*) allocated(&outer, sizeof(Iterator)));
+    return outer;
+}
+
+Iterator range_iter_new_ () {
+    range* self = (range*) self_;
+    return range_iter_new(*self);
+}
+
+range range_new (uint a, uint b) {
+    range new_range = (range) {
+        a, b, &range_iter_new_
+    };
+    init_self((void*) allocated(&new_range, sizeof(range)));
+    return new_range;
+}
