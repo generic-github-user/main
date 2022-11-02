@@ -311,3 +311,53 @@ range range_new (uint a, uint b) {
     init_self((void*) allocated(&new_range, sizeof(range)));
     return new_range;
 }
+
+// void print (unsigned int x) {
+void* print (const void* x) {
+    printf("%d\n", *((uint*) x));
+    return NULL;
+}
+
+static uint verbose = 1;
+void test (bool condition) {
+    if (!condition) {
+        raise(exception("Test failed (condition evaluated to false)"));
+    } else if (verbose) {
+        printf("Test passed\n");
+    }
+}
+
+uint incr (uint x) { return x + 1; }
+uint add (uint x, uint y) { return x + y; }
+int main () {
+    srand(time(NULL));
+
+    /*
+    Option value = None;
+    Iterator source = range_iter_new(range_new(0, 10));
+    // while (!is_none(source.next(source)))
+    while (!is_none(value = range_next(source.interior)))
+        printf("%d ", *((uint*) value.value));
+    printf("\n");
+    */
+
+    // while ((value = source.interior.next()).is_some())
+        // printf("%d ", value.unwrap_uint());
+
+    each(range_iter_new(range_new(0, 10)), &print);
+    printf("\n");
+    range_new(0, 5).iter().each(print);
+    // Range.new()
+
+    test(none().is_none_());
+    test(!none().is_some);
+    test(!Some(1).is_none_());
+    test(Some(42).is_some);
+
+    // test(range_iter_new(range_new(0, 3)).sum() == 6);
+}
+
+// TODO:
+// - unsafe(r) version of C in which generics and polymorphism are (more)
+// viable (in a direct fashion)
+// - simple textual preprocessor
