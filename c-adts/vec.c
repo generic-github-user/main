@@ -147,20 +147,29 @@ Option None = { NULL, 0, is_none, is_none_, unwrap_uint };
 struct Array {
     unsigned int size;
     unsigned int real_size;
-    Option (*free) (struct Array* self);
+    Option (*free) ();
     Option (*cast) (struct Array* self, Type Q);
     void** data;
     Type T;
 };
 typedef struct Array Array;
+Array* new_allocated_array (unsigned int size, Type T);
+Array new_array (unsigned int size, Type T);
+Option array_free ();
+Option array_free_ (Array* self);
+Option array_cast (Array* self, Type Q);
 
-Option array_free (Array* self) {
+Option array_free_ (Array* self) {
     free(self -> data);
     self -> size = 0;
+    init_self(&None);
     return None;
 }
 
-Option array_cast (Array* self, Type Q);
+Option array_free () {
+    return array_free_((Array*) self_);
+}
+
 Array new_array (unsigned int size, Type T) {
     return (Array) {
         size,
