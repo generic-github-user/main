@@ -226,3 +226,35 @@ Option vec_remove (Vec self, unsigned int i) {
     self.length --;
     return Some(value);
 }
+
+Option map_next (Option value, void* (*f) (void*)) {
+    if (is_none(value)) { return None; }
+    else { return Some(f(value.value)); }
+}
+Iterator map (Iterator iter, void* (*f) (void*)) {
+    return (Iterator) {
+        NULL,
+        &map_next,
+        iter.T
+    };
+}
+
+void each (Iterator iter, void* (*f) (void*)) {
+    Option next = None;
+    while (is_some(next = iter.next(iter.interior)))
+        f(next.value);
+}
+
+void each_ (void* (*f) (void*)) {
+    Iterator* self = (Iterator*) self_;
+    each(*self, f);
+}
+
+Vec* iter_collect (Iterator iter) {
+    Vec* result = (Vec*) vec_new(128, iter.T).value;
+    Option next = None;
+    while (!is_none(next = iter.next(iter))) {
+        vec_push(result, next.value);
+    }
+    return result;
+}
