@@ -116,20 +116,55 @@ struct Vec {
     unsigned int length;
     unsigned int capacity;
     unsigned int max_capacity;
+    unsigned int real_size;
+    Type type;
     Array data;
+    void** raw;
+
+    Array (*data_) ();
     Option (*vec_expand) (struct Vec* self);
+    Option (*vec_push) (struct Vec* self, void*);
+    Option (*vec_pop) (struct Vec* self);
+    struct Vec* (*vec_empty) (struct Vec* self);
+    Result (*swap) (uint, uint);
+    struct Vec* (*clone) ();
+    struct Vec* (*shuffle) ();
+    struct Vec* (*contains) ();
 };
 typedef struct Vec Vec;
 
 
 Option vec_expand (Vec* self);
+Result vec_swap (uint, uint);
+Vec* vec_empty (Vec*);
+Vec* vec_clone (Vec*);
+Vec* vec_shuffle ();
+bool vec_contains (void* value);
+
+vec_iter iter (Vec self);
+vec_iter iter ();
 Option vec_new (unsigned int init_capacity, Type T) {
+    Array buffer = new_array(init_capacity, T);
     return Some(& (Vec) {
         0,
         init_capacity,
         1 << 16,
-        new_array(init_capacity, T),
-        &vec_expand
+
+        0, T,
+
+        buffer,
+        buffer.data,
+
+        &vec_data,
+        &vec_expand,
+        &vec_push,
+        &vec_pop,
+        &vec_empty,
+        &vec_swap,
+        &vec_clone,
+        &vec_shuffle,
+        &vec_contains,
+        &iter_
     });
 }
 
