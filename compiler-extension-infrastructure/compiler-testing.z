@@ -1,0 +1,14 @@
+// echo(some text)
+s = 5
+fn square <> (n : int) -> int {
+    return n ** 2
+}
+square(42)
+
+fn println <> (text: string) -> None {
+    print(text + "\n")
+}
+println(5)
+println(1..42)
+
+// println((1..42).to_string())

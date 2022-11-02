@@ -8,6 +8,7 @@ python-box = "*"
 flake8 = "*"
 pyyaml = "*"
 dateparser = "*"
+mypy = "*"
 
 [dev-packages]
 
