@@ -140,6 +140,29 @@ Option vec_free (Vec self) {
     self.capacity = 0;
     return None;
 }
+
+struct Iterator {
+    void* interior;
+    Option (*next) ();
+    Type T;
+
+    void (*each) ();
+};
+typedef struct Iterator Iterator;
+void each (Iterator iter, void* (*f) (void*));
+void each_ (void* (*f) (void*));
+
+Iterator iter_new (void* interior, Option (*next) (), Type T) {
+    return (Iterator) {
+        interior, next, T,
+        &each_
+    };
+}
+
+Option iter_next (Iterator* iter) {
+    // return iter -> interior ->
+}
+
 struct vec_iter {
     Vec source;
     unsigned int index;
