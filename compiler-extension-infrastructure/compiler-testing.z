@@ -1,14 +1,12 @@
-// echo(some text)
-let s = 5
-fn square (n : int) -> int {
-    return n ** 2
+fn print (text: string) -> None {
+    printf(text)
 }
-square(42)
-
 fn println (text: string) -> None {
     print(text + "\n")
 }
 println(5)
-println(1..42)
 
-// println((1..42).to_string())
+fn square (n : int) -> int {
+    return n ** 2
+}
+println(square(42))

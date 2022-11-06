@@ -32,7 +32,7 @@ class Token:
         return self.value
 
     def __str__(self) -> str:
-        return f'Token <{self.type}, {self.line}:{self.column}> {self.value}'
+        return f'Token <{self.type} ~ {self.vtype}, {self.line}:{self.column}> {self.value}'
 
     def resolve_names(self, namespace):
         return resolve_names(self, namespace)
@@ -43,6 +43,9 @@ class Token:
                 self.vtype = 'int'
             case 'FLOAT':
                 self.vtype = 'float'
+            case 'STRING':
+                self.vtype = 'string'
+        return self
 
     def emit_code(self) -> str:
         return self.value
@@ -50,8 +53,13 @@ class Token:
     def map(self, f) -> Token:
         return f(self)
 
-    def with_attr(self, k, v) -> Token:
+    def clone(self) -> Token:
         return self
+
+    def with_attr(self, k, v) -> Token:
+        nnode = self.clone()
+        setattr(nnode, k, v)
+        return nnode
 
     def __hash__(self) -> int:
         return hash(self.value)

@@ -73,15 +73,13 @@ def compile(path):
         .map(lift_tuples).map(range_filter)\
         .map(lift_outer('expression', 'IDENTIFIER'))\
         .map(label_assignments)
+    tree = tree.resolve_names()
+    tree = tree.infer_types()
     print(tree)
     pathlib.Path('./tree.txt').write_text(str(tree))
-    tree = tree.resolve_names()
-    # breakpoint()
-    tree = tree.infer_types()
     # tree = tree.map_each([lift_tuples, range_filter,
     # lift_nodetype('expression', 'literal')])
-    # breakpoint()
-    # print(tree.emit_code())
+    print(tree.emit_code())
 
 
 compile(sys.argv[1])

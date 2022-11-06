@@ -39,9 +39,9 @@ class Node:
 
         self.vtype: str = vtype
 
-        if names is None:
+        if names is None and parent is not None:
             # names = dict()
-            assert parent is not None, self
+            # assert parent is not None, self
             names = parent.names
         self.names = names
 
@@ -156,8 +156,8 @@ class Node:
     def with_attr(self, k, v, update: bool = True,
                   propagate: bool = True) -> Node:
         nnode = self.clone(update=update)
-        if propagate and k != 'children':
-            assert isinstance(v, (Node, token.Token)), f'{k}, {v}'
+        if propagate and k not in ['children', 'vtype']:
+            # assert isinstance(v, (Node, token.Token)), f'{k}, {v}'
             self.children[self.child_aliases.index(k)] = v
         setattr(nnode, k, v)
         if update:
@@ -166,31 +166,32 @@ class Node:
 
     def infer_types(self) -> Node:
         if self.type == 'call':
+            typed_children = self.children.map(lambda x: x.infer_types())
             if self.f.vtype != 'function':
                 print(self.f, self.f.vtype)
-                try:
-                    raise_error('type', f"""{self.f} is not a function; defined at
-                    line {None}: \n\n{self.f.definition}""")
-                except AttributeError as ex:
-                    print(ex, '\n', self, '\n', self.f)
-                    quit()
+                # try:
+                raise_error.raise_error('type', f"""{self.f} is not a function; defined at
+                line {None}: \n\n{self.f.definition}""")
+                # except AttributeError as ex:
+                    # print(ex, '\n', self, '\n', self.f)
+                    # quit()
 
-            if self.f.arity != len(self.args.children):
-                raise_error('argument', f"""function call at line {None} has
-                {len(self.args)} arguments, but function `{self.f.name}` takes
-                {self.f.arity} arguments; `{self.f.name}` has signature:
-                {self.f.signature}""")
+            if self.f.arity != len(typed_children):
+                raise_error.raise_error('argument', f"""function call at line
+                {None} has {len(self.args)} arguments, but function
+                `{self.f.name}` takes {self.f.arity} arguments; `{self.f.name}`
+                has signature: {self.f.signature}""")
 
-            for x, y in zip(self.f.arguments.children, self.args.children):
+            for x, y in zip(self.f.arguments.children, typed_children):
                 if x.ptype != y.vtype:
-                    raise_error('argument', f"""
-                    argument {y.source.meta} (for parameter {x.name.value}) in function
+                    print(self)
+                    raise_error.raise_error('argument', f""" argument
+                    {y.source.meta} (for parameter {x.name.value}) in function
                     call at line {None} has invalid type `{y.vtype}`;
                     `{self.f.name.value}` has signature: {self.f.signature}""")
 
             return self.with_attr('vtype', self.f.return_type)
 
-        self.children.map(lambda x: x.infer_types())
 
         if self.type in ['literal', 'expression']:
             assert self.children.len() == 1
@@ -239,10 +240,16 @@ class Node:
                              '()',
                              self.body.emit_code()]).join(' ')
 
+            case 'function':
+                if self.definition == '[internal]':
+                    return ''
+                return self.definition.emit_code()
+
             case 'type':
                 return ''
 
             case 'tuple':
+                assert None not in self.children, self
                 return self.children.map(Node.emit_code).join(', ')
 
             case 'list':
