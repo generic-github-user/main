@@ -89,6 +89,9 @@ class List:
     def __getitem__(self, i):
         return self.items[i]
 
+    def __setitem__(self, i, value):
+        self.items[i] = value
+
     def __eq__(self, other):
         return self.items == other.items
 

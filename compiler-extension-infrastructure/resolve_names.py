@@ -33,8 +33,15 @@ def resolve_names(node, namespace):
         fnode.arguments.children.map(lambda x: namespace.pop(x.name))
         return result
 
+    if node.type == 'let_stmt':
+        vnode = cnode.Node(type_='value', definition=node, parent=node.parent)
+        namespace[node.left] = vnode
+        return node.with_attr('children',
+                              node.children.map(lambda x: x.resolve_names(namespace)))
+
     if node.type in ['start', 'program', 'form', 'block', 'statement',
-                     'call', 'expression', 'declaration', 'expression']:
+                     'call', 'expression', 'declaration', 'expression',
+                     'assignment', 'return']:
         print(f'Resolving names in {node.type}')
         return node.with_attr('children',
                               node.children.map(lambda x: x.resolve_names(namespace)))
@@ -51,7 +58,7 @@ def resolve_names(node, namespace):
         # assert isinstance(node, Token)
         print(f'Dereferencing name {node.value}')
         if node.value not in namespace:
-            raise_error('name resolution', f"""\
+            raise_error.raise_error('name resolution', f"""\
                         {node.value} not defined when used at line {node.line};
                         make sure that name is defined and in scope.""")
         # breakpoint()

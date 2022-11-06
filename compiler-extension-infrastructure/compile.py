@@ -74,8 +74,9 @@ tree = Node.from_lark(parser.parse(pathlib.Path(sys.argv[1]).read_text()),
 tree = tree.map(lift_tuples).map(range_filter)
 tree = tree.map(lift_outer('expression', 'IDENTIFIER'))
 tree = tree.map(label_assignments)
-tree = tree.resolve_names()
 print(tree)
+pathlib.Path('./tree.txt').write_text(str(tree))
+tree = tree.resolve_names()
 # breakpoint()
 tree = tree.infer_types()
 # tree = tree.map_each([lift_tuples, range_filter,

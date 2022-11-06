@@ -1,5 +1,5 @@
 // echo(some text)
-s = 5
+let s = 5
 fn square (n : int) -> int {
     return n ** 2
 }

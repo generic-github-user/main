@@ -100,6 +100,8 @@ class Node:
                 self.alias_children('left op right')
             case 'assignment':
                 self.alias_children('left right')
+            case 'let_stmt':
+                self.alias_children('left right')
             case 'typed_name':
                 self.alias_children('name ptype')
 
@@ -113,8 +115,8 @@ class Node:
         if target == self:
             setattr(self, 'child_aliases', matches[0])
         for name, node in zip(matches[0], target.children):
-            if hasattr(self, name):
-                print(f'Warning: overwriting existing attribute "{name}" with value {getattr(self, name)} (new value is {node}) -- this may not be the intended behavior. Use `update=False` to suppress this update.')
+            # if hasattr(self, name):
+            #    print(f'Warning: overwriting existing attribute "{name}" with value {getattr(self, name)} (new value is {node}) -- this may not be the intended behavior. Use `update=False` to suppress this update.')
             setattr(self, name, node)
             self.data_attrs.add(name)
 
@@ -264,9 +266,13 @@ class Node:
                 # during the rewriting stage)
                 return self.value
 
-            case 'assignment':
+            case 'let_stmt':
                 assert self.right.vtype is not None
                 return textwrap.dedent(f'{self.right.vtype} {self.left.emit_code()} = {self.right.emit_code()}')
+
+            case 'assignment':
+                assert self.right.vtype is not None
+                return textwrap.dedent(f'{self.left.emit_code()} = {self.right.emit_code()}')
 
             case _:
                 if isinstance(self, token.Token):
