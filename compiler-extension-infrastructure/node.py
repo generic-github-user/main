@@ -1,7 +1,16 @@
 from __future__ import annotations
 from lib.pylist import List
 import lark
+from functools import reduce
+import textwrap
 from typing import Callable, Union
+
+# from .token import Token
+from . import token
+# from .raise_error import raise_error
+from . import raise_error
+# from .resolve_names import resolve_names
+from . import resolve_names
 
 
 class Node:
@@ -57,7 +66,7 @@ class Node:
                 self.children.append(c)
             else:
                 assert isinstance(c, lark.Token), c
-                self.children.append(Token(c))
+                self.children.append(token.Token(c))
         self.update_attrs()
 
         return self
@@ -134,7 +143,7 @@ class Node:
 
     def resolve_names(self, namespace: dict[str, Node] = None) -> Node:
         # return self.map(lambda n : resolve_names(n, self.names))
-        return resolve_names(self, self.names if namespace is None else namespace)
+        return resolve_names.resolve_names(self, self.names if namespace is None else namespace)
 
     def clone(self, *args, **kwargs) -> Node:
         return Node(**{attr: getattr(self, attr) for attr in
@@ -146,7 +155,7 @@ class Node:
                   propagate: bool = True) -> Node:
         nnode = self.clone(update=update)
         if propagate and k != 'children':
-            assert isinstance(v, (Node, Token)), f'{k}, {v}'
+            assert isinstance(v, (Node, token.Token)), f'{k}, {v}'
             self.children[self.child_aliases.index(k)] = v
         setattr(nnode, k, v)
         if update:
@@ -260,7 +269,7 @@ class Node:
                 return textwrap.dedent(f'{self.right.vtype} {self.left.emit_code()} = {self.right.emit_code()}')
 
             case _:
-                if isinstance(self, Token):
+                if isinstance(self, token.Token):
                     return self.emit_code()
                 raise NotImplementedError(self)
 

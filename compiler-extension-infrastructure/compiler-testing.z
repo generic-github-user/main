@@ -1,11 +1,11 @@
 // echo(some text)
 s = 5
-fn square <> (n : int) -> int {
+fn square (n : int) -> int {
     return n ** 2
 }
 square(42)
 
-fn println <> (text: string) -> None {
+fn println (text: string) -> None {
     print(text + "\n")
 }
 println(5)

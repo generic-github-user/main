@@ -1,7 +1,12 @@
 from __future__ import annotations
 import lark
 
-from node import Node
+# from .node import Node
+from .resolve_names import resolve_names
+
+
+class Node:
+    pass
 
 
 class Token:

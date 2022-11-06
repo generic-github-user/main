@@ -1,7 +1,10 @@
-from token import Token
-from node import Node
+# from .token import Token
+# from .node import Node
+# import .node as cnode
+from . import node as cnode
 
-from raise_error import raise_error
+# from raise_error import raise_error
+from . import raise_error
 
 
 def resolve_names(node, namespace):
@@ -13,15 +16,15 @@ def resolve_names(node, namespace):
         assert hasattr(node, 'signature') and node.signature is not None
         assert hasattr(node.signature, 'arguments') and\
             node.signature.arguments is not None
-        fnode = Node(type_='function', vtype='function',
-                     return_type=node.return_type,
-                     definition=node,
-                     name=node.signature.name,
-                     signature=node.signature,
-                     body=node.body,
-                     arguments=node.signature.arguments,
-                     arity=node.signature.arguments.children.len(),
-                     parent=node.parent)
+        fnode = cnode.Node(type_='function', vtype='function',
+                           return_type=node.return_type,
+                           definition=node,
+                           name=node.signature.name,
+                           signature=node.signature,
+                           body=node.body,
+                           arguments=node.signature.arguments,
+                           arity=node.signature.arguments.children.len(),
+                           parent=node.parent)
         namespace[node.name] = fnode
         for p in fnode.arguments.children:
             namespace[p.name] = None
@@ -45,7 +48,7 @@ def resolve_names(node, namespace):
         return node
 
     if node.type == 'IDENTIFIER':
-        assert isinstance(node, Token)
+        # assert isinstance(node, Token)
         print(f'Dereferencing name {node.value}')
         if node.value not in namespace:
             raise_error('name resolution', f"""\

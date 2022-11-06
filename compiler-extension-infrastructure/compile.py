@@ -7,10 +7,14 @@ from functools import reduce
 import textwrap
 from typing import Callable, Union
 
-from token import Token
-from node import Node
+from .token import Token
+from .node import Node
 
-from filters import range_filter
+# from .filters import range_filter
+from .filters.range import range_filter
+# from . import filters
+# import filters
+
 # from resolve_names import resolve_names
 
 # TODO: make diagram of type system(s) and related abstractions
