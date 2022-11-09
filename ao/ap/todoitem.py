@@ -52,6 +52,7 @@ class todo:
         self.location = ''
         self.time = None
         self.duration = None
+        self.frequency = None
 
         # Nested tasks/children of this item; currently unused due to parsing
         # limitations (the eventual goal is to integrate the zeal markup

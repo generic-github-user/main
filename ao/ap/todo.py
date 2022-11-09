@@ -18,6 +18,7 @@ from box import Box
 
 # TODO: include presence/absence of previously stored snapshot in todo list
 # resolution
+# TODO: store images/snapshot groups created by a single run of the script
 
 from lib.pylist import List
 from .todoitem import todo
@@ -41,10 +42,13 @@ def log(content):
         logfile.write(f'{datetime.datetime.now()} {content}\n')
 
 
-try:
-    with open(db_path, 'rb') as f:
-        data = List(pickle.load(f))
-except FileNotFoundError:
+if config.stateful:
+    try:
+        with open(db_path, 'rb') as f:
+            data = List(pickle.load(f))
+    except FileNotFoundError:
+        data = List()
+else:
     data = List()
 
 
@@ -116,7 +120,8 @@ def parse_todos(path):
 
 
 def update_list(todo_list, path):
-    global log_level
+    global log_level, data
+
     log(f'Updating todo list {todo_list} ({path})')
     log_level += 1
     log(f'Parsing todo list {todo_list} at {path}')
@@ -133,36 +138,40 @@ def update_list(todo_list, path):
         if item.done:
             item.location = config.paths.complete
 
-    # Compare parsed todo list data with previous state and update accordingly
-    log(f'Reconciling {len(data)} items')
-    pool = data.filter(lambda x: x.location == path)
-    # for now we assume no duplicates (up to content and date equivalence)
-    for item in new_state:
-        log(item)
-        # matches = pool.filter(lambda x: x.content == item.content,
-        matches = pool.filter_by('content', item.content)
-        # and x.time == item.time, pool
-        if matches:
-            # if path == config.paths['main']:
-            #    assert len(matches) == 1, f'Duplicates for: {item}'
-            matches[0].snapshots.append(item)
-            matches[0].raw = item.raw
-            matches[0].location = item.location
-        else:
-            data.append(item)
-            log(f'found new task: {item}')
+    if config.stateful:
+        # Compare parsed todo list data with previous state and update
+        # accordingly
+        log(f'Reconciling {len(data)} items')
+        pool = data.filter(lambda x: x.location == path)
+        # for now we assume no duplicates (up to content and date equivalence)
+        for item in new_state:
+            log(item)
+            # matches = pool.filter(lambda x: x.content == item.content,
+            matches = pool.filter_by('content', item.content)
+            # and x.time == item.time, pool
+            if matches:
+                # if path == config.paths['main']:
+                #    assert len(matches) == 1, f'Duplicates for: {item}'
+                matches[0].snapshots.append(item)
+                matches[0].raw = item.raw
+                matches[0].location = item.location
+            else:
+                data.append(item)
+                log(f'found new task: {item}')
 
-    for item in data:
-        # if not any(a.content == item.content #and a.time == item.time
-        # for a in new_state)\
-        if all([new_state.none(lambda a: a.content == item.content),
-                item.location == config.paths.main,
-                path == config.paths.main]):
-            log(f'No matching item in new state: {item.content}')
-            # breakpoint()
-            item.done = True
-            item.donetime = time.time()
-            item.location = config.paths.complete
+        for item in data:
+            # if not any(a.content == item.content #and a.time == item.time
+            # for a in new_state)\
+            if all([new_state.none(lambda a: a.content == item.content),
+                    item.location == config.paths.main,
+                    path == config.paths.main]):
+                log(f'No matching item in new state: {item.content}')
+                # breakpoint()
+                item.done = True
+                item.donetime = time.time()
+                item.location = config.paths.complete
+    else:
+        data.extend(new_state)
 
     # Substitute abbreviations listed in config file with their expanded forms
     for item in data:
@@ -171,6 +180,7 @@ def update_list(todo_list, path):
                 item.content = item.content.replace(x, y)
 
     log_level -= 1
+    return data
 
 
 def save_list(path):
@@ -197,7 +207,7 @@ def backup_lists():
     log_level += 1
 
     targets = set([todo_path] + list(config.paths.values()))
-    if config.backup_db:
+    if config.backup_db and config.stateful:
         targets.add(db_path)
     with tarfile.open(backup_path, 'w:gz') as tarball:
         for path in targets:
@@ -219,7 +229,7 @@ def update():
         backup_lists()
 
     for todo_list, path in config.paths.items():
-        update_list(todo_list, Path(path))
+        data = update_list(todo_list, Path(path))
 
     log_level += 1
     for todo_list, path in config.paths.items():
@@ -235,14 +245,15 @@ def update():
     os.system('git commit -m "Update todo list"')
     log_level -= 1
 
-    log(f'Persisting database ({db_path})')
-    if not args.dry_run:
-        with open(db_path, 'wb') as f:
-            pickle.dump(data, f)
-        with open('debug.yaml', 'w') as f:
-            yaml.dump(data[:5], f)
-        # with open('debug.json', 'w') as f:
-            # json.dump(data, f, indent=4)
+    if config.stateful:
+        log(f'Persisting database ({db_path})')
+        if not args.dry_run:
+            with open(db_path, 'wb') as f:
+                pickle.dump(data, f)
+            with open('debug.yaml', 'w') as f:
+                yaml.dump(data[:5], f)
+            # with open('debug.json', 'w') as f:
+                # json.dump(data, f, indent=4)
     end = time.time()
     log(f'Finished in {end - start} seconds')
 
