@@ -14,31 +14,12 @@ from box import Box
 # from ...lib.pylist import List
 # from main.lib.pylist import List
 # from main.lib import pylist
-from lib.pylist import List
-from .todoitem import todo
 # print(pylist.List)
 
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument('--dry-run', action='store_true',
-                    help='Executes a "dry run"; will simulate updating \
-                    the todo list but won\'t actually modify any files')
-parser.add_argument('--flush', action='store_true')
-parser.add_argument('--config', type=str)
-args = parser.parse_args()
-print(args)
+from lib.pylist import List
+from .todoitem import todo
+from loadcfg import args, config, db_path, log_path, todo_path
 
-
-todo_path = os.path.expanduser('~/Desktop/.todo')
-config = Box(yaml.safe_load(Path(args.config).read_text()))
-config.base = Path(config.base_path).expanduser()
-for k, v in config.paths.items():
-    # config[k] = os.path.expanduser(v)
-    config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
-db_path = config.base / 'todo.pickle'
-log_path = config.base / config.log
-log_level = 0
-config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
 
 if args.flush:
     archive_dir = config.base / Path('old')
@@ -102,6 +83,11 @@ def parse_todos(path):
             if tag.startswith(('-t', '-time')):
                 snapshot.time = dateparser.parse(words[i+1])
                 words[i:i+2] = [None] * 2
+                continue
+
+            if tag in ['-daily']:
+                snapshot.tags.append(tag)
+                words[i] = None
                 continue
 
             if tag == '-cc':
@@ -186,13 +172,12 @@ def save_list(path):
         tfile.write(
             data.filter(lambda x: x.location == path)
                 .sorted(lambda y: (
-                    # (0 if 'raw' in y.tags else -y.content.count('*')),
                     -y.importance,
                     (datetime.timedelta.max if y.time is None
                         else datetime.datetime.now()-y.time),
                     y.content.casefold()
                 ))
-                .get('content')
+                .map(todo.toraw)
                 .join('\n'))
 
 
@@ -223,6 +208,7 @@ def backup_lists():
 # added, removed, or modified)
 def update():
     global log_level
+    start = time.time()
     if not args.dry_run:
         backup_lists()
 
@@ -251,6 +237,8 @@ def update():
             yaml.dump(data[:5], f)
         # with open('debug.json', 'w') as f:
             # json.dump(data, f, indent=4)
+    end = time.time()
+    log(f'Finished in {end - start} seconds')
 
 
 update()

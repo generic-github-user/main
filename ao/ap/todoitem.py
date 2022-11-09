@@ -1,4 +1,5 @@
 import time
+from loadcfg import config
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -63,10 +64,15 @@ class todo:
     # Convert this item to a string representation of the form used in the todo
     # files (i.e., `content [*] #tag1 #tag2 -t [date] [--]`)
     def toraw(self):
+        # if not hasattr(self, 'config'):
+        # self.config = 
+
         # don't blame me, blame whoever decided that overloading the
         # multiplication operator was okay
-        return self.content + ' ' + ' '.join('#'+t for t in self.tags)\
-            + f' {config.complete_symbol}' * self.done
+        return ' '.join([self.importance,
+                         self.content,
+                         ' '.join('#'+t for t in self.tags),
+                         f' {config.complete_symbol}' * self.done])
 
     # Generate a string summarizing this instance
     def __str__(self):
