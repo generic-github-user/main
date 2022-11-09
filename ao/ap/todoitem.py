@@ -82,7 +82,8 @@ class todo:
         # don't blame me, blame whoever decided that overloading the
         # multiplication operator was okay
         return List(['*' * self.importance,
-                     f"[{self.time.strftime('%m-%d')}]" if self.time is not None else '',
+                     (f"[{self.time.strftime(config.date_format)}]"
+                         if self.time is not None else ''),
                      self.content,
                      ' '.join('#'+t for t in self.tags),
                      ' '.join(f'-{k}{f" {v}" if v is not None else ""}'

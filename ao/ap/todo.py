@@ -89,7 +89,7 @@ def parse_todos(path):
                 continue
 
             if (M := brackets.match(tag)):
-                snapshot.time = datetime.datetime.strptime(M.group(1), '%m-%d')\
+                snapshot.time = datetime.datetime.strptime(M.group(1), config.date_format)\
                                                  .replace(datetime.datetime.now().year)
                 words[i] = None
                 continue
@@ -129,6 +129,39 @@ def parse_todos(path):
     return new_state
 
 
+def merge_state(new_state, path):
+    # Compare parsed todo list data with previous state and update
+    # accordingly
+    log(f'Reconciling {len(data)} items')
+    pool = data.filter(lambda x: x.location == path)
+    # for now we assume no duplicates (up to content and date equivalence)
+    for item in new_state:
+        log(item)
+        # matches = pool.filter(lambda x: x.content == item.content,
+        matches = pool.filter_by('content', item.content)
+        # and x.time == item.time, pool
+        if matches:
+            # if path == config.paths['main']:
+            #    assert len(matches) == 1, f'Duplicates for: {item}'
+            matches[0].snapshots.append(item)
+            matches[0].raw = item.raw
+            matches[0].location = item.location
+        else:
+            data.append(item)
+            log(f'found new task: {item}')
+
+    for item in data:
+        # if not any(a.content == item.content #and a.time == item.time
+        # for a in new_state)\
+        if all([new_state.none(lambda a: a.content == item.content),
+                item.location == config.paths.main,
+                path == config.paths.main]):
+            log(f'No matching item in new state: {item.content}')
+            item.done = True
+            item.donetime = time.time()
+            item.location = config.paths.complete
+
+
 def update_list(todo_list, path):
     global log_level, data
 
@@ -149,36 +182,7 @@ def update_list(todo_list, path):
             item.location = config.paths.complete
 
     if config.stateful:
-        # Compare parsed todo list data with previous state and update
-        # accordingly
-        log(f'Reconciling {len(data)} items')
-        pool = data.filter(lambda x: x.location == path)
-        # for now we assume no duplicates (up to content and date equivalence)
-        for item in new_state:
-            log(item)
-            # matches = pool.filter(lambda x: x.content == item.content,
-            matches = pool.filter_by('content', item.content)
-            # and x.time == item.time, pool
-            if matches:
-                # if path == config.paths['main']:
-                #    assert len(matches) == 1, f'Duplicates for: {item}'
-                matches[0].snapshots.append(item)
-                matches[0].raw = item.raw
-                matches[0].location = item.location
-            else:
-                data.append(item)
-                log(f'found new task: {item}')
-
-        for item in data:
-            # if not any(a.content == item.content #and a.time == item.time
-            # for a in new_state)\
-            if all([new_state.none(lambda a: a.content == item.content),
-                    item.location == config.paths.main,
-                    path == config.paths.main]):
-                log(f'No matching item in new state: {item.content}')
-                item.done = True
-                item.donetime = time.time()
-                item.location = config.paths.complete
+        merge_state(new_state, path)
     else:
         data.extend(new_state)
 
@@ -194,11 +198,12 @@ def update_list(todo_list, path):
 
 def save_list(path):
     with open(path, 'w') as tfile:
+        now = datetime.datetime.now()
         tfile.write(
             data.filter(lambda x: x.location == path)
                 .sorted(lambda y: (
                     (datetime.timedelta.max if y.time is None
-                        else datetime.datetime.now()-y.time),
+                        else now-y.time),
                     -y.importance,
                     y.content.casefold()
                 ))
@@ -228,18 +233,7 @@ def backup_lists():
     log_level -= 1
 
 
-# Update the todo list(s) by parsing their members and comparing to the stored
-# state (in a similar manner to file tracking, we can infer when entries are
-# added, removed, or modified)
-def update():
-    global log_level
-    start = time.time()
-    if not args.dry_run:
-        backup_lists()
-
-    for todo_list, path in config.paths.items():
-        data = update_list(todo_list, Path(path))
-
+def update_recurring():
     append_buffer = List()
     for item in data.filter_by('location', config.paths.recur)\
                     .filter(lambda x: x.frequency is not None):
@@ -251,6 +245,21 @@ def update():
                                  .with_attr('location', config.paths.main))
     # still not entirely sure why this is necessary...
     data.extend(append_buffer)
+    return data
+
+
+# Update the todo list(s) by parsing their members and comparing to the stored
+# state (in a similar manner to file tracking, we can infer when entries are
+# added, removed, or modified)
+def update():
+    global log_level
+    start = time.time()
+    if not args.dry_run:
+        backup_lists()
+
+    for todo_list, path in config.paths.items():
+        data = update_list(todo_list, Path(path))
+    update_recurring()
 
     log_level += 1
     for todo_list, path in config.paths.items():
