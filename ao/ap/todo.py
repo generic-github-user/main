@@ -82,9 +82,16 @@ def parse_todos(path):
         snapshot.importance = line.count('*')
         line = line.replace('*', '')
 
+        brackets = re.compile('\[([0-9-]+?)\]')
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
+                continue
+
+            if (M := brackets.match(tag)):
+                snapshot.time = datetime.datetime.strptime(M.group(1), '%m-%d')\
+                                                 .replace(datetime.datetime.now().year)
+                words[i] = None
                 continue
 
             if tag.startswith('#'):
@@ -108,8 +115,6 @@ def parse_todos(path):
 
             if tag in ['-daily']:
                 # snapshot.tags.append(tag)
-                snapshot.frequency = 1
-                snapshot.flags['f'] = 'd'
                 words[i] = None
                 continue
 
@@ -119,9 +124,14 @@ def parse_todos(path):
                 words[i] = None
                 continue
 
+
         content = ' '.join(filter(None, words))
         snapshot.content = content
         snapshot.line = ln
+
+        if 'daily' in snapshot.flags:
+            snapshot.frequency = 1
+            snapshot.flags['f'] = 'd'
 
         new_state.append(snapshot)
         log(snapshot)
@@ -176,7 +186,6 @@ def update_list(todo_list, path):
                     item.location == config.paths.main,
                     path == config.paths.main]):
                 log(f'No matching item in new state: {item.content}')
-                # breakpoint()
                 item.done = True
                 item.donetime = time.time()
                 item.location = config.paths.complete
@@ -198,9 +207,9 @@ def save_list(path):
         tfile.write(
             data.filter(lambda x: x.location == path)
                 .sorted(lambda y: (
-                    -y.importance,
                     (datetime.timedelta.max if y.time is None
                         else datetime.datetime.now()-y.time),
+                    -y.importance,
                     y.content.casefold()
                 ))
                 .map(todo.toraw)
@@ -241,12 +250,17 @@ def update():
     for todo_list, path in config.paths.items():
         data = update_list(todo_list, Path(path))
 
+    append_buffer = List()
     for item in data.filter_by('location', config.paths.recur)\
                     .filter(lambda x: x.frequency is not None):
         now = datetime.datetime.now()
-        if data.none(lambda x: x.time is not None and
-                     now - x.time < datetime.timedelta(days=item.frequency)):
-            data.append(item.with_attr('time', datetime.datetime.today()))
+        if data.none(lambda x: x.content == item.content and
+                     x.time is not None and
+                     now - x.time <= datetime.timedelta(days=item.frequency)):
+            append_buffer.append(item.with_attr('time', datetime.datetime.today())
+                                 .with_attr('location', config.paths.main))
+    # still not entirely sure why this is necessary...
+    data.extend(append_buffer)
 
     log_level += 1
     for todo_list, path in config.paths.items():
