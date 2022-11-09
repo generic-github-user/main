@@ -92,6 +92,15 @@ def parse_todos(path):
                 words[i] = None
                 continue
 
+            if tag.startswith('-'):
+                tag = tag[1:]
+                if tag in ['daily']:
+                    snapshot.flags[tag] = None
+                    words[i] = None
+                else:
+                    snapshot.flags[tag] = words[i+1]
+                    words[i:i+2] = [None] * 2
+
             if tag.startswith(('-t', '-time')):
                 snapshot.time = dateparser.parse(words[i+1])
                 words[i:i+2] = [None] * 2
@@ -100,6 +109,7 @@ def parse_todos(path):
             if tag in ['-daily']:
                 # snapshot.tags.append(tag)
                 snapshot.frequency = 1
+                snapshot.flags['f'] = 'd'
                 words[i] = None
                 continue
 
@@ -231,6 +241,13 @@ def update():
     for todo_list, path in config.paths.items():
         data = update_list(todo_list, Path(path))
 
+    for item in data.filter_by('location', config.paths.recur)\
+                    .filter(lambda x: x.frequency is not None):
+        now = datetime.datetime.now()
+        if data.none(lambda x: x.time is not None and
+                     now - x.time < datetime.timedelta(days=item.frequency)):
+            data.append(item.with_attr('time', datetime.datetime.today()))
+
     log_level += 1
     for todo_list, path in config.paths.items():
         log(f'Writing output to list {todo_list} at {path}')
@@ -250,10 +267,11 @@ def update():
         if not args.dry_run:
             with open(db_path, 'wb') as f:
                 pickle.dump(data, f)
-            with open('debug.yaml', 'w') as f:
-                yaml.dump(data[:5], f)
             # with open('debug.json', 'w') as f:
                 # json.dump(data, f, indent=4)
+    if config.debug_dump and not args.dry_run:
+        with open('debug.yaml', 'w') as f:
+            yaml.dump(data[:50], f)
     end = time.time()
     log(f'Finished in {end - start} seconds')
 

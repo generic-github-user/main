@@ -1,5 +1,7 @@
 import time
+import copy
 from .loadcfg import config
+from lib.pylist import List
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -31,6 +33,7 @@ class todo:
         # are sometimes further processed into special attributes like
         # todo.done and todo.duration
         self.tags = []
+        self.flags = {}
 
         # unused
         self.source = None
@@ -62,6 +65,14 @@ class todo:
         self.parent = None
         self.config = config
 
+    def clone(self):
+        return copy.copy(self)
+
+    def with_attr(self, k, v):
+        result = self.clone()
+        setattr(result, k, v)
+        return result
+
     # Convert this item to a string representation of the form used in the todo
     # files (i.e., `content [*] #tag1 #tag2 -t [date] [--]`)
     def toraw(self):
@@ -70,10 +81,14 @@ class todo:
 
         # don't blame me, blame whoever decided that overloading the
         # multiplication operator was okay
-        return ' '.join(['*' * self.importance,
-                         self.content,
-                         ' '.join('#'+t for t in self.tags),
-                         f' {config.complete_symbol}' * self.done])
+        return List(['*' * self.importance,
+                     f"[{self.time.strftime('%m-%d')}]" if self.time is not None else '',
+                     self.content,
+                     ' '.join('#'+t for t in self.tags),
+                     ' '.join(f'-{k}{f" {v}" if v is not None else ""}'
+                              for k, v in self.flags.items()),
+                     f' {config.complete_symbol}' * self.done])\
+                .filter(lambda x: x != '').join(' ')
 
     # Generate a string summarizing this instance
     def __str__(self):
