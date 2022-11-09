@@ -242,7 +242,8 @@ def update_recurring():
                      x.time is not None and
                      now - x.time <= datetime.timedelta(days=item.frequency)):
             append_buffer.append(item.with_attr('time', datetime.datetime.today())
-                                 .with_attr('location', config.paths.main))
+                                     .with_attr('location', config.paths.main)
+                                     .with_attr('flags', {}))
     # still not entirely sure why this is necessary...
     data.extend(append_buffer)
     return data
