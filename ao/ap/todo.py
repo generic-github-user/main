@@ -14,30 +14,16 @@ from box import Box
 # from ...lib.pylist import List
 # from main.lib.pylist import List
 # from main.lib import pylist
-from lib.pylist import List
 # print(pylist.List)
 
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument('--dry-run', action='store_true',
-                    help='Executes a "dry run"; will simulate updating \
-                    the todo list but won\'t actually modify any files')
-parser.add_argument('--flush', action='store_true')
-parser.add_argument('--config', type=str)
-args = parser.parse_args()
-print(args)
+# TODO: include presence/absence of previously stored snapshot in todo list
+# resolution
+# TODO: store images/snapshot groups created by a single run of the script
 
+from lib.pylist import List
+from .todoitem import todo
+from .loadcfg import args, config, db_path, log_path, todo_path, log_level
 
-todo_path = os.path.expanduser('~/Desktop/.todo')
-config = Box(yaml.safe_load(Path(args.config).read_text()))
-config.base = Path(config.base_path).expanduser()
-for k, v in config.paths.items():
-    # config[k] = os.path.expanduser(v)
-    config.paths[k] = (Path(config.base) / Path(config.paths[k])).expanduser()
-db_path = config.base / 'todo.pickle'
-log_path = config.base / config.log
-log_level = 0
-config.replacements = {str(k): str(v) for k, v in config.replacements.items()}
 
 if args.flush:
     archive_dir = config.base / Path('old')
@@ -49,90 +35,20 @@ if args.flush:
 
 
 def log(content):
-    content = '  ' * log_level + content
-    print(content)
+    content = '  ' * log_level + str(content)
+    if log_level <= config.verbosity:
+        print(content)
     with open(log_path, 'a') as logfile:
         logfile.write(f'{datetime.datetime.now()} {content}\n')
 
 
-# Represents a task or entry in a todo list, possibly with several sub-tasks
-class todo:
-    # Initialize a new todo item
-    def __init__(self, raw, content=''):
-        # The original text from which this todo item was parsed
-        self.raw = raw
-
-        # The "text" or content of the todo item (excludes tags and other
-        # metadata/markup)
-        self.content = content
-
-        # A boolean flag indicating whether the corresponding task is complete
-        self.done = False
-
-        # A timestamp indicating when this item was marked as complete
-        # (actually reflects the first occasion on which the script was rerun
-        # after the file was modified)
-        self.donetime = None
-
-        # A (chronologically ordered) set of "snapshots" reflecting every
-        # processed todo item that was considered a match to the "canonical"
-        # version of the task in the database (currently unused for efficiency
-        # reasons)
-        self.snapshots = []
-
-        # Tags used to mark various properties about the task (item) -- these
-        # are sometimes further processed into special attributes like
-        # todo.done and todo.duration
-        self.tags = []
-
-        # unused
-        self.source = None
-
-        # The time at which the todo instance representing this item was first
-        # created
-        self.created = time.time()
-        self.importance = 0
-
-        # This might be used in the future but for now is just somewhat
-        # redundant metadata; if we incorporate positional context when
-        # analyzing lists we may as well be writing an entire version control
-        # system
-        self.line = None
-
-        # The file (specific todo list) in which the item currently resides;
-        # this is often modified during processing so that when the lists are
-        # rewritten the item is moved to a new file
-        self.location = ''
-        self.time = None
-        self.duration = None
-
-        # Nested tasks/children of this item; currently unused due to parsing
-        # limitations (the eventual goal is to integrate the zeal markup
-        # parser, though the block indentation parser might be factored out
-        # into a separate module)
-        self.sub = []
-        self.parent = None
-
-    # Convert this item to a string representation of the form used in the todo
-    # files (i.e., `content [*] #tag1 #tag2 -t [date] [--]`)
-    def toraw(self):
-        # don't blame me, blame whoever decided that overloading the
-        # multiplication operator was okay
-        return self.content + ' ' + ' '.join('#'+t for t in self.tags)\
-            + f' {config.complete_symbol}' * self.done
-
-    # Generate a string summarizing this instance
-    def __str__(self):
-        inner = [f'"{self.raw}"', f'<{self.tags}>']
-        # inner = "\n\t".join(inner)
-        inner = ' '.join(inner)
-        return f'todo {{ {inner} }}'
-
-
-try:
-    with open(db_path, 'rb') as f:
-        data = List(pickle.load(f))
-except FileNotFoundError:
+if config.stateful:
+    try:
+        with open(db_path, 'rb') as f:
+            data = List(pickle.load(f))
+    except FileNotFoundError:
+        data = List()
+else:
     data = List()
 
 
@@ -142,6 +58,7 @@ except FileNotFoundError:
 # to infer the temporal relationship between the current and saved states and
 # modify the list accordingly
 def parse_todos(path):
+    global log_level
     try:
         with open(path.expanduser(), 'r') as tfile:
             lines = List(tfile.readlines()).remove('', '\n')
@@ -150,8 +67,9 @@ def parse_todos(path):
 
     new_state = List()
     for ln, line in enumerate(lines):
-        print(f'Parsing line: {line}')
-        snapshot = todo(line)
+        log(f'Parsing line: {line}')
+        log_level += 1
+        snapshot = todo(line, config=config)
         snapshot.location = path
 
         if config.complete_symbol in line:
@@ -159,9 +77,21 @@ def parse_todos(path):
             snapshot.donetime = time.time()
             line = line.replace(config.complete_symbol, '')
             log(f'found completed task: {snapshot}')
+
+        # if 'raw' not in snapshot.tags:
+        snapshot.importance = line.count('*')
+        line = line.replace('*', '')
+
+        brackets = re.compile('\[([0-9-]+?)\]')
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
+                continue
+
+            if (M := brackets.match(tag)):
+                snapshot.time = datetime.datetime.strptime(M.group(1), config.date_format)\
+                                                 .replace(datetime.datetime.now().year)
+                words[i] = None
                 continue
 
             if tag.startswith('#'):
@@ -169,58 +99,51 @@ def parse_todos(path):
                 words[i] = None
                 continue
 
-            if tag.startswith(('-t', '-time')):
-                snapshot.time = dateparser.parse(words[i+1])
-                words[i:i+2] = [None] * 2
-                continue
+            if tag.startswith('-'):
+                tag = tag[1:]
+                if tag in ['daily', 'cc']:
+                    snapshot.flags[tag] = None
+                    words[i] = None
+                else:
+                    snapshot.flags[tag] = words[i+1]
+                    words[i:i+2] = [None] * 2
 
-            if tag == '-cc':
-                snapshot.location = config.paths.cancelled
-                # TODO: refactor this to improve separation of concerns
-                words[i] = None
-                continue
+                if tag in ['t', 'time']:
+                    snapshot.time = dateparser.parse(words[i+1])
+                    words[i:i+2] = [None] * 2
 
-        if 'raw' not in snapshot.tags:
-            snapshot.importance = line.count('*')
-            line = line.replace('*', '')
-
-        snapshot.content = ' '.join(filter(None, words))
+        content = ' '.join(filter(None, words))
+        snapshot.content = content
         snapshot.line = ln
 
+        if 'daily' in snapshot.flags:
+            snapshot.frequency = 1
+            snapshot.flags['f'] = 'd'
+        if 'cc' in snapshot.flags:
+            snapshot.location = config.paths.cancelled
+            # TODO: refactor this to improve separation of concerns
+
         new_state.append(snapshot)
-        print(snapshot)
+        log(snapshot)
+        log_level -= 1
     return new_state
 
 
-def update_list(todo_list, path):
-    print(f'Updating todo list {todo_list} ({path})')
-    print(f'Parsing todo list {todo_list} at {path}')
-    new_state = parse_todos(path)
-
-    print('Updating todo item metadata')
-    for item in new_state:
-        # Some tags and todo item attributes should cause the representation of
-        # the task to be moved to a different list
-        if 'onhold' in item.tags:
-            item.location = config.paths.hold
-        if 'ideas' in item.tags:
-            item.location = config.paths.ideas
-        if item.done:
-            item.location = config.paths.complete
-
-    # Compare parsed todo list data with previous state and update accordingly
-    print(f'Reconciling {len(data)} items')
+def merge_state(new_state, path):
+    # Compare parsed todo list data with previous state and update
+    # accordingly
+    log(f'Reconciling {len(data)} items')
     pool = data.filter(lambda x: x.location == path)
     # for now we assume no duplicates (up to content and date equivalence)
     for item in new_state:
-        print(item)
+        log(item)
         # matches = pool.filter(lambda x: x.content == item.content,
         matches = pool.filter_by('content', item.content)
         # and x.time == item.time, pool
         if matches:
             # if path == config.paths['main']:
             #    assert len(matches) == 1, f'Duplicates for: {item}'
-            # matches[0].snapshots.append(item)
+            matches[0].snapshots.append(item)
             matches[0].raw = item.raw
             matches[0].location = item.location
         else:
@@ -233,11 +156,35 @@ def update_list(todo_list, path):
         if all([new_state.none(lambda a: a.content == item.content),
                 item.location == config.paths.main,
                 path == config.paths.main]):
-            print(f'No matching item in new state: {item.content}')
-            # breakpoint()
+            log(f'No matching item in new state: {item.content}')
             item.done = True
             item.donetime = time.time()
             item.location = config.paths.complete
+
+
+def update_list(todo_list, path):
+    global log_level, data
+
+    log(f'Updating todo list {todo_list} ({path})')
+    log_level += 1
+    log(f'Parsing todo list {todo_list} at {path}')
+    new_state = parse_todos(path)
+
+    log('Updating todo item metadata')
+    for item in new_state:
+        # Some tags and todo item attributes should cause the representation of
+        # the task to be moved to a different list
+        if 'onhold' in item.tags:
+            item.location = config.paths.hold
+        if 'ideas' in item.tags:
+            item.location = config.paths.ideas
+        if item.done:
+            item.location = config.paths.complete
+
+    if config.stateful:
+        merge_state(new_state, path)
+    else:
+        data.extend(new_state)
 
     # Substitute abbreviations listed in config file with their expanded forms
     for item in data:
@@ -245,67 +192,102 @@ def update_list(todo_list, path):
             if y.lower() not in item.content.lower():
                 item.content = item.content.replace(x, y)
 
+    log_level -= 1
+    return data
+
 
 def save_list(path):
     with open(path, 'w') as tfile:
+        now = datetime.datetime.now()
         tfile.write(
             data.filter(lambda x: x.location == path)
                 .sorted(lambda y: (
-                    # (0 if 'raw' in y.tags else -y.content.count('*')),
-                    -y.importance,
                     (datetime.timedelta.max if y.time is None
-                        else datetime.datetime.now()-y.time),
+                        else now-y.time),
+                    -y.importance,
                     y.content.casefold()
                 ))
-                .get('content')
+                .map(todo.toraw)
                 .join('\n'))
 
 
 def backup_lists():
+    global log_level
+
     backup_dir = config.base / 'todo-backup'
     backup_dir.mkdir(exist_ok=True)
     backup_path = backup_dir / f'archive-{time.time_ns()}.tar.gz'
-    print(f'Backing up todo list and database to {backup_path}')
+    log(f'Backing up todo list and database to {backup_path}')
+    log_level += 1
 
+    targets = set([todo_path] + list(config.paths.values()))
+    if config.backup_db and config.stateful:
+        targets.add(db_path)
     with tarfile.open(backup_path, 'w:gz') as tarball:
-        for path in set([db_path, todo_path] + list(config.paths.values())):
-            print(path)
+        for path in targets:
+            log(path)
             try:
                 tarball.add(path)
             except FileNotFoundError as ex:
-                print(ex)
+                log(ex)
+    log_level -= 1
+
+
+def update_recurring():
+    append_buffer = List()
+    for item in data.filter_by('location', config.paths.recur)\
+                    .filter(lambda x: x.frequency is not None):
+        now = datetime.datetime.now()
+        if data.none(lambda x: x.content == item.content and
+                     x.time is not None and
+                     now - x.time <= datetime.timedelta(days=item.frequency)):
+            append_buffer.append(item.with_attr('time', datetime.datetime.today())
+                                     .with_attr('location', config.paths.main)
+                                     .with_attr('flags', {}))
+    # still not entirely sure why this is necessary...
+    data.extend(append_buffer)
+    return data
 
 
 # Update the todo list(s) by parsing their members and comparing to the stored
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
+    global log_level
+    start = time.time()
     if not args.dry_run:
         backup_lists()
 
     for todo_list, path in config.paths.items():
-        update_list(todo_list, Path(path))
+        data = update_list(todo_list, Path(path))
+    update_recurring()
 
+    log_level += 1
     for todo_list, path in config.paths.items():
-        print(f'Writing output to list {todo_list} at {path}')
+        log(f'Writing output to list {todo_list} at {path}')
         if not args.dry_run:
             save_list(path)
 
         if config.git_commit and not args.dry_run:
-            print('Committing updated todo files to git repository')
             os.chdir(config.base)
             os.system(f'git add {path}')
     # os.chdir(config.base)
+    log('Committing updated todo files to git repository')
     os.system('git commit -m "Update todo list"')
+    log_level -= 1
 
-    print(f'Persisting database ({db_path})')
-    if not args.dry_run:
-        with open(db_path, 'wb') as f:
-            pickle.dump(data, f)
+    if config.stateful:
+        log(f'Persisting database ({db_path})')
+        if not args.dry_run:
+            with open(db_path, 'wb') as f:
+                pickle.dump(data, f)
+            # with open('debug.json', 'w') as f:
+                # json.dump(data, f, indent=4)
+    if config.debug_dump and not args.dry_run:
         with open('debug.yaml', 'w') as f:
-            yaml.dump(data[:5], f)
-        # with open('debug.json', 'w') as f:
-            # json.dump(data, f, indent=4)
+            yaml.dump(data[:50], f)
+    end = time.time()
+    log(f'Finished in {end - start} seconds')
 
 
 update()

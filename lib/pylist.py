@@ -73,6 +73,10 @@ class List:
     def append(self, x):
         return self.items.append(x)
 
+    def extend(self, x):
+        self.items.extend(x)
+        return self
+
     """Combine the elements of the list in order, returning a string; if the
     given delimiter has length m and this list has length n, the resulting
     string will be m*(n-1) characters longer than the concatenation of the
