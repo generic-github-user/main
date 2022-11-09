@@ -153,7 +153,7 @@ def update_list(todo_list, path):
         if matches:
             # if path == config.paths['main']:
             #    assert len(matches) == 1, f'Duplicates for: {item}'
-            # matches[0].snapshots.append(item)
+            matches[0].snapshots.append(item)
             matches[0].raw = item.raw
             matches[0].location = item.location
         else:
@@ -205,8 +205,11 @@ def backup_lists():
     log(f'Backing up todo list and database to {backup_path}')
     log_level += 1
 
+    targets = set([todo_path] + list(config.paths.values()))
+    if config.backup_db:
+        targets.add(db_path)
     with tarfile.open(backup_path, 'w:gz') as tarball:
-        for path in set([db_path, todo_path] + list(config.paths.values())):
+        for path in targets:
             log(path)
             try:
                 tarball.add(path)
