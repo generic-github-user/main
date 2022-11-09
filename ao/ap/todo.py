@@ -15,6 +15,7 @@ from box import Box
 # from main.lib.pylist import List
 # from main.lib import pylist
 from lib.pylist import List
+from .todoitem import todo
 # print(pylist.List)
 
 import argparse
@@ -55,80 +56,6 @@ def log(content):
         logfile.write(f'{datetime.datetime.now()} {content}\n')
 
 
-# Represents a task or entry in a todo list, possibly with several sub-tasks
-class todo:
-    # Initialize a new todo item
-    def __init__(self, raw, content=''):
-        # The original text from which this todo item was parsed
-        self.raw = raw
-
-        # The "text" or content of the todo item (excludes tags and other
-        # metadata/markup)
-        self.content = content
-
-        # A boolean flag indicating whether the corresponding task is complete
-        self.done = False
-
-        # A timestamp indicating when this item was marked as complete
-        # (actually reflects the first occasion on which the script was rerun
-        # after the file was modified)
-        self.donetime = None
-
-        # A (chronologically ordered) set of "snapshots" reflecting every
-        # processed todo item that was considered a match to the "canonical"
-        # version of the task in the database (currently unused for efficiency
-        # reasons)
-        self.snapshots = []
-
-        # Tags used to mark various properties about the task (item) -- these
-        # are sometimes further processed into special attributes like
-        # todo.done and todo.duration
-        self.tags = []
-
-        # unused
-        self.source = None
-
-        # The time at which the todo instance representing this item was first
-        # created
-        self.created = time.time()
-        self.importance = 0
-
-        # This might be used in the future but for now is just somewhat
-        # redundant metadata; if we incorporate positional context when
-        # analyzing lists we may as well be writing an entire version control
-        # system
-        self.line = None
-
-        # The file (specific todo list) in which the item currently resides;
-        # this is often modified during processing so that when the lists are
-        # rewritten the item is moved to a new file
-        self.location = ''
-        self.time = None
-        self.duration = None
-
-        # Nested tasks/children of this item; currently unused due to parsing
-        # limitations (the eventual goal is to integrate the zeal markup
-        # parser, though the block indentation parser might be factored out
-        # into a separate module)
-        self.sub = []
-        self.parent = None
-
-    # Convert this item to a string representation of the form used in the todo
-    # files (i.e., `content [*] #tag1 #tag2 -t [date] [--]`)
-    def toraw(self):
-        # don't blame me, blame whoever decided that overloading the
-        # multiplication operator was okay
-        return self.content + ' ' + ' '.join('#'+t for t in self.tags)\
-            + f' {config.complete_symbol}' * self.done
-
-    # Generate a string summarizing this instance
-    def __str__(self):
-        inner = [f'"{self.raw}"', f'<{self.tags}>']
-        # inner = "\n\t".join(inner)
-        inner = ' '.join(inner)
-        return f'todo {{ {inner} }}'
-
-
 try:
     with open(db_path, 'rb') as f:
         data = List(pickle.load(f))
@@ -151,7 +78,7 @@ def parse_todos(path):
     new_state = List()
     for ln, line in enumerate(lines):
         print(f'Parsing line: {line}')
-        snapshot = todo(line)
+        snapshot = todo(line, config=config)
         snapshot.location = path
 
         if config.complete_symbol in line:
