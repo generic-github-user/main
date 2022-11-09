@@ -101,29 +101,16 @@ def parse_todos(path):
 
             if tag.startswith('-'):
                 tag = tag[1:]
-                if tag in ['daily']:
+                if tag in ['daily', 'cc']:
                     snapshot.flags[tag] = None
                     words[i] = None
                 else:
                     snapshot.flags[tag] = words[i+1]
                     words[i:i+2] = [None] * 2
 
-            if tag.startswith(('-t', '-time')):
-                snapshot.time = dateparser.parse(words[i+1])
-                words[i:i+2] = [None] * 2
-                continue
-
-            if tag in ['-daily']:
-                # snapshot.tags.append(tag)
-                words[i] = None
-                continue
-
-            if tag == '-cc':
-                snapshot.location = config.paths.cancelled
-                # TODO: refactor this to improve separation of concerns
-                words[i] = None
-                continue
-
+                if tag in ['t', 'time']:
+                    snapshot.time = dateparser.parse(words[i+1])
+                    words[i:i+2] = [None] * 2
 
         content = ' '.join(filter(None, words))
         snapshot.content = content
@@ -132,6 +119,9 @@ def parse_todos(path):
         if 'daily' in snapshot.flags:
             snapshot.frequency = 1
             snapshot.flags['f'] = 'd'
+        if 'cc' in snapshot.flags:
+            snapshot.location = config.paths.cancelled
+            # TODO: refactor this to improve separation of concerns
 
         new_state.append(snapshot)
         log(snapshot)
