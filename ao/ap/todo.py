@@ -16,9 +16,12 @@ from box import Box
 # from main.lib import pylist
 # print(pylist.List)
 
+# TODO: include presence/absence of previously stored snapshot in todo list
+# resolution
+
 from lib.pylist import List
 from .todoitem import todo
-from loadcfg import args, config, db_path, log_path, todo_path
+from .loadcfg import args, config, db_path, log_path, todo_path, log_level
 
 
 if args.flush:

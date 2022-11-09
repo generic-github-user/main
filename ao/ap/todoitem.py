@@ -1,5 +1,5 @@
 import time
-from loadcfg import config
+from .loadcfg import config
 
 
 # Represents a task or entry in a todo list, possibly with several sub-tasks
@@ -69,7 +69,7 @@ class todo:
 
         # don't blame me, blame whoever decided that overloading the
         # multiplication operator was okay
-        return ' '.join([self.importance,
+        return ' '.join(['*' * self.importance,
                          self.content,
                          ' '.join('#'+t for t in self.tags),
                          f' {config.complete_symbol}' * self.done])
