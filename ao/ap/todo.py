@@ -50,8 +50,9 @@ if args.flush:
 
 
 def log(content):
-    content = '  ' * log_level + content
-    print(content)
+    content = '  ' * log_level + str(content)
+    if log_level <= config.verbosity:
+        print(content)
     with open(log_path, 'a') as logfile:
         logfile.write(f'{datetime.datetime.now()} {content}\n')
 
@@ -69,6 +70,7 @@ except FileNotFoundError:
 # to infer the temporal relationship between the current and saved states and
 # modify the list accordingly
 def parse_todos(path):
+    global log_level
     try:
         with open(path.expanduser(), 'r') as tfile:
             lines = List(tfile.readlines()).remove('', '\n')
@@ -77,7 +79,8 @@ def parse_todos(path):
 
     new_state = List()
     for ln, line in enumerate(lines):
-        print(f'Parsing line: {line}')
+        log(f'Parsing line: {line}')
+        log_level += 1
         snapshot = todo(line, config=config)
         snapshot.location = path
 
@@ -115,16 +118,19 @@ def parse_todos(path):
         snapshot.line = ln
 
         new_state.append(snapshot)
-        print(snapshot)
+        log(snapshot)
+        log_level -= 1
     return new_state
 
 
 def update_list(todo_list, path):
-    print(f'Updating todo list {todo_list} ({path})')
-    print(f'Parsing todo list {todo_list} at {path}')
+    global log_level
+    log(f'Updating todo list {todo_list} ({path})')
+    log_level += 1
+    log(f'Parsing todo list {todo_list} at {path}')
     new_state = parse_todos(path)
 
-    print('Updating todo item metadata')
+    log('Updating todo item metadata')
     for item in new_state:
         # Some tags and todo item attributes should cause the representation of
         # the task to be moved to a different list
@@ -136,11 +142,11 @@ def update_list(todo_list, path):
             item.location = config.paths.complete
 
     # Compare parsed todo list data with previous state and update accordingly
-    print(f'Reconciling {len(data)} items')
+    log(f'Reconciling {len(data)} items')
     pool = data.filter(lambda x: x.location == path)
     # for now we assume no duplicates (up to content and date equivalence)
     for item in new_state:
-        print(item)
+        log(item)
         # matches = pool.filter(lambda x: x.content == item.content,
         matches = pool.filter_by('content', item.content)
         # and x.time == item.time, pool
@@ -160,7 +166,7 @@ def update_list(todo_list, path):
         if all([new_state.none(lambda a: a.content == item.content),
                 item.location == config.paths.main,
                 path == config.paths.main]):
-            print(f'No matching item in new state: {item.content}')
+            log(f'No matching item in new state: {item.content}')
             # breakpoint()
             item.done = True
             item.donetime = time.time()
@@ -171,6 +177,8 @@ def update_list(todo_list, path):
         for x, y in config.replacements.items():
             if y.lower() not in item.content.lower():
                 item.content = item.content.replace(x, y)
+
+    log_level -= 1
 
 
 def save_list(path):
@@ -189,43 +197,50 @@ def save_list(path):
 
 
 def backup_lists():
+    global log_level
+
     backup_dir = config.base / 'todo-backup'
     backup_dir.mkdir(exist_ok=True)
     backup_path = backup_dir / f'archive-{time.time_ns()}.tar.gz'
-    print(f'Backing up todo list and database to {backup_path}')
+    log(f'Backing up todo list and database to {backup_path}')
+    log_level += 1
 
     with tarfile.open(backup_path, 'w:gz') as tarball:
         for path in set([db_path, todo_path] + list(config.paths.values())):
-            print(path)
+            log(path)
             try:
                 tarball.add(path)
             except FileNotFoundError as ex:
-                print(ex)
+                log(ex)
+    log_level -= 1
 
 
 # Update the todo list(s) by parsing their members and comparing to the stored
 # state (in a similar manner to file tracking, we can infer when entries are
 # added, removed, or modified)
 def update():
+    global log_level
     if not args.dry_run:
         backup_lists()
 
     for todo_list, path in config.paths.items():
         update_list(todo_list, Path(path))
 
+    log_level += 1
     for todo_list, path in config.paths.items():
-        print(f'Writing output to list {todo_list} at {path}')
+        log(f'Writing output to list {todo_list} at {path}')
         if not args.dry_run:
             save_list(path)
 
         if config.git_commit and not args.dry_run:
-            print('Committing updated todo files to git repository')
             os.chdir(config.base)
             os.system(f'git add {path}')
     # os.chdir(config.base)
+    log('Committing updated todo files to git repository')
     os.system('git commit -m "Update todo list"')
+    log_level -= 1
 
-    print(f'Persisting database ({db_path})')
+    log(f'Persisting database ({db_path})')
     if not args.dry_run:
         with open(db_path, 'wb') as f:
             pickle.dump(data, f)
