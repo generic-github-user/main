@@ -73,6 +73,11 @@ def parse_todos(path):
             snapshot.donetime = time.time()
             line = line.replace(config.complete_symbol, '')
             log(f'found completed task: {snapshot}')
+
+        # if 'raw' not in snapshot.tags:
+        snapshot.importance = line.count('*')
+        line = line.replace('*', '')
+
         words = line.split()
         for i, tag in enumerate(words):
             if tag is None:
@@ -89,7 +94,8 @@ def parse_todos(path):
                 continue
 
             if tag in ['-daily']:
-                snapshot.tags.append(tag)
+                # snapshot.tags.append(tag)
+                snapshot.frequency = 1
                 words[i] = None
                 continue
 
@@ -99,11 +105,8 @@ def parse_todos(path):
                 words[i] = None
                 continue
 
-        if 'raw' not in snapshot.tags:
-            snapshot.importance = line.count('*')
-            line = line.replace('*', '')
-
-        snapshot.content = ' '.join(filter(None, words))
+        content = ' '.join(filter(None, words))
+        snapshot.content = content
         snapshot.line = ln
 
         new_state.append(snapshot)
