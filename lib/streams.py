@@ -45,6 +45,18 @@ class Stream:
     def is_empty(self):
         return False
 
+    def to_list(self):
+        return If(self, lambda: [self.head]+self.tail().to_list(),
+                  lambda: [])
+
+    def to_set(self):
+        return set(self.to_list())
+
+    def to_string(self):
+        return f'<{", ".join(self.map(str).iter())}>'
+
+    def print(self):
+        print(self.to_string())
     # def windows(self, n):
 
     def __bool__(self):
