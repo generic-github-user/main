@@ -29,3 +29,28 @@ class SEmpty:
 
 for m in ['map', 'filter']:
     setattr(SEmpty, m, lambda S: SEmpty)
+
+
+def memo(f):
+    def memoized(*args, **kwargs):
+        return f(*args, **kwargs)
+    return memoized
+
+
+class Stream:
+    def __init__(self, head, tail):
+        self.head = head
+        self.tail = memo(tail)
+
+    def is_empty(self):
+        return False
+
+    # def windows(self, n):
+
+    def __bool__(self):
+        return not self.is_empty()
+
+    def __iter__(self):
+        return StreamIter(self)
+
+    iter = __iter__
