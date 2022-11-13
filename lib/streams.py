@@ -58,6 +58,16 @@ class Stream:
     def print(self):
         print(self.to_string())
 
+    def map(self, f):
+        return If(self, lambda: Stream(f(self.head),
+                                       lambda: self.tail().map(f)), SEmpty)
+
+    def filter(self, f):
+        # print(self.head)
+        return If(f(self.head),
+                  lambda: Stream(self.head, lambda: self.tail().filter(f)),
+                  lambda: self.tail().filter(f))
+
     # def reduce(self, f, init):
         # return
 
