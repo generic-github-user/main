@@ -54,3 +54,18 @@ class Stream:
         return StreamIter(self)
 
     iter = __iter__
+
+
+class StreamIter:
+    def __init__(self, S):
+        self.S = S
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.S.is_empty():
+            raise StopIteration
+        v = self.S.head
+        self.S = self.S.tail()
+        return v
