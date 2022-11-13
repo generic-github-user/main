@@ -57,6 +57,24 @@ class Stream:
 
     def print(self):
         print(self.to_string())
+
+    # def reduce(self, f, init):
+        # return
+
+    # @with_continuations()
+    # def all(self, f, self=None):
+    def all(self, f):
+        return f(self.head) and self.tail().all(f)
+        # return f(self.head) and 
+
+    def nth(self, i):
+        if i == 0: return self.head
+        else: return self.tail().nth(i - 1)
+
+    def take(self, n):
+        if n == 0: return SEmpty
+        else: return Stream(self.head, lambda: self.tail().take(n - 1))
+
     # def windows(self, n):
 
     def __bool__(self):
