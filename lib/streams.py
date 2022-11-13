@@ -1,4 +1,6 @@
 from lib.pystring import String
+from macropy.experimental.tco import macros, tco
+# from macropy.core.hquotes import hq, u
 
 
 # one day I will pay for my sins
@@ -73,6 +75,7 @@ class Stream:
 
     # @with_continuations()
     # def all(self, f, self=None):
+    @tco
     def all(self, f):
         return f(self.head) and self.tail().all(f)
         # return f(self.head) and 
@@ -109,3 +112,7 @@ class StreamIter:
         v = self.S.head
         self.S = self.S.tail()
         return v
+
+
+def range(a, b):
+    return If(a < b, lambda: Stream(a, lambda: range(a+1, b)), lambda: SEmpty)
