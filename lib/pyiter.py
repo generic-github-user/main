@@ -58,6 +58,16 @@ class Iter:
         self.next()
         return v
 
+    # TODO
+    def filter(self, f):
+        def nnext(S):
+            while not f(self.value):
+                if self.inner.value is None:
+                    return None
+                pass
+            return self.inner.value
+
+        return Iter(self, self.value, nnext)
     def to_list(self):
         result = []
         while (x := self.step()) is not None:
