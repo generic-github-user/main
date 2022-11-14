@@ -9,6 +9,8 @@ flake8 = "*"
 pyyaml = "*"
 dateparser = "*"
 mypy = "*"
+tco = "*"
+macropy3 = "*"
 
 [dev-packages]
 
