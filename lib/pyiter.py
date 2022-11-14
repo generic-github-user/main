@@ -68,6 +68,16 @@ class Iter:
             return self.inner.value
 
         return Iter(self, self.value, nnext)
+
+    def map(self, f):
+        def nnext(S):
+            # value = self.inner.__next__()
+            value = self.step()
+            if value is None:
+                return value
+            else:
+                return f(value)
+        return Iter(self, f(self.value), nnext)
     def to_list(self):
         result = []
         while (x := self.step()) is not None:
