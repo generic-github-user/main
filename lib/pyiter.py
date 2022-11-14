@@ -36,3 +36,19 @@ class Iter:
         v = self.value
         self.next()
         return v
+
+    def to_list(self):
+        result = []
+        while (x := self.step()) is not None:
+            # print(self.next_)
+            result.append(x)
+        return result
+
+    def to_set(self):
+        return set(self.to_list())
+
+    def to_string(self):
+        return self.map(lambda x: x.to_string()).join(', ')
+
+    def print(self):
+        print(self.to_string())
