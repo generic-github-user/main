@@ -69,6 +69,12 @@ class Iter:
 
         return Iter(self, self.value, nnext)
 
+    def all(self, f):
+        while self.next() is not None:
+            if not f(self.value):
+                return False
+        return True
+
     def map(self, f):
         def nnext(S):
             # value = self.inner.__next__()
@@ -78,6 +84,18 @@ class Iter:
             else:
                 return f(value)
         return Iter(self, f(self.value), nnext)
+
+    def join(self, s):
+        result = String()
+        # for x in self:
+        while (x := self.next()) is not None:
+            # print(x)
+            # if x is not None:
+            if result:
+                result += s
+            result += x.to_string()
+        return result
+
     def to_list(self):
         result = []
         while (x := self.step()) is not None:
