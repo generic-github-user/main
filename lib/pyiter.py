@@ -37,6 +37,9 @@ class Iter:
         # self.__next__ = next_
         # self.next = self.__next__
 
+    def clone(self):
+        return Iter(self.inner, self.value, self.next_)
+
     def __iter__(self):
         return self
 
@@ -49,9 +52,13 @@ class Iter:
         return self.value
 
     def step(self):
-        v = self.value
+        v = self.current()
         self.next()
         return v
+
+    def stepped(self):
+        self.next()
+        return self
 
     def current(self):
         return self.value
@@ -64,7 +71,27 @@ class Iter:
                     return None
             return S.current()
 
-        return Iter(self, self.value, nnext)
+        return Iter(self, self.current(), nnext)
+
+    def take(self, n):
+        i = 0
+
+        def nnext(S):
+            nonlocal i
+            if i < n:
+                i += 1
+                return self.next()
+            return None
+
+        return Iter(self, self.current(), nnext)
+
+    def windows(self, n):
+        def nnext(S):
+            # return S.stepped().clone().take(n)
+            if self.next() is None:
+                return None
+            return S.clone().take(n)
+        return Iter(self, self.current(), nnext)
 
     def all(self, f):
         while (x := self.step()) is not None:
@@ -89,14 +116,16 @@ class Iter:
                 return value
             else:
                 return f(value)
-        return Iter(self, f(self.value), nnext)
+        return Iter(self, self.current(), nnext)
 
     def join(self, delim):
-        result = String()
+        result = ''
+        # TODO
         while (x := self.next()) is not None:
             if result:
                 result += delim
-            result += x.to_string()
+            result += String.to_str_guard(x)
+            # result += str(x)
         return result
 
     def to_list(self):
@@ -109,7 +138,7 @@ class Iter:
         return set(self.to_list())
 
     def to_string(self):
-        return self.map(lambda x: x.to_string()).join(', ')
+        return self.map(String.to_str_guard).join(', ')
 
     def print(self):
         print(self.to_string())
