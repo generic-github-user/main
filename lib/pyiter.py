@@ -19,7 +19,9 @@ class Range:
         return None
 
     def to_iter(self):
+        # TODO: allow proper cloning of range objects
         return Iter(self, self.n, lambda S: self.__next__())
+        # RangeIterator = Iter.make_iterator_wrapper()
 
     def __str__(self):
         return f'Range [ {self.bounds[0]}..{self.bounds[1]} ]'
@@ -74,23 +76,34 @@ class Iter:
         return Iter(self, self.current(), nnext)
 
     def take(self, n):
+        class taker(Iter):
+            def __init__(inner, i=0):
+                super().__init__(inner, None, inner.__next__)
+                inner.i = i
+
+            def __next__(inner):
+                # nonlocal i
+                if inner.i < n:
+                    inner.i += 1
+                    return self.next()
+                return None
+
+            def clone(inner):
+                return taker(i=inner.i)
+
+        # return Iter(self, self.current(), nnext)
+        return taker()
+
+    def windows(self, n, size_hint=None):
         i = 0
 
         def nnext(S):
             nonlocal i
-            if i < n:
-                i += 1
-                return self.next()
-            return None
-
-        return Iter(self, self.current(), nnext)
-
-    def windows(self, n):
-        def nnext(S):
             # return S.stepped().clone().take(n)
-            if self.next() is None:
+            if self.next() is None or (size_hint is not None
+                                       and i >= size_hint() - n - 1):
                 return None
-            return S.clone().take(n)
+            return self.clone().take(n)
         return Iter(self, self.current(), nnext)
 
     def all(self, f):
@@ -111,7 +124,7 @@ class Iter:
 
     def map(self, f):
         def nnext(S):
-            value = self.step()
+            value = self.next()
             if value is None:
                 return value
             else:
@@ -130,7 +143,7 @@ class Iter:
 
     def to_list(self):
         result = []
-        while (x := self.step()) is not None:
+        while (x := self.next()) is not None:
             result.append(x)
         return result
 
