@@ -5,7 +5,6 @@ from lib.number import Number
 class Number2(int):
     def __init__(self, x):
         super().__init__()
-# breakpoint()
 
 
 class Range:
@@ -14,8 +13,6 @@ class Range:
         self.bounds = (Number(a), Number(b))
 
     def __next__(self):
-        # print(self.n, self.bounds[1])
-        # breakpoint()
         if self.n < (self.bounds[1] - 1):
             self.n += 1
             return self.n
@@ -30,7 +27,6 @@ class Range:
 
 class Iter:
     def __init__(self, inner, init=None, next_=None):
-        # if init is None: init = inner.value
         if next_ is None:
             next_ = lambda S: inner.__next__()
 
@@ -45,7 +41,6 @@ class Iter:
         return self
 
     def __next__(self):
-        # return self.inner.__next__()
         self.value = self.next_(self)
         return self.value
 
@@ -77,7 +72,6 @@ class Iter:
 
     def map(self, f):
         def nnext(S):
-            # value = self.inner.__next__()
             value = self.step()
             if value is None:
                 return value
@@ -87,10 +81,7 @@ class Iter:
 
     def join(self, s):
         result = String()
-        # for x in self:
         while (x := self.next()) is not None:
-            # print(x)
-            # if x is not None:
             if result:
                 result += s
             result += x.to_string()
@@ -99,7 +90,6 @@ class Iter:
     def to_list(self):
         result = []
         while (x := self.step()) is not None:
-            # print(self.next_)
             result.append(x)
         return result
 
