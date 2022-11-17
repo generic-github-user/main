@@ -22,16 +22,24 @@ class String:
         from lib.pyiter import Iter
 
         class StringIter(Iter):
-            def __init__(inner, string):
+            def __init__(inner, string, i=-1):
                 # super().__init__(inner, None, StringIter.__next__)
                 super().__init__(inner, None, inner.__next__)
-                inner.i = 0
+                inner.i = i
                 inner.string = string
                 inner.value = inner.string[inner.i]
 
             def current(inner):
                 # return inner.string[inner.i]
                 return inner.value
+
+            def clone(inner):
+                return StringIter(inner.string, inner.i)
+
+            def windows(inner, *args, **kwargs):
+                return super().windows(*args, **kwargs,
+                                       size_hint=inner.string.len)
+                                       # size_hint=String.len)
 
             def __next__(inner):
                 if inner.i < (inner.string.len() - 1):
