@@ -1,5 +1,5 @@
-from lib.pystring import String
-from lib.number import Number
+from lib.python.pystring import String
+from lib.python.number import Number
 
 
 class Number2(int):
@@ -53,22 +53,34 @@ class Iter:
         self.next()
         return v
 
+    def current(self):
+        return self.value
+
     # TODO
     def filter(self, f):
         def nnext(S):
-            while not f(self.value):
-                if self.inner.value is None:
+            while not f(self.step()):
+                if S.current() is None:
                     return None
-                pass
-            return self.inner.value
+            return S.current()
 
         return Iter(self, self.value, nnext)
 
     def all(self, f):
-        while self.next() is not None:
-            if not f(self.value):
+        while (x := self.step()) is not None:
+            # if not f(self.current()):
+            if not f(x):
                 return False
         return True
+
+    def any(self, f):
+        while (x := self.step()) is not None:
+            if f(x):
+                return True
+        return False
+
+    def none(self, f):
+        return not self.any(f)
 
     def map(self, f):
         def nnext(S):
@@ -79,11 +91,11 @@ class Iter:
                 return f(value)
         return Iter(self, f(self.value), nnext)
 
-    def join(self, s):
+    def join(self, delim):
         result = String()
         while (x := self.next()) is not None:
             if result:
-                result += s
+                result += delim
             result += x.to_string()
         return result
 
