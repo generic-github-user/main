@@ -143,6 +143,20 @@ class Iter:
     def print(self):
         print(self.to_string())
 
+    @staticmethod
+    def make_iterator_wrapper(origin, wrapper_next, attributes):
+        class Wrapper(Iter):
+            def __init__(inner, *args, **kwargs):
+                super().__init__(inner, None, inner.__next__, *args, **kwargs)
+
+            def __next__(inner):
+                return wrapper_next(inner)
+
+            def clone(inner):
+                attrs = {k: getattr(inner, k) for k in attributes.keys()}
+                return Wrapper(**attrs)
+        return Wrapper
+
 
 def range(*args):
     return Range(*args).to_iter()
