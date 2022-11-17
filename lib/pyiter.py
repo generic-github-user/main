@@ -27,7 +27,6 @@ class Range:
     def __str__(self):
         return f'Range [ {self.bounds[0]}..{self.bounds[1]} ]'
 
-
 class Iter:
     def __init__(self, inner, init=None, next_=None):
         # if init is None: init = inner.value
