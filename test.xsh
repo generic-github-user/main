@@ -24,6 +24,9 @@ exec(enum!(Animal, cat dog fish))
 print(Animal)
 print(Animal.cat)
 
+def fn (params : str, value : str):
+    return eval(f'lambda {", ".join(params.split())}: {value}')
+
 import lark
 import textwrap
 import pprint
@@ -45,13 +48,11 @@ class brace:
         """)
         tree = parser.parse(self.macro_block)
         class Visitor(lark.visitors.Transformer):
-            def block(self, args):
-                return '\n'.join(args)
+            block = fn!(self args, '\n'.join(args))
             start = block
-            def other(self, args):
-                return '\n'.join(x.strip() for x in args[0].splitlines()).strip()
-            def pair(self, args):
-                return f'{args[0]}:\n{textwrap.indent(args[1], "    ")}'
+            other = fn!(self args, '\n'.join(x.strip()
+                for x in args[0].splitlines()).strip())
+            pair = fn!(self args, f'{args[0]}:\n{textwrap.indent(args[1], "    ")}')
         reshaped = Visitor().transform(tree)
         exec(reshaped)
 
