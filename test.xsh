@@ -4,10 +4,7 @@ def Echo (x : str):
 
 Echo!(hello)
 
-# def Echo2 (x : list[str]):
-# def Echo2 (*x : str):
 def Echo2 (x):
-    # print(list(x))
     print(x.split())
     return x
 Echo2!(a b c)
@@ -22,14 +19,11 @@ def enum (name : str, variants : str):
         f'    __variants__ = {variants.split()}'])
     print(src)
     return src
-    # return ast.parse(src)
-    # exec(src)
 
 exec(enum!(Animal, cat dog fish))
 print(Animal)
 print(Animal.cat)
 
-# def brace ()
 import lark
 import textwrap
 import pprint
@@ -50,25 +44,16 @@ class brace:
             %ignore WS
         """)
         tree = parser.parse(self.macro_block)
-        # print(tree.pretty())
-        # pprint.pprint(tree)
         class Visitor(lark.visitors.Transformer):
             def block(self, args):
-                # print(f'block: {args}')
                 return '\n'.join(args)
             start = block
             def other(self, args):
-                # return args[0].strip()
                 return '\n'.join(x.strip() for x in args[0].splitlines()).strip()
             def pair(self, args):
-                # print(f'pair: {args}')
                 return f'{args[0]}:\n{textwrap.indent(args[1], "    ")}'
-        # print(Visitor().transform(tree))
-        # reshaped = Visitor().transform(tree).children[0]
         reshaped = Visitor().transform(tree)
-        # print(reshaped)
         exec(reshaped)
-        return
 
 class braces:
     __xonsh_block__ = str
