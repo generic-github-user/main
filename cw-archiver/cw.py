@@ -39,3 +39,24 @@ for i in range(50):
 
     # pprint.pprint(data[0].to_dict())
     time.sleep(0.5)
+
+checkpoint = time.time()
+for attr in ["uniqueviews", "comments"]:
+    for post in itertools.islice(filter(lambda x: attr not in x, db.posts), 200):
+        try:
+            print(f"Fetching /{attr} attribute for post: {post.title}")
+            endpoint = f'https://api.campuswire.com/v1/group/{group}/posts/{post.id}/{attr}'
+            response = requests.get(endpoint, cookies=cookies, headers=headers)
+            data = BoxList(response.json())
+
+            post[attr] = data
+            time.sleep(0.5)
+        except requests.exceptions.ConnectionError as ex:
+            print(ex)
+
+        if time.time() - checkpoint > 30:
+            print("Saving checkpoint")
+            db.to_json(filename=path)
+            checkpoint = time.time()
+
+db.to_json(filename=path)
