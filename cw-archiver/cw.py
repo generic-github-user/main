@@ -9,6 +9,31 @@ import itertools
 from config import cookies, headers, groups
 groups = BoxList(groups)
 
+def fetch_post(db, group, post, attr):
+    try:
+        print(f"Fetching /{attr} attribute for post: {post.title}")
+        endpoint = f'https://api.campuswire.com/v1/group/{group.id}/posts/{post.id}/{attr}'
+        response = requests.get(endpoint, cookies=cookies, headers=headers)
+        if response.status_code != 404:
+            try:
+                data = BoxList(response.json())
+            except requests.exceptions.JSONDecodeError as ex:
+                breakpoint()
+                print(ex)
+                # print(response)
+
+            post[attr] = data
+        else:
+            print(response)
+        time.sleep(0.5)
+    except requests.exceptions.ConnectionError as ex:
+        print(ex)
+
+    if time.time() - db.checkpoint > 30:
+        print("Saving checkpoint")
+        db.to_json(filename=group.path)
+        db.checkpoint = time.time()
+
 def update_class(group):
     print(f"Fetching {group}")
     # db = BoxList(json.loads(Path(path).read_text()))
@@ -27,7 +52,6 @@ def update_class(group):
     posts = db.posts
     n = 20
     for i in range(50):
-        # breakpoint()
         if posts: t = posts[-1].createdAt
         elif "last_batch" in db: t = db.last_batch
         else: t = "2022-12-30T00:00:00.000000Z"
@@ -38,8 +62,6 @@ def update_class(group):
             cookies=cookies,
             headers=headers,
         )
-        # print(response.text)
-        # breakpoint()
         data = BoxList(response.json())
         db.posts.extend(data)
         db.last_batch = t
@@ -49,32 +71,10 @@ def update_class(group):
         # pprint.pprint(data[0].to_dict())
         time.sleep(0.5)
 
-    checkpoint = time.time()
+    db.checkpoint = time.time()
     for attr in group.attrs:
         for post in itertools.islice(filter(lambda x: attr not in x, db.posts), 200):
-            try:
-                print(f"Fetching /{attr} attribute for post: {post.title}")
-                endpoint = f'https://api.campuswire.com/v1/group/{group.id}/posts/{post.id}/{attr}'
-                response = requests.get(endpoint, cookies=cookies, headers=headers)
-                if response.status_code != 404:
-                    try:
-                        data = BoxList(response.json())
-                    except requests.exceptions.JSONDecodeError as ex:
-                        breakpoint()
-                        print(ex)
-                        # print(response)
-
-                    post[attr] = data
-                else:
-                    print(response)
-                time.sleep(0.5)
-            except requests.exceptions.ConnectionError as ex:
-                print(ex)
-
-            if time.time() - checkpoint > 30:
-                print("Saving checkpoint")
-                db.to_json(filename=group.path)
-                checkpoint = time.time()
+            fetch_post(db, group, post, attr)
 
     db.to_json(filename=group.path)
 
