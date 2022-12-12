@@ -11,6 +11,7 @@ groups = BoxList(groups)
 
 # tasks = []
 
+
 def task(db, group):
     def task_factory(f):
         def task_wrapper(*args, **kwargs):
@@ -23,6 +24,7 @@ def task(db, group):
             return result
         return task_wrapper
     return task_factory
+
 
 # @task
 def fetch_post(db, group, post, attr):
@@ -44,12 +46,16 @@ def fetch_post(db, group, post, attr):
     except requests.exceptions.ConnectionError as ex:
         print(ex)
 
+
 def fetch_batch(db, group):
     posts = db.posts
     n = 20
-    if posts: t = posts[-1].createdAt
-    elif "last_batch" in db: t = db.last_batch
-    else: t = "2022-12-30T00:00:00.000000Z"
+    if posts:
+        t = posts[-1].createdAt
+    elif "last_batch" in db:
+        t = db.last_batch
+    else:
+        t = "2022-12-30T00:00:00.000000Z"
     print(f"Fetching batch: {t}")
 
     response = requests.get(
@@ -89,10 +95,12 @@ def update_class(group):
 
     db.checkpoint = time.time()
     for attr in group.attrs:
-        for post in itertools.islice(filter(lambda x: attr not in x, db.posts), 200):
+        for post in itertools.islice(filter(
+                lambda x: attr not in x, db.posts), 200):
             task(db, group)(fetch_post)(db, group, post, attr)
 
     db.to_json(filename=group.path)
+
 
 for G in groups:
     update_class(G)
