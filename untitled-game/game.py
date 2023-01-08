@@ -4,35 +4,27 @@ __all__ = ['Geometry', 'Point', 'Line', 'Polygon', 'RegularPolygon', 'r', 'Circl
 import matplotlib.pyplot as plt
 import svgwrite
 
-import sympy
-from sympy import Point2D, Point3D, Segment, Polygon, N, Rational, pi
-from sympy.abc import x, y, z, t
-
 import math
 import numpy as np
 import random
 
-
 import time
-from IPython.display import display, SVG
+
+from __future__ import annotations
+
+from lib.pylist import List
 
 # TODO: global geometry sessions? (moved from fold.py)
+# TODO: numerical precision setting
 
 
 class Geometry:
     """Generalized multidimensional shape class"""
-    def __init__(self, parts=None, dimensions=None):
+    def __init__(self, parts: List[Geometry], dimensions: int):
         """Create a new geometry object"""
 
-        if parts:
-            self.parts = parts
-        else:
-            self.parts = []
-
-        if dimensions is None:
-            self.dimensions = self.parts[0].dimensions + 1
-        else:
-            self.dimensions = dimensions
+        self.parts: List[Geometry] = parts
+        self.dimensions: int = dimensions
 
 
 class Point:
@@ -187,14 +179,6 @@ class Line(Geometry):
         return sections[::-1]
 
     def intersects(self, B):
-        # sift through this later (or don't; it probably doesn't matter)
-        #         return any([((Y.pos > Z.pos).all() or (Y.pos < Z.pos).all()) for Y, Z in [(self.a, B.a), (self.b, B.b)]])
-        #         if not (min(self.a.x, self.b.x) > min(self.a.x, self.b.x) or max(self.a.x, self.b.x) < max(self.a.x, self.b.x)):
-        #             return False
-        #        if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
-        #        elif all([P >= max(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]) or all([P <= min(B.a.y, B.b.y) for P in [self.a.y, self.b.y]]):
-
-
         if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or\
                 all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
             return False
@@ -272,17 +256,32 @@ class Hypersolid(Geometry):
 # should this subclass Geometry instead?
 class Polygon(Shape):
     """General polygon class that extends the Shape class"""
-    def __init__(self):
+    def __init__(self: Polygon):
         """Create a new polygon"""
         super().__init__()
         self.sides: [line] = []
-        self.vertices = self.v = []
+        self.vertices = []
 
-    def regular(self, sides, radius):
+    @staticmethod
+    def regular(self, sides: int, radius: float) -> RegularPolygon:
         """Define polygon's geometry as a regular polygon; one with equal sides
         and angles"""
-        for s in range(sides):
-            self.sides.append(Line())
+        class RegularPolygon(Polygon):
+            def __init__(self, radius: float,
+                         n: int,
+                         center: Point = None,
+                         manifold=2,
+                         axis=0):
+                super().__init__()
+                start = [0] * manifold
+                start[axis] = radius
+                self.v.append(Point(start))
+                if not center:
+                    center = Point([0] * manifold)
+                self.center = c
+                for i in range(n-1):
+                    self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
+        return RegularPolygon(radius, sides)
 
     def rotate(self, *args, **kwargs):
         for p in self.v:
@@ -296,60 +295,14 @@ class Polygon(Shape):
         return str(self)
 
 
-class RegularPolygon(Polygon):
-    def __init__(self, r=1, n=4, c=None, manifold=2, axis=0):
-        super().__init__()
-        start = [0] * manifold
-        start[axis] = r
-        self.v.append(Point(start))
-        if not c:
-            c = Point([0] * manifold)
-        self.center = c
-        for i in range(n-1):
-            self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
-
-
-# TODO: numerical precision setting
-class Ellipse(Shape):
-    pass
-
-
 class Circle(Shape):
     """A geometric 2D circle with a certain radius; subclass of Shape"""
-    def __init__(self, radius):
+    def __init__(self, radius: float):
         super().__init__()
-        self.radius: Scalar = radius
-
-    def get_tangents(self):
-        """
-        Quickly calculate incline angle of tangent line for each cell rendered
-        on circle outline; these will be used to render the outline in ASCII
-        characters
-        """
-
-        r = self.radius()
-        # possibly move this code
-        minigrid = np.zeros([r*2+1, r*2+1])
-        # crossed_cells = minigrid
-        # TODO: mirroring for efficiency?
-        for x, y in np.ndindex(minigrid.shape):
-            # print(5)
-            # print(np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))))
-            if np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))) == r:
-                minigrid[x, y] = 1
-        num_crossed = np.sum(minigrid)
-        d_theta = 360 / num_crossed
-        c = 0
-        for x, y in np.ndindex(minigrid.shape):
-            # if
-            c += minigrid[x, y]
-            # minigrid[x, y] = Angle(d_theta * c)
-            minigrid[x, y] = d_theta * c * minigrid[x, y]
-        return np.round(minigrid)
+        self.radius: float = radius
 
 
 class Manifold:
     def __init__(self, dimensions=2):
         assert dimensions >= 1
         self.dimensions = dimensions
-
