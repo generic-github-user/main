@@ -27,23 +27,19 @@ class Geometry:
         self.dimensions: int = dimensions
 
 
-class Point:
+class Point(Geometry):
     pos: np.ndarray
-    precision: int
 
-    def __init__(self, pos: list, p: int = 8):
+    def __init__(self, pos: list):
         """
         Create a new Point instance
 
         Params:
             pos: The new point's position in the coordinate system
-            p: The level of precision to store the point's position with
         """
 
-        # super(Geometry, self).__init__()
-        super().__init__(dimensions=0)
+        super().__init__(List(), dimensions=0)
         self.pos = np.array(pos, dtype=float)
-        self.precision = p
         self.update()
 
     def update(self):
@@ -52,7 +48,7 @@ class Point:
             setattr(self, varnames[i], self.pos[i])
         return self
 
-    def move(self, delta: list):
+    def move(self, delta: list) -> Point:
         """
         Translate the point
 
@@ -60,23 +56,16 @@ class Point:
             delta: A list of offsets to move the point along each axis in space
             by
         """
-        self.pos += np.array(delta)
-        self.update()
-        return self
+        return Point(self.pos + np.array(delta))
 
-    def rotate(self, a: list, theta: int, rad: float = None):
+    def rotate(self, a: Point, theta: float) -> Point:
         """
         Rotate the point about another
 
         Params:
             a: The point to rotate about
-            theta: The rotation to apply to the point, in degrees
-            rad: The rotation in radians (supersedes `theta`)
+            theta: The rotation to apply to the point, in radians
         """
-        theta = float(theta)
-        # Convert to radians
-        if not rad:
-            theta = theta * math.pi / 180
 
         # Create a rotation matrix to apply a rotation to the point
         rotation_matrix = [
@@ -84,28 +73,15 @@ class Point:
             [np.sin(theta), np.cos(theta)]
         ]
 
-        # Move the point so its coordinate is relative to the origin
-        self.move(-a.pos)
+        return Point(np.dot((self - a).pos, rotation_matrix)) + a
 
-        # Apply the rotation matrix
-        self.pos = np.dot(self.pos, rotation_matrix)
-
-        # Move point back
-        self.move(a.pos)
-
-        # Round to specified precision
-        self.pos = self.pos.round(self.precision)
-
-        self.update()
-        return self
-
-    def __add__(self, B):
+    def __add__(self, B: Point) -> Point:
         return Point(self.pos + B.pos)
 
-    def __sub__(self, B):
+    def __sub__(self, B: Point) -> Point:
         return Point(self.pos - B.pos)
 
-    def __mul__(self, B):
+    def __mul__(self, B: Point) -> Point:
         return Point(self.pos * B.pos)
 
     def __truediv__(self, B):
@@ -144,20 +120,17 @@ class Line(Geometry):
         self.a = a
         self.b = b
 
-    def move(self, delta):
+    def move(self, delta: Point) -> Line:
         """Translate the line
 
         Params:
             delta: The amount (in each direction/axis) to move the line by
         """
-        for p in [self.a, self.b]:
-            p.move(delta)
-        return self
+        return Line(*List([self.a, self.b]).map(lambda p: p + delta))
 
-    def rotate(self, *args, **kwargs):
-        for p in [self.a, self.b]:
-            p.rotate(*args, **kwargs)
-        return self
+    def rotate(self, *args, **kwargs) -> Line:
+        return Line(*List([self.a, self.b]).map(
+            lambda p: p.rotate(*args, **kwargs)))
 
     def divide(self, n: int = 1) -> list['Line']:
         """Split the line into several smaller line segments
@@ -178,7 +151,7 @@ class Line(Geometry):
             sections.append(s)
         return sections[::-1]
 
-    def intersects(self, B):
+    def intersects(self, B: Line) -> bool:
         if all([P >= max(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]) or\
                 all([P <= min(B.a.x, B.b.x) for P in [self.a.x, self.b.x]]):
             return False
@@ -188,8 +161,8 @@ class Line(Geometry):
         else:
             solution = self.solve(B)
             if solution:
-    #             Check that solution is within bounds of both line segments
-    #             (only need to check one axis)
+                # Check that solution is within bounds of both line segments
+                # (only need to check one axis)
                 if (self.a.x <= solution.x <= self.b.x) or\
                         (self.a.x >= solution.x >= self.b.x):
                     if (B.a.x <= solution.x <= B.b.x) or\
@@ -200,7 +173,7 @@ class Line(Geometry):
             else:
                 return False
 
-    def intersection(self, L2):
+    def intersection(self, L2: Line) -> Result[Point]:
         if self.intersects(L2):
             return self.solve(L2)
 
@@ -214,7 +187,7 @@ class Line(Geometry):
         return self.a - Point((self.a.x, self.a.x*self.slope()))
 
     def coefficients(self):
-#         - ?
+        # - ?
         return [-self.slope(), 1, self.yintercept().y]
 
     def solve(self, L2):
