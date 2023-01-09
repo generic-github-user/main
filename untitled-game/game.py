@@ -177,7 +177,7 @@ class Line(Geometry):
             a: The start point of the line
             b: The end point of the line
         """
-        super().__init__(dimensions=1)
+        super().__init__(List(), dimensions=1)
         self.a = a
         self.b = b
 
@@ -234,9 +234,10 @@ class Line(Geometry):
             else:
                 return False
 
-    def intersection(self, L2: Line) -> Result[Point]:
+    def intersection(self, L2: Line) -> Option[Point]:
         if self.intersects(L2):
-            return self.solve(L2)
+            return Option.some(self.solve(L2))
+        return Option.none()
 
     def midpoint(self):
         return (self.a + self.b) / 2
@@ -261,6 +262,12 @@ class Line(Geometry):
             return Point(solution)
         except:
             return False
+
+    def __add__(self: Line, v: Vector) -> Line:
+        return Line(self.a + v, self.b + v)
+
+    def __sub__(self: Line, v: Vector) -> Line:
+        return Line(self.a - v, self.b - v)
 
     def __str__(self):
         return 'Line\n\t' + '\n\t'.join(str(v) for v in [self.a, self.b])
@@ -388,10 +395,22 @@ class Circle(Shape):
         self.radius: float = radius
 
     def contains(self, p: Point) -> bool:
+        if not self.bounds().contains(p):
+            return False
         return Point.distance(self.center, p) <= self.radius
+
+    def bounds(self) -> Range[Point]:
+        x = Vector([self.radius, self.radius])
+        return Range(self.center - x, self.center + x)
 
     def __add__(self, B: Point) -> Circle:
         return Circle(self.center + B, self.radius)
+
+
+# class Square(Shape):
+#     def __init__(self, center: Point, width: float):
+def Square(center: Point, width: float) -> Polygon:
+    return Polygon.regular(4, width/2, center)
 
 
 class Manifold:
@@ -462,6 +481,10 @@ class Object:
         self.delta = Point([0, 0])
 
         self.update()
+
+    def add(self, part: Matter) -> Object:
+        self.matter.append(part)
+        return self
 
     def update(self):
         varnames = 'xyzw'
@@ -538,9 +561,9 @@ class Renderer:
 
     def at(self, x, y):
         # ?
-        return self.objects.filter(lambda o: o.contains((Point([x, y]) - (self.shape / 2) + self.camera.pos) *
-                                                        self.camera.scale *
-                                                        self.camera.zoom))
+        p = (Point([x, y]) - (self.shape / 2) + self.camera.pos) *\
+            self.camera.scale * self.camera.zoom
+        return self.objects.filter(lambda o: o.contains(p))
 
     def render_frame(self):
         self.console.clear()
@@ -599,27 +622,29 @@ class Scene:
     def gravity(self, obj):
         for o in self.objects:
             if obj is not o:
-                dist = obj.pos.distance(o.pos)
+                dist = Point.distance(obj.pos, o.pos)
                 if dist == 0:
                     dist = self.eta
 
-                obj.vel.n += (self.gravity_constant() * obj.mass() * o.mass() /
-                              (dist ** 2)) / obj.mass() * (o.pos() - obj.pos())
+                obj.vel += (o.pos - obj.pos) * ((self.gravity_constant * obj.mass * o.mass /
+                            (dist ** 2)) / obj.mass)
 
     def step(self, step_length=1):
+        self.objects.for_each(lambda x: x.step(step_length))
         for o in self.objects:
             # TODO: cache position, velocity, etc. before applying physics
             # step
             # TODO: collect list of forces acting on object
-            self.objects.for_each(lambda x: x.step(step_length))
-            self.gravity(o)
+            # self.gravity(o)
+            pass
 
-    def simulate(self, frames: int, steps=1, delay=0.001):
+    def simulate(self, frames: int, steps=1, delay=0.1):
+        print(self.objects.length())
         for frame in range(frames):
             # self.step(step_length=delay/steps)
             self.step(0.01)
             self.renderer.render_frame()
-            # time.sleep(delay)
+            time.sleep(delay)
         self.renderer.close()
 
 
