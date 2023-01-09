@@ -414,6 +414,7 @@ class Renderer:
         curses.noecho()
         curses.cbreak()
         self.console.keypad(True)
+        self.console.nodelay(True)
 
     def close(self):
         curses.nocbreak()
@@ -428,7 +429,8 @@ class Renderer:
             return self.empty
 
     def at(self, x, y):
-        return self.objects.filter(lambda o: o.contains(Point([x, y]) *
+        # ?
+        return self.objects.filter(lambda o: o.contains((Point([x, y]) - (self.shape / 2) + self.camera.pos) *
                                                         self.camera.scale *
                                                         self.camera.zoom))
 
@@ -441,6 +443,15 @@ class Renderer:
 
         self.console.addstr(output_text)
         self.console.refresh()
+
+        try:
+            key = self.console.getkey() 
+            if key == '=':
+                self.camera.zoom *= 0.9
+            if key == '-':
+                self.camera.zoom *= 1.1
+        except curses.error:
+            pass
 
 
 class Scene:
@@ -490,7 +501,7 @@ class Scene:
     def render(self, *args, **kwargs):
         self.renderer.render_frame(*args, **kwargs)
 
-    def simulate(self, frames: int, steps=1, delay=0.1):
+    def simulate(self, frames: int, steps=1, delay=0.01):
         for frame in range(frames):
             self.step(step_length=delay/steps)
             self.render()
@@ -501,7 +512,7 @@ class Scene:
 def main():
     print('starting...')
     Scene(List([Object(Point([0, 0]), Vector([0.5, 0.5]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
-          Vector([30, 30])).simulate(600)
+          Vector([30, 30])).simulate(6000)
 
 
 main()
