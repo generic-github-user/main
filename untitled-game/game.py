@@ -6,6 +6,7 @@ import numpy as np
 import random
 import math
 import time
+import curses
 
 from lib.pylist import List
 
@@ -355,7 +356,7 @@ class Camera:
 class Renderer:
     """Class for renderer to convert object data into a final image"""
     def __init__(self: Renderer, rtype: str, shape: Vector, camera: Camera,
-                 glyphs, objects) -> None:
+                 objects: List[Object]) -> None:
         """Create a new renderer"""
 
         self.rtype: str = rtype
@@ -390,10 +391,6 @@ class Renderer:
         return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
 
     def combine_output(self, g):
-        # return ['\n'.join([''.join([h for h in g])])]
-        # return ['\n'.join([''.join(h.tolist()) for h in g])]
-        # print(g.astype('|S1'))
-        # print(g.astype(str))
         return '\n'.join([''.join(h) for h in g])
 
     def form_output(self, angles):
@@ -410,42 +407,15 @@ class Renderer:
         return char_array
 
     def render_frame(self, callback, steps=300, current=0, show=True, delay=0):
-        con = self.console
-        if show:
-            con.clear()
+        self.console.clear()
 
-        dims = self.dims()
-        frame_angles = np.zeros(dims)
-        frame_pos = np.zeros(dims)
-        rtype = self.rtype
-
-        if rtype == 'point':
+        if self.rtype == 'point':
             output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for
                                               x in range(0, self.dims.x)]) for
                                      y in range(0, self.dims.y)])
-        elif rtype == 'line':
-            for obj in self.objects:
-                obj_geometry = obj.matter.geometry
-                if type(obj_geometry) is Circle:
-                    # print(True)
-                    tangents = obj_geometry.get_tangents()
-                    window = tangents.shape
-                    xo = round(obj.pos()[0])
-                    yo = round(obj.pos()[1])
-                    try:
-                        frame_angles[xo:window[0]+xo, yo:window[1]+yo] += tangents
-                    except:
-                        pass
 
-                    # should we make the angle list first?
-                    output_text = self.form_output(frame_angles)
-                    # print(output_text)
-                    output_text = self.combine_output(output_text)
-                    # print(output_text)
-
-            if show:
-                con.addstr(output_text)
-                con.refresh()
+        self.console.addstr(output_text)
+        self.console.refresh()
 
         callback()
         if current < steps:
@@ -453,7 +423,7 @@ class Renderer:
 
 
 class Scene:
-    """A class the brings together a world and a renderer, and provides
+    """A class that brings together a world and a renderer, and provides
     high-level functions to facilitate their interaction"""
     def __init__(self: Scene, shape: Vector, edge_mode: str = 'wrap'):
         """Create a new scene"""
@@ -484,20 +454,19 @@ class Scene:
 
         self.renderer = Renderer(rtype='canvas', shape=self.shape,
                                  camera=Camera(Point([2, 2])),
-                                 glyphs=GlyphSet(), objects=self.objects)
+                                 objects=self.objects)
 
     def add(self, obj):
         self.objects.append(obj)
         return obj
 
     def edge_collision(self, obj):
-        # if obj.x > self.dims.x or obj.x < 0 or obj.y > self.dims.y or obj.y < 0:
         if self.edge_mode == 'wrap':
             obj.pos.n = obj.pos() % self.dims()
         elif self.edge_mode == 'bounce':
-            pass
+            raise NotImplementedError
         elif self.edge_mode == 'extend':
-            pass
+            raise NotImplementedError
 
     def gravity(self, obj):
         for o in self.objects:
@@ -513,28 +482,18 @@ class Scene:
         self.objects = List()
 
     def step(self, steps=1, step_length=1):
-        for step in range(steps):
-            for o in self.objects:
-                # TODO: cache position, velocity, etc. before applying physics
-                # step
-                # TODO: collect list of forces acting on object
-                # TODO: replace this with vector operation
-                # o.x += o.vel.x * step_length
-                # o.y += o.vel.y * step_length
-                delta = o.vel() * step_length
-                o.pos.n += delta
-                o.delta.n = delta
-                self.edge_collision(o)
-                # make sure to actually call this...
-                self.gravity(o)
+        for o in self.objects:
+            # TODO: cache position, velocity, etc. before applying physics
+            # step
+            # TODO: collect list of forces acting on object
+            delta = o.vel() * step_length
+            o.pos.n += delta
+            o.delta.n = delta
+            self.edge_collision(o)
+            self.gravity(o)
 
-    # clean all this up
-    def rrender(self, callback, delay=0, steps=300):
-        self.renderer.render_frame(callback, steps=steps)
-
-    # complete as adjective
-    def complete_step(self, callback, steps=300):
-        self.rrender(callback=callback, steps=steps)
+    def render(self, *args, **kwargs):
+        self.renderer.render_frame(*args, **kwargs)
 
     def simulate(self, frames=300, steps=1, delay=None, fps=30):
         self.renderer.canvas.pack()
@@ -543,8 +502,6 @@ class Scene:
             pause = delay
         elif fps:
             pause = 1 / fps
-        print(frames)
-        m = 0
 
         # phys_step = lambda: self.step(steps=steps, step_length=pause/steps)
         # root.after(round(pause * 1000), self.complete_step)
