@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import numpy as np
 import random
-
+import math
 import time
 
 from lib.pylist import List
 
 # TODO: global geometry sessions? (moved from fold.py)
 # TODO: numerical precision setting
+# TODO: separate simulation and rendering loops?
 
 
 class Geometry:
@@ -290,11 +291,8 @@ class Unit:
 
 
 class Angle:
-    def __init__(self, deg=0):
-        self.deg = deg % 360
-
-    def set(self, deg=0):
-        self.deg = deg % 360
+    def __init__(self, angle: float):
+        self.angle: float = angle % (math.pi * 2)
 
 
 class Matter:
@@ -348,20 +346,127 @@ class Object:
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
 
+class Camera:
+    def __init__(self: Camera, pos: Point, zoom=1):
+        self.zoom: float = zoom
+        self.pos: Point = pos
+
+
+class Renderer:
+    """Class for renderer to convert object data into a final image"""
+    def __init__(self: Renderer, rtype: str, shape: Vector, camera: Camera,
+                 glyphs, objects) -> None:
+        """Create a new renderer"""
+
+        self.rtype: str = rtype
+        """Renderer type; either `line`, `opengl`, or `canvas`"""
+
+        self.shape: Vector = shape
+        """The width and height of the scene"""
+
+        self.camera: Camera = camera
+        """A camera to store additional rendering properties"""
+
+        self.default_char: str = 'o'
+        """Character used for rendering points when line data is not
+        available"""
+
+        self.empty: str = ' '
+        """Character used to fill areas where no objects are present"""
+
+        self.objects = objects
+        """List of objects for the renderer to display"""
+
+        self.console = curses.initscr()
+
+    def dot(self, m):
+        if m > 0:
+            return self.default_char
+        else:
+            return self.empty
+
+    def at(self, x, y):
+        # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
+        return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
+
+    def combine_output(self, g):
+        # return ['\n'.join([''.join([h for h in g])])]
+        # return ['\n'.join([''.join(h.tolist()) for h in g])]
+        # print(g.astype('|S1'))
+        # print(g.astype(str))
+        return '\n'.join([''.join(h) for h in g])
+
+    def form_output(self, angles):
+        char_array = []
+        dims = self.dims()
+        for x in range(dims[0]):
+            row = []
+            for y in range(dims[1]):
+                if angles[x, y] == 0:
+                    row.append(' ')
+                else:
+                    row.append(self.fetch_line_glyph(angles[x, y], 0.5))
+            char_array.append(row)
+        return char_array
+
+    def render_frame(self, callback, steps=300, current=0, show=True, delay=0):
+        con = self.console
+        if show:
+            con.clear()
+
+        dims = self.dims()
+        frame_angles = np.zeros(dims)
+        frame_pos = np.zeros(dims)
+        rtype = self.rtype
+
+        if rtype == 'point':
+            output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for
+                                              x in range(0, self.dims.x)]) for
+                                     y in range(0, self.dims.y)])
+        elif rtype == 'line':
+            for obj in self.objects:
+                obj_geometry = obj.matter.geometry
+                if type(obj_geometry) is Circle:
+                    # print(True)
+                    tangents = obj_geometry.get_tangents()
+                    window = tangents.shape
+                    xo = round(obj.pos()[0])
+                    yo = round(obj.pos()[1])
+                    try:
+                        frame_angles[xo:window[0]+xo, yo:window[1]+yo] += tangents
+                    except:
+                        pass
+
+                    # should we make the angle list first?
+                    output_text = self.form_output(frame_angles)
+                    # print(output_text)
+                    output_text = self.combine_output(output_text)
+                    # print(output_text)
+
+            if show:
+                con.addstr(output_text)
+                con.refresh()
+
+        callback()
+        if current < steps:
+            self.root.after(33, lambda: self.render_frame(callback=callback, current=current+1, steps=300))
+
+
 class Scene:
     """A class the brings together a world and a renderer, and provides
     high-level functions to facilitate their interaction"""
-    def __init__(self: Scene, dims, edge_mode='wrap'):
+    def __init__(self: Scene, shape: Vector, edge_mode: str = 'wrap'):
         """Create a new scene"""
 
-        self.objects: List[Object] = []
+        self.objects: List[Object] = List()
         """A list of objects to initialize the scene with"""
         self.units = {
             'dist': 'm',
             'time': 's'
         }
-        self.dims: Vector = dims
+        self.shape: Vector = shape
         """The width/height of the scene"""
+
         self.edge_mode: str = edge_mode
         """
         Defines the behavior for objects that go over the edges of the scene:
@@ -372,12 +477,13 @@ class Scene:
               it were a wall
             - `extend`: Let the object continue moving out of the frame
         """
+
         self.gravity_constant: float = 0.5
         self.drag: float = 1
         self.eta: float = 0.00000000001
 
-        self.renderer = Renderer(rtype='canvas', dims=self.dims,
-                                 camera=Camera(Tensor([2, 2])),
+        self.renderer = Renderer(rtype='canvas', shape=self.shape,
+                                 camera=Camera(Point([2, 2])),
                                  glyphs=GlyphSet(), objects=self.objects)
 
     def add(self, obj):
@@ -400,7 +506,8 @@ class Scene:
                 if dist == 0:
                     dist = self.eta
 
-                obj.vel.n += (self.gravity_constant() * obj.mass() * o.mass() / (dist ** 2)) / obj.mass() * (o.pos()-obj.pos())
+                obj.vel.n += (self.gravity_constant() * obj.mass() * o.mass() /
+                              (dist ** 2)) / obj.mass() * (o.pos() - obj.pos())
 
     def clear(self):
         self.objects = List()
@@ -420,19 +527,6 @@ class Scene:
                 self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
-
-    def randomize(self, num=20, clear=False):
-        if clear:
-            self.clear()
-        for i in range(num):
-            # rand_min = [0, 0]
-            # rand_max = self.dims()
-            rand_min = 10
-            rand_max = 20
-            r = random.randint(1, 5)
-            # TODO: random func alias
-            self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.random.uniform(-5, 5, [2])), angle=Angle(deg=0), angvel=Scalar(0), matter=Matter(Circle(radius=Scalar(r)), material=None)))
-        return self
 
     # clean all this up
     def rrender(self, callback, delay=0, steps=300):
@@ -460,8 +554,6 @@ class Scene:
             # self.render(pause)
             # for step in range(steps):
 
-            # TODO: fix name
-            # TODO: snippets
             # root.after(round(pause * 1000), self.rrender)
             # root.update_idletasks()
             # root.update()
@@ -469,6 +561,5 @@ class Scene:
             # m+=1
             # or update canvas?
             # time.sleep(pause)
-            # TODO: separate simulation and rendering loops?
 
         self.renderer.root.mainloop()
