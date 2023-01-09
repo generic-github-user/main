@@ -466,6 +466,16 @@ class Renderer:
                 self.camera.zoom *= 0.9
             if key == '-':
                 self.camera.zoom *= 1.1
+
+            w = 0.5
+            if key == 'i':
+                self.camera.pos += Point([0, -w])
+            if key == 'k':
+                self.camera.pos += Point([0, w])
+            if key == 'j':
+                self.camera.pos += Point([-w, 0])
+            if key == 'l':
+                self.camera.pos += Point([w, 0])
         except curses.error:
             pass
 
@@ -524,7 +534,7 @@ class Scene:
 def main():
     print('starting...')
     Scene(List([Object(Point([0, 0]), Vector([5, 5]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
-          Vector([30, 30])).simulate(6000)
+          Vector([60, 30])).simulate(6000)
 
 
 main()
