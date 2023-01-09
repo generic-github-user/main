@@ -355,12 +355,9 @@ class Camera:
 
 class Renderer:
     """Class for renderer to convert object data into a final image"""
-    def __init__(self: Renderer, rtype: str, shape: Vector, camera: Camera,
+    def __init__(self: Renderer, shape: Vector, camera: Camera,
                  objects: List[Object]) -> None:
         """Create a new renderer"""
-
-        self.rtype: str = rtype
-        """Renderer type; either `line`, `opengl`, or `canvas`"""
 
         self.shape: Vector = shape
         """The width and height of the scene"""
@@ -379,6 +376,15 @@ class Renderer:
         """List of objects for the renderer to display"""
 
         self.console = curses.initscr()
+        curses.noecho()
+        curses.cbreak()
+        self.console.keypad(True)
+
+    def close(self):
+        curses.nocbreak()
+        self.console.keypad(False)
+        curses.echo()
+        curses.endwin()
 
     def dot(self, m):
         if m > 0:
@@ -387,18 +393,17 @@ class Renderer:
             return self.empty
 
     def at(self, x, y):
-        # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
-        return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
+        return self.objects.filter(lambda o: np.array_equal(np.round_(o.pos()),
+                                                            np.array([x, y])))
 
     def combine_output(self, g):
         return '\n'.join([''.join(h) for h in g])
 
     def form_output(self, angles):
         char_array = []
-        dims = self.dims()
-        for x in range(dims[0]):
+        for x in range(self.shape[0]):
             row = []
-            for y in range(dims[1]):
+            for y in range(self.shape[1]):
                 if angles[x, y] == 0:
                     row.append(' ')
                 else:
@@ -406,26 +411,21 @@ class Renderer:
             char_array.append(row)
         return char_array
 
-    def render_frame(self, callback, steps=300, current=0, show=True, delay=0):
+    def render_frame(self):
         self.console.clear()
 
-        if self.rtype == 'point':
-            output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for
-                                              x in range(0, self.dims.x)]) for
-                                     y in range(0, self.dims.y)])
+        output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for x in
+                                          range(0, int(self.shape.x))]) for y
+                                 in range(0, int(self.shape.y))])
 
         self.console.addstr(output_text)
         self.console.refresh()
-
-        callback()
-        if current < steps:
-            self.root.after(33, lambda: self.render_frame(callback=callback, current=current+1, steps=300))
 
 
 class Scene:
     """A class that brings together a world and a renderer, and provides
     high-level functions to facilitate their interaction"""
-    def __init__(self: Scene, shape: Vector, edge_mode: str = 'wrap'):
+    def __init__(self: Scene, shape: Vector, edge_mode: str = 'wrap') -> None:
         """Create a new scene"""
 
         self.objects: List[Object] = List()
@@ -434,8 +434,6 @@ class Scene:
             'dist': 'm',
             'time': 's'
         }
-        self.shape: Vector = shape
-        """The width/height of the scene"""
 
         self.edge_mode: str = edge_mode
         """
@@ -452,8 +450,7 @@ class Scene:
         self.drag: float = 1
         self.eta: float = 0.00000000001
 
-        self.renderer = Renderer(rtype='canvas', shape=self.shape,
-                                 camera=Camera(Point([2, 2])),
+        self.renderer = Renderer(shape=shape, camera=Camera(Point([0, 0])),
                                  objects=self.objects)
 
     def add(self, obj):
@@ -481,7 +478,7 @@ class Scene:
     def clear(self):
         self.objects = List()
 
-    def step(self, steps=1, step_length=1):
+    def step(self, step_length=1):
         for o in self.objects:
             # TODO: cache position, velocity, etc. before applying physics
             # step
@@ -495,28 +492,17 @@ class Scene:
     def render(self, *args, **kwargs):
         self.renderer.render_frame(*args, **kwargs)
 
-    def simulate(self, frames=300, steps=1, delay=None, fps=30):
-        self.renderer.canvas.pack()
+    def simulate(self, frames: int, steps=1, delay=0.1):
+        for frame in range(frames):
+            self.step(step_length=delay/steps)
+            self.render()
+            time.sleep(delay)
+        self.renderer.close()
 
-        if delay:
-            pause = delay
-        elif fps:
-            pause = 1 / fps
 
-        # phys_step = lambda: self.step(steps=steps, step_length=pause/steps)
-        # root.after(round(pause * 1000), self.complete_step)
-        self.complete_step(callback=self.step)
+def main():
+    print('starting...')
+    Scene(Vector([30, 30])).simulate(30)
 
-        # for frame in range(300):
-            # self.render(pause)
-            # for step in range(steps):
 
-            # root.after(round(pause * 1000), self.rrender)
-            # root.update_idletasks()
-            # root.update()
-            # myCanvas.update()
-            # m+=1
-            # or update canvas?
-            # time.sleep(pause)
-
-        self.renderer.root.mainloop()
+main()
