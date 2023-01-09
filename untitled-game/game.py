@@ -648,10 +648,25 @@ class Scene:
         self.renderer.close()
 
 
+def load_schematic(path: str) -> Object:
+    key, layout = String(Path(path).read_text()).split('\n\n')
+    # return layout.lines().map(lambda l: l.chars())
+    result = Object(Point([0, 0]), Vector([0, 0]), Angle(0), Angle(0), List(), 1)
+    for y, line in layout.lines().enum():
+        for x, char in line.chars().enum():
+            if char != '_':
+                result.add(Matter(Square(Point([x, y]), 2), None))
+    # breakpoint()
+    return result
+
+
 def main():
     print('starting...')
-    Scene(List([Object(Point([0, 0]), Vector([5, 5]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
-          Vector([60, 30])).simulate(6000)
+    Scene(List([
+        #Object(Point([0, 0]), Vector([5, 5]), Angle(0), Angle(0),
+        #       List([Matter(Circle(Point([0, 0]), 10), None)]), 1),
+        load_schematic('./untitled-game/ship2')]),
+          Vector([60, 30])).simulate(6)
 
 
 main()
