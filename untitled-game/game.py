@@ -287,6 +287,28 @@ class Hypersolid(Geometry):
         super().__init__(parts, 4)
 
 
+class Range(Generic[T]):
+    def __init__(self: Range[T], a: T, b: T) -> None:
+        assert b >= a
+        self.a = a
+        self.b = b
+
+    def contains(self, x: T) -> bool:
+        return x >= self.a and x <= self.b
+
+    def __next__(self):
+        if self.n < (self.bounds[1] - 1):
+            self.n += 1
+            return self.n
+        return None
+
+    def to_iter(self):
+        return Iter(self, self.n, lambda S: self.__next__())
+
+    def __str__(self):
+        return f'Range [ {self.bounds[0]}..{self.bounds[1]} ]'
+
+
 # should this subclass Geometry instead?
 class Polygon(Shape):
     """General polygon class that extends the Shape class"""
@@ -297,30 +319,59 @@ class Polygon(Shape):
         self.vertices: List[Point] = List()
 
     @staticmethod
-    def regular(self, sides: int, radius: float) -> Polygon:
+    def regular(sides: int, radius: float, center: Point) -> Polygon:
         """Define polygon's geometry as a regular polygon; one with equal sides
         and angles"""
         class RegularPolygon(Polygon):
             def __init__(self, radius: float,
                          n: int,
-                         center: Point = None,
-                         manifold=2,
-                         axis=0):
+                         center: Point,
+                         manifold=2):
                 super().__init__()
-                start = [0] * manifold
-                start[axis] = radius
-                self.v.append(Point(start))
-                if not center:
-                    center = Point([0] * manifold)
-                self.center = c
+                self.vertices.append(Point([radius, 0]))
+                self.center = center
                 for i in range(n-1):
-                    self.v.append(Point(self.v[-1].pos).rotate(c, 360 / n, axis=axis))
-        return RegularPolygon(radius, sides)
+                    p = Point(self.vertices[-1].pos).rotate(center, 360 / n)
+                    self.vertices.append(p)
+                    self.sides.append(Line(self.vertices[-1], p))
+                self.sides.append(Line(self.vertices[0], self.vertices[-1]))
+        return RegularPolygon(radius, sides, center)
+
+    @staticmethod
+    def from_sides(sides: List[Line]) -> Polygon:
+        result = Polygon()
+        result.sides = sides
+        result.vertices = sides.map(lambda x: x.a)
+        return result
+
+    def intersections(self, other: Line) -> List[Point]:
+        return self.sides.map(lambda s: s.intersection(other))\
+            .filter(lambda x: x.is_some).map(Option.unwrap)
+
+    def contains(self, p: Point) -> bool:
+        if not self.bounds().contains(p):
+            return False
+        return bool(self.intersections(Line(p, self.bounds().b + Point([1, 1]))).length() % 2)
+
+    def bounds(self) -> Range[Point]:
+        return Range(self.vertices.min(), self.vertices.max())
 
     def rotate(self, *args, **kwargs):
-        for p in self.v:
+        for p in self.vertices:
             p.rotate(*args, **kwargs)
         return self
+
+    def __add__(self, B: Point) -> Polygon:
+        return Polygon.from_sides(self.sides.map(lambda x: x + B))
+
+    def __sub__(self, B: Point) -> Polygon:
+        return Polygon.from_sides(self.sides.map(lambda x: x - B))
+
+    def __mul__(self, B: Point) -> Polygon:
+        return Polygon.from_sides(self.sides.map(lambda x: x * B))
+
+    def __truediv__(self, B: Point) -> Polygon:
+        return Polygon.from_sides(self.sides.map(lambda x: x / B))
 
     def __str__(self):
         return 'Polygon\n\t' + '\n\t'.join(str(v) for v in self.v)
