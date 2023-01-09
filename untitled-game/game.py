@@ -7,12 +7,41 @@ import random
 import math
 import time
 import curses
+from pathlib import Path
 
 from lib.python.pylist import List
+from lib.python.pystring import String
+from lib.python.option import Option
+
+from typing_extensions import Protocol
+from abc import abstractmethod
+
+from typing import TypeVar, Generic, Any
+T = TypeVar('T')
+C = TypeVar('C')
 
 # TODO: global geometry sessions? (moved from fold.py)
 # TODO: numerical precision setting
 # TODO: separate simulation and rendering loops?
+
+
+class Comparable(Protocol):
+    @abstractmethod
+    def __eq__(self, other: Any) -> bool:
+        pass
+
+    @abstractmethod
+    def __lt__(self: C, other: C) -> bool:
+        pass
+
+    def __gt__(self: C, other: C) -> bool:
+        return (not self < other) and self != other
+
+    def __le__(self: C, other: C) -> bool:
+        return self < other or self == other
+
+    def __ge__(self: C, other: C) -> bool:
+        return (not self < other)
 
 
 class Geometry:
@@ -87,6 +116,18 @@ class Point(Geometry):
     @staticmethod
     def distance(a: Point, b: Point) -> float:
         return float(np.linalg.norm(a.pos - b.pos))
+
+    def __lt__(self, B: Point) -> bool:
+        return (self.pos < B.pos).all()
+
+    def __gt__(self, B: Point) -> bool:
+        return (self.pos > B.pos).all()
+
+    def __le__(self, B: Point) -> bool:
+        return (self.pos <= B.pos).all()
+
+    def __ge__(self, B: Point) -> bool:
+        return (self.pos >= B.pos).all()
 
     def __add__(self, B: Point) -> Point:
         return Point(self.pos + B.pos)
