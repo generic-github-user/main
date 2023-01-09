@@ -8,7 +8,7 @@ import math
 import time
 import curses
 
-from lib.pylist import List
+from lib.python.pylist import List
 
 # TODO: global geometry sessions? (moved from fold.py)
 # TODO: numerical precision setting
@@ -325,6 +325,12 @@ class Angle:
     def __init__(self, angle: float):
         self.angle: float = angle % (math.pi * 2)
 
+    def __add__(self, b: Angle):
+        return Angle(self.angle + b.angle)
+
+    def __mul__(self, w: float):
+        return Angle(self.angle * w)
+
 
 class Matter:
     def __init__(self, geometry, material):
@@ -378,6 +384,16 @@ class Object:
 
     def contains(self, p: Point) -> bool:
         return self.matter.any(lambda x: (x.geometry + self.pos).contains(p))
+
+    def step(self, step_length) -> Object:
+        delta = self.vel * step_length
+        self.pos += delta
+        self.delta = delta
+
+        theta = self.angvel * step_length
+        self.rotation += theta
+
+        return self
 
 
 class Camera:
@@ -493,25 +509,21 @@ class Scene:
             # TODO: cache position, velocity, etc. before applying physics
             # step
             # TODO: collect list of forces acting on object
-            delta = o.vel * step_length
-            o.pos += delta
-            o.delta = delta
+            self.objects.for_each(lambda x: x.step(step_length))
             self.gravity(o)
 
-    def render(self, *args, **kwargs):
-        self.renderer.render_frame(*args, **kwargs)
-
-    def simulate(self, frames: int, steps=1, delay=0.01):
+    def simulate(self, frames: int, steps=1, delay=0.001):
         for frame in range(frames):
-            self.step(step_length=delay/steps)
-            self.render()
-            time.sleep(delay)
+            # self.step(step_length=delay/steps)
+            self.step(0.01)
+            self.renderer.render_frame()
+            # time.sleep(delay)
         self.renderer.close()
 
 
 def main():
     print('starting...')
-    Scene(List([Object(Point([0, 0]), Vector([0.5, 0.5]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
+    Scene(List([Object(Point([0, 0]), Vector([5, 5]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
           Vector([30, 30])).simulate(6000)
 
 
