@@ -1,20 +1,30 @@
-"""
-A simple wrapper class for several built-in Python sequence types designed to
-facilitate method chaining and functional programming patterns. In many cases,
-this class' methods simply pass calls to standard global functions on iterators
-included in Python (e.g., `map` and `filter`). There are currently some
-efficiency concerns, namely in cases where I have temporarily avoided headaches
-by converting iterators directly to lists; I plan to refactor these later to
-improve style and efficiency at the potential cost of a slightly more
-complicated interface (and more involved internals).
-"""
-class List:
-    """Creates a new list containing the elements from the Python list `items`
-    (i.e., wrapping it)"""
+from __future__ import annotations
+from typing import TypeVar, Generic
+T = TypeVar('T')
+
+
+class List(Generic[T]):
+    """A simple wrapper class for several built-in Python sequence types
+    designed to facilitate method chaining and functional programming patterns.
+    In many cases, this class' methods simply pass calls to standard global
+    functions on iterators included in Python (e.g., `map` and `filter`). There
+    are currently some efficiency concerns, namely in cases where I have
+    temporarily avoided headaches by converting iterators directly to lists; I
+    plan to refactor these later to improve style and efficiency at the
+    potential cost of a slightly more complicated interface (and more involved
+    internals)."""
+
     def __init__(self, items=None):
+        """Creates a new list containing the elements from the Python list
+        `items` (i.e., wrapping it)"""
+
         if items is None:
             items = []
         self.items = items
+
+    def for_each(self, f):
+        for x in self:
+            f(x)
 
     """Applies `f` to each element in this list, returning a new list"""
     def map(self, f):
@@ -38,6 +48,11 @@ class List:
     item in this list"""
     def get(self, attr):
         return self.map(lambda x: getattr(x, attr))
+
+    def set(self, attr, value):
+        for x in self.items:
+            setattr(x, attr, value)
+        return self
 
     """Returns a new list sorted using the comparison function `f`, which
     should take as input two elements of the input list"""
@@ -83,6 +98,19 @@ class List:
     string representations of all the elements in the list"""
     def join(self, s):
         return s.join(self.map(str).items)
+
+    def enum(self) -> List[tuple[int, T]]:
+        return List(enumerate(self.items))
+
+    def partition(self, attr):
+        return {value: self.filter(lambda x: getattr(x, attr) == value) for
+                value in set(getattr(y, attr) for y in self.items)}
+
+    def length(self):
+        return len(self)
+
+    def to_string(self, **kwargs):
+        return self.map(lambda x: x.to_string(**kwargs)).join(', ')
 
     def __iter__(self):
         return self.items.__iter__()
