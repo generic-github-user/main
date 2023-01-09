@@ -396,21 +396,6 @@ class Renderer:
         return self.objects.filter(lambda o: np.array_equal(np.round_(o.pos()),
                                                             np.array([x, y])))
 
-    def combine_output(self, g):
-        return '\n'.join([''.join(h) for h in g])
-
-    def form_output(self, angles):
-        char_array = []
-        for x in range(self.shape[0]):
-            row = []
-            for y in range(self.shape[1]):
-                if angles[x, y] == 0:
-                    row.append(' ')
-                else:
-                    row.append(self.fetch_line_glyph(angles[x, y], 0.5))
-            char_array.append(row)
-        return char_array
-
     def render_frame(self):
         self.console.clear()
 
@@ -425,7 +410,7 @@ class Renderer:
 class Scene:
     """A class that brings together a world and a renderer, and provides
     high-level functions to facilitate their interaction"""
-    def __init__(self: Scene, shape: Vector, edge_mode: str = 'wrap') -> None:
+    def __init__(self: Scene, shape: Vector) -> None:
         """Create a new scene"""
 
         self.objects: List[Object] = List()
@@ -434,17 +419,6 @@ class Scene:
             'dist': 'm',
             'time': 's'
         }
-
-        self.edge_mode: str = edge_mode
-        """
-        Defines the behavior for objects that go over the edges of the scene:
-            - `wrap`: Wrap around so that an object passing through the bottom
-              edge will come back down from the top edge, right will go to
-              left, and so on
-            - `bounce`: Bounce the object against the side of the scene as if
-              it were a wall
-            - `extend`: Let the object continue moving out of the frame
-        """
 
         self.gravity_constant: float = 0.5
         self.drag: float = 1
@@ -457,14 +431,6 @@ class Scene:
         self.objects.append(obj)
         return obj
 
-    def edge_collision(self, obj):
-        if self.edge_mode == 'wrap':
-            obj.pos.n = obj.pos() % self.dims()
-        elif self.edge_mode == 'bounce':
-            raise NotImplementedError
-        elif self.edge_mode == 'extend':
-            raise NotImplementedError
-
     def gravity(self, obj):
         for o in self.objects:
             if obj is not o:
@@ -474,9 +440,6 @@ class Scene:
 
                 obj.vel.n += (self.gravity_constant() * obj.mass() * o.mass() /
                               (dist ** 2)) / obj.mass() * (o.pos() - obj.pos())
-
-    def clear(self):
-        self.objects = List()
 
     def step(self, step_length=1):
         for o in self.objects:
