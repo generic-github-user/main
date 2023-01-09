@@ -1,16 +1,11 @@
-__all__ = ['Geometry', 'Point', 'Line', 'Polygon', 'RegularPolygon', 'r', 'Circle', 'Manifold', 'Event', 'Foldable',
-           'F']
+from __future__ import annotations
+# __all__ = ['Geometry', 'Point', 'Line', 'Polygon', 'RegularPolygon', 'r',
+# 'Circle', 'Manifold', 'Event', 'Foldable', 'F']
 
-import matplotlib.pyplot as plt
-import svgwrite
-
-import math
 import numpy as np
 import random
 
 import time
-
-from __future__ import annotations
 
 from lib.pylist import List
 
@@ -232,11 +227,11 @@ class Polygon(Shape):
     def __init__(self: Polygon):
         """Create a new polygon"""
         super().__init__()
-        self.sides: [line] = []
-        self.vertices = []
+        self.sides: List[Line] = List()
+        self.vertices = List()
 
     @staticmethod
-    def regular(self, sides: int, radius: float) -> RegularPolygon:
+    def regular(self, sides: int, radius: float) -> Polygon:
         """Define polygon's geometry as a regular polygon; one with equal sides
         and angles"""
         class RegularPolygon(Polygon):
@@ -307,50 +302,59 @@ class Matter:
         self.geometry = geometry
         self.material = material
 
+
+Vector = Point
+
+
 class Object:
     """A single physical object, like a box or a tree"""
-    def __init__(self, pos, vel, angle, angvel, matter, mass=None):
-        """Create a new object; creating it does not add it to any scene by default"""
+    def __init__(self: Object, pos: Vector, vel: Vector, angle: Angle, angvel:
+                 Angle, matter: List[Matter], mass: float):
+        """Create a new object; creating it does not add it to any scene by
+        default"""
 
         self.pos: Vector = pos
-        """Initial xy location of the object (this will likely change when the simulation is run)"""
-        self.x = pos.x
-        self.y = pos.y
-        # TODO: move above to function (?)
+        """Initial xy location of the object (this will likely change when the
+        simulation is run)"""
+
         self.vel: Vector = vel
         """Initial xy velocity of the object"""
 
         self.rotation: Angle = angle
-        self.angvel: Scalar = angvel
+        self.angvel: Angle = angvel
 
-        # TODO: Do we need this?
-        self.matter = []
         self.matter = matter
         """Matter that the object is comprised of"""
 
-        if mass is None:
-            self.mass = Scalar(1)
-        elif type(mass) is Scalar:
-            self.mass: Scalar = mass
-            """Mass of the object"""
+        self.mass: float = mass
+        """Mass of the object"""
 
         # not sure if keeping this
         self.canvas = None
         self.display = None
-        self.delta = Tensor([0, 0])
+        self.delta = Point([0, 0])
+
+        self.update()
+
+    def update(self):
+        varnames = 'xyzw'
+        for i, axis in enumerate(self.pos):
+            setattr(self, varnames[i], self.pos[i])
+        return self
 
     def info(self):
-        """Get a string representing the object's properties (mostly for debugging)"""
+        """Get a string representing the object's properties (mostly for
+        debugging)"""
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
 
 class Scene:
     """A class the brings together a world and a renderer, and provides
     high-level functions to facilitate their interaction"""
-    def __init__(self, dims, edge_mode='wrap'):
+    def __init__(self: Scene, dims, edge_mode='wrap'):
         """Create a new scene"""
 
-        self.objects: [Object] = []
+        self.objects: List[Object] = []
         """A list of objects to initialize the scene with"""
         self.units = {
             'dist': 'm',
@@ -368,11 +372,13 @@ class Scene:
               it were a wall
             - `extend`: Let the object continue moving out of the frame
         """
-        self.gravity_constant = Scalar(0.5)
-        self.drag = 1
-        self.tiny = 0.00000000001
+        self.gravity_constant: float = 0.5
+        self.drag: float = 1
+        self.eta: float = 0.00000000001
 
-        self.renderer = Renderer(rtype='canvas', dims=self.dims, camera=Camera(Tensor([2, 2])), glyphs=GlyphSet(), objects=self.objects)
+        self.renderer = Renderer(rtype='canvas', dims=self.dims,
+                                 camera=Camera(Tensor([2, 2])),
+                                 glyphs=GlyphSet(), objects=self.objects)
 
     def add(self, obj):
         self.objects.append(obj)
@@ -381,8 +387,6 @@ class Scene:
     def edge_collision(self, obj):
         # if obj.x > self.dims.x or obj.x < 0 or obj.y > self.dims.y or obj.y < 0:
         if self.edge_mode == 'wrap':
-            # obj.x = obj.x % self.dims.x
-            # obj.y = obj.y % self.dims.y
             obj.pos.n = obj.pos() % self.dims()
         elif self.edge_mode == 'bounce':
             pass
@@ -394,29 +398,18 @@ class Scene:
             if obj is not o:
                 dist = obj.pos.distance(o.pos)
                 if dist == 0:
-                    dist = self.tiny
+                    dist = self.eta
 
-                # wrap distance?
-                # use unit vector or use original vector directly in equation?
-                # obj.pos.n += (self.gravity_constant() * obj.mass() * o.mass() / (dist ** 2)) / obj.mass()
                 obj.vel.n += (self.gravity_constant() * obj.mass() * o.mass() / (dist ** 2)) / obj.mass() * (o.pos()-obj.pos())
-                # print(obj.vel.n)
-        # for o in self.objects:
-        #     dist = obj.pos.distance2(o.pos)
-        #     if dist == 0:
-        #         dist = self.tiny
-            # obj.vel.x += (self.gravity_constant * obj.mass * o.mass / (dist ** 2)) / obj.mass
-            # TODO: address mutability
-            # TODO: mass 1 should cancel out
-            # obj.vel.add(self.gravity_constant.mul(obj.mass).mul(o.mass).div(dist.square())).div(obj.mass)
 
     def clear(self):
-        self.objects = []
+        self.objects = List()
 
     def step(self, steps=1, step_length=1):
         for step in range(steps):
             for o in self.objects:
-                # TODO: cache position, velocity, etc. before applying physics step
+                # TODO: cache position, velocity, etc. before applying physics
+                # step
                 # TODO: collect list of forces acting on object
                 # TODO: replace this with vector operation
                 # o.x += o.vel.x * step_length
@@ -444,9 +437,6 @@ class Scene:
     # clean all this up
     def rrender(self, callback, delay=0, steps=300):
         self.renderer.render_frame(callback, steps=steps)
-        # finally! 10:26 4-7
-    # def step(self):
-        # self.
 
     # complete as adjective
     def complete_step(self, callback, steps=300):
@@ -460,7 +450,7 @@ class Scene:
         elif fps:
             pause = 1 / fps
         print(frames)
-        m=0
+        m = 0
 
         # phys_step = lambda: self.step(steps=steps, step_length=pause/steps)
         # root.after(round(pause * 1000), self.complete_step)
@@ -481,5 +471,4 @@ class Scene:
             # time.sleep(pause)
             # TODO: separate simulation and rendering loops?
 
-        print(m)
         self.renderer.root.mainloop()
