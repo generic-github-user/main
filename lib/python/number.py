@@ -1,4 +1,4 @@
-from lib.pystring import String
+from lib.python.pystring import String
 
 
 class Number:
