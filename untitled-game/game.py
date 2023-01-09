@@ -23,6 +23,18 @@ class Geometry:
         self.parts: List[Geometry] = parts
         self.dimensions: int = dimensions
 
+    def __add__(self, B: Point) -> Geometry:
+        return Geometry(self.parts.map(lambda x: x + B), self.dimensions)
+
+    def __sub__(self, B: Point) -> Geometry:
+        return Geometry(self.parts.map(lambda x: x - B), self.dimensions)
+
+    def __mul__(self, B: Point) -> Geometry:
+        return Geometry(self.parts.map(lambda x: x * B), self.dimensions)
+
+    def __truediv__(self, B: Point) -> Geometry:
+        return Geometry(self.parts.map(lambda x: x / B), self.dimensions)
+
 
 class Point(Geometry):
     pos: np.ndarray
@@ -239,9 +251,9 @@ class Polygon(Shape):
     """General polygon class that extends the Shape class"""
     def __init__(self: Polygon):
         """Create a new polygon"""
-        super().__init__()
+        super().__init__(List())
         self.sides: List[Line] = List()
-        self.vertices = List()
+        self.vertices: List[Point] = List()
 
     @staticmethod
     def regular(self, sides: int, radius: float) -> Polygon:
@@ -285,6 +297,9 @@ class Circle(Shape):
 
     def contains(self, p: Point) -> bool:
         return Point.distance(self.center, p) <= self.radius
+
+    def __add__(self, B: Point) -> Circle:
+        return Circle(self.center + B, self.radius)
 
 
 class Manifold:
@@ -362,11 +377,13 @@ class Object:
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
     def contains(self, p: Point) -> bool:
-        return self.matter.any(lambda x: x.geometry.contains(p))
+        return self.matter.any(lambda x: (x.geometry + self.pos).contains(p))
 
 
 class Camera:
     def __init__(self: Camera, pos: Point, zoom=1):
+        # ?
+        self.scale: Vector = Vector([1, 1.6])
         self.zoom: float = zoom
         self.pos: Point = pos
 
@@ -411,7 +428,9 @@ class Renderer:
             return self.empty
 
     def at(self, x, y):
-        return self.objects.filter(lambda o: o.contains(Point([x, y])))
+        return self.objects.filter(lambda o: o.contains(Point([x, y]) *
+                                                        self.camera.scale *
+                                                        self.camera.zoom))
 
     def render_frame(self):
         self.console.clear()
@@ -481,8 +500,8 @@ class Scene:
 
 def main():
     print('starting...')
-    Scene(List([Object(Point([0, 0]), Vector([0, 0]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
-          Vector([30, 30])).simulate(30)
+    Scene(List([Object(Point([0, 0]), Vector([0.5, 0.5]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
+          Vector([30, 30])).simulate(600)
 
 
 main()
