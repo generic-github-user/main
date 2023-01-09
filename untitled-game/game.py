@@ -72,6 +72,10 @@ class Point(Geometry):
 
         return Point(np.dot((self - a).pos, rotation_matrix)) + a
 
+    @staticmethod
+    def distance(a: Point, b: Point) -> float:
+        return float(np.linalg.norm(a.pos - b.pos))
+
     def __add__(self, B: Point) -> Point:
         return Point(self.pos + B.pos)
 
@@ -79,13 +83,20 @@ class Point(Geometry):
         return Point(self.pos - B.pos)
 
     def __mul__(self, B: Point) -> Point:
-        return Point(self.pos * B.pos)
+        if isinstance(B, Point):
+            return Point(self.pos * B.pos)
+        elif isinstance(B, (int, float)):
+            return Point(self.pos * B)
+        else:
+            raise NotImplementedError
 
     def __truediv__(self, B):
         if isinstance(B, Point):
             return Point(self.pos / B.pos)
         elif isinstance(B, (int, float)):
             return Point(self.pos / B)
+        else:
+            raise NotImplementedError
 
     def __call__(self):
         """
@@ -207,20 +218,20 @@ class Line(Geometry):
 
 # 2D geometry convenience subclass
 class Shape(Geometry):
-    def __init__(self):
-        super().__init__(dimensions=2)
+    def __init__(self, parts):
+        super().__init__(parts, 2)
 
 
 # 3D geometry convenience subclass
 class Solid(Geometry):
-    def __init__(self):
-        super().__init__(dimensions=3)
+    def __init__(self, parts):
+        super().__init__(parts, 3)
 
 
 # 4D geometry convenience subclass
 class Hypersolid(Geometry):
-    def __init__(self):
-        super().__init__(dimensions=4)
+    def __init__(self, parts):
+        super().__init__(parts, 4)
 
 
 # should this subclass Geometry instead?
@@ -267,9 +278,13 @@ class Polygon(Shape):
 
 class Circle(Shape):
     """A geometric 2D circle with a certain radius; subclass of Shape"""
-    def __init__(self, radius: float):
-        super().__init__()
+    def __init__(self, center: Point, radius: float):
+        super().__init__(List())
+        self.center: Point = center
         self.radius: float = radius
+
+    def contains(self, p: Point) -> bool:
+        return Point.distance(self.center, p) <= self.radius
 
 
 class Manifold:
@@ -337,14 +352,17 @@ class Object:
 
     def update(self):
         varnames = 'xyzw'
-        for i, axis in enumerate(self.pos):
-            setattr(self, varnames[i], self.pos[i])
+        for i, axis in enumerate(self.pos.pos):
+            setattr(self, varnames[i], self.pos.pos[i])
         return self
 
     def info(self):
         """Get a string representing the object's properties (mostly for
         debugging)"""
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
+
+    def contains(self, p: Point) -> bool:
+        return self.matter.any(lambda x: x.geometry.contains(p))
 
 
 class Camera:
@@ -393,8 +411,7 @@ class Renderer:
             return self.empty
 
     def at(self, x, y):
-        return self.objects.filter(lambda o: np.array_equal(np.round_(o.pos()),
-                                                            np.array([x, y])))
+        return self.objects.filter(lambda o: o.contains(Point([x, y])))
 
     def render_frame(self):
         self.console.clear()
@@ -410,10 +427,10 @@ class Renderer:
 class Scene:
     """A class that brings together a world and a renderer, and provides
     high-level functions to facilitate their interaction"""
-    def __init__(self: Scene, shape: Vector) -> None:
+    def __init__(self: Scene, objects: List[Object], shape: Vector) -> None:
         """Create a new scene"""
 
-        self.objects: List[Object] = List()
+        self.objects: List[Object] = objects
         """A list of objects to initialize the scene with"""
         self.units = {
             'dist': 'm',
@@ -446,10 +463,9 @@ class Scene:
             # TODO: cache position, velocity, etc. before applying physics
             # step
             # TODO: collect list of forces acting on object
-            delta = o.vel() * step_length
-            o.pos.n += delta
-            o.delta.n = delta
-            self.edge_collision(o)
+            delta = o.vel * step_length
+            o.pos += delta
+            o.delta = delta
             self.gravity(o)
 
     def render(self, *args, **kwargs):
@@ -465,7 +481,8 @@ class Scene:
 
 def main():
     print('starting...')
-    Scene(Vector([30, 30])).simulate(30)
+    Scene(List([Object(Point([0, 0]), Vector([0, 0]), Angle(0), Angle(0), List([Matter(Circle(Point([0, 0]), 10), None)]), 1)]),
+          Vector([30, 30])).simulate(30)
 
 
 main()
