@@ -1,8 +1,21 @@
+from __future__ import annotations
+from lib.python.pylist import List
+
+
 class String:
     def __init__(self, s=''):
         if isinstance(s, String):
             s = s.s
         self.s = s
+
+    def split(self, x) -> List[String]:
+        return List(self.s.split(x)).map(String)
+
+    def lines(self) -> List[String]:
+        return List(self.s.splitlines()).map(String)
+
+    def chars(self) -> List[String]:
+        return List(self.s)
 
     def to_string(self):
         return self

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import TypeVar, Generic
 T = TypeVar('T')
 
@@ -97,6 +98,9 @@ class List(Generic[T]):
     string representations of all the elements in the list"""
     def join(self, s):
         return s.join(self.map(str).items)
+
+    def enum(self) -> List[tuple[int, T]]:
+        return List(enumerate(self.items))
 
     def partition(self, attr):
         return {value: self.filter(lambda x: getattr(x, attr) == value) for
