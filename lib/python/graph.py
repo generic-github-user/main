@@ -18,7 +18,7 @@ S = TypeVar('S', covariant=True)
 
 
 class Settings:
-    serializer = lambda z: json.dumps(z, indent=4)
+    def serializer(z): return json.dumps(z, indent=4)
     cache_size = 10e6
     block_size = 10e5
     # nlp = spacy.load('en_core_web_lg')
@@ -87,7 +87,7 @@ class Graph(Graphlike[T]):
     Each node in the graph has a globally unique index (a positive integer)
     that identifies it. This is used as a hash map key in many cases for rapid
     retrieval within an individual block."""
-    
+
     def __init__(self, path: Option[Path], size: int, blocks: List[Path],
                  index: int, block_index: int):
         """Initialize a new graph instance; this is an internal method and API
@@ -164,7 +164,8 @@ class Graph(Graphlike[T]):
         information about this graph; this will typically be serialized to
         root.json"""
 
-        return self.get_attrs(['size', 'index', 'block_index']) | {'path': str(self.path.unwrap()), 'blocks': list(self.blocks.map(str))}
+        return self.get_attrs(['size', 'index', 'block_index']) | {'path': str(
+            self.path.unwrap()), 'blocks': list(self.blocks.map(str))}
 
     def add(self, node: Node) -> Graph:
         # self.nodes.append(node)
@@ -279,7 +280,8 @@ class Graph(Graphlike[T]):
         # return GraphIter()
         if self.path.is_some:
             # return itertools.chain(self.blocks.map(self.iter_block))
-            return itertools.chain.from_iterable(self.blocks.map(self.iter_block))
+            return itertools.chain.from_iterable(
+                self.blocks.map(self.iter_block))
         else:
             return self.nodes.values()
 
@@ -307,7 +309,15 @@ class Graph(Graphlike[T]):
             path_ = Option.some(path)
         else:
             path_ = Option.none()
-        node = Node(self.index, value, group, self, False, path_, List(group.ids()))
+        node = Node(
+            self.index,
+            value,
+            group,
+            self,
+            False,
+            path_,
+            List(
+                group.ids()))
         # ?
         self.add(node)
         return node

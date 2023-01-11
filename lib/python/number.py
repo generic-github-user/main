@@ -23,7 +23,7 @@ class Number:
 def generate_method(inner, wrap=False):
     def method(self, *args, **kwargs):
         # args = map(Number.__init__, args)
-        args = map(Number, [self]+list(args))
+        args = map(Number, [self] + list(args))
         result = inner(*(map(lambda N: N.x, args)),
                        **kwargs)
         # breakpoint()

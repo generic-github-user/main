@@ -48,7 +48,7 @@ class Stream:
         return False
 
     def to_list(self):
-        return If(self, lambda: [self.head]+self.tail().to_list(),
+        return If(self, lambda: [self.head] + self.tail().to_list(),
                   lambda: [])
 
     def to_set(self):
@@ -78,15 +78,19 @@ class Stream:
     @tco
     def all(self, f):
         return f(self.head) and self.tail().all(f)
-        # return f(self.head) and 
+        # return f(self.head) and
 
     def nth(self, i):
-        if i == 0: return self.head
-        else: return self.tail().nth(i - 1)
+        if i == 0:
+            return self.head
+        else:
+            return self.tail().nth(i - 1)
 
     def take(self, n):
-        if n == 0: return SEmpty
-        else: return Stream(self.head, lambda: self.tail().take(n - 1))
+        if n == 0:
+            return SEmpty
+        else:
+            return Stream(self.head, lambda: self.tail().take(n - 1))
 
     # def windows(self, n):
 
@@ -115,4 +119,11 @@ class StreamIter:
 
 
 def range(a, b):
-    return If(a < b, lambda: Stream(a, lambda: range(a+1, b)), lambda: SEmpty)
+    return If(
+        a < b,
+        lambda: Stream(
+            a,
+            lambda: range(
+                a + 1,
+                b)),
+        lambda: SEmpty)
