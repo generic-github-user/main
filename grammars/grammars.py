@@ -44,6 +44,9 @@ class Range(Generic[T]):
         # return Range(min(x.a for x in ranges), max(x.b for x in ranges))
         return functools.reduce(Range.join_, ranges)
 
+    def midpoint(self) -> float:
+        return (self.a + self.b) / 2
+
     def __next__(self):
         if self.n < (self.bounds[1] - 1):
             self.n += 1
@@ -93,3 +96,17 @@ class OrderedSet:
 
     def __repr__(self):
         return repr(self.data)
+
+class Rule:
+    def __init__(self):
+        pass
+
+    def __mul__(self, n: int | Range[int]) -> Repeat:
+        return Repeat(self, n)
+
+    def __or__(a: Rule, b: Rule | str) -> Choice:
+        if isinstance(b, str): b = Terminal(b)
+        return Choice([a, b])
+
+    def __and__(a: Rule, b: Rule) -> Sequence:
+        return Sequence([a, b])
