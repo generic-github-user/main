@@ -228,3 +228,25 @@ class Sequence(Rule):
 
     def __repr__(self) -> str:
         return ' '.join(map(repr, self.rules))
+
+class Grammar:
+    def __init__(self, start):
+        self.start = start
+
+class Function:
+    def __init__(self, f):
+        self.f = f
+    
+    def __truediv__(a, b):
+        return lambda *args, **kwargs: a(*args) / b(*args)
+
+    def __call__(self, *args, **kwargs):
+        return self.f(*args, **kwargs)
+
+# class Production
+
+def compose(f, g):
+    return lambda *a, **kw: f(g(*a, **kw))
+Sum = Function(sum)
+Length = Function(compose(len, list))
+Mean = Sum / Length
