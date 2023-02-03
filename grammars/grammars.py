@@ -171,3 +171,39 @@ class Terminal(Rule):
 def Terminals(source: Iterable[str], weights: Option[list[float]] = Option.none()) -> Choice:
     # if weights is None: weights = [1] * len(list(source))
     return Choice([Terminal(x) for x in source], weights=weights)
+
+# TODO: "static" repetition (select before repeating)?
+# analogues?
+class Repeat(Rule):
+    def __init__(self, rule: Rule, n: int | Range[int]):
+        super().__init__()
+        self.rule = rule
+        self.n = n
+
+    def sample(self) -> str:
+        x = self.n if isinstance(self.n, int) else self.n.sample()
+        # return sum(self.rule.sample() for i in range(x))
+        return ''.join(unravel(self.rule).sample() for i in range(x))
+
+    def iter(self) -> Iterator[str]:
+        if isinstance(self.n, int):
+            # TODO
+            return Sequence([self.rule] * self.n).iter()
+        return itertools.chain.from_iterable(Repeat(self.rule, x).iter()
+                                             for x in self.n.iter())
+
+    def __repr__(self) -> str:
+        return f'{self.rule} {{ {self.n} }}'
+
+    def __eq__(a, b) -> bool:
+        return (a.rule == b.rule) and (a.n == b.n)
+
+    def simplify(self) -> Repeat:
+        # TODO
+        return self
+
+def Optional(source: Rule) -> Repeat:
+    return Repeat(source, Range(0, 1))
+
+def Star(source: Rule) -> Repeat:
+    return Repeat(source, Range(0, math.inf))
