@@ -234,30 +234,19 @@ class Repeat(Rule):
         return self.rule.expected_length() * self.n.midpoint()
 
     def match(self, x: str) -> bool:
-        # TODO: unfuck
-        # ?
-        # if not self.n > 0 and x != '': return False
-        # should the check be inverted (string-based)?
+        return bool((m := self.partial_match(x)) and any(i >= len(x) for i in m))
         # TODO: BoundedRange type
-        if (self.n < 1 if isinstance(self.n, int) else self.n.b < 1):
-            return x == ''
-            # return self.rule.match(x)
-        if x == '': return (self.n == 0 if isinstance(self.n, int) else 0 in self.n)
-        if (match := self.rule.partial_match(x)):
-            # print(f'Matched "{x}" under {self} at {match}')
-            return any(Repeat(self.rule, self.n - 1).match(x[i:]) for i in match)
-        # print(f'Rejected "{x}" under {self}')
-        return False
 
     def partial_match(self, x: str) -> set[int]:
-        # raise NotImplementedError
-        if (self.n < 1 if isinstance(self.n, int) else self.n.b < 1):
-            # return set([0]) if x == '' else set()
-            return set([0])
+        # TODO work through low, mid, and high cases
+        result = set()
         if (matches := self.rule.partial_match(x)):
             status = (self.n == 1 if isinstance(self.n, int) else self.n.a == 1)
-            return set.union(*[set(j + i for j in Repeat(self.rule, self.n - 1).partial_match(x[i:])) for i in matches] + ([matches] if status else []))
-        return set()
+            result |= set.union(*[set(j + i for j in Repeat(self.rule, self.n - 1).partial_match(x[i:]))
+                                  for i in matches] + ([matches] if status else []))
+        if (self.n < 1 if isinstance(self.n, int) else self.n.a < 1):
+            result |= set([0])
+        return result
 
     def __repr__(self) -> str:
         return f'{self.rule} {{ {self.n} }}'
@@ -306,20 +295,14 @@ class Sequence(Rule):
         return Mean([unravel(x).expected_length() for x in self.rules])
 
     def match(self, x: str) -> bool:
-        # if len(self.rules) == 0: return False
         return bool((m := self.partial_match(x)) and any(i >= len(x) for i in m))
 
     def partial_match(self, x: str) -> set[int]:
         if len(self.rules) == 0:
-            # return set([0]) if x == '' else set() # ?
             return set([0])
         if (matches := self.rules[0].partial_match(x)):
-            # print(f'Matched "{x}" under {self} at {matches}')
-            # TODO: add offset to indices (?)
-            if len(self.rules) == 1: return matches
-            # ?
-            return set.union(*[set(j + i for j in self[1:].partial_match(x[i:])) for i in matches])
-        # print(f'Rejected "{x}" under {self}')
+            return set.union(*[set(j + i for j in self[1:].partial_match(x[i:]))
+                               for i in matches])
         return set()
 
     def __getitem__(self, i) -> Sequence:
@@ -422,3 +405,4 @@ test_match(vowels, 'a')
 test_match(syllable, 'a')
 test_match(Sequence([Optional(vowels), vowels]), 'a')
 test_match(Optional(vowels), 'a')
+test_match(test, 'zzzzz')
