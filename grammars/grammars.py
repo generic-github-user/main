@@ -10,6 +10,7 @@ import functools
 
 import typing
 from typing import TypeVar, Generic, Any, Iterable, Iterator
+from typing_extensions import Protocol
 T = TypeVar('T')
 
 def unravel(z):
@@ -114,6 +115,22 @@ class OrderedSet:
     def __repr__(self):
         return repr(self.data)
 
+class RuleLike(Protocol):
+    def length(self) -> int | Range[int]:
+        ...
+
+    def expected_length(self) -> float:
+        ...
+
+    def match(self, x: str) -> bool:
+        ...
+
+    def partial_match(self, x: str) -> set[int]:
+        ...
+
+    def iter(self) -> Iterator[str]:
+        ...
+
 class Rule:
     def __init__(self):
         pass
@@ -121,15 +138,15 @@ class Rule:
     def __mul__(self, n: int | Range[int]) -> Repeat:
         return Repeat(self, n)
 
-    def __or__(a: Rule, b: Rule | str) -> Choice:
+    def __or__(a: RuleLike, b: RuleLike | str) -> Choice:
         if isinstance(b, str): b = Terminal(b)
         return Choice([a, b])
 
-    def __and__(a: Rule, b: Rule) -> Sequence:
+    def __and__(a: RuleLike, b: RuleLike) -> Sequence:
         return Sequence([a, b])
 
 class Choice(Rule):
-    def __init__(self, options: list[Rule]):
+    def __init__(self, options: list[RuleLike]):
         super().__init__()
         self.options = options
 
@@ -207,7 +224,7 @@ def Terminals(source: Iterable[str], weights: Option[list[float]] = Option.none(
 # TODO: "static" repetition (select before repeating)?
 # analogues?
 class Repeat(Rule):
-    def __init__(self, rule: Rule, n: int | Range[int]):
+    def __init__(self, rule: RuleLike, n: int | Range[int]):
         super().__init__()
         self.rule = rule
         self.n = n
@@ -258,10 +275,10 @@ class Repeat(Rule):
         # TODO
         return self
 
-def Optional(source: Rule) -> Repeat:
+def Optional(source: RuleLike) -> Repeat:
     return Repeat(source, Range(0, 1))
 
-def Star(source: Rule) -> Repeat:
+def Star(source: RuleLike) -> Repeat:
     return Repeat(source, Range(0, math.inf))
 
 class Empty(Rule):
@@ -272,9 +289,9 @@ class Empty(Rule):
         return x == ''
 
 class Sequence(Rule):
-    def __init__(self, rules: list[Rule]) -> None:
+    def __init__(self, rules: list[RuleLike]) -> None:
         super().__init__()
-        self.rules = rules
+        self.rules: list[RuleLike] = rules
 
     def sample(self) -> str:
         return ''.join(unravel(x).sample() for x in self.rules)
