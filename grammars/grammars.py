@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+from lib.python.option import Option
+
 import string
 import random
 import itertools
 import math
 import functools
 
+import typing
 from typing import TypeVar, Generic, Any, Iterable, Iterator
 T = TypeVar('T')
 
@@ -170,7 +173,7 @@ class Terminal(Rule):
 
 def Terminals(source: Iterable[str], weights: Option[list[float]] = Option.none()) -> Choice:
     # if weights is None: weights = [1] * len(list(source))
-    return Choice([Terminal(x) for x in source], weights=weights)
+    return Choice([Terminal(x) for x in source])
 
 # TODO: "static" repetition (select before repeating)?
 # analogues?
@@ -267,3 +270,51 @@ def compose(f, g):
 Sum = Function(sum)
 Length = Function(compose(len, list))
 Mean = Sum / Length
+
+# test = Terminal('t') * 5
+test2 = Choice([Terminal(x) for x in string.ascii_lowercase]) * 10
+test4 = Sequence([Terminals('ab'), Terminals('cd')])
+
+vowels = Terminals('aeiou') + Terminals(['oo', 'ee'], weights=Option.some([0.0] * 2))
+consonants = Terminals(string.ascii_lowercase) - (vowels + Terminals('qy'))\
+    + Terminals(['ph', 'sh', 'ch', 'ly', 'ze', 'ne'])
+start_consonants = Terminals(['fl', 'tw', 'bl', 'pl', 'tr', 'gr', 'wh', 'qu'])
+end_consonants = Terminals(['ng', 'ck', 'nt', 'lt'])
+syllable = Sequence([Optional(consonants + start_consonants), vowels,
+                     Optional(consonants + end_consonants)])
+test = syllable * Range(1, 10)
+# - 'oong'
+
+# print(test.sample())
+
+# test = Optional(consonants)
+# print(len(list(test.iter())))
+# n = list(test.iter()).index(max(test.iter(), key=len))
+# TODO: interpolation of stochastic grammars
+# TODO: show derivation used to generate a particular string
+
+# n = 140000
+n = 0
+for x in itertools.islice(test.iter(), n, n + 200):
+    print(x)
+for i in range(20):
+    print(test.sample())
+
+print(OrderedSet('abc') | OrderedSet('cde'))
+print(OrderedSet('abc') - OrderedSet('cde'))
+
+# print(test)
+print(test.length())
+print(test.expected_length())
+
+test3 = Terminals('ab') * 10
+print(test3.expected_length())
+
+# recursive = Terminals('ab') | (Terminal('c') & Repeat((lambda: recursive), 2))
+recursive = (Terminal('a') & (lambda: recursive) & Terminals('a'))\
+    | (Terminal('b') & (lambda: recursive) & Terminals('b'))\
+    | ''
+print(recursive.sample())
+# print(recursive.expected_length())
+# for x in itertools.islice(recursive.iter(), 10):
+    # print(x)
