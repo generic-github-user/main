@@ -110,3 +110,34 @@ class Rule:
 
     def __and__(a: Rule, b: Rule) -> Sequence:
         return Sequence([a, b])
+
+class Choice(Rule):
+    def __init__(self, options: list[Rule]):
+        super().__init__()
+        self.options = options
+
+    def sample(self) -> str:
+        return unravel(random.choice(self.options)).sample()
+
+    def iter(self) -> Iterator[str]:
+        return itertools.chain.from_iterable(x.iter() for x in self.options)
+
+    def length(self) -> int | Range[int]:
+        return Range.join((Range.from_scalar(x.length()) if isinstance(x.length(), int) else x.length())
+                          for x in self.options)
+
+    def expected_length(self) -> float:
+        if len(self.options) == 0: return 0
+        return Mean([x.expected_length() for x in self.options])
+
+    def __add__(self, b: Choice) -> Choice:
+        return Choice(list(OrderedSet(self.options) | OrderedSet(b.options)))
+
+    def __sub__(self, b: Choice) -> Choice:
+        return Choice(list(OrderedSet(self.options) - OrderedSet(b.options)))
+
+    def __repr__(self) -> str:
+        return ' | '.join(map(repr, self.options))
+
+    def __eq__(a, b) -> bool:
+        return set(a.options) == set(b.options)
