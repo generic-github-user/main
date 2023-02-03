@@ -141,3 +141,33 @@ class Choice(Rule):
 
     def __eq__(a, b) -> bool:
         return set(a.options) == set(b.options)
+
+class Terminal(Rule):
+    def __init__(self, value: str):
+        super().__init__()
+        self.value = value
+
+    def sample(self) -> str:
+        return self.value
+
+    def iter(self) -> Iterator[str]:
+        return [self.value]
+
+    def length(self) -> int:
+        return len(self.value)
+
+    def expected_length(self) -> float:
+        return len(self.value)
+
+    def __repr__(self) -> str:
+        return f'"{self.value}"'
+
+    def __eq__(a, b):
+        return a.value == b.value
+
+    def __hash__(self):
+        return hash(self.value)
+
+def Terminals(source: Iterable[str], weights: Option[list[float]] = Option.none()) -> Choice:
+    # if weights is None: weights = [1] * len(list(source))
+    return Choice([Terminal(x) for x in source], weights=weights)
