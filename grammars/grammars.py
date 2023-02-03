@@ -192,6 +192,15 @@ class Repeat(Rule):
         return itertools.chain.from_iterable(Repeat(self.rule, x).iter()
                                              for x in self.n.iter())
 
+    def length(self) -> int | Range[int]:
+        # ?
+        return self.rule.length() * self.n
+
+    def expected_length(self) -> float:
+        if isinstance(self.n, int):
+            return self.rule.expected_length() * self.n / 2 # ??
+        return self.rule.expected_length() * self.n.midpoint()
+
     def __repr__(self) -> str:
         return f'{self.rule} {{ {self.n} }}'
 
@@ -222,6 +231,14 @@ class Sequence(Rule):
         if len(self.rules) == 1:
             return self.rules[0].iter()
         return (a + b for a in self.rules[0].iter() for b in self[1:].iter()) # ?
+
+    def length(self) -> int | Range[int]:
+        return sum((Range.from_scalar(l) if isinstance(l := x.length(), int) else l)
+                   for x in self.rules)
+
+    def expected_length(self) -> float:
+        if len(self.rules) == 0: return 0
+        return Mean([unravel(x).expected_length() for x in self.rules])
 
     def __getitem__(self, i) -> Sequence:
         return Sequence(self.rules[i])
