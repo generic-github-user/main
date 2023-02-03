@@ -69,3 +69,27 @@ class Range(Generic[T]):
 
     def __mul__(x, y):
         return Range(x.a * y.a, x.b * y.b)
+
+class OrderedSet:
+    def __init__(self, data):
+        self.data = data
+        self.data_ = set(data)
+
+    def __or__(a: OrderedSet, b: OrderedSet) -> OrderedSet:
+        # return OrderedSet([x for x in a.data + b.data ])
+        x = []
+        for y in a.data + b.data:
+            if not y in x: x.append(y)
+        return OrderedSet(x)
+
+    def __sub__(a: OrderedSet, b: OrderedSet) -> OrderedSet:
+        return OrderedSet([x for x in a.data if x not in b.data_])
+
+    def __iter__(self):
+        return iter(self.data)
+
+    def __contains__(self, x):
+        return x in self.data_
+
+    def __repr__(self):
+        return repr(self.data)
