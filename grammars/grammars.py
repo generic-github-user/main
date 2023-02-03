@@ -207,3 +207,24 @@ def Optional(source: Rule) -> Repeat:
 
 def Star(source: Rule) -> Repeat:
     return Repeat(source, Range(0, math.inf))
+
+class Sequence(Rule):
+    def __init__(self, rules: list[Rule]) -> None:
+        super().__init__()
+        self.rules = rules
+
+    def sample(self) -> str:
+        return ''.join(unravel(x).sample() for x in self.rules)
+
+    def iter(self) -> Iterator[str]:
+        if len(self.rules) == 0:
+            return []
+        if len(self.rules) == 1:
+            return self.rules[0].iter()
+        return (a + b for a in self.rules[0].iter() for b in self[1:].iter()) # ?
+
+    def __getitem__(self, i) -> Sequence:
+        return Sequence(self.rules[i])
+
+    def __repr__(self) -> str:
+        return ' '.join(map(repr, self.rules))
