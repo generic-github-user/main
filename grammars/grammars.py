@@ -161,6 +161,8 @@ class OrderedSet:
         return repr(self.data)
 
 class RuleLike(Protocol):
+    name: Option[str]
+
     def length(self) -> int | Range[int]:
         ...
 
@@ -182,6 +184,12 @@ class RuleLike(Protocol):
     def bind(self, grammar: PEG) -> RuleLike:
         ...
 
+    def sample(self) -> str:
+        ...
+
+    def to_productions(self) -> set[Production]:
+        ...
+
     def __mul__(self, n: int | Range[int]) -> Repeat:
         ...
 
@@ -192,8 +200,8 @@ class RuleLike(Protocol):
         ...
 
 class Rule:
-    def __init__(self):
-        pass
+    def __init__(self, name=Option.none()):
+        self.name = name
 
     def __mul__(self, n: int | Range[int]) -> Repeat:
         return Repeat(self, n)
@@ -218,9 +226,14 @@ class Rule:
         self._bound = True
         return self
 
+class Namespace(Generic[T, V]):
+    def __init__(self):
+        self.names = BiDict[T, V]
+
+
 class Choice(Rule):
-    def __init__(self, options: list[RuleLike]):
-        super().__init__()
+    def __init__(self, options: list[RuleLike], name: str = Option.none()):
+        super().__init__(name)
         self.options = options
 
     def sample(self) -> str:
@@ -248,6 +261,15 @@ class Choice(Rule):
     def size(self) -> int:
         return sum(x.size() for x in self.options)
 
+    # allow abstract rules on LHS (instead of simple strings)?
+    # two dimensions of genericity: subrule type and subrule inner type/type parameter (?)
+    # grid inheritance (RuleLike type -> Named[RuleLike type])
+    def to_productions(self) -> set[Production]:
+        # ns: Namespace[] = Namespace()
+        return set(Production(Sequence([Symbol(self.name.unwrap()) if self.name.is_some else ns.symbol()]),
+                              Sequence([Symbol(r.name.unwrap())])) for r in self.options)\
+            | set.union(*[r.to_productions() for r in self.options])
+
     def __add__(self, b: Choice) -> Choice:
         return Choice(list(OrderedSet(self.options) | OrderedSet(b.options)))
 
@@ -264,8 +286,8 @@ class Choice(Rule):
         return hash(tuple(self.options))
 
 class Terminal(Rule):
-    def __init__(self, value: str):
-        super().__init__()
+    def __init__(self, value: str, name: str = Option.none()):
+        super().__init__(name)
         self.value = value
 
     def sample(self) -> str:
@@ -313,8 +335,9 @@ def Symbols(source: Iterable[str]) -> list[Symbol]:
 # TODO: "static" repetition (select before repeating)?
 # analogues?
 class Repeat(Rule):
-    def __init__(self, rule: RuleLike | str, n: int | Range[int]):
-        super().__init__()
+    def __init__(self, rule: RuleLike | str, n: int | Range[int],
+                 name: str = Option.none()):
+        super().__init__(name)
         if isinstance(rule, str): rule = Terminal(rule)
         self.rule = rule
         self.n = n
@@ -389,15 +412,16 @@ def Star(source: RuleLike) -> Repeat:
     return Repeat(source, Range(0, math.inf))
 
 class Empty(Rule):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, name: str = Option.none()) -> None:
+        super().__init__(name)
 
     def match(self, x: str) -> bool:
         return x == ''
 
 class Sequence(Rule):
-    def __init__(self, rules: list[RuleLike | str | Symbol]) -> None:
-        super().__init__()
+    def __init__(self, rules: list[RuleLike | str | Symbol],
+                 name: str = Option.none()) -> None:
+        super().__init__(name)
         self.rules: list[RuleLike | Symbol] = [(Terminal(r) if isinstance(r, str) else r)
                                       for r in rules]
         assert len(self.rules) < 1000
@@ -467,8 +491,9 @@ class PEG:
             self.root = self.rules[self.root.name]
 
         # make this less horrible later
-        for r in self.rules.values():
-            r.bind(self)
+        for name, rule in self.rules.items():
+            rule.bind(self)
+            rule.name = Option.some(name)
         self.root = self.resolve(self.root)
 
         self.sample = self.root.sample
@@ -476,6 +501,7 @@ class PEG:
 
     def resolve(self, name: Symbol | RuleLike) -> RuleLike:
         if isinstance(name, Rule): return name
+        assert isinstance(name, Symbol)
         return self.rules[name.name]
 
 class Grammar:
@@ -492,7 +518,14 @@ class Function:
     def __call__(self, *args, **kwargs):
         return self.f(*args, **kwargs)
 
-# class Production
+class Production:
+    # TODO: support preserving data/attributes from left (input) rule
+    def __init__(self, left: Rule, right: Rule):
+        self.left = left
+        self.right = right
+
+    def __repr__(self) -> str:
+        return f'{self.left} -> {self.right}'
 
 def compose(f, g):
     return lambda *a, **kw: f(g(*a, **kw))

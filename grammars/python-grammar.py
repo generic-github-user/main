@@ -51,6 +51,7 @@ Python = PEG(Symbol('start'), dict(
 ))
 
 n = 6000
-for x in itertools.islice(Python.iter(), n, n+50): print(x)
+# for x in itertools.islice(Python.iter(), n, n+50): print(x)
 # TODO: support custom iteration order (e.g., right-to-left for integers)
 print(Python.sample())
+print(Python.to_productions())
