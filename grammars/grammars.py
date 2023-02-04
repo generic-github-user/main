@@ -8,6 +8,7 @@ import itertools
 import math
 import pathlib
 import operator
+import collections
 
 import functools
 from functools import reduce
@@ -20,6 +21,33 @@ T = TypeVar('T')
 def unravel(z):
     if callable(z): return z()
     return z
+
+# from https://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
+class memoized(object):
+   '''Decorator. Caches a function's return value each time it is called.
+   If called later with the same arguments, the cached value is returned
+   (not reevaluated).
+   '''
+   def __init__(self, func):
+      self.func = func
+      self.cache = {}
+   def __call__(self, *args):
+      if not isinstance(args, collections.abc.Hashable):
+         # uncacheable. a list, for instance.
+         # better to not cache than blow up.
+         return self.func(*args)
+      if args in self.cache:
+         return self.cache[args]
+      else:
+         value = self.func(*args)
+         self.cache[args] = value
+         return value
+   def __repr__(self):
+      '''Return the function's docstring.'''
+      return self.func.__doc__
+   def __get__(self, obj, objtype):
+      '''Support instance methods.'''
+      return functools.partial(self.__call__, obj)
 
 class Range(Generic[T]):
     def __init__(self: Range[T], a: T, b: T) -> None:
@@ -171,9 +199,11 @@ class Choice(Rule):
         if len(self.options) == 0: return 0
         return Mean([x.expected_length() for x in self.options])
 
+    @memoized
     def match(self, x: str) -> bool:
         return any(rule.match(x) for rule in self.options)
 
+    @memoized
     def partial_match(self, x: str) -> set[int]:
         return set.union(*[rule.partial_match(x) for rule in self.options])
 
@@ -212,9 +242,11 @@ class Terminal(Rule):
     def expected_length(self) -> float:
         return len(self.value)
 
+    @memoized
     def match(self, x: str) -> bool:
         return self.value == x
 
+    @memoized
     def partial_match(self, x: str) -> set[int]:
         if x.startswith(self.value):
             # return set([len(x)])
@@ -266,10 +298,12 @@ class Repeat(Rule):
             return self.rule.expected_length() * self.n / 2 # ??
         return self.rule.expected_length() * self.n.midpoint()
 
+    @memoized
     def match(self, x: str) -> bool:
         return bool((m := self.partial_match(x)) and any(i >= len(x) for i in m))
         # TODO: BoundedRange type
 
+    @memoized
     def partial_match(self, x: str) -> set[int]:
         # TODO work through low, mid, and high cases
         # how should the base case work on an empty string?
@@ -290,6 +324,9 @@ class Repeat(Rule):
 
     def __eq__(a, b) -> bool:
         return (a.rule == b.rule) and (a.n == b.n)
+
+    def __hash__(self) -> int:
+        return hash((self.rule, self.n))
 
     def simplify(self) -> Repeat:
         # TODO
@@ -331,9 +368,11 @@ class Sequence(Rule):
         if len(self.rules) == 0: return 0
         return Mean([unravel(x).expected_length() for x in self.rules])
 
+    @memoized
     def match(self, x: str) -> bool:
         return bool((m := self.partial_match(x)) and any(i >= len(x) for i in m))
 
+    @memoized
     def partial_match(self, x: str) -> set[int]:
         if len(self.rules) == 0:
             return set([0])
@@ -377,7 +416,7 @@ Mean = Sum / Length
 test2 = Choice([Terminal(x) for x in string.ascii_lowercase]) * 10
 test4 = Sequence([Terminals('ab'), Terminals('cd')])
 
-vowels = Terminals('aeiou') + Terminals(['oo', 'ee', 'oi', 'oa', 'ou', 'ia'], weights=Option.some([0.0] * 2))
+vowels = Terminals('aeiou') + Terminals(['oo', 'ee', 'oi', 'oa', 'ou', 'ia', 'ea', 'eau'], weights=Option.some([0.0] * 2))
 consonants = Terminals(string.ascii_lowercase) - (vowels + Terminals('qy'))\
     + Terminals(['ph', 'sh', 'ch', 'ly', 'ze', 'ne', 'st', 'dy', 'ny', 'by',
                  'my', 'th', 'ty'])
@@ -472,3 +511,7 @@ for x in itertools.islice(Optional(Terminals('xy')).iter(), 100):
     print(x)
 
 print(test.size())
+
+# def infer(source: str) -> Rule:
+
+# print(infer("A stochastic grammar (statistical grammar) is a grammar framework with a probabilistic notion of grammaticality."))
