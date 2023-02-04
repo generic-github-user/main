@@ -383,6 +383,7 @@ class Sequence(Rule):
         super().__init__()
         self.rules: list[RuleLike | Symbol] = [(Terminal(r) if isinstance(r, str) else r)
                                       for r in rules]
+        assert len(self.rules) < 1000
 
     def sample(self) -> str:
         return ''.join(unravel(x).sample() for x in self.rules)
@@ -392,7 +393,12 @@ class Sequence(Rule):
             return [''] # should this be empty?
         if len(self.rules) == 1:
             return self.rules[0].iter()
-        return (a + b for a in self.rules[0].iter() for b in self[1:].iter()) # ?
+        try:
+            return (a + b for a in self.rules[0].iter() for b in self[1:].iter()) # ?
+        except RecursionError as e:
+            # breakpoint()
+            # print(self)
+            print(e)
 
     def length(self) -> int | Range[int]:
         return sum((Range.from_scalar(l) if isinstance(l := x.length(), int) else l)
@@ -436,6 +442,7 @@ class Symbol:
 
     __mul__ = Rule.__mul__
     __and__ = Rule.__and__
+    __or__ = Rule.__or__
 
 # TODO: reconcile this with other grammar representations
 class PEG:
@@ -445,14 +452,18 @@ class PEG:
 
         if isinstance(self.root, Symbol):
             self.root = self.rules[self.root.name]
-        self.sample = self.root.sample
 
         # make this less horrible later
         for r in self.rules.values():
             r.bind(self)
+        self.root = self.resolve(self.root)
+
+        self.sample = self.root.sample
+        self.iter = self.root.iter
 
     def resolve(self, name: Symbol | RuleLike) -> RuleLike:
         if isinstance(name, Rule): return name
+        print(name)
         return self.rules[name.name]
 
 class Grammar:
@@ -595,6 +606,10 @@ Python = PEG(Symbol('start'), dict(
     list = Sequence(['[', Symbol('group'), ']']),
     str = Sequence(['"', (Terminals(string.printable) - Terminals(r'"\n')) * Range(1, 10), '"']),
 
+    slice = Optional(Symbol('expr')) & ':' & Optional(Symbol('expr'))\
+        & Optional(Sequence([':', Symbol('expr')])),
+    index = Symbol('expr') & '[' & Symbol('slice') & ']',
+
     name = (Terminals(string.ascii_lowercase) * Range(1, 8))\
         | (Symbol('name') * 2).join('_'),
     typed_name = Sequence([Symbol('name'), ':', Symbol('expr')]).join(space),
@@ -616,11 +631,25 @@ Python = PEG(Symbol('start'), dict(
 
     while_ = Sequence(['while', Symbol('expr'), ':']).join(space),
     for_ = Sequence(['for', Symbol('name'), 'in', Symbol('expr'), ':']).join(space),
-    statement = Choice(Symbols('assignment expr while_ for_ fn'.split())) & '\n',
+    statement = (Choice(Symbols('assignment expr while_ for_ fn'.split())) | 'pass') & '\n',
     # statement = TR('x'),
     block = Repeat(Symbol('statement'), Range(1, 10)),
-    start = Repeat(Symbol('statement'), Range(1, 10))
+    # start = Repeat(Symbol('statement'), Range(1, 10))
+    start = Symbol('expr')
 ))
 # Python = Star(statement).simplify()
 # Python = Repeat(statement, Range(1, 10)).simplify()
-print(Python.sample())
+
+# print(Python.sample())
+recursion_test = PEG(Symbol('start'), dict(
+    start = Terminals('ab') | Symbol('expr') | Terminal('d'),
+    expr = Sequence([Symbol('start') * 1, 'c'])))
+recursion_test = PEG(Symbol('start'), dict(
+    start = Sequence([Terminal('t'), Terminal('v') | Symbol('start')])))
+for x in itertools.islice(recursion_test.iter(), 50): print(x)
+
+# breakpoint()
+# for x in itertools.islice(Python.iter(), 50): print(x)
+
+# TODO: allow breadth-first iteration over implicit grammar trees?
+# TODO: limit depth of generated trees for a specific rule/grammar (how?)
