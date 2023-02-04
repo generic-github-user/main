@@ -454,6 +454,7 @@ class Symbol:
 
     __mul__ = Rule.__mul__
     __and__ = Rule.__and__
+    # __sub__ = Choice.__sub__
     __or__ = Rule.__or__
 
 # TODO: reconcile this with other grammar representations

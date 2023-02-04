@@ -1,17 +1,20 @@
+import string
+import itertools
+from lib.python.option import Option
+from .grammars import (PEG, Symbol, Symbols, Terminal, Terminals, Repeat,
+                       Range, Sequence, Choice, Optional, space, OrderedSet)
 
 TR = Terminal
 
-name        = lambda: Terminals(string.ascii_lowercase)
-call        = lambda: expr() & '(' & expr() & ')'
-expr        = lambda: call() | op()
-op          = lambda: expr() & Terminals('+-*/') & expr
-assignment  = lambda: TR('x')
-statement   = lambda: assignment | expr()
+# name        = lambda: Terminals(string.ascii_lowercase)
+# call        = lambda: expr() & '(' & expr() & ')'
+# expr        = lambda: call() | op()
+# op          = lambda: expr() & Terminals('+-*/') & expr
+# assignment  = lambda: TR('x')
+# statement   = lambda: assignment | expr()
 # Python      = lambda: Star(statement).simplify()
-Python      = lambda: Repeat(statement, Range(1, 10)).simplify()
-print(Python().sample())
-
-
+# Python      = lambda: Repeat(statement, Range(1, 10)).simplify()
+# print(Python().sample())
 
 # test = Terminal('t') * 5
 test2 = Choice([Terminal(x) for x in string.ascii_lowercase]) * 10
@@ -131,7 +134,15 @@ for x in itertools.islice(recursion_test.iter(), 10): print(x)
 # TODO: limit depth of generated trees for a specific rule/grammar (how?)
 
 print(Repeat('gec', 4).join(' ').sample())
+
 recursion_test_2 = PEG(Symbol('start'), dict(
     start = Terminals('ab') & Optional(Symbol('start'))
 ))
 for x in itertools.islice(recursion_test_2.iter(), 10): print(x)
+
+recursion_test_3 = PEG(Symbol('expr'), dict(
+    digit = Terminals(string.digits),
+    # expr = Symbol('digit') | Sequence([Symbol('expr'), '+', Symbol('expr')])
+    expr = Symbol('digit') | Sequence([Symbol('expr'), '+', Symbol('expr')])
+))
+for x in itertools.islice(recursion_test_3.iter(), 50): print(x)
