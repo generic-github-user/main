@@ -24,6 +24,17 @@ def unravel(z):
     if callable(z): return z()
     return z
 
+def string_terminal(f: Callable[[RuleLike], V]) -> Callable[[RuleLike | str], V]:
+    def wrapped(x: RuleLike | str) -> V:
+        return f(Terminal(x) if isinstance(x, str) else x)
+    return wrapped
+
+def string_terminal_method(f):
+    def wrapped(self, x: RuleLike | str):
+        return f(self, Terminal(x) if isinstance(x, str) else x)
+    return wrapped
+
+
 # from https://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
 class memoized(object):
    '''Decorator. Caches a function's return value each time it is called.
@@ -171,6 +182,15 @@ class RuleLike(Protocol):
     def bind(self, grammar: PEG) -> RuleLike:
         ...
 
+    def __mul__(self, n: int | Range[int]) -> Repeat:
+        ...
+
+    def __or__(a: RuleLike, b: RuleLike | str) -> Choice:
+        ...
+
+    def __and__(a: RuleLike, b: RuleLike) -> Sequence:
+        ...
+
 class Rule:
     def __init__(self):
         pass
@@ -293,8 +313,9 @@ def Symbols(source: Iterable[str]) -> list[Symbol]:
 # TODO: "static" repetition (select before repeating)?
 # analogues?
 class Repeat(Rule):
-    def __init__(self, rule: RuleLike, n: int | Range[int]):
+    def __init__(self, rule: RuleLike | str, n: int | Range[int]):
         super().__init__()
+        if isinstance(rule, str): rule = Terminal(rule)
         self.rule = rule
         self.n = n
 
@@ -353,15 +374,11 @@ class Repeat(Rule):
         # TODO
         return self
 
-    def join(self, x: RuleLike) -> Repeat:
-        return Repeat(self.rule & x, self.n) & self.rule
+    @string_terminal_method
+    def join(self, x: RuleLike) -> RuleLike:
+        return Repeat(self.rule & x, self.n - 1) & self.rule
 
 # class Join
-
-def string_terminal(f: Callable[[RuleLike], V]) -> Callable[[RuleLike | str], V]:
-    def wrapped(x: RuleLike | str) -> V:
-        return f(Terminal(x) if isinstance(x, str) else x)
-    return wrapped
 
 @string_terminal
 def Optional(source: RuleLike) -> Repeat:
@@ -388,7 +405,7 @@ class Sequence(Rule):
     def sample(self) -> str:
         return ''.join(unravel(x).sample() for x in self.rules)
 
-    def iter(self) -> Iterator[str]:
+    def iter(self) -> Iterable[str]:
         if len(self.rules) == 0:
             return [''] # should this be empty?
         if len(self.rules) == 1:
@@ -399,6 +416,7 @@ class Sequence(Rule):
             # breakpoint()
             # print(self)
             print(e)
+            quit()
 
     def length(self) -> int | Range[int]:
         return sum((Range.from_scalar(l) if isinstance(l := x.length(), int) else l)
@@ -646,10 +664,12 @@ recursion_test = PEG(Symbol('start'), dict(
     expr = Sequence([Symbol('start') * 1, 'c'])))
 recursion_test = PEG(Symbol('start'), dict(
     start = Sequence([Terminal('t'), Terminal('v') | Symbol('start')])))
-for x in itertools.islice(recursion_test.iter(), 50): print(x)
+for x in itertools.islice(recursion_test.iter(), 10): print(x)
 
 # breakpoint()
 # for x in itertools.islice(Python.iter(), 50): print(x)
 
 # TODO: allow breadth-first iteration over implicit grammar trees?
 # TODO: limit depth of generated trees for a specific rule/grammar (how?)
+
+print(Repeat('gec', 4).join(' ').sample())
