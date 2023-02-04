@@ -9,6 +9,7 @@ import math
 import pathlib
 import operator
 import collections
+from dataclasses import dataclass
 
 import functools
 from functools import reduce
@@ -166,6 +167,9 @@ class RuleLike(Protocol):
     def size(self) -> int:
         ...
 
+    def bind(self, grammar: PEG) -> RuleLike:
+        ...
+
 class Rule:
     def __init__(self):
         pass
@@ -179,6 +183,19 @@ class Rule:
 
     def __and__(a: RuleLike, b: RuleLike) -> Sequence:
         return Sequence([a, b])
+
+    def bind(self, grammar: PEG) -> RuleLike:
+        if hasattr(self, '_bound'): return self
+        # very bad
+        r = self
+        if isinstance(r, Choice):
+            r.options = [grammar.resolve(x.bind(grammar)) for x in r.options]
+        if isinstance(r, Repeat):
+            r.rule = grammar.resolve(r.rule.bind(grammar))
+        if isinstance(r, Sequence):
+            r.rules = [grammar.resolve(x.bind(grammar)) for x in r.rules]
+        self._bound = True
+        return self
 
 class Choice(Rule):
     def __init__(self, options: list[RuleLike]):
@@ -346,9 +363,10 @@ class Empty(Rule):
         return x == ''
 
 class Sequence(Rule):
-    def __init__(self, rules: list[RuleLike]) -> None:
+    def __init__(self, rules: list[RuleLike | str | Symbol]) -> None:
         super().__init__()
-        self.rules: list[RuleLike] = rules
+        self.rules: list[RuleLike | Symbol] = [(Terminal(r) if isinstance(r, str) else r)
+                                      for r in rules]
 
     def sample(self) -> str:
         return ''.join(unravel(x).sample() for x in self.rules)
@@ -390,6 +408,31 @@ class Sequence(Rule):
     def __repr__(self) -> str:
         return ' '.join(map(repr, self.rules))
 
+@dataclass
+class Symbol:
+    name: str
+
+    def bind(self, _):
+        return self
+
+# TODO: reconcile this with other grammar representations
+class PEG:
+    def __init__(self, root: Symbol | RuleLike, rules: dict[str, RuleLike]) -> None:
+        self.root = root
+        self.rules = rules
+
+        if isinstance(self.root, Symbol):
+            self.root = self.rules[self.root.name]
+        self.sample = self.root.sample
+
+        # make this less horrible later
+        for r in self.rules.values():
+            r.bind(self)
+
+    def resolve(self, name: Symbol | RuleLike) -> RuleLike:
+        if isinstance(name, Rule): return name
+        return self.rules[name.name]
+
 class Grammar:
     def __init__(self, start):
         self.start = start
@@ -419,11 +462,12 @@ test4 = Sequence([Terminals('ab'), Terminals('cd')])
 vowels = Terminals('aeiou') + Terminals(['oo', 'ee', 'oi', 'oa', 'ou', 'ia', 'ea', 'eau'], weights=Option.some([0.0] * 2))
 consonants = Terminals(string.ascii_lowercase) - (vowels + Terminals('qy'))\
     + Terminals(['ph', 'sh', 'ch', 'ly', 'ze', 'ne', 'st', 'dy', 'ny', 'by',
-                 'my', 'th', 'ty'])
+                 'my', 'th', 'ty', 'oy', 'ay', 'ey'])
 start_consonants = Terminals(['fl', 'tw', 'bl', 'pl', 'tr', 'gr', 'wh', 'qu', 'br',
                               'gh', 'gl', 'fr', 'dr', 'gl', 'sl'])
 # end_consonants = Terminals(['ng', 'ck', 'nt', 'lt', 'ld', 'lz', 'nn', 'pp', 'nd'])
-end_consonants = Terminals(['ng', 'ck', 'nt', 'nn', 'pp', 'ff', 'll', 'tt', 'nd', 'rd', 'sm', 'rp', 'ct', 'rc', 'mb']) | (Terminal('l') & Terminals('tdzmpf')) # use "+"?
+end_consonants = Terminals(['ng', 'ck', 'nt', 'nn', 'pp', 'ff', 'll', 'tt', 'nd',
+                            'rd', 'sm', 'rp', 'ct', 'rc', 'mb', 'rt']) | (Terminal('l') & Terminals('tdzmpf')) # use "+"?
 syllable = Sequence([Optional(consonants | start_consonants), vowels,
                      Optional(consonants | end_consonants)])\
     | Terminals(['dy'])
@@ -502,7 +546,7 @@ with open('random_words.txt', 'w') as f:
     for x in range(1000): f.write(test_restricted.sample() + '\n')
 
 with open('/usr/share/dict/words', 'r') as words:
-    for w in itertools.islice(words, 2000):
+    for w in itertools.islice(words, 200):
         w = w.strip().lower()
         if not test.match(w): print(w)
 
