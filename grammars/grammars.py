@@ -287,6 +287,9 @@ def Terminals(source: Iterable[str], weights: Option[list[float]] = Option.none(
     # if weights is None: weights = [1] * len(list(source))
     return Choice([Terminal(x) for x in source])
 
+def Symbols(source: Iterable[str]) -> list[Symbol]:
+    return [Symbol(x) for x in source]
+
 # TODO: "static" repetition (select before repeating)?
 # analogues?
 class Repeat(Rule):
@@ -430,6 +433,9 @@ class Symbol:
 
     def bind(self, _):
         return self
+
+    __mul__ = Rule.__mul__
+    __and__ = Rule.__and__
 
 # TODO: reconcile this with other grammar representations
 class PEG:
@@ -587,23 +593,30 @@ Python = PEG(Symbol('start'), dict(
     group = Repeat(Sequence([Symbol('expr'), ',']), Range(1, 2)).join(space),
     tuple = Sequence(['(', Symbol('group'), ')']),
     list = Sequence(['[', Symbol('group'), ']']),
-    str = Sequence(['"', (Terminals(string.printable) - Terminals('"\n')) * Range(1, 10), '"']),
-    name = Terminals(string.ascii_lowercase) * Range(1, 8),
+    str = Sequence(['"', (Terminals(string.printable) - Terminals(r'"\n')) * Range(1, 10), '"']),
+
+    name = (Terminals(string.ascii_lowercase) * Range(1, 8))\
+        | (Symbol('name') * 2).join('_'),
+    typed_name = Sequence([Symbol('name'), ':', Symbol('expr')]).join(space),
+    ref = Symbol('name'),
 
     call = Sequence([Symbol('expr'), '(', Symbol('expr'), ')']),
-    expr = Choice([Symbol('call'), Symbol('op'), Symbol('int'), Symbol('name'),
-                   Symbol('tuple'), Symbol('list'), Symbol('bool'), Symbol('str')]),
-    op = Sequence([Symbol('expr'), ((Terminals('+-*/%|&^') & Optional('=')) |
-                                    Terminals(['//', '==', '<', '>'])),
-                   Symbol('expr')]).join(space),
-    assignment = Sequence([Symbol('name'), TR('='), Symbol('expr')]).join(space),
+    expr = Choice(Symbols('call op int name tuple list bool str'.split())),
+    operator = (Terminals('+-*/%|&^') & Optional('='))\
+             | Terminals(['**', '//', '==', '<', '>', '<=', '>=']),
+    op = Sequence(Symbols('expr operator expr'.split())).join(space),
+    assignment = Sequence([Choice([Symbol('name'), Symbol('typed_name')]),
+                           '=', Symbol('expr')]).join(space),
 
-    while_ = Sequence([Terminal('while'), Symbol('expr'),
-                       Terminal(':')]).join(space),
-    for_ = Sequence([Terminal('for'), Symbol('name'),
-                     Terminal('in'), Symbol('expr'), Terminal(':')]).join(space),
-    statement = Choice([Symbol('assignment'), Symbol('expr'), Symbol('while_'),
-                        Symbol('for_')]) & '\n',
+    arg_list = Repeat(Sequence([Symbol('name'), ',']),
+                                 Range(1, 3)).join(space),
+    signature = Sequence(['(', Symbol('arg_list'),
+                          Optional(Sequence(['*', Symbol('name')])), ')']),
+    fn = Sequence(['def', Symbol('name'), Symbol('signature')]).join(space),
+
+    while_ = Sequence(['while', Symbol('expr'), ':']).join(space),
+    for_ = Sequence(['for', Symbol('name'), 'in', Symbol('expr'), ':']).join(space),
+    statement = Choice(Symbols('assignment expr while_ for_ fn'.split())) & '\n',
     # statement = TR('x'),
     block = Repeat(Symbol('statement'), Range(1, 10)),
     start = Repeat(Symbol('statement'), Range(1, 10))
