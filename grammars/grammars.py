@@ -410,13 +410,7 @@ class Sequence(Rule):
             return [''] # should this be empty?
         if len(self.rules) == 1:
             return self.rules[0].iter()
-        try:
-            return (a + b for a in self.rules[0].iter() for b in self[1:].iter()) # ?
-        except RecursionError as e:
-            # breakpoint()
-            # print(self)
-            print(e)
-            quit()
+        return (a + b for b in self[1:].iter() for a in self.rules[0].iter()) # ?
 
     def length(self) -> int | Range[int]:
         return sum((Range.from_scalar(l) if isinstance(l := x.length(), int) else l)
@@ -614,47 +608,6 @@ print(test.size())
 
 TR = Terminal
 space = Terminal(' ')
-Python = PEG(Symbol('start'), dict(
-    digit = Terminals(string.digits),
-
-    int = Repeat(Symbol('digit'), Range(1, 5)),
-    bool = Terminals(['True', 'False']),
-    group = Repeat(Sequence([Symbol('expr'), ',']), Range(1, 2)).join(space),
-    tuple = Sequence(['(', Symbol('group'), ')']),
-    list = Sequence(['[', Symbol('group'), ']']),
-    str = Sequence(['"', (Terminals(string.printable) - Terminals(r'"\n')) * Range(1, 10), '"']),
-
-    slice = Optional(Symbol('expr')) & ':' & Optional(Symbol('expr'))\
-        & Optional(Sequence([':', Symbol('expr')])),
-    index = Symbol('expr') & '[' & Symbol('slice') & ']',
-
-    name = (Terminals(string.ascii_lowercase) * Range(1, 8))\
-        | (Symbol('name') * 2).join('_'),
-    typed_name = Sequence([Symbol('name'), ':', Symbol('expr')]).join(space),
-    ref = Symbol('name'),
-
-    call = Sequence([Symbol('expr'), '(', Symbol('expr'), ')']),
-    expr = Choice(Symbols('call op int name tuple list bool str'.split())),
-    operator = (Terminals('+-*/%|&^') & Optional('='))\
-             | Terminals(['**', '//', '==', '<', '>', '<=', '>=']),
-    op = Sequence(Symbols('expr operator expr'.split())).join(space),
-    assignment = Sequence([Choice([Symbol('name'), Symbol('typed_name')]),
-                           '=', Symbol('expr')]).join(space),
-
-    arg_list = Repeat(Sequence([Symbol('name'), ',']),
-                                 Range(1, 3)).join(space),
-    signature = Sequence(['(', Symbol('arg_list'),
-                          Optional(Sequence(['*', Symbol('name')])), ')']),
-    fn = Sequence(['def', Symbol('name'), Symbol('signature')]).join(space),
-
-    while_ = Sequence(['while', Symbol('expr'), ':']).join(space),
-    for_ = Sequence(['for', Symbol('name'), 'in', Symbol('expr'), ':']).join(space),
-    statement = (Choice(Symbols('assignment expr while_ for_ fn'.split())) | 'pass') & '\n',
-    # statement = TR('x'),
-    block = Repeat(Symbol('statement'), Range(1, 10)),
-    # start = Repeat(Symbol('statement'), Range(1, 10))
-    start = Symbol('expr')
-))
 # Python = Star(statement).simplify()
 # Python = Repeat(statement, Range(1, 10)).simplify()
 
@@ -667,9 +620,12 @@ recursion_test = PEG(Symbol('start'), dict(
 for x in itertools.islice(recursion_test.iter(), 10): print(x)
 
 # breakpoint()
-# for x in itertools.islice(Python.iter(), 50): print(x)
 
 # TODO: allow breadth-first iteration over implicit grammar trees?
 # TODO: limit depth of generated trees for a specific rule/grammar (how?)
 
 print(Repeat('gec', 4).join(' ').sample())
+recursion_test_2 = PEG(Symbol('start'), dict(
+    start = Terminals('ab') & Optional(Symbol('start'))
+))
+for x in itertools.islice(recursion_test_2.iter(), 10): print(x)
