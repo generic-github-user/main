@@ -7,6 +7,7 @@ import random
 import itertools
 import math
 import functools
+import pathlib
 
 import typing
 from typing import TypeVar, Generic, Any, Iterable, Iterator
@@ -182,6 +183,9 @@ class Choice(Rule):
     def __eq__(a, b) -> bool:
         return set(a.options) == set(b.options)
 
+    def __hash__(self) -> int:
+        return hash(tuple(self.options))
+
 class Terminal(Rule):
     def __init__(self, value: str):
         super().__init__()
@@ -298,7 +302,7 @@ class Sequence(Rule):
 
     def iter(self) -> Iterator[str]:
         if len(self.rules) == 0:
-            return []
+            return [''] # should this be empty?
         if len(self.rules) == 1:
             return self.rules[0].iter()
         return (a + b for a in self.rules[0].iter() for b in self[1:].iter()) # ?
@@ -354,14 +358,19 @@ Mean = Sum / Length
 test2 = Choice([Terminal(x) for x in string.ascii_lowercase]) * 10
 test4 = Sequence([Terminals('ab'), Terminals('cd')])
 
-vowels = Terminals('aeiou') + Terminals(['oo', 'ee'], weights=Option.some([0.0] * 2))
+vowels = Terminals('aeiou') + Terminals(['oo', 'ee', 'oi', 'oa', 'ou', 'ia'], weights=Option.some([0.0] * 2))
 consonants = Terminals(string.ascii_lowercase) - (vowels + Terminals('qy'))\
-    + Terminals(['ph', 'sh', 'ch', 'ly', 'ze', 'ne'])
-start_consonants = Terminals(['fl', 'tw', 'bl', 'pl', 'tr', 'gr', 'wh', 'qu'])
-end_consonants = Terminals(['ng', 'ck', 'nt', 'lt'])
-syllable = Sequence([Optional(consonants + start_consonants), vowels,
-                     Optional(consonants + end_consonants)])
-test = syllable * Range(1, 10)
+    + Terminals(['ph', 'sh', 'ch', 'ly', 'ze', 'ne', 'st', 'dy', 'ny', 'by',
+                 'my', 'th', 'ty'])
+start_consonants = Terminals(['fl', 'tw', 'bl', 'pl', 'tr', 'gr', 'wh', 'qu', 'br',
+                              'gh', 'gl', 'fr', 'dr', 'gl', 'sl'])
+# end_consonants = Terminals(['ng', 'ck', 'nt', 'lt', 'ld', 'lz', 'nn', 'pp', 'nd'])
+end_consonants = Terminals(['ng', 'ck', 'nt', 'nn', 'pp', 'ff', 'll', 'tt', 'nd', 'rd', 'sm', 'rp', 'ct', 'rc', 'mb']) | (Terminal('l') & Terminals('tdzmpf')) # use "+"?
+syllable = Sequence([Optional(consonants | start_consonants), vowels,
+                     Optional(consonants | end_consonants)])\
+    | Terminals(['dy'])
+test = (syllable * Range(1, 10)) & Optional(Terminal('s')) & Optional(Terminal("'s"))
+test_restricted = (syllable * Range(1, 10))
 # - 'oong'
 
 # print(test.sample())
@@ -383,7 +392,7 @@ print(OrderedSet('abc') | OrderedSet('cde'))
 print(OrderedSet('abc') - OrderedSet('cde'))
 
 # print(test)
-print(test.length())
+# print(test.length())
 print(test.expected_length())
 
 test3 = Terminals('ab') * 10
@@ -424,3 +433,21 @@ test_match(syllable, 'a')
 test_match(Sequence([Optional(vowels), vowels]), 'a')
 test_match(Optional(vowels), 'a')
 test_match(test, 'zzzzz')
+test_match(test, 'ba')
+
+# simple ascii art generated using a visual attribute grammar
+# test4 = 
+
+with open('word_test.txt', 'w') as f:
+    for x in itertools.islice(test_restricted.iter(), 40000): f.write(x + '\n')
+with open('random_words.txt', 'w') as f:
+    for x in range(1000): f.write(test_restricted.sample() + '\n')
+
+with open('/usr/share/dict/words', 'r') as words:
+    for w in itertools.islice(words, 2000):
+        w = w.strip().lower()
+        if not test.match(w): print(w)
+
+# for x in itertools.islice((Terminals('ab') * Range(1, 10)).iter(), 100):
+for x in itertools.islice(Optional(Terminals('xy')).iter(), 100):
+    print(x)
