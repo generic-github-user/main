@@ -6,8 +6,11 @@ import string
 import random
 import itertools
 import math
-import functools
 import pathlib
+import operator
+
+import functools
+from functools import reduce
 
 import typing
 from typing import TypeVar, Generic, Any, Iterable, Iterator
@@ -132,6 +135,9 @@ class RuleLike(Protocol):
     def iter(self) -> Iterator[str]:
         ...
 
+    def size(self) -> int:
+        ...
+
 class Rule:
     def __init__(self):
         pass
@@ -170,6 +176,9 @@ class Choice(Rule):
 
     def partial_match(self, x: str) -> set[int]:
         return set.union(*[rule.partial_match(x) for rule in self.options])
+
+    def size(self) -> int:
+        return sum(x.size() for x in self.options)
 
     def __add__(self, b: Choice) -> Choice:
         return Choice(list(OrderedSet(self.options) | OrderedSet(b.options)))
@@ -211,6 +220,9 @@ class Terminal(Rule):
             # return set([len(x)])
             return set([len(self.value)])
         return set()
+
+    def size(self) -> int:
+        return 1
 
     def __repr__(self) -> str:
         return f'"{self.value}"'
@@ -269,6 +281,10 @@ class Repeat(Rule):
             result |= set([0])
         return result
 
+    def size(self) -> int:
+        if isinstance(self.n, int): return self.rule.size() ** self.n
+        return sum(Repeat(self.rule, n).size() for n in self.n.iter())
+
     def __repr__(self) -> str:
         return f'{self.rule} {{ {self.n} }}'
 
@@ -325,6 +341,9 @@ class Sequence(Rule):
             return set.union(*[set(j + i for j in self[1:].partial_match(x[i:]))
                                for i in matches])
         return set()
+
+    def size(self) -> int:
+        return reduce(operator.mul, [r.size() for r in self.rules], 1)
 
     def __getitem__(self, i) -> Sequence:
         return Sequence(self.rules[i])
@@ -451,3 +470,5 @@ with open('/usr/share/dict/words', 'r') as words:
 # for x in itertools.islice((Terminals('ab') * Range(1, 10)).iter(), 100):
 for x in itertools.islice(Optional(Terminals('xy')).iter(), 100):
     print(x)
+
+print(test.size())
