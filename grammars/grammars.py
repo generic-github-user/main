@@ -575,3 +575,39 @@ print(test.size())
 # def infer(source: str) -> Rule:
 
 # print(infer("A stochastic grammar (statistical grammar) is a grammar framework with a probabilistic notion of grammaticality."))
+
+
+TR = Terminal
+space = Terminal(' ')
+Python = PEG(Symbol('start'), dict(
+    digit = Terminals(string.digits),
+
+    int = Repeat(Symbol('digit'), Range(1, 5)),
+    bool = Terminals(['True', 'False']),
+    group = Repeat(Sequence([Symbol('expr'), ',']), Range(1, 2)).join(space),
+    tuple = Sequence(['(', Symbol('group'), ')']),
+    list = Sequence(['[', Symbol('group'), ']']),
+    str = Sequence(['"', (Terminals(string.printable) - Terminals('"\n')) * Range(1, 10), '"']),
+    name = Terminals(string.ascii_lowercase) * Range(1, 8),
+
+    call = Sequence([Symbol('expr'), '(', Symbol('expr'), ')']),
+    expr = Choice([Symbol('call'), Symbol('op'), Symbol('int'), Symbol('name'),
+                   Symbol('tuple'), Symbol('list'), Symbol('bool'), Symbol('str')]),
+    op = Sequence([Symbol('expr'), ((Terminals('+-*/%|&^') & Optional('=')) |
+                                    Terminals(['//', '==', '<', '>'])),
+                   Symbol('expr')]).join(space),
+    assignment = Sequence([Symbol('name'), TR('='), Symbol('expr')]).join(space),
+
+    while_ = Sequence([Terminal('while'), Symbol('expr'),
+                       Terminal(':')]).join(space),
+    for_ = Sequence([Terminal('for'), Symbol('name'),
+                     Terminal('in'), Symbol('expr'), Terminal(':')]).join(space),
+    statement = Choice([Symbol('assignment'), Symbol('expr'), Symbol('while_'),
+                        Symbol('for_')]) & '\n',
+    # statement = TR('x'),
+    block = Repeat(Symbol('statement'), Range(1, 10)),
+    start = Repeat(Symbol('statement'), Range(1, 10))
+))
+# Python = Star(statement).simplify()
+# Python = Repeat(statement, Range(1, 10)).simplify()
+print(Python.sample())
