@@ -349,6 +349,10 @@ class Repeat(Rule):
         # TODO
         return self
 
+    def join(self, x: RuleLike) -> Repeat:
+        return Repeat(self.rule & x, self.n) & self.rule
+
+# class Join
 def Optional(source: RuleLike) -> Repeat:
     return Repeat(source, Range(0, 1))
 
@@ -401,6 +405,9 @@ class Sequence(Rule):
 
     def size(self) -> int:
         return reduce(operator.mul, [r.size() for r in self.rules], 1)
+
+    def join(self, x: RuleLike) -> Sequence:
+        return Sequence([y for r in self.rules for y in (r, x)][:-1])
 
     def __getitem__(self, i) -> Sequence:
         return Sequence(self.rules[i])
