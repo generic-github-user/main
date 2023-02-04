@@ -15,9 +15,10 @@ import functools
 from functools import reduce
 
 import typing
-from typing import TypeVar, Generic, Any, Iterable, Iterator
+from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable
 from typing_extensions import Protocol
 T = TypeVar('T')
+V = TypeVar('V')
 
 def unravel(z):
     if callable(z): return z()
@@ -353,9 +354,17 @@ class Repeat(Rule):
         return Repeat(self.rule & x, self.n) & self.rule
 
 # class Join
+
+def string_terminal(f: Callable[[RuleLike], V]) -> Callable[[RuleLike | str], V]:
+    def wrapped(x: RuleLike | str) -> V:
+        return f(Terminal(x) if isinstance(x, str) else x)
+    return wrapped
+
+@string_terminal
 def Optional(source: RuleLike) -> Repeat:
     return Repeat(source, Range(0, 1))
 
+@string_terminal
 def Star(source: RuleLike) -> Repeat:
     return Repeat(source, Range(0, math.inf))
 
