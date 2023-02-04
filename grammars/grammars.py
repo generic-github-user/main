@@ -256,11 +256,11 @@ class Repeat(Rule):
 
     def partial_match(self, x: str) -> set[int]:
         # TODO work through low, mid, and high cases
+        # how should the base case work on an empty string?
         result = set()
-        if (matches := self.rule.partial_match(x)):
-            status = (self.n == 1 if isinstance(self.n, int) else self.n.a == 1)
+        if (matches := self.rule.partial_match(x)) and not self.n < 1: # ?
             result |= set.union(*[set(j + i for j in Repeat(self.rule, self.n - 1).partial_match(x[i:]))
-                                  for i in matches] + ([matches] if status else []))
+                                  for i in matches])
         if (self.n < 1 if isinstance(self.n, int) else self.n.a < 1):
             result |= set([0])
         return result
@@ -403,7 +403,7 @@ print(recursive.sample())
 # print(Terminal('a').match('a'))
 
 def test_match(rule, s):
-    print(f'{rule} / {s} / {rule.match(s)} / {rule.partial_match(s)}')
+    print(f'{str(rule)[:100]} / {s} / {rule.match(s)} / {rule.partial_match(s)}')
 
 test_match(Terminal('a'), 'a')
 test_match(test, 'a')
@@ -413,6 +413,7 @@ test_match((Terminal('a') * 5), 'aaaa')
 test_match((Terminal('a') * 5), 'aaaaaa')
 test_match((Terminal('a') * Range(3, 10)), 'aaaaaa')
 test_match((Terminal('a') * Range(3, 10)), 'aa')
+test_match((Terminal('a') * Range(3, 5)), 'aaaaaaaaaaaa')
 test_match(Terminals('xyz'), 'a')
 test_match(Terminals('xyz'), 'y')
 test_match(Terminals('ab') & Terminals('cd'), 'ad')
