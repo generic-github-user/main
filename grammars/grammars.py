@@ -37,6 +37,12 @@ def string_terminal_method(f):
     return wrapped
 
 class Function:
+    """A function wrapper that enables the use of common operators to combine
+    and modify the wrapped function(s). Generally, `F(W(G))(x) == F(G(x))` and
+    `F(W(G), (H))(x) == F(G(x), H(x))`, where `F` is a function or operator
+    (non-standard functions must be appropriately wrapped) and `W` corresponds
+    to `Function.__init__`."""
+
     def __init__(self, f):
         self.f = f
 
@@ -164,6 +170,8 @@ class Range(Generic[T]):
         return self.a > x
 
 class OrderedSet:
+    """An order-preserving set based on Python's built-in `set` type."""
+
     def __init__(self, data):
         self.data = data
         self.data_ = set(data)
@@ -188,6 +196,10 @@ class OrderedSet:
         return repr(self.data)
 
 class RuleLike(Protocol):
+    """Represents a common interface that all parser rules (generally, PEG
+    rules/expressions) should provide. Rule classes should also inherit from
+    `Rule` to provide basic operations like union and negation."""
+
     name: Option[str]
 
     def length(self) -> int | Range[int]:
@@ -230,6 +242,12 @@ class RuleLike(Protocol):
         ...
 
 class Rule:
+    """A PEG-like grammar rule. Strings can be matched against instances of
+    [subclasses of] this class or transformed into parse trees using the
+    associated parser combinator. This is a base class and should generally not
+    be directly instantiated; it provides implementations of basic operators
+    that act on all rules."""
+
     def __init__(self, name=Option.none()):
         self.name = name
 
@@ -265,6 +283,10 @@ class Namespace(Generic[T, V]):
 
 
 class Choice(Rule):
+    """Matches iff any (that is, one or more) of its subrules (in
+    `self.options`) match. Can be constructed using `Choice([x, y, z])` or the
+    alternation operator `x | y | z`."""
+
     def __init__(self, options: list[RuleLike], name: str = Option.none()):
         super().__init__(name)
         self.options = options
@@ -320,6 +342,10 @@ class Choice(Rule):
         return hash(tuple(self.options))
 
 class Terminal(Rule):
+    """A terminal symbol in a grammar that encloses a string (not to be
+    confused with `Symbol`). Matches a string `x` only when `x ==
+    self.value`."""
+
     def __init__(self, value: str, name: str = Option.none()):
         super().__init__(name)
         self.value = value
@@ -370,6 +396,18 @@ def Symbols(source: Iterable[str]) -> list[Symbol]:
 # TODO: "static" repetition (select before repeating)?
 # analogues?
 class Repeat(Rule):
+    """A repetition operator that is used to implement the Kleene star,
+    "optional" rule, and similar patterns. If `n` is an integer, this rule will
+    match exactly `n` consecutive occurrences of `rule` (roughly equivalent to
+    `Sequence([rule] * n)`).
+
+    If `n` is a `Range[int]`, it will match iff for at least one integer `i` in
+    `n`, `Repeat(rule, i)` matches (the `.partial_match` method returns the
+                                    union of the respective partial matches for
+                                    each of these constant repetitions).
+    `Repeat(_, 0)` always partially matches and fully matches only the empty
+    string."""
+
     def __init__(self, rule: RuleLike | str, n: int | Range[int],
                  name: str = Option.none()):
         super().__init__(name)
@@ -456,6 +494,8 @@ class Empty(Rule):
         return x == ''
 
 class Sequence(Rule):
+    """Matches iff every rule in `rules` matches, consecutively. This is implemented by checking for a partial match of the first rule (if `rules` is non-empty) and then attempting to match each successive rule."""
+
     def __init__(self, rules: list[RuleLike | str | Symbol],
                  name: str = Option.none()) -> None:
         super().__init__(name)
@@ -510,6 +550,10 @@ class Sequence(Rule):
 # are boolean grammar rules/predicate rules fundamentally different from
 # the others?
 class Not(Rule):
+    """Matches only if `rule` does not match (similarly, the partial match is
+    the inverse of `rule`'s). This can be used to implement boolean grammars
+    (https://en.wikipedia.org/wiki/Boolean_grammar) and PEGs."""
+
     def __init__(self, rule: RuleLike):
         self.rule = rule
         # how to make this method invoke `partial_match` on the wrapped `Rule`
@@ -536,6 +580,15 @@ class Symbol:
 
 # TODO: reconcile this with other grammar representations
 class PEG:
+    """Represents a parsing expression grammar, or PEG (see
+    https://en.wikipedia.org/wiki/Parsing_expression_grammar), which represents
+    languages in a way that is convenient for designing parsers using modular,
+    high-level components. Each PEG rule wraps one or more sub-rules, and the
+    rule constructors can be viewed as functions on other rules. Parsing and
+    string matching are implemented using an approach resembling parser
+    combinators, in which matches are recursively constructed from partial
+    results returned by sub-rules."""
+
     def __init__(self, root: Symbol | RuleLike, rules: dict[str, RuleLike]) -> None:
         self.root = root
         self.rules = rules
@@ -563,6 +616,9 @@ class Grammar:
 
 
 class Production:
+    """A production rule in a semi-Thue system (string rewriting system) that
+    can be used to represent a context-free grammar (CFG)."""
+
     # TODO: support preserving data/attributes from left (input) rule
     def __init__(self, left: Rule, right: Rule):
         self.left = left
