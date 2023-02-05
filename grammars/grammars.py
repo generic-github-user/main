@@ -27,13 +27,13 @@ def unravel(z):
     return z
 
 def string_terminal(f: Callable[[RuleLike], V]) -> Callable[[RuleLike | str], V]:
-    def wrapped(x: RuleLike | str) -> V:
-        return f(Terminal(x) if isinstance(x, str) else x)
+    def wrapped(x: RuleLike | str, *args) -> V:
+        return f(Terminal(x) if isinstance(x, str) else x, *args)
     return wrapped
 
 def string_terminal_method(f):
-    def wrapped(self, x: RuleLike | str):
-        return f(self, Terminal(x) if isinstance(x, str) else x)
+    def wrapped(self, x: RuleLike | str, *args):
+        return f(self, Terminal(x) if isinstance(x, str) else x, *args)
     return wrapped
 
 class Function:
@@ -208,13 +208,14 @@ class RuleLike(Protocol):
     def expected_length(self) -> float:
         ...
 
+    @Function
     def match(self, x: str) -> bool:
         ...
 
     def partial_match(self, x: str) -> set[int]:
         ...
 
-    def iter(self) -> Iterator[str]:
+    def iter(self) -> Iterable[str]:
         ...
 
     def size(self) -> int:
@@ -254,10 +255,11 @@ class Rule:
     def __mul__(self, n: int | Range[int]) -> Repeat:
         return Repeat(self, n)
 
-    def __or__(a: RuleLike, b: RuleLike | str) -> Choice:
-        if isinstance(b, str): b = Terminal(b)
+    @string_terminal_method
+    def __or__(a: RuleLike, b: RuleLike) -> Choice:
         return Choice([a, b])
 
+    @string_terminal_method
     def __and__(a: RuleLike, b: RuleLike) -> Sequence:
         return Sequence([a, b])
 
@@ -353,7 +355,7 @@ class Terminal(Rule):
     def sample(self) -> str:
         return self.value
 
-    def iter(self) -> Iterator[str]:
+    def iter(self) -> Iterable[str]:
         return [self.value]
 
     def length(self) -> int:
@@ -408,10 +410,10 @@ class Repeat(Rule):
     `Repeat(_, 0)` always partially matches and fully matches only the empty
     string."""
 
-    def __init__(self, rule: RuleLike | str, n: int | Range[int],
+    @string_terminal_method
+    def __init__(self, rule: RuleLike, n: int | Range[int],
                  name: str = Option.none()):
         super().__init__(name)
-        if isinstance(rule, str): rule = Terminal(rule)
         self.rule = rule
         self.n = n
 
@@ -420,7 +422,7 @@ class Repeat(Rule):
         # return sum(self.rule.sample() for i in range(x))
         return ''.join(unravel(self.rule).sample() for i in range(x))
 
-    def iter(self) -> Iterator[str]:
+    def iter(self) -> Iterable[str]:
         if isinstance(self.n, int):
             # TODO
             return Sequence([self.rule] * self.n).iter()
@@ -549,6 +551,8 @@ class Sequence(Rule):
 
 # are boolean grammar rules/predicate rules fundamentally different from
 # the others?
+
+# TODO: abstract logical combinator for boolean rules
 class Not(Rule):
     """Matches only if `rule` does not match (similarly, the partial match is
     the inverse of `rule`'s). This can be used to implement boolean grammars
