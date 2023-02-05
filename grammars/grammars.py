@@ -10,7 +10,9 @@ import pathlib
 import operator
 import collections
 from dataclasses import dataclass
+import types
 
+import inspect
 import functools
 from functools import reduce
 
@@ -34,6 +36,31 @@ def string_terminal_method(f):
         return f(self, Terminal(x) if isinstance(x, str) else x)
     return wrapped
 
+class Function:
+    def __init__(self, f):
+        self.f = f
+
+    def partial(self, *args):
+        return Function(functools.partial(self.f, *args))
+    
+    def __truediv__(a, b):
+        return Function(lambda *args, **kwargs: a(*args) / b(*args))
+
+    def __invert__(a):
+        return Function(lambda *args, **kwargs:
+                        not y if isinstance(y := a(*args), bool) else ~y)
+
+    def __call__(self, *args, **kwargs):
+        return self.f(*args, **kwargs)
+
+    def __repr__(self) -> str:
+        return str(inspect.signature(self.f))
+
+    # see https://docs.python.org/3/howto/descriptor.html#functions-and-methods
+    def __get__(self, obj, objtype=None):
+        if obj is None: return self
+        # return types.MethodType(self, obj)
+        return self.partial(obj)
 
 # from https://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
 class memoized(object):
@@ -199,6 +226,9 @@ class RuleLike(Protocol):
     def __and__(a: RuleLike, b: RuleLike) -> Sequence:
         ...
 
+    def __invert__(a: RuleLike) -> RuleLike:
+        ...
+
 class Rule:
     def __init__(self, name=Option.none()):
         self.name = name
@@ -212,6 +242,9 @@ class Rule:
 
     def __and__(a: RuleLike, b: RuleLike) -> Sequence:
         return Sequence([a, b])
+
+    def __invert__(a: RuleLike) -> RuleLike:
+        return Not(a)
 
     def bind(self, grammar: PEG) -> RuleLike:
         if hasattr(self, '_bound'): return self
@@ -250,11 +283,12 @@ class Choice(Rule):
         if len(self.options) == 0: return 0
         return Mean([x.expected_length() for x in self.options])
 
-    @memoized
+    @Function
+    # @memoized
     def match(self, x: str) -> bool:
         return any(rule.match(x) for rule in self.options)
 
-    @memoized
+    # @memoized
     def partial_match(self, x: str) -> set[int]:
         return set.union(*[rule.partial_match(x) for rule in self.options])
 
@@ -302,11 +336,12 @@ class Terminal(Rule):
     def expected_length(self) -> float:
         return len(self.value)
 
-    @memoized
+    @Function
+    # @memoized
     def match(self, x: str) -> bool:
         return self.value == x
 
-    @memoized
+    # @memoized
     def partial_match(self, x: str) -> set[int]:
         if x.startswith(self.value):
             # return set([len(x)])
@@ -363,12 +398,13 @@ class Repeat(Rule):
             return self.rule.expected_length() * self.n / 2 # ??
         return self.rule.expected_length() * self.n.midpoint()
 
-    @memoized
+    @Function
+    # @memoized
     def match(self, x: str) -> bool:
         return bool((m := self.partial_match(x)) and any(i >= len(x) for i in m))
         # TODO: BoundedRange type
 
-    @memoized
+    # @memoized
     def partial_match(self, x: str) -> set[int]:
         # TODO work through low, mid, and high cases
         # how should the base case work on an empty string?
@@ -415,6 +451,7 @@ class Empty(Rule):
     def __init__(self, name: str = Option.none()) -> None:
         super().__init__(name)
 
+    @Function
     def match(self, x: str) -> bool:
         return x == ''
 
@@ -444,11 +481,12 @@ class Sequence(Rule):
         if len(self.rules) == 0: return 0
         return Mean([unravel(x).expected_length() for x in self.rules])
 
-    @memoized
+    @Function
+    # @memoized
     def match(self, x: str) -> bool:
         return bool((m := self.partial_match(x)) and any(i >= len(x) for i in m))
 
-    @memoized
+    # @memoized
     def partial_match(self, x: str) -> set[int]:
         if len(self.rules) == 0:
             return set([0])
@@ -468,6 +506,21 @@ class Sequence(Rule):
 
     def __repr__(self) -> str:
         return ' '.join(map(repr, self.rules))
+
+# are boolean grammar rules/predicate rules fundamentally different from
+# the others?
+class Not(Rule):
+    def __init__(self, rule: RuleLike):
+        self.rule = rule
+        # how to make this method invoke `partial_match` on the wrapped `Rule`
+        # object?
+        self.match = ~self.rule.match
+    
+    def partial_match(self, x: str) -> set[int]:
+        return set(range(len(x))) - self.rule.partial_match(x)
+
+    def __repr__(self) -> str:
+        return f'~ {repr(self.rule)}'
 
 @dataclass
 class Symbol:
@@ -508,15 +561,6 @@ class Grammar:
     def __init__(self, start):
         self.start = start
 
-class Function:
-    def __init__(self, f):
-        self.f = f
-    
-    def __truediv__(a, b):
-        return lambda *args, **kwargs: a(*args) / b(*args)
-
-    def __call__(self, *args, **kwargs):
-        return self.f(*args, **kwargs)
 
 class Production:
     # TODO: support preserving data/attributes from left (input) rule

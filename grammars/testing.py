@@ -146,3 +146,7 @@ recursion_test_3 = PEG(Symbol('expr'), dict(
     expr = Symbol('digit') | Sequence([Symbol('expr'), '+', Symbol('expr')])
 ))
 for x in itertools.islice(recursion_test_3.iter(), 50): print(x)
+
+test_match(~ (Terminal('a') * 5), 'aaaaa')
+test_match(~ (Terminal('a') * 5), 'aaaa')
+test_match(~ (Terminal('a') * 5), 'aaaaaa')
