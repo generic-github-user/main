@@ -20,7 +20,9 @@ import typing
 from typing import TypeVar, Generic, Any, Iterable, Iterator, Callable
 from typing_extensions import Protocol
 T = TypeVar('T')
+U = TypeVar('U')
 V = TypeVar('V')
+C = TypeVar('C', covariant=True)
 
 def unravel(z):
     if callable(z): return z()
@@ -195,7 +197,7 @@ class OrderedSet:
     def __repr__(self):
         return repr(self.data)
 
-class RuleLike(Protocol):
+class RuleLike(Protocol[C]):
     """Represents a common interface that all parser rules (generally, PEG
     rules/expressions) should provide. Rule classes should also inherit from
     `Rule` to provide basic operations like union and negation."""
@@ -279,6 +281,9 @@ class Rule:
         self._bound = True
         return self
 
+    def attribute(self: RuleLike, **kwargs) -> AttributedRule:
+        return AttributedRule(self, kwargs)
+
 class Namespace(Generic[T, V]):
     def __init__(self):
         self.names = BiDict[T, V]
@@ -292,6 +297,7 @@ class Choice(Rule):
     def __init__(self, options: list[RuleLike], name: str = Option.none()):
         super().__init__(name)
         self.options = options
+        self.children = lambda self: self.options
 
     def sample(self) -> str:
         return unravel(random.choice(self.options)).sample()
@@ -495,6 +501,12 @@ class Empty(Rule):
     def match(self, x: str) -> bool:
         return x == ''
 
+    def sample(self) -> str:
+        return ''
+
+    def iter(self) -> Iterable[str]:
+        return ['']
+
 class Sequence(Rule):
     """Matches iff every rule in `rules` matches, consecutively. This is implemented by checking for a partial match of the first rule (if `rules` is non-empty) and then attempting to match each successive rule."""
 
@@ -569,6 +581,28 @@ class Not(Rule):
 
     def __repr__(self) -> str:
         return f'~ {repr(self.rule)}'
+
+class Attributed(Generic[T, U]):
+    def __init__(self, value: T, attrs: dict[str, U]):
+        self.value = value
+        self.attrs = attrs
+
+    def __repr__(self) -> str:
+        return f'{self.value} ~ {self.attrs}'
+
+class AttributedRule(Generic[T, U]):
+    def __init__(self, rule: RuleLike[T],
+                 attrs: dict[str, Callable[[U, ...], U]]):
+        self.rule = rule
+        # self.name = name
+        # self.f = f
+        self.attrs = attrs
+
+        self.bind = self.rule.bind
+
+    # def sample(self) -> Attributed[T, U]:
+        # return Attributed(, {n: f(*self.)})
+
 
 @dataclass
 class Symbol:

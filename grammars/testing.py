@@ -1,5 +1,7 @@
 import string
 import itertools
+import operator
+
 from lib.python.option import Option
 from .grammars import (PEG, Symbol, Symbols, Terminal, Terminals, Repeat,
                        Range, Sequence, Choice, Optional, space, OrderedSet)
@@ -150,3 +152,20 @@ for x in itertools.islice(recursion_test_3.iter(), 50): print(x)
 test_match(~ (Terminal('a') * 5), 'aaaaa')
 test_match(~ (Terminal('a') * 5), 'aaaa')
 test_match(~ (Terminal('a') * 5), 'aaaaaa')
+
+ops = {
+    '+' : operator.add,
+    '-' : operator.sub,
+    '*' : operator.mul,
+    '/' : operator.truediv,
+    '%' : operator.mod,
+    '^' : operator.xor,
+}
+math_expr = PEG(Symbol('expr'), dict(
+   digit = Terminals(string.digits),
+   nonzero = Terminals(string.digits) - Terminals('0'),
+   int = Terminal('0') | Repeat(Symbol('nonzero'), Range(1, 2)),
+   expr = Symbol('int') | Sequence(['(', Symbol('expr'), Terminals('+-*/%'),
+      Symbol('expr'), ')']).join(space).attribute(value=lambda *c: ops[c[2]](c[1], c[3]))
+))
+print(math_expr.sample())
